@@ -43,11 +43,7 @@
             @php echo "active",(request()->path() != 'admin/notice/create')?:"";@endphp
             @php if (request()->path() == 'admin/notice/edit/{id}') echo "active" @endphp
             @php echo "active",(request()->path() != 'admin/holidays')?:"";@endphp
-            @php echo "active",(request()->path() != 'holidays')?:"";@endphp
-            @if( request()->path() == 'admin/accounts' || request()->path() == 'admin/accounts' ) active open @endif
-            @if( request()->path() == 'admin/accounts' || request()->path() == 'admin/accounts/transaction' ) active open @endif
-            @if( request()->path() == 'admin/accounts' || request()->path() == 'admin/accounts/total-income' ) active open @endif
-            @if( request()->path() == 'admin/accounts' || request()->path() == 'admin/account/income-expense' ) active open @endif">
+            @php echo "active",(request()->path() != 'holidays')?:"";@endphp">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-archive" aria-hidden="true"></i>
                     <span class="title">HR Management</span>

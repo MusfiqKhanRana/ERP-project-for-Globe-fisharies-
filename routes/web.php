@@ -29,7 +29,7 @@ use App\Http\Controllers\OfficeDetailController;
 use App\Http\Controllers\FoodMillController;
 use App\Http\Controllers\CateringController;
 
-use App\PersonalManagement;
+use App\Http\Controllers\PersonalManagement;
 use Illuminate\Support\Facades\Route;
 
 /*
