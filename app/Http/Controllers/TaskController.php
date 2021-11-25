@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Employee;
-use App\Task;
-use foo\bar;
+use App\Models\Employee;
+use App\Models\Task;
+use foo\Models\bar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
