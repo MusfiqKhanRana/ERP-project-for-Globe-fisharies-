@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AwardController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\BankTransactionController;
 use App\Http\Controllers\CategoryController;
@@ -19,6 +20,10 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SupplyManagmentController;
 use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\HolidayController;
+use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\PayrollController;
+use App\Http\Controllers\TaskController;
 use App\PersonalManagement;
 use Illuminate\Support\Facades\Route;
 
@@ -59,13 +64,42 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::put('/employee-company-update/{id}',[EmployeeController::class,'companyditailUpdate'])->name('employee.company.update');
     Route::put('/employee-bank-update/{id}',[EmployeeController::class,'bankDetailUpdate'])->name('employee.bank.update');
     Route::put('/employee-document-update/{id}',[EmployeeController::class,'documentUpdate'])->name('employee.document.update');
-
     Route::get('employee/attendance', [AttendanceController::class,'index'])->name('employee.attend');
 
     Route::post('attendance-post', [AttendanceController::class,'store'])->name('attendance.post');
     Route::get('attendance-approve/{id}', [AttendanceController::class,'attendanceApprove'])->name('approve.attend');
     Route::get('individual-attendance', [AttendanceController::class,'individualIndex'])->name('employee.individual');
     Route::post('individual-attendance-search', [AttendanceController::class,'individualAttend'])->name('attend.search');
+
+    Route::get('payroll', [PayrollController::class,'index'])->name('payroll.index');
+    Route::post('payroll-count', [PayrollController::class,'count'])->name('payroll.count');
+    Route::get('payroll/chart', [PayrollController::class,'show'])->name('payroll.chart');
+    Route::post('payroll/salary/sheet', [PayrollController::class,'salarySheet'])->name('salary.sheet');
+
+    Route::get('/award',[AwardController::class,"index"] )->name('award.index');
+    Route::get('/award/create',[AwardController::class,"create"] )->name('award.create');
+    Route::get('/award/edit/{id}',[AwardController::class,"edit"] )->name('award.edit');
+    Route::put('/award/update/{id}',[AwardController::class,"update"] )->name('award.update');
+    Route::get('/award/delete/{id}',[AwardController::class,"destroy"] )->name('award.delete');
+    Route::post('/award-post',[AwardController::class,"store"] )->name('award.post');
+
+    Route::get('employee/task', [TaskController::class,'index'])->name('employee.task');
+    Route::get('employee/task-add', [TaskController::class,'create'])->name('task.add');
+    Route::get('employee/task-delete/{id}', [TaskController::class,'destroy'])->name('task.delete');
+    Route::post('employee/task-post', [TaskController::class,'store'])->name('task.post');
+    Route::post('employee/task-employee', [TaskController::class,'employeeAdd'])->name('employee.pass');
+
+    Route::get('/notice',[NoticeController::class,"index"] )->name('notice.index');
+    Route::get('/notice/create',[NoticeController::class,"create"] )->name('notice.add');
+    Route::get('/notice/edit/{id}',[NoticeController::class,"edit"] )->name('notice.edit');
+    Route::post('/notice-post',[NoticeController::class,"store"] )->name('notice.post');
+    Route::put('/notice-update/{id}',[NoticeController::class,"update"] )->name('notice.update');
+    Route::get('/notice-delete/{id}',[NoticeController::class,"destroy"] )->name('notice.delete');
+
+    Route::get('/holidays', [HolidayController::class,'index'])->name('holiday.index');
+    Route::post('/holidays-post', [HolidayController::class,'store'])->name('holiday.post');
+    Route::get('/holidays-delete/{id}', [HolidayController::class,'destroy'])->name('holiday.delete');
+    Route::post('/holidays-pass', [HolidayController::class,'dateAjax'])->name('holiday.pass');
 
     Route::post('timezone', [TimezoneController::class,'changeTime'])->name('timezone.pass');
     Route::post('timezone-update/{id}', [TimezoneController::class,'update'])->name('timezone.update');

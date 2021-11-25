@@ -107,60 +107,60 @@
                         </a>
                         <ul class="sub-menu">
                             <li class="nav-item  @if( request()->path() == 'admin/payroll' ) active open @endif">
-                                {{--<a href="{{route('payroll.index')}}" class="nav-link ">
+                                <a href="{{route('payroll.index')}}" class="nav-link ">
                                     <span class="title">Employee Salary</span>
-                                </a>--}}
+                                </a>
                             </li>
 
                             <li class="nav-item  @if( request()->path() == 'admin/payroll/chart' ) active open @endif">
-                                {{--<a href="{{route('payroll.chart')}}" class="nav-link ">
+                                <a href="{{route('payroll.chart')}}" class="nav-link ">
                                     <span class="title">Salary Chart</span>
-                                </a>--}}
+                                </a>
                             </li>
 
                         </ul>
                     </li>
 
-                    {{-- @php
+                    @php
                         $url = request()->path();
                         $url = Find_fist_int($url);
-                    @endphp --}}
+                    @endphp
                     <li class="nav-item start @php echo "active",(request()->path() != 'admin/award')?:"";@endphp
                     @php echo "active",(request()->path() != 'admin/award/create')?:"";@endphp
                     @php echo "active",(request()->path() != 'admin/award/edit/{$url}')?:"";@endphp">
-                        {{--<a href="{{route('award.index')}}" class="nav-link nav-toggle">
+                        <a href="{{route('award.index')}}" class="nav-link nav-toggle">
                             <i class="icon-trophy"></i>
                             <span class="title">Award Management</span>
                             <span class="selected"></span>
-                        </a>--}}
+                        </a>
                     </li>
 
                     <li class="nav-item start @php echo "active",(request()->path() != 'admin/employee/task')?:"";@endphp
                     @php echo "active",(request()->path() != 'admin/employee/task-add')?:"";@endphp">
-                        {{--<a href="{{route('employee.task')}}" class="nav-link nav-toggle">
+                        <a href="{{route('employee.task')}}" class="nav-link nav-toggle">
                             <i class="fa fa-files-o" aria-hidden="true"></i>
                             <span class="title">Task Management</span>
                             <span class="selected"></span>
-                        </a>--}}
+                        </a>
                     </li>
 
                     <li class="nav-item start @php echo "active",(request()->path() != 'admin/notice')?:"";@endphp
                     @php echo "active",(request()->path() != 'admin/notice/create')?:"";@endphp
                     @php if (request()->path() == 'admin/notice/edit/{id}') echo "active" @endphp">
-                        {{--<a href="{{route('notice.index')}}" class="nav-link nav-toggle">
+                        <a href="{{route('notice.index')}}" class="nav-link nav-toggle">
                             <i class="fa fa-clipboard"></i>
                             <span class="title">Notice Management</span>
                             <span class="selected"></span>
-                        </a>--}}
+                        </a>
                     </li>
 
                     <li class="nav-item start @php echo "active",(request()->path() != 'admin/holidays')?:"";@endphp
                     @php echo "active",(request()->path() != 'holidays')?:"";@endphp">
-                        {{--<a href="{{route('holiday.index')}}" class="nav-link nav-toggle">
+                        <a href="{{route('holiday.index')}}" class="nav-link nav-toggle">
                             <i class="fa fa-toggle-off"></i>
                             <span class="title">Holiday Management</span>
                             <span class="selected"></span>
-                        </a>--}}
+                        </a>
                     </li>
                 </ul>
             </li>
