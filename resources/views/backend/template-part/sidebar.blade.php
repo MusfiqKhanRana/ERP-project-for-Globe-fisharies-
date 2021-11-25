@@ -82,16 +82,16 @@
                             </li>
 
                             <li class="nav-item  @if( request()->path() == 'admin/employee/attendance' ) active open @endif">
-                                {{--<a href="{{route('employee.attend')}}" class="nav-link ">
+                                <a href="{{route('employee.attend')}}" class="nav-link ">
                                     <span class="title">Attendance</span>
-                                </a>--}}
+                                </a>
                             </li>
 
                             <li class="nav-item  @if( request()->path() == 'admin/individual-attendance' ) active open @endif
                             @if( request()->path() == 'individual-attendance' ) active open @endif">
-                                {{--<a href="{{route('employee.individual')}}" class="nav-link">
+                                <a href="{{route('employee.individual')}}" class="nav-link">
                                     <span class="title">Individual Attendance</span>
-                                </a>--}}
+                                </a>
                             </li>
 
                         </ul>

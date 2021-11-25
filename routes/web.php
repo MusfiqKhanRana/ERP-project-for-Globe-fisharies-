@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\BankTransactionController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\OfficeLoanController;
 use App\Http\Controllers\SalePointController;
+use App\Http\Controllers\TimezoneController;
 use App\Http\Controllers\TransactionController;
 use App\PersonalManagement;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +52,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::put('/employee-company-update/{id}',[EmployeeController::class,'companyditailUpdate'])->name('employee.company.update');
     Route::put('/employee-bank-update/{id}',[EmployeeController::class,'bankDetailUpdate'])->name('employee.bank.update');
     Route::put('/employee-document-update/{id}',[EmployeeController::class,'documentUpdate'])->name('employee.document.update');
+
+    Route::get('employee/attendance', [AttendanceController::class,'index'])->name('employee.attend');
+
+    Route::post('attendance-post', [AttendanceController::class,'store'])->name('attendance.post');
+    Route::get('attendance-approve/{id}', [AttendanceController::class,'attendanceApprove'])->name('approve.attend');
+    Route::get('individual-attendance', [AttendanceController::class,'individualIndex'])->name('employee.individual');
+    Route::post('individual-attendance-search', [AttendanceController::class,'individualAttend'])->name('attend.search');
+
+    Route::post('timezone', [TimezoneController::class,'changeTime'])->name('timezone.pass');
+    Route::post('timezone-update/{id}', [TimezoneController::class,'update'])->name('timezone.update');
 
     Route::get('/sale',[SalePointController::class,'indexSale'])->name('product.sale.index');
     Route::post('/get/product',[SalePointController::class,'product_pass'])->name('product.pass');
