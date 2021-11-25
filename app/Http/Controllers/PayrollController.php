@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Attendance;
-use App\Employee;
-use App\Payment;
+use App\Models\Attendance;
+use App\Models\Employee;
+use App\Models\Payment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
