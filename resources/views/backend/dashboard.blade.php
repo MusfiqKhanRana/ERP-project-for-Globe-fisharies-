@@ -36,9 +36,9 @@
                             </div>
                             <div class="desc"> Total Employee </div>
                         </div>
-                        {{-- <a class="more" href="{{route('employee.list')}}"> View more
+                        <a class="more" href="{{route('employee.list')}}"> View more
                             <i class="m-icon-swapright m-icon-white"></i>
-                        </a> --}}
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -51,9 +51,9 @@
                                 <span data-counter="counterup" data-value="{{number_format($total_income,2)}}">0</span></div>
                             <div class="desc"> Total Income </div>
                         </div>
-                        {{-- <a class="more" href="{{route('account.index')}}"> View more
+                        <a class="more" href="{{route('account.index')}}"> View more
                             <i class="m-icon-swapright m-icon-white"></i>
-                        </a> --}}
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
@@ -67,9 +67,9 @@
                             </div>
                             <div class="desc"> Total Expense </div>
                         </div>
-                        {{-- <a class="more" href="{{route('account.index')}}"> View more
+                        <a class="more" href="{{route('account.index')}}"> View more
                             <i class="m-icon-swapright m-icon-white"></i>
-                        </a> --}}
+                        </a>
                     </div>
                 </div>
             </div>
