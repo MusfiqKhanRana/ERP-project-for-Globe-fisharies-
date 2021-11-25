@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Attendance;
-use App\Employee;
-use App\Holiday;
-use App\Timezone;
+use App\Models\Attendance;
+use App\Models\Employee;
+use App\Models\Holiday;
+use App\Models\Timezone;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +19,7 @@ class AttendanceController extends Controller
     public function index()
     {
         $attendance = Attendance::orderBy('id', 'DESC')->paginate(15);
-
+        
         return view('backend.attendance.attendence-list', compact('attendance'));
     }
 

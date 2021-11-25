@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Timezone;
+use App\Models\Timezone;
 use Illuminate\Http\Request;
 
 class TimezoneController extends Controller
 {
     public function update(Request $request,$id)
     {
-        return redirect()->back()->withdelmsg('Demo Version Change Not Possible');
         $time = Timezone::find($id);
         $this->validate($request,array(
            'country' => 'required',

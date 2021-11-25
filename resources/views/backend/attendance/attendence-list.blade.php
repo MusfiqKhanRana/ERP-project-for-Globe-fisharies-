@@ -71,7 +71,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach($attendance as $value)
-                                        @php $data = \App\Employee::where('id',$value->user_id)->first() @endphp
+                                        @php $data = \App\Models\Employee::where('id',$value->user_id)->first() @endphp
                                     <tr id="row">
                                         <td>
                                             @if($data=='')
@@ -96,8 +96,8 @@
                                                 @php $a = 'None'@endphp
                                                 {{$a}}
                                             @else
-                                                @php $dep = \App\Department::where('id', $data->dept_id )->first() @endphp
-                                                @php $deg = \App\Designation::where('id', $data->deg_id  )->first() @endphp
+                                                @php $dep = \App\Models\Department::where('id', $data->dept_id )->first() @endphp
+                                                @php $deg = \App\Models\Designation::where('id', $data->deg_id  )->first() @endphp
                                                 <p>Department: <strong>@if($dep =='')  None  @else {{$dep->name}} @endif</strong></p>
                                                 <p>Designation: <strong>@if($deg =='') None  @else {{ $deg->deg_name }} @endif</strong></p>
                                             @endif
