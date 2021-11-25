@@ -18,6 +18,7 @@ use App\Http\Controllers\TimezoneController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SupplyManagmentController;
+use App\Http\Controllers\GeneralController;
 use App\PersonalManagement;
 use Illuminate\Support\Facades\Route;
 
@@ -167,4 +168,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::put('/product/update/{id}',[ProductController::class,'productUpdate'])->name('product.update');
     Route::get('/product/delete/{id}',[ProductController::class,'productDelete'])->name('product.delete');
     Route::get('/product/stock',[ProductController::class,'productStock'])->name('product.stock');
+
+    //General Management
+
+    Route::get('/general',[GeneralController::class,'index'])->name('general.index');
+    Route::put('/general-update/{id}',[GeneralController::class,'update'])->name('general.update');
 });
