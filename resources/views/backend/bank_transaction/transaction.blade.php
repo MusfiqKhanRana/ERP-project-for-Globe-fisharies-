@@ -69,7 +69,7 @@
                                             <tr id="row1">
                                                 <td> {{$data->bank->bank_name}}</td>
                                                 <td> {{$data->bank->account_number}}</td>
-                                                <td> {{ \App\BankTransaction::where('bank_id', $data->bank_id)->sum('amount') }} {{$general->currency}}</td>
+                                                <td> {{ \App\Models\BankTransaction::where('bank_id', $data->bank_id)->sum('amount') }} {{$general->currency}}</td>
                                             </tr>
                                             @endforeach
                                             </tbody>
