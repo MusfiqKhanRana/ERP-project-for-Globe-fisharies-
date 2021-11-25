@@ -23,7 +23,7 @@
 
         <div class="page-logo">
             <a href="">
-            {{-- <img src="{{asset('assets/images/logo/'.$general->image)}}" style="height: 30px" alt="logo" class="logo-default" /> </a> --}}
+            <img src="{{asset('assets/images/logo/'.$general->image)}}" style="height: 30px" alt="logo" class="logo-default" /> </a>
             <div class="menu-toggler sidebar-toggler"></div>
         </div>
         <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
