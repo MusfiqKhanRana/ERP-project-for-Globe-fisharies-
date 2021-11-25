@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\BankAccount;
+use App\Models\BankAccount;
 use Illuminate\Http\Request;
 
 class BankAccountController extends Controller

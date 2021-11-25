@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\BankAccount;
-use App\BankTransaction;
-use App\ExpanceTransaction;
+use App\Models\BankAccount;
+use App\Models\BankTransaction;
+use App\Models\ExpanceTransaction;
 use Illuminate\Http\Request;
 
 class BankTransactionController extends Controller
