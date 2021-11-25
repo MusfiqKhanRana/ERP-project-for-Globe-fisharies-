@@ -84,7 +84,7 @@ class FoodMillController extends Controller
         ]);
 
         $dep = FoodMill::find($id);
-        $inputs = Input::except(['_token', 'shift_id', '_method', 'package_name', 'package_price']);
+        $inputs = $request->except('_token', 'shift_id', '_method', 'package_name', 'package_price');
         FoodItem::where('package_id', $id)->delete();
 
         $dep->shift_id = $request->input('shift_id');
