@@ -12,6 +12,8 @@ use App\Http\Controllers\OfficeLoanController;
 use App\Http\Controllers\SalePointController;
 use App\Http\Controllers\TimezoneController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SupplyManagmentController;
 use App\PersonalManagement;
 use Illuminate\Support\Facades\Route;
 
@@ -112,4 +114,24 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('office/loan/', [OfficeLoanController::class,'officeLoanIndex'])->name('office.loan.manange');
     Route::get('office/loan/{id}', [OfficeLoanController::class,'officeLoanEdit'])->name('office.loan.edit');
     Route::put('office/loan/update/{id}', [OfficeLoanController::class,'officeLoanUpdate'])->name('update.office.loan');
+
+    Route::get('add/purchase',[PurchaseController::class,'addPurchase'])->name('add.purchase');
+    Route::post('purchase/store', [PurchaseController::class,'storePurchase'])->name('purchase.store');
+    Route::get('purchase', [PurchaseController::class,'indexPurchase'])->name('purchase.reports');
+    Route::get('purchase/edit/{id}', [PurchaseController::class,'editPurchase'])->name('purchase.edit');
+    Route::put('purchase/update/{id}', [PurchaseController::class,'updatePurchase'])->name('update.purchase');
+
+    //Supplier Chain
+    Route::get('/supplier', [SupplyManagmentController::class,'indexSupplier'])->name('supplier.index');
+    Route::post('/supplier/store', [SupplyManagmentController::class,'supplierStore'])->name('store.supplier');
+    Route::get('/supplier/delete/{id}', [SupplyManagmentController::class,'supplierDelete'])->name('supplier.delete');
+    Route::get('/supplier/edit/{id}', [SupplyManagmentController::class,'supplierEdit'])->name('supplier.edit');
+    Route::get('/supplier/item', [SupplyManagmentController::class,'supplierEditItemDelete'])->name('supply.item.delete');
+    Route::put('/supplier/update/{id}', [SupplyManagmentController::class,'supplierUpdate'])->name('supplier.update');
+    Route::get('/supply/management', [SupplyManagmentController::class,'suplyManIndex'])->name('supply.management');
+    Route::post('/item/pass', [SupplyManagmentController::class,'product_pass'])->name('item.pass');
+    Route::post('/supply/store', [SupplyManagmentController::class,'supplyStore'])->name('store.supply.manage');
+    Route::get('/supply/reports', [SupplyManagmentController::class,'supplyReports'])->name('supply.reports');
+    Route::get('/supply/supplier/{id}', [SupplyManagmentController::class,'supplyReportsWithSupplier'])->name('supply.report.supplier');
+    Route::get('/supply/{date}/{id}', [SupplyManagmentController::class,'supplyReportsWithDate'])->name('supply.report.date');
 });

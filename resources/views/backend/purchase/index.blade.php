@@ -43,7 +43,7 @@
 
                                     <td>{{$data->date}}</td>
                                     <td>
-                                        {{$data->amount}} {{$general->currency}}
+                                        {{$data->amount}} {{-- $general->currency --}}
                                     </td>
                                     <td>
                                         {!! $data->detail !!}

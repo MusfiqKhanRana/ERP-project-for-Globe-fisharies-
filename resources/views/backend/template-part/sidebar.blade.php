@@ -399,15 +399,15 @@
                         </a>
                     </li>
                     <li class="nav-item  @if( request()->path() == 'admin/add/purchase' ) active open @endif">
-                        {{--<a href="{{route('add.purchase')}}" class="nav-link ">
+                        <a href="{{route('add.purchase')}}" class="nav-link ">
                             <span class="title">Add Purchase</span>
-                        </a>--}}
+                        </a>
                     </li>
 
                     <li class="nav-item  @if( request()->path() == 'admin/purchase' ) active open @endif">
-                        {{--<a href="{{route('purchase.reports')}}" class="nav-link ">
+                        <a href="{{route('purchase.reports')}}" class="nav-link ">
                             <span class="title">Purchase Reports</span>
-                        </a>--}}
+                        </a>
                     </li>
 
                 </ul>
@@ -423,19 +423,19 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item  @if( request()->path() == 'admin/supplier' ) active open @endif">
-                        {{--<a href="{{route('supplier.index')}}" class="nav-link ">
+                        <a href="{{route('supplier.index')}}" class="nav-link ">
                             <span class="title">Manage Suppliers</span>
-                        </a>--}}
+                        </a>
                     </li>
                     <li class="nav-item  @if( request()->path() == 'admin/supply/management' ) active open @endif">
-                        {{--<a href="{{route('supply.management')}}" class="nav-link ">
+                        <a href="{{route('supply.management')}}" class="nav-link ">
                             <span class="title">Supply Management</span>
-                        </a>--}}
+                        </a>
                     </li>
                     <li class="nav-item  @if( request()->path() == 'admin/supply/reports' ) active open @endif">
-                        {{--<a href="{{route('supply.reports')}}" class="nav-link ">
+                        <a href="{{route('supply.reports')}}" class="nav-link ">
                             <span class="title">Reports</span>
-                        </a>--}}
+                        </a>
                     </li>
 
                 </ul>
