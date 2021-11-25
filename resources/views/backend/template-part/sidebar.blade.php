@@ -511,11 +511,11 @@
             </li>
 
             <li class="nav-item start @php echo "active",(request()->path() != 'admin/general')?:"";@endphp">
-                {{--<a href="{{route('general.index')}}" class="nav-link nav-toggle">
+                <a href="{{route('general.index')}}" class="nav-link nav-toggle">
                     <i class="fa fa-cog"></i>
                     <span class="title">General Management</span>
                     <span class="selected"></span>
-                </a>--}}
+                </a>
             </li>
 
         </ul>
