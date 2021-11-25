@@ -470,20 +470,20 @@
 
                     <li class="nav-item start @php echo "active",(request()->path() != 'admin/office')?:"";@endphp
                     @php echo "active",(request()->path() != '')?:"";@endphp">
-                        {{--<a href="{{route('office.index')}}" class="nav-link nav-toggle">
+                        <a href="{{route('office.index')}}" class="nav-link nav-toggle">
                             <i class="fa fa-building-o" aria-hidden="true"></i>
                             <span class="title">Office Manage</span>
                             <span class="selected"></span>
-                        </a>--}}
+                        </a>
                     </li>
 
                     <li class="nav-item start @php echo "active",(request()->path() != 'admin/food/mill')?:"";@endphp
                     @php echo "active",(request()->path() != '')?:"";@endphp">
-                        {{--<a href="{{route('food.mill.index')}}" class="nav-link nav-toggle">
+                        <a href="{{route('food.mill.index')}}" class="nav-link nav-toggle">
                             <i class="fa fa-spoon" aria-hidden="true"></i>
                             <span class="title">Meal Package</span>
                             <span class="selected"></span>
-                        </a>--}}
+                        </a>
                     </li>
 
 
@@ -491,21 +491,21 @@
 
                     <li class="nav-item start @php echo "active",(request()->path() != 'admin/catering/system')?:"";@endphp
                     @php echo "active",(request()->path() != '')?:"";@endphp">
-                        {{--<a href="{{route('catering.index')}}" class="nav-link nav-toggle">
+                        <a href="{{route('catering.index')}}" class="nav-link nav-toggle">
                             <i class="fa fa-bus" aria-hidden="true"></i>
                             <span class="title">Food Delivery</span>
                             <span class="selected"></span>
-                        </a>--}}
+                        </a>
                     </li>
 
             
                     <li class="nav-item start @php echo "active",(request()->path() != 'admin/account/catering')?:"";@endphp
                     @php echo "active",(request()->path() != '')?:"";@endphp">
-                        {{--<a href="{{route('catering.accounts.index')}}" class="nav-link nav-toggle">
+                        <a href="{{route('catering.accounts.index')}}" class="nav-link nav-toggle">
                             <i class="fa fa-balance-scale"></i>
                             <span class="title">Catering Due History</span>
                             <span class="selected"></span>
-                        </a>--}}
+                        </a>
                     </li>
                 </ul>
             </li>

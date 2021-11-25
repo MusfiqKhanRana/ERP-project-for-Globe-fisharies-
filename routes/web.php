@@ -25,6 +25,10 @@ use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\CateringManagement;
+use App\Http\Controllers\OfficeDetailController;
+use App\Http\Controllers\FoodMillController;
+use App\Http\Controllers\CateringController;
+
 use App\PersonalManagement;
 use Illuminate\Support\Facades\Route;
 
@@ -226,4 +230,24 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     Route::get('account/catering', [CateringController::class,'officeAcountIndex'])->name('catering.accounts.index');
     Route::get('account/paid/{id}', [CateringController::class,'officeAcountIndexPaid'])->name('catering.paid');
+
+    //Office Detail
+
+    Route::get('office', [OfficeDetailController::class,'indexOffice'])->name('office.index');
+    Route::post('office/store', [OfficeDetailController::class,'storeOffice'])->name('office.store');
+    Route::get('office/edit/{id}', [OfficeDetailController::class,'editOffice'])->name('office.update');
+    Route::put('office/update/{id}', [OfficeDetailController::class,'updateOffice'])->name('office.upadate');
+    Route::get('office/delete/{id}', [OfficeDetailController::class,'destroyOffice'])->name('office.delete');
+
+    //FoodMeal
+
+    Route::get('delete/shift/{id}', 'FoodMillController@deleteShift')->name('delete.shift');
+
+    Route::get('food/mill', [FoodMillController::class,'indexMill'])->name('food.mill.index');
+    Route::post('shift/store', [FoodMillController::class,'storeShift'])->name('shift.store');
+    Route::post('meal/store', [FoodMillController::class,'storeMeal'])->name('meal.package.store');
+    Route::get('package/edit/{id}', [FoodMillController::class,'editMeal'])->name('meal.package.update');
+    Route::put('package/update/{id}', [FoodMillController::class,'updateMeal'])->name('package.meal.upadate');
+    Route::get('package/delete/{id}', [FoodMillController::class,'destroyMeal'])->name('meal.package.delete');
+    Route::get('item/delete', [FoodMillController::class,'deleteItemMeal'])->name('item.delete');
 });
