@@ -53,7 +53,7 @@
                                         <td>{{$not->warehouse->name }}</td>
                                         <td>{{$not->product->product_name }}</td>
                                         <td>{{$not->quantity }} {{$not->product->unit}}</td>
-                                        <td>{{$not->total_amount }} {{$general->currency}}</td>
+                                        <td>{{$not->total_amount }} {{-- $general->currency --}}</td>
                                         <td>
                                             <a class="btn green" href="{{route('print.history.soldproduct', $not->invoice_id)}}">
                                                 <i class="fa fa-print"></i></a>

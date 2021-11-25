@@ -97,7 +97,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-2 control-label">Selling price: ( {{$general->currency}} )</label>
+                                <label class="col-md-2 control-label">Selling price: ( {{-- $general->currency --}} )</label>
 
                                 <div class="col-md-6">
                                     <input type="hidden" id="product_price" name="selling_price" value="">

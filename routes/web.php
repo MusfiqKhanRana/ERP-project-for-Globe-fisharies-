@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\SalePointController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,4 +44,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::put('/employee-company-update/{id}',[EmployeeController::class,'companyditailUpdate'])->name('employee.company.update');
     Route::put('/employee-bank-update/{id}',[EmployeeController::class,'bankDetailUpdate'])->name('employee.bank.update');
     Route::put('/employee-document-update/{id}',[EmployeeController::class,'documentUpdate'])->name('employee.document.update');
+
+    Route::get('/sale',[SalePointController::class,'indexSale'])->name('product.sale.index');
+    Route::post('/get/product',[SalePointController::class,'product_pass'])->name('product.pass');
+    Route::post('/get/product/detail',[SalePointController::class,'productGet'])->name('product.element.pass');
+    Route::post('/sale/product',[SalePointController::class,'saleProduct'])->name('sale.product');
+
+    Route::get('/stock/product/history', [SalePointController::class,'soldProductHistory'])->name('sold.index');
+    Route::get('/print/history/{invoice_id}', [SalePointController::class,'printHistory'])->name('print.history.soldproduct');
 });

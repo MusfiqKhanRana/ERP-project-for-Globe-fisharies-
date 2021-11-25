@@ -15,7 +15,7 @@
                 <table>
                     <tr>
                         <td class="title">
-                            <img src="{{asset('assets/images/logo/'.$general->image)}}" style="width:100%; max-width:300px;">
+                            {{-- <img src="{{asset('assets/images/logo/'.$general->image)}}" style="width:100%; max-width:300px;"> --}}
                         </td>
 
                         <td>
@@ -32,9 +32,9 @@
                 <table>
                     <tr>
                         <td>
-                            {{$general->title}}.<br>
-                            {{$general->mobile}}<br>
-                            {{$general->email}}
+                            {{-- $general->title --}}.<br>
+                            {{-- $general->mobile --}}<br>
+                            {{-- $general->email --}}
                         </td>
 
                         <td>
@@ -71,7 +71,7 @@
             </td>
 
             <td>
-                {{$cate->product->selling_price}} {{$general->currency}}
+                {{$cate->product->selling_price}} {{-- $general->currency --}}
 
             </td>
         </tr>
@@ -81,7 +81,7 @@
             <td></td>
 
             <td style="">
-                <b>Total: {{$cate->total_amount}} {{$general->currency}}</b>
+                <b>Total: {{$cate->total_amount}} {{-- $general->currency --}}</b>
             </td>
         </tr>
 
