@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Employee;
-use App\OfficeLoan;
+use App\Models\Employee;
+use App\Models\OfficeLoan;
 use Illuminate\Http\Request;
 
 class OfficeLoanController extends Controller

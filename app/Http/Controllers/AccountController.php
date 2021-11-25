@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Account;
-use App\Expense;
-use App\Income;
-use App\Transaction;
-use App\TransExpense;
-use App\TransIncome;
+use App\Models\Account;
+use App\Models\Expense;
+use App\Models\Income;
+use App\Models\Transaction;
+use App\Models\TransExpense;
+use App\Models\TransIncome;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\PersonalManagement;
+use App\Models\PersonalManagement;
 use Illuminate\Http\Request;
 
 class PersonalManagementController extends Controller
