@@ -39,7 +39,7 @@
 
                         <td>
                             {{$cate->customer->full_name}}.<br>
-                            {{$cate->customer->	phone}}<br>
+                            {{$cate->customer->phone}}<br>
                             {{$cate->customer->email}}
                         </td>
                     </tr>
