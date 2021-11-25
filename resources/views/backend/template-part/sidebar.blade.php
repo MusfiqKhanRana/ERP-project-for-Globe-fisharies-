@@ -370,15 +370,15 @@
                 <ul class="sub-menu">
                     <li class="nav-item  @if( request()->path() == 'admin/sale' ) active open @endif
                     @if( request()->path() == '' ) active open @endif">
-                        {{--<a href="{{route('product.sale.index')}}" class="nav-link ">
+                        <a href="{{route('product.sale.index')}}" class="nav-link ">
                             <span class="title">Sale</span>
-                        </a>--}}
+                        </a>
                     </li>
                     <li class="nav-item  @if( request()->path() == '' ) active open @endif
                     @if( request()->path() == 'admin/stock/product/history' ) active open @endif">
-                        {{--<a href="{{route('sold.index')}}" class="nav-link ">
+                        <a href="{{route('sold.index')}}" class="nav-link ">
                             <span class="title">Sold History</span>
-                        </a>--}}
+                        </a>
                     </li>
 
                 </ul>
