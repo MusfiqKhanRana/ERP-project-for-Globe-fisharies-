@@ -6,9 +6,13 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\BankTransactionController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerBalanceController;
+use App\Http\Controllers\CutomerController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\OfficeLoanController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SalePointController;
 use App\Http\Controllers\TimezoneController;
 use App\Http\Controllers\TransactionController;
@@ -134,4 +138,33 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('/supply/reports', [SupplyManagmentController::class,'supplyReports'])->name('supply.reports');
     Route::get('/supply/supplier/{id}', [SupplyManagmentController::class,'supplyReportsWithSupplier'])->name('supply.report.supplier');
     Route::get('/supply/{date}/{id}', [SupplyManagmentController::class,'supplyReportsWithDate'])->name('supply.report.date');
+
+    Route::get('/customer/management', [CutomerController::class,'cuctomerIndex'])->name('customer.index');
+    Route::post('/customer/store', [CutomerController::class,'cuctomerStore'])->name('customer.detail.store');
+    Route::get('/customer/edit/{id}',[CutomerController::class,'cuctomerEdit'])->name('customer.detail.edit');
+    Route::put('/customer/update/{id}', [CutomerController::class,'cuctomerUpdate'])->name('customer.update');
+    Route::get('/customer/delete/{id}', [CutomerController::class,'cuctomerDelete'])->name('customer.delete');
+
+    Route::get('/customer/balance',[CustomerBalanceController::class,'customerBalanceIndex'])->name('balance.index');
+    Route::post('/customer/balance/store',[CustomerBalanceController::class,'customerBalanceStore'])->name('customer.balance.store');
+
+    Route::get('/category',[CategoryController::class,'indexCaregory'])->name('product.catagory.index');
+    Route::post('/category/store',[CategoryController::class,'storeCaregory'])->name('category.store');
+    Route::put('/category/update/{id}',[CategoryController::class,'updateCaregory'])->name('category.update');
+    Route::get('/category/delete/{id}',[CategoryController::class,'deleteCaregory'])->name('category.delete');
+
+
+    Route::post('/store/warehouse',[ProductController::class,'storeWarehouse'])->name('warehouse.store');
+    Route::get('/delete/warehouse/{id}',[ProductController::class,'deleteWarehouse'])->name('warehouse.delete');
+    Route::put('/update/warehouse/{id}',[ProductController::class,'updateWarehouse'])->name('warehouse.update');
+
+    Route::post('/stock/product/store',[ProductController::class,'stockStoreProduct'])->name('product.stock.store');
+    Route::get('/stock/product/detail/{id}',[ProductController::class,'stockProductDetail'])->name('product.detail.warehouse');
+
+    Route::get('/products',[ProductController::class,'productIndex'])->name('product.index');
+    Route::post('/product/store',[ProductController::class,'productStore'])->name('product.store');
+    Route::get('/product/edit/{id}',[ProductController::class,'productEdit'])->name('product.edit');
+    Route::put('/product/update/{id}',[ProductController::class,'productUpdate'])->name('product.update');
+    Route::get('/product/delete/{id}',[ProductController::class,'productDelete'])->name('product.delete');
+    Route::get('/product/stock',[ProductController::class,'productStock'])->name('product.stock');
 });

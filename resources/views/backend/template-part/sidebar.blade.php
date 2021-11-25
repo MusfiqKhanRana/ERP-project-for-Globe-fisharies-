@@ -315,15 +315,15 @@
                 <ul class="sub-menu">
                     <li class="nav-item  @if( request()->path() == 'admin/customer/management' ) active open @endif
                     @if( request()->path() == '' ) active open @endif">
-                        {{--<a href="{{route('customer.index')}}" class="nav-link ">
+                        <a href="{{route('customer.index')}}" class="nav-link ">
                             <span class="title">Customer</span>
-                        </a>--}}
+                        </a>
                     </li>
                     <li class="nav-item  @if( request()->path() == 'admin/customer/balance' ) active open @endif
                     @if( request()->path() == '' ) active open @endif">
-                        {{--<a href="{{route('balance.index')}}" class="nav-link ">
+                        <a href="{{route('balance.index')}}" class="nav-link ">
                             <span class="title">Balance</span>
-                        </a>--}}
+                        </a>
                     </li>
 
                 </ul>
@@ -340,21 +340,21 @@
                 <ul class="sub-menu">
                     <li class="nav-item  @if( request()->path() == '' ) active open @endif
                     @if( request()->path() == 'admin/category' ) active open @endif">
-                        {{--<a href="{{route('product.catagory.index')}}" class="nav-link ">
+                        <a href="{{route('product.catagory.index')}}" class="nav-link ">
                             <span class="title">Product Category</span>
-                        </a>--}}
+                        </a>
                     </li>
                     <li class="nav-item  @if( request()->path() == '' ) active open @endif
                     @if( request()->path() == 'admin/products' ) active open @endif">
-                        {{--<a href="{{route('product.index')}}" class="nav-link ">
+                        <a href="{{route('product.index')}}" class="nav-link ">
                             <span class="title">Product Management</span>
-                        </a>--}}
+                        </a>
                     </li>
                     <li class="nav-item  @if( request()->path() == '' ) active open @endif
                     @if( request()->path() == 'admin/product/stock' ) active open @endif">
-                        {{--<a href="{{route('product.stock')}}" class="nav-link ">
+                        <a href="{{route('product.stock')}}" class="nav-link ">
                             <span class="title">Product Stock</span>
-                        </a>--}}
+                        </a>
                     </li>
 
                 </ul>
