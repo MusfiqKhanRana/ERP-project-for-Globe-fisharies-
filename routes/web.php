@@ -24,6 +24,7 @@ use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\CateringManagement;
 use App\PersonalManagement;
 use Illuminate\Support\Facades\Route;
 
@@ -75,6 +76,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('payroll-count', [PayrollController::class,'count'])->name('payroll.count');
     Route::get('payroll/chart', [PayrollController::class,'show'])->name('payroll.chart');
     Route::post('payroll/salary/sheet', [PayrollController::class,'salarySheet'])->name('salary.sheet');
+    Route::post('payroll/payment-save', [PayrollController::class,'store'])->name('payment.save');
+    Route::get('payroll/payment-delete/{id}', [PayrollController::class,'destroy'])->name('salary-chart.delete');
+
+    Route::post('payroll/individual-salary', [PayrollController::class,'individualSalary'])->name('individual-salary.search');
 
     Route::get('/award',[AwardController::class,"index"] )->name('award.index');
     Route::get('/award/create',[AwardController::class,"create"] )->name('award.create');
@@ -207,4 +212,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     Route::get('/general',[GeneralController::class,'index'])->name('general.index');
     Route::put('/general-update/{id}',[GeneralController::class,'update'])->name('general.update');
+
+    //CateringManagement
+
+    Route::get('/catering/system', [CateringController::class,'cateringIndex'])->name('catering.index');
+    Route::get('/catering/view/{id}', [CateringController::class,'cateringEdit'])->name('catering.edit');
+    Route::get('/catering/add', [CateringController::class,'cateringCreate'])->name('add.food.comapny');
+    Route::put('/catering/update/{id}', [CateringController::class,'cateringUpdate'])->name('catering.update');
+    Route::get('/catering/report/{date}', [CateringController::class,'cateringReport'])->name('show.detail.catring');
+
+    Route::post('/send/invoice', [CateringController::class,'sendinvoice'])->name('send.food,company');
+    Route::get('/print/invoice/{id}', [CateringController::class,'printInvoice'])->name('print.invoice');
+
+    Route::get('account/catering', [CateringController::class,'officeAcountIndex'])->name('catering.accounts.index');
+    Route::get('account/paid/{id}', [CateringController::class,'officeAcountIndexPaid'])->name('catering.paid');
 });
