@@ -189,19 +189,19 @@
                         </a>
                         <ul class="sub-menu">
                             <li class="nav-item  @if( request()->path() == 'admin/account/income-expense' ) active open @endif">
-                                {{--<a href="{{route('income.expense')}}" class="nav-link ">
+                                <a href="{{route('income.expense')}}" class="nav-link ">
                                     <span class="title">Income/Expense</span>
-                                </a>--}}
+                                </a>
                             </li>
                             <li class="nav-item  @if( request()->path() == 'admin/accounts/transaction' ) active open @endif">
-                                {{--<a href="{{route('trans.index')}}" class="nav-link ">
+                                <a href="{{route('trans.index')}}" class="nav-link ">
                                     <span class="title">Transaction Purpose</span>
-                                </a>--}}
+                                </a>
                             </li>
                             <li class="nav-item  @if( request()->path() == 'admin/accounts' ) active open @endif">
-                                {{--<a href="{{route('account.index')}}" class="nav-link ">
+                                <a href="{{route('account.index')}}" class="nav-link ">
                                     <span class="title">Accounts Chart</span>
-                                </a>--}}
+                                </a>
                             </li>
                         </ul>
                     </li>
@@ -218,23 +218,23 @@
                         <ul class="sub-menu">
                             <li class="nav-item  @if( request()->path() == '' ) active open @endif
                             @if( request()->path() == 'admin/bank' ) active open @endif">
-                                {{--<a href="{{route('bank.account.index')}}" class="nav-link ">
+                                <a href="{{route('bank.account.index')}}" class="nav-link ">
                                     <span class="title">Bank Account</span>
-                                </a>--}}
+                                </a>
                             </li>
                             <li class="nav-item  @if( request()->path() == 'admin/bank/transaction' ) active open @endif
                             @if( request()->path() == 'admin/bank/transaction' ) active open @endif">
-                                {{--<a href="{{route('transaction.index')}}" class="nav-link ">
+                               <a href="{{route('transaction.index')}}" class="nav-link ">
                                     <span class="title">Credit/Balance</span>
-                                </a>--}}
+                                </a>
                             </li>
 
                             <li class="nav-item  @if( request()->path() == 'admin/add/transaction' ) active open @endif
                             @if( request()->path() == 'admin/transaction' ) active open @endif
                             @if( request()->path() == 'admin/expense/history' ) active open @endif">
-                                {{--<a href="{{route('expanse.transaction.index')}}" class="nav-link ">
+                                <a href="{{route('expanse.transaction.index')}}" class="nav-link ">
                                     <span class="title">Transaction</span>
-                                </a>--}}
+                                </a>
                             </li>
 
                         </ul>
@@ -258,15 +258,15 @@
                                     <ul class="sub-menu">
                                         <li class="nav-item  @if( request()->path() == 'admin/add/personal/loan' ) active open @endif
                                         @if( request()->path() == '' ) active open @endif">
-                                            {{--<a href="{{route('personal.loan.index')}}" class="nav-link ">
+                                            <a href="{{route('personal.loan.index')}}" class="nav-link ">
                                                 <span class="title">Add Person</span>
-                                            </a>--}}
+                                            </a>
                                         </li>
                                         <li class="nav-item  @if( request()->path() == 'admin/personal/loan' ) active open @endif
                                         @if( request()->path() == '' ) active open @endif">
-                                            {{--<a href="{{route('manage.loan')}}" class="nav-link ">
+                                            <a href="{{route('manage.loan')}}" class="nav-link ">
                                                 <span class="title">Manage Loan</span>
-                                            </a>--}}
+                                            </a>
                                         </li>
                                     </ul>
                                 </li>
@@ -280,15 +280,15 @@
                                     <ul class="sub-menu" >
                                         <li class="nav-item  @if( request()->path() == 'admin/add/office/loan' ) active open @endif
                                         @if( request()->path() == '' ) active open @endif">
-                                            {{--<a href="{{route('add.office.loan')}}" class="nav-link ">
+                                            <a href="{{route('add.office.loan')}}" class="nav-link ">
                                                 <span class="title">Add Person</span>
-                                            </a>--}}
+                                            </a>
                                         </li>
                                         <li class="nav-item  @if( request()->path() == '' ) active open @endif
                                         @if( request()->path() == 'admin/office/loan' ) active open @endif">
-                                            {{--<a href="{{route('office.loan.manange')}}" class="nav-link ">
+                                            <a href="{{route('office.loan.manange')}}" class="nav-link ">
                                                 <span class="title">Manage Loan</span>
-                                            </a>--}}
+                                            </a>
                                         </li>
                                     </ul>
                                 </li>
