@@ -505,13 +505,37 @@
                     </li>
                 </ul>
             </li>
-
-            <li class="nav-item start @php echo "active",(request()->path() != 'admin/general')?:"";@endphp">
-                <a href="{{route('general.index')}}" class="nav-link nav-toggle">
-                    <i class="fa fa-cog"></i>
+            
+            <li class="nav-item  @if( request()->path() == 'admin/office' || request()->path() == 'admin/office' ) active open @endif
+            @if( request()->path() == 'admin/food/mill' || request()->path() == 'admin/food/mill' ) active open @endif
+            @if( request()->path() == 'admin/catering/system' || request()->path() == 'admin/catering/system' ) active open @endif
+            @if( request()->path() == 'admin/catering/add' || request()->path() == 'admin/catering/add' ) active open @endif
+            @php echo "active",(request()->path() != 'admin/account/catering')?:"";@endphp
+            @php echo "active",(request()->path() != '')?:"";@endphp
+                    ">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
                     <span class="title">General Management</span>
-                    <span class="selected"></span>
+                    <span class="arrow"></span>
                 </a>
+                <ul class="sub-menu">
+                    <li class="nav-item start @php echo "active",(request()->path() != 'admin/office')?:"";@endphp
+                    @php echo "active",(request()->path() != '')?:"";@endphp">
+                        <a href="{{route('user-type.index')}}" class="nav-link nav-toggle">
+                            <i class="fa fa-building-o" aria-hidden="true"></i>
+                            <span class="title">Menu</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item start @php echo "active",(request()->path() != 'admin/general')?:"";@endphp">
+                        <a href="{{route('general.index')}}" class="nav-link nav-toggle">
+                            <i class="fa fa-cog"></i>
+                            <span class="title">General Management</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                </ul>
             </li>
 
         </ul>

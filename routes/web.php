@@ -28,8 +28,8 @@ use App\Http\Controllers\CateringManagement;
 use App\Http\Controllers\OfficeDetailController;
 use App\Http\Controllers\FoodMillController;
 use App\Http\Controllers\CateringController;
-
-use App\Http\Controllers\PersonalManagement;
+use App\Http\Controllers\PersonalManagementController;
+use App\Http\Controllers\UserTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -151,7 +151,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('/expense/history', [BankTransactionController::class,'expenseHistory'])->name('expense.history');
     Route::get('/transaction/{id}', [BankTransactionController::class,'transactionReport'])->name('report.bank.wise.transaction');
 
-    Route::get('add/personal/loan', [PersonalManagement::class,'personalIndex'])->name('personal.loan.index');
+    Route::get('add/personal/loan', [PersonalManagementController::class,'personalIndex'])->name('personal.loan.index');
     Route::post('/personal/store', [PersonalManagementController::class,'personalLoanStore'])->name('personal.loan.store');
     Route::get('/personal/loan', [PersonalManagementController::class,'personalLoanManage'])->name('manage.loan');
     Route::get('/personal/loan/{id}', [PersonalManagementController::class,'personalEdit'])->name('personal.loan.edit');
@@ -241,7 +241,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //FoodMeal
 
-    Route::get('delete/shift/{id}', 'FoodMillController@deleteShift')->name('delete.shift');
+    Route::get('delete/shift/{id}', [FoodMillController::class,'deleteShift'])->name('delete.shift');
 
     Route::get('food/mill', [FoodMillController::class,'indexMill'])->name('food.mill.index');
     Route::post('shift/store', [FoodMillController::class,'storeShift'])->name('shift.store');
@@ -250,4 +250,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::put('package/update/{id}', [FoodMillController::class,'updateMeal'])->name('package.meal.upadate');
     Route::get('package/delete/{id}', [FoodMillController::class,'destroyMeal'])->name('meal.package.delete');
     Route::get('item/delete', [FoodMillController::class,'deleteItemMeal'])->name('item.delete');
+
+    //User Type
+    Route::resource('user-type', UserTypeController::class);
+
 });
