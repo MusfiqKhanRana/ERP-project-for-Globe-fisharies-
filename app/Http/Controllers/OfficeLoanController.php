@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\OfficeLoan;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OfficeLoanController extends Controller
 {
     public function officeLoanAdd()
     {
-        $employee = Employee::all();
+        $employee = User::all();
         return view('backend.office_loan.add_loan', compact('employee'));
     }
 
@@ -23,7 +24,7 @@ class OfficeLoanController extends Controller
     public function officeLoanEdit($id)
     {
         $office_loan = OfficeLoan::findOrFail($id);
-        $employee = Employee::all();
+        $employee = User::all();
         return view('backend.office_loan.edit_loan', compact('office_loan', 'employee'));
     }
 

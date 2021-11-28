@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\Task;
+use App\Models\User;
 use foo\Models\bar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,14 +29,14 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $employee = Employee::all();
+        $employee = User::all();
         return view('backend.task.add-task',compact('employee'));
     }
 
     public function employeeAdd(Request $request)
     {
         $id = $request->id;
-        $employee = Employee::where('name',$id)->get();
+        $employee = User::where('name',$id)->get();
 
         $output ="";
 
@@ -53,8 +54,7 @@ class TaskController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        return redirect()->back()->withdelmsg('Demo Version Change Not Possible');
+    {    
         $this->validate($request,array(
             'employee_name' => 'required',
             'employee_Id' => 'required',
@@ -63,7 +63,7 @@ class TaskController extends Controller
             'start_date' => 'required',
             'end_date' => 'required',
         ));
-
+        
         $task = new Task;
         $task->employee_name = $request->employee_name;
         $task->employee_Id = $request->employee_Id;
@@ -83,8 +83,8 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        $user = Auth::guard('employee')->user()->email;
-        $task_manage = Task::where('employee_Id', $user)->orderBy('id', 'DESC')->paginate(5);
+        $user = Auth::user()->email;
+        $task_manage = Task::where('employee_id', $user)->orderBy('id', 'DESC')->paginate(5);
         return view('users.task.task', compact('task_manage'));
     }
 
@@ -119,7 +119,6 @@ class TaskController extends Controller
      */
     public function destroy(Task $task, $id)
     {
-        return redirect()->back()->withdelmsg('Demo Version Change Not Possible');
         $task = Task::find($id);
         $task->delete();
         return back()->withMsg('Removed Successfully');

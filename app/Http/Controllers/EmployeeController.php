@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Department;
 use App\Models\Designation;
 use App\Models\Employee;
+use App\Models\User;
 use App\Models\Timezone;
 use Faker\Provider\File;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        $employee = Employee::orderBy('id', 'DESC')->paginate(5);
+        $employee = User::orderBy('id', 'DESC')->paginate(5);
         $time = Timezone::find(1);
         return view('backend.employee.employee-list', compact('employee','time'));
     }
@@ -61,7 +62,7 @@ class EmployeeController extends Controller
            
             'branch'=> 'max:191'
         ));
-        $employee = new Admin;
+        $employee = new User;
 
         $employee->name = $request->name;
         $employee->f_name = $request->f_name;
@@ -135,7 +136,7 @@ class EmployeeController extends Controller
 
     public function edit($id)
     {
-        $employee = Employee::find($id);
+        $employee = User::find($id);
         $dep = Department::all();
         return view('backend.employee.employee-edit',compact('employee', 'dep'));
     }
@@ -143,9 +144,9 @@ class EmployeeController extends Controller
     public function destroy($id)
     {
                 
-        $employee = Employee::find($id);
+        $employee = User::find($id);
         $employee->delete();
-        return redirect()->back()->withMsg('Employee Deleted Successfully');
+        return redirect()->back()->withMsg('User Deleted Successfully');
     }
 
     public function designation_pass(Request $request){
@@ -161,8 +162,7 @@ class EmployeeController extends Controller
     }
 
     public function personalDataUpdate(Request $request, $id){
-                
-        $employee = Employee::find($id);
+        $employee = User::find($id);
         $this->validate($request,array(
             'image' => 'mimes:jpeg,bmp,png,jpg',
             'name' => 'max:191',
@@ -202,7 +202,7 @@ class EmployeeController extends Controller
     public function companyditailUpdate(Request $request,$id)
     {
                 
-        $employee = Employee::find($id);
+        $employee = User::find($id);
         $this->validate($request,array(
 
             'employee_id'=> 'required',
@@ -225,7 +225,7 @@ class EmployeeController extends Controller
 
     public function bankDetailUpdate(Request $request, $id){
                 
-        $employee = Employee::find($id);
+        $employee = User::find($id);
         $this->validate($request,array(
 
             'ac_name'=> 'max:191 | required',
@@ -248,7 +248,7 @@ class EmployeeController extends Controller
     public function documentUpdate(Request $request, $id)
     {
                 
-        $employee = Employee::find($id);
+        $employee = User::find($id);
         $this->validate($request,array(
             'resume'=> 'nullable|mimes:pdf,doc',
             'offer_letter'=> 'nullable|mimes:pdf,doc',
@@ -315,13 +315,13 @@ class EmployeeController extends Controller
 
         try {
 
-            $c_password = Employee::find($request->id)->password;
+            $c_password = User::find($request->id)->password;
 
-            $c_id = Employee::find($request->id)->id;
+            $c_id = User::find($request->id)->id;
 
             //return  $c_password;
 
-             $user = Employee::findOrFail($c_id);
+             $user = User::findOrFail($c_id);
 
             if(Hash::check($request->passwordold, $c_password)){
 

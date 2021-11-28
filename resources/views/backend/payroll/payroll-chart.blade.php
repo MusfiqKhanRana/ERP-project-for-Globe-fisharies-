@@ -83,9 +83,8 @@ Payroll Chart
                         </thead>
                         <tbody>
                         @foreach($payment as $data)
-
                             <tr>
-                                <td>{{$data->employee_id}}</td>
+                                <td>{{$data->user_id}}</td>
                                 <td>{{$data->employee->name}}</td>
                                 <td>{{$data->attend}}</td>
                                 <td>{{$data->salary}}</td>

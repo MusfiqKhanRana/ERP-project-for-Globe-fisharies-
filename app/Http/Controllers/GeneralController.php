@@ -22,7 +22,7 @@ class GeneralController extends Controller
 
     public function update(Request $request, General $general, $id)
     {
-       // return redirect()->back()->withdelmsg('Demo Version Change Not Possible');
+     
         $general = General::find($id);
         $this->validate($request,array(
             'name' => 'required|max:191' ,

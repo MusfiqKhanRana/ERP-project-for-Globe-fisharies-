@@ -14,7 +14,7 @@ class MenuController extends Controller
         return view('backend.menu-management.index',compact('page_title','all_pages'));
     }
     public function store(Request $request){
-        return redirect()->back()->withdelmsg('Demo Version Change Not Possible');
+    
         foreach($request->menu_order as $key => $value){
 
                 $data = ['menu_order' => $value];

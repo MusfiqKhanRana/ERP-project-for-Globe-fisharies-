@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class OfficeLoan extends Model
 {
     protected $fillable = [
-      'employee_id',
+      'User_id',
       'amount',
       'date',
       'detail',
@@ -15,6 +15,6 @@ class OfficeLoan extends Model
 
     public function employee()
     {
-        return $this->hasOne(Employee::class, 'id', 'employee_id')->withDefault();
+        return $this->hasOne(Employee::class, 'User_id', 'User_id')->withDefault();
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\Employee;
 use App\Models\Payment;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,7 @@ class PayrollController extends Controller
 {
     public function index()
     {
-        $employee = Employee::all();
+        $employee = User::all();
         return view('backend.payroll.payroll', compact('employee'));
     }
 
@@ -27,12 +28,12 @@ class PayrollController extends Controller
         $end = Carbon::parse($to_date);
         $jdata['length'] = $start->diffInDays($end);
         $attend = Attendance::whereBetween('date', [$form_date, $to_date])
-            ->where('user_id', $employee_select)
+            ->where('employee_id', $employee_select)
             ->get();
-        $jdata['count'] = Attendance::where('user_id', $employee_select)->where('status', 1)->count();
-        $jdata['holiday'] = Attendance::where('user_id', $employee_select)->where('status', 9)->count();
-        $jdata['late'] = Attendance::where('user_id', $employee_select)->where('status', 0)->count();
-        $salary= Employee::where('id', $employee_select)->first();
+        $jdata['count'] = Attendance::where('employee_id', $employee_select)->where('status', 1)->count();
+        $jdata['holiday'] = Attendance::where('employee_id', $employee_select)->where('status', 9)->count();
+        $jdata['late'] = Attendance::where('employee_id', $employee_select)->where('status', 0)->count();
+        $salary= User::where('id', $employee_select)->first();
         $jdata['salary'] = $salary->salary;
         $jdata['sum-attend'] = $jdata['count'] + $jdata['holiday'] + $jdata['late'];
         $jdata['perday_salary'] = $jdata['salary'] / $jdata['length'];
@@ -63,7 +64,7 @@ class PayrollController extends Controller
         $to_date  = $request->to_date;
         $start = Carbon::parse($from_date);
         $end = Carbon::parse($to_date);
-        $employee = Employee::all();
+        $employee = User::all();
         $jdata = [];
         foreach ($employee as $member){
             $jdata['name'] = $member->name;
@@ -76,7 +77,7 @@ class PayrollController extends Controller
             $jdata['count'] = Attendance::where('user_id', $member->id)->where('status', 1)->count();
             $jdata['holiday'] = Attendance::where('user_id', $member->id)->where('status', 9)->count();
             $jdata['late'] = Attendance::where('user_id', $member->id)->where('status', 0)->count();
-            $salary = Employee::where('id', $member->id)->first();
+            $salary = User::where('id', $member->id)->first();
             $jdata['salary'] = $salary->salary;
             $jdata['sum_attend'] = $jdata['count'] + $jdata['holiday'] + $jdata['late'];
             $jdata['perday_salary'] = $jdata['salary'] / $jdata['length'];
@@ -97,7 +98,7 @@ class PayrollController extends Controller
             'to_date' => 'required'
         ));
 
-        for($i =0; $i < Employee::count('id'); $i++)
+        for($i =0; $i < User::count('id'); $i++)
         {
             $pay = new Payment;
             $pay->employee_id = $request->employee_id[$i];
@@ -112,15 +113,17 @@ class PayrollController extends Controller
 
     public function show()
     {
-        $employe = Employee::all();
-        $payment = Payment::orderBy('id', 'desc')->paginate(20);
-
+        $employe = User::all();
+        $payment = Payment::with([
+            'employee' => function($q){
+                $q->select('id','name');
+            }
+        ])->orderBy('id', 'desc')->paginate(20);
         return view('backend.payroll.payroll-chart',compact('payment', 'employe'));
     }
 
     public function destroy($id)
     {
-        return redirect()->back()->withdelmsg('Demo Version Change Not Possible');
         $payment = Payment::find($id);
         $payment->delete();
         return redirect()->back()->withMsg("Deleted");
