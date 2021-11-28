@@ -15,7 +15,7 @@ class CreateOfficeLoansTable extends Migration
     {
         Schema::create('office_loans', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('employee_id');
+            $table->integer('user_id');
             $table->string('amount');
             $table->date('date');
             $table->text('detail');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Attendance;
 use App\Models\Employee;
+use App\Models\User;
 use App\Models\Holiday;
 use App\Models\Timezone;
 use Carbon\Carbon;
@@ -30,7 +31,7 @@ class AttendanceController extends Controller
 
     public function create()
     {
-        $auth_employee = Auth::guard('employee')->user();
+        $auth_employee = Auth::user();
         return view('users.attendance.attendance', compact('auth_employee'));
     }
 
@@ -38,13 +39,13 @@ class AttendanceController extends Controller
     {
         $this->validate($request,array(
             'date' => 'required',
-            'user_id' => 'required',
+            'employee_id' => 'required',
             'status' =>'required'
         ));
 
         $attendance = new Attendance;
         $attendance->date = $request->date;
-        $attendance->user_id = $request->user_id;
+        $attendance->employee_id = $request->employee_id;
         $attendance->status = $request->status;
         $attendance->ip = $request->ip;
         $attendance->device = $request->device;
@@ -54,7 +55,7 @@ class AttendanceController extends Controller
 
     public function individualIndex()
     {
-        $employee = Employee::all();
+        $employee = User::all();
         return view('backend.attendance-count.individual-attend', compact('employee'));
 
     }
@@ -72,10 +73,10 @@ class AttendanceController extends Controller
 
 
         $attend = Attendance::whereBetween('date', [$form_date, $to_date])
-            ->where('user_id', $employee_select)
+            ->where('employee_id', $employee_select)
             ->get();
 
-        $jdata['count'] = Attendance::where('user_id', $employee_select)->where('status', 1)->count();
+        $jdata['count'] = Attendance::where('employee_id', $employee_select)->where('status', 1)->count();
 
         $jdata['output'] = "";
 

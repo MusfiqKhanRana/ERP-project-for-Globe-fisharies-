@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Award;
 use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AwardController extends Controller
@@ -33,8 +34,7 @@ class AwardController extends Controller
      */
     public function create()
     {
-        return redirect()->back()->withdelmsg('Demo Version Change Not Possible');
-        $employee = Employee::all();
+        $employee = User::all();
         return view('backend.award.addawared',compact('employee'));
     }
 
@@ -46,7 +46,6 @@ class AwardController extends Controller
      */
     public function store(Request $request)
     {
-        return redirect()->back()->withdelmsg('Demo Version Change Not Possible');
         $this->validate($request, array(
             'award_name'=> 'required|max:191' ,
             'gift'=> 'required|max:191',
@@ -98,7 +97,7 @@ class AwardController extends Controller
      */
     public function update(Request $request, Award $award, $id)
     {
-        return redirect()->back()->withdelmsg('Demo Version Change Not Possible');
+        
         $award = Award::find($id);
         $this->validate($request, array(
             'award_name'=> 'required|max:191' ,
@@ -126,7 +125,7 @@ class AwardController extends Controller
      */
     public function destroy(Award $award, $id)
     {
-        return redirect()->back()->withdelmsg('Demo Version Change Not Possible');
+     
         $award = Award::find($id);
         $award->delete();
         return redirect('admin/award')->withMsg("Deleted Successfully");

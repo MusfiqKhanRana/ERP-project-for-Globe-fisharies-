@@ -36,7 +36,7 @@ class NoticeController extends Controller
      */
     public function store(Request $request)
     {
-        return redirect()->back()->withdelmsg('Demo Version Change Not Possible');
+     
         $this->validate($request, array(
            'title' => 'required|max:191',
            'description' => 'required'
@@ -80,7 +80,7 @@ class NoticeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return redirect()->back()->withdelmsg('Demo Version Change Not Possible');
+     
         $notice = Notice::find($id);
         $this->validate($request, array(
             'title' => 'required|max:191',
@@ -100,7 +100,6 @@ class NoticeController extends Controller
      */
     public function destroy(Notice $notice, $id)
     {
-        return redirect()->back()->withdelmsg('Demo Version Change Not Possible');
         $notice = Notice::find($id);
         $notice->delete();
         return redirect()->back()->withMsg('Successfully Deleted');

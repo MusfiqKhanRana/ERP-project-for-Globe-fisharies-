@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Employee as AppEmployee;
 use App\Models\Admin;
 use App\Models\Employee;
+use App\Models\User;
 use App\Models\SalePoint;
 use App\Models\StockProduct;
 use App\Models\TransExpense;
 use App\Models\TransIncome;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +23,7 @@ class AdminController extends Controller
     public function index(){
         $page_title = "Dashboard";
         
-        $total_employee = Employee::count('id');
+        $total_employee = User::count('id');
 
         $total_income = TransIncome::sum('amount');
 
