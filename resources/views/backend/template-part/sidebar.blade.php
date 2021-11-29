@@ -390,7 +390,7 @@
                 </a>
                 <ul class="sub-menu">
                 <li class="nav-item  @if( request()->path() == '' ) active open @endif">
-                        <a href="" class="nav-link ">
+                        <a href="{{route('requisition.index')}}" class="nav-link ">
                             <span class="title">Request Requisition</span>
                         </a>
                     </li>
