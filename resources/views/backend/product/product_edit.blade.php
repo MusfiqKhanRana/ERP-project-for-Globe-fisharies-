@@ -43,12 +43,12 @@
                                                 <div class="col-md-12">
                                                     <div class="form-body">
                                                         <div class="form-group clearfix">
-                                                            <label class="col-md-3 control-label">Product ID</label>
+                                                            <label class="col-md-3 control-label">Select Category</label>
                                                             <div class="col-md-9">
                                                                 <select class="form-control" name="category_id">
-                                                                    <option></option>
+                                                                    <option>--Select--</option>
                                                                     @foreach($category as $a)
-                                                                        <option value="{{$a->id}}" >{{$a->name}}</option>
+                                                                        <option value="{{$a->id}}" {{ ( $a->id == $product->category_id) ? 'selected' : '' }}>{{$a->name}}</option>
                                                                     @endforeach
                                                                 </select>
 
@@ -89,18 +89,38 @@
 
                                                             </div>
                                                         </div>
-
+                                                        <input type="hidden" name="selling_price" value="0">
                                                         <div class="form-group clearfix">
-                                                            <label class="col-md-3 control-label">Selling Price</label>
+                                                            <label class="col-md-3 control-label">Online Selling Price</label>
                                                             <div class="col-md-9">
                                                                 <div class="input-group">
-                                                                    <input type="text" class="form-control" name="selling_price" value="{{$product->selling_price}}">
+                                                                    <input type="text" class="form-control" name="online_selling_price" value="{{$product->online_selling_price}}">
                                                                     <span class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i>
                                                                     </span>
                                                                 </div>
-
                                                             </div>
                                                         </div>
+                                                        <div class="form-group clearfix">
+                                                            <label class="col-md-3 control-label">Inhouse Selling Price</label>
+                                                            <div class="col-md-9">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" name="inhouse_selling_price" value="{{$product->inhouse_selling_price}}">
+                                                                    <span class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group clearfix">
+                                                            <label class="col-md-3 control-label">Retail Selling Price</label>
+                                                            <div class="col-md-9">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" name="retail_selling_price" value="{{$product->retail_selling_price}}">
+                                                                    <span class="input-group-addon"><i class="fa fa-money" aria-hidden="true"></i>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                      
 
                                                         <div class="form-group clearfix">
                                                             <label class="col-md-3 control-label">Unit</label>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Cutomer;
 use App\Models\Product;
 use App\Models\StockProduct;
 use App\Models\Warehouse;
@@ -27,7 +28,9 @@ class ProductController extends Controller
             'product_name' => 'required',
             'unit' => 'required',
             'buying_price' => 'required',
-            'selling_price' => 'required',
+            'online_selling_price'=>'required',
+            'inhouse_selling_price'=>'required',
+            'retail_selling_price'=>'required',
         ]);
 
         Product::create($request->all());
@@ -41,12 +44,20 @@ class ProductController extends Controller
         $category = Category::all();
         return view('backend.product.product_edit', compact('product', 'category'));
     }
+    public function productSale($id)
+    {
+        $product = Product::with('category')->find($id);
+        $category = Category::all();
+        $customer = Cutomer::all();
+        $warehouse = Warehouse::all();
+        return view('backend.product.product_sale', compact('product','category','customer', 'warehouse'));
+    }
 
     public function productDelete($id)
     {
              
         $product = Product::whereId($id)->delete();
-        return redirect()->back()->withMsg("Product Added");
+        return redirect()->back()->withMsg("Product Deleted");
     }
 
     public function productUpdate(Request $request,$id)
@@ -58,7 +69,9 @@ class ProductController extends Controller
             'product_name' => 'required',
             'unit' => 'required',
             'buying_price' => 'required',
-            'selling_price' => 'required',
+            'online_selling_price'=>'required',
+            'inhouse_selling_price'=>'required',
+            'retail_selling_price'=>'required',
         ]);
 
         Product::whereId($id)
@@ -68,7 +81,9 @@ class ProductController extends Controller
                'category_id' => $request->category_id,
                'unit' => $request->unit,
                'buying_price' => $request->buying_price,
-               'selling_price' => $request->selling_price,
+               'online_selling_price' => $request->online_selling_price,
+               'inhouse_selling_price' => $request->inhouse_selling_price,
+               'retail_selling_price' => $request->retail_selling_price,
             ]);
         return redirect('admin/products')->withmsg('Successfully Updated');
 

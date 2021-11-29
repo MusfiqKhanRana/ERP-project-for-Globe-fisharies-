@@ -25,6 +25,7 @@
     <link href="{{asset('assets/backend/pages/css/login-4.min.css')}}" rel="stylesheet" type="text/css" />
 
 </head>
+    
 <body class="login" style="background-image: url({{asset('assets/backend/img/office.jpg')}})">
 <br>
 <br>
@@ -34,6 +35,19 @@
 <br>
 
 <div class="content" style="background-color: black">
+    {{-- @if(Session::has('message'))
+        <div class="alert alert-success">
+            <strong>{{Session::get('message')}}</strong>.
+        </div>
+    @endif
+    @if (\Session::has('success'))
+        <div class="alert alert-success">
+            <ul>
+                <li>{!! \Session::get('success') !!}</li>
+            </ul>
+        </div>
+    @endif --}}
+    {!! session('flash_msg_success')!!}
     <!-- BEGIN LOGIN FORM -->
    <form class="login-form"  method="POST" action="{{ route('post-login') }}">
         {{ csrf_field() }}
@@ -68,6 +82,14 @@
             </div>
         </div>
         <div class="form-actions">
+            <div style="color: red;"> 
+            @php
+                if(isset($misscred)){
+                    echo '**',$misscred,'**';
+                    echo '<br>';
+                }  
+            @endphp
+                        </div>  
             <label class="control-label">
                 <input  type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>  Remember me
             </label>
@@ -78,6 +100,29 @@
 </div>
 
 <div class="copyright" style="color: black">2018@copyright All rights reserved</div>
+
+
+
+<script src="assets/backend//global/plugins/respond.min.js"></script>
+<script src="assets/backend//global/plugins/excanvas.min.js"></script>
+
+<script src="assets/backend//global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="assets/backend//global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="assets/backend//global/plugins/js.cookie.min.js" type="text/javascript"></script>
+<script src="assets/backend//global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="assets/backend//global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="assets/backend//global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="assets/backend//global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="assets/backend//global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+
+<script src="assets/backend//global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="assets/backend//global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+<script src="assets/backend//global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+<script src="assets/backend//global/plugins/backstretch/jquery.backstretch.min.js" type="text/javascript"></script>
+
+<script src="assets/backend//global/scripts/app.min.js" type="text/javascript"></script>
+
+<script src="assets/backend//pages/scripts/login-4.min.js" type="text/javascript"></script>
 
 </body>
 
