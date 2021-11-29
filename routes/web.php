@@ -29,6 +29,7 @@ use App\Http\Controllers\OfficeDetailController;
 use App\Http\Controllers\FoodMillController;
 use App\Http\Controllers\CateringController;
 use App\Http\Controllers\PersonalManagementController;
+use App\Http\Controllers\RequisitionController;
 use App\Http\Controllers\UserTypeController;
 use Illuminate\Support\Facades\Route;
 
@@ -253,5 +254,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //User Type
     Route::resource('user-type', UserTypeController::class);
+    Route::resource('requisition', RequisitionController::class);
 
 });
