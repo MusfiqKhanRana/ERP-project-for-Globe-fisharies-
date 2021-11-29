@@ -27,7 +27,7 @@
                         swal("{{Session::get('msg')}}","", "success");
                     });
                 </script>
-        @endif
+             @endif
             <!-- BEGIN PAGE CONTENT-->
             <div class="row">
                 <div class="col-md-12">

@@ -60,7 +60,9 @@
                                                 <th>Product Category</th>
                                                 <th>Product Unit</th>
                                                 <th>Buying Price</th>
-                                                <th>Selling Price</th>
+                                                <th>Online Selling Price</th>
+                                                <th>In House Selling Price</th>
+                                                <th>Retail Selling Price</th>
                                                 <th style="text-align: center"> Action </th>
                                             </tr>
                                             </thead>
@@ -73,10 +75,13 @@
                                                     <td>{{$data->category->name }}</td>
                                                     <td>{{$data->unit}}</td>
                                                     <td>{{$data->buying_price}} {{$general->currency}}</td>
-                                                    <td>{{$data->selling_price}} {{$general->currency}}</td>
+                                                    <td>{{$data->online_selling_price}} {{$general->currency}}</td>
+                                                    <td>{{$data->inhouse_selling_price}} {{$general->currency}}</td>
+                                                    <td>{{$data->retail_selling_price}} {{$general->currency}}</td>
                                                     <td>
-                                                        <a class="btn blue-chambray" href="{{route('product.edit', $data->id)}}"><i class="fa fa-edit"></i>Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <a class="btn blue-chambray" href="{{route('product.edit', $data->id)}}"><i class="fa fa-edit"></i>Edit</a>
                                                         <a class="btn red" data-status="{{$data->id}}" data-toggle="modal" class="deleteModal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                                        <a class="btn green" href="{{route('product.sale', $data->id)}}"><i class="fa fa-tag" aria-hidden="true"></i>Add Sale</a>
                                                     </td>
                                                 </tr>
                                                 <div id="deleteModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -157,10 +162,25 @@
                                 <div class="col-md-12">
                                     <div class="col-md-12">
                                         <label class="control-label">Selling Price </label>
-                                        <input class="form-control text-capitalize" placeholder="Selling Price" type="number" required name="selling_price">
+                                        <input type="hidden" name="selling_price" value="0">
+                                        <input class="form-control text-capitalize" placeholder="Online Selling Price" type="number" required name="online_selling_price"><br>
+                                        <input class="form-control text-capitalize" placeholder="In House Selling Price" type="number" required name="inhouse_selling_price"><br>
+                                        <input class="form-control text-capitalize" placeholder="Retail Selling Price" type="number" required name="retail_selling_price">
                                     </div>
                                 </div>
                             </div>
+                            {{-- <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <label class="control-label">Select Selling Price Types</label>
+                                            <select class="form-control" name="selling_types">
+                                                    <option value="Online Selling Price" >Online Selling Price</option>
+                                                    <option value="In House Selling Price" >In House Selling Price</option>
+                                                    <option value="Retail Selling Price" >Retail Selling Price</option>
+                                            </select>
+                                    </div>
+                                </div>
+                            </div> --}}
 
                             <div class="form-group">
                                 <div class="col-md-12">
