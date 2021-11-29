@@ -208,6 +208,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     Route::get('/products',[ProductController::class,'productIndex'])->name('product.index');
     Route::post('/product/store',[ProductController::class,'productStore'])->name('product.store');
+    Route::get('/product/sale/{id}',[ProductController::class,'productSale'])->name('product.sale');
     Route::get('/product/edit/{id}',[ProductController::class,'productEdit'])->name('product.edit');
     Route::put('/product/update/{id}',[ProductController::class,'productUpdate'])->name('product.update');
     Route::get('/product/delete/{id}',[ProductController::class,'productDelete'])->name('product.delete');
