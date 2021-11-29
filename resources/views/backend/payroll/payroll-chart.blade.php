@@ -85,7 +85,11 @@ Payroll Chart
                         @foreach($payment as $data)
                             <tr>
                                 <td>{{$data->user_id}}</td>
-                                <td>{{$data->employee->name}}</td>
+                                @if($data->employee)
+                                    <td>{{$data->employee->name}}</td>
+                                @else
+                                    <td>N/A</td>
+                                @endif
                                 <td>{{$data->attend}}</td>
                                 <td>{{$data->salary}}</td>
                                 <td>{{date('jS M Y',strtotime($data->from_date))}} - {{date('jS M Y', strtotime($data->to_date))}}</td>
