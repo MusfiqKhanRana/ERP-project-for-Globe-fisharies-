@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>{{$cate->invoice_id}}</title>
     <link href="{{asset('assets/backend/invoice.css')}}" rel="stylesheet" type="text/css" />
-
+    
 </head>
 <div id="printInvoice">
 <body>
@@ -132,42 +132,20 @@
 
 </div>
 </div>
-<a href="{{url('admin/catering/system')}}">Go Back</a>
-<button id="printbtn" class="printbtn">Print</button>
+&nbsp;<a href="{{url('admin/catering/system')}}">Go Back</a>
+<button id="printbtn" class="btn btn-info">Print</button>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.js" integrity="sha256-tA8y0XqiwnpwmOIl3SGAcFl2RvxHjA8qp0+1uCGmRmg="
         crossorigin="anonymous"></script>
+<script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.0/jQuery.print.js"></script>
 
 
 <script>
     jQuery(document).ready(function() {
         $("#printbtn").click(function () {
-
-            var contents = $("#printInvoice").html();
-
-            var frame1 = $('<iframe />');
-            frame1[0].name = "frame1";
-            frame1.css({ "position": "absolute", "top": "-1000000px" });
-            $("body").append(frame1);
-            var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
-            frameDoc.document.open();
-            //Create a new HTML document.
-            frameDoc.document.write('<html><head><title>Invoice</title>');
-            frameDoc.document.write('</head><body>');
-            //Append the external CSS file.
-            frameDoc.document.write('<link href="{{asset('assets/backend/invoice.css')}}" rel="stylesheet" type="text/css" />');
-//            frameDoc.document.write('<link href="assets/css/app.css" rel="stylesheet" type="text/css" />');
-            //alert(frameDoc);
-            //Append the DIV contents.
-            frameDoc.document.write(contents);
-            frameDoc.document.write('</body></html>');
-            frameDoc.document.close();
-            setTimeout(function () {
-                window.frames["frame1"].focus();
-                window.frames["frame1"].print();
-                frame1.remove();
-            }, 500);
+            $("#printInvoice").print();
         });
     });
+</script>
 </script>
 </body>
 

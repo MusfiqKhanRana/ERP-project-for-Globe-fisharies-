@@ -50,6 +50,7 @@
 
                                 <div class="col-md-6">
                                     <select class="form-control" name="warehouse_id" required>
+                                        <option selected>Select</option>
                                         @foreach($warehouse as $data)
                                             <option value="{{$data->id}}">{{$data->name}}</option>
                                         @endforeach
@@ -62,6 +63,7 @@
 
                                 <div class="col-md-6">
                                     <select class="form-control" name="customer_id" required>
+                                    <option selected> Select</option>
                                     @foreach($customer as $data)
                                     <option value="{{$data->id}}">{{$data->full_name}}</option>
                                     @endforeach
@@ -75,6 +77,7 @@
 
                                 <div class="col-md-6">
                                     <select class="form-control select2me" id="department" required>
+                                        <option selected>Select</option>
                                     @foreach($category as $data)
                                     <option value="{{$data->id}}">{{$data->name}}</option>
                                     @endforeach
