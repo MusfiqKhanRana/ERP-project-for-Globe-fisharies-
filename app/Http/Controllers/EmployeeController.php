@@ -20,7 +20,7 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        $employee = User::orderBy('id', 'DESC')->paginate(5);
+        $employee = User::orderBy('id', 'DESC')->paginate(10);
         $time = Timezone::find(1);
         return view('backend.employee.employee-list', compact('employee','time'));
     }

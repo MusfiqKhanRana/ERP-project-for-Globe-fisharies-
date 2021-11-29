@@ -118,7 +118,8 @@
                                 </tbody>
                             </table>
                             <div class="row">
-                                <div class="col-md-12 text-center">{{ $employee->links() }}</div>
+                                {{-- <div class="col-md-12 text-center">{{ $employee->links() }}</div> --}}
+                                {{ $employee->links('vendor.pagination.custom') }}
                             </div>
                         </div>
 
