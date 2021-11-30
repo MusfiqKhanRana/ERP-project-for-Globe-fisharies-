@@ -255,6 +255,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //User Type
     Route::resource('user-type', UserTypeController::class);
+    Route::get('requisition/confirm/{id}',[RequisitionController::class,'confirm'])->name('requisition.confirm');
     Route::resource('requisition', RequisitionController::class);
 
 });

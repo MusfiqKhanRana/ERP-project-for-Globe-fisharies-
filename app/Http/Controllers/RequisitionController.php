@@ -72,7 +72,8 @@ class RequisitionController extends Controller
      */
     public function edit(Requisition $requisition)
     {
-        //
+        $category = Category::select('id','name')->get();
+        return view('backend.requisition.edit',compact('requisition','category'));
     }
 
     /**
@@ -84,7 +85,7 @@ class RequisitionController extends Controller
      */
     public function update(Request $request, Requisition $requisition)
     {
-        //
+        return $request->all();
     }
     public function confirm($id)
     {

@@ -89,9 +89,9 @@
                                                 <td>{{$data->clearance_date}}</td>
                                                 <td>
                                                     @if($data->confirmed == false)
-                                                        <a class="btn purple" href="{{route('requisition.confirm',$data->id)}}><i class="fa fa-check-circle-o"></i> confirm</a>
+                                                        <a class="btn purple" href="{{route('requisition.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i> confirm</a>
                                                     @endif
-                                                    <a class="btn blue-chambray"  data-toggle="modal" href="{{route('customer.detail.edit',$data->id)}}"><i class="fa fa-edit"></i> Edit</a>
+                                                    <a class="btn blue-chambray"  data-toggle="modal" href="{{route('requisition.edit',$data)}}"><i class="fa fa-edit"></i> Edit</a>
                                                     <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
                                                 </td>
                                             </tr>
@@ -171,7 +171,7 @@
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Pac Size</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" placeholder="Customer Address" required name="pac_size">
+                                    <input type="text" class="form-control" placeholder="Pac Size" required name="pac_size">
                                 </div>
                             </div>
 
