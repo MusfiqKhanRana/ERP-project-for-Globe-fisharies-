@@ -46,27 +46,45 @@ class SalePointController extends Controller
 
     public function saleProduct(Request $request)
     {
-        
         $this->validate($request,[
             'product_id' => 'required',
             'warehouse_id' => 'required',
-            'customer_id' => 'required',
             'quantity' => 'required',
         ]);
-
+        if ($request->phone || $request->email) {
+            $customer = Cutomer::where('phone',$request->phone)
+                        ->orWhere('email',$request->email)
+                        ->first();
+            if(!$customer){
+                $customer = Cutomer::create(['full_name'=>$request->full_name,'phone' => $request->phone,'email'=>$request->email,'address'=>$request->address,'include_word'=>$request->include_word]);
+                $request->customer_id = $customer->id;
+            }
+            else{
+                $request->customer_id = $customer->id;
+            }
+        }
         $stock = StockProduct::where('warehouse_id', $request->warehouse_id)
             ->where('product_id',$request->product_id)->sum('quantity');
 
         if ($request->quantity < $stock)
         {
             $total = $request->quantity * $request->selling_price;
-
+            if (!$request->discount_in_amount) {
+               $a=$request->discount_in_percentage/100;
+               $b=$request->selling_price * $a;
+               $total = $total-$b;
+            }
+            else 
+                $total = $total-$request->discount_in_amount;
+          
             $cate = SalePoint::create([
                 'product_id' => $request->product_id,
                 'warehouse_id' => $request->warehouse_id,
                 'customer_id' => $request->customer_id,
                 'quantity' => $request->quantity,
                 'invoice_id' => $request->invoice_id,
+                'discount_in_amount' => $request->discount_in_amount,
+                'discount_in_percentage' => $request->discount_in_percentage,
                 'total_amount' => $total,
                 'date' => Carbon::today()
             ]);

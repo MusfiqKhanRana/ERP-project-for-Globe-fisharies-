@@ -71,7 +71,8 @@
                     </td>
 
                     <td>
-                        {{$cate->product->selling_price}} {{ $general->currency}}
+                        @php $selling_price = $cate->total_amount/$cate->quantity @endphp
+                        {{$selling_price}} {{ $general->currency}}
 
                     </td>
                 </tr>

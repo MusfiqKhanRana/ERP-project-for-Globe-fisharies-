@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class SalePoint extends Model
 {
     protected $guarded = ['id'];
-
+    // protected $fillable = [
+    //     'discount_in_percentage','discount_in_amount'
+    // ];
     public function customer()
     {
         return $this->hasOne(Cutomer::class, 'id', 'customer_id');
