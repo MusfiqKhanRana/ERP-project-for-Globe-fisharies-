@@ -56,7 +56,7 @@
                                                 <tbody>
                                                     @foreach($users as $key=> $data)
                                                         <tr id="row1">
-                                                            <td> {{$data->name}}</td>
+                                                            <td class="text-align: center;"> {{$data->name}}</td>
                                                             <td>
                                                                 <a class="btn red-flamingo"  data-toggle="modal" href="#editModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
                                                                 <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>

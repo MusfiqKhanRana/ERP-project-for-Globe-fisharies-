@@ -126,8 +126,9 @@ class ProductController extends Controller
 
     public function stockProductDetail($id)
     {
+        $warehouse = Warehouse::find($id);
         $stock_product = StockProduct::where('warehouse_id', $id)
             ->distinct()->get(['product_id']);
-        return view('backend.product.warehouse_stock_product', compact('stock_product','id'));
+        return view('backend.product.warehouse_stock_product', compact('stock_product','id','warehouse'));
     }
 }
