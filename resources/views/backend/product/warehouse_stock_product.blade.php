@@ -27,6 +27,7 @@ Product Quantity
     </style>
 @endsection
 @section('main-content')
+
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <!-- BEGIN CONTENT BODY -->
@@ -40,15 +41,16 @@ Product Quantity
                 </script>
         @endif
         <!-- BEGIN PAGE TITLE-->
-            <h3 class="page-title">Product Stock List
-
+            <h3 class="page-title">Stock  Products List 
             </h3>
+            <a class="btn blue-chambray pull-right"  href="{{ route('product.stock')}}"><i class="fa fa-backward"></i>  Back</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <hr>
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box red">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-globe"></i> Products List</div>
+                       <P><b>Warehouse :</b> {{$warehouse->name}}</P>
+                    </div>
                     <div class="tools"> </div>
                 </div>
                 <div class="portlet-body">
@@ -71,7 +73,7 @@ Product Quantity
                                     @if($id == '')
 
                                     @else
-                                    {{ \App\StockProduct::where('warehouse_id', $id)->where('product_id', $data->product_id)->sum('quantity') }}
+                                    {{ \App\Models\StockProduct::where('warehouse_id', $id)->where('product_id', $data->product_id)->sum('quantity') }}
                                     {{$data->product->unit}}
                                     @endif
                                 </td>

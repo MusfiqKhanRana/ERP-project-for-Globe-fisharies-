@@ -16,4 +16,8 @@ class Warehouse extends Model
     {
         return $this->belongsTo(SalePoint::class)->withDefault();
     }
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'stock_products', 'warehouse_id', 'product_id');
+    }
 }

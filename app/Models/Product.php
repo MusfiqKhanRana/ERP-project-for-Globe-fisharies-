@@ -31,4 +31,8 @@ class Product extends Model
     {
         return $this->belongsTo(SalePoint::class)->withDefault();
     }
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class)->withDefault();
+    }
 }
