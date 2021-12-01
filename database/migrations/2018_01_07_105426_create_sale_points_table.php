@@ -16,10 +16,12 @@ class CreateSalePointsTable extends Migration
         Schema::create('sale_points', function (Blueprint $table) {
             $table->increments('id');
             $table->string('invoice_id');
-            $table->integer('customer_id');
-            $table->integer('product_id');
-            $table->string('quantity');
-            $table->string('total_amount');
+            $table->integer('customer_id')->nullable();
+            $table->integer('product_id')->nullable();
+            $table->string('quantity')->nullable();
+            $table->string('discount_in_amount')->nullable();
+            $table->string('discount_in_percentage')->nullable();
+            $table->string('total_amount')->nullable();
             $table->timestamps();
         });
     }

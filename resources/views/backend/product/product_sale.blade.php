@@ -50,6 +50,7 @@
 
                                 <div class="col-md-6">
                                     <select class="form-control" name="warehouse_id" required>
+                                        <option value="">--select--</option>
                                         @foreach($warehouse as $data)
                                             <option value="{{$data->id}}">{{$data->name}}</option>
                                         @endforeach
@@ -59,17 +60,60 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Customer Select:</label>
+                                <fieldset class="question">
+                                    <label for="col-md-2 control-label coupon_question">New Customer?</label>
+                                    <input class="coupon_question11" type="checkbox" name="coupon_question" value="" />
+                                    <span class="item-text">Yes</span>
+                                </fieldset>
 
                                 <div class="col-md-6">
-                                    <select class="form-control" name="customer_id" required>
-                                    @foreach($customer as $data)
-                                    <option value="{{$data->id}}">{{$data->full_name}}</option>
-                                    @endforeach
+                                    <select class="form-control answer22" name="customer_id">
+                                        <option value="">--select--</option>
+                                        @foreach($customer as $data)
+                                         <option value="{{$data->id}}">{{$data->full_name}}</option>
+                                        @endforeach
                                     </select>
+                                    <fieldset class="answer11">
+                                        <div class="form-group">
+                                            <label for="inputEmail1" class="col-md-2 control-label">Full Name</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="Customer Name" name="full_name">
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group">
+                                            <label for="inputEmail1" class="col-md-2 control-label">Phone</label>
+                                            <div class="col-md-8">
+                                                <input type="number" class="form-control" placeholder="Customer Phone" name="phone">
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group">
+                                            <label for="inputEmail1" class="col-md-2 control-label">Email</label>
+                                            <div class="col-md-8">
+                                                <input type="email" class="form-control" placeholder="Customer Email" name="email">
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group">
+                                            <label for="inputEmail1" class="col-md-2 control-label">Address</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" placeholder="Customer Address" name="address">
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group">
+                                            <label for="inputEmail1" class="col-md-7 control-label">Suggestions or topics you would like to be included:</label>
+                                            <div class="col-md-12">
+                                                <div class="col-md-12 ">
+                                                    <input type="text" class="form-control" placeholder="Your Text (Not Required)" name="include_word">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
 
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Category :</label>
                                 <div class="col-md-6">
@@ -97,7 +141,20 @@
                                 <label class="radio-inline">
                                     <input type="radio" value="{{$product->retail_selling_price}}" name="selling_price">Retail Selling Price ({{$product->retail_selling_price}})
                                 </label>
+                            </div><br>
+                            <label class="col-md-2 control-label">Discount : </label>
+                            <div class="form-group">
+                                    <span class="rxyz1">
+                                        <input type="text" name="discount_in_percentage" placeholder="discount in %" id="coupon_field_1"/>
+                                    </span>
+                                    <span class="rxyz2">
+                                        <input type="text" name="discount_in_amount" placeholder="discount in amount" id="coupon_field_2"/>
+                                    </span>
+                                    <fieldset class="radio-inline question coupon_question2">
+                                        <input class="form-check-input xyz2" id="amount" type="checkbox">Want in Amount ? 
+                                    </fieldset>
                             </div>
+                            
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Quantity: </label>
 
@@ -164,6 +221,28 @@
                     }
                 });
             });
+        });
+    $(".answer11").hide();
+    $(".coupon_question11").click(function() {
+        if($(this).is(":checked")) {
+            $(".answer11").show();
+            $(".answer22").hide();
+        } else {
+            $(".answer11").hide();
+            $(".answer22").show();
+        }
+    });
+    $(".rxyz2").hide();
+        $(".xyz2").click(function() {
+            if($(this).is(":checked")) {
+                $(".rxyz2").show();
+                $(".rxyz1").hide();
+                $('#coupon_field_1').val('');
+            } else {
+                $(".rxyz2").hide();
+                $(".rxyz1").show();
+                $('#coupon_field_2').val('');
+            }
         });
     </script>
 @endsection

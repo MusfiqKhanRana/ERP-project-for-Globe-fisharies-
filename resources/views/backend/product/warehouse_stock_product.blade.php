@@ -71,7 +71,7 @@ Product Quantity
                                     @if($id == '')
 
                                     @else
-                                    {{ \App\StockProduct::where('warehouse_id', $id)->where('product_id', $data->product_id)->sum('quantity') }}
+                                    {{ \App\Models\StockProduct::where('warehouse_id', $id)->where('product_id', $data->product_id)->sum('quantity') }}
                                     {{$data->product->unit}}
                                     @endif
                                 </td>

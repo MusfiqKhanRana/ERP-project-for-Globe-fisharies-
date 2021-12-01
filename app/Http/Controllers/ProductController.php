@@ -46,7 +46,7 @@ class ProductController extends Controller
     }
     public function productSale($id)
     {
-        $product = Product::with('category')->find($id);
+        $product = Product::with('category','stock')->find($id);
         $category = Category::all();
         $customer = Cutomer::all();
         $warehouse = Warehouse::all();
