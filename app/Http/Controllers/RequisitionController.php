@@ -85,7 +85,12 @@ class RequisitionController extends Controller
      */
     public function update(Request $request, Requisition $requisition)
     {
-        return $request->all();
+        
+        $data = $request->all();
+        unset($data['_token']);
+        unset($data['_method']);
+        $requisition->update($data);
+        return redirect('admin/requisition')->withMsg('Successfully Updated');
     }
     public function confirm($id)
     {
