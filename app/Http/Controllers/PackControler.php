@@ -1,14 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Party;
-use App\Models\User;
-use App\Models\UserType;
-use App\Models\pack;
+use App\Models\Pack;
 use Illuminate\Http\Request;
 
-class UserTypeController extends Controller
+class PackControler extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +13,7 @@ class UserTypeController extends Controller
      */
     public function index()
     {
-        
-       $users = UserType::all();
-       $parties = Party::all();
-       $packs = Pack::all();
-       return view('backend.menu.index', compact('users','parties','packs'));
+        //
     }
 
     /**
@@ -31,7 +23,7 @@ class UserTypeController extends Controller
      */
     public function create()
     {
-        return view('backend.users_type.create');
+        return view('backend.pack.create');
     }
 
     /**
@@ -46,9 +38,9 @@ class UserTypeController extends Controller
         $this->validate($request,array(
            'name' => 'required|max:191',
         ));
-        $users = new UserType;
-        $users->name = $request->name;
-        $users->save();
+        $packs = new Pack;
+        $packs->name = $request->name;
+        $packs->save();
 
         return redirect()->back()->withMsg('Successfully Created');
     }
@@ -72,8 +64,7 @@ class UserTypeController extends Controller
      */
     public function edit($id)
     {
-        
-    
+        //
     }
 
     /**
@@ -85,7 +76,7 @@ class UserTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        UserType::whereId($id)
+        Pack::whereId($id)
         ->update([
             'name' => $request->name,
         ]);
@@ -100,7 +91,7 @@ class UserTypeController extends Controller
      */
     public function destroy($id)
     {
-        UserType::whereId($id)->delete();
+        Pack::whereId($id)->delete();
         return redirect()->back()->withMsg("Successfully Deleted");
     }
 }
