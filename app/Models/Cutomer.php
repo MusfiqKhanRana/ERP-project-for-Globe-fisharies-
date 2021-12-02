@@ -8,9 +8,13 @@ class Cutomer extends Model
 {
     protected $fillable = [
         'full_name',
+        'designation',
         'phone',
         'email',
+        'customer_type',
+        'activated',
         'address',
+        'area_id',
         'include_word'
     ];
 
