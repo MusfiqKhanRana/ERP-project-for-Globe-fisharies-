@@ -137,6 +137,13 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Designation</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" placeholder="Customer Name" name="designation">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Phone</label>
                                 <div class="col-md-8">
                                     <input type="number" class="form-control" placeholder="Customer Phone" required name="phone">
@@ -153,7 +160,39 @@
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Address</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" placeholder="Customer Address" required name="address">
+                                    <input type="text" class="form-control" placeholder="Customer Address" name="address">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Area ID</label>
+                                <div class="col-md-8">
+                                        <select class="custom-select form-control mr-sm-2" name="area_id" id="inlineFormCustomSelect">
+                                          <option selected>Choose...</option>
+                                          @foreach ($area as $item)
+                                          <option value="{{$item->id}}">{{$item->name}}</option>    
+                                          @endforeach
+                                        </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Customer Type</label>
+                                <div class="col-md-8">
+                                    <div class="form-check form-check-inline">
+                                        <label class="radio-inline">
+                                            <input type="radio" value="inhouse" name="customer_type" checked>Inhouse
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" value="online" name="customer_type">Online
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" value="modern_trade" name="customer_type">Modern Trade
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" value="sample" name="customer_type">Sample
+                                        </label>
+                                      </div>
                                 </div>
                             </div>
 

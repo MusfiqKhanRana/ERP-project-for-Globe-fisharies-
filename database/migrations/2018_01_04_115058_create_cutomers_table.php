@@ -15,10 +15,14 @@ class CreateCutomersTable extends Migration
     {
         Schema::create('cutomers', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('designation');
             $table->string('full_name');
             $table->string('phone');
             $table->string('email');
-            $table->text('address');
+            $table->string('customer_type');
+            $table->boolean('activated');
+            $table->string('address');
+            $table->unsignedInteger('area_id');
             $table->text('include_word');
             $table->timestamps();
         });

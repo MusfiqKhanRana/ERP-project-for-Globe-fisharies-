@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\area;
 use App\Models\Cutomer;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,8 @@ class CutomerController extends Controller
     public function cuctomerIndex()
     {
         $customer = Cutomer::all();
-        return view('backend.customer.customer', compact('customer'));
+        $area=area::all();
+        return view('backend.customer.customer', compact('customer','area'));
     }
 
     public function cuctomerStore(Request $request)
@@ -21,7 +23,10 @@ class CutomerController extends Controller
             'phone' => 'required',
             'email' => 'required',
         ]);
-        Cutomer::create($request->all());
+        $data = $request->all();
+        unset($data['_token']);
+        $data['activated'] = true;
+        Cutomer::create($data);
         return redirect()->back()->withmsg('Successfully Created');
     }
 
