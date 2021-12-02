@@ -28,6 +28,8 @@ use App\Http\Controllers\CateringManagement;
 use App\Http\Controllers\OfficeDetailController;
 use App\Http\Controllers\FoodMillController;
 use App\Http\Controllers\CateringController;
+use App\Http\Controllers\PackControler;
+use App\Http\Controllers\PartyController;
 use App\Http\Controllers\PersonalManagementController;
 use App\Http\Controllers\RequisitionController;
 use App\Http\Controllers\UserTypeController;
@@ -257,5 +259,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('user-type', UserTypeController::class);
     Route::get('requisition/confirm/{id}',[RequisitionController::class,'confirm'])->name('requisition.confirm');
     Route::resource('requisition', RequisitionController::class);
+
+    //Party
+
+    Route::resource('party', PartyController::class);
+
+    //Pack
+
+    Route::resource('pack', PackControler::class);
 
 });

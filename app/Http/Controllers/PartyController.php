@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Party;
-use App\Models\User;
-use App\Models\UserType;
-use App\Models\pack;
 use Illuminate\Http\Request;
+use App\Models\Party;
 
-class UserTypeController extends Controller
+class PartyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +15,7 @@ class UserTypeController extends Controller
     public function index()
     {
         
-       $users = UserType::all();
-       $parties = Party::all();
-       $packs = Pack::all();
-       return view('backend.menu.index', compact('users','parties','packs'));
+        // return view('backend.party.index');
     }
 
     /**
@@ -31,7 +25,7 @@ class UserTypeController extends Controller
      */
     public function create()
     {
-        return view('backend.users_type.create');
+        return view('backend.party.create');
     }
 
     /**
@@ -44,11 +38,19 @@ class UserTypeController extends Controller
     {
         $inputs = $request->except('_token', 'name');
         $this->validate($request,array(
-           'name' => 'required|max:191',
+           'party_code' => 'required|max:191',
+           'party_name' => 'required|max:191',
+           'party_type' => 'required|max:191',
+           'party_short_name' => 'required|max:191',
+           
+
         ));
-        $users = new UserType;
-        $users->name = $request->name;
-        $users->save();
+        $parties = new Party;
+        $parties->party_code = $request->party_code;
+        $parties->party_name = $request->party_name;
+        $parties->party_type = $request->party_type;
+        $parties->party_short_name = $request->party_short_name;
+        $parties->save();
 
         return redirect()->back()->withMsg('Successfully Created');
     }
@@ -72,8 +74,7 @@ class UserTypeController extends Controller
      */
     public function edit($id)
     {
-        
-    
+        //
     }
 
     /**
@@ -85,9 +86,12 @@ class UserTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        UserType::whereId($id)
+        Party::whereId($id)
         ->update([
-            'name' => $request->name,
+            'party_code' => $request->party_code,
+            'party_name' => $request->party_name,
+            'party_type' => $request->party_type,
+            'party_short_name' => $request->name,
         ]);
         return redirect()->back()->withMsg("Successfully Updated");
     }
@@ -100,7 +104,7 @@ class UserTypeController extends Controller
      */
     public function destroy($id)
     {
-        UserType::whereId($id)->delete();
+        Party::whereId($id)->delete();
         return redirect()->back()->withMsg("Successfully Deleted");
     }
 }

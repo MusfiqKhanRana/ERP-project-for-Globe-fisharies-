@@ -1,7 +1,7 @@
 
 @extends('backend.master')
 @section('site-title')
-   Create User
+   Create Pack
 @endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
@@ -9,7 +9,7 @@
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title" class="portlet box dark">Create User Type
+            <h3 class="page-title" class="portlet box dark">Create Pack
             </h3>
             <hr>
             @if (count($errors) > 0)
@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="portlet-body" style="height: auto;">
-                    <form method="post" action="{{route('user-type.store')}}" class="form-horizontal">
+                    <form method="post" action="{{route('pack.store')}}" class="form-horizontal">
                         {{csrf_field()}}
                         <div class="col-md-12 ">
                             <div class="portlet-body">
@@ -37,7 +37,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">ID<span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="user_id" placeholder="User ID" value="">
+                                            <input type="text" class="form-control" name="id" placeholder="ID" value="">
                                         </div>
                                     </div>
                                     <div class="form-group">
