@@ -18,7 +18,8 @@ class ProductController extends Controller
     {
         $product = Product::all();
         $category = Category::all();
-        return view('backend.product.product', compact('product', 'category'));
+        $pack = Pack::all();
+        return view('backend.product.product', compact('product','pack','category'));
     }
 
     public function productStore(Request $request)
@@ -144,42 +145,57 @@ class ProductController extends Controller
      {
       $output = '';
       $query = $request->get('query');
-      if($query != '')
-      {
-       $data = Product::where('category_id', 'like', '%'.$query.'%')
-         ->orWhere('product_name', 'like', '%'.$query.'%')
-         ->orWhere('product_id', 'like', '%'.$query.'%')
-         ->orWhere('unit', 'like', '%'.$query.'%')
-         ->orWhere('buying_price', 'like', '%'.$query.'%')
-         ->orWhere('selling_price', 'like', '%'.$query.'%')
-         ->orWhere('online_selling_price', 'like', '%'.$query.'%')
-         ->orWhere('inhouse_selling_price', 'like', '%'.$query.'%')
-         ->orWhere('retail_selling_price', 'like', '%'.$query.'%')
-         ->orWhere('pack_size', 'like', '%'.$query.'%')
-         ->orderBy('product_id', 'desc')
-         ->get();
+      $data = null;
+      if($query != null){
+        $data = Product::with('pack')->where('category_id', 'like', '%'.$query.'%')
+                ->orWhere('product_name', 'like', '%'.$query.'%')
+                ->orWhere('product_id', 'like', '%'.$query.'%')
+                ->orWhere('unit', 'like', '%'.$query.'%')
+                ->orWhere('buying_price', 'like', '%'.$query.'%')
+                ->orWhere('selling_price', 'like', '%'.$query.'%')
+                ->orWhere('online_selling_price', 'like', '%'.$query.'%')
+                ->orWhere('inhouse_selling_price', 'like', '%'.$query.'%')
+                ->orWhere('retail_selling_price', 'like', '%'.$query.'%')
+                ->orWhere('pack_id', 'like', '%'.$query.'%')
+                ->orderBy('product_id', 'desc')
+                ->get();
          
       }
       else
       {
-       $data = DB::table('tbl_customer')
-       ->orderBy('product_id', 'desc')
-         ->get();
+        $data = Product::with('pack')->orderBy('product_id', 'desc')->get();
       }
       $total_row = $data->count();
       if($total_row > 0)
       {
        foreach($data as $row)
        {
-        $output .= '
-        <tr>
-         <td>'.$row->CustomerName.'</td>
-         <td>'.$row->Address.'</td>
-         <td>'.$row->City.'</td>
-         <td>'.$row->PostalCode.'</td>
-         <td>'.$row->Country.'</td>
-        </tr>
-        ';
+        $output .= 
+        '<tr><td>'.
+            $row->category_id
+        .'</td><td>'.
+        $row->product_name
+        .'</td><td>'.
+            $row->product_id
+        .'</td><td>'.
+            $row->category->name
+        .'</td><td>'.
+            $row->unit
+        .'</td><td>'.
+            $row->buying_price
+        .'</td><td>'.
+            $row->selling_price
+        .'</td><td>'.
+            $row->online_selling_price
+        .'</td><td>'.
+            $row->inhouse_selling_price
+        .'</td><td>'.
+            $row->retail_selling_price
+        .'</td><td>'.
+            $row->pack->name
+        .'</td><td>'. '<a class ="btn blue-chambray" href="/admin/product/edit/'.$row->id.'">Edit</a><a class ="btn green" href="/admin/product/sale/'.$row->id.'">Add Sale</a><a class ="btn red" href="/admin/product/delete/'.$row->id.'">Delete</a>'.'</td>'.
+        '</tr>'
+        ;
        }
       }
       else
