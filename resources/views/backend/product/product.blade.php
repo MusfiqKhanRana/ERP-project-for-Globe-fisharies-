@@ -196,8 +196,16 @@
                                     </div>
                                 </div>
                             </div>
-
-
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <label class="control-label">Pack Size</label>
+                                        <select name="pack_size" id="subCategory" class="form-control">
+                                            <option value="0">-- Select Sub Category --</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="modal-footer">
                                 <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                 <button type="submit" class="btn blue-chambray"><i class="fa fa-floppy-o"></i> Save</button>
@@ -208,4 +216,34 @@
             </div>
         </div>
     </div>
+    @endsection
+    @section('script')
+    <script type="text/javascript">
+        $(document).ready(function () {
+             $('#subCategory').find('option').not(':first').remove();
+          
+             $.ajax({
+                url:"{{route('packsize')}}",
+                type:'get',
+                dataType:'json',
+                success:function (response) {
+                    var len = 0;
+                    if (response.data != null) {
+                        len = response.data.length;
+                    }
+
+                    if (len>0) {
+                        for (var i = 0; i<len; i++) {
+                             var id = response.data[i].id;
+                             var name = response.data[i].name;
+
+                             var option = "<option value='"+id+"'>"+name+"</option>"; 
+
+                             $("#subCategory").append(option);
+                        }
+                    }
+                }
+             })
+           });
+    </script>
 @endsection
