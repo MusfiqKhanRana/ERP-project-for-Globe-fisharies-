@@ -139,19 +139,30 @@
                             {{csrf_field()}}
                             <br>
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Product Category</label>
+                                <label for="inputEmail1" class="col-md-2 control-label">Warehouse</label>
                                 <div class="col-md-8">
-                                    <select class="form-control select2me" id="department" name="category_id" required>
+                                    <select class="form-control select2me" id="warehouse" name="warehouse_id" required>
                                         <option value="">--select--</option>
-                                        @foreach($category as $data)
+                                        @foreach($warehouse as $data)
                                             <option value="{{$data->id}}">{{$data->name}}</option>
                                         @endforeach
-                                        {{csrf_field()}}
                                     </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Party</label>
+                                <div class="col-md-8">
+                                    <select class="form-control select2me" id="party" name="party_id" required>
+                                        <option value="">--select--</option>
+                                        @foreach($party as $data)
+                                            <option value="{{$data->id}}">{{$data->party_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            {{-- <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Product Name</label>
                                 <div class="col-md-8">
                                     <select class="form-control select2me" name="product_id" id="product" required>
@@ -159,30 +170,71 @@
                                     </select>
                                     {{csrf_field()}}
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Product Quantity</label>
                                 <div class="col-md-8">
                                     <input type="number" class="form-control" placeholder="Quantity" required name="quantity">
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Pac Size</label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" placeholder="Pac Size" required name="pac_size">
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Clearence Date</label>
+                                <label for="inputEmail1" class="col-md-2 control-label">Expedted Date</label>
                                 <div class="col-md-8">
                                     <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
                                         <input type="text" class="form-control" name="clearance_date"  readonly >
                                         <span class="input-group-btn">
                                             <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                         </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label for="inputEmail1" class="col-md-6 control-label">Add Products</label>
+                                    <div class="description" style="width: 100%;border: 1px solid #ddd;padding: 10px;border-radius: 5px" >
+                                            <div class="col-md-12" id="planDescriptionContainer">
+                                                <div class="input-group">
+                                                    <div class="col-md-3">
+                                                        <label for="category">Category</label>
+                                                        <select class="form-control select2me category1" id="department" name="category_id[1]" required>
+                                                            <option value="">--select--</option>
+                                                            @foreach($category as $data)
+                                                                <option value="{{$data->id}}">{{$data->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label for="category">Product</label>
+                                                        <select class="form-control select2me product1" name="product_id[1]" id="product" placeholder="Product" required>
+
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label for="">Quantity</label>
+                                                        <input name="quantity[1]" class="form-control" type="text" required placeholder="Quantity">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-danger margin-top-20 delete_desc" type="button"><i class='fa fa-times'></i></button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-right margin-top-10">
+                                                <button id="btnAddDescription" type="button" class="btn btn-sm grey-mint pullri">Add Food Item</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -201,8 +253,62 @@
 @endsection
 @section('script')
     <script>
+        var max = 1;
+        var categories = @json($category, JSON_PRETTY_PRINT);
+        function appendPlanDescField(container) {
+            var options ="";
+            for (let index = 0; index < categories.length; index++) {
+                options+='<option value="'+categories[index].id+'">'+categories[index].name+'</option>'
+            }
+            container.append(
+                '<div class="input-group">'+
+                    '<div class="col-md-3">'+
+                        '<label for="category">Category</label>'+
+                        '<select class="form-control select2me category'+max+'"  name="category_id['+max+']" required>'+
+                            '<option value="">--select--</option>'+options+
+                        '</select>'
+                    +'</div>'+
+                    '<div class="col-md-3">'+
+                        '<label for="category">Product</label>'+
+                        '<select class="form-control select2me product'+max+'" name="product_id['+max+']"  placeholder="Product" required>'+
+                        '</select>'
+                    +'</div>'+
+                    '<div class="col-md-3">'+
+                        '<label for="">Quantity</label>'+
+                        '<input name="quantity['+max+']" class="form-control" type="text" required placeholder="Quantity">'+
+                    '</div>'+
+                    '<div class="col-md-3">'+
+                        '<span class="input-group-btn">'+
+                            '<button class="btn btn-danger margin-top-20 delete_desc" type="button"><i class="fa fa-times"></i></button>'+
+                        '</span>'+
+                    '</div>'+
+                '</div>'
+
+            );
+        }
         $(document).ready(function(){
-            $(document).on('change','#department',function(){
+            $("#btnAddDescription").on('click', function () {
+                max++;
+                appendPlanDescField($("#planDescriptionContainer"));
+                $(document).on('change',".category"+max,function(){
+                    console.log(max);
+                    var id = $(this).val();
+                    $.ajax({
+                        type:"POST",
+                        url:"{{route('product.pass')}}",
+                        data:{
+                            'id' : id,
+                            '_token' : $('input[name=_token]').val()
+                        },
+                        success:function(data){
+                            $('.product'+max).html("");
+                            $('.product'+max).append(data.output);
+                        }
+                    });
+                });
+            });
+            $(document).on('change',".category"+max,function(){
+                console.log(max);
                 var id = $(this).val();
                 $.ajax({
                     type:"POST",
@@ -212,28 +318,14 @@
                         '_token' : $('input[name=_token]').val()
                     },
                     success:function(data){
-                        $('#product').html("");
-                        $('#product').append(data.output);
+                        $('.product'+max).html("");
+                        $('.product'+max).append(data.output);
                     }
                 });
             });
-
-            // $(document).on('change','#product',function(){
-            //     var id = $(this).val();
-            //     $.ajax({
-            //         type:"POST",
-            //         url:"{{route('product.element.pass')}}",
-            //         data:{
-            //             'id' : id,
-            //             '_token' : $('input[name=_token]').val()
-            //         },
-            //         success:function(data){
-            //             $('#pranto').text(data.selling_price);
-            //             $('#product_price').val(data.selling_price);
-            //             $('#roy').text(data.unit);
-            //         }
-            //     });
-            // });
+            $(document).on('click', '.delete_desc', function () {
+                $(this).closest('.input-group').remove();
+            });
         });
     </script>
 @endsection

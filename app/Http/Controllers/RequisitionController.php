@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Cutomer;
+use App\Models\Party;
 use App\Models\Requisition;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -24,7 +26,9 @@ class RequisitionController extends Controller
             }
         ])->get();
         $category = Category::select('id','name')->get();
-        return view('backend.requisition.index',compact('requisition','category'));
+        $warehouse = Warehouse::select('id','name')->get();
+        $party = Party::select('id','party_name')->get();
+        return view('backend.requisition.index',compact('requisition','category','warehouse','party'));
     }
 
     /**
@@ -46,6 +50,7 @@ class RequisitionController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        return $data;
         unset($data['_token']);
         $data['requisition_id'] = Str::random(6);
         $data['confirmed'] = false;
