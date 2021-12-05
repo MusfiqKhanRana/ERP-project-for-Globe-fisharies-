@@ -55,7 +55,7 @@
                                         <div class="tools">
                                         </div>
                                     </div>
-                                    <div class="portlet-body">
+                                    <div class="portlet-body" style="overflow:scroll; display:block;">
                                         <table class="table table-striped table-bordered table-hover">
                                             <thead>
                                             <tr>
@@ -70,7 +70,7 @@
                                                 <th>In House Selling Price</th>
                                                 <th>Retail Selling Price</th>
                                                 <th>Pack Size</th>
-                                                <th style="text-align: center"> Action </th>
+                                                <th style="text-align: center;width:400px"> Action </th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -225,57 +225,87 @@
     </div>
     @endsection
     @section('script')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-             $('#subCategory').find('option').not(':first').remove();
-          
-             $.ajax({
-                url:"{{route('packsize')}}",
-                type:'get',
-                dataType:'json',
-                success:function (response) {
-                    var len = 0;
-                    if (response.data != null) {
-                        len = response.data.length;
-                    }
+            $('#subCategory').find('option').not(':first').remove();
+        
+            $.ajax({
+            url:"{{route('packsize')}}",
+            type:'get',
+            dataType:'json',
+            success:function (response) {
+                var len = 0;
+                if (response.data != null) {
+                    len = response.data.length;
+                }
 
-                    if (len>0) {
-                        for (var i = 0; i<len; i++) {
-                             var id = response.data[i].id;
-                             var name = response.data[i].name;
+                if (len>0) {
+                    for (var i = 0; i<len; i++) {
+                            var id = response.data[i].id;
+                            var name = response.data[i].name;
 
-                             var option = "<option value='"+id+"'>"+name+"</option>"; 
+                            var option = "<option value='"+id+"'>"+name+"</option>"; 
 
-                             $("#subCategory").append(option);
-                        }
+                            $("#subCategory").append(option);
                     }
                 }
-             })
-           });
-
-           $(document).ready(function(){
-
-            fetch_customer_data();
-
-            function fetch_customer_data(query = '')
-            {
-            $.ajax({
-            url:"{{ route('product.search') }}",
-            method:'GET',
-            data:{query:query},
-            dataType:'json',
-            success:function(data)
-            {
-            $('tbody').html(data.table_data);
-            $('#total_records').text(data.total_data);
             }
             })
+            fetch_customer_data();
+            
+            function fetch_customer_data(query = '')
+            {
+                $.ajax({
+                    url:"{{ route('product.search') }}",
+                    method:'GET',
+                    data:{query:query},
+                    dataType:'json',
+                    success:function(data)
+                    {
+                        $('tbody').html(data.table_data);
+                        $('#total_records').text(data.total_data);
+                    }
+                })
             }
 
             $(document).on('keyup', '#search', function(){
-            var query = $(this).val();
-            fetch_customer_data(query);
+                var query = $(this).val();
+                fetch_customer_data(query);
             });
-            });
+            $(document).on('click','.test_id',function(){
+                var product_id = $(this).attr("data-id");
+                Swal.fire({
+                    title: 'Warning!',
+                    text: 'Do you want to delete?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, send me there!'
+                }).then(function(result) {
+                    if (result.value){
+                        $.ajax({
+                            url: "/admin/product/delete/"+product_id,
+                            method: "get",
+                            success: function (response) {
+                                // window.location.reload();
+                                fetch_customer_data()
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'success',
+                                    title: 'Your data deleted',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                            }
+                        });
+                    }
+                    else{
+                        console.log('no');
+                    }
+                });
+            })
+        });
     </script>
 @endsection
