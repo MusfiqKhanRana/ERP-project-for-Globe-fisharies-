@@ -16,8 +16,13 @@
                 </script>
         @endif
         <!-- BEGIN PAGE TITLE-->
-            <h3 class="page-title bold">Product List
+        
+            <h3 class="page-title bold form-inline">Product List
                 <small> Office-managment </small>
+                <div class="form-group" style="margin-left: 10%">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <input type="text" name="search" id="search" class="form-control" placeholder="Search for Products" />
+                </div>
                 <a class="btn blue-ebonyclay pull-right" data-toggle="modal" href="#basic">
                     Add Product
                     <i class="fa fa-plus"></i>
@@ -54,20 +59,22 @@
                                         <table class="table table-striped table-bordered table-hover">
                                             <thead>
                                             <tr>
-                                                <th> Serial </th>
-                                                <th> Product ID </th>
+                                                <th> Category Id </th>
                                                 <th>Product Name</th>
+                                                <th> Product ID </th>
                                                 <th>Product Category</th>
                                                 <th>Product Unit</th>
                                                 <th>Buying Price</th>
+                                                <th>Selling Price</th>
                                                 <th>Online Selling Price</th>
                                                 <th>In House Selling Price</th>
                                                 <th>Retail Selling Price</th>
+                                                <th>Pack Size</th>
                                                 <th style="text-align: center"> Action </th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($product as $key => $data)
+                                            {{-- @foreach($product as $key => $data)
                                                 <tr id="table_tr_{{$data->id}}">
                                                     <td>{{$key+1}}</td>
                                                     <td>{{$data->product_id}}</td>
@@ -100,7 +107,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            @endforeach
+                                            @endforeach --}}
                                             </tbody>
                                         </table>
                                     </div>
@@ -200,7 +207,7 @@
                                 <div class="col-md-12">
                                     <div class="col-md-12">
                                         <label class="control-label">Pack Size</label>
-                                        <select name="pack_size" id="subCategory" class="form-control">
+                                        <select name="pack_id" id="subCategory" class="form-control">
                                             <option value="0">-- Select Sub Category --</option>
                                         </select>
                                     </div>
@@ -245,5 +252,30 @@
                 }
              })
            });
+
+           $(document).ready(function(){
+
+            fetch_customer_data();
+
+            function fetch_customer_data(query = '')
+            {
+            $.ajax({
+            url:"{{ route('product.search') }}",
+            method:'GET',
+            data:{query:query},
+            dataType:'json',
+            success:function(data)
+            {
+            $('tbody').html(data.table_data);
+            $('#total_records').text(data.total_data);
+            }
+            })
+            }
+
+            $(document).on('keyup', '#search', function(){
+            var query = $(this).val();
+            fetch_customer_data(query);
+            });
+            });
     </script>
 @endsection
