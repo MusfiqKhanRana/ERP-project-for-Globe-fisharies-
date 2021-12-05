@@ -58,9 +58,10 @@ class ProductController extends Controller
 
     public function productDelete($id)
     {
-             
+            
         $product = Product::whereId($id)->delete();
-        return redirect()->back()->withMsg("Product Deleted");
+        // return redirect()->back()->withMsg("Product Deleted");
+        return response("Data Deleted");
     }
 
     public function productUpdate(Request $request,$id)
@@ -193,7 +194,12 @@ class ProductController extends Controller
             $row->retail_selling_price
         .'</td><td>'.
             $row->pack->name
-        .'</td><td>'. '<a class ="btn blue-chambray" href="/admin/product/edit/'.$row->id.'">Edit</a><a class ="btn green" href="/admin/product/sale/'.$row->id.'">Add Sale</a><a class ="btn red" href="/admin/product/delete/'.$row->id.'">Delete</a>'.'</td>'.
+        .'</td>
+            <td>'.
+                '<a class ="btn green" data-toggle="tooltip" data-placement="top" title="Add to Sale" href="/admin/product/sale/'.$row->id.'"><i class="fa fa-tag" aria-hidden="true"></i></a>
+                <a class ="btn blue-chambray" data-toggle="tooltip" data-placement="top" title="Edit Product" href="/admin/product/edit/'.$row->id.'"><i class="fa fa-edit"></i></a>
+                <button class="btn red test_id" data-id='.$row->id.'><i class="fa fa-trash"></i></button>'.
+            '</td>'.
         '</tr>'
         ;
        }
