@@ -35,12 +35,6 @@
                             <div class="portlet-body">
                                 <div class="form-body">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">ID<span class="required">* </span></label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="party_id" placeholder="Party ID" value="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
                                         <label class="col-md-3 control-label">Party Code</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="party_code" placeholder="Party Code" value="">
@@ -55,7 +49,14 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Party Type</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="party_type" value="">
+                                           
+                                            <select class="form-control select2me" id="party_type" name="party_type">
+                                                <option value="">--Select--</option>
+                                                <option value="Online & Inhouse">Online & Inhouse</option>
+                                                <option value="Inhouse">Inhouse</option>
+                                                <option value="Modern Trade">Modern Trade</option>
+                                                <option value="Sample">Sample</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">

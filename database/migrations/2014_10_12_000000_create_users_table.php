@@ -31,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->integer('deg_id')->nullable();
             $table->string('date')->nullable();
             $table->string('salary')->nullable();
+            $table->string('branch_address')->nullable();
             $table->string('ac_name')->nullable();
             $table->string('ac_num')->nullable();
             $table->string('bank_name')->nullable();
