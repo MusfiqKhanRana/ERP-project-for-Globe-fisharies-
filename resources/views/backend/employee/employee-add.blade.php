@@ -184,6 +184,12 @@
                                             <input type="text" class="form-control" name="salary" placeholder="Current Salary" value="">
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Branch Address</label>
+                                        <div class="col-md-9">
+                                            <textarea class="form-control" name="branch_address" rows="3"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

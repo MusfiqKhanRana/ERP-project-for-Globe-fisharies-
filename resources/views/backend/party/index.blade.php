@@ -21,7 +21,7 @@
                     <th>prty Name</th>
                     <th>Party Type</th>
                     <th>Party Short Name</th>
-                    <th>Action</th>
+                    <th style="text-align: center">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,7 +32,7 @@
                             <td class="text-align: center;"> {{$data->party_name}}</td>
                             <td class="text-align: center;"> {{$data->party_type}}</td>
                             <td class="text-align: center;"> {{$data->party_short_name}}</td>
-                            <td>
+                            <td style="text-align: center">
                                 <a class="btn blue"  data-toggle="modal" href="#edit_partyModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
                                 <a class="btn red" data-toggle="modal" href="#deletepartyModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
                             </td>

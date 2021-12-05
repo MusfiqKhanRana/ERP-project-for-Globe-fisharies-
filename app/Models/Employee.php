@@ -33,6 +33,7 @@ class Employee extends Authenticatable
         'deg_id',
         'date',
         'salary',
+        'branch_address',
         'ac_name',
         'ac_num',
         'bank_name',

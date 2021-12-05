@@ -34,7 +34,7 @@ class PackControler extends Controller
      */
     public function store(Request $request)
     {
-        $inputs = $request->except('_token', 'name');
+        $inputs = $request->except('_token');
         $this->validate($request,array(
            'name' => 'required|max:191',
         ));
@@ -42,7 +42,7 @@ class PackControler extends Controller
         $packs->name = $request->name;
         $packs->save();
 
-        return redirect()->back()->withMsg('Successfully Created');
+        return redirect()->route('user-type.index')->withMsg('Successfully Created');
     }
 
     /**

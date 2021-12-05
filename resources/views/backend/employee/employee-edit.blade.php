@@ -223,6 +223,13 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-body">
+                                        <div class="form-group">
+                                            <div class="col-md-6">
+                                                <input class="form-control form-control-inline"  type="text" name="branch_name" value="{{$employee->branch_name}}" placeholder="Branch Name"/>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="actions col-md-12">

@@ -4,7 +4,7 @@
     <i class="fa fa-briefcase"></i>Pack List
     </div>
         <div class="caption pull-right">
-            <a class="btn green-meadow pull-right" data-toggle="modal" href="{{route('pack.create')}}">
+            <a class="btn green-meadow pull-right" data-toggle="modal" href="#addpackModal">
                 Add New Pack
             <i class="fa fa-plus"></i> </a>
         </div>
@@ -18,7 +18,7 @@
                 <tr>
                     <th>Serial</th>
                     <th>Name</th>
-                    <th>Action</th>
+                    <th style="text-align: center">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -26,7 +26,7 @@
                         <tr id="row1">
                             <td>{{$key+1}}</td>
                             <td class="text-align: center;"> {{$data->name}}</td>
-                            <td>
+                            <td style="text-align: center">
                                 <a class="btn btn-info"  data-toggle="modal" href="#editpackModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
                                 <a class="btn red" data-toggle="modal" href="#deletepackModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
                             </td>
@@ -91,7 +91,32 @@
                         </div>
                     @endforeach
                 </tbody>
+                
             </table>
+        </div>
+    </div>
+    <div id="addpackModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Add New Pack</h4>
+                </div>
+                <form class="form-horizontal" role="form" method="post" action="{{route('pack.store')}}">
+                    {{csrf_field()}}
+
+                    <div class="form-group">
+                        <label for="inputEmail1" class="col-md-2 control-label">Name</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="name" placeholder="Pack Name">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                        <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

@@ -52,7 +52,7 @@ class PartyController extends Controller
         $parties->party_short_name = $request->party_short_name;
         $parties->save();
 
-        return redirect()->back()->withMsg('Successfully Created');
+        return redirect()->route('user-type.index')->withMsg('Successfully Created');
     }
 
     /**
