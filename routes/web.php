@@ -215,6 +215,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::put('/product/update/{id}',[ProductController::class,'productUpdate'])->name('product.update');
     Route::get('/product/delete/{id}',[ProductController::class,'productDelete'])->name('product.delete');
     Route::get('/product/stock',[ProductController::class,'productStock'])->name('product.stock');
+    Route::get('/product/packsize',[ProductController::class,'packsize'])->name('packsize');
+    Route::get('/product/search',[ProductController::class,'action'])->name('product.search');
 
     //General Management
 

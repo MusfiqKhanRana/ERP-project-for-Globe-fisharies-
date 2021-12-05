@@ -30,6 +30,7 @@ class CreateEmployeesTable extends Migration
             $table->integer('deg_id');
             $table->string('date');
             $table->string('salary');
+            $table->string('branch_address')->nullable();
             $table->string('ac_name')->nullable();
             $table->string('ac_num');
             $table->string('bank_name');

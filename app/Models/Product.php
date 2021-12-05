@@ -16,6 +16,7 @@ class Product extends Model
       'inhouse_selling_price',
       'retail_selling_price',
       'category_id',
+      'pack_id',
     ];
 
     public function category()
@@ -34,5 +35,9 @@ class Product extends Model
     public function warehouse()
     {
         return $this->belongsTo(Warehouse::class)->withDefault();
+    }
+    public function pack()
+    {
+        return $this->belongsTo(Pack::class)->withDefault();
     }
 }

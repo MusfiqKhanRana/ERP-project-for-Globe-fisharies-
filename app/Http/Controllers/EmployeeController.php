@@ -56,6 +56,7 @@ class EmployeeController extends Controller
             'deg_id'=> 'required',
             'date'=> 'max:191',
             'salary'=> 'max:191',
+            'branch_address'=>'min:5|max:190',
             'ac_name'=> 'max:191',
             'ac_num'=> 'max:191',
             'bank_name'=> 'max:191',
@@ -78,6 +79,7 @@ class EmployeeController extends Controller
         $employee->deg_id = $request->deg_id;
         $employee->date = $request->date;
         $employee->salary = $request->salary;
+        $employee->branch_address = $request->branch_address;
         $employee->ac_name = $request->ac_name;
         $employee->ac_num = $request->ac_num;
         $employee->bank_name = $request->bank_name;
@@ -210,6 +212,7 @@ class EmployeeController extends Controller
             'deg_id'=> 'required',
             'date'=> 'max:191',
             'salary'=> 'max:191',
+            'branch_address' => 'max:191',
 
         ));
         $employee->employee_id = $request->input('employee_id');
@@ -217,6 +220,7 @@ class EmployeeController extends Controller
         $employee->deg_id = $request->input('deg_id');
         $employee->date = $request->input('date');
         $employee->salary = $request->input('salary');
+        $employee->branch_address = $request->input('branch_address');
         $employee->save();
         return redirect('admin/employee')->withMsg('Employee Details Updated');
 

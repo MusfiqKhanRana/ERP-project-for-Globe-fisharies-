@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('online_selling_price')->nullable();
             $table->string('inhouse_selling_price')->nullable();
             $table->string('retail_selling_price')->nullable();
+            $table->unsignedInteger('pack_id')->nullable();
             $table->timestamps();
         });
     }

@@ -42,15 +42,15 @@ class UserTypeController extends Controller
      */
     public function store(Request $request)
     {
-        $inputs = $request->except('_token', 'name');
+        $inputs = $request->except('_token');
         $this->validate($request,array(
-           'name' => 'required|max:191',
+           'name' => 'min:4|max:191',
         ));
         $users = new UserType;
         $users->name = $request->name;
         $users->save();
 
-        return redirect()->back()->withMsg('Successfully Created');
+        return redirect()->route('user-type.index')->withMsg('Successfully Created');
     }
 
     /**
