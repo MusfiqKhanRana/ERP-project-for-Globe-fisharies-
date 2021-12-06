@@ -208,7 +208,7 @@
                                     <div class="col-md-12">
                                         <label class="control-label">Pack Size</label>
                                         <select name="pack_id" id="subCategory" class="form-control">
-                                            <option value="0">-- Select Sub Category --</option>
+                                            <option value="0">-- Select Pack Size --</option>
                                         </select>
                                     </div>
                                 </div>

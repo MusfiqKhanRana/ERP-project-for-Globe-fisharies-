@@ -88,6 +88,7 @@ class ProductController extends Controller
                'online_selling_price' => $request->online_selling_price,
                'inhouse_selling_price' => $request->inhouse_selling_price,
                'retail_selling_price' => $request->retail_selling_price,
+               'pack_id' => $request->pack_id,
             ]);
         return redirect('admin/products')->withmsg('Successfully Updated');
 
