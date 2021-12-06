@@ -140,6 +140,17 @@
                                                         </div>
 
                                                         <div class="form-group clearfix">
+                                                            <label class="col-md-3 control-label">Pack Size</label>
+                                                            <div class="col-md-9">
+                                                                <div class="form-group">
+                                                                    <select name="pack_id" id="subCategory" class="form-control">
+                                                                        <option value="0">-- Select Pack Size --</option>
+                                                                    </select>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group clearfix">
                                                             <div class="col-md-12">
                                                                 <button class="btn btn-info col-md-12" type="submit" ><i class="fa fa-paper-plane" aria-hidden="true"></i>
                                                                     Update</button>
@@ -161,4 +172,35 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#subCategory').find('option').not(':first').remove();
+    
+        $.ajax({
+        url:"{{route('packsize')}}",
+        type:'get',
+        dataType:'json',
+        success:function (response) {
+            var id2 = {!! json_encode($product->pack_id) !!};
+            if (response.data.length>0) {
+                for (var i = 0; i<response.data.length; i++) {
+                    var id = response.data[i].id;
+                    var name = response.data[i].name;
+                    var option = null;
+                    if(id==id2){
+                            option = "<option value='"+id+"' selected>"+name+"</option>";  
+                    }
+                    else{
+                            option = "<option value='"+id+"'>"+name+"</option>"; 
+                    }
+                    $("#subCategory").append(option);
+                }
+            }
+        }
+        })
+    });
+    </script>
 @endsection
