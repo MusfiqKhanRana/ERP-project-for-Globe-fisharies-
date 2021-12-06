@@ -8,6 +8,7 @@ use App\Models\Party;
 use App\Models\Requisition;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class RequisitionController extends Controller
@@ -19,15 +20,15 @@ class RequisitionController extends Controller
      */
     public function index()
     {
-        $requisition = Requisition::with([
-            'category',
-            'product'=>function($q){
-                $q->select('id','product_name');
-            }
-        ])->get();
         $category = Category::select('id','name')->get();
         $warehouse = Warehouse::select('id','name')->get();
         $party = Party::select('id','party_name')->get();
+        $requisition = Requisition::with(['warehouse','party',
+            'products'=>function($q){
+                $q->with(['category','pack']);
+            }
+        ])->get();
+        // return $requisition;
         return view('backend.requisition.index',compact('requisition','category','warehouse','party'));
     }
 
@@ -50,11 +51,20 @@ class RequisitionController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        return $data;
         unset($data['_token']);
         $data['requisition_id'] = Str::random(6);
         $data['confirmed'] = false;
-        $create = Requisition::create($data);
+        $requisition = Requisition::create(['warehouse_id'=>$data['warehouse_id'],'party_id'=>$data['party_id'],'requisition_id'=>$data['requisition_id'],'confirmed'=>$data['confirmed']]);
+        foreach ($data['product_id'] as $key => $value) {
+            $product_id = $value;
+            $requisition_id = $requisition->id;
+            $category_id = $data['category_id'][$key];
+            $packet = $data['packet'][$key];
+            $quantity = $data['quantity'][$key];
+            DB::table('requisition_product')->insert(
+                ['product_id' => $product_id , 'requisition_id' => $requisition_id,'category_id'=>$category_id,'packet'=>$packet,'quantity'=>$quantity]
+            );
+        }
         return redirect()->back()->withmsg('Successfully Created');
     }
 
