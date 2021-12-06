@@ -9,16 +9,25 @@
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             @if(Session::has('msg'))
-                <script>
-                    $(document).ready(function(){
-                        swal("{{Session::get('msg')}}","", "success");
-                    });
-                </script>
+            <script>
+                $(document).ready(function(){
+                    // swal("{{Session::get('msg')}}","", "success");
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: "{{Session::get('msg')}}",
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                });
+            </script>
         @endif
-        <!-- BEGIN PAGE TITLE-->
-            <h3 class="page-title bold">Customer
+            <h3 class="page-title bold form-inline">Customer
                 <small> Customer-managment </small>
-
+                <div class="form-group" style="margin-left: 10%">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <input type="text" name="search" id="search" class="form-control" placeholder="Search for Customer" />
+                </div>
                 <a class="btn blue-ebonyclay pull-right" data-toggle="modal" href="#basic">
                     Add Customer
                     <i class="fa fa-plus"></i>
@@ -79,7 +88,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($customer as $key=> $data)
+                                            {{-- @foreach($customer as $key=> $data)
                                             <tr id="row1">
                                                 <td>{{$key+1}}</td>
                                                 <td> {{$data->full_name}}</td>
@@ -109,7 +118,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            @endforeach
+                                            @endforeach --}}
                                             </tbody>
                                         </table>
                                         </div>
@@ -216,4 +225,69 @@
 
         </div>
     </div>
+    @endsection
+    @section('script')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+           
+            fetch_customer_data();
+            
+            function fetch_customer_data(query = '')
+            {
+                $.ajax({
+                    url:"{{ route('customer.search') }}",
+                    method:'GET',
+                    data:{query:query},
+                    dataType:'json',
+                    success:function(data)
+                    {
+                        $('tbody').html(data.table_data);
+                        $('#total_records').text(data.total_data);
+                    }
+                })
+            }
+
+            $(document).on('keyup', '#search', function(){
+                var query = $(this).val();
+                fetch_customer_data(query);
+            });
+            $(document).on('click','.test_id',function(){
+                var id = $(this).attr("data-id");
+                Swal.fire({
+                    title: 'Warning!',
+                    text: 'Do you want to delete?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, send me there!'
+                }).then(function(result) {
+                    if (result.value){
+                        $.ajax({
+                            url: "/admin/customer/delete/"+id,
+                            method: "get",
+                            success: function (response) {
+                                // window.location.reload();
+                                fetch_customer_data()
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'success',
+                                    title: 'Your data deleted',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                            }
+                        });
+                    }
+                    else{
+                        console.log('no');
+                    }
+                });
+            })
+        });
+    </script>
+
 @endsection
+
+
