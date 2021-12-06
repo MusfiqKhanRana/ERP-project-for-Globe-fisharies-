@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AreaController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AwardController;
@@ -269,5 +270,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Pack
 
     Route::resource('pack', PackControler::class);
+
+
+    //Area
+    Route::resource('area', AreaController::class);
 
 });

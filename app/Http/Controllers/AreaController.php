@@ -1,15 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Party;
-use App\Models\User;
-use App\Models\UserType;
-use App\Models\Pack;
 use App\Models\Area;
 use Illuminate\Http\Request;
 
-class UserTypeController extends Controller
+class AreaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,12 +13,7 @@ class UserTypeController extends Controller
      */
     public function index()
     {
-        
-       $users = UserType::all();
-       $parties = Party::all();
-       $packs = Pack::all();
-       $areas = Area::all();
-       return view('backend.menu.index', compact('users','parties','packs','areas'));
+        //
     }
 
     /**
@@ -33,7 +23,7 @@ class UserTypeController extends Controller
      */
     public function create()
     {
-        return view('backend.users_type.create');
+        //
     }
 
     /**
@@ -48,7 +38,7 @@ class UserTypeController extends Controller
         $this->validate($request,array(
            'name' => 'min:4|max:191',
         ));
-        $users = new UserType;
+        $users = new Area;
         $users->name = $request->name;
         $users->save();
 
@@ -74,8 +64,7 @@ class UserTypeController extends Controller
      */
     public function edit($id)
     {
-        
-    
+        //
     }
 
     /**
@@ -87,7 +76,7 @@ class UserTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        UserType::whereId($id)
+        Area::whereId($id)
         ->update([
             'name' => $request->name,
         ]);
@@ -102,7 +91,7 @@ class UserTypeController extends Controller
      */
     public function destroy($id)
     {
-        UserType::whereId($id)->delete();
+        Area::whereId($id)->delete();
         return redirect()->back()->withMsg("Successfully Deleted");
     }
 }
