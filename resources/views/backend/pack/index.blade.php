@@ -69,16 +69,12 @@
                                         <form class="form-horizontal" role="form" method="post" action="{{route('pack.update', $data->id)}}">
                                             {{csrf_field()}}
                                             {{method_field('put')}}
-
-                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="inputEmail1" class="col-md-2 control-label">Name</label>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control" value="{{$data->name}}" required name="name">
-                                                </div>
+                                                </div><br><br>
                                             </div>
-                                        </div>
-
                                             <div class="modal-footer">
                                                 <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                                 <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>

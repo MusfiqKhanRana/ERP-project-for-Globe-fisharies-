@@ -80,7 +80,7 @@
                                                     <label for="inputEmail1" class="col-md-2 control-label">Party Code</label>
                                                     <div class="col-md-8">
                                                         <input type="text" class="form-control" value="{{$data->party_code}}" required name="name">
-                                                    </div>
+                                                    </div><br><br>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">

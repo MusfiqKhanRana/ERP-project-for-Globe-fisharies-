@@ -56,14 +56,14 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div id="editareaModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                        <div id="editareaModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                         <h4 class="modal-title">Update Area</h4>
                                     </div>
-
+                                    <div class="modal-body">
                                         <form class="form-horizontal" role="form" method="post" action="{{route('area.update', $data->id)}}">
                                             {{csrf_field()}}
                                             {{method_field('put')}}
@@ -72,41 +72,18 @@
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control" value="{{$data->name}}" required name="name">
                                                 </div>
+                                                <br><br>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                                 <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
                                             </div>
                                         </form>
-
-                                   
-                                </div>
-                            </div>
-                        </div> --}}
-                        <div id="editareaModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                        <h4 class="modal-title">Update Area</h4>
                                     </div>
-                                    <form class="form-horizontal" role="form" method="post" action="{{route('area.update', $data->id)}}">
-                                        {{csrf_field()}}
-                                        {{method_field('put')}}
-
-                                            <label for="inputEmail1" class="col-md-2 control-label">Name</label>
-                                            <div class="col-md-8">
-                                                <input type="text" class="form-control" name="name" required>
-                                            </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
-                                        </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
+                       
                     @endforeach
                 </tbody>
             </table>
