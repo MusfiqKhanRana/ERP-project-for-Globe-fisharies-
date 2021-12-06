@@ -54,71 +54,125 @@
                                         <div class="table-scrollable">
                                         <table class="table table-striped table-bordered table-hover">
                                             <thead>
-                                            <tr>
-                                                <th>
-                                                    ID
-                                                </th>
-                                                <th>
-                                                    Category
-                                                </th>
-                                                <th>
-                                                    Product
-                                                </th>
-                                                <th>
-                                                    Quantity
-                                                </th>
-                                                <th>
-                                                    Pac Size
-                                                </th>
-                                                <th>
-                                                    Clearence Date
-                                                </th>
-                                                <th>
-                                                    Action
-                                                </th>
-                                            </tr>
+                                                <tr>
+                                                    <th>
+                                                        Requisition Code
+                                                    </th>
+                                                    <th>
+                                                        Warehouse Name
+                                                    </th>
+                                                    <th>
+                                                        Party Name
+                                                    </th>
+                                                    <th>
+                                                        Status
+                                                    </th>
+                                                    <th>
+                                                        Clearence Date
+                                                    </th>
+                                                    <th>
+                                                        Products
+                                                    </th>
+                                                    <th>
+                                                        Action
+                                                    </th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($requisition as $key=> $data)
-                                            <tr id="row1">
-                                                <td>{{$data->requisition_id}}</td>
-                                                <td> {{$data->category->name}}</td>
-                                                <td> {{$data->product->product_name}}</td>
-                                                <td> {{$data->quantity}}</td>
-                                                <td> {{$data->pac_size}}</td>
-                                                <td>{{$data->clearance_date}}</td>
-                                                <td>
-                                                    @if($data->confirmed == false)
-                                                        <a class="btn purple" href="{{route('requisition.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i> confirm</a>
-                                                    @endif
-                                                    <a class="btn blue-chambray"  data-toggle="modal" href="{{route('requisition.edit',$data)}}"><i class="fa fa-edit"></i> Edit</a>
-                                                    <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
-                                                </td>
-                                            </tr>
+                                                @foreach($requisition as $key=> $data)
+                                                    <tr id="row1">
+                                                        <td>{{$data->requisition_id}}</td>
+                                                        <td> {{$data->warehouse->name}}</td>
+                                                        <td> {{$data->party->party_name}}</td>
+                                                        <td>
+                                                            @if ($data->confirmed==false)
+                                                                {{"Not Confirmed"}}
+                                                            @else
+                                                                Confirmed
+                                                            @endif
+                                                        </td>
+                                                        <td> {{$data->clearance_date}} </td>
+                                                        <td> 
+                                                            {{-- {{$data->products}} --}}
+                                                            <table class="table table-striped table-bordered table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            Sl.
+                                                                        </th>
+                                                                        <th>
+                                                                            Category
+                                                                        </th>
+                                                                        <th>
+                                                                            Product
+                                                                        </th>
+                                                                        <th>
+                                                                            Pack Size
+                                                                        </th>
+                                                                        <th>
+                                                                            Quantity
+                                                                        </th>
+                                                                        <th>
+                                                                            Packet
+                                                                        </th>
+                                                                        <th>
+                                                                            Action
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($data->products as $key2 => $item)
+                                                                        <tr>
+                                                                            <td>{{++$key2}}</td>
+                                                                            <td>{{$item->category->name}}</td>
+                                                                            <td>{{$item->product_name}}</td>
+                                                                            <td>{{$item->pack->name}}</td>
+                                                                            <td>{{$item->pivot->quantity}}</td>
+                                                                            <td>{{$item->pivot->packet}}</td>
+                                                                            <td>
+                                                                                <form action="{{route('requisition-product.destroy',$item->pivot->id)}}" method="POST">
+                                                                                    @method('DELETE')
+                                                                                    @csrf
+                                                                                    <button type="submit" class="btn red"><i class="fa fa-trash"></i> Delete</button>
+                                                                                </form>
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                        <td>
+                                                            @if($data->confirmed == false)
+                                                                <a class="btn purple" href="{{route('requisition.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i> confirm</a>
+                                                            @endif
+                                                            <a class="btn blue-chambray"  data-toggle="modal" href="{{route('requisition.edit',$data)}}"><i class="fa fa-edit"></i> Edit</a>
+                                                            <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                                        </td>
+                                                    </tr>
 
-                                            <div id="deleteModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                                {{csrf_field()}}
-                                                <input type="hidden" value="" id="delete_id">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                            <h2 class="modal-title" style="color: red;">Are you sure?</h2>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                            <br>
-                                                            <form action="{{route('requisition.destroy',[$data])}}" method="POST">
-                                                                @method('DELETE')
-                                                                @csrf
-                                                                <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
-                                                            </form>
-                                                            {{-- <a type="submit" href="{{route('customer.delete', $data)}}" class="btn red" id="delete"><i class="fa fa-trash"></i> Delete</a> --}}
+                                                    <div id="deleteModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                        {{csrf_field()}}
+                                                        <input type="hidden" value="" id="delete_id">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                    <h2 class="modal-title" style="color: red;">Are you sure?</h2>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                                    <br>
+                                                                    <form action="{{route('requisition.destroy',[$data])}}" method="POST">
+                                                                        @method('DELETE')
+                                                                        @csrf
+                                                                        <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
+                                                                    </form>
+                                                                    {{-- <a type="submit" href="{{route('customer.delete', $data)}}" class="btn red" id="delete"><i class="fa fa-trash"></i> Delete</a> --}}
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            @endforeach
+                                                @endforeach
                                             </tbody>
                                         </table>
                                         </div>
@@ -187,7 +241,7 @@
                             </div> --}}
 
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Expedted Date</label>
+                                <label for="inputEmail1" class="col-md-2 control-label">Expedted Receive Date</label>
                                 <div class="col-md-8">
                                     <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
                                         <input type="text" class="form-control" name="clearance_date"  readonly >
@@ -220,8 +274,12 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <label for="">Quantity</label>
-                                                        <input name="quantity[1]" class="form-control" type="text" required placeholder="Quantity">
+                                                        <label for="">Packet</label>
+                                                        <input name="packet[1]" class="form-control" type="number" required placeholder="Packet">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label for="">Quantity (Kg)</label>
+                                                        <input name="quantity[1]" class="form-control" type="number" required placeholder="Quantity">
                                                     </div>
                                                     <div class="col-md-3">
                                                         <span class="input-group-btn">
@@ -232,7 +290,7 @@
                                             </div>
                                         <div class="row">
                                             <div class="col-md-12 text-right margin-top-10">
-                                                <button id="btnAddDescription" type="button" class="btn btn-sm grey-mint pullri">Add Food Item</button>
+                                                <button id="btnAddDescription" type="button" class="btn btn-sm grey-mint pullri">Add Product</button>
                                             </div>
                                         </div>
                                     </div>
@@ -273,9 +331,13 @@
                         '<select class="form-control select2me product'+max+'" name="product_id['+max+']"  placeholder="Product" required>'+
                         '</select>'
                     +'</div>'+
+                    '<div class="col-md-3">'
+                        +'<label for="">Packet</label>'+
+                        '<input name="packet['+max+']" class="form-control" type="number" required placeholder="Packet">'+
+                    '</div>'+
                     '<div class="col-md-3">'+
                         '<label for="">Quantity</label>'+
-                        '<input name="quantity['+max+']" class="form-control" type="text" required placeholder="Quantity">'+
+                        '<input name="quantity['+max+']" class="form-control" type="number" required placeholder="Quantity">'+
                     '</div>'+
                     '<div class="col-md-3">'+
                         '<span class="input-group-btn">'+

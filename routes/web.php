@@ -33,6 +33,7 @@ use App\Http\Controllers\PackControler;
 use App\Http\Controllers\PartyController;
 use App\Http\Controllers\PersonalManagementController;
 use App\Http\Controllers\RequisitionController;
+use App\Http\Controllers\RequisitionProductController;
 use App\Http\Controllers\UserTypeController;
 use Illuminate\Support\Facades\Route;
 
@@ -263,6 +264,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('user-type', UserTypeController::class);
     Route::get('requisition/confirm/{id}',[RequisitionController::class,'confirm'])->name('requisition.confirm');
     Route::resource('requisition', RequisitionController::class);
+    Route::resource('requisition-product', RequisitionProductController::class);
 
     //Party
 

@@ -9,12 +9,16 @@ class Requisition extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function product()
+    public function warehouse()
     {
-        return $this->belongsTo(Product::class)->withDefault();
+        return $this->belongsTo(Warehouse::class)->withDefault();
     }
-    public function category()
+    public function party()
     {
-        return $this->belongsTo(category::class)->withDefault();
+        return $this->belongsTo(Party::class)->withDefault();
+    }
+    public function products()
+    {
+        return $this->belongsToMany(Product::class,'requisition_product','requisition_id','product_id')->withPivot('id','quantity', 'packet');
     }
 }
