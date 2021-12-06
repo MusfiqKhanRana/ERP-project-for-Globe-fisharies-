@@ -196,7 +196,7 @@ class ProductController extends Controller
         .'</td><td>'.
             $row->pack->name
         .'</td>
-            <td>'.
+            <td style="text-align: center;">'.
                 '<a class ="btn green" data-toggle="tooltip" data-placement="top" title="Add to Sale" href="/admin/product/sale/'.$row->id.'"><i class="fa fa-tag" aria-hidden="true"></i></a>
                 <a class ="btn blue-chambray" data-toggle="tooltip" data-placement="top" title="Edit Product" href="/admin/product/edit/'.$row->id.'"><i class="fa fa-edit"></i></a>
                 <button class="btn red test_id" data-id='.$row->id.'><i class="fa fa-trash"></i></button>'.
