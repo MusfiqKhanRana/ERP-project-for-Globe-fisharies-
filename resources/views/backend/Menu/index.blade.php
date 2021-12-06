@@ -39,6 +39,9 @@
                             <div class="col-md-6">
                                 @include('backend.pack.index')
                             </div>
+                            <div class="col-md-6">
+                                @include('backend.area.index')
+                            </div>
                         </div>
                     </div>
                 {{-- </div>

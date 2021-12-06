@@ -16,6 +16,7 @@
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
+                    <th>Id</th>
                     <th>Name</th>
                     <th style="text-align: center">Action</th>
                 </tr>
@@ -23,6 +24,7 @@
                 <tbody>
                     @foreach($users as $key=> $data)
                         <tr id="row1">
+                            <td>{{$key+1}}</td>
                             <td class="text-align: center;"> {{$data->name}}</td>
                             <td style="text-align: center">
                                 <a class="btn btn-info"  data-toggle="modal" href="#editModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
@@ -99,6 +101,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Add New User</h4>
                 </div>
+                <br>
                 <form class="form-horizontal" role="form" method="post" action="{{route('user-type.store')}}">
                     {{csrf_field()}}
 
