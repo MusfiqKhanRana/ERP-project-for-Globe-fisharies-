@@ -80,7 +80,7 @@
                                                     <label for="inputEmail1" class="col-md-2 control-label">Party Code</label>
                                                     <div class="col-md-8">
                                                         <input type="text" class="form-control" value="{{$data->party_code}}" required name="name">
-                                                    </div><br><br>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -106,14 +106,12 @@
                                                         <input type="text" class="form-control" value="{{$data->party_short_name}}" required name="name">
                                                     </div>
                                                 </div>
-                                            </div>
-
+                                            </div><br><br><br><br><br><br><br><br><br><br>
                                             <div class="modal-footer">
                                                 <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                                 <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
                                             </div>
                                         </form>
-
                                     </div>
                                 </div>
                             </div>
