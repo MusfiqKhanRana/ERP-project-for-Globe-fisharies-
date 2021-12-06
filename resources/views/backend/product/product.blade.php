@@ -11,7 +11,14 @@
             @if(Session::has('msg'))
                 <script>
                     $(document).ready(function(){
-                        swal("{{Session::get('msg')}}","", "success");
+                        // swal("{{Session::get('msg')}}","", "success");
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: "{{Session::get('msg')}}",
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
                     });
                 </script>
         @endif
