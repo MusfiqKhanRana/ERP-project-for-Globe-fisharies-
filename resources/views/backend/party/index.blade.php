@@ -27,7 +27,7 @@
                 <tbody>
                     @foreach($parties as $key=> $data)
                         <tr id="row1">
-                            <td>{{$key+1}}</td>
+                            <td>{{ $parties->firstItem() + $key }}</td>
                             <td class="text-align: center;"> {{$data->party_code}}</td>
                             <td class="text-align: center;"> {{$data->party_name}}</td>
                             <td class="text-align: center;"> {{$data->party_type}}</td>
@@ -121,6 +121,10 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="row">
+                {{-- <div class="col-md-12 text-center">{{ $employee->links() }}</div> --}}
+                {{ $parties->links('vendor.pagination.custom') }}
+            </div>
         </div>
     </div>
 </div>
