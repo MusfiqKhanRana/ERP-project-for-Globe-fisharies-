@@ -18,7 +18,7 @@
                 <tr>
                     <th>Serial</th>
                     <th>Party Code</th>
-                    <th>prty Name</th>
+                    <th>Party Name</th>
                     <th>Party Type</th>
                     <th>Party Short Name</th>
                     <th style="text-align: center">Action</th>
@@ -79,7 +79,7 @@
                                                 <div class="form-group">
                                                     <label for="inputEmail1" class="col-md-2 control-label">Party Code</label>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control" value="{{$data->party_code}}" required name="name">
+                                                        <input type="text" class="form-control" value="{{$data->party_code}}" required name="party_code">
                                                     </div>
                                                 </div>
                                             </div>
@@ -87,7 +87,7 @@
                                                 <div class="form-group">
                                                     <label for="inputEmail1" class="col-md-2 control-label">Party Name</label>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control" value="{{$data->party_name}}" required name="name">
+                                                        <input type="text" class="form-control" value="{{$data->party_name}}" required name="party_name">
                                                     </div>
                                                 </div>
                                             </div>
@@ -95,18 +95,26 @@
                                                 <div class="form-group">
                                                     <label for="inputEmail1" class="col-md-2 control-label">Party Type</label>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control" value="{{$data->party_type}}" required name="name">
+                                                        <input type="text" class="form-control" value="{{$data->party_type}}" required name="party_type">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="inputEmail1" class="col-md-2 control-label">Party  Short Name</label>
+                                                    <label for="inputEmail1" class="col-md-2 control-label">Party Short Name</label>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control" value="{{$data->party_short_name}}" required name="name">
+                                                        <input type="text" class="form-control" value="{{$data->party_short_name}}" required name="party_short_name">
                                                     </div>
                                                 </div>
-                                            </div><br><br><br><br><br><br><br><br><br><br>
+                                            </div>
+                                            {{-- <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="inputEmail1" class="col-md-2 control-label">Party  Short Name</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="form-control" value="{{$data->party_short_name}}" required name="party_short_name">
+                                                    </div>
+                                                </div>
+                                            </div><br><br><br><br><br><br><br><br><br><br> --}}
                                             <div class="modal-footer">
                                                 <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                                 <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>

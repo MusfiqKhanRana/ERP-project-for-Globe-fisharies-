@@ -91,7 +91,7 @@ class PartyController extends Controller
             'party_code' => $request->party_code,
             'party_name' => $request->party_name,
             'party_type' => $request->party_type,
-            'party_short_name' => $request->name,
+            'party_short_name' => $request->party_short_name,
         ]);
         return redirect()->back()->withMsg("Successfully Updated");
     }
