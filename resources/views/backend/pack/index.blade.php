@@ -24,7 +24,7 @@
                 <tbody>
                     @foreach($packs as $key=> $data)
                         <tr id="row1">
-                            <td>{{$key+1}}</td>
+                            <td>{{ $packs->firstItem() + $key }}</td>
                             <td class="text-align: center;"> {{$data->name}}</td>
                             <td style="text-align: center">
                                 <a class="btn btn-info"  data-toggle="modal" href="#editpackModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
@@ -89,6 +89,10 @@
                 </tbody>
                 
             </table>
+            <div class="row">
+                {{-- <div class="col-md-12 text-center">{{ $employee->links() }}</div> --}}
+                {{ $packs->links('vendor.pagination.custom') }}
+            </div>
         </div>
     </div>
     <div id="addpackModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">

@@ -72,7 +72,6 @@
                                                 <th>Product Category</th>
                                                 <th>Product Unit</th>
                                                 <th>Buying Price</th>
-                                                <th>Selling Price</th>
                                                 <th>Online Selling Price</th>
                                                 <th>In House Selling Price</th>
                                                 <th>Retail Selling Price</th>
