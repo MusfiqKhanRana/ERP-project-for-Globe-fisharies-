@@ -38,13 +38,13 @@
                                     <div class="form-body">
 
                                         <div class="form-group clearfix">
-                                            <label class="col-md-3 control-label">Category</label>
+                                            <label class="col-md-3 control-label">Warehouse</label>
                                             <div class="col-md-9">
                                                 <div class="input-group">
-                                                    <select class="form-control select2me" id="department" name="category_id" required>
+                                                    <select class="form-control select2me" id="department" name="warehouse_id" required>
                                                         <option value="">--select--</option>
-                                                        @foreach($category as $data)
-                                                            <option value="{{$data->id}}" {{ $data->id == $requisition->category_id ? 'selected' : '' }}>{{$data->name}}</option>
+                                                        @foreach($warehouse as $data)
+                                                            <option value="{{$data->id}}" {{ $data->id == $requisition->warehouse_id ? 'selected' : '' }}>{{$data->name}}</option>
                                                         @endforeach
                                                         {{csrf_field()}}
                                                     </select>
@@ -55,41 +55,21 @@
                                         </div>
 
                                         <div class="form-group clearfix">
-                                            <label class="col-md-3 control-label">Product</label>
+                                            <label class="col-md-3 control-label">Party</label>
                                             <div class="col-md-9">
                                                 <div class="input-group">
-                                                    <select class="form-control select2me" name="product_id" id="product" required>
-
+                                                    <select class="form-control select2me" id="department" name="party_id" required>
+                                                        <option value="">--select--</option>
+                                                        @foreach($party as $data)
+                                                            <option value="{{$data->id}}" {{ $data->id == $requisition->party_id ? 'selected' : '' }}>{{$data->party_name}}</option>
+                                                        @endforeach
+                                                        {{csrf_field()}}
                                                     </select>
-                                                    {{csrf_field()}}
-                                                    <span class="input-group-addon"><i class="fa fa-phone" aria-hidden="true"></i>
+                                                    <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i>
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="form-group clearfix">
-                                            <label class="col-md-3 control-label">Quantity</label>
-                                            <div class="col-md-9">
-                                                <div class="input-group">
-                                                    <input type="number" class="form-control" placeholder="Quantity" value="{{$requisition->quantity}}" required name="quantity">
-                                                    <span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group clearfix">
-                                            <label class="col-md-3 control-label">requisition Address</label>
-                                            <div class="col-md-9">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" placeholder="Pac Size" value="{{$requisition->pac_size}}" required name="pac_size">
-                                                    <span class="input-group-addon"><i class="fa fa-location-arrow" aria-hidden="true"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                         <div class="form-group clearfix">
                                             <label class="col-md-3 control-label">Date</label>
                                             <div class="col-md-9">
@@ -126,34 +106,34 @@
 @section('script')
     <script>
         $(document).ready(function(){
-            var id = @json($requisition->id);
-            $.ajax({
-                type:"POST",
-                url:"{{route('product.pass')}}",
-                data:{
-                    'id' : id,
-                    '_token' : $('input[name=_token]').val()
-                },
-                success:function(data){
-                    $('#product').html("");
-                    $('#product').append(data.output);
-                }
-            });
-            $(document).on('change','#department',function(){
-                var id = $(this).val();
-                $.ajax({
-                    type:"POST",
-                    url:"{{route('product.pass')}}",
-                    data:{
-                        'id' : id,
-                        '_token' : $('input[name=_token]').val()
-                    },
-                    success:function(data){
-                        $('#product').html("");
-                        $('#product').append(data.output);
-                    }
-                });
-            });
+            // var id = @json($requisition->id);
+            // $.ajax({
+            //     type:"POST",
+            //     url:"{{route('product.pass')}}",
+            //     data:{
+            //         'id' : id,
+            //         '_token' : $('input[name=_token]').val()
+            //     },
+            //     success:function(data){
+            //         $('#product').html("");
+            //         $('#product').append(data.output);
+            //     }
+            // });
+            // $(document).on('change','#department',function(){
+            //     var id = $(this).val();
+            //     $.ajax({
+            //         type:"POST",
+            //         url:"{{route('product.pass')}}",
+            //         data:{
+            //             'id' : id,
+            //             '_token' : $('input[name=_token]').val()
+            //         },
+            //         success:function(data){
+            //             $('#product').html("");
+            //             $('#product').append(data.output);
+            //         }
+            //     });
+            // });
 
             // $(document).on('change','#product',function(){
             //     var id = $(this).val();
