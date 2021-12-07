@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RequisitionProductController extends Controller
 {
@@ -34,7 +35,10 @@ class RequisitionProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        unset($data['_token']);
+        DB::table('requisition_product')->insert($data);
+        return redirect()->back()->withmsg('Successfully Added');
     }
 
     /**
@@ -79,6 +83,7 @@ class RequisitionProductController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
+        DB::table('requisition_product')->where('id', '=',$id)->delete();
+        return redirect()->back()->withmsg('Successfully Deleted');
     }
 }
