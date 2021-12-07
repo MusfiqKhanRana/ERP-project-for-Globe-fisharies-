@@ -24,7 +24,7 @@
                 </script>
         @endif
         <!-- BEGIN PAGE TITLE-->
-            <h3 class="page-title bold">Sale Product To Customer
+            <h3 class="page-title bold">Add To Order
                 <small> Office-managment </small>
             </h3>
             <hr>
