@@ -27,7 +27,7 @@ class RequisitionController extends Controller
             'products'=>function($q){
                 $q->with(['category','pack']);
             }
-        ])->get();
+        ])->where('confirmed',false)->get();
         // return $requisition;
         return view('backend.requisition.index',compact('requisition','category','warehouse','party'));
     }
@@ -87,8 +87,10 @@ class RequisitionController extends Controller
      */
     public function edit(Requisition $requisition)
     {
-        $category = Category::select('id','name')->get();
-        return view('backend.requisition.edit',compact('requisition','category'));
+        // $category = Category::select('id','name')->get();
+        $warehouse = Warehouse::select('id','name')->get();
+        $party = Party::select('id','party_name')->get();
+        return view('backend.requisition.edit',compact('requisition','warehouse','party'));
     }
 
     /**
@@ -100,7 +102,6 @@ class RequisitionController extends Controller
      */
     public function update(Request $request, Requisition $requisition)
     {
-        
         $data = $request->all();
         unset($data['_token']);
         unset($data['_method']);
