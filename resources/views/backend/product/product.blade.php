@@ -77,6 +77,7 @@
                                                 <th>Retail Selling Price</th>
                                                 <th>Pack Size</th>
                                                 <th>Safety Stock</th>
+                                                <th>Available Stock</th>
                                                 <th style="text-align: center;"> Action </th>
                                             </tr>
                                             </thead>

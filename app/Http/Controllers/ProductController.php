@@ -8,6 +8,7 @@ use App\Models\Pack;
 use App\Models\Product;
 use App\Models\StockProduct;
 use App\Models\Warehouse;
+use Faker\Provider\ar_SA\Color;
 use Illuminate\Foundation\Console\Presets\React;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -175,6 +176,7 @@ class ProductController extends Controller
         {       
             $total_quantity = 0;
             $color = null;
+            $txtColor = null;
             if (!empty($row->stock->toArray())) {
                 foreach ($row->stock as $key => $value) {
                     $total_quantity+=$value->quantity;
@@ -182,9 +184,11 @@ class ProductController extends Controller
             }
             if($total_quantity <= $row->safety_stock){
                 $color = "#ff4d4d";
+                $txtColor="white";
+
             }
             $output .= 
-                '<tr style="background:'.$color.'"><td>'.
+                '<tr style="color:'.$txtColor.'; background:'.$color.'"><td>'.
                     $row->category_id
                 .'</td><td>'.
                 $row->product_name
@@ -206,6 +210,8 @@ class ProductController extends Controller
                     $row->pack->name
                 .'</td><td>'.
                     $row->safety_stock    
+                .'</td><td>'.
+                     $total_quantity
                 .'</td>
                     <td style="text-align: center;">'.
                         '<a class ="btn green" data-toggle="tooltip" data-placement="top" title="Add to order List" href="/admin/product/sale/'.$row->id.'"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
