@@ -16,10 +16,10 @@ class ProductController extends Controller
 {
     public function productIndex()
     {
-        $product = Product::all();
+        // $product = Product::with('stock')->get();
         $category = Category::all();
         $pack = Pack::all();
-        return view('backend.product.product', compact('product','pack','category'));
+        return view('backend.product.product', compact('pack','category'));
     }
 
     public function productStore(Request $request)
@@ -89,6 +89,7 @@ class ProductController extends Controller
                'inhouse_selling_price' => $request->inhouse_selling_price,
                'retail_selling_price' => $request->retail_selling_price,
                'pack_id' => $request->pack_id,
+               'safety_stock' => $request->safety_stock,
             ]);
         return redirect('admin/products')->withmsg('Successfully Updated');
 
@@ -149,7 +150,7 @@ class ProductController extends Controller
       $query = $request->get('query');
       $data = null;
       if($query != null){
-        $data = Product::with('pack')->where('category_id', 'like', '%'.$query.'%')
+        $data = Product::with(['pack','stock'])->where('category_id', 'like', '%'.$query.'%')
                 ->orWhere('product_name', 'like', '%'.$query.'%')
                 ->orWhere('product_id', 'like', '%'.$query.'%')
                 ->orWhere('unit', 'like', '%'.$query.'%')
@@ -165,60 +166,69 @@ class ProductController extends Controller
       }
       else
       {
-        $data = Product::with('pack')->orderBy('product_id', 'desc')->get();
+        $data = Product::with(['pack','stock'])->orderBy('product_id', 'desc')->get();
       }
       $total_row = $data->count();
       if($total_row > 0)
       {
-       foreach($data as $row)
-       {
-        $output .= 
-        '<tr><td>'.
-            $row->category_id
-        .'</td><td>'.
-        $row->product_name
-        .'</td><td>'.
-            $row->product_id
-        .'</td><td>'.
-            $row->category->name
-        .'</td><td>'.
-            $row->unit
-        .'</td><td>'.
-            $row->buying_price
-        .'</td><td>'.
-            $row->selling_price
-        .'</td><td>'.
-            $row->online_selling_price
-        .'</td><td>'.
-            $row->inhouse_selling_price
-        .'</td><td>'.
-            $row->retail_selling_price
-        .'</td><td>'.
-            $row->pack->name
-        .'</td>
-            <td style="text-align: center;">'.
-                '<a class ="btn green" data-toggle="tooltip" data-placement="top" title="Add to Sale" href="/admin/product/sale/'.$row->id.'"><i class="fa fa-tag" aria-hidden="true"></i></a>
-                <a class ="btn blue-chambray" data-toggle="tooltip" data-placement="top" title="Edit Product" href="/admin/product/edit/'.$row->id.'"><i class="fa fa-edit"></i></a>
-                <button class="btn red test_id" data-id='.$row->id.'><i class="fa fa-trash"></i></button>'.
-            '</td>'.
-        '</tr>'
-        ;
-       }
-      }
-      else
-      {
-       $output = '
-       <tr>
-        <td align="center" colspan="5">No Data Found</td>
-       </tr>
-       ';
-      }
-      $data = array(
-       'table_data'  => $output,
-       'total_data'  => $total_row
-      );
+        foreach($data as $row)
+        {       
+            $total_quantity = 0;
+            $color = null;
+            if (!empty($row->stock->toArray())) {
+                foreach ($row->stock as $key => $value) {
+                    $total_quantity+=$value->quantity;
+                }
+            }
+            if($total_quantity <= $row->safety_stock){
+                $color = "#ff4d4d";
+            }
+            $output .= 
+                '<tr style="background:'.$color.'"><td>'.
+                    $row->category_id
+                .'</td><td>'.
+                $row->product_name
+                .'</td><td>'.
+                    $row->product_id
+                .'</td><td>'.
+                    $row->category->name
+                .'</td><td>'.
+                    $row->unit
+                .'</td><td>'.
+                    $row->buying_price
+                .'</td><td>'.
+                    $row->online_selling_price
+                .'</td><td>'.
+                    $row->inhouse_selling_price
+                .'</td><td>'.
+                    $row->retail_selling_price
+                .'</td><td>'.
+                    $row->pack->name
+                .'</td><td>'.
+                    $row->safety_stock    
+                .'</td>
+                    <td style="text-align: center;">'.
+                        '<a class ="btn green" data-toggle="tooltip" data-placement="top" title="Add to order List" href="/admin/product/sale/'.$row->id.'"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+                        <a class ="btn blue-chambray" data-toggle="tooltip" data-placement="top" title="Edit Product" href="/admin/product/edit/'.$row->id.'"><i class="fa fa-edit"></i></a>
+                        <button class="btn red test_id" data-id='.$row->id.'><i class="fa fa-trash"></i></button>'.
+                    '</td>'.
+                '</tr>';
+        }
+        }
+        else
+        {
+        $output = '
+        <tr>
+            <td align="center" colspan="5">No Data Found</td>
+        </tr>
+        ';
+        }
+        $data = array(
+        'table_data'  => $output,
+        'total_data'  => $total_row
+        );
 
-      echo json_encode($data);
-     }
-    }
+        echo json_encode($data);
+        }
+        }
 }

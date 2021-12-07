@@ -26,7 +26,7 @@ class Product extends Model
 
     public function stock()
     {
-        return $this->belongsTo(StockProduct::class)->withDefault();
+        return $this->hasMany(StockProduct::class);
     }
     public function sale_point()
     {

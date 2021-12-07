@@ -150,6 +150,18 @@
 
                                                             </div>
                                                         </div>
+
+                                                        <div class="form-group clearfix">
+                                                            <label class="col-md-3 control-label">Safety Stock</label>
+                                                            <div class="col-md-9">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" name="safety_stock" value="{{$product->safety_stock}}">
+                                                                    <span class="input-group-addon"><i class="fa fa-th" aria-hidden="true"></i></span>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
                                                         <div class="form-group clearfix">
                                                             <div class="col-md-12">
                                                                 <button class="btn btn-info col-md-12" type="submit" ><i class="fa fa-paper-plane" aria-hidden="true"></i>

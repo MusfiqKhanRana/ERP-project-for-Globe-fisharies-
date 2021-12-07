@@ -76,7 +76,8 @@
                                                 <th>In House Selling Price</th>
                                                 <th>Retail Selling Price</th>
                                                 <th>Pack Size</th>
-                                                <th style="text-align: center;width:400px"> Action </th>
+                                                <th>Safety Stock</th>
+                                                <th style="text-align: center;"> Action </th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -216,6 +217,15 @@
                                         <select name="pack_id" id="subCategory" class="form-control">
                                             <option value="0">-- Select Pack Size --</option>
                                         </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <label class="control-label">Safety Stock</label>
+                                        <input class="form-control text-capitalize" placeholder="safety_stock" type="text" required name="safety_stock">
                                     </div>
                                 </div>
                             </div>
