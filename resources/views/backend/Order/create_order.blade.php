@@ -132,11 +132,12 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <div class="col-md-10">
-                                            <select class="form-control" name="warehouse_id" required>
+                                            <select class="form-control" name="warehouse_id" id="department" required>
                                                 <option selected>Select</option>
                                                 @foreach($warehouse as $data)
                                                     <option value="{{$data->id}}">{{$data->name}}</option>
                                                 @endforeach
+                                                {{csrf_field()}}
                                             </select>
                                         </div>
                                     </div>
@@ -144,11 +145,8 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <div class="col-md-10">
-                                            <select class="form-control" name="product_id" id="product" required>
-                                                <option selected>--Select--</option>
-                                                @foreach($product as $data)
-                                                    <option value="{{$data->id}}">{{$data->product_name}}</option>
-                                                @endforeach
+                                            <select class="form-control product_id" name="product_id" required>
+                                            
                                             </select>
                                         </div>
                                     </div>
@@ -213,30 +211,6 @@
             $(document).on('click', '#paid', function () {
                 $("#due_amount").hide();
             });
-        });
-    </script>
-    <script>
-        $(document).ready(function(){
-            $(document).on('change','#department',function(){
-                var id = $(this).val();
-
-                $.ajax({
-                    type:"POST",
-                    url:"{{route('item.pass')}}",
-                    data:{
-                        'id' : id,
-                        '_token' : $('input[name=_token]').val()
-                    },
-                    success:function(data){
-//                        console.log(data);
-                        $('#product').html("");
-                        $('#product').append(data.output);
-
-                    }
-                });
-            });
-
-
         });
     </script>
     <script>
@@ -312,6 +286,7 @@
             }
             $(document).on('change','#department',function(){
                 var id = $(this).val();
+                // $(this).empty();
 //                alert(id)
                 $.ajax({
                     type:"POST",
@@ -321,35 +296,40 @@
                         '_token' : $('input[name=_token]').val()
                     },
                     success:function(data){
-//                        console.log(data)
-                        $('#product').html("");
-                        $('#product').append(data.output);
-//
+                        $('.product_id').empty();
+                        $.each(data, function (i, item) {
+                            var name_quantity = item.product_name + "(" + item.stock_quantity + ")";
+                            $('.product_id').append($('<option>', { 
+                                value: item.id,
+                                text : name_quantity
+                            }));
+                        });
+                        // console.log(data)
+                        // $('#product').html("");
+                        // $('#product').append(data.output);
                     }
                 });
             });
 
-            $(document).on('change','#product',function(){
-                var id = $(this).val();
-//                alert(id)
-                $.ajax({
-                    type:"POST",
-                    url:"{{route('warehouse.product.element.pass')}}",
-                    data:{
-                        'id' : id,
-                        '_token' : $('input[name=_token]').val()
-                    },
-                    success:function(data){
-                        console.log(data);
-//                        $('#product').html("");
-//                        $('#product').append(data.output);
-                        $('#pranto').text(data.selling_price);
-                        $('#product_price').val(data.selling_price);
-                        $('#roy').text(data.unit);
-//                        console.log(data.selling_price);
-                    }
-                });
-            });
+            // $(document).on('change','#department',function(){
+            //     var id = $(this).val();
+            //     $.ajax({
+            //         type:"POST",
+            //         url:"{{route('warehouse.product.pass')}}",
+            //         data:{
+            //             'id' : id,
+            //             '_token' : $('input[name=_token]').val()
+            //         },
+            //         success:function(data){
+            //             // console.log(data);
+            //             // $('#pranto').text(data.selling_price);
+            //             // $('#product_price').val(data.selling_price);
+            //             // $('#roy').text(data.unit);
+            //             $('#product').html("");
+            //             $('#product').append(data.output);
+            //         }
+            //     });
+            // });
             // $('.serviceRow').each(function() {
             //     $(this).find('select').change(function(){//alert($(this).val())
             //         if( $('.serviceRow').find('select option[value='+$(this).val()+']:selected').length>1){
