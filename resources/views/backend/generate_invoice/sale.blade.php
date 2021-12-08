@@ -91,7 +91,7 @@
                                 <label class="col-md-2 control-label">Product Select:</label>
 
                                 <div class="col-md-6">
-                                    <select class="form-control select2me" name="product_id" id="product" required>
+                                    <select class="form-control" name="product_id" id="product" required>
 
                                     </select>
                                     {{csrf_field()}}
