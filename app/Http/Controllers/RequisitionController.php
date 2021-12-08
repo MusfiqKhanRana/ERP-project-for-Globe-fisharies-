@@ -8,6 +8,7 @@ use App\Models\Party;
 use App\Models\Requisition;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -27,7 +28,7 @@ class RequisitionController extends Controller
             'products'=>function($q){
                 $q->with(['category','pack']);
             }
-        ])->where('confirmed',false)->get();
+        ])->where('confirmed',false)->latest()->paginate(10);
         // return $requisition;
         return view('backend.requisition.index',compact('requisition','category','warehouse','party'));
     }
@@ -54,7 +55,7 @@ class RequisitionController extends Controller
         unset($data['_token']);
         $data['requisition_id'] = Str::random(6);
         $data['confirmed'] = false;
-        $requisition = Requisition::create(['warehouse_id'=>$data['warehouse_id'],'party_id'=>$data['party_id'],'requisition_id'=>$data['requisition_id'],'confirmed'=>$data['confirmed']]);
+        $requisition = Requisition::create(['warehouse_id'=>$data['warehouse_id'],'party_id'=>$data['party_id'],'requisition_id'=>$data['requisition_id'],'confirmed'=>$data['confirmed'],'created_by'=>Auth::user()->id]);
         foreach ($data['product_id'] as $key => $value) {
             $product_id = $value;
             $requisition_id = $requisition->id;

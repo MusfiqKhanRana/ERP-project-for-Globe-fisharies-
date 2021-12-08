@@ -389,9 +389,14 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                <li class="nav-item  @if( request()->path() == '' ) active open @endif">
+                    <li class="nav-item  @if( request()->path() == '' ) active open @endif">
                         <a href="{{route('requisition.index')}}" class="nav-link ">
                             <span class="title">Request Requisition</span>
+                        </a>
+                    </li>
+                    <li class="nav-item  @if( request()->path() == '' ) active open @endif">
+                        <a href="{{route('requisition.receive.index')}}" class="nav-link ">
+                            <span class="title">Dispatch Requisition</span>
                         </a>
                     </li>
                     <li class="nav-item  @if( request()->path() == 'admin/add/purchase' ) active open @endif">

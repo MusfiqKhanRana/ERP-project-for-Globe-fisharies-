@@ -15,15 +15,12 @@ class CreateRequisitionsTable extends Migration
     {
         Schema::create('requisitions', function (Blueprint $table) {
             $table->id();
-            // $table->unsignedInteger('category_id')->nullable();
-            // $table->unsignedInteger('product_id')->nullable();
-            // $table->integer('quantity')->nullable();
-            // $table->string('pac_size')->nullable();
             $table->unsignedInteger('warehouse_id')->nullable();
             $table->unsignedInteger('party_id')->nullable();
             $table->string('requisition_id')->nullable();
             $table->boolean('confirmed')->nullable();
             $table->dateTime('clearance_date')->nullable();
+            $table->unsignedInteger('created_by')->nullable();
             $table->timestamps();
         });
     }
