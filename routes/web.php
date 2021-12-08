@@ -270,6 +270,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('requisition', RequisitionController::class);
     Route::resource('requisition-product', RequisitionProductController::class);
     Route::get('requisition-receive',[RequisitionReceiveController::class,'index'])->name('requisition.receive.index');
+    Route::get('requisition-receive/show-product/{id}',[RequisitionReceiveController::class,'showProduct'])->name('requisition.receive.show_product');
 
 
     //Party

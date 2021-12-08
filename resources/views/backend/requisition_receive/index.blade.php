@@ -17,12 +17,12 @@
         @endif
         <!-- BEGIN PAGE TITLE-->
             <h3 class="page-title bold">Requisition
-                <small> Requisition-managment </small>
+                <small> Requisition-Dispatch</small>
 
-                <a class="btn blue-ebonyclay pull-right" data-toggle="modal" href="#basic">
+                {{-- <a class="btn blue-ebonyclay pull-right" data-toggle="modal" href="#basic">
                     Add Requisition
                     <i class="fa fa-plus"></i>
-                </a>
+                </a> --}}
             </h3>
             <hr>
             @if (count($errors) > 0)
@@ -45,7 +45,7 @@
                                 <div class="portlet box blue-chambray">
                                     <div class="portlet-title">
                                         <div class="caption">
-                                            <i class="fa fa-briefcase"></i>Requisition List
+                                            <i class="fa fa-briefcase"></i>Requisition Requests
                                         </div>
                                         <div class="tools">
                                         </div>
@@ -62,7 +62,7 @@
                                                             Warehouse Name
                                                         </th>
                                                         <th>
-                                                            Party Name
+                                                            Party Code
                                                         </th>
                                                         <th>
                                                             Status
@@ -83,13 +83,9 @@
                                                         <tr id="row1">
                                                             <td>{{$data->requisition_id}}</td>
                                                             <td> {{$data->warehouse->name}}</td>
-                                                            <td> {{$data->party->party_name}}</td>
+                                                            <td> {{$data->party->party_code}}</td>
                                                             <td>
-                                                                @if ($data->confirmed==false)
-                                                                    {{"Not Confirmed"}}
-                                                                @else
-                                                                    Confirmed
-                                                                @endif
+                                                                {{$data->status}}                       
                                                             </td>
                                                             <td> {{$data->clearance_date}} </td>
                                                             <td> 
@@ -115,9 +111,9 @@
                                                                             <th>
                                                                                 Packet
                                                                             </th>
-                                                                            <th>
+                                                                            {{-- <th>
                                                                                 Action
-                                                                            </th>
+                                                                            </th> --}}
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -129,28 +125,28 @@
                                                                                 <td>{{$item->pack->name}}</td>
                                                                                 <td>{{$item->pivot->quantity}}</td>
                                                                                 <td>{{$item->pivot->packet}}</td>
-                                                                                <td>
+                                                                                {{-- <td>
                                                                                     <form action="{{route('requisition-product.destroy',$item->pivot->id)}}" method="POST">
                                                                                         @method('DELETE')
                                                                                         @csrf
                                                                                         <button type="submit" class="btn red"><i class="fa fa-trash"></i> Delete</button>
                                                                                     </form>
-                                                                                </td>
+                                                                                </td> --}}
                                                                             </tr>
                                                                         @endforeach
                                                                     </tbody>
                                                                 </table>
                                                             </td>
                                                             <td>
-                                                                @if($data->confirmed == false)
-                                                                    <a class="btn purple" href="{{route('requisition.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i> confirm</a>
-                                                                    <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Add Product</a>
+                                                                @if($data->status == "Pending")
+                                                                    <a class="btn purple" href="{{route('requisition.receive.show_product',$data->id)}}"><i class="fa fa-check-circle-o"></i> confirm</a>
+                                                                    {{-- <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Add Product</a> --}}
                                                                 @endif
-                                                                <a class="btn blue-chambray"  data-toggle="modal" href="{{route('requisition.edit',$data)}}"><i class="fa fa-edit"></i> Edit</a>
-                                                                <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                                                {{-- <a class="btn blue-chambray"  data-toggle="modal" href="{{route('requisition.edit',$data)}}"><i class="fa fa-edit"></i> Edit</a>
+                                                                <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a> --}}
                                                             </td>
                                                         </tr>
-                                                        <div id="addProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                        {{-- <div id="addProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                             {{csrf_field()}}
                                                             <input type="hidden" value="" id="delete_id">
                                                             <div class="modal-dialog">
@@ -198,19 +194,12 @@
                                                                     <br>
                                                                     <div class="modal-footer">
                                                                         <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                                        {{-- <br>
-                                                                        <form action="{{route('requisition.destroy',[$data])}}" method="POST">
-                                                                            @method('DELETE')
-                                                                            @csrf
-                                                                            <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
-                                                                        </form> --}}
-                                                                        {{-- <a type="submit" href="{{route('customer.delete', $data)}}" class="btn red" id="delete"><i class="fa fa-trash"></i> Delete</a> --}}
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> --}}
 
-                                                        <div id="deleteModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                        {{-- <div id="deleteModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                             {{csrf_field()}}
                                                             <input type="hidden" value="" id="delete_id">
                                                             <div class="modal-dialog">
@@ -227,11 +216,10 @@
                                                                             @csrf
                                                                             <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
                                                                         </form>
-                                                                        {{-- <a type="submit" href="{{route('customer.delete', $data)}}" class="btn red" id="delete"><i class="fa fa-trash"></i> Delete</a> --}}
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> --}}
                                                     @endforeach
                                                 </tbody>
                                             </table>

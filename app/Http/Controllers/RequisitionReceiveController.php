@@ -22,4 +22,8 @@ class RequisitionReceiveController extends Controller
         ])->where('confirmed',true)->latest()->paginate(10);
         return view('backend.requisition_receive.index',compact('requisition','category','warehouse','party'));
     }
+    public function showProduct($id)
+    {
+        dd($id);
+    }
 }
