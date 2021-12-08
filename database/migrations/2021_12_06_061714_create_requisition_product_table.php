@@ -19,6 +19,7 @@ class CreateRequisitionProductTable extends Migration
             $table->unsignedInteger('category_id')->nullable();
             $table->unsignedInteger('product_id')->nullable();
             $table->integer('quantity')->nullable();
+            $table->integer('final_quantity')->nullable();
             $table->integer('packet')->nullable();
             $table->timestamps();
         });

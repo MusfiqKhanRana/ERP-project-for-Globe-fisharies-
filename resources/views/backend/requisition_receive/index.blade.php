@@ -106,7 +106,10 @@
                                                                                 Pack Size
                                                                             </th>
                                                                             <th>
-                                                                                Quantity
+                                                                               Requested Quantity
+                                                                            </th>
+                                                                            <th>
+                                                                                Provided Quantity
                                                                             </th>
                                                                             <th>
                                                                                 Packet
@@ -124,6 +127,7 @@
                                                                                 <td>{{$item->product_name}}</td>
                                                                                 <td>{{$item->pack->name}}</td>
                                                                                 <td>{{$item->pivot->quantity}}</td>
+                                                                                <td>{{$item->pivot->final_quantity}}</td>
                                                                                 <td>{{$item->pivot->packet}}</td>
                                                                                 {{-- <td>
                                                                                     <form action="{{route('requisition-product.destroy',$item->pivot->id)}}" method="POST">
@@ -133,14 +137,58 @@
                                                                                     </form>
                                                                                 </td> --}}
                                                                             </tr>
+                                                                            <div id="addProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                                                {{csrf_field()}}
+                                                                                <input type="hidden" value="" id="delete_id">
+                                                                                <div class="modal-dialog">
+                                                                                    <div class="modal-content">
+                                                                                        <form action="{{route('requisition-product.store')}}" method="POST">
+                                                                                            <div class="modal-header">
+                                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                                                <h2 class="modal-title" style="color: rgb(75, 65, 65);">Add Products</h2>
+                                                                                            </div>
+                                                                                            <br>
+                                                                                            <div class="modal-body">
+                                                                                                <div class="m-5 row">
+                                                                                                    
+                                                                                                    @csrf
+                                                                                                    <input type="hidden" name="requisition_id" value="{{$data->id}}">
+                                                                                                    @foreach ($data->products as $value)
+                                                                                                        <div class="col-md-4">
+                                                                                                            <b>Product Name: {{$value->product_name}}</b>
+                                                                                                        </div>
+                                                                                                        <div class="col-md-4">
+                                                                                                            <b>Requested Quantity: {{$value->pivot->quantity}}</b>
+                                                                                                        </div>
+                                                                                                        <div class="col-md-4">
+                                                                                                            <input name="final_quantity" class="form-control" type="number" required placeholder="Available Quantity">
+                                                                                                        </div>
+                                                                                                        <br>
+                                                                                                    @endforeach
+                                                                                                        {{-- <div class="col-md-3">
+                                                                                                            <label><span>&nbsp;</span></label><br>
+                                                                                                            <button class="m-10 btn btn-success">Save</button>
+                                                                                                        </div> --}}
+                                                                                                    
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <br>
+                                                                                            <div class="modal-footer">
+                                                                                                <button type="submit" class="m-10 btn btn-success">Save</button>
+                                                                                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                         @endforeach
                                                                     </tbody>
                                                                 </table>
                                                             </td>
                                                             <td>
                                                                 @if($data->status == "Pending")
-                                                                    <a class="btn purple" href="{{route('requisition.receive.show_product',$data->id)}}"><i class="fa fa-check-circle-o"></i> confirm</a>
-                                                                    {{-- <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Add Product</a> --}}
+                                                                    <a class="btn purple" href="{{route('requisition.receive.show_product',$data->id)}}"><i class="fa fa-check-circle-o"></i> Confirm</a>
+                                                                    <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Add Product</a>
                                                                 @endif
                                                                 {{-- <a class="btn blue-chambray"  data-toggle="modal" href="{{route('requisition.edit',$data)}}"><i class="fa fa-edit"></i> Edit</a>
                                                                 <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a> --}}
@@ -267,31 +315,6 @@
                                     </select>
                                 </div>
                             </div>
-
-                            {{-- <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Product Name</label>
-                                <div class="col-md-8">
-                                    <select class="form-control select2me" name="product_id" id="product" required>
-
-                                    </select>
-                                    {{csrf_field()}}
-                                </div>
-                            </div> --}}
-
-                            {{-- <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Product Quantity</label>
-                                <div class="col-md-8">
-                                    <input type="number" class="form-control" placeholder="Quantity" required name="quantity">
-                                </div>
-                            </div> --}}
-
-                            {{-- <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Pac Size</label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" placeholder="Pac Size" required name="pac_size">
-                                </div>
-                            </div> --}}
-
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Expedted Receive Date</label>
                                 <div class="col-md-8">
