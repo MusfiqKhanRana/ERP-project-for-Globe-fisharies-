@@ -288,5 +288,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Order
 
     Route::resource('order', ProductOrderController::class);
+    Route::post('/get/product',[ProductOrderController::class,'warehouse_product_pass'])->name('warehouse.product.pass');
+    Route::post('/get/product/detail',[ProductOrderController::class,'warehouse_productGet'])->name('warehouse.product.element.pass');
 
 });

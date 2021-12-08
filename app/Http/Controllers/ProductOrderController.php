@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Cutomer;
+use App\Models\Product;
 use App\Models\ProductOrder;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
@@ -34,9 +35,9 @@ class ProductOrderController extends Controller
         $category = Category::all();
         $customer = Cutomer::all();
         $warehouse = Warehouse::all();
-        return view('backend.Order.create_order', compact('category','customer', 'warehouse'));
+        $product = Product::all();
+        return view('backend.Order.create_order', compact('category','customer','product','warehouse'));
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -91,5 +92,27 @@ class ProductOrderController extends Controller
     public function destroy(ProductOrder $productOrder)
     {
         //
+    }
+    public function warehouse_product_pass(Request $request)
+    {
+        $id = $request->id;
+        $product = Product::where('category_id',$id)->get();
+
+        $output ="";
+
+        foreach($product as $value){
+            $output.= '<option value="'.$value->id.'">'.$value->product_name.'('.$value->product_id.')</option>';
+
+        }
+        $data['output'] = $output;
+        return response()->json($data);
+
+    }
+
+    public function warehouse_productGet(Request $request)
+    {
+        $id = $request->id;
+        $product = Product::where('id',$id)->first();
+        return response()->json($product) ;
     }
 }
