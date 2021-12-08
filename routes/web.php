@@ -32,6 +32,7 @@ use App\Http\Controllers\CateringController;
 use App\Http\Controllers\PackControler;
 use App\Http\Controllers\PartyController;
 use App\Http\Controllers\PersonalManagementController;
+use App\Http\Controllers\ProductOrderController;
 use App\Http\Controllers\RequisitionController;
 use App\Http\Controllers\RequisitionProductController;
 use App\Http\Controllers\RequisitionReceiveController;
@@ -282,5 +283,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //Area
     Route::resource('area', AreaController::class);
+
+    //Order
+
+    Route::resource('order', ProductOrderController::class);
 
 });

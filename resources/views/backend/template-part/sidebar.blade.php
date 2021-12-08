@@ -379,6 +379,29 @@
 
                 </ul>
             </li>
+            <li class="nav-item @if( request()->path() == 'admin/sale' || request()->path() == 'admin/sale' ) active open @endif
+                @if( request()->path() == 'admin/stock/product/history' || request()->path() == 'admin/stock/product/history' ) active open @endif">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="fa fa-print" aria-hidden="true"></i>
+                        <span class="title">Order Management</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item  @if( request()->path() == 'admin/sale' ) active open @endif
+                        @if( request()->path() == '' ) active open @endif">
+                            <a href="{{route('order.create')}}" class="nav-link ">
+                                <span class="title">Oder</span>
+                            </a>
+                        </li>
+                        <li class="nav-item  @if( request()->path() == '' ) active open @endif
+                        @if( request()->path() == 'admin/stock/product/history' ) active open @endif">
+                            <a href="{{route('sold.index')}}" class="nav-link ">
+                                <span class="title">Order History</span>
+                            </a>
+                        </li>
+    
+                    </ul>
+                </li>
 
             <li class="nav-item @if( request()->path() == 'admin/add/purchase' || request()->path() == 'admin/add/purchase' ) active open @endif
             @if( request()->path() == 'admin/purchase' || request()->path() == 'admin/purchase' ) active open @endif
