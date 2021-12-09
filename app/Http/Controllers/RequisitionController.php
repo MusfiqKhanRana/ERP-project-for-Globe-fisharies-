@@ -29,7 +29,6 @@ class RequisitionController extends Controller
                 $q->with(['category','pack']);
             }
         ])->where('confirmed',false)->latest()->paginate(10);
-        // return $requisition;
         return view('backend.requisition.index',compact('requisition','category','warehouse','party'));
     }
 
