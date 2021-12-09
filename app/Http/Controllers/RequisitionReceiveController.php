@@ -21,7 +21,10 @@ class RequisitionReceiveController extends Controller
             'products'=>function($q){
                 $q->with(['category','pack']);
             }
-        ])->where('confirmed',true)->latest()->paginate(10);
+        ])
+        ->where('confirmed',true)
+        ->whereIn('status',['Pending','Processing'])
+        ->latest()->paginate(10);
         return view('backend.requisition_receive.index',compact('requisition','category','warehouse','party'));
     }
     public function updateSubmitted(Request $request)
@@ -41,15 +44,9 @@ class RequisitionReceiveController extends Controller
 
         return redirect()->back()->withmsg('Successfully add given product Quatity');
     }
-    public function showProduct($requisition_id)
+    public function confirmReceiveDelivery($requisition_id)
     {
-        $requisition = Requisition::with(['warehouse','party',
-            'products'=>function($q){
-                $q->with(['category','pack']);
-            }
-        ])
-        ->where('confirmed',true)
-        ->find($requisition_id);
-        return $requisition;
+        $requisition = Requisition::where('id',$requisition_id)->update(['status'=>'Deliverd','delivered_date'=>Carbon::now()]);
+        return redirect()->back()->withmsg('Successfully add In delivery');
     }
 }

@@ -120,6 +120,9 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
+                                                                        @php
+                                                                            $isconfirm = 0;
+                                                                        @endphp
                                                                         @foreach ($data->products as $key2 => $item)
                                                                             <tr>
                                                                                 <td>{{++$key2}}</td>
@@ -129,6 +132,11 @@
                                                                                 <td>{{$item->pivot->quantity}}</td>
                                                                                 <td>{{$item->pivot->final_quantity}}</td>
                                                                                 <td>{{$item->pivot->packet}}</td>
+                                                                                @if($item->pivot->final_quantity || $item->pivot->final_quantity>0)
+                                                                                    @php
+                                                                                        $isconfirm =1;
+                                                                                    @endphp
+                                                                                @endif
                                                                                 {{-- <td>
                                                                                     <form action="{{route('requisition-product.destroy',$item->pivot->id)}}" method="POST">
                                                                                         @method('DELETE')
@@ -186,9 +194,11 @@
                                                                 </table>
                                                             </td>
                                                             <td>
-                                                                @if($data->status == "Pending")
-                                                                    <a class="btn purple" href="{{route('requisition.receive.show_product',$data->id)}}"><i class="fa fa-check-circle-o"></i> Confirm</a>
-                                                                    <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Add Product</a>
+                                                                @if($data->status == "Pending" || $data->status == "Processing")
+                                                                    @if($isconfirm == 1)
+                                                                        <a class="btn purple" href="{{route('requisition.receive.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i> Confirm & Deliver</a>
+                                                                    @endif
+                                                                    <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i> Provide Quantity</a>
                                                                 @endif
                                                                 {{-- <a class="btn blue-chambray"  data-toggle="modal" href="{{route('requisition.edit',$data)}}"><i class="fa fa-edit"></i> Edit</a>
                                                                 <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a> --}}
