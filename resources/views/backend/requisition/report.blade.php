@@ -17,12 +17,11 @@
             @endif
             <!-- BEGIN PAGE TITLE-->
             <h3 class="page-title bold">Requisition
-                <small> Requisition-managment </small>
-
-                <a class="btn blue-ebonyclay pull-right" data-toggle="modal" href="#basic">
+                <small> Requisition-Report</small>
+                {{-- <a class="btn blue-ebonyclay pull-right" data-toggle="modal" href="#basic">
                     Add Requisition
                     <i class="fa fa-plus"></i>
-                </a>
+                </a> --}}
             </h3>
             <hr>
             @if (count($errors) > 0)
@@ -38,19 +37,6 @@
                     </div>
                 </div>
             @endif
-            @if ($requisition_Delivered_count > 0 || $requisition_processed_count>0)
-                <div class="row">
-                    <div class="col-md-06">
-                        <div class="alert alert-info alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-                            <li>You have Processing  Request ({{ $requisition_processed_count }})</li>
-                            <li>You have Deliverd  Request ({{ $requisition_Delivered_count }})</li>
-                            <b><a href="{{route('requisition.delivery.confirm')}}">See details</a></b>
-                        </div>
-                    </div>
-                </div>
-            @endif
             <!-- END PAGE TITLE-->
             <!-- BEGIN PAGE CONTENT-->
             <div class="row">
@@ -58,7 +44,7 @@
                     <div class="portlet box blue-chambray">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-briefcase"></i>Requisition List
+                                <i class="fa fa-briefcase"></i>Requisition Reports
                             </div>
                             <div class="tools">
                             </div>
@@ -75,7 +61,7 @@
                                                 Warehouse Name
                                             </th>
                                             <th>
-                                                Party Name
+                                                Party Code
                                             </th>
                                             <th>
                                                 Status
@@ -96,17 +82,12 @@
                                             <tr id="row1">
                                                 <td>{{$data->requisition_id}}</td>
                                                 <td> {{$data->warehouse->name}}</td>
-                                                <td> {{$data->party->party_name}}</td>
+                                                <td> {{$data->party->party_code}}</td>
                                                 <td>
-                                                    @if ($data->confirmed==false)
-                                                        {{"Not Confirmed"}}
-                                                    @else
-                                                        Confirmed
-                                                    @endif
+                                                    {{$data->status}}                       
                                                 </td>
                                                 <td> {{$data->clearance_date}} </td>
                                                 <td> 
-                                                    {{-- {{$data->products}} --}}
                                                     <table class="table table-striped table-bordered table-hover">
                                                         <thead>
                                                             <tr>
@@ -123,14 +104,17 @@
                                                                     Pack Size
                                                                 </th>
                                                                 <th>
-                                                                    Quantity
+                                                                    Requested Quantity
+                                                                </th>
+                                                                <th>
+                                                                    Provided Quantity
                                                                 </th>
                                                                 <th>
                                                                     Packet
                                                                 </th>
-                                                                <th>
+                                                                {{-- <th>
                                                                     Action
-                                                                </th>
+                                                                </th> --}}
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -141,29 +125,70 @@
                                                                     <td>{{$item->product_name}}</td>
                                                                     <td>{{$item->pack->name}}</td>
                                                                     <td>{{$item->pivot->quantity}}</td>
+                                                                    <td>{{$item->pivot->final_quantity}}</td>
                                                                     <td>{{$item->pivot->packet}}</td>
-                                                                    <td>
+                                                                    {{-- <td>
                                                                         <form action="{{route('requisition-product.destroy',$item->pivot->id)}}" method="POST">
                                                                             @method('DELETE')
                                                                             @csrf
                                                                             <button type="submit" class="btn red"><i class="fa fa-trash"></i> Delete</button>
                                                                         </form>
-                                                                    </td>
+                                                                    </td> --}}
                                                                 </tr>
+                                                                <div id="addProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                                    {{csrf_field()}}
+                                                                    <input type="hidden" value="" id="delete_id">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <form action="{{route('requisition.receive.updatesubmitted')}}" method="POST">
+                                                                                <div class="modal-header">
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Add Products</h2>
+                                                                                </div>
+                                                                                <br>
+                                                                                <div class="modal-body">
+                                                                                    @csrf
+                                                                                    <input type="hidden" name="requisition_id" value="{{$data->id}}">
+                                                                                    @foreach ($data->products as $keyupdated => $value)
+                                                                                        <div class="m-5 row">
+                                                                                            <input type="hidden" name="requisition_product_id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
+                                                                                            <div class="col-md-4">
+                                                                                                <b>Product Name: {{$value->product_name}}</b>
+                                                                                            </div>
+                                                                                            <div class="col-md-4">
+                                                                                                <b>Provided Quantity: {{$value->pivot->quantity}}</b>
+                                                                                            </div>
+                                                                                            <div class="col-md-4">
+                                                                                                <input name="final_quantity[{{$keyupdated}}]" value="{{$value->pivot->final_quantity}}" class="form-control" type="number" required placeholder="Available Quantity">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    @endforeach
+                                                                                </div>
+                                                                                <br>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="submit" class="m-10 btn btn-success">Save</button>
+                                                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             @endforeach
                                                         </tbody>
                                                     </table>
                                                 </td>
                                                 <td>
-                                                    @if($data->confirmed == false)
-                                                        <a class="btn purple" href="{{route('requisition.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i> confirm</a>
-                                                        <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Add Product</a>
+                                                    @if($data->status == "Deliverd")
+                                                        <form action="{{route('requisition.receive.confirm')}}" method="post">
+                                                            <a class="btn purple" href=""><i class="fa fa-check-circle-o"></i> Confirm Delivery</a>
+                                                        </form>
+                                                        {{-- <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i> Provide Quantity</a> --}}
                                                     @endif
-                                                    <a class="btn blue-chambray"  data-toggle="modal" href="{{route('requisition.edit',$data)}}"><i class="fa fa-edit"></i> Edit</a>
-                                                    <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                                    {{-- <a class="btn blue-chambray"  data-toggle="modal" href="{{route('requisition.edit',$data)}}"><i class="fa fa-edit"></i> Edit</a>
+                                                    <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a> --}}
                                                 </td>
                                             </tr>
-                                            <div id="addProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                            {{-- <div id="addProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                 {{csrf_field()}}
                                                 <input type="hidden" value="" id="delete_id">
                                                 <div class="modal-dialog">
@@ -211,19 +236,12 @@
                                                         <br>
                                                         <div class="modal-footer">
                                                             <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                            {{-- <br>
-                                                            <form action="{{route('requisition.destroy',[$data])}}" method="POST">
-                                                                @method('DELETE')
-                                                                @csrf
-                                                                <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
-                                                            </form> --}}
-                                                            {{-- <a type="submit" href="{{route('customer.delete', $data)}}" class="btn red" id="delete"><i class="fa fa-trash"></i> Delete</a> --}}
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
-                                            <div id="deleteModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                            {{-- <div id="deleteModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                 {{csrf_field()}}
                                                 <input type="hidden" value="" id="delete_id">
                                                 <div class="modal-dialog">
@@ -240,11 +258,10 @@
                                                                 @csrf
                                                                 <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
                                                             </form>
-                                                            {{-- <a type="submit" href="{{route('customer.delete', $data)}}" class="btn red" id="delete"><i class="fa fa-trash"></i> Delete</a> --}}
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -292,31 +309,6 @@
                                     </select>
                                 </div>
                             </div>
-
-                            {{-- <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Product Name</label>
-                                <div class="col-md-8">
-                                    <select class="form-control select2me" name="product_id" id="product" required>
-
-                                    </select>
-                                    {{csrf_field()}}
-                                </div>
-                            </div> --}}
-
-                            {{-- <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Product Quantity</label>
-                                <div class="col-md-8">
-                                    <input type="number" class="form-control" placeholder="Quantity" required name="quantity">
-                                </div>
-                            </div> --}}
-
-                            {{-- <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Pac Size</label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" placeholder="Pac Size" required name="pac_size">
-                                </div>
-                            </div> --}}
-
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Expedted Receive Date</label>
                                 <div class="col-md-8">
