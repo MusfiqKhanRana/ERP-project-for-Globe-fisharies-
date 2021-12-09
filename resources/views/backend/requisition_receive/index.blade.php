@@ -142,7 +142,7 @@
                                                                                 <input type="hidden" value="" id="delete_id">
                                                                                 <div class="modal-dialog">
                                                                                     <div class="modal-content">
-                                                                                        <form action="{{route('requisition-product.store')}}" method="POST">
+                                                                                        <form action="{{route('requisition.receive.updatesubmitted')}}" method="POST">
                                                                                             <div class="modal-header">
                                                                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                                                                                 <h2 class="modal-title" style="color: rgb(75, 65, 65);">Add Products</h2>
@@ -153,7 +153,8 @@
                                                                                                     
                                                                                                     @csrf
                                                                                                     <input type="hidden" name="requisition_id" value="{{$data->id}}">
-                                                                                                    @foreach ($data->products as $value)
+                                                                                                    @foreach ($data->products as $keyupdated => $value)
+                                                                                                        <input type="hidden" name="requisition_product_id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
                                                                                                         <div class="col-md-4">
                                                                                                             <b>Product Name: {{$value->product_name}}</b>
                                                                                                         </div>
@@ -161,7 +162,7 @@
                                                                                                             <b>Requested Quantity: {{$value->pivot->quantity}}</b>
                                                                                                         </div>
                                                                                                         <div class="col-md-4">
-                                                                                                            <input name="final_quantity" class="form-control" type="number" required placeholder="Available Quantity">
+                                                                                                            <input name="final_quantity[{{$keyupdated}}]" value="{{$value->pivot->final_quantity}}" class="form-control" type="number" required placeholder="Available Quantity">
                                                                                                         </div>
                                                                                                         <br>
                                                                                                     @endforeach
@@ -169,7 +170,6 @@
                                                                                                             <label><span>&nbsp;</span></label><br>
                                                                                                             <button class="m-10 btn btn-success">Save</button>
                                                                                                         </div> --}}
-                                                                                                    
                                                                                                 </div>
                                                                                             </div>
                                                                                             <br>

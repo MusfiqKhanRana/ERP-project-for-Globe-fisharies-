@@ -6,7 +6,9 @@ use App\Models\Category;
 use App\Models\Party;
 use App\Models\Requisition;
 use App\Models\Warehouse;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RequisitionReceiveController extends Controller
 {
@@ -21,6 +23,23 @@ class RequisitionReceiveController extends Controller
             }
         ])->where('confirmed',true)->latest()->paginate(10);
         return view('backend.requisition_receive.index',compact('requisition','category','warehouse','party'));
+    }
+    public function updateSubmitted(Request $request)
+    {
+        $data = $request->all();
+        unset($data['_token']);
+        foreach ($data['requisition_product_id'] as $key => $value) {
+            $requisition_product_id = $value;
+            $final_quantity = $data['final_quantity'][$key];
+            DB::table('requisition_product')
+            ->where('id', $requisition_product_id)
+            ->update(
+                ['final_quantity'=>$final_quantity]
+            );
+        }
+        $requisition = Requisition::where('id',$data['requisition_id'])->update(['status'=>'Processing','process_date'=>Carbon::now()]);
+
+        return redirect()->back()->withmsg('Successfully add given product Quatity');
     }
     public function showProduct($requisition_id)
     {
