@@ -29,7 +29,28 @@ class RequisitionController extends Controller
                 $q->with(['category','pack']);
             }
         ])->where('confirmed',false)->latest()->paginate(10);
-        return view('backend.requisition.index',compact('requisition','category','warehouse','party'));
+        $requisition_processed_count = Requisition::where('status','Processing')->select('id')->get()->count();
+        $requisition_Delivered_count = Requisition::where('status','Deliverd')->select('id')->get()->count();
+        return view('backend.requisition.index',compact('requisition','category','warehouse','party','requisition_processed_count','requisition_Delivered_count'));
+    }
+    public function report()
+    {
+        $category = Category::select('id','name')->get();
+        $warehouse = Warehouse::select('id','name')->get();
+        $party = Party::select('id','party_name')->get();
+        $requisition = Requisition::with(['warehouse','party',
+            'products'=>function($q){
+                $q->with(['category','pack']);
+            }
+        ])
+        ->where('confirmed',true)
+        ->whereIn('status',['Deliverd','Processing'])
+        ->latest()->paginate(10);
+        return view('backend.requisition.report',compact('requisition','category','warehouse','party'));
+    }
+    public function deliveryConfirm(Request $request)
+    {
+        dd($request->all());
     }
 
     /**

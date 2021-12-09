@@ -157,28 +157,22 @@
                                                                                             </div>
                                                                                             <br>
                                                                                             <div class="modal-body">
-                                                                                                <div class="m-5 row">
-                                                                                                    
                                                                                                     @csrf
                                                                                                     <input type="hidden" name="requisition_id" value="{{$data->id}}">
                                                                                                     @foreach ($data->products as $keyupdated => $value)
-                                                                                                        <input type="hidden" name="requisition_product_id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
-                                                                                                        <div class="col-md-4">
-                                                                                                            <b>Product Name: {{$value->product_name}}</b>
+                                                                                                        <div class="m-5 row">
+                                                                                                            <input type="hidden" name="requisition_product_id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
+                                                                                                            <div class="col-md-4">
+                                                                                                                <b>Product Name: {{$value->product_name}}</b>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-4">
+                                                                                                                <b>Provided Quantity: {{$value->pivot->quantity}}</b>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-4">
+                                                                                                                <input name="final_quantity[{{$keyupdated}}]" value="{{$value->pivot->final_quantity}}" class="form-control" type="number" required placeholder="Available Quantity">
+                                                                                                            </div>
                                                                                                         </div>
-                                                                                                        <div class="col-md-4">
-                                                                                                            <b>Requested Quantity: {{$value->pivot->quantity}}</b>
-                                                                                                        </div>
-                                                                                                        <div class="col-md-4">
-                                                                                                            <input name="final_quantity[{{$keyupdated}}]" value="{{$value->pivot->final_quantity}}" class="form-control" type="number" required placeholder="Available Quantity">
-                                                                                                        </div>
-                                                                                                        <br>
                                                                                                     @endforeach
-                                                                                                        {{-- <div class="col-md-3">
-                                                                                                            <label><span>&nbsp;</span></label><br>
-                                                                                                            <button class="m-10 btn btn-success">Save</button>
-                                                                                                        </div> --}}
-                                                                                                </div>
                                                                                             </div>
                                                                                             <br>
                                                                                             <div class="modal-footer">
