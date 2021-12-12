@@ -46,7 +46,7 @@
                             <h4><i class="icon fa fa-ban"></i> Alert!</h4>
                             <li>You have Processing  Request ({{ $requisition_processed_count }})</li>
                             <li>You have Deliverd  Request ({{ $requisition_Delivered_count }})</li>
-                            <b><a href="{{route('requisition.delivery.confirm')}}">See details</a></b>
+                            <b><a href="{{route('requisition.status')}}">See details</a></b>
                         </div>
                     </div>
                 </div>
@@ -160,7 +160,7 @@
                                                         <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Add Product</a>
                                                     @endif
                                                     <a class="btn blue-chambray"  data-toggle="modal" href="{{route('requisition.edit',$data)}}"><i class="fa fa-edit"></i> Edit</a>
-                                                    <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                                    <a class="btn red" data-toggle="modal" href="#deleteModal"><i class="fa fa-trash"></i> Delete</a>
                                                 </td>
                                             </tr>
                                             <div id="addProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -223,7 +223,7 @@
                                                 </div>
                                             </div>
 
-                                            <div id="deleteModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                            <div id="deleteModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                 {{csrf_field()}}
                                                 <input type="hidden" value="" id="delete_id">
                                                 <div class="modal-dialog">

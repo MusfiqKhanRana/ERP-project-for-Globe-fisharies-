@@ -15,9 +15,11 @@ class CreateStockProductsTable extends Migration
     {
         Schema::create('stock_products', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('warehouse_id');
-            $table->integer('product_id');
-            $table->string('quantity');
+            $table->unsignedInteger('warehouse_id')->nullable();
+            $table->unsignedInteger('product_id')->nullable();
+            $table->unsignedInteger('requisition_id')->nullable();
+            $table->unsignedInteger('buying_price')->nullable();
+            $table->string('quantity')->nullable();
             $table->timestamps();
         });
     }

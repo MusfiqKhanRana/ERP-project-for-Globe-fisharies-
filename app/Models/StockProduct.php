@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class StockProduct extends Model
 {
-    protected $fillable = ['product_id', 'quantity', 'warehouse_id'];
+    protected $fillable = ['product_id', 'quantity', 'warehouse_id','requisition_id','buying_price'];
 
     public function warehouse()
     {
