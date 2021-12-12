@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Cutomer;
 use App\Models\Party;
 use App\Models\Requisition;
+use App\Models\StockProduct;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +34,7 @@ class RequisitionController extends Controller
         $requisition_Delivered_count = Requisition::where('status','Deliverd')->select('id')->get()->count();
         return view('backend.requisition.index',compact('requisition','category','warehouse','party','requisition_processed_count','requisition_Delivered_count'));
     }
-    public function report()
+    public function status()
     {
         $category = Category::select('id','name')->get();
         $warehouse = Warehouse::select('id','name')->get();
@@ -50,7 +51,16 @@ class RequisitionController extends Controller
     }
     public function deliveryConfirm(Request $request)
     {
-        dd($request->all());
+        $data = $request->except(['_token']);
+        $products = json_decode($data['products']);
+        $requisition_id = $data['requisition_id'];
+        // return $requisition_id;
+        foreach ($products as $key => $product) {
+            // return $product;
+            StockProduct::create(['warehouse_id'=>$data['warehouse_id'],'product_id'=>$product->id,'requisition_id'=>$requisition_id,'quantity'=>$product->pivot->quantity,'buying_price'=>$product->buying_price]);
+        }
+        $update = Requisition::where('id',$requisition_id)->update(['status'=> 'Received']);
+        return redirect()->back()->withmsg('Successfully Added Your Warehouse');
     }
 
     /**

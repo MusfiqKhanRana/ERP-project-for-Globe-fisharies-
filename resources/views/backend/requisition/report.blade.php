@@ -179,8 +179,12 @@
                                                 </td>
                                                 <td>
                                                     @if($data->status == "Deliverd")
-                                                        <form action="{{route('requisition.receive.confirm')}}" method="post">
-                                                            <a class="btn purple" href=""><i class="fa fa-check-circle-o"></i> Confirm Delivery</a>
+                                                        <form action="{{route('requisition.delivery.confirm')}}" method="post">
+                                                            @csrf
+                                                            <input type="hidden" name="products" value="{{$data->products}}">
+                                                            <input type="hidden" name="warehouse_id" value="{{$data->warehouse_id}}">
+                                                            <input type="hidden" name="requisition_id" value="{{$data->id}}">
+                                                            <button type="submit" class="btn purple" href=""><i class="fa fa-check-circle-o"></i> Confirm Delivery</button>
                                                         </form>
                                                         {{-- <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i> Provide Quantity</a> --}}
                                                     @endif
