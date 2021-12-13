@@ -61,7 +61,8 @@
 <script type="text/javascript" src="{{url('/')}}/assets/backend/nicedit.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+        // new nicEditor().panelInstance('textarea');
+        // bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
     });
 </script>
 

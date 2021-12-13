@@ -269,6 +269,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('requisition/confirm/{id}',[RequisitionController::class,'confirm'])->name('requisition.confirm');
     Route::get('requisition/status',[RequisitionController::class,'status'])->name('requisition.status');
     Route::post('requisition/delivery-confirm/data',[RequisitionController::class,'deliveryConfirm'])->name('requisition.delivery.confirm');
+    Route::post('requisition/delivery-return',[RequisitionController::class,'return'])->name('requisition.delivery.return');
     Route::resource('requisition', RequisitionController::class);
     Route::resource('requisition-product', RequisitionProductController::class);
     Route::get('requisition-receive',[RequisitionReceiveController::class,'index'])->name('requisition.receive.index');

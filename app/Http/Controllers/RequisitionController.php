@@ -8,6 +8,7 @@ use App\Models\Party;
 use App\Models\Requisition;
 use App\Models\StockProduct;
 use App\Models\Warehouse;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -144,6 +145,12 @@ class RequisitionController extends Controller
         $update = Requisition::where('id',$id)->update(['confirmed'=> true]);
         return redirect()->back()->withmsg('Confirmed');
     }
+    public function return(Request $request)
+    {
+        $update = Requisition::where('id',$request->requisition_id)->update(['status'=>'Returned','return_date'=>Carbon::now(),'return_note'=>$request->return_note]);
+        return redirect()->back()->withmsg('Your Requisition has Returened');
+    }
+
     /**
      * Remove the specified resource from storage.
      *
