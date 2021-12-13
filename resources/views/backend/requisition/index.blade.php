@@ -125,9 +125,9 @@
                                                                 <th>
                                                                     Quantity
                                                                 </th>
-                                                                <th>
+                                                                {{-- <th>
                                                                     Packet
-                                                                </th>
+                                                                </th> --}}
                                                                 <th>
                                                                     Action
                                                                 </th>
@@ -141,7 +141,7 @@
                                                                     <td>{{$item->product_name}}</td>
                                                                     <td>{{$item->pack->name}}</td>
                                                                     <td>{{$item->pivot->quantity}}</td>
-                                                                    <td>{{$item->pivot->packet}}</td>
+                                                                    {{-- <td>{{$item->pivot->packet}}</td> --}}
                                                                     <td>
                                                                         <form action="{{route('requisition-product.destroy',$item->pivot->id)}}" method="POST">
                                                                             @method('DELETE')
@@ -193,12 +193,12 @@
                 
                                                                         </select>
                                                                     </div>
-                                                                    <div class="col-md-3">
+                                                                    {{-- <div class="col-md-3">
                                                                         <label for="">Packet</label>
                                                                         <input name="packet" class="form-control" type="number" required placeholder="Packet">
-                                                                    </div>
+                                                                    </div> --}}
                                                                     <div class="col-md-3">
-                                                                        <label for="">Quantity (Kg)</label>
+                                                                        <label for="">Packet</label>
                                                                         <input name="quantity" class="form-control" type="number" required placeholder="Quantity">
                                                                     </div>
                                                                     <div class="col-md-3">
@@ -350,12 +350,12 @@
 
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    {{-- <div class="col-md-3">
                                                         <label for="">Packet</label>
                                                         <input name="packet[1]" class="form-control" type="number" required placeholder="Packet">
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="col-md-3">
-                                                        <label for="">Quantity (Kg)</label>
+                                                        <label for="">Packet</label>
                                                         <input name="quantity[1]" class="form-control" type="number" required placeholder="Quantity">
                                                     </div>
                                                     <div class="col-md-3">
@@ -407,12 +407,8 @@
                         '<select class="form-control select2me product'+max+'" name="product_id['+max+']"  placeholder="Product" required>'+
                         '</select>'
                     +'</div>'+
-                    '<div class="col-md-3">'
-                        +'<label for="">Packet</label>'+
-                        '<input name="packet['+max+']" class="form-control" type="number" required placeholder="Packet">'+
-                    '</div>'+
                     '<div class="col-md-3">'+
-                        '<label for="">Quantity</label>'+
+                        '<label for="">Packet</label>'+
                         '<input name="quantity['+max+']" class="form-control" type="number" required placeholder="Quantity">'+
                     '</div>'+
                     '<div class="col-md-3">'+

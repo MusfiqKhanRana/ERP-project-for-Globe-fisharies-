@@ -109,9 +109,9 @@
                                                                 <th>
                                                                     Provided Quantity
                                                                 </th>
-                                                                <th>
+                                                                {{-- <th>
                                                                     Packet
-                                                                </th>
+                                                                </th> --}}
                                                                 {{-- <th>
                                                                     Action
                                                                 </th> --}}
@@ -126,7 +126,7 @@
                                                                     <td>{{$item->pack->name}}</td>
                                                                     <td>{{$item->pivot->quantity}}</td>
                                                                     <td>{{$item->pivot->final_quantity}}</td>
-                                                                    <td>{{$item->pivot->packet}}</td>
+                                                                    {{-- <td>{{$item->pivot->packet}}</td> --}}
                                                                     {{-- <td>
                                                                         <form action="{{route('requisition-product.destroy',$item->pivot->id)}}" method="POST">
                                                                             @method('DELETE')
