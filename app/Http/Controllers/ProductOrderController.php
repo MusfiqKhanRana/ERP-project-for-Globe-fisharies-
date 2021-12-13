@@ -59,7 +59,7 @@ class ProductOrderController extends Controller
         ));
 
         $data = $request->all();
-        dd(var_dump($data));
+        // dd(var_dump($data));
         $order = Order::create(['customer_id' => $data['customer_id']]);
         foreach ($data['warehouse_id'] as $key => $value) {
             $product_order = ProductOrder::create([
