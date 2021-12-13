@@ -80,7 +80,18 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach($requisition as $key=> $data)
-                                                        <tr id="row1">
+                                                        @php
+                                                            $color = null;
+                                                            if($data->status == "Pending"){
+                                                                $color = '';
+                                                            }
+                                                            elseif ($data->status == "Processing") {
+                                                               $color = '#e3cfcf';
+                                                            }elseif($data->status == "Returned") {
+                                                                $color = '#fc9f9f';
+                                                            }
+                                                        @endphp
+                                                        <tr id="row1" style="background-color: {{$color}}">
                                                             <td>{{$data->requisition_id}}</td>
                                                             <td> {{$data->warehouse->name}}</td>
                                                             <td> {{$data->party->party_code}}</td>
@@ -188,7 +199,7 @@
                                                                 </table>
                                                             </td>
                                                             <td>
-                                                                @if($data->status == "Pending" || $data->status == "Processing")
+                                                                @if($data->status == "Pending" || $data->status == "Processing"  || $data->status == "Returned")
                                                                     @if($isconfirm == 1)
                                                                         <a class="btn purple" href="{{route('requisition.receive.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i> Confirm & Deliver</a>
                                                                     @endif

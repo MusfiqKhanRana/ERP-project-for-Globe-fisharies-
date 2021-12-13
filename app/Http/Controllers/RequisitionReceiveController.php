@@ -23,7 +23,7 @@ class RequisitionReceiveController extends Controller
             }
         ])
         ->where('confirmed',true)
-        ->whereIn('status',['Pending','Processing'])
+        ->whereIn('status',['Pending','Processing','Returned'])
         ->latest()->paginate(10);
         return view('backend.requisition_receive.index',compact('requisition','category','warehouse','party'));
     }

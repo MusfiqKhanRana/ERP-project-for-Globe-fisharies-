@@ -186,13 +186,14 @@
                                                             <input type="hidden" name="requisition_id" value="{{$data->id}}">
                                                             <button type="submit" class="btn purple" href=""><i class="fa fa-check-circle-o"></i> Confirm Delivery</button>
                                                         </form>
-                                                        {{-- <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i> Provide Quantity</a> --}}
+                                                        <br>
+                                                        <a class="btn red" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-undo"></i> Return </a>
                                                     @endif
                                                     {{-- <a class="btn blue-chambray"  data-toggle="modal" href="{{route('requisition.edit',$data)}}"><i class="fa fa-edit"></i> Edit</a>
                                                     <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a> --}}
                                                 </td>
                                             </tr>
-                                            {{-- <div id="addProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                            <div id="addProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                 {{csrf_field()}}
                                                 <input type="hidden" value="" id="delete_id">
                                                 <div class="modal-dialog">
@@ -204,32 +205,15 @@
                                                         <br>
                                                         <div class="modal-body">
                                                             <div class="m-5 row">
-                                                                <form action="{{route('requisition-product.store')}}" method="POST">
+                                                                <form action="{{route('requisition.delivery.return')}}" method="POST">
                                                                     @csrf
                                                                     <input type="hidden" name="requisition_id" value="{{$data->id}}">
-                                                                    <div class="col-md-3">
-                                                                        <label for="category">Category</label>
-                                                                        <select class="form-control select2me category1" id="department" name="category_id" required>
-                                                                            <option value="">--select--</option>
-                                                                            @foreach($category as $data)
-                                                                                <option value="{{$data->id}}">{{$data->name}}</option>
-                                                                            @endforeach
-                                                                        </select>
+                                                                    <div class="col-md-12">
+                                                                        <label for="category"><b>Return Note</b> </label><br>
+                                                                        <textarea rows="7" cols="50" name="return_note"></textarea>
                                                                     </div>
-                                                                    <div class="col-md-3">
-                                                                        <label for="category">Product</label>
-                                                                        <select class="form-control select2me product1" name="product_id" id="product" placeholder="Product" required>
-                
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <label for="">Packet</label>
-                                                                        <input name="packet" class="form-control" type="number" required placeholder="Packet">
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <label for="">Quantity (Kg)</label>
-                                                                        <input name="quantity" class="form-control" type="number" required placeholder="Quantity">
-                                                                    </div>
+                                                                    {{-- <div class="col-md-3">
+                                                                    </div> --}}
                                                                     <div class="col-md-3">
                                                                         <label><span>&nbsp;</span></label><br>
                                                                         <button class="m-10 btn btn-success">Save</button>
@@ -243,7 +227,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div> --}}
+                                            </div>
 
                                             {{-- <div id="deleteModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                 {{csrf_field()}}

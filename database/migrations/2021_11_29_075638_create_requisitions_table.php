@@ -18,11 +18,13 @@ class CreateRequisitionsTable extends Migration
             $table->unsignedInteger('warehouse_id')->nullable();
             $table->unsignedInteger('party_id')->nullable();
             $table->string('requisition_id')->nullable();
-            $table->enum('status', ['Pending', 'Processing', 'Deliverd','Received'])->default('Pending');
+            $table->enum('status', ['Pending', 'Processing', 'Deliverd','Received','Returned'])->default('Pending');
             $table->boolean('confirmed')->nullable();
             $table->dateTime('clearance_date')->nullable();
             $table->dateTime('process_date')->nullable();
             $table->dateTime('delivered_date')->nullable();
+            $table->dateTime('return_date')->nullable();
+            $table->text('return_note')->nullable();
             $table->unsignedInteger('submitted_by')->nullable();
             $table->unsignedInteger('created_by')->nullable();
             $table->timestamps();
