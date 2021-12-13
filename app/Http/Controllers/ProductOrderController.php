@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Cutomer;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductOrder;
 use App\Models\Warehouse;
@@ -46,7 +47,34 @@ class ProductOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->toArray());
+        $this->validate($request, array(
+            'customer_id' => 'required',
+            'warehouse_id' => 'required',
+            'product_id' => 'required',
+            'service_quantity' => 'required',
+            'service_amount' => 'required',
+            'discount_in_percentage' => 'required',
+            'discount_in_amount' => 'required',
+        ));
+
+        $data = $request->all();
+        dd(var_dump($data));
+        $order = Order::create(['customer_id' => $data['customer_id']]);
+        foreach ($data['warehouse_id'] as $key => $value) {
+            $product_order = ProductOrder::create([
+                'order_id' => $order->id,
+                'product_id' => $data['product_id'][$key],
+                'warehouse_id' => $data['warehouse_id'][$key],
+                'quantity' => $data['service_quantity'][$key],
+                'discount_in_amount' => $data['discount_in_amount'][$key],
+                'discount_in_percentage' => $data['discount_in_percentage'][$key],
+                'selling_price' => $data['service_amount'][$key],
+            ]);
+        }
+       
+        
+        return redirect()->back()->withMsg('Successfully Created');
     }
 
     /**
@@ -124,6 +152,12 @@ class ProductOrderController extends Controller
     {
         $id = $request->id;
         $product = Product::where('id',$id)->first();
-        return response()->json($product) ;
+        return response()->json($product);
+    }
+    public function product_price(Request $request)
+    {
+        $id = $request->id;
+        $product = Product::where('id',$id)->first();
+        return response()->json($product);
     }
 }
