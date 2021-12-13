@@ -102,7 +102,7 @@
                         </div>
 
                             <div class="row" style="margin-top:5%">
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="col-md-11">
                                         <label>Warehouse Select</label>
                                     </div>
@@ -112,24 +112,24 @@
                                         <label>Select Product:</label>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="col-md-10">
+                                <div class="col-md-1">
+                                    <div class="col-md-10"style="margin-left:-20px">
                                         <label>Rate:</label>
                                     </div>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <div class="col-md-10">
                                         <label>Quantity:</label>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="col-md-10">
-                                        <label>Price:</label>
+                                        <label>Discount:</label>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="col-md-10">
-                                        <label>Discount:</label>
+                                        <label>Price:</label>
                                     </div>
                                 </div>
                                 <div class="col-md-1">
@@ -140,7 +140,7 @@
                             </div>
 
                             <div class="row serviceRow redBorder"  id="orderBox">
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <div class="col-md-10">
                                             <select class="form-control" name="warehouse_id[1]" id="department1" required>
@@ -162,9 +162,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-2 ">
+                                <div class="col-md-1 ">
                                     <div class="form-group">
-                                        <div class="col-md-10 product_price1">
+                                        <div class="col-md-10 product_price1" style="margin-left:-20px">
                                             
                                         </div>
                                     </div>
@@ -172,31 +172,29 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control service_qty" placeholder="Quantity" required id="service_qty[]" name="service_quantity[1]">
+                                            <input type="text" class="form-control service_qty1" placeholder="Quantity" required id="service_qty[]" name="service_quantity[1]">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <div class="col-md-10">
-                                            <input type="text" class="form-control amount" placeholder="Total" id="amount" readonly name="service_amount[1]" >
-                                        </div>	
+                                            <span class="discount_in_percentage1">
+                                                <input type="text" class="form-control"  name="discount_in_percentage[1]" placeholder="discount in %" id="percentage_id1"/>
+                                            </span>
+                                            <span class="discount_in_amount1">
+                                                <input type="text" class="form-control" name="discount_in_amount[1]" placeholder="discount in amount" id="amount_id1"/>
+                                            </span>
+                                            <fieldset class="radio-inline question coupon_question2">
+                                                <input class="form-check-input want_in_amount1" type="checkbox">Want in Amount ? 
+                                            </fieldset>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <div class="col-md-10">
-                                            <div class="form-group">
-                                                <span class="discount_in_percentage1">
-                                                    <input type="text" name="discount_in_percentage[1]" placeholder="discount in %" id="percentage_id1"/>
-                                                </span>
-                                                <span class="discount_in_amount1">
-                                                    <input type="text" name="discount_in_amount[1]" placeholder="discount in amount" id="amount_id1"/>
-                                                </span>
-                                                <fieldset class="radio-inline question coupon_question2">
-                                                    <input class="form-check-input want_in_amount1" type="checkbox">Want in Amount ? 
-                                                </fieldset>
-                                            </div>
+                                            <input type="text" class="form-control amount" placeholder="Total" id="amount1" readonly name="service_amount[1]" >
                                         </div>	
                                     </div>
                                 </div>
@@ -243,27 +241,18 @@
         jQuery(document).ready(function() {
             var max = 1;
             var warehouse = @json($warehouse, JSON_PRETTY_PRINT);
-            var price = null;
-            var quantity = null;
-            var amount = null;
-            var total = null;
+            var price = 0;
+            var quantity = 0;
+            var amount = 0;
+            var total = 0;
+            var total_price =0;
+            var dis_a =0;
+            var in_total_amount=0;
             $(document).on('click', '#due', function () {
                 $("#due_amount").show();
             });
             $(document).on('click', '#paid', function () {
                 $("#due_amount").hide();
-            });
-            $(document).on('change', '.selling_price', function () {
-                price = $(this).val();
-                amount = $('#amount').val(price*quantity);
-                // total = $('#total').val($('#amount').val());
-            });
-            $(document).on('keyup','.service_qty',function() {
-                quantity = $(this).val();
-                amount = $('#amount').val(price*quantity);
-                total = $('#total').val(100);
-                console.log($('#amount').val());
-                // console.log(total);
             });
             //Commom Script
             $('.dpicker').datepicker({
@@ -281,7 +270,8 @@
                 }
                 container.after(
                     '<div class="row serviceRow redBorder"  id="orderBox">'+
-                        '<div class="col-md-3">'+
+                        '<hr>'+
+                        '<div class="col-md-2">'+
                             '<div class="form-group">'+
                                 '<div class="col-md-10">'+
                                     '<select class="form-control" name="warehouse_id['+max+']" id="department'+max+'" required>'+
@@ -298,17 +288,16 @@
                                 '</div>'+
                             '</div>'+
                         '</div>'+
-                        '<div class="col-md-2">'+
+                        '<div class="col-md-1 ">'+
                             '<div class="form-group">'+
-                                '<div class="col-md-10">'+
-                                    '<input type="text" class="form-control service_qty" placeholder="Quantity" required id="service_qty[]" name="service_quantity['+max+']">'+
+                                '<div class="col-md-10 product_price'+max+'" style="margin-left:-20px">'+
                                 '</div>'+
                             '</div>'+
                         '</div>'+
                         '<div class="col-md-2">'+
                             '<div class="form-group">'+
                                 '<div class="col-md-10">'+
-                                    '<input type="text" class="form-control amount" placeholder="Total" id="amount" readonly name="service_amount['+max+']" >'+
+                                    '<input type="text" class="form-control service_qty'+max+'" placeholder="Quantity" required id="service_qty[]" name="service_quantity['+max+']">'+
                                 '</div>'+
                             '</div>'+
                         '</div>'+
@@ -316,14 +305,21 @@
                             '<div class="form-group">'+
                                 '<div class="col-md-10">'+
                                     '<span class="discount_in_percentage'+max+'">'+
-                                         '<input type="text" name="discount_in_percentage['+max+']" placeholder="discount in %" id="percentage_id'+max+'"/>'+
+                                         '<input type="text" class="form-control" name="discount_in_percentage['+max+']" placeholder="discount in %" id="percentage_id'+max+'"/>'+
                                     '</span>'+
                                     '<span class="discount_in_amount'+max+'">'+
-                                        '<input type="text" name="discount_in_amount['+max+']" placeholder="discount in amount" id="amount_id'+max+'"/>'+
+                                        '<input type="text" class="form-control" name="discount_in_amount['+max+']" placeholder="discount in amount" id="amount_id'+max+'"/>'+
                                     '</span>'+
                                     '<fieldset class="radio-inline question coupon_question2">'+
                                         '<input class="form-check-input want_in_amount'+max+'" type="checkbox">Want in Amount ? '+
                                     '</fieldset>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class="col-md-2">'+
+                            '<div class="form-group">'+
+                                '<div class="col-md-10">'+
+                                    '<input type="text" class="form-control amount" placeholder="Total" id="amount'+max+'" readonly name="service_amount['+max+']" >'+
                                 '</div>'+
                             '</div>'+
                         '</div>'+
@@ -400,6 +396,40 @@
                         }
                     });
                 });
+                var product_id = '.product_id' + max;
+                $(document).on('change',product_id,function(){
+                    var id = $(this).val();
+                    $.ajax({
+                        type:"POST",
+                        url:"{{route('warehouse.product.price')}}",
+                        data:{
+                            'id' : id,
+                            '_token' : $('input[name=_token]').val()
+                        },
+                        success:function(data){
+                            var $results = $('.product_price'+ max);
+                            var $userDiv = $results.append('<div class="user-div'+ max +'"></div>')
+                            $("<input type='radio' class='selling_price"+max+"' name='selling_price' value='"+data.inhouse_selling_price+"'> <span>Inhouse:"+data.inhouse_selling_price+"</span>").appendTo( ".user-div"+max );
+                            $("<input type='radio' class='selling_price"+max+"' name='selling_price' value='"+data.online_selling_price+"'> <span>Online:"+data.online_selling_price+"</span>").appendTo( ".user-div"+max );
+                            $("<input type='radio' class='selling_price"+max+"' name='selling_price' value='"+data.retail_selling_price+"'> <span>Retail:"+data.retail_selling_price+"</span>").appendTo( ".user-div"+max );
+                            // $('.product_price'+ max).append(
+                            //     $('<input>').prop({
+                            //         type: 'radio',
+                            //         id: 'price',
+                            //         name: 'selling_price',
+                            //         value: data.inhouse_selling_price
+                            //     })
+                            // ).append(
+                            //     $('<label>').prop({
+                            //         for: 'Price'
+                            //     }).html('inhouse_selling_price'+ "(" + data.inhouse_selling_price +")" )
+                            // ).append(
+                            //     $('<br>')
+                            // );
+                        }
+                    });
+                });
+                reloadMax();
                 // var serviceRowQty = $('.serviceRow').length;
                 // $("#orderBox:last").clone(true).insertAfter("div.serviceRow:last");
                 // $("div.serviceRow:last input").val('');
@@ -446,8 +476,7 @@
                 total = t;
                 $('.total').val(t);
             }
-            var department = '#department' + max;
-            $(document).on('change',department,function(){
+            $(document).on('change','#department'+max,function(){
                 var id = $(this).val();
                 $.ajax({
                     type:"POST",
@@ -468,9 +497,7 @@
                     }
                 });
             });
-
-            var product_id = '.product_id' + max;
-            $(document).on('change',product_id,function(){
+            $(document).on('change','.product_id'+max,function(){
                 var id = $(this).val();
                 $.ajax({
                     type:"POST",
@@ -481,10 +508,10 @@
                     },
                     success:function(data){
                         var $results = $('.product_price'+ max);
-                        var $userDiv = $results.append('<div class="user-div"></div>')
-                        $("<input type='radio' class='selling_price' name='selling_price' value='"+data.inhouse_selling_price+"'> <span>Inhouse:"+data.inhouse_selling_price+"</span>").appendTo( ".user-div" );
-                        $("<input type='radio' class='selling_price' name='selling_price' value='"+data.online_selling_price+"'> <span>Online:"+data.online_selling_price+"</span>").appendTo( ".user-div" );
-                        $("<input type='radio' class='selling_price' name='selling_price' value='"+data.retail_selling_price+"'> <span>Retail:"+data.retail_selling_price+"</span>").appendTo( ".user-div" );
+                        var $userDiv = $results.append('<div class="user-div'+ max +'"></div>')
+                        $("<input type='radio' class='selling_price"+max+"' name='selling_price' value='"+data.inhouse_selling_price+"'> <span>Inhouse:"+data.inhouse_selling_price+"</span>").appendTo( ".user-div"+max );
+                        $("<input type='radio' class='selling_price"+max+"' name='selling_price' value='"+data.online_selling_price+"'> <span>Online:"+data.online_selling_price+"</span>").appendTo( ".user-div"+max );
+                        $("<input type='radio' class='selling_price"+max+"' name='selling_price' value='"+data.retail_selling_price+"'> <span>Retail:"+data.retail_selling_price+"</span>").appendTo( ".user-div"+max );
                         // $('.product_price'+ max).append(
                         //     $('<input>').prop({
                         //         type: 'radio',
@@ -504,17 +531,45 @@
             });
 
             $('.discount_in_amount'+max).hide();
+
             $(".want_in_amount"+max).click(function() {
                 if($(this).is(":checked")) {
                     $(".discount_in_amount"+max).show();
                     $(".discount_in_percentage"+max).hide();
                     $('#percentage_id'+max).val('');
+                    $('#amount').val(total_price);
                 } else {
                     $(".discount_in_amount"+max).hide();
                     $(".discount_in_percentage"+max).show();
                     $('#amount_id'+max).val('');
+                    $('#amount').val(total_price);
                 }
             });
+            reloadMax();
+            function reloadMax(){
+                $(document).on('change', '.selling_price'+max, function () {
+                    price = $(this).val();
+                });
+                $(document).on('keyup','.service_qty'+max,function() {
+                    quantity = $(this).val();
+                    amount = $('#amount'+max).val(price*quantity);
+                    total+=price*quantity;
+                    total_price= $('#amount'+max).val();
+                    $('#total').val(total);
+                });
+                $(document).on('keyup','#percentage_id'+max,function() {
+                    let discount = total_price - (total_price*$(this).val())/100;
+                    in_total_amount+=discount;
+                    $('#amount'+max).val(discount);
+                    $('#total').val(in_total_amount);
+                });
+                $(document).on('keyup','#amount_id'+max,function() {
+                    let discount = total_price - ($(this).val());
+                    in_total_amount+=discount;
+                    $('#amount'+max).val(discount);
+                    $('#total').val(in_total_amount);
+                });
+            }
         });
     </script>
 @endsection
