@@ -122,9 +122,9 @@
                                                                             <th>
                                                                                 Provided Quantity
                                                                             </th>
-                                                                            <th>
+                                                                            {{-- <th>
                                                                                 Packet
-                                                                            </th>
+                                                                            </th> --}}
                                                                             {{-- <th>
                                                                                 Action
                                                                             </th> --}}
@@ -142,7 +142,7 @@
                                                                                 <td>{{$item->pack->name}}</td>
                                                                                 <td>{{$item->pivot->quantity}}</td>
                                                                                 <td>{{$item->pivot->final_quantity}}</td>
-                                                                                <td>{{$item->pivot->packet}}</td>
+                                                                                {{-- <td>{{$item->pivot->packet}}</td> --}}
                                                                                 @if($item->pivot->final_quantity || $item->pivot->final_quantity>0)
                                                                                     @php
                                                                                         $isconfirm =1;
