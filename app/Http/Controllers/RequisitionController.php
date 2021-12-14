@@ -91,10 +91,10 @@ class RequisitionController extends Controller
             $product_id = $value;
             $requisition_id = $requisition->id;
             $category_id = $data['category_id'][$key];
-            $packet = $data['packet'][$key];
+            // $packet = $data['packet'][$key];
             $quantity = $data['quantity'][$key];
             DB::table('requisition_product')->insert(
-                ['product_id' => $product_id , 'requisition_id' => $requisition_id,'category_id'=>$category_id,'packet'=>$packet,'quantity'=>$quantity]
+                ['product_id' => $product_id , 'requisition_id' => $requisition_id,'category_id'=>$category_id,'packet'=>null,'quantity'=>$quantity]
             );
         }
         return redirect()->back()->withmsg('Successfully Created');
