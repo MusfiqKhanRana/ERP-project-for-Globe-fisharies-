@@ -49,7 +49,7 @@
                                     <tr >
                                         <td>{{date('Y,M-j', strtotime($not->date))}}</td>
                                         <td>{{$not->invoice_id}}</td>
-                                        <td>{{$not->customer->full_name}}</td>
+                                        <td>{{$not->order->id}}</td>
                                         <td>{{$not->warehouse->name }}</td>
                                         <td>{{$not->product->product_name }}</td>
                                         <td>{{$not->quantity }} {{$not->product->unit}}</td>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Cutomer;
 use App\Models\Product;
+use App\Models\ProductOrder;
 use App\Models\SalePoint;
 use App\Models\StockProduct;
 use App\Models\Warehouse;
@@ -102,8 +103,12 @@ class SalePointController extends Controller
 
     public function soldProductHistory()
     {
-        $product = SalePoint::orderBy('id', 'desc')->get();
-        return view('backend.sold_product_history.history', compact('product'));
+        $category = Category::all();
+        $customer = Cutomer::all();
+        $warehouse = Warehouse::all();
+        $product = Product::all();
+        $product = ProductOrder::orderBy('id', 'desc')->get();
+        return view('backend.sold_product_history.history', compact('category','customer','product','warehouse'));
     }
     public function printHistory($invoice_id)
     {

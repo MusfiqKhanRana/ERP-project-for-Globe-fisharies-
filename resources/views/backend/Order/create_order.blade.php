@@ -157,7 +157,7 @@
                                     <div class="form-group">
                                         <div class="col-md-10">
                                             <select class="form-control product_id1" name="product_id[1]" required>
-                                            
+                                                
                                             </select>
                                         </div>
                                     </div>
@@ -386,6 +386,10 @@
                         },
                         success:function(data){
                             $('.product_id'+max).empty();
+                            $('.product_id'+max).append($('<option>', { 
+                                value: '',
+                                text : "--select--"
+                            }));
                             $.each(data, function (i, item) {
                                 var name_quantity = item.product_name;
                                 $('.product_id'+max).append($('<option>', { 
@@ -409,9 +413,9 @@
                         success:function(data){
                             var $results = $('.product_price'+ max);
                             var $userDiv = $results.append('<div class="user-div'+ max +'"></div>')
-                            $("<input type='radio' class='selling_price"+max+"' name='selling_price' value='"+data.inhouse_selling_price+"'> <span>Inhouse:"+data.inhouse_selling_price+"</span>").appendTo( ".user-div"+max );
-                            $("<input type='radio' class='selling_price"+max+"' name='selling_price' value='"+data.online_selling_price+"'> <span>Online:"+data.online_selling_price+"</span>").appendTo( ".user-div"+max );
-                            $("<input type='radio' class='selling_price"+max+"' name='selling_price' value='"+data.retail_selling_price+"'> <span>Retail:"+data.retail_selling_price+"</span>").appendTo( ".user-div"+max );
+                            $("<input type='radio' class='selling_price"+max+"' name='selling_price' id='a"+max+"' value='"+data.inhouse_selling_price+"'> <span>Inhouse:"+data.inhouse_selling_price+"</span>").appendTo( ".user-div"+max );
+                        $("<input type='radio' class='selling_price"+max+"' name='selling_price' id='b"+max+"' value='"+data.online_selling_price+"'> <span>Online:"+data.online_selling_price+"</span>").appendTo( ".user-div"+max );
+                        $("<input type='radio' class='selling_price"+max+"' name='selling_price' id='c"+max+"' value='"+data.retail_selling_price+"'> <span>Retail:"+data.retail_selling_price+"</span>").appendTo( ".user-div"+max );
                             // $('.product_price'+ max).append(
                             //     $('<input>').prop({
                             //         type: 'radio',
@@ -487,6 +491,10 @@
                     },
                     success:function(data){
                         $('.product_id'+max).empty();
+                        $('.product_id'+max).append($('<option>', { 
+                            value: '',
+                            text : "--select--"
+                        }));
                         $.each(data, function (i, item) {
                             var name_quantity = item.product_name;
                             $('.product_id'+max).append($('<option>', { 
@@ -509,9 +517,9 @@
                     success:function(data){
                         var $results = $('.product_price'+ max);
                         var $userDiv = $results.append('<div class="user-div'+ max +'"></div>')
-                        $("<input type='radio' class='selling_price"+max+"' name='selling_price' value='"+data.inhouse_selling_price+"'> <span>Inhouse:"+data.inhouse_selling_price+"</span>").appendTo( ".user-div"+max );
-                        $("<input type='radio' class='selling_price"+max+"' name='selling_price' value='"+data.online_selling_price+"'> <span>Online:"+data.online_selling_price+"</span>").appendTo( ".user-div"+max );
-                        $("<input type='radio' class='selling_price"+max+"' name='selling_price' value='"+data.retail_selling_price+"'> <span>Retail:"+data.retail_selling_price+"</span>").appendTo( ".user-div"+max );
+                        $("<input type='radio' class='selling_price"+max+"' name='selling_price' id='a"+max+"' value='"+data.inhouse_selling_price+"'> <span>Inhouse:"+data.inhouse_selling_price+"</span>").appendTo( ".user-div"+max );
+                        $("<input type='radio' class='selling_price"+max+"' name='selling_price' id='b"+max+"' value='"+data.online_selling_price+"'> <span>Online:"+data.online_selling_price+"</span>").appendTo( ".user-div"+max );
+                        $("<input type='radio' class='selling_price"+max+"' name='selling_price' id='c"+max+"' value='"+data.retail_selling_price+"'> <span>Retail:"+data.retail_selling_price+"</span>").appendTo( ".user-div"+max );
                         // $('.product_price'+ max).append(
                         //     $('<input>').prop({
                         //         type: 'radio',
