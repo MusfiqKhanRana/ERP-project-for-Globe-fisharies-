@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductOrder;
 use App\Models\Warehouse;
+use App\Models\area;
 use Illuminate\Http\Request;
 
 class ProductOrderController extends Controller
@@ -23,7 +24,8 @@ class ProductOrderController extends Controller
         $category = Category::all();
         $customer = Cutomer::all();
         $warehouse = Warehouse::all();
-        return view('backend.Order.create_order', compact('category','customer', 'warehouse'));
+        $area  = area::all();
+        return view('backend.Order.create_order', compact('category','customer', 'warehouse','area'));
     }
 
     /**
@@ -56,6 +58,7 @@ class ProductOrderController extends Controller
             'service_amount' => 'required',
             'discount_in_percentage' => 'required',
             'discount_in_amount' => 'required',
+            'remark' => 'required',
         ));
 
         $data = $request->all();
@@ -70,6 +73,7 @@ class ProductOrderController extends Controller
                 'discount_in_amount' => $data['discount_in_amount'][$key],
                 'discount_in_percentage' => $data['discount_in_percentage'][$key],
                 'selling_price' => $data['service_amount'][$key],
+                'remark' => $data['remark'][$key],
             ]);
         }
        
@@ -159,5 +163,17 @@ class ProductOrderController extends Controller
         $id = $request->id;
         $product = Product::where('id',$id)->first();
         return response()->json($product);
+    }
+    public function dataAjax(Request $request)
+    {
+    	$data = [];
+
+        
+            $search = $request->q;
+            $data =Cutomer::select("id","full_name")
+            		->where('full_name','LIKE',"%$search%")
+            		->get();
+        
+        return response()->json($data);
     }
 }

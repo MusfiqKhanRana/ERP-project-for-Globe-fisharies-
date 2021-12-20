@@ -13,6 +13,8 @@
     <link rel="shortcut icon" type="image/png" href="{{asset('assets/images/logo/icon.png')}}"/>
 @include('backend.template-part.style')
     @yield('style')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 </head>
 
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
@@ -147,6 +149,7 @@
         <!-- /.modal-content -->
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
 @include('backend.template-part.footer')

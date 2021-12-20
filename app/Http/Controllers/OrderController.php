@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Area;
+use App\Models\Category;
+use App\Models\Cutomer;
 use App\Models\Order;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -14,7 +18,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $order = Order::all();
+        $customer = Cutomer::all();
+        $warehouse = Warehouse::all();
+        $area  = Area::all();
+        return view('backend.Order.index', compact('order','customer', 'warehouse','area'));
     }
 
     /**
@@ -78,8 +86,9 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy($id)
     {
-        //
+        Order::whereId($id)->delete();
+        return redirect()->back()->withMsg("Successfully Deleted");
     }
 }

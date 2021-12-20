@@ -29,6 +29,7 @@ use App\Http\Controllers\CateringManagement;
 use App\Http\Controllers\OfficeDetailController;
 use App\Http\Controllers\FoodMillController;
 use App\Http\Controllers\CateringController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PackControler;
 use App\Http\Controllers\PartyController;
 use App\Http\Controllers\PersonalManagementController;
@@ -280,13 +281,21 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Menu
 
     Route::resource('party', PartyController::class);
+    Route::resource('party-management', PartyController::class);
     Route::resource('pack', PackControler::class);
     Route::resource('area', AreaController::class);
 
     //Order
     Route::post('order/product',[ProductOrderController::class,'warehouse_product_pass'])->name('warehouse.product.pass');
     Route::post('order/product/product_price',[ProductOrderController::class,'product_price'])->name('warehouse.product.price');
-    Route::resource('order', ProductOrderController::class);
+    Route::resource('order', ProductOrderController::class); 
+    Route::get('/select2-autocomplete-ajax', [ProductOrderController::class,'dataAjax'])->name('select2.autocomplete.ajax');
+
+    Route::get('/order/search',[OrderController::class,'action'])->name('order.search');
+
+
+    Route::resource('order-history', OrderController::class);
+    Route::get('order/confirm/{id}',[OrderController::class,'confirm'])->name('order.confirm');
     
 
 });
