@@ -38,6 +38,18 @@
                     </div>
                 </div>
         @endif
+        @if ($requisition_Imperfect_count > 0 )
+        <div class="row">
+            <div class="col-md-06">
+                <div class="alert alert-info alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                    <li>You have imperfect delivery ({{ $requisition_Imperfect_count }})</li>
+                    <b><a href="{{route('requisition.receive.status')}}">See details</a></b>
+                </div>
+            </div>
+        </div>
+    @endif
             <!-- END PAGE TITLE-->
                         <!-- BEGIN PAGE CONTENT-->
                         <div class="row">
