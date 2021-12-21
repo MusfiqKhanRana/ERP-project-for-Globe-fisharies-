@@ -91,7 +91,9 @@ class ProductController extends Controller
         $product=  Product::find($id);
             
             if ($request->hasFile('image')) {
-                unlink('assets/images/product/images/'.$product->image);
+                if ($product->image!=null) {
+                    unlink('assets/images/product/images/'.$product->image);
+                }
                 $image = $request->file('image');
                 $filename = time() . '.' . 'jpg';
                 $location = 'assets/images/product/images/'. $filename;
