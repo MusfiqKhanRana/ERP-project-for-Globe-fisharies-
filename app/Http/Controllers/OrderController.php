@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -25,8 +26,8 @@ class OrderController extends Controller
         $warehouse = Warehouse::all();
         $area  = Area::all();
         $products = Product::all();
-         //dd($order);
-        return view('backend.Order.index', compact('order','customer', 'warehouse','area','products'));
+        $category = Category::all();
+        return view('backend.Order.index', compact('order','customer', 'warehouse','area','products','category'));
     }
     public function confirm($id)
     {
@@ -51,7 +52,10 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        unset($data['_token']);
+        DB::table('product_orders')->insert($data);
+        return redirect()->back()->withmsg('Successfully Added');
     }
 
     /**
@@ -98,5 +102,30 @@ class OrderController extends Controller
     {
         Order::whereId($id)->delete();
         return redirect()->back()->withMsg("Successfully Deleted");
+    }
+    public function product_pass(Request $request){
+        $id = $request->id;
+        $warehouse = Warehouse::with('products')->find($id);
+        $process_product = $this->processWarehouseProduct($warehouse);
+        // $output ="";
+        // foreach($process_product as $value){
+        //     // $output.= '<option value="'.$value['id'].'">'.$value['product_name'].'('.$value['stock_quantity'].')</option>';
+        //     $output.= '<option>value</option>'; 
+        // }
+        // $data['output'] = $output;
+        return response($process_product);
+    }
+    public function processWarehouseProduct($warehouse)
+    {
+        $process_array = [];
+        $unique_ids = [];
+        $total_quantity = 0;
+        foreach ($warehouse->products as $key => $product) {
+            if (!in_array($product->pivot->product_id,$unique_ids)){
+                array_push($unique_ids,$product->pivot->product_id);
+                array_push($process_array,['id'=> $product->id,'product_name' => $product->product_name,'stock_quantity' => $product->pivot->quantity]);
+            }
+        }
+        return $process_array;
     }
 }

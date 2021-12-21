@@ -10,6 +10,7 @@ use App\Models\ProductOrder;
 use App\Models\Warehouse;
 use App\Models\Area;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductOrderController extends Controller
 {
@@ -74,7 +75,9 @@ class ProductOrderController extends Controller
                 'discount_in_amount' => $data['discount_in_amount'][$key],
                 'discount_in_percentage' => $data['discount_in_percentage'][$key],
                 'selling_price' => $data['service_amount'][$key],
+                
             ]);
+           
         }
        
         
