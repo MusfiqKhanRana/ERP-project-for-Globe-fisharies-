@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Party;
+use App\Models\Product;
 
 class PartyController extends Controller
 {
@@ -25,7 +26,8 @@ class PartyController extends Controller
      */
     public function create()
     {
-        return view('backend.party.create');
+        $products = Product::all();
+        return view('backend.party.create', compact('products'));
     }
 
     /**
@@ -35,7 +37,8 @@ class PartyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        // dd($request);
         $inputs = $request->except('_token', 'name');
         $this->validate($request,array(
            'party_code' => 'required|max:191',
@@ -112,5 +115,13 @@ class PartyController extends Controller
     {
         Party::whereId($id)->delete();
         return redirect()->back()->withMsg("Successfully Deleted");
+    }
+    public function party_products(Request $request)
+    {
+        $process_array = [];
+        $id = $request->id;
+        $prod = Product::find($id);
+        array_push($process_array,['id'=> $prod->id,'product_name' => $prod->product_name,'buying_price' => $prod->buying_price ]);
+        return $process_array;
     }
 }

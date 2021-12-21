@@ -71,6 +71,16 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-3 control-label">Party Select Products</label>
+                                        <div class="col-md-9">
+                                            <select id="party_products" class="multiselect text-center" style="width: 100%" name="party_products[]" multiple="multiple">
+                                                @foreach ($products as $item)
+                                                <option class="text-center" value="{{$item->id}}">{{$item->product_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-md-3 control-label">Address</label>
                                         <div class="col-md-9">
                                             <textarea class="form-control" name="address" rows="3"></textarea>
@@ -92,5 +102,45 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+<script src="{{asset('assets/backend/js/parsley.min.js')}}"></script>
+<script>
+    $(document).ready(function(){
+        $('#party_products').multiselect({
+            enableFiltering: true,
+            enableCaseInsensitiveFiltering:true,
+        });
+        $( "#party_products" ).change(function() {
+            // alert( $(this).val() );
+            console.log($(this).val());
+            var id = $(this).val();
+                    $.ajax({
+                        type:"POST",
+                        url:"{{route('party.products.pass')}}",
+                        data:{
+                            'id' : id,
+                            '_token' : $('input[name=_token]').val()
+                        },
+                        success:function(data){
+                            $('.product_id'+max).empty();
+                            $('.product_id'+max).append($('<option>', { 
+                                value: '',
+                                text : "--select--"
+                            }));
+                            $.each(data, function (i, item) {
+                                var name_quantity = item.product_name;
+                                $('.product_id'+max).append($('<option>', { 
+                                    value: item.id,
+                                    text : name_quantity
+                                }));
+                            });
+                        }
+                    });
+        });
+        // $('::option').css({"width": "100%"});
+    });
+</script>
+    
 @endsection
 

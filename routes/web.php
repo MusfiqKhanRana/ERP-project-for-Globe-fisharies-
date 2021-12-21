@@ -281,6 +281,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Menu
 
     Route::resource('party', PartyController::class);
+    Route::post('party/products/pass',[PartyController::class,'party_products'])->name('party.products.pass');
     Route::resource('party-management', PartyController::class);
     Route::resource('pack', PackControler::class);
     Route::resource('area', AreaController::class);
