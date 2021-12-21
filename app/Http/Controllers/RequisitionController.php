@@ -53,15 +53,27 @@ class RequisitionController extends Controller
     public function deliveryConfirm(Request $request)
     {
         $data = $request->except(['_token']);
-        $products = json_decode($data['products']);
-        $requisition_id = $data['requisition_id'];
-        // return $requisition_id;
-        foreach ($products as $key => $product) {
-            // return $product;
-            StockProduct::create(['warehouse_id'=>$data['warehouse_id'],'product_id'=>$product->id,'requisition_id'=>$requisition_id,'quantity'=>$product->pivot->quantity,'buying_price'=>$product->buying_price]);
+        $imperfect_massage = $data['imperfect_massage'];
+        // dd($imperfect_massage);
+        foreach ($data['id'] as $key => $value) {
+            $received_quantity = $data['received_quantity'][$key];
+            $product_id = $data['product_id'][$key];
+            $buying_price = $data['product_id'][$key];
+            $warehouse_id = $data['warehouse_id'][$key];
+            DB::table('requisition_product')
+            ->where('id', $value)
+            ->update(
+                ['received_quantity'=>$received_quantity]
+            );
+            StockProduct::create(['warehouse_id'=>$warehouse_id,'product_id'=>$product_id,'requisition_id'=>$data['requisition_id'],'quantity'=>$received_quantity,'buying_price'=>$buying_price]);
         }
-        $update = Requisition::where('id',$requisition_id)->update(['status'=> 'Received']);
-        return redirect()->back()->withmsg('Successfully Added Your Warehouse');
+        if($imperfect_massage== null){
+            $requisition = Requisition::where('id',$data['requisition_id'])->update(['status'=>'Received','process_date'=>Carbon::now()]);
+        }
+        else
+            $requisition = Requisition::where('id',$data['requisition_id'])->update(['status'=>'Imperfect','process_date'=>Carbon::now(),'imperfect_massage'=>$imperfect_massage]);
+
+        return redirect()->back()->withmsg('Successfully Confirmed given product Quatity');
     }
 
     /**

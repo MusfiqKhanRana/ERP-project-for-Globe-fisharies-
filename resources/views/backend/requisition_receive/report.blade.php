@@ -79,8 +79,8 @@
                                             <th>
                                                 Products
                                             </th>
-                                            <th>
-                                                Action
+                                            <th style="background-color:#ED5D5D ; color:white;">
+                                                Problem Massage 
                                             </th>
                                         </tr>
                                     </thead>
@@ -116,6 +116,9 @@
                                                                 <th>
                                                                     Provided Quantity
                                                                 </th>
+                                                                <th>
+                                                                    Recieved Quantity
+                                                                </th>
                                                                 {{-- <th>
                                                                     Packet
                                                                 </th> --}}
@@ -133,6 +136,7 @@
                                                                     <td>{{$item->pack->name}}</td>
                                                                     <td>{{$item->pivot->quantity}}</td>
                                                                     <td>{{$item->pivot->final_quantity}}</td>
+                                                                    <td>{{$item->pivot->received_quantity}}</td>
                                                                     {{-- <td>{{$item->pivot->packet}}</td> --}}
                                                                     {{-- <td>
                                                                         <form action="{{route('requisition-product.destroy',$item->pivot->id)}}" method="POST">
@@ -184,21 +188,8 @@
                                                         </tbody>
                                                     </table>
                                                 </td>
-                                                <td>
-                                                    @if($data->status == "Deliverd")
-                                                        {{-- <form action="{{route('requisition.delivery.confirm')}}" method="post">
-                                                            @csrf
-                                                            <input type="hidden" name="products" value="{{$data->products}}">
-                                                            <input type="hidden" name="warehouse_id" value="{{$data->warehouse_id}}">
-                                                            <input type="hidden" name="requisition_id" value="{{$data->id}}">
-                                                            <button data-toggle="modal" href="#confirmProductModal{{$data->id}}" class="btn purple"><i class="fa fa-check-circle-o"></i> Confirm Delivery</button>
-                                                        </form> --}}
-                                                        <button data-toggle="modal" href="#confirmProductModal" class="btn purple"><i class="fa fa-check-circle-o"></i> Confirm Delivery</button>
-                                                        <br>
-                                                        <a class="btn red" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-undo"></i> Return </a>
-                                                    @endif
-                                                    {{-- <a class="btn blue-chambray"  data-toggle="modal" href="{{route('requisition.edit',$data)}}"><i class="fa fa-edit"></i> Edit</a>
-                                                    <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a> --}}
+                                                <td style="background-color:#ED5D5D ; color:white;">
+                                                        {{$data->imperfect_massage}}
                                                 </td>
                                             </tr>
                                             <div id="addProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -502,26 +493,6 @@
                 $(this).closest('.input-group').remove();
             });
         });
-        var textarea = $('#textarea');
-        textarea.hide();
-        $('#received_quantity').on("keyup change", function(e){
-
-            data = $("#span").text();
-            // console.log(data);
-            var textarea = $('#textarea');
-            var select   = $('#received_quantity').val();
-            if (data != select){
-                textarea.show();
-                $("#imperfect_massage").prop('required',true);
-            }
-            if (data == select){
-                textarea.hide();
-                $("#imperfect_massage").prop('required',false);
-            }
-            if (select == 0){
-                textarea.hide();
-                $("#imperfect_massage").prop('required',false);
-            }
-        });
+        
     </script>
 @endsection

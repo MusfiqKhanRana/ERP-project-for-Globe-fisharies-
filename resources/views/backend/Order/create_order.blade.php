@@ -64,7 +64,6 @@
                                         <option value="{{$data->id}}">{{$data->full_name}}</option>
                                         @endforeach
                                         </select>
-    
                                     </div>
                                 </div><br><br>
                                 {{-- <div class="form-group clearfix">
