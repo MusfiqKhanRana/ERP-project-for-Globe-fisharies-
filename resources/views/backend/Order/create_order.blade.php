@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('site-title')
-    Supply Management
+    Order Management
 @endsection
 @section('style')
 
@@ -9,6 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 @endsection
 @section('main-content')
@@ -42,6 +43,7 @@
             <h3 class="page-title bold">Order Management
             </h3>
             <!-- END PAGE TITLE-->
+            
             <!--category table start-->
             <div class="portlet box green">
                 <div class="portlet-title">
@@ -54,16 +56,16 @@
                         {{ csrf_field() }}
                         <div class="form-body">
                             <div class="form-section">
-                                    <button type="button" class="btn dark pull-right" id="addService" disabled="disabled"> Add Another Item </button>
-
+                                
+                                    <button type="button" class="btn dark pull-right " id="addService" disabled="disabled">Add Another Item <i class= 'fa fa-plus'> </i> </button>
+                                    <a class="btn btn-primary " data-toggle="modal" href="#basic">
+                                        New Customer
+                                        <i class="fa fa-plus"></i>
+                                    </a>
                                     <label class="col-md-2 control-label pull-left bold">Customer Select: </label>
                                     <div class="col-md-6">
-                                        <select class="form-control" name="customer_id" required>
-                                        <option selected> Select</option>
-                                        @foreach($customer as $data)
-                                        <option value="{{$data->id}}">{{$data->full_name}}</option>
-                                        @endforeach
-                                        </select>
+                                        <select class="select2Ajax form-control" name="customer_id"></select>
+    
                                     </div>
                                 </div><br><br>
                                 {{-- <div class="form-group clearfix">
@@ -103,12 +105,12 @@
                             <div class="row" style="margin-top:5%">
                                 <div class="col-md-2">
                                     <div class="col-md-11">
-                                        <label>Warehouse Select</label>
+                                        <label>Warehouse</label>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="col-md-10">
-                                        <label>Select Product:</label>
+                                        <label>Product:</label>
                                     </div>
                                 </div>
                                 <div class="col-md-1">
@@ -207,6 +209,12 @@
                             </div>
 
                         <div class="form-action">
+                            <div class="form-group">
+                                <label class="col-md-1 control-label"><b>Remark</b></label>
+                                <div class="col-md-12">
+                                    <textarea class="form-control" name="remark" rows="3"></textarea>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="input-group">
@@ -217,8 +225,6 @@
                                         <input type="text" class="form-control total" id="total" name="total_amount" style="font-size:25px; font-weight: bold" readonly>
                                     </div>
                                 </div>
-
-
                                 <div class="col-md-3 pull-right">
                                     <button type="submit" class="btn purple btn-block ">Submit</button>
                                 </div>
@@ -233,10 +239,107 @@
         </div>
         <!-- END CONTENT BODY -->
     </div>
+    <div id="basic" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Add New Customer</h4>
+                </div>
+                <form class="form-horizontal" role="form" method="post" action="{{route('customer.detail.store')}}">
+                    {{csrf_field()}}
+
+                    <div class="form-group">
+                        <label for="inputEmail1" class="col-md-2 control-label">Full Name</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="Customer Name" required name="full_name">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail1" class="col-md-2 control-label">Designation</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="Customer Name" name="designation">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail1" class="col-md-2 control-label">Phone</label>
+                        <div class="col-md-8">
+                            <input type="number" class="form-control" placeholder="Customer Phone" required name="phone">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail1" class="col-md-2 control-label">Email</label>
+                        <div class="col-md-8">
+                            <input type="email" class="form-control" placeholder="Customer Email" required name="email">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail1" class="col-md-2 control-label">Address</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="Customer Address" name="address">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail1" class="col-md-2 control-label">Area Name</label>
+                        <div class="col-md-8">
+                                <select class="custom-select form-control mr-sm-2" name="area_id" id="inlineFormCustomSelect">
+                                  <option selected>Choose...</option>
+                                  @foreach ($areas as $area)
+                                    <option value="{{$area->id}}">{{$area->name}}</option>    
+                                  @endforeach
+                                </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail1" class="col-md-2 control-label">Customer Type</label>
+                        <div class="col-md-8">
+                            <div class="form-check form-check-inline">
+                                <label class="radio-inline">
+                                    <input type="radio" value="inhouse" name="customer_type" checked>Inhouse
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="online" name="customer_type">Online
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="modern_trade" name="customer_type">Modern Trade
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="sample" name="customer_type">Sample
+                                </label>
+                              </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail1" class="col-md-7 control-label">Suggestions or topics you would like to be included:</label>
+                        <div class="col-md-12">
+                            <div class="col-md-12 ">
+                                <input type="text" class="form-control" placeholder="Your Text (Not Required)" name="include_word">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                        <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 @endsection
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
+        
+
         jQuery(document).ready(function() {
             var max = 1;
             var warehouse = @json($warehouse, JSON_PRETTY_PRINT);
@@ -578,5 +681,25 @@
                 });
             }
         });
+
+        $('.select2Ajax').select2({
+        placeholder: 'Select an item',
+        ajax: {
+            url: "{{route('select2.autocomplete.ajax')}}",
+            dataType: 'json',
+            delay: 250,
+            processResults: function (data) {
+            return {
+                results:  $.map(data, function (item) {
+                    return {
+                        text: item.full_name,
+                        id: item.id
+                    }
+                })
+            };
+            },
+            cache: true
+        }
+});
     </script>
 @endsection

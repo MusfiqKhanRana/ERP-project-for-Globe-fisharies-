@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\PageManagement;
+use App\Models\PageManagement;
 
 class MenuController extends Controller
 {

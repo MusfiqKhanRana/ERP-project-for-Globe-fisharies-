@@ -47,9 +47,14 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-3 control-label">Phone</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="phone" placeholder="Phone" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-md-3 control-label">Party Type</label>
                                         <div class="col-md-9">
-                                           
                                             <select class="form-control select2me" id="party_type" name="party_type">
                                                 <option value="">--Select--</option>
                                                 <option value="Online & Inhouse">Online & Inhouse</option>
@@ -63,6 +68,12 @@
                                         <label class="col-md-3 control-label">Party Short Name</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="party_short_name" placeholder="Party Short Name" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Address</label>
+                                        <div class="col-md-9">
+                                            <textarea class="form-control" name="address" rows="3"></textarea>
                                         </div>
                                     </div>
                                 </div>

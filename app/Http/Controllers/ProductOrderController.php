@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductOrder;
 use App\Models\Warehouse;
+use App\Models\Area;
 use Illuminate\Http\Request;
 
 class ProductOrderController extends Controller
@@ -23,7 +24,8 @@ class ProductOrderController extends Controller
         $category = Category::all();
         $customer = Cutomer::all();
         $warehouse = Warehouse::all();
-        return view('backend.Order.create_order', compact('category','customer', 'warehouse'));
+        $areas  = Area::all();
+        return view('backend.Order.create_order', compact('category','customer', 'warehouse','areas'));
     }
 
     /**
@@ -37,7 +39,8 @@ class ProductOrderController extends Controller
         $customer = Cutomer::all();
         $warehouse = Warehouse::all();
         $product = Product::all();
-        return view('backend.Order.create_order', compact('category','customer','product','warehouse'));
+        $areas = Area::all();
+        return view('backend.Order.create_order', compact('category','customer','product','warehouse','areas'));
     }
     /**
      * Store a newly created resource in storage.
@@ -56,11 +59,12 @@ class ProductOrderController extends Controller
             'service_amount' => 'required',
             'discount_in_percentage' => 'required',
             'discount_in_amount' => 'required',
+            'remark' => 'required',
         ));
 
         $data = $request->all();
         // dd(var_dump($data));
-        $order = Order::create(['customer_id' => $data['customer_id']]);
+        $order = Order::create(['customer_id' => $data['customer_id'],'remark' => $data['remark']]);
         foreach ($data['warehouse_id'] as $key => $value) {
             $product_order = ProductOrder::create([
                 'order_id' => $order->id,
@@ -117,9 +121,10 @@ class ProductOrderController extends Controller
      * @param  \App\Models\ProductOrder  $productOrder
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductOrder $productOrder)
+    public function destroy($id)
     {
-        //
+        ProductOrder::whereId($id)->delete();
+        return redirect()->back()->withMsg("Successfully Deleted");
     }
     public function warehouse_product_pass(Request $request)
     {
@@ -159,5 +164,17 @@ class ProductOrderController extends Controller
         $id = $request->id;
         $product = Product::where('id',$id)->first();
         return response()->json($product);
+    }
+    public function dataAjax(Request $request)
+    {
+    	$data = [];
+
+        
+            $search = $request->q;
+            $data =Cutomer::select("id","full_name")
+            		->where('full_name','LIKE',"%$search%")
+            		->get();
+        
+        return response()->json($data);
     }
 }

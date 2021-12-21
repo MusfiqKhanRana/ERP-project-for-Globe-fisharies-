@@ -40,4 +40,8 @@ class Product extends Model
     {
         return $this->belongsTo(Pack::class)->withDefault();
     }
+    public function order()
+    {
+        return $this->belongsTo(Order::class)->withDefault();
+    }
 }
