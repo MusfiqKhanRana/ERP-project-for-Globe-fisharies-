@@ -17,6 +17,7 @@ class Product extends Model
       'retail_selling_price',
       'category_id',
       'pack_id',
+      'image'
     ];
 
     public function category()
