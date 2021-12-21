@@ -13,6 +13,8 @@
     <link rel="shortcut icon" type="image/png" href="{{asset('assets/images/logo/icon.png')}}"/>
 @include('backend.template-part.style')
     @yield('style')
+   
+
 </head>
 
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
@@ -147,6 +149,8 @@
         <!-- /.modal-content -->
     </div>
 </div>
+
+
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
 @include('backend.template-part.footer')
@@ -158,7 +162,6 @@
         $(document).ready(function(){
             swal("{{Session::get('delmsg')}}","", "warning");
         });
-
     </script>
 @endif
 

@@ -355,6 +355,29 @@
 
                 </ul>
             </li>
+            <li class="nav-item @if( request()->path() == 'admin/sale' || request()->path() == 'admin/sale' ) active open @endif
+                @if( request()->path() == 'admin/party-management' || request()->path() == 'admin/party-management' ) active open @endif">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="fa fa-print" aria-hidden="true"></i>
+                        <span class="title">Party Management</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="nav-item  @if( request()->path() == 'admin/party' ) active open @endif
+                        @if( request()->path() == '' ) active open @endif">
+                            <a href="{{route('party.create')}}" class="nav-link ">
+                                <span class="title">Create Party</span>
+                            </a>
+                        </li>
+                        <li class="nav-item  @if( request()->path() == '' ) active open @endif
+                        @if( request()->path() == 'admin/party-management' ) active open @endif">
+                            <a href="{{route('party-management.index')}}" class="nav-link ">
+                                <span class="title">Party List</span>
+                            </a>
+                        </li>
+    
+                    </ul>
+                </li>
 
             <li class="nav-item @if( request()->path() == 'admin/sale' || request()->path() == 'admin/sale' ) active open @endif
             @if( request()->path() == 'admin/stock/product/history' || request()->path() == 'admin/stock/product/history' ) active open @endif">
@@ -380,7 +403,7 @@
                 </ul>
             </li>
             <li class="nav-item @if( request()->path() == 'admin/sale' || request()->path() == 'admin/sale' ) active open @endif
-                @if( request()->path() == 'admin/stock/product/history' || request()->path() == 'admin/stock/product/history' ) active open @endif">
+                @if( request()->path() == 'admin/order-history' || request()->path() == 'admin/order-history' ) active open @endif">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="fa fa-print" aria-hidden="true"></i>
                         <span class="title">Order Management</span>
@@ -394,8 +417,8 @@
                             </a>
                         </li>
                         <li class="nav-item  @if( request()->path() == '' ) active open @endif
-                        @if( request()->path() == 'admin/stock/product/history' ) active open @endif">
-                            <a href="{{route('sold.index')}}" class="nav-link ">
+                        @if( request()->path() == 'admin/order-history' ) active open @endif">
+                            <a href="{{route('order-history.index')}}" class="nav-link ">
                                 <span class="title">Order History</span>
                             </a>
                         </li>

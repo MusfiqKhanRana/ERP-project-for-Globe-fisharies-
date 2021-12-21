@@ -19,10 +19,10 @@ class UserTypeController extends Controller
     public function index()
     {
         $users = UserType::orderBy('id', 'DESC')->latest()->paginate(1); 
-        $parties = Party::orderBy('id', 'DESC')->latest()->paginate(1);
+        $tests = Party::orderBy('id', 'DESC')->latest()->paginate(1);
         $packs = Pack::orderBy('id', 'DESC')->latest()->paginate(1);
         $areas = Area::orderBy('id', 'DESC')->latest()->paginate(1);
-       return view('backend.menu.index', compact('users','parties','packs','areas'));
+       return view('backend.menu.index', compact('users','packs','areas','tests'));
     }
 
     /**
