@@ -101,7 +101,6 @@
                                     </div>
                             </div> --}}
                         </div>
-
                             <div class="row" style="margin-top:5%">
                                 <div class="col-md-2">
                                     <div class="col-md-11">
@@ -139,7 +138,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row serviceRow redBorder"  id="orderBox">
                                 <div class="col-md-2">
                                     <div class="form-group">
@@ -158,7 +156,6 @@
                                     <div class="form-group">
                                         <div class="col-md-10">
                                             <select class="form-control product_id1" name="product_id[1]" required>
-                                                
                                             </select>
                                         </div>
                                     </div>
@@ -207,7 +204,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         <div class="form-action">
                             <div class="form-group">
                                 <label class="col-md-1 control-label"><b>Remark</b></label>
@@ -338,8 +334,6 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-        
-
         jQuery(document).ready(function() {
             var max = 1;
             var warehouse = @json($warehouse, JSON_PRETTY_PRINT);

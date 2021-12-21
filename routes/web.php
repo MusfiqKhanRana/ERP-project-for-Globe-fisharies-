@@ -296,6 +296,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     Route::resource('order-history', OrderController::class);
     Route::get('order/confirm/{id}',[OrderController::class,'confirm'])->name('order.confirm');
+    Route::post('order/product/pass',[OrderController::class,'product_pass'])->name('order.product.pass');
     
 
 });
