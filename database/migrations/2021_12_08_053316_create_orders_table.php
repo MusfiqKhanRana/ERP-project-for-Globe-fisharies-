@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->unsignedInteger('customer_id')->nullable();
             $table->enum('status', ['Pending', 'Confirm', 'Cancel'])->default('Pending');
+            $table->string('remark')->nullable();
             $table->timestamps();
         });
     }

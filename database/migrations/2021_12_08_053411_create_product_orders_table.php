@@ -22,7 +22,6 @@ class CreateProductOrdersTable extends Migration
             $table->string('discount_in_amount')->nullable();
             $table->string('discount_in_percentage')->nullable();
             $table->double('selling_price')->nullable();
-            $table->string('remark')->nullable();
             $table->timestamps();
         });
     }

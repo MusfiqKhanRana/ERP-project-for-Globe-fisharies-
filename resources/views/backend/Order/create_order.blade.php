@@ -9,6 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 @endsection
 @section('main-content')
@@ -63,7 +64,7 @@
                                     </a>
                                     <label class="col-md-2 control-label pull-left bold">Customer Select: </label>
                                     <div class="col-md-6">
-                                        <select class="itemName form-control" name="itemName"></select>
+                                        <select class="select2Ajax form-control" name="customer_id"></select>
     
                                     </div>
                                 </div><br><br>
@@ -284,13 +285,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="inputEmail1" class="col-md-2 control-label">Area ID</label>
+                        <label for="inputEmail1" class="col-md-2 control-label">Area Name</label>
                         <div class="col-md-8">
                                 <select class="custom-select form-control mr-sm-2" name="area_id" id="inlineFormCustomSelect">
                                   <option selected>Choose...</option>
-                                  {{-- @foreach ($area as $item)
-                                  <option value="{{$item->id}}">{{$item->name}}</option>    
-                                  @endforeach --}}
+                                  @foreach ($areas as $area)
+                                    <option value="{{$area->id}}">{{$area->name}}</option>    
+                                  @endforeach
                                 </select>
                         </div>
                     </div>
@@ -335,7 +336,10 @@
 
 @endsection
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
+        
+
         jQuery(document).ready(function() {
             var max = 1;
             var warehouse = @json($warehouse, JSON_PRETTY_PRINT);
@@ -678,7 +682,7 @@
             }
         });
 
-        $('.itemName').select2({
+        $('.select2Ajax').select2({
         placeholder: 'Select an item',
         ajax: {
             url: "{{route('select2.autocomplete.ajax')}}",
