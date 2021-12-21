@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="portlet-body" style="height: auto;">
-                        <form action="{{route('product.update', $product->id)}}" method="post">
+                        <form action="{{route('product.update', $product->id)}}" method="post" enctype="multipart/form-data">
                             {{csrf_field()}}
                             {{method_field('put')}}
                             <div class="row">
@@ -156,6 +156,17 @@
                                                             <div class="col-md-9">
                                                                 <div class="input-group">
                                                                     <input type="text" class="form-control" name="safety_stock" value="{{$product->safety_stock}}">
+                                                                    <span class="input-group-addon"><i class="fa fa-th" aria-hidden="true"></i></span>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group clearfix">
+                                                            <label class="col-md-3 control-label">Image</label>
+                                                            <div class="col-md-9">
+                                                                <div class="input-group">
+                                                                    <img style="weidth: 120px; height: 100px; border-radius: 15px;" src="{{asset('assets/images/product/images').'/'.$product->image}}">
+                                                                    <input class="form-control text-capitalize" placeholder="" type="file" required name="image">
                                                                     <span class="input-group-addon"><i class="fa fa-th" aria-hidden="true"></i></span>
                                                                 </div>
 

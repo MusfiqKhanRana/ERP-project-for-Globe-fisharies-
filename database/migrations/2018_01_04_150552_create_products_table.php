@@ -24,6 +24,7 @@ class CreateProductsTable extends Migration
             $table->string('inhouse_selling_price')->nullable();
             $table->string('retail_selling_price')->nullable();
             $table->string('safety_stock')->nullable();
+            $table->string('image')->nullable();
             $table->unsignedInteger('pack_id')->nullable();
             $table->timestamps();
         });

@@ -13,6 +13,7 @@ use Illuminate\Foundation\Console\Presets\React;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\Facades\Image;
 class ProductController extends Controller
 {
     public function productIndex()
@@ -36,8 +37,17 @@ class ProductController extends Controller
             'inhouse_selling_price'=>'required',
             'retail_selling_price'=>'required',
         ]);
-
-        Product::create($request->all());
+        $data = $request->except('_token');
+        if ($request->hasFile('image')) {
+            // dd("get this");
+            $image = $request->file('image');
+            $filename = time() . '.' . 'jpg';
+            $data['image'] =  $filename;
+            $location = 'assets/images/product/images/'. $filename;
+            Image::make($image)->save($location);
+        }
+        // dd($data);
+        Product::create($data);
 
         return redirect()->back()->withMsg("Product Added");
     }
@@ -78,9 +88,17 @@ class ProductController extends Controller
             'inhouse_selling_price'=>'required',
             'retail_selling_price'=>'required',
         ]);
-
-        Product::whereId($id)
-            ->update([
+        $product=  Product::find($id);
+            
+            if ($request->hasFile('image')) {
+                unlink('assets/images/product/images/'.$product->image);
+                $image = $request->file('image');
+                $filename = time() . '.' . 'jpg';
+                $location = 'assets/images/product/images/'. $filename;
+                Image::make($image)->save($location);
+                $product->image =  $filename;
+            }
+            $product->update([
                'product_id' => $request->product_id,
                'product_name' => $request->product_name,
                'category_id' => $request->category_id,
@@ -145,96 +163,98 @@ class ProductController extends Controller
     }
     function action(Request $request)
     {
-     if($request->ajax())
-     {
-      $output = '';
-      $query = $request->get('query');
-      $data = null;
-      if($query != null){
-        $data = Product::with(['pack','stock'])->where('category_id', 'like', '%'.$query.'%')
-                ->orWhere('product_name', 'like', '%'.$query.'%')
-                ->orWhere('product_id', 'like', '%'.$query.'%')
-                ->orWhere('unit', 'like', '%'.$query.'%')
-                ->orWhere('buying_price', 'like', '%'.$query.'%')
-                ->orWhere('selling_price', 'like', '%'.$query.'%')
-                ->orWhere('online_selling_price', 'like', '%'.$query.'%')
-                ->orWhere('inhouse_selling_price', 'like', '%'.$query.'%')
-                ->orWhere('retail_selling_price', 'like', '%'.$query.'%')
-                ->orWhere('pack_id', 'like', '%'.$query.'%')
-                ->orderBy('product_id', 'desc')
-                ->get();
-         
-      }
-      else
-      {
-        $data = Product::with(['pack','stock'])->orderBy('product_id', 'desc')->get();
-      }
-      $total_row = $data->count();
-      if($total_row > 0)
-      {
-        foreach($data as $row)
-        {       
-            $total_quantity = 0;
-            $color = null;
-            $txtColor = null;
-            if (!empty($row->stock->toArray())) {
-                foreach ($row->stock as $key => $value) {
-                    $total_quantity+=$value->quantity;
+        if($request->ajax()){
+            $output = '';
+            $query = $request->get('query');
+            $data = null;
+            if($query != null){
+                $data = Product::with(['pack','stock'])->where('category_id', 'like', '%'.$query.'%')
+                        ->orWhere('product_name', 'like', '%'.$query.'%')
+                        ->orWhere('product_id', 'like', '%'.$query.'%')
+                        ->orWhere('unit', 'like', '%'.$query.'%')
+                        ->orWhere('buying_price', 'like', '%'.$query.'%')
+                        ->orWhere('selling_price', 'like', '%'.$query.'%')
+                        ->orWhere('online_selling_price', 'like', '%'.$query.'%')
+                        ->orWhere('inhouse_selling_price', 'like', '%'.$query.'%')
+                        ->orWhere('retail_selling_price', 'like', '%'.$query.'%')
+                        ->orWhere('pack_id', 'like', '%'.$query.'%')
+                        ->orderBy('product_id', 'desc')
+                        ->latest()
+                        ->get();
+                
+            }
+            else
+            {
+                $data = Product::with(['pack','stock'])->orderBy('product_id', 'desc')->latest()->get();
+            }
+            $total_row = $data->count();
+            if($total_row > 0)
+            {
+                foreach($data as $row)
+                {       
+                    $total_quantity = 0;
+                    $color = null;
+                    $txtColor = null;
+                    if (!empty($row->stock->toArray())) {
+                        foreach ($row->stock as $key => $value) {
+                            $total_quantity+=$value->quantity;
+                        }
+                    }
+                    if($total_quantity <= $row->safety_stock){
+                        $color = "#ff4d4d";
+                        $txtColor="white";
+
+                    }
+                    $output .= 
+                        '<tr style="color:'.$txtColor.'; background:'.$color.'"><td>'.
+                            // $row->image
+                            // asset('assets/images/product/images/').$row->image
+                            '<img style="weidth: 60px; height: 60px; border-radius: 15px;" src="'.asset('assets/images/product/images').'/'.$row->image.'"></img>'
+                        .'</td><td>'.
+                        $row->product_name
+                        .'</td><td>'.
+                            $row->product_id
+                        .'</td><td>'.
+                            $row->category->name
+                        .'</td><td>'.
+                            $row->unit
+                        .'</td><td>'.
+                            $row->buying_price
+                        .'</td><td>'.
+                            $row->online_selling_price
+                        .'</td><td>'.
+                            $row->inhouse_selling_price
+                        .'</td><td>'.
+                            $row->retail_selling_price
+                        .'</td><td>'.
+                            $row->pack->name
+                        .'</td><td>'.
+                            $row->safety_stock    
+                        .'</td><td>'.
+                            $total_quantity
+                        .'</td>
+                            <td style="text-align: center;">'.
+                                '<a class ="btn green" data-toggle="tooltip" data-placement="top" title="Add to order List" href="/admin/product/sale/'.$row->id.'"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
+                                <a class ="btn blue-chambray" data-toggle="tooltip" data-placement="top" title="Edit Product" href="/admin/product/edit/'.$row->id.'"><i class="fa fa-edit"></i></a>
+                                <button class="btn red test_id" data-id='.$row->id.'><i class="fa fa-trash"></i></button>'.
+                            '</td>'.
+                        '</tr>';
                 }
             }
-            if($total_quantity <= $row->safety_stock){
-                $color = "#ff4d4d";
-                $txtColor="white";
-
+            else
+            {
+                $output = '
+                <tr>
+                    <td align="center" colspan="5">No Data Found</td>
+                </tr>
+                ';
             }
-            $output .= 
-                '<tr style="color:'.$txtColor.'; background:'.$color.'"><td>'.
-                    $row->category_id
-                .'</td><td>'.
-                $row->product_name
-                .'</td><td>'.
-                    $row->product_id
-                .'</td><td>'.
-                    $row->category->name
-                .'</td><td>'.
-                    $row->unit
-                .'</td><td>'.
-                    $row->buying_price
-                .'</td><td>'.
-                    $row->online_selling_price
-                .'</td><td>'.
-                    $row->inhouse_selling_price
-                .'</td><td>'.
-                    $row->retail_selling_price
-                .'</td><td>'.
-                    $row->pack->name
-                .'</td><td>'.
-                    $row->safety_stock    
-                .'</td><td>'.
-                     $total_quantity
-                .'</td>
-                    <td style="text-align: center;">'.
-                        '<a class ="btn green" data-toggle="tooltip" data-placement="top" title="Add to order List" href="/admin/product/sale/'.$row->id.'"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a>
-                        <a class ="btn blue-chambray" data-toggle="tooltip" data-placement="top" title="Edit Product" href="/admin/product/edit/'.$row->id.'"><i class="fa fa-edit"></i></a>
-                        <button class="btn red test_id" data-id='.$row->id.'><i class="fa fa-trash"></i></button>'.
-                    '</td>'.
-                '</tr>';
-        }
-        }
-        else
-        {
-        $output = '
-        <tr>
-            <td align="center" colspan="5">No Data Found</td>
-        </tr>
-        ';
-        }
-        $data = array(
-        'table_data'  => $output,
-        'total_data'  => $total_row
-        );
+            $data = array(
+            'table_data'  => $output,
+            'total_data'  => $total_row
+            );
 
-        echo json_encode($data);
+            echo json_encode($data);
         }
-        }
+    }
 }
