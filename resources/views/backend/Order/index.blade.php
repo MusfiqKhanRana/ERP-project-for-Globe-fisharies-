@@ -18,8 +18,11 @@
                 </script>
         @endif
         <!-- BEGIN PAGE TITLE-->
-            <h3 class="page-title bold">Order Management</h3>
-
+            <h3 class="page-title bold">Order List</h3>
+            <a class="btn btn-primary"  href="{{route('order-history.index',"status=Confirm")}}"><i class="fa fa-check-circle"></i> Confirm Order List</a>
+            <a class="btn btn-danger" href="{{route('order-history.index',"status=Pending")}}"><i class="fa fa-spinner"></i> Pending Order</a>
+            <a class="btn btn-success" data-toggle="modal" href=""><i class="fa fa-cart-plus"></i> Delivery</a>
+                <br><br>
             <div class="row">
                 <div class="col-md-12">
                     <div class="portlet box grey-salt">
@@ -158,31 +161,25 @@
                                                                 <select class="form-control  product_id" name="product_id" placeholder="Product" required>
                                                                 </select>
                                                             </div>
-                                                            
                                                             <div class="col-md-3">
                                                                 <label for="">Quantity</label>
                                                                 <input name="quantity" class="form-control" type="number" required placeholder="Quantity">
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <label for="">Discount</label>
-                                                                <input name="discount" class="form-control" type="number" required placeholder="Discount">
-                                                                {{-- <span class="discount_in_percentage1">
-                                                                    <input type="text" class="form-control"  name="discount_in_percentage[1]" placeholder="discount in %" id="percentage_id1"/>
-                                                                </span> --}}
-                                                                <span class="discount_in_amount1">
-                                                                    <input type="text" class="form-control" name="discount_in_amount[1]" placeholder="discount in amount" id="amount_id1"/>
+                                                                <label class="col-md-2 control-label">Discount: </label>
+                                                                <span class="disper">
+                                                                    <input type="text" class="form-control"  name="discount_in_percentage" placeholder="discount in %" id="coupon_1"/>
+                                                                </span>
+                                                                <span class="amount1">
+                                                                    <input type="text" class="form-control" name="discount_in_amount" placeholder="discount in amount" id="coupon_2"/>
                                                                 </span>
                                                                 <fieldset class="radio-inline question coupon_question2">
-                                                                    <input class="form-check-input want_in_amount1" type="checkbox">Want in Amount ? 
+                                                                    <input class="form-check-input amountxx" type="checkbox">Want in Amount ? 
                                                                 </fieldset>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <label >Rate</label>
-                                                                {{-- <input name="rate" class="form-control" type="number" required placeholder="Rate"> --}}
-                                                            </div>
-                                                            <div class="col-md-3">
                                                                 <label for="">Price</label>
-                                                                <input type="text" class="form-control amount" placeholder="Total" id="amount1" readonly name="service_amount[1]" >
+                                                                <input type="text" class="form-control " placeholder="Total"  readonly name="price" >
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <label><span>&nbsp;</span></label><br>
@@ -247,6 +244,77 @@
                                             </div>
                                         </div>
                                     </div> --}}
+                                    <div id="confirmProductModal" class="modal fade " tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                        {{csrf_field()}}
+                                        <input type="hidden" value="" id="delete_id">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Confirm Order List</h2>
+                                                </div>
+                                                <br>
+                                                <div class="modal-body">
+                                                    <div class="m-5 row">
+                                                        {{-- <form action="{{route('order.store')}}" method="POST">
+                                                            @csrf
+                                                            
+                                                            <div class="col-md-3">
+                                                                <label for="product">Warehouse</label>
+                                                                <select class="form-control" name="warehouse_id" id="warehouse" required>
+                                                                    <option selected>Select</option>
+                                                                    @foreach($warehouse as $data)
+                                                                        <option value="{{$data->id}}">{{$data->name}}</option>
+                                                                    @endforeach
+                                                                    {{csrf_field()}}
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label >Product</label>
+                                                                <select class="form-control  product_id" name="product_id" placeholder="Product" required>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="">Quantity</label>
+                                                                <input name="quantity" class="form-control" type="number" required placeholder="Quantity">
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label class="col-md-2 control-label">Discount: </label>
+                                                                <span class="disper">
+                                                                    <input type="text" class="form-control"  name="discount_in_percentage" placeholder="discount in %" id="coupon_1"/>
+                                                                </span>
+                                                                <span class="amount1">
+                                                                    <input type="text" class="form-control" name="discount_in_amount" placeholder="discount in amount" id="coupon_2"/>
+                                                                </span>
+                                                                <fieldset class="radio-inline question coupon_question2">
+                                                                    <input class="form-check-input amountxx" type="checkbox">Want in Amount ? 
+                                                                </fieldset>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="">Price</label>
+                                                                <input type="text" class="form-control " placeholder="Total"  readonly name="price" >
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label><span>&nbsp;</span></label><br>
+                                                                <button class="m-10 btn btn-success">Save</button>
+                                                            </div>
+                                                        </form> --}}
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="modal-footer">
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                    {{-- <br>
+                                                    <form action="{{route('requisition.destroy',[$data])}}" method="POST">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
+                                                    </form> --}}
+                                                    {{-- <a type="submit" href="{{route('customer.delete', $data)}}" class="btn red" id="delete"><i class="fa fa-trash"></i> Delete</a> --}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endforeach
                                 </tbody>
                             </table>
@@ -339,26 +407,16 @@
         });
     </script>
     <script>
-        $(".answer11").hide();
-    $(".coupon_question11").click(function() {
-        if($(this).is(":checked")) {
-            $(".answer11").show();
-            $(".answer22").hide();
-        } else {
-            $(".answer11").hide();
-            $(".answer22").show();
-        }
-    });
-    $(".rxyz2").hide();
-        $(".xyz2").click(function() {
+    $(".amount1").hide();
+        $(".amountxx").click(function() {
             if($(this).is(":checked")) {
-                $(".rxyz2").show();
-                $(".rxyz1").hide();
-                $('#coupon_field_1').val('');
+                $(".amount1").show();
+                $(".disper").hide();
+                $('#coupon_1').val('');
             } else {
-                $(".rxyz2").hide();
-                $(".rxyz1").show();
-                $('#coupon_field_2').val('');
+                $(".amount1").hide();
+                $(".disper").show();
+                $('#coupon_2').val('');
             }
         });
     </script>

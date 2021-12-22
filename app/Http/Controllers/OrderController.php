@@ -18,10 +18,10 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //$order = Order::all();
-        $order = Order::with(['products','customer'])->latest()->paginate(10);
+        $order = Order::with(['products','customer'])->where('status',$request->status)->latest()->paginate(10);
         $customer = Cutomer::all();
         $warehouse = Warehouse::all();
         $area  = Area::all();
