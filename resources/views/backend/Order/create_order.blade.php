@@ -31,12 +31,12 @@
                     </div>
                 </div>
             @endif
-                @if(Session::has('msg'))
-                    <script>
-                        $(document).ready(function(){
-                            swal("{{Session::get('msg')}}","", "success");
-                        });
-                    </script>
+            @if(Session::has('msg'))
+                <script>
+                    $(document).ready(function(){
+                        swal("{{Session::get('msg')}}","", "success");
+                    });
+                </script>
             @endif
             
             <!-- BEGIN PAGE TITLE-->
@@ -56,153 +56,125 @@
                         {{ csrf_field() }}
                         <div class="form-body">
                             <div class="form-section">
-                                
-                                    <button type="button" class="btn dark pull-right " id="addService" disabled="disabled">Add Another Item <i class= 'fa fa-plus'> </i> </button>
-                                    <a class="btn btn-primary " data-toggle="modal" href="#basic">
-                                        New Customer
-                                        <i class="fa fa-plus"></i>
-                                    </a>
-                                    <label class="col-md-2 control-label pull-left bold">Customer Select: </label>
-                                    <div class="col-md-6">
-                                        <select class="select2Ajax form-control" name="customer_id"></select>
-                                    </div>
-                                </div><br><br>
-                                {{-- <div class="form-group clearfix">
-                                    <label class="col-md-1 control-label">Trasaction Select</label>
-                                    <div class="col-md-6">
-                                        <label class="radio-inline">
-                                            <input id="due" type="radio" value="0" name="status">Unsubscribe</label>
-
-                                        <div class="row" style="display: none" id="due_amount">
-                                            <div class="form-group">
-                                                <label class="control-label col-md-4">From Date:</label>
-                                                <div class="col-md-8">
-                                                    <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
-                                                        <input class="form-control" type="text" name="form_date" id="from_date" placeholder="From Date" readonly />                                                 <span class="input-group-btn">
-                                                     <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                                     </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group"  >
-                                                <label class="control-label col-md-4">To Date:</label>
-                                                <div class="col-md-8">
-                                                    <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
-                                                        <input class="form-control" type="text" name="to_date" id="from_date" placeholder="From Date" readonly />                                                 <span class="input-group-btn">
-                                                     <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                                     </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <label class="radio-inline"><input type="radio" id="paid" value="1" required name="status">Subscribe</label>
-                                    </div>
+                                <button type="button" class="btn dark pull-right " id="addService" disabled="disabled">Add Another Item <i class= 'fa fa-plus'> </i> </button>
+                                <a class="btn btn-primary " data-toggle="modal" href="#basic">
+                                    New Customer
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                                <label class="col-md-2 control-label pull-left bold">Customer Select: </label>
+                                <div class="col-md-6">
+                                    <select class="select2Ajax form-control" name="customer_id" id="customer_id"></select>
+                                </div>
+                            </div><br><br>
+                        </div>
+                        <div id="customer_info">
+                            {{-- <div class="col-md-3 text-center">
+                                <span> <b>cusotmer Name:</b> this is good</span>
                             </div> --}}
                         </div>
-                            <div class="row" style="margin-top:5%">
-                                <div class="col-md-2">
-                                    <div class="col-md-11">
-                                        <label>Warehouse</label>
-                                    </div>
+                        <div class="row" style="margin-top:5%">
+                            <div class="col-md-2">
+                                <div class="col-md-11">
+                                    <label>Category</label>
                                 </div>
-                                <div class="col-md-2">
+                            </div>
+                            <div class="col-md-2">
+                                <div class="col-md-10">
+                                    <label>Product:</label>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="col-md-10"style="margin-left:-20px">
+                                    <label>Rate:</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="col-md-10">
+                                    <label>Quantity:</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="col-md-10">
+                                    <label>Discount:</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="col-md-10">
+                                    <label>Price:</label>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="col-md-10">
+                                    <label>Action</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row serviceRow redBorder"  id="orderBox">
+                            <div class="col-md-2">
+                                <div class="form-group">
                                     <div class="col-md-10">
-                                        <label>Product:</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-1">
-                                    <div class="col-md-10"style="margin-left:-20px">
-                                        <label>Rate:</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="col-md-10">
-                                        <label>Quantity:</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="col-md-10">
-                                        <label>Discount:</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="col-md-10">
-                                        <label>Price:</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-1">
-                                    <div class="col-md-10">
-                                        <label>Action</label>
+                                        <select class="form-control" name="warehouse_id[1]" id="department1" required>
+                                            <option selected>Select</option>
+                                            @foreach($warehouse as $data)
+                                                <option value="{{$data->id}}">{{$data->name}}</option>
+                                            @endforeach
+                                            {{csrf_field()}}
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row serviceRow redBorder"  id="orderBox">
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <div class="col-md-10">
-                                            <select class="form-control" name="warehouse_id[1]" id="department1" required>
-                                                <option selected>Select</option>
-                                                @foreach($warehouse as $data)
-                                                    <option value="{{$data->id}}">{{$data->name}}</option>
-                                                @endforeach
-                                                {{csrf_field()}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <div class="col-md-10">
-                                            <select class="form-control product_id1" name="product_id[1]" required>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-1 ">
-                                    <div class="form-group">
-                                        <div class="col-md-10 product_price1" style="margin-left:-20px">
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control service_qty1" placeholder="Quantity" required id="service_qty[]" name="service_quantity[1]">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <div class="col-md-10">
-                                            <span class="discount_in_percentage1">
-                                                <input type="text" class="form-control"  name="discount_in_percentage[1]" placeholder="discount in %" id="percentage_id1"/>
-                                            </span>
-                                            <span class="discount_in_amount1">
-                                                <input type="text" class="form-control" name="discount_in_amount[1]" placeholder="discount in amount" id="amount_id1"/>
-                                            </span>
-                                            <fieldset class="radio-inline question coupon_question2">
-                                                <input class="form-check-input want_in_amount1" type="checkbox">Want in Amount ? 
-                                            </fieldset>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control amount" placeholder="Total" id="amount1" readonly name="service_amount[1]" >
-                                        </div>	
-                                    </div>
-                                </div>
-                                <div class="col-md-1">
-                                    <div class="form-group">
-                                        <div class="col-md-10">
-                                            <button type="button" class="btn removeService red btn-block" id="removeService" disabled="disabled"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                        </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <div class="col-md-10">
+                                        <select class="form-control product_id1" name="product_id[1]" required>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-1 ">
+                                <div class="form-group">
+                                    <div class="col-md-10 product_price1" style="margin-left:-20px">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control service_qty1" placeholder="Quantity" required id="service_qty[]" name="service_quantity[1]">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <div class="col-md-10">
+                                        <span class="discount_in_percentage1">
+                                            <input type="text" class="form-control"  name="discount_in_percentage[1]" placeholder="discount in %" id="percentage_id1"/>
+                                        </span>
+                                        <span class="discount_in_amount1">
+                                            <input type="text" class="form-control" name="discount_in_amount[1]" placeholder="discount in amount" id="amount_id1"/>
+                                        </span>
+                                        <fieldset class="radio-inline question coupon_question2">
+                                            <input class="form-check-input want_in_amount1" type="checkbox">Want in Amount ? 
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control amount" placeholder="Total" id="amount1" readonly name="service_amount[1]" >
+                                    </div>	
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <div class="col-md-10">
+                                        <button type="button" class="btn removeService red btn-block" id="removeService" disabled="disabled"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-action">
                             <div class="form-group">
                                 <label class="col-md-1 control-label"><b>Remark</b></label>
@@ -673,26 +645,47 @@
                     $('#total').val(in_total_amount);
                 });
             }
+            $("#customer_id").change(function() {
+                $.ajax({
+                    type:"POST",
+                    url:"{{route('customer.info')}}",
+                    data:{
+                        'id' : $(this).val(),
+                        '_token' : $('input[name=_token]').val()
+                    },
+                    success:function(data){
+                        $("#customer_info").empty();
+                        var $results = $('#customer_info');
+                        var $userDiv = $results.append('<div class="user-div"></div>')
+                        $( '<div class="row">'+
+                            '<div class="col-md-3 text-center"><span> <b>cusotmer Name: </b>'+data.full_name+'</span></div>'
+                            +'<div class="col-md-3 text-center"><span> <b>cusotmer Address: </b>'+data.address+'</span></div>'
+                            +'<div class="col-md-3 text-center"><span> <b>cusotmer Phone: </b>'+data.phone+'</span></div>'
+                            +'<div class="col-md-3 text-center"><span> <b>cusotmer Type: </b>'+data.customer_type+'</span></div>'
+                        +'</div>').appendTo( ".user-div" );
+                    }
+                });
+            });
         });
 
         $('.select2Ajax').select2({
-        placeholder: 'Select an item',
-        ajax: {
-            url: "{{route('select2.autocomplete.ajax')}}",
-            dataType: 'json',
-            delay: 250,
-            processResults: function (data) {
-            return {
-                results:  $.map(data, function (item) {
+            placeholder: 'Select an item',
+            ajax: {
+                url: "{{route('select2.autocomplete.ajax')}}",
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
                     return {
-                        text: item.full_name,
-                        id: item.id
-                    }
-                })
-            };
-            },
-            cache: true
-        }
-});
+                        results:  $.map(data, function (item) {
+                            return {
+                                text: item.full_name,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
     </script>
 @endsection

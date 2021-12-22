@@ -14,7 +14,10 @@ class CutomerController extends Controller
         $area=area::all();
         return view('backend.customer.customer', compact('customer','area'));
     }
-
+    public function customerInfo(Request $request)
+    {
+        return response(Cutomer::find($request->id));
+    }
     public function cuctomerStore(Request $request)
     {
             

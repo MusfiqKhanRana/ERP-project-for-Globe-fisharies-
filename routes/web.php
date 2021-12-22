@@ -191,6 +191,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('/supply/supplier/{id}', [SupplyManagmentController::class,'supplyReportsWithSupplier'])->name('supply.report.supplier');
     Route::get('/supply/{date}/{id}', [SupplyManagmentController::class,'supplyReportsWithDate'])->name('supply.report.date');
 
+    Route::post('/customer/info',[CutomerController::class,'customerInfo'])->name('customer.info');
     Route::get('/customer/management', [CutomerController::class,'cuctomerIndex'])->name('customer.index');
     Route::post('/customer/store', [CutomerController::class,'cuctomerStore'])->name('customer.detail.store');
     Route::get('/customer/edit/{id}',[CutomerController::class,'cuctomerEdit'])->name('customer.detail.edit');
