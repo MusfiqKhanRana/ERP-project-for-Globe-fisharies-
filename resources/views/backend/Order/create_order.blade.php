@@ -65,7 +65,6 @@
                                     <label class="col-md-2 control-label pull-left bold">Customer Select: </label>
                                     <div class="col-md-6">
                                         <select class="select2Ajax form-control" name="customer_id"></select>
-    
                                     </div>
                                 </div><br><br>
                                 {{-- <div class="form-group clearfix">
@@ -248,35 +247,35 @@
                     <div class="form-group">
                         <label for="inputEmail1" class="col-md-2 control-label">Full Name</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" placeholder="Customer Name" required name="full_name">
+                            <input type="text" class="form-control" placeholder=" Name" required name="full_name">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="inputEmail1" class="col-md-2 control-label">Designation</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" placeholder="Customer Name" name="designation">
+                            <input type="text" class="form-control" placeholder="Designation" name="designation">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="inputEmail1" class="col-md-2 control-label">Phone</label>
                         <div class="col-md-8">
-                            <input type="number" class="form-control" placeholder="Customer Phone" required name="phone">
+                            <input type="number" class="form-control" placeholder=" Phone" required name="phone">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="inputEmail1" class="col-md-2 control-label">Email</label>
                         <div class="col-md-8">
-                            <input type="email" class="form-control" placeholder="Customer Email" required name="email">
+                            <input type="email" class="form-control" placeholder=" Email" required name="email">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="inputEmail1" class="col-md-2 control-label">Address</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" placeholder="Customer Address" name="address">
+                            <input type="text" class="form-control" placeholder=" Address" name="address">
                         </div>
                     </div>
 
