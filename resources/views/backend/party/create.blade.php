@@ -117,7 +117,7 @@
             var id = $(this).val();
                     $.ajax({
                         type:"POST",
-                        url:"{{route('party.products.pass')}}",
+                        url:"{{route('party.products.info')}}",
                         data:{
                             'id' : id,
                             '_token' : $('input[name=_token]').val()
