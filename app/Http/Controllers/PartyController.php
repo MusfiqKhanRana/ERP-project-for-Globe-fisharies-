@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Party;
+use App\Models\party_product;
 use App\Models\Product;
 
 class PartyController extends Controller
@@ -39,6 +40,7 @@ class PartyController extends Controller
     public function store(Request $request)
     {   
         // dd($request);
+        $party_values = $request->all();
         $inputs = $request->except('_token', 'name');
         $this->validate($request,array(
            'party_code' => 'required|max:191',
@@ -58,9 +60,22 @@ class PartyController extends Controller
         $parties->party_short_name = $request->party_short_name;
         $parties->address = $request->address;
         $parties->save();
+        $data = $request->all();
+        // dd(var_dump($data));
+        // $order = Order::create(['customer_id' => $data['customer_id'],'remark' => $data['remark']]);
+        // dd($parties->id);
+        foreach ($data['party_products'] as $key => $value) {
+            $product_order = party_product::create([
+                'party_id' => $parties->id,
+                'product_id' => $data['party_products'][$key],
+                'price' => $data['party_price'][$key], 
+            ]);
+            // dd($product_order);
+        }
 
         return redirect()->route('party.index')->withMsg('Successfully Created');
     }
+
 
     /**
      * Display the specified resource.
@@ -120,8 +135,8 @@ class PartyController extends Controller
     {
         $process_array = [];
         $id = $request->id;
-        $prod = Product::find($id);
-        array_push($process_array,['id'=> $prod->id,'product_name' => $prod->product_name,'buying_price' => $prod->buying_price ]);
-        return $process_array;
+        $products = Product::find($id);
+        // array_push($process_array,['id'=> $prod->id,'product_name' => $prod->product_name,'buying_price' => $prod->buying_price ]);
+        return $products;
     }
 }

@@ -71,6 +71,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-3 control-label"></label>
+                                        <div class="col-md-9" id="product_field">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-md-3 control-label">Party Select Products</label>
                                         <div class="col-md-9">
                                             <select id="party_products" class="multiselect text-center" style="width: 100%" name="party_products[]" multiple="multiple">
@@ -114,27 +120,22 @@
         $( "#party_products" ).change(function() {
             // alert( $(this).val() );
             console.log($(this).val());
-            var id = $(this).val();
+            var ids = $(this).val();
                     $.ajax({
                         type:"POST",
                         url:"{{route('party.products.info')}}",
                         data:{
-                            'id' : id,
+                            'id' : ids,
                             '_token' : $('input[name=_token]').val()
                         },
                         success:function(data){
-                            $('.product_id'+max).empty();
-                            $('.product_id'+max).append($('<option>', { 
-                                value: '',
-                                text : "--select--"
-                            }));
+                            console.log(data);
+                            $(".user-div").remove();
+                            var $productDiv = $('#product_field').append('<div class="user-div row" style="background-color:gray;color:white;padding:2%;"></div>')
                             $.each(data, function (i, item) {
-                                var name_quantity = item.product_name;
-                                $('.product_id'+max).append($('<option>', { 
-                                    value: item.id,
-                                    text : name_quantity
-                                }));
-                            });
+                                 $("<div class='col-sm-4'>Name :"+item.product_name+"</div><div class='col-sm-4'> Buying Price :"+item.buying_price+"</div><div class='col-sm-4'> <input type='text' style='color:black' name='party_price[]' placeholder='Set price for party'></div><br>").appendTo( ".user-div");
+                               
+                        });
                         }
                     });
         });

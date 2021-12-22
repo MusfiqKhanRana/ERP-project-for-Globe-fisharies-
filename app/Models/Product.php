@@ -45,4 +45,8 @@ class Product extends Model
     {
         return $this->belongsTo(Order::class)->withDefault();
     }
+    public function parties()
+    {
+        return $this->belongsToMany(Party::class, 'party_product');
+    }
 }
