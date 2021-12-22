@@ -166,9 +166,9 @@
                                                             <div class="col-md-3">
                                                                 <label for="">Discount</label>
                                                                 <input name="discount" class="form-control" type="number" required placeholder="Discount">
-                                                                <span class="discount_in_percentage1">
+                                                                {{-- <span class="discount_in_percentage1">
                                                                     <input type="text" class="form-control"  name="discount_in_percentage[1]" placeholder="discount in %" id="percentage_id1"/>
-                                                                </span>
+                                                                </span> --}}
                                                                 <span class="discount_in_amount1">
                                                                     <input type="text" class="form-control" name="discount_in_amount[1]" placeholder="discount in amount" id="amount_id1"/>
                                                                 </span>
@@ -336,6 +336,30 @@
                     // );
                 }
             });
+        });
+    </script>
+    <script>
+        $(".answer11").hide();
+    $(".coupon_question11").click(function() {
+        if($(this).is(":checked")) {
+            $(".answer11").show();
+            $(".answer22").hide();
+        } else {
+            $(".answer11").hide();
+            $(".answer22").show();
+        }
+    });
+    $(".rxyz2").hide();
+        $(".xyz2").click(function() {
+            if($(this).is(":checked")) {
+                $(".rxyz2").show();
+                $(".rxyz1").hide();
+                $('#coupon_field_1').val('');
+            } else {
+                $(".rxyz2").hide();
+                $(".rxyz1").show();
+                $('#coupon_field_2').val('');
+            }
         });
     </script>
 @endsection
