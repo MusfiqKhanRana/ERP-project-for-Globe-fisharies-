@@ -113,9 +113,9 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <div class="col-md-10">
-                                        <select class="form-control" name="warehouse_id[1]" id="department1" required>
+                                        <select class="form-control" name="warehouse_id[1]" id="category1" required>
                                             <option selected>Select</option>
-                                            @foreach($warehouse as $data)
+                                            @foreach($category as $data)
                                                 <option value="{{$data->id}}">{{$data->name}}</option>
                                             @endforeach
                                             {{csrf_field()}}
@@ -126,7 +126,12 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <div class="col-md-10">
-                                        <select class="form-control product_id1" name="product_id[1]" required>
+                                        <select class="form-control product_id1" name="product_id[1]" id="product1" required>
+                                            @foreach ($category as $data)
+                                                @foreach ($data->product as $product)
+                                                    <option value="{{$product->id}}" class="{{$data->id}}">{{$product->product_name}}</option>
+                                                @endforeach
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -303,11 +308,12 @@
 
 @endsection
 @section('script')
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         jQuery(document).ready(function() {
             var max = 1;
-            var warehouse = @json($warehouse, JSON_PRETTY_PRINT);
+            var category = @json($category, JSON_PRETTY_PRINT);
             var price = 0;
             var quantity = 0;
             var amount = 0;
@@ -331,18 +337,25 @@
             $("#myDiv").removeAttr("style");
             $("#addService").removeAttr("disabled");
             function appendPlanDescField(container) {
-                var options ="";
-                for (let index = 0; index < warehouse.length; index++) {
-                    options+='<option value="'+warehouse[index].id+'">'+warehouse[index].name+'</option>'
+                var category_options ="";
+                var product_options = "";
+                for (let index = 0; index < category.length; index++) {
+                    category_options+='<option value="'+category[index].id+'">'+category[index].name+'</option>'
                 }
+                $.each( category, function( key, value ) {
+                    $.each( value.product, function( key, product ) {
+                        // alert( key + ": " + value );
+                        product_options+='<option value="'+product.id+'" class="'+value.id+'">'+product.product_name+'</option>'
+                    });
+                });
                 container.after(
                     '<div class="row serviceRow redBorder"  id="orderBox">'+
                         '<hr>'+
                         '<div class="col-md-2">'+
                             '<div class="form-group">'+
                                 '<div class="col-md-10">'+
-                                    '<select class="form-control" name="warehouse_id['+max+']" id="department'+max+'" required>'+
-                                        '<option>--select--</option>'+options
+                                    '<select class="form-control" name="warehouse_id['+max+']" id="category'+max+'" required>'+
+                                        '<option>--select--</option>'+category_options
                                     +'</select>'
                                 +'</div>'
                             +'</div>'
@@ -350,7 +363,8 @@
                         '<div class="col-md-2">'+
                             '<div class="form-group">'+
                                 '<div class="col-md-10">'+
-                                    '<select class="form-control product_id'+max+'" name="product_id['+max+']" required>'+
+                                    '<select class="form-control product_id'+max+'" name="product_id['+max+']" id="product'+max+'" required>'+
+                                        product_options +
                                     '</select>'+
                                 '</div>'+
                             '</div>'+
@@ -398,32 +412,6 @@
                             '</div>'+
                         '<div>'+
                     '</div>'
-                    // '<div class="input-group">'+
-                    //     '<div class="col-md-3">'+
-                    //         '<label for="category">Category</label>'+
-                    //         '<select class="form-control select2me category'+max+'"  name="category_id['+max+']" required>'+
-                    //             '<option value="">--select--</option>'+options+
-                    //         '</select>'
-                    //     +'</div>'+
-                    //     '<div class="col-md-3">'+
-                    //         '<label for="category">Product</label>'+
-                    //         '<select class="form-control select2me product'+max+'" name="product_id['+max+']"  placeholder="Product" required>'+
-                    //         '</select>'
-                    //     +'</div>'+
-                    //     '<div class="col-md-3">'
-                    //         +'<label for="">Packet</label>'+
-                    //         '<input name="packet['+max+']" class="form-control" type="number" required placeholder="Packet">'+
-                    //     '</div>'+
-                    //     '<div class="col-md-3">'+
-                    //         '<label for="">Quantity</label>'+
-                    //         '<input name="quantity['+max+']" class="form-control" type="number" required placeholder="Quantity">'+
-                    //     '</div>'+
-                    //     '<div class="col-md-3">'+
-                    //         '<span class="input-group-btn">'+
-                    //             '<button class="btn btn-danger margin-top-20 delete_desc" type="button"><i class="fa fa-times"></i></button>'+
-                    //         '</span>'+
-                    //     '</div>'+
-                    // '</div>'
                 );
             }
             $("#addService").click(function(){
@@ -441,72 +429,7 @@
                         $('#amount_id'+max).val('');
                     }
                 });
-                var department = '#department' + max;
-                $(document).on('change',department,function(){
-                    var id = $(this).val();
-                    $.ajax({
-                        type:"POST",
-                        url:"{{route('warehouse.product.pass')}}",
-                        data:{
-                            'id' : id,
-                            '_token' : $('input[name=_token]').val()
-                        },
-                        success:function(data){
-                            $('.product_id'+max).empty();
-                            $('.product_id'+max).append($('<option>', { 
-                                value: '',
-                                text : "--select--"
-                            }));
-                            $.each(data, function (i, item) {
-                                var name_quantity = item.product_name;
-                                $('.product_id'+max).append($('<option>', { 
-                                    value: item.id,
-                                    text : name_quantity
-                                }));
-                            });
-                        }
-                    });
-                });
-                var product_id = '.product_id' + max;
-                $(document).on('change',product_id,function(){
-                    var id = $(this).val();
-                    $.ajax({
-                        type:"POST",
-                        url:"{{route('warehouse.product.price')}}",
-                        data:{
-                            'id' : id,
-                            '_token' : $('input[name=_token]').val()
-                        },
-                        success:function(data){
-                            var $results = $('.product_price'+ max);
-                            var $userDiv = $results.append('<div class="user-div'+ max +'"></div>')
-                            $("<input type='radio' class='selling_price"+max+"' name='selling_price' id='a"+max+"' value='"+data.inhouse_selling_price+"'> <span>Inhouse:"+data.inhouse_selling_price+"</span>").appendTo( ".user-div"+max );
-                        $("<input type='radio' class='selling_price"+max+"' name='selling_price' id='b"+max+"' value='"+data.online_selling_price+"'> <span>Online:"+data.online_selling_price+"</span>").appendTo( ".user-div"+max );
-                        $("<input type='radio' class='selling_price"+max+"' name='selling_price' id='c"+max+"' value='"+data.retail_selling_price+"'> <span>Retail:"+data.retail_selling_price+"</span>").appendTo( ".user-div"+max );
-                            // $('.product_price'+ max).append(
-                            //     $('<input>').prop({
-                            //         type: 'radio',
-                            //         id: 'price',
-                            //         name: 'selling_price',
-                            //         value: data.inhouse_selling_price
-                            //     })
-                            // ).append(
-                            //     $('<label>').prop({
-                            //         for: 'Price'
-                            //     }).html('inhouse_selling_price'+ "(" + data.inhouse_selling_price +")" )
-                            // ).append(
-                            //     $('<br>')
-                            // );
-                        }
-                    });
-                });
                 reloadMax();
-                // var serviceRowQty = $('.serviceRow').length;
-                // $("#orderBox:last").clone(true).insertAfter("div.serviceRow:last");
-                // $("div.serviceRow:last input").val('');
-                // $("div.serviceRow:last textarea").val('');
-                // $("div.serviceRow:last select").prop('selectedIndex',0);
-                // $("div.serviceRow:last label").text('');
                 $("div.serviceRow .removeService").prop('disabled', false);
                 return false;
 
@@ -547,64 +470,6 @@
                 total = t;
                 $('.total').val(t);
             }
-            $(document).on('change','#department'+max,function(){
-                var id = $(this).val();
-                $.ajax({
-                    type:"POST",
-                    url:"{{route('warehouse.product.pass')}}",
-                    data:{
-                        'id' : id,
-                        '_token' : $('input[name=_token]').val()
-                    },
-                    success:function(data){
-                        $('.product_id'+max).empty();
-                        $('.product_id'+max).append($('<option>', { 
-                            value: '',
-                            text : "--select--"
-                        }));
-                        $.each(data, function (i, item) {
-                            var name_quantity = item.product_name;
-                            $('.product_id'+max).append($('<option>', { 
-                                value: item.id,
-                                text : name_quantity
-                            }));
-                        });
-                    }
-                });
-            });
-            $(document).on('change','.product_id'+max,function(){
-                var id = $(this).val();
-                $.ajax({
-                    type:"POST",
-                    url:"{{route('warehouse.product.price')}}",
-                    data:{
-                        'id' : id,
-                        '_token' : $('input[name=_token]').val()
-                    },
-                    success:function(data){
-                        var $results = $('.product_price'+ max);
-                        var $userDiv = $results.append('<div class="user-div'+ max +'"></div>')
-                        $("<input type='radio' class='selling_price"+max+"' name='selling_price' id='a"+max+"' value='"+data.inhouse_selling_price+"'> <span>Inhouse:"+data.inhouse_selling_price+"</span>").appendTo( ".user-div"+max );
-                        $("<input type='radio' class='selling_price"+max+"' name='selling_price' id='b"+max+"' value='"+data.online_selling_price+"'> <span>Online:"+data.online_selling_price+"</span>").appendTo( ".user-div"+max );
-                        $("<input type='radio' class='selling_price"+max+"' name='selling_price' id='c"+max+"' value='"+data.retail_selling_price+"'> <span>Retail:"+data.retail_selling_price+"</span>").appendTo( ".user-div"+max );
-                        // $('.product_price'+ max).append(
-                        //     $('<input>').prop({
-                        //         type: 'radio',
-                        //         id: 'price',
-                        //         name: 'selling_price',
-                        //         value: data.inhouse_selling_price
-                        //     })
-                        // ).append(
-                        //     $('<label>').prop({
-                        //         for: 'Price'
-                        //     }).html('inhouse_selling_price'+ "(" + data.inhouse_selling_price +")" )
-                        // ).append(
-                        //     $('<br>')
-                        // );
-                     }
-                });
-            });
-
             $('.discount_in_amount'+max).hide();
 
             $(".want_in_amount"+max).click(function() {
@@ -622,11 +487,10 @@
             });
             reloadMax();
             function reloadMax(){
-                $(document).on('change', '.selling_price'+max, function () {
-                    price = $(this).val();
-                });
+                $("#product"+max).chained("#category"+max);
                 $(document).on('keyup','.service_qty'+max,function() {
                     quantity = $(this).val();
+                    price = $('#selling_price'+max).html();
                     amount = $('#amount'+max).val(price*quantity);
                     total+=price*quantity;
                     total_price= $('#amount'+max).val();
@@ -643,6 +507,32 @@
                     in_total_amount+=discount;
                     $('#amount'+max).val(discount);
                     $('#total').val(in_total_amount);
+                });
+                $(document).on('change','.product_id'+max,function(){
+                    var id = $(this).val();
+                    $.ajax({
+                        type:"POST",
+                        url:"{{route('warehouse.product.price')}}",
+                        data:{
+                            'id' : id,
+                            '_token' : $('input[name=_token]').val()
+                        },
+                        success:function(data){
+                            $(".product_price"+max).empty();
+                            var customer_type = $('#customer_type').html();
+                            var selling_price = null;
+                            if(customer_type==="inhouse"){
+                                selling_price = data.inhouse_selling_price;
+                            }
+                            else if(customer_type === "online"){
+                                selling_price = data.online_selling_price;
+                            }
+                            var $results = $('.product_price'+ max);
+                            var $userDiv = $results.append('<div class="user-div'+ max +'"></div>')
+                            $("<span>Inhouse:<span id='selling_price"+max+"'>"+selling_price+"</span><input type='hidden' name='selling_price[]' value='"+selling_price+"'/></span>").appendTo( ".user-div"+max );
+                            
+                        }
+                    });
                 });
             }
             $("#customer_id").change(function() {
@@ -661,7 +551,7 @@
                             '<div class="col-md-3 text-center"><span> <b>cusotmer Name: </b>'+data.full_name+'</span></div>'
                             +'<div class="col-md-3 text-center"><span> <b>cusotmer Address: </b>'+data.address+'</span></div>'
                             +'<div class="col-md-3 text-center"><span> <b>cusotmer Phone: </b>'+data.phone+'</span></div>'
-                            +'<div class="col-md-3 text-center"><span> <b>cusotmer Type: </b>'+data.customer_type+'</span></div>'
+                            +'<div class="col-md-3 text-center"><span> <b>cusotmer Type: </b><span id="customer_type">'+data.customer_type+'</span></span></div>'
                         +'</div>').appendTo( ".user-div" );
                     }
                 });
