@@ -38,6 +38,7 @@ use App\Http\Controllers\RequisitionController;
 use App\Http\Controllers\RequisitionProductController;
 use App\Http\Controllers\RequisitionReceiveController;
 use App\Http\Controllers\UserTypeController;
+use App\Http\Controllers\PratyProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -282,6 +283,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Menu
 
     Route::resource('party', PartyController::class);
+    Route::resource('party-product', PratyProductController::class);
+    Route::post('party/product/delete/{id}',[PratyProductController::class,'party_product_delete'])->name('party.product.delete');
     Route::post('party/products/info',[PartyController::class,'party_products'])->name('party.products.info');
     Route::resource('party-management', PartyController::class);
     Route::resource('pack', PackControler::class);
