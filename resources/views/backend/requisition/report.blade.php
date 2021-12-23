@@ -163,7 +163,7 @@
                                                                                                 <b>Product Name: {{$value->product_name}}</b>
                                                                                             </div>
                                                                                             <div class="col-md-4">
-                                                                                                <b>Provided Quantity: <span id="span">{{$value->pivot->quantity}}</span></b>
+                                                                                                <b>Provided Quantity: {{$value->pivot->quantity}}</b>
                                                                                             </div>
                                                                                             <div class="col-md-4">
                                                                                                 <input name="final_quantity[{{$keyupdated}}]" value="{{$value->pivot->final_quantity}}" class="form-control" type="number" required placeholder="Available Quantity">
@@ -257,16 +257,10 @@
                                                                                 <b>Product Name: {{$value->product_name}}</b>
                                                                             </div>
                                                                             <div id="prev_qty" class="col-md-4">
-                                                                                <b>Provided Quantity: {{$value->pivot->quantity}}</b>
+                                                                                <b>Provided Quantity: <span class="span">{{$value->pivot->quantity}}</span></b>
                                                                             </div>
                                                                             <div class="col-md-4">
-                                                                                <input id="received_quantity" name="received_quantity[{{$keyupdated}}]" value="{{$value->pivot->received_quantity}}" class="form-control" type="number" required placeholder="Recieved Quantity">
-                                                                            </div>
-                                                        
-                                                                            <div class="col-md-4 ml-5" id="textarea">
-                                                                            <br>
-                                                                            <hr>
-                                                                                <textarea name="imperfect_massage" id="imperfect_massage"  placeholder="Describe delevery imperfection..." cols="30" rows="10"></textarea>
+                                                                                <input class="received_quantity" name="received_quantity[{{$keyupdated}}]" value="{{$value->pivot->received_quantity}}" class="form-control" type="number" required placeholder="Recieved Quantity">
                                                                             </div>
                                                                         </div>
                                                                         <input type="hidden" name="product_id[]" value="{{$value->product_id}}">
@@ -275,6 +269,11 @@
                                                                         <input type="hidden" name="warehouse_id[]" value="{{$data->warehouse_id}}">
                                                                         {{-- <input type="hidden" name="requisition_id[]" value="{{$data->id}}"> --}}
                                                                     @endforeach
+                                                                    <div class="col-md-4 ml-5" id="textarea">
+                                                                        <br>
+                                                                        <hr>
+                                                                            <textarea name="imperfect_massage" id="imperfect_massage"  placeholder="Describe delevery imperfection..." cols="30" rows="10"></textarea>
+                                                                        </div>
                                                             </div>
                                                             <br>
                                                             <div class="modal-footer">
@@ -504,12 +503,12 @@
         });
         var textarea = $('#textarea');
         textarea.hide();
-        $('#received_quantity').on("keyup change", function(e){
+        $('.received_quantity').on("keyup change", function(e){
 
-            data = $("#span").text();
+            data = $(".span").text();
             // console.log(data);
             var textarea = $('#textarea');
-            var select   = $('#received_quantity').val();
+            var select   = $('.received_quantity').val();
             if (data != select){
                 textarea.show();
                 $("#imperfect_massage").prop('required',true);
