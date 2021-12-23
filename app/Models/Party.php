@@ -10,9 +10,10 @@ class Party extends Model
     protected $guarded = [];
     use HasFactory;
 
-    public function products()
+    public function product_parties()
     {
-        return $this->belongsToMany(Product::class, 'party_product');
+        return $this->belongsToMany(Product::class, 'party_products','party_id','product_id')->withPivot('id','price');
     }
+    
 }
 

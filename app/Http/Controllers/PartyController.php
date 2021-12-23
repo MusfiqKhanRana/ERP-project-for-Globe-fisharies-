@@ -17,7 +17,9 @@ class PartyController extends Controller
     public function index()
     {
         $parties = Party::all();
-        return view('backend.party.index', compact('parties'));
+        $product_party = party_product::all();
+        //dd($party_products);
+        return view('backend.party.index', compact('parties','product_party'));
     }
 
     /**
@@ -127,6 +129,11 @@ class PartyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
+    {
+        Party::whereId($id)->delete();
+        return redirect()->back()->withMsg("Successfully Deleted");
+    }
+    public function party_product_delete($id)
     {
         Party::whereId($id)->delete();
         return redirect()->back()->withMsg("Successfully Deleted");
