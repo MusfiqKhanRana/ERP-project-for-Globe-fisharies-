@@ -277,7 +277,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('requisition-receive',[RequisitionReceiveController::class,'index'])->name('requisition.receive.index');
     Route::get('requisition-receive/confirm-delivery/{id}',[RequisitionReceiveController::class,'confirmReceiveDelivery'])->name('requisition.receive.confirm');
     Route::post('requisition-receive/update-products',[RequisitionReceiveController::class,'updateSubmitted'])->name('requisition.receive.updatesubmitted');
-
+    Route::get('requisition/receive/status',[RequisitionReceiveController::class,'status'])->name('requisition.receive.status');
 
     //Menu
 
