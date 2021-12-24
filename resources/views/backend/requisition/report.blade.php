@@ -17,7 +17,7 @@
         @endif
         <!-- BEGIN PAGE TITLE-->
             <h3 class="page-title bold">Requisition
-                <small> Requisition-Dispatch</small>
+                <small> Requisition-status</small>
 
                 {{-- <a class="btn blue-ebonyclay pull-right" data-toggle="modal" href="#basic">
                     Add Requisition
@@ -161,10 +161,10 @@
                                                                                 <input type="hidden" value="" id="delete_id">
                                                                                 <div class="modal-dialog">
                                                                                     <div class="modal-content">
-                                                                                        <form action="{{route('requisition.receive.updatesubmitted')}}" method="POST">
+                                                                                        <form action="{{route('requisition.delivery.confirm')}}" method="POST">
                                                                                             <div class="modal-header">
                                                                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                                                                <h2 class="modal-title" style="color: rgb(75, 65, 65);">Add Products</h2>
+                                                                                                <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Confirm Delivery</h2>
                                                                                             </div>
                                                                                             <br>
                                                                                             <div class="modal-body">
@@ -184,10 +184,14 @@
                                                                                                                 <input name="received_quantity[{{$keyupdated}}]" value="{{$value->pivot->received_quantity}}" data-provided="{{$value->pivot->final_quantity}}" class="form-control received_quantity" type="number" required placeholder="Available Quantity">
                                                                                                             </div>
                                                                                                         </div>
+                                                                                                        <input type="hidden" name="product_id[]" value="{{$value->product_id}}">
+                                                                                                        <input type="hidden" name="id[]" value="{{$value->pivot->id}}">
+                                                                                                        <input type="hidden" name="buying_price[]" value="{{$value->buying_price}}">
+                                                                                                        <input type="hidden" name="warehouse_id[]" value="{{$data->warehouse_id}}">
                                                                                                     @endforeach
                                                                                                     <br>
-                                                                                                    <div>
-                                                                                                        <textarea rows="10" cols="40" placeholder="Imparfect Note"></textarea>
+                                                                                                    <div class="imperfect_note">
+                                                                                                        <Span> <b style="color: red">There is Imperfect !!</b> </Span><br><textarea name="imperfect_massage" rows="10" cols="40"  placeholder="Give Imparfect Note"></textarea>
                                                                                                     </div>
                                                                                             </div>
                                                                                             <br>
@@ -209,12 +213,47 @@
                                                                         <a class="btn purple" href="{{route('requisition.receive.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i> Confirm & Deliver</a>
                                                                     @endif --}}
                                                                     <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Confirm Delivery</a>
+                                                                    <br>
+                                                                    <a class="btn red" data-toggle="modal" href="#returnProductModal{{$data->id}}"><i class="fa fa-undo"></i> Return </a>
                                                                 @endif
                                                                 {{-- <a class="btn blue-chambray"  data-toggle="modal" href="{{route('requisition.edit',$data)}}"><i class="fa fa-edit"></i> Edit</a>
                                                                 <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a> --}}
                                                             </td>
                                                         </tr>
                                                         
+                                                         <div id="returnProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" value="" id="delete_id">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                        <h2 class="modal-title" style="color: rgb(75, 65, 65);">Add Products</h2>
+                                                                    </div>
+                                                                    <br>
+                                                                    <div class="modal-body">
+                                                                        <div class="m-5 row">
+                                                                            <form action="{{route('requisition.delivery.return')}}" method="POST">
+                                                                                @csrf
+                                                                                <input type="hidden" name="requisition_id" value="{{$data->id}}">
+                                                                                <div class="col-md-12">
+                                                                                    <label for="category"><b>Return Note</b> </label><br>
+                                                                                    <textarea rows="7" cols="50" name="return_note"></textarea>
+                                                                                </div>
+                                                                                <div class="col-md-3">
+                                                                                    <label><span>&nbsp;</span></label><br>
+                                                                                    <button class="m-10 btn btn-success">Save</button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                    <br>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                        
                                                     @endforeach
                                                 </tbody>
@@ -277,7 +316,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label for="inputEmail1" class="col-md-6 control-label">Add Products</label>
+                                    <label for="inputEmail1" class="col-md-6 control-label">Confirm Delivery</label>
                                     <div class="description" style="width: 100%;border: 1px solid #ddd;padding: 10px;border-radius: 5px" >
                                             <div class="col-md-12" id="planDescriptionContainer">
                                                 <div class="input-group">
@@ -335,11 +374,15 @@
 @section('script')
     <script>
         $(function() {
+            $('.imperfect_note').hide();
             $(".received_quantity").keyup(function(){
                 var provided = $(this).data('provided');
-                var confirmed = $(this).val;
-                if(confirmed==provided){
-                    console.log("perfect");
+                var confirmed = parseInt($(this).val());
+                // console.log("changed");
+                if(confirmed != provided){
+                    $('.imperfect_note').show();
+                }else{
+                    $('.imperfect_note').hide();
                 }
                 // console.log($('.requisition_product_id').html());
             });
