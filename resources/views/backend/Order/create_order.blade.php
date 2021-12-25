@@ -113,7 +113,7 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <div class="col-md-10">
-                                        <select class="form-control" name="warehouse_id[1]" id="category1" required>
+                                        <select class="form-control" name="category_id[1]" id="category1" required>
                                             <option selected>Select</option>
                                             @foreach($category as $data)
                                                 <option value="{{$data->id}}">{{$data->name}}</option>
@@ -354,7 +354,7 @@
                         '<div class="col-md-2">'+
                             '<div class="form-group">'+
                                 '<div class="col-md-10">'+
-                                    '<select class="form-control" name="warehouse_id['+max+']" id="category'+max+'" required>'+
+                                    '<select class="form-control" name="category_id['+max+']" id="category'+max+'" required>'+
                                         '<option>--select--</option>'+category_options
                                     +'</select>'
                                 +'</div>'

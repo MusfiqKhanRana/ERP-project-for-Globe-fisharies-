@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class party_product extends Model
+class Party_product extends Model
 {
     protected $guarded = [];
     use HasFactory;
@@ -14,6 +14,8 @@ class party_product extends Model
     {
         return $this->belongsToMany(Party::class);
     }
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }
-
-

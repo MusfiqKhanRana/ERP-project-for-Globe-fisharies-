@@ -82,6 +82,7 @@ class RequisitionReceiveController extends Controller
         ->where('confirmed',true)
         ->whereIn('status',['Imperfect'])
         ->latest()->paginate(10);
+        // dd(var_dump($requisition))->toArray;
         return view('backend.requisition_receive.report',compact('requisition','category','warehouse','party'));
     }
 }
