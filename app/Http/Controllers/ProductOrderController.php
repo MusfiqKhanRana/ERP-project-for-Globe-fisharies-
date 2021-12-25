@@ -37,7 +37,7 @@ class ProductOrderController extends Controller
     public function create()
     {
         $category = Category::with(['product'=>function($q){
-            $q->select('id','category_id','product_name');
+            $q->with('pack')->select('id','category_id','product_name','pack_id');
         }])->get();
         $customer = Cutomer::all();
         $warehouse = Warehouse::all();
@@ -57,30 +57,27 @@ class ProductOrderController extends Controller
         // dd($request->toArray());
         $this->validate($request, array(
             'customer_id' => 'required',
-            'warehouse_id' => 'required',
+            'category_id' => 'required',
             'product_id' => 'required',
             'service_quantity' => 'required',
             'service_amount' => 'required',
             'discount_in_percentage' => 'required',
             'discount_in_amount' => 'required',
-            'remark' => 'required',
         ));
 
         $data = $request->all();
         // dd(var_dump($data));
-        $order = Order::create(['customer_id' => $data['customer_id'],'remark' => $data['remark']]);
-        foreach ($data['warehouse_id'] as $key => $value) {
+        $order = Order::create(['customer_id' => $data['customer_id'],'remark' => $data['remark'],'total_discount' => $data['total_discount'],'delivery_charge'=>$data['delivery_charge']]);
+        foreach ($data['category_id'] as $key => $value) {
             $product_order = ProductOrder::create([
                 'order_id' => $order->id,
                 'product_id' => $data['product_id'][$key],
-                'warehouse_id' => $data['warehouse_id'][$key],
+                'category_id' => $data['category_id'][$key],
                 'quantity' => $data['service_quantity'][$key],
                 'discount_in_amount' => $data['discount_in_amount'][$key],
                 'discount_in_percentage' => $data['discount_in_percentage'][$key],
                 'selling_price' => $data['service_amount'][$key],
-                
             ]);
-           
         }
        
         

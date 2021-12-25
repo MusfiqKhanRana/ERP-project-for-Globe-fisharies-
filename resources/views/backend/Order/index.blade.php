@@ -73,6 +73,7 @@
                                                     <th>Category</th>
                                                     <th>Name</th>
                                                     <th>Quantity</th>
+                                                    <th>Discount</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
