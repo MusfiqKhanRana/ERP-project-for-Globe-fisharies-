@@ -67,7 +67,7 @@ class ProductOrderController extends Controller
 
         $data = $request->all();
         // dd(var_dump($data));
-        $order = Order::create(['customer_id' => $data['customer_id'],'remark' => $data['remark'],'total_discount' => $data['total_discount'],'delivery_charge'=>$data['delivery_charge']]);
+        $order = Order::create(['customer_id' => $data['customer_id'],'remark' => $data['remark'],'delivery_charge'=>$data['delivery_charge']]);
         foreach ($data['category_id'] as $key => $value) {
             $product_order = ProductOrder::create([
                 'order_id' => $order->id,
