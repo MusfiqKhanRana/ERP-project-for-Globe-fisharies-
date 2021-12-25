@@ -188,21 +188,23 @@
                                 </div>
                             </div>
                             <div class="row">
-                                {{-- <div class="col-md-3">
+                                <div class="col-md-3">
                                     <div class="input-group">
                                         <div class="input-group-btn">
-                                            <button type="button" class="btn btn-success pull-left">Total Amount</button>
+                                            <button type="button" class="btn btn-success pull-left">Add Delivery Charge</button>
                                         </div>
                                         <!-- /btn-group -->
-                                        <input type="text" class="form-control total" id="total" name="total_amount" style="font-size:25px; font-weight: bold" readonly> 
+                                        {{-- <input type="text" class="form-control total" id="total" name="total_amount" style="font-size:25px; font-weight: bold" readonly>  --}}
+                                        {{-- <input type="number" class="from-control" style="font-size:19px; font-weight: bold" placeholder="Total discount in amount" name="total_discount"> --}}
+                                        <input type="number" class="from-control" style="font-size:19px; font-weight: bold" placeholder="Delivery Charge" name="delivery_charge">
                                     </div>
-                                </div> --}}
-                                <div class="col-md-3">
+                                </div>
+                                {{-- <div class="col-md-3">
                                     <input type="number" class="from-control" style="font-size:17px; font-weight: bold" placeholder="Total discount in amount" name="total_discount">
                                 </div>
                                 <div class="col-md-3">
                                     <input type="number" class="from-control" style="font-size:17px; font-weight: bold" placeholder="Delivery Charge" name="delivery_charge">
-                                </div>
+                                </div> --}}
                                 <div class="col-md-3 pull-right">
                                     <button type="submit" class="btn purple btn-block ">Submit</button>
                                 </div>
