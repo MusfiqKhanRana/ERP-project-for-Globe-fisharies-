@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -69,7 +70,12 @@ class PratyProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request->all());
+        DB::table('party_products')->where('id', '=',$id)
+        ->update([
+            'price' => $request->price,
+        ]);
+        return redirect()->back()->withMsg("Successfully Updated");
     }
 
     /**
