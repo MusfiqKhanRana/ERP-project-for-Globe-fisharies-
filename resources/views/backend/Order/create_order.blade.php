@@ -113,7 +113,7 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <div class="col-md-10">
-                                        <select class="form-control" name="warehouse_id[1]" id="category1" required>
+                                        <select class="form-control" name="category_id[1]" id="category1" required>
                                             <option selected>Select</option>
                                             @foreach($category as $data)
                                                 <option value="{{$data->id}}">{{$data->name}}</option>
@@ -129,7 +129,7 @@
                                         <select class="form-control product_id1" name="product_id[1]" id="product1" required>
                                             @foreach ($category as $data)
                                                 @foreach ($data->product as $product)
-                                                    <option value="{{$product->id}}" class="{{$data->id}}">{{$product->product_name}}</option>
+                                                    <option value="{{$product->id}}" class="{{$data->id}}">{{$product->product_name}} ({{$product->pack->name}})</option>
                                                 @endforeach
                                             @endforeach
                                         </select>
@@ -188,14 +188,20 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3">
+                                {{-- <div class="col-md-3">
                                     <div class="input-group">
                                         <div class="input-group-btn">
                                             <button type="button" class="btn btn-success pull-left">Total Amount</button>
                                         </div>
                                         <!-- /btn-group -->
-                                        <input type="text" class="form-control total" id="total" name="total_amount" style="font-size:25px; font-weight: bold" readonly>
+                                        <input type="text" class="form-control total" id="total" name="total_amount" style="font-size:25px; font-weight: bold" readonly> 
                                     </div>
+                                </div> --}}
+                                <div class="col-md-3">
+                                    <input type="number" class="from-control" style="font-size:17px; font-weight: bold" placeholder="Total discount in amount" name="total_discount">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="number" class="from-control" style="font-size:17px; font-weight: bold" placeholder="Delivery Charge" name="delivery_charge">
                                 </div>
                                 <div class="col-md-3 pull-right">
                                     <button type="submit" class="btn purple btn-block ">Submit</button>
@@ -345,7 +351,7 @@
                 $.each( category, function( key, value ) {
                     $.each( value.product, function( key, product ) {
                         // alert( key + ": " + value );
-                        product_options+='<option value="'+product.id+'" class="'+value.id+'">'+product.product_name+'</option>'
+                        product_options+='<option value="'+product.id+'" class="'+value.id+'">'+product.product_name+' ('+product.pack.name+')'+'</option>'
                     });
                 });
                 container.after(
@@ -354,7 +360,7 @@
                         '<div class="col-md-2">'+
                             '<div class="form-group">'+
                                 '<div class="col-md-10">'+
-                                    '<select class="form-control" name="warehouse_id['+max+']" id="category'+max+'" required>'+
+                                    '<select class="form-control" name="category_id['+max+']" id="category'+max+'" required>'+
                                         '<option>--select--</option>'+category_options
                                     +'</select>'
                                 +'</div>'
@@ -494,6 +500,10 @@
                     amount = $('#amount'+max).val(price*quantity);
                     total+=price*quantity;
                     total_price= $('#amount'+max).val();
+                    // var values = $('input[name="service_amount[]"]').map(function(){
+                    //     return this.value
+                    // }).get();
+                    // console.log(values);
                     $('#total').val(total);
                 });
                 $(document).on('keyup','#percentage_id'+max,function() {
@@ -529,7 +539,7 @@
                             }
                             var $results = $('.product_price'+ max);
                             var $userDiv = $results.append('<div class="user-div'+ max +'"></div>')
-                            $("<span>Inhouse:<span id='selling_price"+max+"'>"+selling_price+"</span><input type='hidden' name='selling_price[]' value='"+selling_price+"'/></span>").appendTo( ".user-div"+max );
+                            $("<span>Price:<span id='selling_price"+max+"'>"+selling_price+"</span>TK<input type='hidden' name='selling_price[]' value='"+selling_price+"'/></span>").appendTo( ".user-div"+max );
                             
                         }
                     });
