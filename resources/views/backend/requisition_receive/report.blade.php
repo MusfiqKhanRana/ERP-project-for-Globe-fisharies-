@@ -4,10 +4,10 @@
 @endsection
 @section('main-content')
 <style>
-    ::placeholder {
-  color: red;
+    /* ::placeholder {
+  color: rgb(82, 78, 78);
   opacity: 1; /* Firefox */
-}
+} */
 
 </style>
     <!-- BEGIN CONTENT -->
@@ -79,6 +79,9 @@
                                             <th>
                                                 Products
                                             </th>
+                                            <th>
+                                                Action
+                                            </th>
                                             <th style="background-color:#ED5D5D ; color:white;">
                                                 Problem Massage 
                                             </th>
@@ -119,9 +122,6 @@
                                                                 <th>
                                                                     Recieved Quantity
                                                                 </th>
-                                                                <th>
-                                                                    Action
-                                                                </th>
                                                                 {{-- <th>
                                                                     Packet
                                                                 </th> --}}
@@ -141,7 +141,6 @@
                                                                     <td>{{$item->pivot->quantity}}</td>
                                                                     <td>{{$item->pivot->final_quantity}}</td>
                                                                     <td>{{$item->pivot->received_quantity}}</td>
-                                                                    <td><button type="submit" class="btn green"  data-toggle="modal" href="#basic{{$item->pivot->id}}">Solve</button></td>
                                                                     {{-- <td>{{$item->pivot->packet}}</td> --}}
                                                                     {{-- <td>
                                                                         <form action="{{route('requisition-product.destroy',$item->pivot->id)}}" method="POST">
@@ -153,15 +152,15 @@
                                                                 </tr>
                                                         
                                                             @endif
-                                                                <div id="basic{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                                <div id="basic{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                                     {{csrf_field()}}
                                                                     <input type="hidden" value="" id="delete_id">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
-                                                                            <form action="{{route('requisition.receive.updatesubmitted')}}" method="POST">
+                                                                            <form action="{{route('requisition.receive.resolved')}}" method="POST">
                                                                                 <div class="modal-header">
                                                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                                                    <h2 class="modal-title" style="color: rgb(75, 65, 65);"><b>Solve Imperfect Requisition</b></h2>
+                                                                                    <h4 class="modal-title" style="color: rgb(75, 65, 65);"><b>Solve Imperfect Requisition</b></h4>
                                                                                 </div>
                                                                                 <br>
                                                                                 <div class="modal-body">
@@ -170,22 +169,29 @@
                                                                                     @foreach ($data->products as $keyupdated => $value)
                                                                                         <div class="m-5 row">
                                                                                             <input type="hidden" name="requisition_product_id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
-                                                                                            <div class="col-md-4">
+                                                                                            <div class="col-md-5">
                                                                                                 <b>Product Name: {{$value->product_name}}</b>
                                                                                             </div>
-                                                                                            <div class="col-md-4">
+                                                                                            <div class="col-md-5">
                                                                                                 <b>Provided Quantity: <span id="span">{{$value->pivot->quantity}}</span></b>
                                                                                             </div>
-                                                                                            <div class="col-md-4">
-                                                                                                <input name="received_quantity" value="{{$value->pivot->received_quantity}}" class="form-control" type="number" required placeholder="recieved Quantity">
+                                                                                        </div><br>
+                                                                                        <div class="m-5 row">
+                                                                                            <div class="col-md-5">
+                                                                                                <b>Recieved Quantity: <span id="span">{{$value->pivot->received_quantity}}</span></b>
+                                                                                            </div>
+                                                                                            <div class="col-md-5">
+                                                                                                <input name="resolve_quantity[]"  class="form-control" type="number" required placeholder="Resolve Quantity">
                                                                                             </div>
                                                                                             <br>
                                                                                             
                                                                                         </div>
-                                                                                        <div class="imperfect_note" style="margin-left: 10%">
-                                                                                            <textarea name="resolve_massage text-center" rows="10" cols="40"  placeholder="Give Resolve Note"></textarea>
-                                                                                        </div>
+                                                                                        <br>
+                                                                                        <hr>
                                                                                     @endforeach
+                                                                                    <div class="text-center">
+                                                                                        <textarea name="resolve_massage" rows="10" cols="40" style="color: black"  placeholder="Give Resolve Note"></textarea>
+                                                                                    </div>
                                                                                 </div>
                                                                                 <br>
                                                                                 <div class="modal-footer">
@@ -200,9 +206,13 @@
                                                         </tbody>
                                                     </table>
                                                 </td>
+                                                <td>
+                                                    <button type="submit" class="btn green"  data-toggle="modal" href="#basic{{$data->id}}">Solve</button>
+                                                </td>
                                                 <td style="background-color:#ED5D5D ; color:white;">
                                                         {{$data->imperfect_massage}}
                                                 </td>
+                                                
                                             </tr>
                                             <div id="addProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                 {{csrf_field()}}

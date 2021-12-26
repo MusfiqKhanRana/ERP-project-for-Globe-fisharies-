@@ -98,15 +98,14 @@ class RequisitionController extends Controller
         unset($data['_token']);
         $data['requisition_id'] = Str::random(6);
         $data['confirmed'] = false;
-        $requisition = Requisition::create(['warehouse_id'=>$data['warehouse_id'],'party_id'=>$data['party_id'],'requisition_id'=>$data['requisition_id'],'clearance_date'=>$data['clearance_date'],'confirmed'=>$data['confirmed'],'created_by'=>Auth::user()->id]);
+        $requisition = Requisition::create(['party_id'=>$data['party_id'],'requisition_id'=>$data['requisition_id'],'clearance_date'=>$data['clearance_date'],'confirmed'=>$data['confirmed'],'created_by'=>Auth::user()->id]);
         foreach ($data['product_id'] as $key => $value) {
             $product_id = $value;
             $requisition_id = $requisition->id;
-            $category_id = $data['category_id'][$key];
             // $packet = $data['packet'][$key];
             $quantity = $data['quantity'][$key];
             DB::table('requisition_product')->insert(
-                ['product_id' => $product_id , 'requisition_id' => $requisition_id,'category_id'=>$category_id,'packet'=>null,'quantity'=>$quantity]
+                ['product_id' => $product_id , 'requisition_id' => $requisition_id,'packet'=>null,'quantity'=>$quantity]
             );
         }
         return redirect()->back()->withmsg('Successfully Created');
