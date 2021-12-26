@@ -21,6 +21,7 @@ class CreateRequisitionProductTable extends Migration
             $table->integer('quantity')->nullable();
             $table->integer('final_quantity')->nullable();
             $table->integer('received_quantity')->nullable();
+            $table->integer('resolve_quantity')->nullable();
             $table->integer('packet')->nullable();
             $table->timestamps();
         });

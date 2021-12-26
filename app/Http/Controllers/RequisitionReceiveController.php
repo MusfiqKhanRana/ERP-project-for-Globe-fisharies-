@@ -46,6 +46,11 @@ class RequisitionReceiveController extends Controller
 
         return redirect()->back()->withmsg('Successfully add given product Quatity');
     }
+    public function resolve(Request $request)
+    {
+        $data = $request->all();
+        dd($data);
+    }
     public function ConfirmSubmitted(Request $request)
     {
         $data = $request->all();
