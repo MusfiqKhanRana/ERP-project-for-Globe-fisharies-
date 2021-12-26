@@ -73,6 +73,7 @@
                                                     <th>Category</th>
                                                     <th>Name</th>
                                                     <th>Quantity</th>
+                                                    <th>Discount</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -83,6 +84,16 @@
                                                         <th>{{$item->category->name}}</th>
                                                         <th>{{$item->product_name}}</th>
                                                         <th>{{$item->pivot->quantity}}</th>
+                                                        <th>
+                                                            @php
+                                                                if($item->pivot->discount_in_amount){
+                                                                    echo $item->pivot->discount_in_amount." TK";
+                                                                }
+                                                                elseif ($item->pivot->discount_in_percentage) {
+                                                                    echo $item->pivot->discount_in_percentage." Percent";
+                                                                }
+                                                            @endphp
+                                                        </th>
                                                         <th>
                                                             <form action="{{route('order.destroy',$item->pivot->id)}}" method="POST">
                                                                 @method('DELETE')

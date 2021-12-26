@@ -1,7 +1,7 @@
 @extends('backend.master')
 @section('site-title')
    Party List
-@endsection
+@endsection 
 @section('main-content')
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
@@ -11,6 +11,13 @@
             <h3 class="page-title" class="portlet box dark">Party List
             </h3>
             <hr>
+                @if(Session::has('msg'))
+                    <script>
+                        $(document).ready(function(){
+                            swal("{{Session::get('msg')}}","", "success");
+                        });
+                    </script>
+                @endif
                 @if (count($errors) > 0)
                     <div class="row">
                         <div class="col-md-06">
@@ -87,13 +94,13 @@
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
                                                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                                                <h4 class="modal-title">Update Party</h4>
+                                                                                <h4 class="modal-title">Update Party ({{$item->product_name}}) </h4>
                                                                             </div>
                                                                             <div class="modal-body">
-                                                                                <form class="form-horizontal" role="form" method="post" action="{{--route('party.update', $data->id)--}}">
+                                                                                <form class="form-horizontal" role="form" method="post" action="{{route('party-product.update', $item->pivot->id)}}">
                                                                                     {{csrf_field()}}
                                                                                     {{method_field('put')}}
-                    
+{{--                     
                                                                                     <div class="col-md-12">
                                                                                         <div class="form-group">
                                                                                             <label for="inputEmail1" class="col-md-2 control-label">Product Name</label>
@@ -101,12 +108,13 @@
                                                                                                 <input type="text" class="form-control" value="{{$item->product_name}}" required name="Product Name">
                                                                                             </div>
                                                                                         </div>
-                                                                                    </div>
+                                                                                    </div> --}}
                                                                                     <div class="col-md-12">
                                                                                         <div class="form-group">
                                                                                             <label for="inputEmail1" class="col-md-2 control-label">Selling Price</label>
                                                                                             <div class="col-md-8">
-                                                                                                <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="party_name">
+                                                                                                <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="price">
+                                                                                                <input type="hidden" value="{{$item->pivot->id}}">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>

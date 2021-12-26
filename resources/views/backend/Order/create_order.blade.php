@@ -129,7 +129,7 @@
                                         <select class="form-control product_id1" name="product_id[1]" id="product1" required>
                                             @foreach ($category as $data)
                                                 @foreach ($data->product as $product)
-                                                    <option value="{{$product->id}}" class="{{$data->id}}">{{$product->product_name}}</option>
+                                                    <option value="{{$product->id}}" class="{{$data->id}}">{{$product->product_name}} ({{$product->pack->name}})</option>
                                                 @endforeach
                                             @endforeach
                                         </select>
@@ -191,12 +191,20 @@
                                 <div class="col-md-3">
                                     <div class="input-group">
                                         <div class="input-group-btn">
-                                            <button type="button" class="btn btn-success pull-left">Total Amount</button>
+                                            <button type="button" class="btn btn-success pull-left">Add Delivery Charge</button>
                                         </div>
                                         <!-- /btn-group -->
-                                        <input type="text" class="form-control total" id="total" name="total_amount" style="font-size:25px; font-weight: bold" readonly>
+                                        {{-- <input type="text" class="form-control total" id="total" name="total_amount" style="font-size:25px; font-weight: bold" readonly>  --}}
+                                        {{-- <input type="number" class="from-control" style="font-size:19px; font-weight: bold" placeholder="Total discount in amount" name="total_discount"> --}}
+                                        <input type="number" class="from-control" style="font-size:19px; font-weight: bold" placeholder="Delivery Charge" name="delivery_charge">
                                     </div>
                                 </div>
+                                {{-- <div class="col-md-3">
+                                    <input type="number" class="from-control" style="font-size:17px; font-weight: bold" placeholder="Total discount in amount" name="total_discount">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="number" class="from-control" style="font-size:17px; font-weight: bold" placeholder="Delivery Charge" name="delivery_charge">
+                                </div> --}}
                                 <div class="col-md-3 pull-right">
                                     <button type="submit" class="btn purple btn-block ">Submit</button>
                                 </div>
@@ -345,7 +353,7 @@
                 $.each( category, function( key, value ) {
                     $.each( value.product, function( key, product ) {
                         // alert( key + ": " + value );
-                        product_options+='<option value="'+product.id+'" class="'+value.id+'">'+product.product_name+'</option>'
+                        product_options+='<option value="'+product.id+'" class="'+value.id+'">'+product.product_name+' ('+product.pack.name+')'+'</option>'
                     });
                 });
                 container.after(
@@ -494,6 +502,10 @@
                     amount = $('#amount'+max).val(price*quantity);
                     total+=price*quantity;
                     total_price= $('#amount'+max).val();
+                    // var values = $('input[name="service_amount[]"]').map(function(){
+                    //     return this.value
+                    // }).get();
+                    // console.log(values);
                     $('#total').val(total);
                 });
                 $(document).on('keyup','#percentage_id'+max,function() {
@@ -529,7 +541,7 @@
                             }
                             var $results = $('.product_price'+ max);
                             var $userDiv = $results.append('<div class="user-div'+ max +'"></div>')
-                            $("<span>Inhouse:<span id='selling_price"+max+"'>"+selling_price+"</span><input type='hidden' name='selling_price[]' value='"+selling_price+"'/></span>").appendTo( ".user-div"+max );
+                            $("<span>Price:<span id='selling_price"+max+"'>"+selling_price+"</span>TK<input type='hidden' name='selling_price[]' value='"+selling_price+"'/></span>").appendTo( ".user-div"+max );
                             
                         }
                     });

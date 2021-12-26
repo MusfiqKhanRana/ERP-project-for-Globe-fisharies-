@@ -14,7 +14,7 @@
                         swal("{{Session::get('msg')}}","", "success");
                     });
                 </script>
-        @endif
+            @endif
         <!-- BEGIN PAGE TITLE-->
             <h3 class="page-title bold">Category
                 <small> Product-managment </small>

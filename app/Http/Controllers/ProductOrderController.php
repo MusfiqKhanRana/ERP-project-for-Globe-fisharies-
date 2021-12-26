@@ -37,7 +37,7 @@ class ProductOrderController extends Controller
     public function create()
     {
         $category = Category::with(['product'=>function($q){
-            $q->select('id','category_id','product_name');
+            $q->with('pack')->select('id','category_id','product_name','pack_id');
         }])->get();
         $customer = Cutomer::all();
         $warehouse = Warehouse::all();
@@ -63,12 +63,11 @@ class ProductOrderController extends Controller
             'service_amount' => 'required',
             'discount_in_percentage' => 'required',
             'discount_in_amount' => 'required',
-           
         ));
 
         $data = $request->all();
         // dd(var_dump($data));
-        $order = Order::create(['customer_id' => $data['customer_id'],'remark' => $data['remark']]);
+        $order = Order::create(['customer_id' => $data['customer_id'],'remark' => $data['remark'],'delivery_charge'=>$data['delivery_charge']]);
         foreach ($data['category_id'] as $key => $value) {
             $product_order = ProductOrder::create([
                 'order_id' => $order->id,
@@ -78,9 +77,7 @@ class ProductOrderController extends Controller
                 'discount_in_amount' => $data['discount_in_amount'][$key],
                 'discount_in_percentage' => $data['discount_in_percentage'][$key],
                 'selling_price' => $data['service_amount'][$key],
-                
             ]);
-           
         }
        
         
