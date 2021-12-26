@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Cutomer;
+use App\Models\Party_product;
+use App\Models\Party_product as ModelsParty_product;
 use App\Models\Product;
 use App\Models\ProductOrder;
 use App\Models\SalePoint;
@@ -25,12 +27,12 @@ class SalePointController extends Controller
     public function product_pass(Request $request)
     {
         $id = $request->id;
-        $product = Product::where('category_id',$id)->get();
-
+        $product = Party_product::where('party_id',$id)->get();
+        // dd($product);
         $output ="";
 
         foreach($product as $value){
-            $output.= '<option value="'.$value->id.'">'.$value->product_name.'('.$value->product_id.')</option>';
+            $output.= '<option value="'.$value->product_id.'">'.$value->product->product_name.'('.$value->product_id.')</option>';
 
         }
         $data['output'] = $output;

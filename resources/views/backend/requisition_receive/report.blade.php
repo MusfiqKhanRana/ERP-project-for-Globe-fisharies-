@@ -119,6 +119,9 @@
                                                                 <th>
                                                                     Recieved Quantity
                                                                 </th>
+                                                                <th>
+                                                                    Action
+                                                                </th>
                                                                 {{-- <th>
                                                                     Packet
                                                                 </th> --}}
@@ -129,6 +132,7 @@
                                                         </thead>
                                                         <tbody>
                                                             @foreach ($data->products as $key2 => $item)
+                                                            @if($item->pivot->received_quantity != $item->pivot->final_quantity)
                                                                 <tr>
                                                                     <td>{{++$key2}}</td>
                                                                     <td>{{$item->category->name}}</td>
@@ -137,6 +141,7 @@
                                                                     <td>{{$item->pivot->quantity}}</td>
                                                                     <td>{{$item->pivot->final_quantity}}</td>
                                                                     <td>{{$item->pivot->received_quantity}}</td>
+                                                                    <td><button type="submit" class="btn green"  data-toggle="modal" href="#basic{{$item->pivot->id}}">Solve</button></td>
                                                                     {{-- <td>{{$item->pivot->packet}}</td> --}}
                                                                     {{-- <td>
                                                                         <form action="{{route('requisition-product.destroy',$item->pivot->id)}}" method="POST">
@@ -146,7 +151,9 @@
                                                                         </form>
                                                                     </td> --}}
                                                                 </tr>
-                                                                <div id="addProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                        
+                                                            @endif
+                                                                <div id="basic{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                                     {{csrf_field()}}
                                                                     <input type="hidden" value="" id="delete_id">
                                                                     <div class="modal-dialog">
@@ -154,7 +161,7 @@
                                                                             <form action="{{route('requisition.receive.updatesubmitted')}}" method="POST">
                                                                                 <div class="modal-header">
                                                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                                                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Add Products</h2>
+                                                                                    <h2 class="modal-title" style="color: rgb(75, 65, 65);"><b>Solve Imperfect Requisition</b></h2>
                                                                                 </div>
                                                                                 <br>
                                                                                 <div class="modal-body">
@@ -170,8 +177,13 @@
                                                                                                 <b>Provided Quantity: <span id="span">{{$value->pivot->quantity}}</span></b>
                                                                                             </div>
                                                                                             <div class="col-md-4">
-                                                                                                <input name="final_quantity[{{$keyupdated}}]" value="{{$value->pivot->final_quantity}}" class="form-control" type="number" required placeholder="Available Quantity">
+                                                                                                <input name="received_quantity" value="{{$value->pivot->received_quantity}}" class="form-control" type="number" required placeholder="recieved Quantity">
                                                                                             </div>
+                                                                                            <br>
+                                                                                            
+                                                                                        </div>
+                                                                                        <div class="imperfect_note" style="margin-left: 10%">
+                                                                                            <textarea name="resolve_massage text-center" rows="10" cols="40"  placeholder="Give Resolve Note"></textarea>
                                                                                         </div>
                                                                                     @endforeach
                                                                                 </div>
@@ -312,96 +324,41 @@
                 </div>
             </div>
             <!-- END PAGE CONTENT-->
-            <div id="basic" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+            <div id="sss" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                            <h4 class="modal-title">Add New Requisition</h4>
+                            <h4 class="modal-title"><b>Solve Imperfect Requisition</b></h4>
                         </div>
                         <form class="form-horizontal" role="form" method="post" action="{{route('requisition.store')}}">
                             {{csrf_field()}}
                             <br>
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Warehouse</label>
-                                <div class="col-md-8">
-                                    <select class="form-control select2me" id="warehouse" name="warehouse_id" required>
-                                        <option value="">--select--</option>
-                                        @foreach($warehouse as $data)
-                                            <option value="{{$data->id}}">{{$data->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Party</label>
-                                <div class="col-md-8">
-                                    <select class="form-control select2me" id="party" name="party_id" required>
-                                        <option value="">--select--</option>
-                                        @foreach($party as $data)
-                                            <option value="{{$data->id}}">{{$data->party_name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Expedted Receive Date</label>
-                                <div class="col-md-8">
-                                    <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
-                                        <input type="text" class="form-control" name="clearance_date"  readonly >
-                                        <span class="input-group-btn">
-                                            <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <label for="inputEmail1" class="col-md-6 control-label">Add Products</label>
-                                    <div class="description" style="width: 100%;border: 1px solid #ddd;padding: 10px;border-radius: 5px" >
-                                            <div class="col-md-12" id="planDescriptionContainer">
-                                                <div class="input-group">
-                                                    <div class="col-md-3">
-                                                        <label for="category">Category</label>
-                                                        <select class="form-control select2me category1" id="department" name="category_id[1]" required>
-                                                            <option value="">--select--</option>
-                                                            @foreach($category as $data)
-                                                                <option value="{{$data->id}}">{{$data->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label for="category">Product</label>
-                                                        <select class="form-control select2me product1" name="product_id[1]" id="product" placeholder="Product" required>
-
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label for="">Packet</label>
-                                                        <input name="packet[1]" class="form-control" type="number" required placeholder="Packet">
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label for="">Quantity (Kg)</label>
-                                                        <input name="quantity[1]" class="form-control" type="number" required placeholder="Quantity">
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-danger margin-top-20 delete_desc" type="button"><i class='fa fa-times'></i></button>
-                                                        </span>
-                                                    </div>
+                                    <div class="modal-body">
+                                        @csrf
+                                        <input type="hidden" name="requisition_id" value="{{$data->id}}">
+                                        @foreach ($data->products as $keyupdated => $value)
+                                            <div class="m-5 row">
+                                                <input type="hidden" name="requisition_product_id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
+                                                <div class="col-md-4">
+                                                    <b>Product Name: {{$value->product_name}}</b>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <b>Provided Quantity: <span class="provided_quantity">{{$value->pivot->final_quantity}}</span></b>
+                                                    {{-- <span class="requisition_product_id">{{$value->pivot->id}}</span> --}}
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input name="received_quantity[{{$keyupdated}}]" value="{{$value->pivot->received_quantity}}" data-provided="{{$value->pivot->final_quantity}}" class="form-control received_quantity" type="number" required placeholder="Available Quantity">
                                                 </div>
                                             </div>
-                                        <div class="row">
-                                            <div class="col-md-12 text-right margin-top-10">
-                                                <button id="btnAddDescription" type="button" class="btn btn-sm grey-mint pullri">Add Product</button>
-                                            </div>
+                                        @endforeach
+                                        <br>
+                                        <div class="imperfect_note">
+                                            <Span> <b style="color: red">There is Imperfect !!</b> </Span><br><textarea name="imperfect_massage" rows="10" cols="40"  placeholder="Give Imparfect Note"></textarea>
                                         </div>
-                                    </div>
                                 </div>
                             </div>
-
                             <div class="modal-footer">
                                 <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                 <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>

@@ -189,7 +189,7 @@
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <label for="category">Product</label>
-                                                                        <select class="form-control select2me product1" name="product_id" id="product" placeholder="Product" required>
+                                                                        <select class="form-control select2me product" name="product_id" id="product" placeholder="Product" required>
                 
                                                                         </select>
                                                                     </div>
@@ -284,7 +284,7 @@
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Party</label>
                                 <div class="col-md-8">
-                                    <select class="form-control select2me" id="party" name="party_id" required>
+                                    <select class="form-control select2me party_select" id="party" name="party_id" required>
                                         <option value="">--select--</option>
                                         @foreach($party as $data)
                                             <option value="{{$data->id}}">{{$data->party_name}}</option>
@@ -336,17 +336,8 @@
                                             <div class="col-md-12" id="planDescriptionContainer">
                                                 <div class="input-group">
                                                     <div class="col-md-3">
-                                                        <label for="category">Category</label>
-                                                        <select class="form-control select2me category1" id="department" name="category_id[1]" required>
-                                                            <option value="">--select--</option>
-                                                            @foreach($category as $data)
-                                                                <option value="{{$data->id}}">{{$data->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-3">
                                                         <label for="category">Product</label>
-                                                        <select class="form-control select2me product1" name="product_id[1]" id="product" placeholder="Product" required>
+                                                        <select class="form-control select2me product" name="product_id[1]" id="product" placeholder="Product" required>
 
                                                         </select>
                                                     </div>
@@ -389,6 +380,7 @@
     <script>
         var max = 1;
         var categories = @json($category, JSON_PRETTY_PRINT);
+        var party_id = null;
         function appendPlanDescField(container) {
             var options ="";
             for (let index = 0; index < categories.length; index++) {
@@ -397,14 +389,8 @@
             container.append(
                 '<div class="input-group">'+
                     '<div class="col-md-3">'+
-                        '<label for="category">Category</label>'+
-                        '<select class="form-control select2me category'+max+'"  name="category_id['+max+']" required>'+
-                            '<option value="">--select--</option>'+options+
-                        '</select>'
-                    +'</div>'+
-                    '<div class="col-md-3">'+
                         '<label for="category">Product</label>'+
-                        '<select class="form-control select2me product'+max+'" name="product_id['+max+']"  placeholder="Product" required>'+
+                        '<select class="form-control select2me product" name="product_id['+max+']"  placeholder="Product" required>'+
                         '</select>'
                     +'</div>'+
                     '<div class="col-md-3">'+
@@ -424,26 +410,10 @@
             $("#btnAddDescription").on('click', function () {
                 max++;
                 appendPlanDescField($("#planDescriptionContainer"));
-                $(document).on('change',".category"+max,function(){
-                    console.log(max);
-                    var id = $(this).val();
-                    $.ajax({
-                        type:"POST",
-                        url:"{{route('product.pass')}}",
-                        data:{
-                            'id' : id,
-                            '_token' : $('input[name=_token]').val()
-                        },
-                        success:function(data){
-                            $('.product'+max).html("");
-                            $('.product'+max).append(data.output);
-                        }
-                    });
-                });
+                // console.log(party_id);
+                partySelect(party_id);
             });
-            $(document).on('change',".category"+max,function(){
-                console.log(max);
-                var id = $(this).val();
+            function partySelect(id){
                 $.ajax({
                     type:"POST",
                     url:"{{route('product.pass')}}",
@@ -452,10 +422,15 @@
                         '_token' : $('input[name=_token]').val()
                     },
                     success:function(data){
-                        $('.product'+max).html("");
-                        $('.product'+max).append(data.output);
+                        $('.product').html("");
+                        $('.product').append(data.output);
                     }
                 });
+            }
+            $(document).on('change',".party_select",function(){
+                // console.log(max);
+                party_id = $(this).val();
+                partySelect(party_id);
             });
             $(document).on('click', '.delete_desc', function () {
                 $(this).closest('.input-group').remove();
