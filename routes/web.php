@@ -300,8 +300,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     Route::get('/order/search',[OrderController::class,'action'])->name('order.search');
 
+    Route::post('order/discount',[OrderController::class,'orderDiscount'])->name('order.discount');
 
     Route::resource('order-history', OrderController::class);
+
     Route::get('order/confirm/{id}',[OrderController::class,'confirm'])->name('order.confirm');
     Route::post('order/product/pass',[OrderController::class,'product_pass'])->name('order.product.pass');
     

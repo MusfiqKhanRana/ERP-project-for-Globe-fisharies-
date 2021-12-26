@@ -27,12 +27,20 @@ class OrderController extends Controller
         $area  = Area::all();
         $products = Product::all();
         $category = Category::all();
-        return view('backend.Order.index', compact('order','customer', 'warehouse','area','products','category'));
+        $confirmcount = Order::select('id','status')->where('status','Confirm')->count();
+        $pendingcount = Order::select('id','status')->where('status','Pending')->count();
+        // dd($pendingcount);
+        return view('backend.Order.index', compact('order','customer', 'warehouse','area','products','category','confirmcount','pendingcount'));
     }
     public function confirm($id)
     {
         $order_satus = Order::where('id',$id)->update(['status'=>'Confirm']);
-        return redirect()->back()->withMsg('Successfully Confiremed');
+        return redirect()->back()->withMsg('Successfully Confirmed');
+    }
+    public function orderDiscount(Request $request)
+    {
+        $order_status = Order::where('id',$request->order_id)->update(['total_discount'=>$request->total_discount]);
+        return redirect()->back()->withMsg('Successfully Add Discount');
     }
     /**
      * Show the form for creating a new resource.
