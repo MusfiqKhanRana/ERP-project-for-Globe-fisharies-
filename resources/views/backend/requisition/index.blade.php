@@ -38,7 +38,7 @@
                     </div>
                 </div>
             @endif
-            @if ($requisition_Delivered_count > 0 || $requisition_processed_count>0)
+            @if ($requisition_Delivered_count > 0 || $requisition_processed_count>0 || $requisition_recieved_solved>0)
                 <div class="row">
                     <div class="col-md-06">
                         <div class="alert alert-info alert-dismissible">
@@ -46,6 +46,7 @@
                             <h4><i class="icon fa fa-ban"></i> Alert!</h4>
                             <li>You have Processing  Request ({{ $requisition_processed_count }})</li>
                             <li>You have Deliverd  Request ({{ $requisition_Delivered_count }})</li>
+                            <li>You have Solved Request ({{ $requisition_recieved_solved }})</li>
                             <b><a href="{{route('requisition.status')}}">See details</a></b>
                         </div>
                     </div>

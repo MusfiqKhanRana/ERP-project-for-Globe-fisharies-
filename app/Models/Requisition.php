@@ -19,6 +19,6 @@ class Requisition extends Model
     }
     public function products()
     {
-        return $this->belongsToMany(Product::class,'requisition_product','requisition_id','product_id')->withPivot('id','quantity', 'packet','final_quantity','received_quantity');
+        return $this->belongsToMany(Product::class,'requisition_product','requisition_id','product_id')->withPivot('id','quantity', 'packet','final_quantity','received_quantity','resolve_quantity');
     }
 }
