@@ -85,7 +85,7 @@
                                                                             @method('DELETE')
                                                                             @csrf
                                                                             <button type="submit" class="btn red"><i class="fa fa-trash"></i> Delete</button>
-                                                                        </form>
+                                                                        </form><br>
                                                                         <a class="btn blue"  data-toggle="modal" href="#edit_product_Modal{{$item->pivot->id}}"><i class="fa fa-edit"></i> Edit</a>
                                                                     </th>
                                                                 </tr>
@@ -100,8 +100,7 @@
                                                                                 <form class="form-horizontal" role="form" method="post" action="{{route('party-product.update', $item->pivot->id)}}">
                                                                                     {{csrf_field()}}
                                                                                     {{method_field('put')}}
-{{--                     
-                                                                                    <div class="col-md-12">
+                                                                                    {{--<div class="col-md-12">
                                                                                         <div class="form-group">
                                                                                             <label for="inputEmail1" class="col-md-2 control-label">Product Name</label>
                                                                                             <div class="col-md-8">
@@ -112,13 +111,12 @@
                                                                                     <div class="col-md-12">
                                                                                         <div class="form-group">
                                                                                             <label for="inputEmail1" class="col-md-2 control-label">Selling Price</label>
-                                                                                            <div class="col-md-8">
+                                                                                            <div class="col-md-10">
                                                                                                 <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="price">
                                                                                                 <input type="hidden" value="{{$item->pivot->id}}">
                                                                                             </div>
                                                                                         </div>
-                                                                                    </div>
-                                                                                    
+                                                                                    </div><br><br><br>
                                                                                     <div class="modal-footer">
                                                                                         <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                                                                         <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
