@@ -80,12 +80,12 @@
                                                                     <th>{{$item->buying_price}}</th>
                                                                     <th>{{$item->pivot->price}}</th>  
                                                                     <th>
-                                                                        {{-- <a class="btn red" data-toggle="modal" href="#deletproductModal{{$item->id}}"><i class="fa fa-trash"></i> Delete</a> --}}
-                                                                        <form action="{{route('party-product.destroy',$item->pivot->id)}}" method="POST">
+                                                                        <a class="btn red" data-toggle="modal" href="#deletproductModal{{$item->pivot->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                                                        {{-- <form action="{{route('party-product.destroy',$item->pivot->id)}}" method="POST">
                                                                             @method('DELETE')
                                                                             @csrf
                                                                             <button type="submit" class="btn red"><i class="fa fa-trash"></i> Delete</button>
-                                                                        </form><br>
+                                                                        </form><br> --}}
                                                                         <a class="btn blue"  data-toggle="modal" href="#edit_product_Modal{{$item->pivot->id}}"><i class="fa fa-edit"></i> Edit</a>
                                                                     </th>
                                                                 </tr>
@@ -126,7 +126,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                {{-- <div id="deletproductModal{{$item->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                                <div id="deletproductModal{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                                     {{csrf_field()}}
                                                                     <input type="hidden" value="" id="delete_id">
                                                                     <div class="modal-dialog">
@@ -140,7 +140,7 @@
                                                                                     <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
                                                                                 </div>
                                                                                 <div class="caption pull-right">
-                                                                                    <form action="{{route('party-product.destroy',[$item->id])}}" method="POST">
+                                                                                    <form action="{{route('party-product.destroy',[$item->pivot->id])}}" method="POST">
                                                                                         @method('DELETE')
                                                                                         @csrf
                                                                                         <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
@@ -151,7 +151,7 @@
                                                                             
                                                                         </div>
                                                                     </div>
-                                                                </div> --}}
+                                                                </div>
                                                         @endforeach
                                                         </tbody>
                                                     </table>
