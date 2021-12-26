@@ -74,7 +74,7 @@ Payroll Chart
                             <tr>
                                 <th scope="col"> Employee ID </th>
                                 <th scope="col"> Employee Name </th>
-                                <th scope="col"> Total Attend Days</th>
+                                <th scope="col"> Total Attended Days</th>
                                 <th scope="col"> Payment </th>
                                 <th scope="col"> Date </th>
                                 <th scope="col"> Status </th>

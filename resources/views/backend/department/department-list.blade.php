@@ -15,7 +15,7 @@ Department List
                         swal("{{Session::get('msg')}}","", "success");
                     });
                 </script>
-        @endif
+            @endif
             @if (count($errors) > 0)
                 <div class="row">
                     <div class="col-md-06">
@@ -30,7 +30,7 @@ Department List
                 </div>
         @endif
         <!-- BEGIN PAGE TITLE-->
-            <h3 class="page-title bold">Department Management
+            <h3 class="page-title bold">Manage Departments
                 <small> Department-list </small>
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
                 <a class="btn green-meadow pull-right" data-toggle="modal" href="#static">

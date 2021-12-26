@@ -54,7 +54,7 @@
                     <li class="nav-item start @php echo "active",(request()->path() != 'admin/department')?:"";@endphp">
                         <a href="{{route('admin.department')}}" class="nav-link nav-toggle">
                             <i class="icon-briefcase"></i>
-                            <span class="title">Office Departments</span>
+                            <span class="title">Manage Departments</span>
                             <span class="selected"></span>
                         </a>
                     </li>
@@ -79,7 +79,7 @@
 
                             <li class="nav-item  @if( request()->path() == 'admin/employee/attendance' ) active open @endif">
                                 <a href="{{route('employee.attend')}}" class="nav-link ">
-                                    <span class="title">Attendance</span>
+                                    <span class="title">Attendance Management</span>
                                 </a>
                             </li>
 
@@ -426,21 +426,22 @@
                     </ul>
                 </li>
 
-            <li class="nav-item @if( request()->path() == 'admin/add/purchase' || request()->path() == 'admin/add/purchase' ) active open @endif
-            @if( request()->path() == 'admin/purchase' || request()->path() == 'admin/purchase' ) active open @endif
-            @if( request()->path() == '' || request()->path() == '' ) active open @endif">
+            <li class="nav-item @if( request()->path() == 'admin/add/requisition' || request()->path() == 'admin/add/requisition' ) active open @endif
+            @if( request()->path() == 'admin/requisition' || request()->path() == 'admin/requisition' ) active open @endif
+            @if( request()->path() == 'admin/requisition' || request()->path() == 'admin/requisition/receive/index' ) active open @endif">
+            
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     <span class="title">Requisition & Purchase</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item  @if( request()->path() == '' ) active open @endif">
+                    <li class="nav-item  @if( request()->path() == 'admin/requisition' ) active open @endif">
                         <a href="{{route('requisition.index')}}" class="nav-link ">
                             <span class="title">Request Requisition</span>
                         </a>
                     </li>
-                    <li class="nav-item  @if( request()->path() == '' ) active open @endif">
+                    <li class="nav-item  @if( request()->path() == 'admin/requisition/receive/index' ) active open @endif">
                         <a href="{{route('requisition.receive.index')}}" class="nav-link ">
                             <span class="title">Dispatch Requisition</span>
                         </a>

@@ -43,7 +43,7 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center">
-                                        EmployeeID
+                                        Employee ID
                                     </th>
                                     <th class="text-center">
                                         Image
@@ -52,10 +52,10 @@
                                         Name
                                     </th>
                                     <th class="text-center">
-                                        Dept/Designation
+                                        Dept./Designation
                                     </th>
                                     <th class="text-center">
-                                        At Work
+                                        Joining Date
                                     </th>
                                     <th class="text-center">
                                         Phone

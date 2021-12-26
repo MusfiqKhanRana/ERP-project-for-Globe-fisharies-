@@ -66,11 +66,11 @@
                             <table class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th> Category Id </th>
-                                    <th>Product Name</th>
-                                    <th> Product ID </th>
-                                    <th>Product Category</th>
-                                    <th>Product Unit</th>
+                                    <th> Image</th>
+                                    <th> Name</th>
+                                    <th> ID </th>
+                                    <th> Category</th>
+                                    <th> Unit</th>
                                     <th>Buying Price</th>
                                     <th>Online Selling Price</th>
                                     <th>In House Selling Price</th>

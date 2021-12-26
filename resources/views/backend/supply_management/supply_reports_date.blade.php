@@ -72,10 +72,10 @@ Supply Reports With Date
                                 <td>{{$key+1}}</td>
                                 <td>
                                     @if($data->to_date == null)
-                                        <span class=" badge badge-success">Subscribe!</span>
+                                        <span class=" badge badge-success">Activated!</span>
 
                                         @else
-                                        <span class=" badge badge-danger">Unsubscribe!</span>
+                                        <span class=" badge badge-danger">Inactivated!</span>
                                         From:{{date('Y,M-j', strtotime($data->form_date))}}
                                         To:{{date('Y,M-j', strtotime($data->to_date))}}
 
