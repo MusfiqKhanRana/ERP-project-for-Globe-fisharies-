@@ -37,7 +37,7 @@
                                     <div class="form-body">
 
                                         <div class="form-group clearfix">
-                                            <label class="col-md-3 control-label">Supplier Name</label>
+                                            <label class="col-md-3 control-label"> Name</label>
                                             <div class="col-md-9">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" value="{{$supply->supplier_name}}" required name="supplier_name">
@@ -48,7 +48,7 @@
                                         </div>
 
                                         <div class="form-group clearfix">
-                                            <label class="col-md-3 control-label">Supplier Mobile</label>
+                                            <label class="col-md-3 control-label"> Mobile</label>
                                             <div class="col-md-9">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" value="{{$supply->supplier_mobile}}" required name="supplier_mobile">
@@ -59,7 +59,7 @@
                                         </div>
 
                                         <div class="form-group clearfix">
-                                            <label class="col-md-3 control-label">Supplier Email</label>
+                                            <label class="col-md-3 control-label"> Email</label>
                                             <div class="col-md-9">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" value="{{$supply->supplier_email}}" required name="supplier_email">
@@ -70,7 +70,7 @@
                                         </div>
 
                                         <div class="form-group clearfix">
-                                            <label class="col-md-3 control-label">Supplier Address</label>
+                                            <label class="col-md-3 control-label"> Address</label>
                                             <div class="col-md-9">
                                                 <div class="input-group">
                                                     <input type="text" class="form-control" value="{{$supply->supplier_address}}" required name="supplier_address">

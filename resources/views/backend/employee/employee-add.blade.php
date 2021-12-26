@@ -98,7 +98,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Local Address</label>
+                                        <label class="col-md-3 control-label">Present Address</label>
                                         <div class="col-md-9">
                                             <textarea class="form-control" name="local_add" rows="3"></textarea>
                                         </div>
@@ -219,7 +219,7 @@
                                             <input type="text" class="form-control" name="bank_name" placeholder="BANK Name" value="">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label class="col-md-3 control-label">IFSC Code(Optional)</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="code" placeholder="IFSC Code" value="">
@@ -230,7 +230,7 @@
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="pan_num" placeholder="PAN Number" value="">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Branch</label>
                                         <div class="col-md-9">

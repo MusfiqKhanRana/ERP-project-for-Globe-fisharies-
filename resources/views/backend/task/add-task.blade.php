@@ -69,7 +69,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Star Time</label>
+                                <label for="inputEmail1" class="col-md-2 control-label">Star Date</label>
                                 <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
                                     <div class="col-md-10">
                                         <input type="text" class="form-control" readonly name="start_date" required>
@@ -79,7 +79,7 @@
                         </span>
                                 </div>
                                 <br>
-                                <label for="inputEmail1" class="col-md-2 control-label">Death Time</label>
+                                <label for="inputEmail1" class="col-md-2 control-label">End Date</label>
                                 <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
                                     <div class="col-md-10">
                                         <input type="text" class="form-control" readonly name="end_date" required>

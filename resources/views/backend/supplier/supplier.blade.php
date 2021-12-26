@@ -51,25 +51,25 @@
                                         <table class="table table-striped table-bordered table-hover">
                                             <thead>
                                             <tr>
-                                                <th>
+                                                <th style="text-align: center">
                                                     ID
                                                 </th>
-                                                <th>
-                                                    Supplier Name
+                                                <th style="text-align: center">
+                                                     Name
                                                 </th>
-                                                <th>
-                                                    Supplier Mobile
+                                                <th style="text-align: center">
+                                                    Mobile
                                                 </th>
-                                                <th>
-                                                    Supplier Email
+                                                <th style="text-align: center">
+                                                     Email
                                                 </th>
-                                                <th>
-                                                    Supplier Address
+                                                <th style="text-align: center">
+                                                     Address
                                                 </th>
-                                                <th>
-                                                    Product Item
+                                                <th style="text-align: center">
+                                                    Provided Item
                                                 </th>
-                                                <th>
+                                                <th style="text-align: center">
                                                     Action
                                                 </th>
                                             </tr>
@@ -157,36 +157,36 @@
                             {{csrf_field()}}
 
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Supplier Name</label>
+                                <label for="inputEmail1" class="col-md-2 control-label"> Name</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Supplier Name" required name="supplier_name">
+                                    <input type="text" class="form-control" placeholder="Type Supplier Name" required name="supplier_name">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Supplier Mobile</label>
+                                <label for="inputEmail1" class="col-md-2 control-label"> Mobile</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Supplier Mobile Number" required name="supplier_mobile">
+                                    <input type="text" class="form-control" placeholder="Type Supplier Mobile Number" required name="supplier_mobile">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Supplier Email</label>
+                                <label for="inputEmail1" class="col-md-2 control-label"> Email</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Supplier Email" required name="supplier_email">
+                                    <input type="text" class="form-control" placeholder="Type Supplier Email" required name="supplier_email">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Supplier Address</label>
+                                <label for="inputEmail1" class="col-md-2 control-label"> Address</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Supplier Address" required name="supplier_address">
+                                    <input type="text" class="form-control" placeholder="Type Supplier Address" required name="supplier_address">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label for="inputEmail1" class="col-md-4 control-label">Supplier Product Item:</label>
+                                    <label for="inputEmail1" class="col-md-3 control-label"> Product Item:</label>
                                     <div class="description" style="width: 100%;border: 1px solid #ddd;padding: 10px;border-radius: 5px" >
                                             <div class="col-md-12" id="planDescriptionContainer">
                                                 <div class="input-group">
@@ -197,7 +197,7 @@
                                             </div>
                                         <div class="row">
                                             <div class="col-md-12 text-right margin-top-10">
-                                                <button id="btnAddDescription" type="button" class="btn btn-sm grey-mint pullri">Add Food Item</button>
+                                                <button id="btnAddDescription" type="button" class="btn btn-sm grey-mint pullri">Add Item</button>
                                             </div>
                                         </div>
                                     </div>

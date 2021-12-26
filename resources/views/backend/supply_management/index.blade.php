@@ -69,7 +69,7 @@
                                     <label class="col-md-1 control-label">Trasaction Select</label>
                                     <div class="col-md-6">
                                         <label class="radio-inline">
-                                            <input id="due" type="radio" value="0" name="status">Unsubscribe</label>
+                                            <input id="due" type="radio" value="0" name="status">Inactive</label>
 
                                         <div class="row" style="display: none" id="due_amount">
                                             <div class="form-group">
@@ -94,7 +94,7 @@
                                             </div>
                                         </div>
 
-                                        <label class="radio-inline"><input type="radio" id="paid" value="1" required name="status">Subscribe</label>
+                                        <label class="radio-inline"><input type="radio" id="paid" value="1" required name="status">Active</label>
                                     </div>
                             </div>
                         </div>

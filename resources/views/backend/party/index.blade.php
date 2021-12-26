@@ -40,15 +40,15 @@
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th>Serial</th>
-                                        <th>Party Code</th>
-                                        <th>Party Name</th>
-                                        <th>Phone</th>
-                                        <th>Party Type</th>
-                                        <th>Party Short Name</th>
-                                        <th>Address</th>
-                                        <th style="text-align: center">Product</th>
-                                        <th style="text-align: center">Action</th>
+                                        <th style="text-align: center;">Serial</th>
+                                        <th style="text-align: center"> Code</th>
+                                        <th style="text-align: center"> Name</th>
+                                        <th style="text-align: center"> Phone</th>
+                                        <th style="text-align:center"> Type</th>
+                                        <th style="text-align: center"> Short Name</th>
+                                        <th style="text-align: center"> Address</th>
+                                        <th style="text-align: center"> Enlisted Product</th>
+                                        <th style="text-align: center"> Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -65,10 +65,10 @@
                                                     <table class="table table-striped table-bordered table-hover">
                                                         <thead>
                                                             <tr>
-                                                                <th>s.l</th>
+                                                                <th>Sl.</th>
                                                                 <th>Name</th>
-                                                                <th>Buying Price</th>
-                                                                <th>Selling Prtice</th>
+                                                                <th>Purchase Price</th>
+                                                                <th>Party Price</th>
                                                                 <th>Action</th>
                                                             </tr>
                                                         </thead>
