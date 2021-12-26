@@ -49,7 +49,19 @@ class RequisitionReceiveController extends Controller
     public function resolve(Request $request)
     {
         $data = $request->all();
-        dd($data);
+        $resolve_massage = $data['resolve_massage'];
+        // dd($data);
+        foreach ($data['requisition_product_id'] as $key => $value) {
+            $requisition_product_id = $value;
+            $resolve_quantity = $data['resolve_quantity'][$key];
+            DB::table('requisition_product')
+            ->where('id', $requisition_product_id)
+            ->update(
+                ['resolve_quantity'=>$resolve_quantity]
+            );
+        }
+        $requisition = Requisition::where('id',$data['requisition_id'])->update(['status'=>'Solved','resolve_massage'=>$resolve_massage,'solve_date'=>Carbon::now()]);
+        return redirect()->back()->withmsg('Successfully Requisition Resolved');
     }
     public function ConfirmSubmitted(Request $request)
     {
