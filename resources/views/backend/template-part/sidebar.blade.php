@@ -419,7 +419,7 @@
                         <li class="nav-item  @if( request()->path() == '' ) active open @endif
                         @if( request()->path() == 'admin/order-history' ) active open @endif">
                             <a href="{{route('order-history.index',"status=Pending")}}" class="nav-link ">
-                                <span class="title">Order History</span>
+                                <span class="title">Order List</span>
                             </a>
                         </li>
     
