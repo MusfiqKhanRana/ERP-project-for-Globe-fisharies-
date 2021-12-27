@@ -213,7 +213,7 @@
                                                                                                                 {{-- <span class="requisition_product_id">{{$value->pivot->id}}</span> --}}
                                                                                                             </div>
                                                                                                             <div class="col-md-4">
-                                                                                                                <input name="received_quantity[{{$keyupdated}}]" value="{{$value->pivot->received_quantity}}" data-provided="{{$value->pivot->final_quantity}}" class="form-control received_quantity" type="number" required placeholder="Available Quantity">
+                                                                                                                <input name="received_quantity[{{$keyupdated}}]" value="{{$value->pivot->received_quantity}}" data-provided="{{$value->pivot->final_quantity}}" class="form-control received_quantity" type="number" required placeholder="Received Quantity">
                                                                                                             </div>
                                                                                                         </div>
                                                                                                         <input type="hidden" name="product_id[]" value="{{$value->product_id}}">
