@@ -21,6 +21,7 @@ class CreateRequisitionsTable extends Migration
             $table->enum('status', ['Pending','Processing','Solved','Deliverd','Received','Returned','Imperfect'])->default('Pending');
             $table->longText('imperfect_massage')->nullable();
             $table->longText('resolve_massage')->nullable();
+            $table->longText('resolve_confirm_massage')->nullable();
             $table->boolean('confirmed')->nullable();
             $table->dateTime('clearance_date')->nullable();
             $table->dateTime('process_date')->nullable();
