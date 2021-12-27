@@ -29,18 +29,28 @@ class OrderController extends Controller
         $category = Category::all();
         $confirmcount = Order::select('id','status')->where('status','Confirm')->count();
         $pendingcount = Order::select('id','status')->where('status','Pending')->count();
-        // dd($pendingcount);
-        return view('backend.Order.index', compact('order','customer', 'warehouse','area','products','category','confirmcount','pendingcount'));
+        $delivery_count = Order::select('id','status')->where('status','Delivered')->count();
+        return view('backend.Order.index', compact('order','customer', 'warehouse','area','products','category','confirmcount','pendingcount','delivery_count'));
     }
     public function confirm($id)
     {
-        $order_satus = Order::where('id',$id)->update(['status'=>'Confirm']);
+        $order_status = Order::where('id',$id)->update(['status'=>'Confirm']);
         return redirect()->back()->withMsg('Successfully Confirmed');
     }
     public function orderDiscount(Request $request)
     {
         $order_status = Order::where('id',$request->order_id)->update(['total_discount'=>$request->total_discount]);
         return redirect()->back()->withMsg('Successfully Add Discount');
+    }
+    public function orderPayment(Request $request)
+    {
+        $order_status = Order::where('id',$request->order_id)->update(['payment_method'=>$request->payment_method,'trx_number'=>$request->trx_number, 'trx_id'=>$request->trx_id,'paid_amount'=>$request->paid_amount]);
+        return redirect()->back()->withMsg('Successfully Add Payment Information');
+    }
+    public function orderDelivery(Request $request)
+    {
+        $order_status = Order::where('id',$request->order_id)->update(['status'=>'Delivered']);
+        return redirect()->back()->withMsg('Successfully Confirmed');
     }
     /**
      * Show the form for creating a new resource.
