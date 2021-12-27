@@ -301,6 +301,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('/order/search',[OrderController::class,'action'])->name('order.search');
 
     Route::post('order/discount',[OrderController::class,'orderDiscount'])->name('order.discount');
+    Route::post('order/payment-info',[OrderController::class,'orderPayment'])->name('order.payment');
+    Route::post('order/delivery-confirm',[OrderController::class,'orderDelivery'])->name('order.delivery.confirm');
 
     Route::resource('order-history', OrderController::class);
 
