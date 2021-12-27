@@ -129,7 +129,7 @@
                                         <select class="form-control product_id1" name="product_id[1]" id="product1" required>
                                             @foreach ($category as $data)
                                                 @foreach ($data->product as $product)
-                                                    <option value="{{$product->id}}" class="{{$data->id}}">{{$product->product_name}} ({{$product->pack->name}})</option>
+                                                    <option value="{{$product->id}}" class="{{$data->id}}" title="{{$product->pack->name}}">{{$product->product_name}}</option>
                                                 @endforeach
                                             @endforeach
                                         </select>
@@ -580,7 +580,7 @@
                     return {
                         results:  $.map(data, function (item) {
                             return {
-                                text: item.full_name,
+                                text: item.full_name + " ("+item.customer_type+")",
                                 id: item.id
                             }
                         })
