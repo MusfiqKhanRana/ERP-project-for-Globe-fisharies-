@@ -174,8 +174,9 @@ class ProductOrderController extends Controller
 
         
             $search = $request->q;
-            $data =Cutomer::select("id","full_name")
+            $data =Cutomer::select("id","full_name","customer_type")
             		->where('full_name','LIKE',"%$search%")
+            		->orWhere('customer_type','LIKE',"%$search%")
             		->get();
         
         return response()->json($data);
