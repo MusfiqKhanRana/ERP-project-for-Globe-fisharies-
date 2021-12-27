@@ -174,7 +174,7 @@
                                                                                                 <b>Product Name: {{$value->product_name}}</b>
                                                                                             </div>
                                                                                             <div class="col-md-5">
-                                                                                                <b>Provided Quantity: <span id="span">{{$value->pivot->quantity}}</span></b>
+                                                                                                <b>Provided Quantity: <span id="span">{{$value->pivot->final_quantity}}</span></b>
                                                                                             </div>
                                                                                         </div><br>
                                                                                         <div class="m-5 row">

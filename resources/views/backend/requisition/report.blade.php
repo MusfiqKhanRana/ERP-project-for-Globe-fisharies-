@@ -144,6 +144,7 @@
                                                                         @if($data->status == "Solved")
 
                                                                         <tr>
+                                                                            @if($item->pivot->resolve_quantity >0)
                                                                             <td>{{++$key2}}</td>
                                                                             <td>{{$item->category->name}}</td>
                                                                             <td>{{$item->product_name}}</td>
@@ -164,6 +165,7 @@
                                                                                     <button type="submit" class="btn red"><i class="fa fa-trash"></i> Delete</button>
                                                                                 </form>
                                                                             </td> --}}
+                                                                            @endif
                                                                         </tr>
                                                                          @else
                                                                             <tr>
@@ -250,6 +252,7 @@
                                                                                                     @csrf
                                                                                                     <input type="hidden" name="requisition_id" value="{{$data->id}}">
                                                                                                     @foreach ($data->products as $keyupdated => $value)
+                                                                                                    @if($value->pivot->resolve_quantity >0)
                                                                                                         <div class="m-5 row">
                                                                                                             <input type="hidden" name="requisition_product_id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
                                                                                                             <div class="col-md-5">
@@ -269,15 +272,16 @@
                                                                                                             <div class="col-md-5">
                                                                                                                 {{-- <input name="received_quantity[{{$keyupdated}}]" value="{{$value->pivot->received_quantity}}" data-provided="{{$value->pivot->final_quantity}}" class="form-control received_quantity" type="number" required placeholder="Available Quantity"> --}}
                                                                                                                 <b>Resolved Quantity: <span class="provided_quantity">{{$value->pivot->resolve_quantity}}</span></b>
-                                                                                                                <input type="hidden" name="resolve_quantity[]" value="{{$value->pivot->resolve_quantity}}">
+                                                                                                                <input type="hidden" name="resolve_quantity[{{$keyupdated}}]" value="{{$value->pivot->resolve_quantity}}">
                                                                                                                 
                                                                                                             </div>
                                                                                                         </div>
                                                                                                         <hr>
-                                                                                                        <input type="hidden" name="product_id[]" value="{{$value->product_id}}">
-                                                                                                        <input type="hidden" name="id[]" value="{{$value->pivot->id}}">
-                                                                                                        <input type="hidden" name="buying_price[]" value="{{$value->buying_price}}">
-                                                                                                        <input type="hidden" name="warehouse_id[]" value="{{$data->warehouse_id}}">
+                                                                                                        <input type="hidden" name="product_id[{{$keyupdated}}]" value="{{$value->product_id}}">
+                                                                                                        <input type="hidden" name="id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
+                                                                                                        <input type="hidden" name="buying_price[{{$keyupdated}}]" value="{{$value->buying_price}}">
+                                                                                                        <input type="hidden" name="warehouse_id[{{$keyupdated}}]" value="{{$data->warehouse_id}}">
+                                                                                                        @endif
                                                                                                     @endforeach
                                                                                                     <div class="m-5 row text-center">
                                                                                                         <b>Resolved Massage: <span class="provided_quantity">"{{$data->resolve_massage}}"</span></b>
