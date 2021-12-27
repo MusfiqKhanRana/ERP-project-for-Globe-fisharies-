@@ -21,7 +21,7 @@
             <h3 class="page-title bold">Order List</h3>
             <a class="btn btn-danger" href="{{route('order-history.index',"status=Pending")}}"><i class="fa fa-spinner"></i> Pending Order ({{$pendingcount}})</a>
             <a class="btn btn-primary"  href="{{route('order-history.index',"status=Confirm")}}"><i class="fa fa-check-circle"></i> Confirm Order List ({{$confirmcount}})</a>
-            <a class="btn btn-success" data-toggle="modal" href=""><i class="fa fa-cart-plus"></i> Delivery List ({{$delivery_count}})</a>
+            <a class="btn btn-success" href="{{route('order-history.index',"status=Delivered")}}"><i class="fa fa-cart-plus"></i> Delivery List ({{$delivery_count}})</a>
                 <br><br>
             <div class="row">
                 <div class="col-md-12">
@@ -47,7 +47,7 @@
                                     <th> Delivery Charge</th>
                                     <th> Discount <small>(Order wise)</small></th>
                                     <th style="text-align: center"> Product</th>
-                                    @if (request()->query('status')=="Confirm")
+                                    @if (request()->query('status')=="Confirm" || request()->query('status')=="Delivered")
                                         <th >Payment info </th>
                                     @endif
                                     <th style="text-align: center"> Action </th>
@@ -176,6 +176,14 @@
                                                 @if ($data->payment_method)
                                                     <a class="btn btn-success" data-toggle="modal" href="#confirmdelevery{{$data->id}}"><i class="fa fa-cart-plus"></i> Confirm Delivery</a>  
                                                 @endif
+                                            @endif
+                                            @if ($data->status == 'Delivered')
+                                                <a class="btn btn-primary" data-toggle="modal" href="#paymentInfo{{$data->id}}"><i class="fa fa-plus"></i>Success</a>
+                                                <a class="btn btn-primary" data-toggle="modal" href="#paymentInfo{{$data->id}}"><i class="fa fa-plus"></i>Return</a>
+                                                <a class="btn btn-primary" data-toggle="modal" href="#paymentInfo{{$data->id}}"><i class="fa fa-plus"></i>Cancel</a>
+                                                {{-- @if ($data->payment_method)
+                                                    <a class="btn btn-success" data-toggle="modal" href="#confirmdelevery{{$data->id}}"><i class="fa fa-cart-plus"></i> Confirm Delivery</a>  
+                                                @endif --}}
                                             @endif
                                         </td>
                                     </tr>
