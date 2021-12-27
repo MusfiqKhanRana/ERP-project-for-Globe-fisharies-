@@ -16,8 +16,8 @@
                         swal("{{Session::get('msg')}}","", "success");
                     });
                 </script>
-        @endif
-        <!-- BEGIN PAGE TITLE-->
+             @endif
+             <!-- BEGIN PAGE TITLE-->
             <h3 class="page-title bold">Order List</h3>
             <a class="btn btn-danger" href="{{route('order-history.index',"status=Pending")}}"><i class="fa fa-spinner"></i> Pending Order ({{$pendingcount}})</a>
             <a class="btn btn-primary"  href="{{route('order-history.index',"status=Confirm")}}"><i class="fa fa-check-circle"></i> Confirm Order List ({{$confirmcount}})</a>
@@ -31,10 +31,7 @@
                                 <i class="fa fa-clipboard"></i>History List
                             </div>
                         </div>
-
                         <div class="portlet-body">
-
-
                             <table class="table table-striped table-bordered table-hover" id="notices">
                                 <thead>
                                 <tr>
@@ -513,7 +510,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
