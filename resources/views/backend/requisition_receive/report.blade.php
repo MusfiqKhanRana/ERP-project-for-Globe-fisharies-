@@ -167,6 +167,7 @@
                                                                                     @csrf
                                                                                     <input type="hidden" name="requisition_id" value="{{$data->id}}">
                                                                                     @foreach ($data->products as $keyupdated => $value)
+                                                                                    @if($value->pivot->received_quantity != $value->pivot->final_quantity)
                                                                                         <div class="m-5 row">
                                                                                             <input type="hidden" name="requisition_product_id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
                                                                                             <div class="col-md-5">
@@ -181,13 +182,14 @@
                                                                                                 <b>Recieved Quantity: <span id="span">{{$value->pivot->received_quantity}}</span></b>
                                                                                             </div>
                                                                                             <div class="col-md-5">
-                                                                                                <input name="resolve_quantity[]"  class="form-control" type="number" required placeholder="Resolve Quantity">
+                                                                                                <input name="resolve_quantity[{{$keyupdated}}]"  class="form-control" type="number" required placeholder="Resolve Quantity">
                                                                                             </div>
                                                                                             <br>
                                                                                             
                                                                                         </div>
                                                                                         <br>
                                                                                         <hr>
+                                                                                        @endif
                                                                                     @endforeach
                                                                                     <div class="text-center">
                                                                                         <textarea name="resolve_massage" rows="10" cols="40" style="color: black"  placeholder="Give Resolve Note"></textarea>

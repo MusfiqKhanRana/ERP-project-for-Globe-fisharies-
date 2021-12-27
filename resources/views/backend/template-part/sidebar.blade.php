@@ -426,8 +426,13 @@
                     </ul>
                 </li>
 
-            <li class="nav-item @if( request()->path() == 'admin/add/requisition' || request()->path() == 'admin/add/requisition' ) active open @endif
+            <li class="nav-item @if( request()->path() == 'admin/requisition' || request()->path() == 'requisition.receive.index' || request()->path() == 'add.purchase' || request()->path() == 'purchase.reports') active open @endif
             @if( request()->path() == 'admin/requisition' || request()->path() == 'admin/requisition' ) active open @endif
+            @if( request()->path() == 'admin/requisition-receive' || request()->path() == 'admin/requisition-receive' ) active open @endif
+            @if( request()->path() == 'admin/add/purchase' || request()->path() == 'admin/add/purchase' ) active open @endif
+            @if( request()->path() == 'admin/purchase' || request()->path() == 'admin/purchase' ) active open @endif
+            @if( request()->path() == 'admin/requisition' || request()->path() == 'admin/requisition/status' ) active open @endif
+            @if( request()->path() == 'admin/requisition' || request()->path() == 'admin/requisition/receive/status' ) active open @endif
             @if( request()->path() == 'admin/requisition' || request()->path() == 'admin/requisition/receive/index' ) active open @endif">
             
                 <a href="javascript:;" class="nav-link nav-toggle">
@@ -436,12 +441,12 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item  @if( request()->path() == 'admin/requisition' ) active open @endif">
+                    <li class="nav-item  @if( request()->path() == 'admin/requisition' || request()->path() == 'admin/requisition/status') active open @endif">
                         <a href="{{route('requisition.index')}}" class="nav-link ">
                             <span class="title">Request Requisition</span>
                         </a>
                     </li>
-                    <li class="nav-item  @if( request()->path() == 'admin/requisition/receive/index' ) active open @endif">
+                    <li class="nav-item  @if( request()->path() == 'admin/requisition-receive' || request()->path() == 'admin/requisition/receive/status' ) active open @endif">
                         <a href="{{route('requisition.receive.index')}}" class="nav-link ">
                             <span class="title">Dispatch Requisition</span>
                         </a>
