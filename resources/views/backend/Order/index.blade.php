@@ -21,7 +21,7 @@
             <h3 class="page-title bold">Order List</h3>
             <a class="btn btn-danger" href="{{route('order-history.index',"status=Pending")}}"><i class="fa fa-spinner"></i> Pending Order ({{$pendingcount}})</a>
             <a class="btn btn-primary"  href="{{route('order-history.index',"status=Confirm")}}"><i class="fa fa-check-circle"></i> Confirm Order List ({{$confirmcount}})</a>
-            <a class="btn btn-success" data-toggle="modal" href=""><i class="fa fa-cart-plus"></i> Delivery List</a>
+            <a class="btn btn-success" data-toggle="modal" href=""><i class="fa fa-cart-plus"></i> Delivery List ({{$delivery_count}})</a>
                 <br><br>
             <div class="row">
                 <div class="col-md-12">
@@ -45,8 +45,11 @@
                                     <th> Status </th>
                                     <th> Remark</th>
                                     <th> Delivery Charge</th>
-                                    <th> Discount(Order wise)</th>
+                                    <th> Discount <small>(Order wise)</small></th>
                                     <th style="text-align: center"> Product</th>
+                                    @if (request()->query('status')=="Confirm")
+                                        <th >Payment info </th>
+                                    @endif
                                     <th style="text-align: center"> Action </th>
                                 </tr>
                                 </thead>
@@ -86,61 +89,80 @@
                                         </td>
                                         <td>
                                             <table class="table table-striped table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>s.l</th>
-                                                    <th>Category</th>
-                                                    <th>Name</th>
-                                                    <th>Quantity</th>
-                                                    <th>Discount(Product Wise)</th>
-                                                    <th>Selling Price</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @php
-                                                    $total_amount = 0;
-                                                @endphp
-                                                @foreach($data->products as $key2=> $item)
+                                                <thead>
                                                     <tr>
-                                                        <th>{{++$key2}}</th>
-                                                        <th>{{$item->category->name}}</th>
-                                                        <th>{{$item->product_name}}</th>
-                                                        <th>{{$item->pivot->quantity}}</th>
-                                                        <th>
-                                                            @php
-                                                                if($item->pivot->discount_in_amount){
-                                                                    echo $item->pivot->discount_in_amount." TK";
-                                                                }
-                                                                elseif ($item->pivot->discount_in_percentage) {
-                                                                    echo $item->pivot->discount_in_percentage." Percent";
-                                                                }
-                                                            @endphp
-                                                        </th>
-                                                        <th>
-                                                            {{$item->pivot->selling_price}}
-                                                            @php
-                                                                $total_amount += $item->pivot->selling_price;
-                                                            @endphp
-                                                        </th>
-                                                        @if ($data->status == "Pending")
-                                                            <th>
-                                                                <form action="{{route('order.destroy',$item->pivot->id)}}" method="POST">
-                                                                    @method('DELETE')
-                                                                    @csrf
-                                                                    <button type="submit" class="btn red"><i class="fa fa-trash"></i> Delete</button>
-                                                                </form>
-                                                            </th>
-                                                        @endif
+                                                        <th>s.l</th>
+                                                        <th>Category</th>
+                                                        <th>Name</th>
+                                                        <th>Quantity</th>
+                                                        <th>Discount <small>(Product Wise)</small></th>
+                                                        <th>Selling Price</th>
+                                                        <th>Action</th>
                                                     </tr>
-                                               @endforeach
-                                               <tr>
-                                                    <th colspan="5">total Amount <small> (Inc. Delivary Charge and Discount)</small></th>
-                                                    <th>{{$total_amount+$data->delivery_charge-$data->total_discount}}</th>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    @php
+                                                        $total_amount = 0;
+                                                        $intotal_amount = 0;
+                                                    @endphp
+                                                    @foreach($data->products as $key2=> $item)
+                                                        <tr>
+                                                            <th>{{++$key2}}</th>
+                                                            <th>{{$item->category->name}}</th>
+                                                            <th>{{$item->product_name}}</th>
+                                                            <th>{{$item->pivot->quantity}}</th>
+                                                            <th>
+                                                                @php
+                                                                    if($item->pivot->discount_in_amount){
+                                                                        echo $item->pivot->discount_in_amount." TK";
+                                                                    }
+                                                                    elseif ($item->pivot->discount_in_percentage) {
+                                                                        echo $item->pivot->discount_in_percentage." Percent";
+                                                                    }
+                                                                @endphp
+                                                            </th>
+                                                            <th>
+                                                                {{$item->pivot->selling_price}}
+                                                                @php
+                                                                    $total_amount += $item->pivot->selling_price;
+                                                                @endphp
+                                                            </th>
+                                                            @if ($data->status == "Pending")
+                                                                <th>
+                                                                    <form action="{{route('order.destroy',$item->pivot->id)}}" method="POST">
+                                                                        @method('DELETE')
+                                                                        @csrf
+                                                                        <button type="submit" class="btn red"><i class="fa fa-trash"></i> Delete</button>
+                                                                    </form>
+                                                                </th>
+                                                            @endif
+                                                        </tr>
+                                                    @endforeach
+                                                    <tr>
+                                                        <th colspan="5">total Amount <small> (Inc. Delivary Charge and Discount)</small></th>
+                                                        <th>
+                                                            @php
+                                                                $intotal_amount=$total_amount+$data->delivery_charge-$data->total_discount;
+                                                            @endphp
+                                                            {{$total_amount+$data->delivery_charge-$data->total_discount}}
+                                                        </th>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </td>
+                                        @if($data->status=="Confirm")
+                                            <td>
+                                                <ul>
+                                                    <li><p>Method: {{$data->payment_method}}</p></li>
+                                                    <li><p>Paid Amount: {{$data->paid_amount}}</p></li>
+                                                    <li><p>Due: {{$intotal_amount - $data->paid_amount}}</p></li>
+                                                    @if ($data->payment_method != "Cash")
+                                                        <li><p>Transaction Number: {{$data->trx_number}}</p></li>
+                                                        <li><p>Transaction ID: {{$data->trx_id}}</p> </li>
+                                                    @endif
+                                                </ul>
+                                            </td>
+                                        @endif
                                         <td style="text-align: center">
                                             @if($data->status == 'Pending')
                                                 <a class="btn purple" href="{{route('order.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i> confirm</a>
@@ -150,8 +172,10 @@
                                                 <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
                                             @endif
                                             @if ($data->status == 'Confirm')
-                                                <a class="btn btn-primary" data-toggle="modal" href="#paymentInfo{{$data->id}}"><i class="fa fa-plus"></i>Payment Info</a>
-                                                <a class="btn btn-success" data-toggle="modal" href="#confirmdelevery{{$data->id}}"><i class="fa fa-cart-plus"></i> Confirm Delivery</a>
+                                                <a class="btn btn-primary" data-toggle="modal" href="#paymentInfo{{$data->id}}"><i class="fa fa-plus"></i> Payment Info</a>
+                                                @if ($data->payment_method)
+                                                    <a class="btn btn-success" data-toggle="modal" href="#confirmdelevery{{$data->id}}"><i class="fa fa-cart-plus"></i> Confirm Delivery</a>  
+                                                @endif
                                             @endif
                                         </td>
                                     </tr>
@@ -163,9 +187,9 @@
                                                     <h4 class="modal-title">Payment Info</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form class="form-horizontal" role="form" method="post" action="{{route('user-type.update', $data->id)}}">
+                                                    <form class="form-horizontal" role="form" method="post" action="{{route('order.payment')}}">
                                                         {{csrf_field()}}
-                                                        {{method_field('put')}}
+                                                        <input type="hidden" value="{{$data->id}}" name="order_id">
                                                         <div class="form-group">
                                                             <label for="inputEmail1" class="col-md-4 control-label">Total Amount</label>
                                                             <div class="col-md-8">
@@ -185,15 +209,29 @@
                                                                 {{-- <input type="text" class="form-control" value="{{$data->product_name}}" name="name" required> --}}
                                                             </div><br><br>
                                                         </div>
-                                                        <div class="form-group transaction_number">
-                                                            <label for="inputEmail1" class="col-md-4 control-label">Transaction Number</label>
+                                                        <div class="transaction_number">
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-4 control-label">Transaction Number *</label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control" name="trx_number">
+                                                                </div><br><br>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-4 control-label">Transaction Id *</label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control" name="trx_id">
+                                                                </div><br><br>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="inputEmail1" class="col-md-4 control-label">Paid Amount</label>
                                                             <div class="col-md-8">
-                                                                <input type="text" class="form-control" name="trx_number" required>
+                                                                <input type="number" class="form-control" name="paid_amount">
                                                             </div><br><br>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Save</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -242,19 +280,33 @@
                                                     <h4 class="modal-title">Confirm Delivery</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form class="form-horizontal" role="form" method="post" action="{{route('user-type.update', $data->id)}}">
+                                                    <form class="form-horizontal" role="form" method="post" action="{{route('order.delivery.confirm')}}">
                                                         {{csrf_field()}}
-                                                        {{method_field('put')}}
                                                         <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-2 control-label">User Name</label>
+                                                            <input type="hidden" value="{{$data->id}}" name="order_id">
+                                                            <label for="inputEmail1" class="col-md-4 control-label">Total Amount</label>
                                                             <div class="col-md-8">
-                                                                {{$total_amount}}
+                                                                {{$total_amount+$data->delivery_charge-$data->total_discount}} <b>TK.</b> <small>(Inc. Delivery Charge and Discount)</small>
+                                                                {{-- <input type="text" class="form-control" value="{{$data->product_name}}" name="name" required> --}}
+                                                            </div><br><br>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="inputEmail1" class="col-md-4 control-label">Total Paid</label>
+                                                            <div class="col-md-8">
+                                                                {{$data->paid_amount}} <b>TK.</b> <small>({{$data->payment_method}})</small>
+                                                                {{-- <input type="text" class="form-control" value="{{$data->product_name}}" name="name" required> --}}
+                                                            </div><br><br>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="inputEmail1" class="col-md-4 control-label">Total Due</label>
+                                                            <div class="col-md-8">
+                                                                {{$intotal_amount - $data->paid_amount}} <b>TK.</b> <small>(Inc. Delivery Charge and Discount)</small>
                                                                 {{-- <input type="text" class="form-control" value="{{$data->product_name}}" name="name" required> --}}
                                                             </div><br><br>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Confirm</button>
                                                         </div>
                                                     </form>
             
