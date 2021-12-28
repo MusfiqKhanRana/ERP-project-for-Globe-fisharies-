@@ -274,6 +274,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('requisition/delivery-confirm/data',[RequisitionController::class,'deliveryConfirm'])->name('requisition.delivery.confirm');
     Route::post('requisition/resolve-delivery-confirm/data',[RequisitionController::class,'resolveDeliveryConfirm'])->name('requisition.resolve.delivery.confirm');
     Route::post('requisition/delivery-return',[RequisitionController::class,'return'])->name('requisition.delivery.return');
+    Route::post('requisition/confirm/Imperfection',[RequisitionController::class,'confirmImperfection'])->name('requisition.confirm.Imperfection');
+    Route::post('requisition/cancel/Imperfection',[RequisitionController::class,'cancelImperfection'])->name('requisition.Cancel.Imperfection');
     Route::resource('requisition', RequisitionController::class);
     Route::resource('requisition-product', RequisitionProductController::class);
     Route::get('requisition-receive',[RequisitionReceiveController::class,'index'])->name('requisition.receive.index');

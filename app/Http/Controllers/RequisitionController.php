@@ -47,7 +47,7 @@ class RequisitionController extends Controller
             }
         ])
         ->where('confirmed',true)
-        ->whereIn('status',['Deliverd','Processing','Solved'])
+        ->whereIn('status',['Deliverd','Processing','Solved','OnHold'])
         ->latest()->paginate(10);
         return view('backend.requisition.report',compact('requisition','category','warehouse','party'));
     }
@@ -66,15 +66,39 @@ class RequisitionController extends Controller
             ->update(
                 ['received_quantity'=>$received_quantity]
             );
-            StockProduct::create(['warehouse_id'=>$warehouse_id,'product_id'=>$product_id,'requisition_id'=>$data['requisition_id'],'quantity'=>$received_quantity,'buying_price'=>$buying_price]);
         }
         if($imperfect_massage== null){
             $requisition = Requisition::where('id',$data['requisition_id'])->update(['status'=>'Received','process_date'=>Carbon::now()]);
         }
         else
-            $requisition = Requisition::where('id',$data['requisition_id'])->update(['status'=>'Imperfect','process_date'=>Carbon::now(),'imperfect_massage'=>$imperfect_massage]);
+            $requisition = Requisition::where('id',$data['requisition_id'])->update(['status'=>'OnHold','process_date'=>Carbon::now(),'imperfect_massage'=>$imperfect_massage]);
 
         return redirect()->back()->withmsg('Successfully Confirmed given product Quatity');
+    }
+    public function confirmImperfection(Request $request){
+        $data = $request->except(['_token']);
+        // dd($data);
+        foreach ($data['id'] as $key => $value) {
+            $received_quantity = $data['received_quantity'][$key];
+            $product_id = $data['product_id'][$key];
+            $buying_price = $data['product_id'][$key];
+            $warehouse_id = $data['warehouse_id'][$key];
+            DB::table('requisition_product')
+            ->where('id', $value)
+            ->update(
+                ['received_quantity'=>$received_quantity]
+            );
+        }
+        Requisition::where('id',$data['requisition_id'])
+        ->update(
+            ['status'=>'Imperfect']
+        );
+        StockProduct::create(['warehouse_id'=>$warehouse_id,'product_id'=>$product_id,'requisition_id'=>$data['requisition_id'],'quantity'=>$received_quantity,'buying_price'=>$buying_price]);
+        return redirect()->back()->withmsg('Successfully Confirmed as a Imperfect Requisition');
+    }
+    public function cancelImperfection(Request $request){
+        $data = $request->except(['_token']);
+        dd($data);
     }
     public function resolveDeliveryConfirm(Request $request){
         $data = $request->except(['_token']);
