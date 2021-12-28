@@ -16,6 +16,7 @@ class CreatePacksTable extends Migration
         Schema::create('packs', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->double('weight')->nullable();
             $table->timestamps();
         });
     }
