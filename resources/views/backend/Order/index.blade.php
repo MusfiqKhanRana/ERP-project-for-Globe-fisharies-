@@ -163,7 +163,7 @@
                                         <td style="text-align: center">
                                             @if($data->status == 'Pending')
                                                 <a class="btn purple" href="{{route('order.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i> confirm</a>
-                                                <a class="btn blue-chambray" href="{{route('order.edit',$data->id)}}" ><i class="fa fa-edit"></i> Edit</a>
+                                                <a class="btn blue-chambray" href="{{route('order.updated.edit',$data->id)}}" ><i class="fa fa-edit"></i> Edit</a>
                                                 <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Add Product</a>
                                                 <a class="btn btn-primary" data-toggle="modal" href="#addDiscount{{$data->id}}"><i class="fa fa-plus"></i>Add Discount</a>
                                                 <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
