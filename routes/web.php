@@ -304,7 +304,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('order/payment-info',[OrderController::class,'orderPayment'])->name('order.payment');
     Route::post('order/delivery-confirm',[OrderController::class,'orderDelivery'])->name('order.delivery.confirm');
 
+    Route::get('order/edit/{id}',[OrderController::class,'edit'])->name('order.edit');
     Route::resource('order-history', OrderController::class);
+    
 
     Route::get('order/confirm/{id}',[OrderController::class,'confirm'])->name('order.confirm');
     Route::post('order/product/pass',[OrderController::class,'product_pass'])->name('order.product.pass');
