@@ -72,7 +72,7 @@
                                 <span> <b>cusotmer Name:</b> this is good</span>
                             </div> --}}
                         </div>
-                        <div class="row" style="margin-top:5%">
+                        <div class="row" style="margin-top:2%">
                             <div class="col-md-2">
                                 <div class="col-md-11">
                                     <label>Category</label>
@@ -181,6 +181,31 @@
                             </div>
                         </div>
                         <div class="form-action">
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    <label class="control-label"><b>Payment Method</b></label>
+                                    <select name="payment_method" class="form-control payment_method">
+                                        <option value="Cash">Cash</option>
+                                        <option value="Bkash">Bkash</option>
+                                        <option value="Nagad">Nagad</option>
+                                        <option value="Rocket">Rocket</option>
+                                    </select>
+                                </div>
+                                <div class="transaction_number">
+                                    <div class="col-md-3">
+                                        <label class="control-label"><b>Transaction Number</b></label>
+                                        <input type="text" class="form-control" name="trx_number">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="control-label"><b>Transaction ID</b></label>
+                                        <input type="text" class="form-control" name="trx_id">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="control-label"><b>Payment Amount</b></label>
+                                    <input type="number" class="form-control" name="paid_amount">
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label class="col-md-1 control-label"><b>Remark</b></label>
                                 <div class="col-md-12">
@@ -329,6 +354,15 @@
             var total_price =0;
             var dis_a =0;
             var in_total_amount=0;
+            $(".transaction_number").hide();
+            $('.payment_method').change(function(){
+                var input = $(this).val();
+                if (input=="Bkash" || input=="Nagad" || input=="Rocket"){
+                    $(".transaction_number").show();
+                }else{
+                    $(".transaction_number").hide();
+                }
+            })
             $(document).on('click', '#due', function () {
                 $("#due_amount").show();
             });
@@ -581,6 +615,7 @@
                         results:  $.map(data, function (item) {
                             return {
                                 text: item.full_name + " ("+item.customer_type+")",
+                                title:item.phone,
                                 id: item.id
                             }
                         })
