@@ -40,6 +40,7 @@ class PackControler extends Controller
         ));
         $packs = new Pack;
         $packs->name = $request->name;
+        $packs->weight = $request->weight;
         $packs->save();
 
         return redirect()->route('user-type.index')->withMsg('Successfully Created');
@@ -79,6 +80,7 @@ class PackControler extends Controller
         Pack::whereId($id)
         ->update([
             'name' => $request->name,
+            'weight' => $request->weight,
         ]);
         return redirect()->back()->withMsg("Successfully Updated");
     }
