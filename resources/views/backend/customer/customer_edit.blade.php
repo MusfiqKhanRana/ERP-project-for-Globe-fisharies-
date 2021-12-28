@@ -47,7 +47,16 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <div class="form-group clearfix">
+                                            <label class="col-md-3 control-label">Customer Designation</label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" value="{{$customer->designation}}" required name="designation">
+                                                    <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="form-group clearfix">
                                             <label class="col-md-3 control-label">Customer Phone</label>
                                             <div class="col-md-9">
@@ -80,7 +89,68 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <div class="form-group clearfix">
+                                            <label class="col-md-3 control-label">Customer area</label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <select class="custom-select form-control mr-sm-2" name="area_id" id="inlineFormCustomSelect">
+                                                        <option selected>Choose...</option>
+                                                        @foreach ($area as $item)
+                                                        @if($customer->area_id == $item->id)
+                                                        <option value="{{$item->id}}" selected>{{$item->name}}</option>  
+                                                        @else  
+                                                        <option value="{{$item->id}}">{{$item->name}}</option>  
+                                                        @endif
+                                                        @endforeach
+                                                      </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group clearfix">
+                                            <label class="col-md-3 control-label">Customer Type</label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <div class="form-check form-check-inline">
+                                                        @if($customer->customer_type =="inhouse" )
+                                                        <label class="radio-inline">
+                                                            <input type="radio" value="inhouse" name="customer_type" checked>Inhouse
+                                                        </label>
+                                                        @else
+                                                        <label class="radio-inline">
+                                                            <input type="radio" value="inhouse" name="customer_type">Inhouse
+                                                        </label>
+                                                        @endif
+                                                        @if($customer->customer_type =="online" )
+                                                        <label class="radio-inline">
+                                                            <input type="radio" value="online" name="customer_type" checked>Online
+                                                        </label>
+                                                        @else
+                                                        <label class="radio-inline">
+                                                            <input type="radio" value="online" name="customer_type">Online
+                                                        </label>
+                                                        @endif
+                                                        @if($customer->customer_type =="modern_trade" )
+                                                        <label class="radio-inline">
+                                                            <input type="radio" value="modern_trade" name="customer_type" checked>Modern Trade
+                                                        </label>
+                                                        @else
+                                                        <label class="radio-inline">
+                                                            <input type="radio" value="modern_trade" name="customer_type">Modern Trade
+                                                        </label>
+                                                        @endif
+                                                        @if($customer->customer_type =="sample" )
+                                                        <label class="radio-inline">
+                                                            <input type="radio" value="sample" name="customer_type" checked>Sample
+                                                        </label>
+                                                        @else
+                                                        <label class="radio-inline">
+                                                            <input type="radio" value="sample" name="customer_type">Sample
+                                                        </label>
+                                                        @endif
+                                                      </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="form-group clearfix">
                                             <label class="col-md-3 control-label">Suggestions or topics you would like to be included:</label>
                                             <div class="col-md-9">

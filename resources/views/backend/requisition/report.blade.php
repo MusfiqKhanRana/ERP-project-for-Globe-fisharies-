@@ -373,48 +373,17 @@
                                                                                             </div>
                                                                                             <br>
                                                                                             <div class="modal-body">
-                                                                                                    @csrf
-                                                                                                    <input type="hidden" name="requisition_id" value="{{$data->id}}">
-                                                                                                    @foreach ($data->products as $keyupdated => $value)
-                                                                                                    @if($value->pivot->resolve_quantity >0)
-                                                                                                        <div class="m-5 row">
-                                                                                                            <input type="hidden" name="requisition_product_id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
-                                                                                                            <div class="col-md-5">
-                                                                                                                <b>Product Name: {{$value->product_name}}</b>
-                                                                                                            </div>
-                                                                                                            <div class="col-md-5">
-                                                                                                                <b>Provided Quantity: <span class="provided_quantity">{{$value->pivot->final_quantity}}</span></b>
-                                                                                                                {{-- <span class="requisition_product_id">{{$value->pivot->id}}</span> --}}
-                                                                                                            </div>
-                                                                                                        </div> <br>
-                                                                                                        <div class="m-5 row">
-                                                                                                            <div class="col-md-5">
-                                                                                                                {{-- <input name="received_quantity[{{$keyupdated}}]" value="{{$value->pivot->received_quantity}}" data-provided="{{$value->pivot->final_quantity}}" class="form-control received_quantity" type="number" required placeholder="Available Quantity"> --}}
-                                                                                                                <b>Recieved Quantity: <span class="provided_quantity">{{$value->pivot->received_quantity}}</span></b>
-                                                                                                                
-                                                                                                            </div>
-                                                                                                            <div class="col-md-5">
-                                                                                                                {{-- <input name="received_quantity[{{$keyupdated}}]" value="{{$value->pivot->received_quantity}}" data-provided="{{$value->pivot->final_quantity}}" class="form-control received_quantity" type="number" required placeholder="Available Quantity"> --}}
-                                                                                                                <b>Resolved Quantity: <span class="provided_quantity">{{$value->pivot->resolve_quantity}}</span></b>
-                                                                                                                <input type="hidden" name="resolve_quantity[{{$keyupdated}}]" value="{{$value->pivot->resolve_quantity}}">
-                                                                                                                
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                        <hr>
-                                                                                                        <input type="hidden" name="product_id[{{$keyupdated}}]" value="{{$value->product_id}}">
-                                                                                                        <input type="hidden" name="id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
-                                                                                                        <input type="hidden" name="buying_price[{{$keyupdated}}]" value="{{$value->buying_price}}">
-                                                                                                        <input type="hidden" name="warehouse_id[{{$keyupdated}}]" value="{{$data->warehouse_id}}">
-                                                                                                        @endif
-                                                                                                    @endforeach
-                                                                                                    <div class="m-5 row text-center">
-                                                                                                        <b>Resolved Massage: <span class="provided_quantity">"{{$data->resolve_massage}}"</span></b>
-                                                                                                    </div>
-                                                                                                    <hr>
-                                                                                                    <div class="m-5 row text-center">
-                                                                                                        <textarea name="resolve_confirm_massage" id="" cols="30" rows="10" placeholder="Give any resolve confirm massage(optional)"></textarea>
-                                                                                                        {{-- <b>Resolved Massage: <span class="provided_quantity">"{{$data->resolve_massage}}"</span></b> --}}
-                                                                                                    </div>
+                                                                                                @csrf
+                                                                                                <input type="hidden" name="requisition_id" value="{{$data->id}}">
+                                                                                                <h2><b>Are You Sure?</b></h2>  
+                                                                                                @foreach ($data->products as $keyupdated => $value)                                                                                      
+                                                                                                <input type="hidden" name="requisition_product_id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
+                                                                                                <input type="hidden"  name="received_quantity[{{$keyupdated}}]" value="{{$value->pivot->final_quantity}}" type="number" required placeholder="Received Quantity">
+                                                                                                <input type="hidden" name="product_id[]" value="{{$value->product_id}}">
+                                                                                                <input type="hidden" name="id[]" value="{{$value->pivot->id}}">
+                                                                                                <input type="hidden" name="buying_price[]" value="{{$value->buying_price}}">
+                                                                                                <input type="hidden" name="warehouse_id[]" value="{{$data->warehouse_id}}">
+                                                                                            @endforeach 
                                                                                             </div>
                                                                                             <br>
                                                                                             <div class="modal-footer">

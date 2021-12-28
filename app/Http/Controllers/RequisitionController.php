@@ -78,7 +78,7 @@ class RequisitionController extends Controller
     public function confirmImperfection(Request $request){
         $data = $request->except(['_token']);
         // dd($data);
-        foreach ($data['id'] as $key => $value) {
+        foreach ($data['requisition_product_id'] as $key => $value) {
             $received_quantity = $data['received_quantity'][$key];
             $product_id = $data['product_id'][$key];
             $buying_price = $data['product_id'][$key];
@@ -98,7 +98,24 @@ class RequisitionController extends Controller
     }
     public function cancelImperfection(Request $request){
         $data = $request->except(['_token']);
-        dd($data);
+        // dd($data);
+        foreach ($data['requisition_product_id'] as $key => $value) {
+            $received_quantity = $data['received_quantity'][$key];
+            $product_id = $data['product_id'][$key];
+            $buying_price = $data['product_id'][$key];
+            $warehouse_id = $data['warehouse_id'][$key];
+            DB::table('requisition_product')
+            ->where('id', $value)
+            ->update(
+                ['received_quantity'=>$received_quantity]
+            );
+        }
+        Requisition::where('id',$data['requisition_id'])
+        ->update(
+            ['status'=>'Received']
+        );
+        StockProduct::create(['warehouse_id'=>$warehouse_id,'product_id'=>$product_id,'requisition_id'=>$data['requisition_id'],'quantity'=>$received_quantity,'buying_price'=>$buying_price]);
+        return redirect()->back()->withmsg('Successfully Confirmed as a Perfect Requisition');
     }
     public function resolveDeliveryConfirm(Request $request){
         $data = $request->except(['_token']);
