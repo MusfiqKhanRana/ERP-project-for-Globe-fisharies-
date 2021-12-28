@@ -16,8 +16,8 @@
                         swal("{{Session::get('msg')}}","", "success");
                     });
                 </script>
-             @endif
-             <!-- BEGIN PAGE TITLE-->
+            @endif
+            <!-- BEGIN PAGE TITLE-->
             <h3 class="page-title bold">Order List</h3>
             <a class="btn btn-danger" href="{{route('order-history.index',"status=Pending")}}"><i class="fa fa-spinner"></i> Pending Order ({{$pendingcount}})</a>
             <a class="btn btn-primary"  href="{{route('order-history.index',"status=Confirm")}}"><i class="fa fa-check-circle"></i> Confirm Order List ({{$confirmcount}})</a>
@@ -28,10 +28,10 @@
                     <div class="portlet box grey-salt">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-clipboard"></i>History List
+                                <i class="fa fa-clipboard "></i>History List
                             </div>
                         </div>
-                        <div class="portlet-body">
+                        <div  class="portlet-body" style="overflow: auto">
                             <table class="table table-striped table-bordered table-hover" id="notices">
                                 <thead>
                                 <tr>
@@ -163,7 +163,7 @@
                                         <td style="text-align: center">
                                             @if($data->status == 'Pending')
                                                 <a class="btn purple" href="{{route('order.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i> confirm</a>
-                                                <a class="btn blue-chambray"  data-toggle="modal" href=""><i class="fa fa-edit"></i> Edit</a>
+                                                <a class="btn blue-chambray" href="{{route('order.edit',$data->id)}}" ><i class="fa fa-edit"></i> Edit</a>
                                                 <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Add Product</a>
                                                 <a class="btn btn-primary" data-toggle="modal" href="#addDiscount{{$data->id}}"><i class="fa fa-plus"></i>Add Discount</a>
                                                 <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
@@ -184,6 +184,48 @@
                                             @endif
                                         </td>
                                     </tr>
+                                    {{-- <div id="editOrderyModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h4 class="modal-title">Update Party</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="form-horizontal" role="form" method="post" action="{{route('order.update', $data->id)}}">
+                                                        {{csrf_field()}}
+                                                        {{method_field('put')}}
+
+                                                        <div class="form-body">
+                                                            <div class="form-section">
+                                                                <label class="col-md-2 control-label pull-left bold">Customer Select: </label>
+                                                                <div class="col-md-10">
+                                                                    <select class="select2Ajax form-control" name="customer_id" value = "{{$data->customer_id }}" required  id="customer_id"></select>
+                                                                </div>
+                                                            </div><br><br>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control" value="{{$data->remark}}" required name="remark">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Delivery Charge</label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control" value="{{$data->delivery_charge}}" required name="delivery_charge">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> --}}
                                     <div id="paymentInfo{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                         <div class="modal-dialog">
                                             <div class="modal-content">

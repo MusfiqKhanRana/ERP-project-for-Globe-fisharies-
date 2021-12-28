@@ -95,8 +95,20 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+        //dd($order);
+        $order = Order::all();
+        $customer = Cutomer::all();
+        return view('backend.Order.edit',compact('customer','order'));
     }
+
+    public function orderEdit(Order $order)
+    {
+        //dd($order);
+        $order = Order::all();
+        $customer = Cutomer::all();
+        return view('backend.Order.edit',compact('customer','order'));
+    }
+
 
     /**
      * Update the specified resource in storage.
@@ -107,7 +119,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        
     }
 
     /**
