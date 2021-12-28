@@ -29,14 +29,16 @@ class CutomerController extends Controller
         $data = $request->all();
         unset($data['_token']);
         $data['activated'] = true;
+        // dd($data);
         Cutomer::create($data);
         return redirect()->back()->withmsg('Successfully Created');
     }
 
     public function cuctomerEdit($id)
     {
+        $area=area::all();
         $customer = Cutomer::findOrFail($id);
-        return view('backend.customer.customer_edit', compact('customer'));
+        return view('backend.customer.customer_edit', compact('customer','area'));
     }
 
     public function cuctomerUpdate(Request $request,$id)
@@ -46,13 +48,17 @@ class CutomerController extends Controller
             'full_name' => 'required',
             'phone' => 'required',
             'email' => 'required',
+
         ]);
         Cutomer::whereId($id)
             ->update([
                'full_name' => $request->full_name,
+               'designation' => $request->designation,
                'phone' => $request->phone,
                'email' => $request->email,
                'address' => $request->address,
+               'area_id' => $request->area_id,
+               'customer_type'=> $request->customer_type,
                'include_word' => $request->include_word,
             ]);
         return redirect('admin/customer/management')->withmsg('Successfully Updated');

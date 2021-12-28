@@ -322,6 +322,48 @@
                                                     </div>
                                                 </div>
                                             </div> --}}
+                                            <div id="sss" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                            <h4 class="modal-title"><b>Solve Imperfect Requisition</b></h4>
+                                                        </div>
+                                                        <form class="form-horizontal" role="form" method="post" action="{{route('requisition.store')}}">
+                                                            {{csrf_field()}}
+                                                            <br>
+                                                            <div class="form-group">
+                                                                    <div class="modal-body">
+                                                                        @csrf
+                                                                        <input type="hidden" name="requisition_id" value="{{$data->id}}">
+                                                                        @foreach ($data->products as $keyupdated => $value)
+                                                                            <div class="m-5 row">
+                                                                                <input type="hidden" name="requisition_product_id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
+                                                                                <div class="col-md-4">
+                                                                                    <b>Product Name: {{$value->product_name}}</b>
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <b>Provided Quantity: <span class="provided_quantity">{{$value->pivot->final_quantity}}</span></b>
+                                                                                </div>
+                                                                                <div class="col-md-4">
+                                                                                    <input name="received_quantity[{{$keyupdated}}]" value="{{$value->pivot->received_quantity}}" data-provided="{{$value->pivot->final_quantity}}" class="form-control received_quantity" type="number" required placeholder="Available Quantity">
+                                                                                </div>
+                                                                            </div>
+                                                                        @endforeach
+                                                                        <br>
+                                                                        <div class="imperfect_note">
+                                                                            <Span> <b style="color: red">There is Imperfect !!</b> </Span><br><textarea name="imperfect_massage" rows="10" cols="40"  placeholder="Give Imparfect Note"></textarea>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                                <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -336,49 +378,7 @@
                 </div>
             </div>
             <!-- END PAGE CONTENT-->
-            <div id="sss" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                            <h4 class="modal-title"><b>Solve Imperfect Requisition</b></h4>
-                        </div>
-                        <form class="form-horizontal" role="form" method="post" action="{{route('requisition.store')}}">
-                            {{csrf_field()}}
-                            <br>
-                            <div class="form-group">
-                                    <div class="modal-body">
-                                        @csrf
-                                        <input type="hidden" name="requisition_id" value="{{$data->id}}">
-                                        @foreach ($data->products as $keyupdated => $value)
-                                            <div class="m-5 row">
-                                                <input type="hidden" name="requisition_product_id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
-                                                <div class="col-md-4">
-                                                    <b>Product Name: {{$value->product_name}}</b>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <b>Provided Quantity: <span class="provided_quantity">{{$value->pivot->final_quantity}}</span></b>
-                                                    {{-- <span class="requisition_product_id">{{$value->pivot->id}}</span> --}}
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input name="received_quantity[{{$keyupdated}}]" value="{{$value->pivot->received_quantity}}" data-provided="{{$value->pivot->final_quantity}}" class="form-control received_quantity" type="number" required placeholder="Available Quantity">
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                        <br>
-                                        <div class="imperfect_note">
-                                            <Span> <b style="color: red">There is Imperfect !!</b> </Span><br><textarea name="imperfect_massage" rows="10" cols="40"  placeholder="Give Imparfect Note"></textarea>
-                                        </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 @endsection
