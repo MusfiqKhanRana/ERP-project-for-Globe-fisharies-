@@ -101,10 +101,9 @@ class OrderController extends Controller
         return view('backend.Order.edit',compact('customer','order'));
     }
 
-    public function orderEdit(Order $order)
+    public function orderEdit($id)
     {
-        //dd($order);
-        $order = Order::all();
+        $order = Order::find($id);
         $customer = Cutomer::all();
         return view('backend.Order.edit',compact('customer','order'));
     }
@@ -117,9 +116,26 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request, $id)
     {
-        
+        Order::whereId($id)
+        ->update([
+            'delivery_charge' => $request->delivery_charge,
+            'remark' => $request->remark,
+        ]);
+        return redirect()->back()->withMsg("Successfully Updated");
+    }
+    public function OrderUpdate(Request $request, $id)
+    {
+        // dd($request->customer_id);
+        Order::whereId($id)
+        ->update([
+            'customer_id' => $request->customer_id,
+            'delivery_charge' => $request->delivery_charge,
+            'remark' => $request->remark,
+        ]);
+        return redirect()->route('order-history.index',"status=Pending")->withMsg("Successfully Updated");;
+        //return redirect()->back()->withMsg("Successfully Updated");
     }
 
     /**

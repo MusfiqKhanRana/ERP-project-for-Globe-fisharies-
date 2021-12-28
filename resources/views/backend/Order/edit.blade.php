@@ -30,17 +30,19 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="portlet-body" style="height: auto;">
-                        <form action="{{--route('order.update')--}}" method="post">
+                        <form action="{{route('order.updated',$order->id)}}" method="post">
                             {{csrf_field()}}
                             {{method_field('put')}}
                             <div class="form-body">
                                 <div class="form-section">
                                     <label class="col-md-2 control-label pull-left bold">Customer Select: </label>
                                     <div class="col-md-10">
-                                        {{-- @foreach($customer as $data)
-                                            <option value="{{$data->id}}" {{ ( $data->id == $data->id) ? 'selected' : '' }}>{{$data->full_name}}</option>
-                                        @endforeach --}}
-                                        <select class="select2Ajax form-control" name="customer_id" value = "" required  id="customer_id"></select>
+                                        <select name="customer_id">
+                                            @foreach($customer as $data)
+                                                <option value="{{$data->id}}" {{ ( $data->id == $order->id) ? 'selected' : '' }}>{{$data->full_name}}</option>
+                                            @endforeach
+                                        </select>
+                                        {{-- <select class="select2Ajax form-control" name="customer_id" value = "" required  id="customer_id"></select> --}}
                                     </div>
                                 </div><br><br>
                             </div>
@@ -48,7 +50,7 @@
                                 <div class="form-section">
                                     <label class="col-md-2 control-label pull-left bold">Delivery Charge </label>
                                     <div class="col-md-10">
-                                        <input class="form-control" name="delivery_charge" value ="{{--$order->delivery_charge--}}"  required  id="delivery_charge">
+                                        <input class="form-control" name="delivery_charge" value="{{$order->delivery_charge}}"  required  id="delivery_charge">
                                     </div>
                                 </div><br><br>
                             </div>
@@ -56,7 +58,7 @@
                                 <div class="form-section">
                                     <label class="col-md-2 control-label pull-left bold">Remark</label>
                                     <div class="col-md-10">
-                                        <textarea class="form-control" name="remark" value = "{{--$order->remark--}}" required  id="remark"></textarea>
+                                        <textarea class="form-control" name="remark" required  id="remark"> {{$order->remark}}</textarea>
                                     </div>
                                 </div><br><br>
                             </div><br><br>
