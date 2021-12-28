@@ -18,7 +18,7 @@ class CreateRequisitionsTable extends Migration
             $table->unsignedInteger('warehouse_id')->nullable();
             $table->unsignedInteger('party_id')->nullable();
             $table->string('requisition_id')->nullable();
-            $table->enum('status', ['Pending','Processing','Solved','Deliverd','Received','Returned','Imperfect'])->default('Pending');
+            $table->enum('status', ['Pending','Processing','Solved','Deliverd','Received','Returned','Imperfect','OnHold'])->default('Pending');
             $table->longText('imperfect_massage')->nullable();
             $table->longText('resolve_massage')->nullable();
             $table->longText('resolve_confirm_massage')->nullable();

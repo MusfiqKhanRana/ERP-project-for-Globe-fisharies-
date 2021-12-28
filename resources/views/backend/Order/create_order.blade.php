@@ -207,6 +207,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <fieldset class="radio-inline question">
+                                    <input class="form-check-input want_delivery_charge" type="checkbox">Want to add delivery charge ? 
+                                </fieldset>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-md-1 control-label"><b>Remark</b></label>
                                 <div class="col-md-12">
                                     <textarea class="form-control" name="remark" rows="3"></textarea>
@@ -214,14 +219,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <div class="input-group">
+                                    <div class="input-group add_delivery_charge">
                                         <div class="input-group-btn">
                                             <button type="button" class="btn btn-success pull-left">Add Delivery Charge</button>
                                         </div>
                                         <!-- /btn-group -->
                                         {{-- <input type="text" class="form-control total" id="total" name="total_amount" style="font-size:25px; font-weight: bold" readonly>  --}}
                                         {{-- <input type="number" class="from-control" style="font-size:19px; font-weight: bold" placeholder="Total discount in amount" name="total_discount"> --}}
-                                        <input type="number" class="from-control" style="font-size:19px; font-weight: bold" placeholder="Delivery Charge" name="delivery_charge">
+                                        <input type="number" id="delivery_charge" class="from-control" style="font-size:19px; font-weight: bold" placeholder="Delivery Charge" name="delivery_charge">
                                     </div>
                                 </div>
                                 {{-- <div class="col-md-3">
@@ -525,6 +530,16 @@
                     $(".discount_in_percentage"+max).show();
                     $('#amount_id'+max).val('');
                     $('#amount').val(total_price);
+                }
+            });
+            $('.add_delivery_charge').hide();
+
+            $(".want_delivery_charge").click(function() {
+                if($(this).is(":checked")) {
+                    $(".add_delivery_charge").show();
+                } else {
+                    $(".add_delivery_charge").hide();
+                    $("#delivery_charge").val('');
                 }
             });
             reloadMax();
