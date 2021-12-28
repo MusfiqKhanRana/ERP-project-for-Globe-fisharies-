@@ -67,7 +67,7 @@ class ProductOrderController extends Controller
 
         $data = $request->all();
         // dd(var_dump($data));
-        $order = Order::create(['customer_id' => $data['customer_id'],'remark' => $data['remark'],'delivery_charge'=>$data['delivery_charge']]);
+        $order = Order::create(['customer_id' => $data['customer_id'],'remark' => $data['remark'],'delivery_charge'=>$data['delivery_charge'],'payment_method'=>$request->payment_method,'trx_number'=>$request->trx_number, 'trx_id'=>$request->trx_id,'paid_amount'=>$request->paid_amount]);
         foreach ($data['category_id'] as $key => $value) {
             $product_order = ProductOrder::create([
                 'order_id' => $order->id,
@@ -174,7 +174,7 @@ class ProductOrderController extends Controller
 
         
             $search = $request->q;
-            $data =Cutomer::select("id","full_name","customer_type")
+            $data =Cutomer::select("id","full_name","customer_type",'phone')
             		->where('full_name','LIKE',"%$search%")
             		->orWhere('customer_type','LIKE',"%$search%")
             		->get();
