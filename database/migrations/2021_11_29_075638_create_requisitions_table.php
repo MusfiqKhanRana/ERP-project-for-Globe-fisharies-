@@ -24,6 +24,7 @@ class CreateRequisitionsTable extends Migration
             $table->longText('resolve_confirm_massage')->nullable();
             $table->boolean('confirmed')->nullable();
             $table->dateTime('clearance_date')->nullable();
+            $table->longText('remark')->nullable();
             $table->dateTime('process_date')->nullable();
             $table->dateTime('delivered_date')->nullable();
             $table->dateTime('return_date')->nullable();

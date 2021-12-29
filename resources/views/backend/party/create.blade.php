@@ -35,24 +35,30 @@
                             <div class="portlet-body">
                                 <div class="form-body">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label"> Code</label>
+                                        <label class="col-md-3 control-label">Party Code</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="party_code" placeholder="Type Party Code" value="">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label"> Name</span></label>
+                                        <label class="col-md-3 control-label">Party Name</span></label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="party_name" placeholder="Type Party Name" value="">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Phone</label>
+                                        <label class="col-md-3 control-label">Party Phone</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="phone" placeholder="Type Phone Number" value="">
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-3 control-label">Party Address</label>
+                                        <div class="col-md-9">
+                                            <textarea class="form-control" name="address" placeholder="Type Party Address" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                    {{-- <div class="form-group">
                                         <label class="col-md-3 control-label"> Type</label>
                                         <div class="col-md-9">
                                             <select class="form-control select2me" id="party_type" name="party_type">
@@ -62,9 +68,9 @@
                                                 <option value="Modern Trade">Modern Trade</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label"> Short Name</label>
+                                        <label class="col-md-3 control-label">Party Short Name</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="party_short_name" placeholder="Type Party Short Name" value="">
                                         </div>
@@ -78,19 +84,14 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label"> Select Products</label>
                                         <div class="col-md-9">
-                                            <select id="party_products" class="multiselect text-center" style="width: 100%" name="party_products[]" multiple="multiple">
+                                            <select id="party_products" class="multiselect text-center" style="width: 100% !important" name="party_products[]" multiple="multiple">
                                                 @foreach ($products as $item)
-                                                <option class="text-center" value="{{$item->id}}">{{$item->product_name}}</option>
+                                                <option class="text-right" style="padding-left: 5% !important" value="{{$item->id}}">{{$item->product_name}}({{$item->pack->name}})</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Address</label>
-                                        <div class="col-md-9">
-                                            <textarea class="form-control" name="address" placeholder="Type Party Address" rows="3"></textarea>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         <div class="form-actions">
@@ -132,7 +133,7 @@
                             $(".user-div").remove();
                             var $productDiv = $('#product_field').append('<div class="user-div row" style="background-color:gray;color:white;padding:2%;"></div>')
                             $.each(data, function (i, item) {
-                                 $("<div class='col-sm-4'>Name :"+item.product_name+"</div><div class='col-sm-4'> Buying Price :"+item.buying_price+"</div><div class='col-sm-4'> <input type='text' style='color:black' name='party_price[]' placeholder='Set price for party'></div><br>").appendTo( ".user-div");
+                                 $("<div class='col-md-6'>Name :"+item.product_name+"</div><div class='col-md-6'> <input type='text' style='color:black' name='party_price[]' placeholder='Set price for party'></div><br>").appendTo( ".user-div");
                                
                         });
                         }

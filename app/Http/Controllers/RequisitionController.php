@@ -154,10 +154,11 @@ class RequisitionController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        // dd($data);
         unset($data['_token']);
         $data['requisition_id'] = Str::random(6);
         $data['confirmed'] = false;
-        $requisition = Requisition::create(['party_id'=>$data['party_id'],'requisition_id'=>$data['requisition_id'],'clearance_date'=>$data['clearance_date'],'confirmed'=>$data['confirmed'],'created_by'=>Auth::user()->id]);
+        $requisition = Requisition::create(['party_id'=>$data['party_id'],'requisition_id'=>$data['requisition_id'],'warehouse_id'=>$data['warehouse_id'],'remark'=>$data['remark'],'clearance_date'=>$data['clearance_date'],'confirmed'=>$data['confirmed'],'created_by'=>Auth::user()->id]);
         foreach ($data['product_id'] as $key => $value) {
             $product_id = $value;
             $requisition_id = $requisition->id;

@@ -83,6 +83,9 @@
                                                             Clearence Date
                                                         </th>
                                                         <th>
+                                                            Remark
+                                                        </th>
+                                                        <th>
                                                             Products
                                                         </th>
                                                         <th>
@@ -111,6 +114,7 @@
                                                                 {{$data->status}}                       
                                                             </td>
                                                             <td> {{$data->clearance_date}} </td>
+                                                            <td> {{$data->remark}} </td>
                                                             <td> 
                                                                 {{-- {{$data->products}} --}}
                                                                 <table class="table table-striped table-bordered table-hover">
@@ -146,6 +150,10 @@
                                                                         @php
                                                                             $isconfirm = 0;
                                                                         @endphp
+                                                                          @php
+                                                                          $total_weight=0;
+                                                                          $total_qty=0;   
+                                                                         @endphp
                                                                         @foreach ($data->products as $key2 => $item)
                                                                             <tr>
                                                                                 <td>{{++$key2}}</td>
@@ -153,7 +161,12 @@
                                                                                 <td>{{$item->product_name}}</td>
                                                                                 <td>{{$item->pack->name}}</td>
                                                                                 <td>{{$item->pivot->quantity}}</td>
-                                                                                <td>{{$item->pivot->final_quantity}}</td>
+                                                                                <td>{{$item->pivot->final_quantity}}
+                                                                                    @php
+                                                                                        $total_qty += $item->pivot->final_quantity;
+                                                                                        $total_weight += $item->pack->weight*$item->pivot->final_quantity;
+                                                                                    @endphp
+                                                                                </td>
                                                                                 {{-- <td>{{$item->pivot->packet}}</td> --}}
                                                                                 @if($item->pivot->final_quantity || $item->pivot->final_quantity>0)
                                                                                     @php
@@ -207,6 +220,12 @@
                                                                                 </div>
                                                                             </div>
                                                                         @endforeach
+                                                                        <tr>
+                                                                            <th colspan="4">total Pack & Weight</th>
+                                                                            <th  colspan="5">
+                                                                               <span>{{ $total_qty}}pack</span> <span> & {{ $total_weight}}KG</span>     
+                                                                            </th>
+                                                                        </tr>
                                                                     </tbody>
                                                                 </table>
                                                             </td>

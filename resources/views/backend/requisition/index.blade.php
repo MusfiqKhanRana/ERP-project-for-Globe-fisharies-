@@ -85,6 +85,9 @@
                                                 Clearence Date
                                             </th>
                                             <th>
+                                                Remark
+                                            </th>
+                                            <th>
                                                 Products
                                             </th>
                                             <th>
@@ -106,6 +109,9 @@
                                                     @endif
                                                 </td>
                                                 <td> {{$data->clearance_date}} </td>
+                                                <td>
+                                                    {{$data->remark}}
+                                                </td>
                                                 <td> 
                                                     {{-- {{$data->products}} --}}
                                                     <table class="table table-striped table-bordered table-hover">
@@ -135,13 +141,25 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @php
+                                                             $total_weight=0;
+                                                             $total_qty=0;   
+                                                            @endphp
                                                             @foreach ($data->products as $key2 => $item)
                                                                 <tr>
                                                                     <td>{{++$key2}}</td>
                                                                     <td>{{$item->category->name}}</td>
                                                                     <td>{{$item->product_name}}</td>
-                                                                    <td>{{$item->pack->name}}</td>
-                                                                    <td>{{$item->pivot->quantity}}</td>
+                                                                    <td>
+                                                                        {{$item->pack->name}}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{$item->pivot->quantity}}
+                                                                        @php
+                                                                        $total_qty += $item->pivot->quantity;
+                                                                        $total_weight += $item->pack->weight*$item->pivot->quantity;
+                                                                        @endphp
+                                                                    </td>
                                                                     {{-- <td>{{$item->pivot->packet}}</td> --}}
                                                                     <td>
                                                                         <form action="{{route('requisition-product.destroy',$item->pivot->id)}}" method="POST">
@@ -152,6 +170,12 @@
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
+                                                            <tr>
+                                                                <th colspan="4">total Pack & Weight</th>
+                                                                <th  colspan="5">
+                                                                   <span>{{ $total_qty}}pack</span> <span> & {{ $total_weight}}KG</span>     
+                                                                </th>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </td>
@@ -329,7 +353,12 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
+                                <div class="col-md-8">
+                                    <textarea name="remark" id="" cols="40" rows="5"></textarea>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <label for="inputEmail1" class="col-md-6 control-label">Add Products</label>

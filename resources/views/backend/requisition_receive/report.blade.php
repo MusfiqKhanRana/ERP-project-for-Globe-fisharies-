@@ -77,6 +77,9 @@
                                                 Clearence Date
                                             </th>
                                             <th>
+                                                Remark
+                                            </th>
+                                            <th>
                                                 Products
                                             </th>
                                             <th>
@@ -97,6 +100,7 @@
                                                     {{$data->status}}                       
                                                 </td>
                                                 <td> {{$data->clearance_date}} </td>
+                                                <td> {{$data->remark}} </td>
                                                 <td> 
                                                     <table class="table table-striped table-bordered table-hover">
                                                         <thead>
@@ -131,6 +135,10 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @php
+                                                                          $total_weight=0;
+                                                                          $total_qty=0;   
+                                                                         @endphp
                                                             @foreach ($data->products as $key2 => $item)
                                                             @if($item->pivot->received_quantity != $item->pivot->final_quantity)
                                                                 <tr>
@@ -140,7 +148,12 @@
                                                                     <td>{{$item->pack->name}}</td>
                                                                     <td>{{$item->pivot->quantity}}</td>
                                                                     <td>{{$item->pivot->final_quantity}}</td>
-                                                                    <td>{{$item->pivot->received_quantity}}</td>
+                                                                    <td>{{$item->pivot->received_quantity}}
+                                                                        @php
+                                                                            $total_qty += $item->pivot->received_quantity;
+                                                                            $total_weight += $item->pack->weight*$item->pivot->received_quantity;
+                                                                        @endphp
+                                                                    </td>
                                                                     {{-- <td>{{$item->pivot->packet}}</td> --}}
                                                                     {{-- <td>
                                                                         <form action="{{route('requisition-product.destroy',$item->pivot->id)}}" method="POST">
@@ -205,6 +218,12 @@
                                                                     </div>
                                                                 </div>
                                                             @endforeach
+                                                            <tr>
+                                                                <th colspan="4">total Pack & Weight</th>
+                                                                <th  colspan="6" style="text-align: right">
+                                                                   <span>{{ $total_qty}}pack</span> <span> & {{ $total_weight}}KG</span>     
+                                                                </th>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </td>

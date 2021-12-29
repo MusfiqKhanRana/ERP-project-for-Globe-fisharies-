@@ -29,7 +29,8 @@ class PartyController extends Controller
      */
     public function create()
     {
-        $products = Product::all();
+        $products = Product::with(['pack'])->get();
+        // dd($products);
         return view('backend.party.create', compact('products'));
     }
 
@@ -142,7 +143,7 @@ class PartyController extends Controller
     {
         $process_array = [];
         $id = $request->id;
-        $products = Product::find($id);
+        $products = Product::with('pack')->find($id);
         // array_push($process_array,['id'=> $prod->id,'product_name' => $prod->product_name,'buying_price' => $prod->buying_price ]);
         return $products;
     }
