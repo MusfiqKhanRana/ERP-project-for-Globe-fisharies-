@@ -8,6 +8,7 @@ use App\Models\Cutomer;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Warehouse;
+use App\Models\ProductOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -133,6 +134,7 @@ class OrderController extends Controller
             'customer_id' => $request->customer_id,
             'delivery_charge' => $request->delivery_charge,
             'remark' => $request->remark,
+            'payment_method' => $request->payment_method,
         ]);
         return redirect()->route('order-history.index',"status=Pending")->withMsg("Successfully Updated");;
         //return redirect()->back()->withMsg("Successfully Updated");
@@ -149,6 +151,7 @@ class OrderController extends Controller
         Order::whereId($id)->delete();
         return redirect()->back()->withMsg("Successfully Deleted");
     }
+    
     public function product_pass(Request $request){
         $id = $request->id;
         $warehouse = Warehouse::with('products')->find($id);
