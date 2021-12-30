@@ -119,19 +119,12 @@ class ProductOrderController extends Controller
     }
     public function OrderProductUpdate(Request $request, $id)
     {
-        //dd($request->discount_in_percentage);
-        $discount_inpercentage =null; 
-        $discount_amount =null;
-        if($request->discount_type == "Amount"){
-            $discount_amount =$request->discount; 
-        } elseif($request->discount_type == "Percentage"){
-            $discount_inpercentage =$request->discount; 
-        }
+        //dd($request);
         ProductOrder::whereId($id)
         ->update([
             'quantity' => $request->quantity,
-            'discount_in_amount' => $discount_amount,
-            'discount_in_percentage' => $discount_inpercentage,
+            'discount_in_amount' => $request->discount_in_amount,
+            'discount_in_percentage' =>$request->discount_in_percentage,
             'selling_price' => $request->selling_price,
         ]);
         return redirect()->route('order-history.index',"status=Pending")->withMsg("Successfully Ordered Product Updated");;

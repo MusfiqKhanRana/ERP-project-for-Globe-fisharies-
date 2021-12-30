@@ -150,6 +150,7 @@
                                                                                 <div class="form-group">
                                                                                     <label for="inputEmail1" class="col-md-2 control-label">Quantity</label>
                                                                                     <div class="col-md-10">
+                    
                                                                                         <input type="text" class="form-control" value="{{$item->pivot->quantity}}" required name="quantity">
                                                                                         <input type="hidden" value="{{$item->pivot->id}}">
                                                                                     </div>
@@ -157,7 +158,7 @@
                                                                             </div><br><br><br>
                                                                             <div class="col-md-12">
                                                                                 <div class="form-group">
-                                                                                    @php
+                                                                                    {{-- @php
                                                                                         $discount_amount = 0;
                                                                                         $discount_type = null;
                                                                                         if($item->pivot->discount_in_amount){
@@ -168,11 +169,14 @@
                                                                                             $discount_amount =$item->pivot->discount_in_percentage;
                                                                                             $discount_type = "Percentage";
                                                                                         }
-                                                                                    @endphp
-                                                                                    <label for="inputEmail1" class="col-md-2 control-label">Discount ({{$discount_type}})</label>
+                                                                                    @endphp --}}
+                                                                                    <label for="inputEmail1" class="col-md-2 control-label">Discount</label>
                                                                                     <div class="col-md-10">
-                                                                                        <input type="hidden" value="{{$discount_type}}">
-                                                                                        <input type="text" class="form-control" value="{{$discount_amount}}" required name="discount">
+                                                                                       @if ($item->pivot->discount_in_amount>0)
+                                                                                       <input type="text" class="form-control" value="{{$item->pivot->discount_in_amount." TK"}}" required name="discount_in_amount"> 
+                                                                                       @else 
+                                                                                        <input type="text" class="form-control" value="{{$item->pivot->discount_in_percentage." Percent"}}" required name="discount_in_percentage"> 
+                                                                                       @endif
                                                                                     </div>
                                                                                 </div>
                                                                             </div><br><br><br>
@@ -244,6 +248,7 @@
                                                                 @method('DELETE')
                                                                 @csrf
                                                                 <button type="submit" class="btn red"><i class="fa fa-trash"></i> Delete</button>
+                                                            </form>
                                                         </td>
                                                     </tr>
                                                     @endif
