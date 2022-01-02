@@ -405,7 +405,7 @@
             <li class="nav-item @if( request()->path() == 'admin/sale' || request()->path() == 'admin/sale' ) active open @endif
                 @if( request()->path() == 'admin/order-history' || request()->path() == 'admin/order-history' ) active open @endif">
                     <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="fa fa-print" aria-hidden="true"></i>
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         <span class="title">Order Management</span>
                         <span class="arrow"></span>
                     </a>
@@ -413,7 +413,7 @@
                         <li class="nav-item  @if( request()->path() == 'admin/sale' ) active open @endif
                         @if( request()->path() == '' ) active open @endif">
                             <a href="{{route('order.create')}}" class="nav-link ">
-                                <span class="title">Oder</span>
+                                <span class="title">Order</span>
                             </a>
                         </li>
                         <li class="nav-item  @if( request()->path() == '' ) active open @endif

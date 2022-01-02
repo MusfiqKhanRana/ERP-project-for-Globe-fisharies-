@@ -54,6 +54,23 @@
                                     </div>
                                 </div><br><br>
                             </div>
+                                    {{-- <label class="col-md-2 control-label pull-left bold"> Payment Method </label>
+                                    <div class="col-md-10">
+                                        <select name="payment_method">
+                                            @foreach($order as $data)
+                                                <option value="{{$data->payment_method}}" {{ ( $data->payment_method == $order->payment_method) ? 'selected' : '' }}>{{$data->payment_method}}</option>
+                                            @endforeach
+                                        </select>
+                                        {{-- <select class="select2Ajax form-control" name="customer_id" value = "" required  id="customer_id"></select> }}
+                                    </div> --}}
+                            <div class="form-body">
+                                <div class="form-section">
+                                    <label class="col-md-2 control-label pull-left bold"> Payment Method </label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" name="payment_method" value="{{$order->payment_method}}"  required  id="payment_method">
+                                    </div>
+                                </div><br><br>
+                            </div>
                             <div class="form-body">
                                 <div class="form-section">
                                     <label class="col-md-2 control-label pull-left bold">Remark</label>

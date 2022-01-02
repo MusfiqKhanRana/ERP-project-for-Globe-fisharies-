@@ -117,6 +117,19 @@ class ProductOrderController extends Controller
     {
         //
     }
+    public function OrderProductUpdate(Request $request, $id)
+    {
+        //dd($request);
+        ProductOrder::whereId($id)
+        ->update([
+            'quantity' => $request->quantity,
+            'discount_in_amount' => $request->discount_in_amount,
+            'discount_in_percentage' =>$request->discount_in_percentage,
+            'selling_price' => $request->selling_price,
+        ]);
+        return redirect()->route('order-history.index',"status=Pending")->withMsg("Successfully Ordered Product Updated");;
+        //return redirect()->back()->withMsg("Successfully Updated");
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -127,6 +140,11 @@ class ProductOrderController extends Controller
     public function destroy($id)
     {
         ProductOrder::whereId($id)->delete();
+        return redirect()->back()->withMsg("Successfully Deleted");
+    }
+    public function order_delete($id)
+    {
+        Order::whereId($id)->delete();
         return redirect()->back()->withMsg("Successfully Deleted");
     }
     public function warehouse_product_pass(Request $request)

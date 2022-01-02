@@ -130,10 +130,74 @@
                                                                         @method('DELETE')
                                                                         @csrf
                                                                         <button type="submit" class="btn red"><i class="fa fa-trash"></i> Delete</button>
+                                                                        <a class="btn blue-chambray" data-toggle="modal" href="#editOrderProductModal{{$item->pivot->id}}" ><i class="fa fa-edit"></i> Edit</a>
                                                                     </form>
                                                                 </th>
                                                             @endif
                                                         </tr>
+                                                        <div id="editOrderProductModal{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                        <h4 class="modal-title"> Update Ordered Product ({{$item->product_name}}) </h4>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form class="form-horizontal" role="form" method="post" action="{{route('order.product.updated', $item->pivot->id)}}">
+                                                                            {{csrf_field()}}
+                                                                            {{method_field('put')}}
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group">
+                                                                                    <label for="inputEmail1" class="col-md-2 control-label">Quantity</label>
+                                                                                    <div class="col-md-10">
+                    
+                                                                                        <input type="text" class="form-control" value="{{$item->pivot->quantity}}" required name="quantity">
+                                                                                        <input type="hidden" value="{{$item->pivot->id}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div><br><br><br>
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group">
+                                                                                    {{-- @php
+                                                                                        $discount_amount = 0;
+                                                                                        $discount_type = null;
+                                                                                        if($item->pivot->discount_in_amount){
+                                                                                            $discount_amount = $item->pivot->discount_in_amount;
+                                                                                            $discount_type = "Amount";
+                                                                                        }
+                                                                                        elseif ($item->pivot->discount_in_percentage) {
+                                                                                            $discount_amount =$item->pivot->discount_in_percentage;
+                                                                                            $discount_type = "Percentage";
+                                                                                        }
+                                                                                    @endphp --}}
+                                                                                    <label for="inputEmail1" class="col-md-2 control-label">Discount</label>
+                                                                                    <div class="col-md-10">
+                                                                                       @if ($item->pivot->discount_in_amount>0)
+                                                                                       <input type="text" class="form-control" value="{{$item->pivot->discount_in_amount." TK"}}" required name="discount_in_amount"> 
+                                                                                       @else 
+                                                                                        <input type="text" class="form-control" value="{{$item->pivot->discount_in_percentage." Percent"}}" required name="discount_in_percentage"> 
+                                                                                       @endif
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div><br><br><br>
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group">
+                                                                                    <label for="inputEmail1" class="col-md-2 control-label">Selling Price</label>
+                                                                                    <div class="col-md-10">
+                                                                                        <input type="text" class="form-control" value="{{$item->pivot->selling_price}}" required name="selling_price">
+                                                                                        <input type="hidden" value="{{$item->pivot->id}}">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div><br><br><br>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                                                <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     @endforeach
                                                     <tr>
                                                         <th colspan="5">total Amount <small> (Inc. Delivary Charge and Discount)</small></th>
@@ -160,28 +224,50 @@
                                                 </ul>
                                             </td>
                                         @endif
-                                        <td style="text-align: center">
+                                        <td style="text-align: center" >
                                             @if($data->status == 'Pending')
-                                                <a class="btn purple" href="{{route('order.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i> confirm</a>
-                                                <a class="btn blue-chambray" href="{{route('order.updated.edit',$data->id)}}" ><i class="fa fa-edit"></i> Edit</a>
-                                                <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Add Product</a>
-                                                <a class="btn btn-primary" data-toggle="modal" href="#addDiscount{{$data->id}}"><i class="fa fa-plus"></i>Add Discount</a>
-                                                <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
-                                            @endif
-                                            @if ($data->status == 'Confirm')
-                                                <a class="btn btn-primary" data-toggle="modal" href="#paymentInfo{{$data->id}}"><i class="fa fa-plus"></i> Payment Info</a>
-                                                @if ($data->payment_method)
-                                                    <a class="btn btn-success" data-toggle="modal" href="#confirmdelevery{{$data->id}}"><i class="fa fa-cart-plus"></i> Confirm Delivery</a>  
-                                                @endif
-                                            @endif
-                                            @if ($data->status == 'Delivered')
-                                                <a class="btn btn-primary" data-toggle="modal" href="#paymentInfo{{$data->id}}"><i class="fa fa-plus"></i>Success</a>
-                                                <a class="btn btn-primary" data-toggle="modal" href="#paymentInfo{{$data->id}}"><i class="fa fa-plus"></i>Return</a>
-                                                <a class="btn btn-primary" data-toggle="modal" href="#paymentInfo{{$data->id}}"><i class="fa fa-plus"></i>Cancel</a>
-                                                {{-- @if ($data->payment_method)
-                                                    <a class="btn btn-success" data-toggle="modal" href="#confirmdelevery{{$data->id}}"><i class="fa fa-cart-plus"></i> Confirm Delivery</a>  
-                                                @endif --}}
-                                            @endif
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <a class="btn purple" href="{{route('order.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i> confirm</a>
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn blue-chambray" href="{{route('order.updated.edit',$data->id)}}" ><i class="fa fa-edit"></i> Edit</a>
+                                                        </td>
+                                                        <td>
+                                                            <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Add Product</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <a class="btn btn-primary" data-toggle="modal" href="#addDiscount{{$data->id}}"><i class="fa fa-plus"></i>Add Discount</a>
+                                                        </td>
+                                                        <td>
+                                                            <form action="{{route('order.test.delete',$data->id)}}" method="POST">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                <button type="submit" class="btn red"><i class="fa fa-trash"></i> Delete</button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                    @endif
+                                                    @if ($data->status == 'Confirm')
+                                                        <a class="btn btn-primary" data-toggle="modal" href="#paymentInfo{{$data->id}}"><i class="fa fa-plus"></i> Payment Info</a>
+                                                        @if ($data->payment_method)
+                                                            <a class="btn btn-success" data-toggle="modal" href="#confirmdelevery{{$data->id}}"><i class="fa fa-cart-plus"></i> Confirm Delivery</a>  
+                                                        @endif
+                                                    @endif
+                                                    @if ($data->status == 'Delivered')
+                                                        <a class="btn btn-primary" data-toggle="modal" href="#paymentInfo{{$data->id}}"><i class="fa fa-plus"></i>Success</a>
+                                                        <a class="btn btn-primary" data-toggle="modal" href="#paymentInfo{{$data->id}}"><i class="fa fa-plus"></i>Return</a>
+                                                        <a class="btn btn-primary" data-toggle="modal" href="#paymentInfo{{$data->id}}"><i class="fa fa-plus"></i>Cancel</a>
+                                                        {{-- @if ($data->payment_method)
+                                                            <a class="btn btn-success" data-toggle="modal" href="#confirmdelevery{{$data->id}}"><i class="fa fa-cart-plus"></i> Confirm Delivery</a>  
+                                                        @endif --}}
+                                                    @endif
+                                                </tbody>
+                                            </table>
                                         </td>
                                     </tr>
                                     {{-- <div id="editOrderyModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -375,7 +461,6 @@
                                                     <div class="m-5 row">
                                                         <form action="{{route('order.store')}}" method="POST">
                                                             @csrf
-                                                            
                                                             <div class="col-md-3">
                                                                 <label for="product">Warehouse</label>
                                                                 <select class="form-control" name="warehouse_id" id="warehouse" required>
@@ -432,23 +517,72 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="deleteModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    <div id="delete_order_Modal{{$data->id}}" class="modal fade " tabindex="-1" data-backdrop="static" data-keyboard="false">
                                         {{csrf_field()}}
                                         <input type="hidden" value="" id="delete_id">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h2 class="modal-title" style="color: red;">Are you sure?</h2>
+                                                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Add Products</h2>
                                                 </div>
+                                                <br>
+                                                <div class="modal-body">
+                                                    <div class="m-5 row">
+                                                        <form action="{{route('order.store')}}" method="POST">
+                                                            @csrf
+                                                            <div class="col-md-3">
+                                                                <label for="product">Warehouse</label>
+                                                                <select class="form-control" name="warehouse_id" id="warehouse" required>
+                                                                    <option selected>Select</option>
+                                                                    @foreach($warehouse as $data)
+                                                                        <option value="{{$data->id}}">{{$data->name}}</option>
+                                                                    @endforeach
+                                                                    {{csrf_field()}}
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label >Product</label>
+                                                                <select class="form-control  product_id" name="product_id" placeholder="Product" required>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="">Quantity</label>
+                                                                <input name="quantity" class="form-control" type="number" required placeholder="Quantity">
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label class="col-md-2 control-label">Discount: </label>
+                                                                <span class="disper">
+                                                                    <input type="text" class="form-control"  name="discount_in_percentage" placeholder="discount in %" id="coupon_1"/>
+                                                                </span>
+                                                                <span class="amount1">
+                                                                    <input type="text" class="form-control" name="discount_in_amount" placeholder="discount in amount" id="coupon_2"/>
+                                                                </span>
+                                                                <fieldset class="radio-inline question coupon_question2">
+                                                                    <input class="form-check-input amountxx" type="checkbox">Want in Amount ? 
+                                                                </fieldset>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="">Price</label>
+                                                                <input type="text" class="form-control " placeholder="Total"  readonly name="price" >
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label><span>&nbsp;</span></label><br>
+                                                                <button class="m-10 btn btn-success">Save</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <br>
                                                 <div class="modal-footer">
                                                     <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                    <br>
-                                                    <form action="{{route('order-history.destroy',[$data->id])}}" method="POST">
+                                                    {{-- <br>
+                                                    <form action="{{route('requisition.destroy',[$data])}}" method="POST">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
-                                                    </form>
+                                                    </form> --}}
+                                                    {{-- <a type="submit" href="{{route('customer.delete', $data)}}" class="btn red" id="delete"><i class="fa fa-trash"></i> Delete</a> --}}
                                                 </div>
                                             </div>
                                         </div>
