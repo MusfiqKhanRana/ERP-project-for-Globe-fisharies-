@@ -228,7 +228,8 @@
                                                     </table>
                                                 </td>
                                                 <td>
-                                                    <button type="submit" class="btn green"  data-toggle="modal" href="#basic{{$data->id}}">Solve</button>
+                                                    <button type="submit" class="btn btn-primary"  data-toggle="modal" href="#basic{{$data->id}}">Solve</button><br>
+                                                    <a class="btn btn-success" href="{{route('requisition.view.print',$data->id)}}" target="_blank"><b><i class="fa fa-print" aria-hidden="true"></i></b></a>
                                                 </td>
                                                 <td style="background-color:#ED5D5D ; color:white;">
                                                         {{$data->imperfect_massage}}

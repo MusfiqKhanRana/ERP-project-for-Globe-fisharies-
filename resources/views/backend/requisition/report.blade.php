@@ -435,7 +435,8 @@
                                                                     @endif --}}
                                                                     <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Confirm Delivery</a>
                                                                     <br>
-                                                                    <a class="btn red" data-toggle="modal" href="#returnProductModal{{$data->id}}"><i class="fa fa-undo"></i> Return </a>
+                                                                    <a class="btn red" data-toggle="modal" href="#returnProductModal{{$data->id}}"><i class="fa fa-undo"></i> Return </a><br>
+                                                                    <a class="btn btn-success" href="{{route('requisition.view.print',$data->id)}}" target="_blank"><b><i class="fa fa-print" aria-hidden="true"></i></b></a>
                                                                 @endif
                                                                 @if($data->status == "Solved")
                                                                     {{-- @if($isconfirm == 1)
@@ -443,14 +444,16 @@
                                                                     @endif --}}
                                                                     <a class="btn btn-primary" data-toggle="modal" href="#addSolvedModal{{$data->id}}"><i class="fa fa-plus"></i>Confirm Resolve Delivery</a>
                                                                     <br>
-                                                                    <a class="btn red" data-toggle="modal" href="#returnProductModal{{$data->id}}"><i class="fa fa-undo"></i> Return </a>
+                                                                    <a class="btn red" data-toggle="modal" href="#returnProductModal{{$data->id}}"><i class="fa fa-undo"></i> Return </a><br>
+                                                                    <a class="btn btn-success" href="{{route('requisition.view.print',$data->id)}}" target="_blank"><b><i class="fa fa-print" aria-hidden="true"></i></b></a>
                                                                 @endif
                                                                 @if($data->status == "OnHold")
                                                                 {{-- @if($isconfirm == 1)
                                                                     <a class="btn purple" href="{{route('requisition.receive.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i> Confirm & Deliver</a>
                                                                 @endif --}}
                                                                 <a class="btn btn-primary" data-toggle="modal" href="#ConfirmImperfectionModal{{$data->id}}"><i class="fa fa-plus"></i>Confirm Imperfection</a>
-                                                                <a class="btn btn-success" data-toggle="modal" href="#CancelImperfectionModal{{$data->id}}"><i class="fa fa-plus"></i>Cancel Imperfection</a>
+                                                                <a class="btn btn-success" data-toggle="modal" href="#CancelImperfectionModal{{$data->id}}"><i class="fa fa-plus"></i>Cancel Imperfection</a><br>
+                                                                <a class="btn btn-success" href="{{route('requisition.view.print',$data->id)}}" target="_blank"><b><i class="fa fa-print" aria-hidden="true"></i></b></a>
                                                             @endif
                                                                 {{-- <a class="btn blue-chambray"  data-toggle="modal" href="{{route('requisition.edit',$data)}}"><i class="fa fa-edit"></i> Edit</a>
                                                                 <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a> --}}

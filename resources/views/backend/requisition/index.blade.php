@@ -181,13 +181,33 @@
                                                 </td>
                                                 <td>
                                                     @if($data->confirmed == false)
-                                                        <a class="btn purple" href="{{route('requisition.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i> confirm</a>
+                                                        <a class="btn purple" data-toggle="modal"  href="#ConfirmRequisitionModal{{$data->id}}"><i class="fa fa-check-circle-o"></i> confirm</a>
                                                         <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Add Product</a>
                                                     @endif
                                                     <a class="btn blue-chambray"  data-toggle="modal" href="{{route('requisition.edit',$data)}}"><i class="fa fa-edit"></i> Edit</a>
                                                     <a class="btn red" data-toggle="modal" href="#deleteModal"><i class="fa fa-trash"></i> Delete</a>
+                                                    <a class="btn btn-success" href="{{route('requisition.view.print',$data->id)}}" target="_blank"><b><i class="fa fa-print" aria-hidden="true"></i></b></a>
                                                 </td>
                                             </tr>
+                                            <div id="ConfirmRequisitionModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                {{csrf_field()}}
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                            <h2 class="modal-title" style="color: red;">Are you sure?</h2>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <a class="btn purple" href="{{route('requisition.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i>Confirm</a>               
+                                                            <a type="button" data-dismiss="modal" class="btn default">Cancel</a>
+                                                            <a class="btn btn-success"  href="{{route('requisition.view.print',$data->id)}}" target="_blank"><b><i class="fa fa-print" aria-hidden="true"></i></b></a>
+                                                          
+                                        
+                                                            {{-- <a type="submit" href="{{route('customer.delete', $data)}}" class="btn red" id="delete"><i class="fa fa-trash"></i> Delete</a> --}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div id="addProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                 {{csrf_field()}}
                                                 <input type="hidden" value="" id="delete_id">
@@ -205,7 +225,7 @@
                                                                     <input type="hidden" name="requisition_id" value="{{$data->id}}">
                                                                     <div class="col-md-3">
                                                                         <label for="category">Category</label>
-                                                                        <select class="form-control select2me category1" id="department" name="category_id" required>
+                                                                        <select class="form-control select2me category1" name="category_id" required>
                                                                             <option value="">--select--</option>
                                                                             @foreach($category as $data)
                                                                                 <option value="{{$data->id}}">{{$data->name}}</option>
@@ -214,7 +234,7 @@
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <label for="category">Product</label>
-                                                                        <select class="form-control select2me product" name="product_id" id="product" placeholder="Product" required>
+                                                                        <select class="form-control select2me product" name="product_id"  placeholder="Product" required>
                 
                                                                         </select>
                                                                     </div>
@@ -248,6 +268,7 @@
                                                 </div>
                                             </div>
 
+                                            <!-- Modal -->
                                             <div id="deleteModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                 {{csrf_field()}}
                                                 <input type="hidden" value="" id="delete_id">
@@ -263,13 +284,14 @@
                                                             <form action="{{route('requisition.destroy',[$data])}}" method="POST">
                                                                 @method('DELETE')
                                                                 @csrf
-                                                                <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
+                                                                <button class="btn red"><i class="fa fa-trash"></i>Delete</button>               
                                                             </form>
                                                             {{-- <a type="submit" href="{{route('customer.delete', $data)}}" class="btn red" id="delete"><i class="fa fa-trash"></i> Delete</a> --}}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -284,6 +306,7 @@
                 </div>
             </div>
             <!-- END PAGE CONTENT-->
+
             <div id="basic" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                 <div class="modal-dialog">
                     <div class="modal-content">
