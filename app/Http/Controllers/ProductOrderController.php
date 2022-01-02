@@ -37,7 +37,7 @@ class ProductOrderController extends Controller
     public function create()
     {
         $category = Category::with(['product'=>function($q){
-            $q->with('pack')->select('id','category_id','product_name','pack_id');
+            $q->with('pack')->select('id','category_id','product_name','pack_id','online_selling_price','inhouse_selling_price');
         }])->get();
         $customer = Cutomer::all();
         $warehouse = Warehouse::all();
@@ -55,32 +55,35 @@ class ProductOrderController extends Controller
     public function store(Request $request)
     {
         // dd($request->toArray());
-        $this->validate($request, array(
-            'customer_id' => 'required',
-            'category_id' => 'required',
-            'product_id' => 'required',
-            'service_quantity' => 'required',
-            'service_amount' => 'required',
-            'discount_in_percentage' => 'required',
-            'discount_in_amount' => 'required',
-        ));
+        // $this->validate($request, array(
+        //     'customer_id' => 'required',
+        //     'category_id' => 'required',
+        //     'product_id' => 'required',
+        //     'service_quantity' => 'required',
+        //     'service_amount' => 'required',
+        //     'discount_in_percentage' => 'required',
+        //     'discount_in_amount' => 'required',
+        // ));
 
         $data = $request->all();
+        // dd($data);
         // dd(var_dump($data));
-        $order = Order::create(['customer_id' => $data['customer_id'],'remark' => $data['remark'],'delivery_charge'=>$data['delivery_charge'],'payment_method'=>$request->payment_method,'trx_number'=>$request->trx_number, 'trx_id'=>$request->trx_id,'paid_amount'=>$request->paid_amount]);
-        foreach ($data['category_id'] as $key => $value) {
-            $product_order = ProductOrder::create([
-                'order_id' => $order->id,
-                'product_id' => $data['product_id'][$key],
-                'category_id' => $data['category_id'][$key],
-                'quantity' => $data['service_quantity'][$key],
-                'discount_in_amount' => $data['discount_in_amount'][$key],
-                'discount_in_percentage' => $data['discount_in_percentage'][$key],
-                'selling_price' => $data['service_amount'][$key],
-            ]);
+        $order = Order::create(['customer_id' => $data['customer_id'],'remark' => $data['remark'],'total_discount' => $data['total_discount'],'delivery_charge'=>$data['delivery_charge'],'payment_method'=>$request->payment_method,'trx_number'=>"", 'trx_id'=>"",'paid_amount'=>$request->paid_amount]);
+        foreach (json_decode($request->products) as $key => $product) {
+            // dd(var_dump($product->amount_discount));
+            if ($product->status=="stay"){
+                $product_order = ProductOrder::create([
+                    'order_id' => $order->id,
+                    'product_id' => $product->product_id,
+                    'category_id' => $product->category_id,
+                    'quantity' => $product->quantity_packet,
+                    'discount_in_amount' => floatval($product->amount_discount),
+                    'discount_in_percentage' => floatval($product->percentage_discount),
+                    'selling_price' => floatval($product->rate),
+                ]);
+            }
+            
         }
-       
-        
         return redirect()->back()->withMsg('Successfully Created');
     }
 
