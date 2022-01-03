@@ -104,6 +104,7 @@ class OrderController extends Controller
 
     public function orderEdit($id)
     {
+        // dd($id);
         $order = Order::find($id);
         $customer = Cutomer::all();
         return view('backend.Order.edit',compact('customer','order'));

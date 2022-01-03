@@ -39,9 +39,10 @@
                                     <div class="col-md-10">
                                         <select name="customer_id">
                                             @foreach($customer as $data)
-                                                <option value="{{$data->id}}" {{ ( $data->id == $order->id) ? 'selected' : 'id' }}>{{$data->full_name}}</option>
+                                                <option value="{{$data->id}}" {{ ( $data->id == $order->customer_id) ? 'selected' : '' }}>{{$data->full_name}}</option>
                                             @endforeach
                                         </select>
+                                        {{-- <select class="select2Ajax form-control" name="customer_id" value = "" required  id="customer_id"></select> --}}
                                     </div>
                                 </div><br><br>
                             </div>
@@ -102,7 +103,7 @@
                     return {
                         results:  $.map(data, function (item) {
                             return {
-                                text: item.full_name + " ("+item.customer_type+")",
+                                text: item.full_name + " ("+item.customer_id+")",
                                 id: item.id
                             }
                         })
