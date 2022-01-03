@@ -80,7 +80,7 @@
                                                             Status
                                                         </th>
                                                         <th>
-                                                            Clearence Date
+                                                            Expected Date
                                                         </th>
                                                         <th>
                                                             Remark
@@ -152,7 +152,10 @@
                                                                         @endphp
                                                                           @php
                                                                           $total_weight=0;
-                                                                          $total_qty=0;   
+                                                                          $total_qty=0;  
+                                                                          $weight1 =0;
+                                                                          $weight2 =0;
+                                                                          $weight3 =0; 
                                                                          @endphp
                                                                         @foreach ($data->products as $key2 => $item)
                                                                             <tr>
@@ -160,12 +163,33 @@
                                                                                 <td>{{$item->category->name}}</td>
                                                                                 <td>{{$item->product_name}}</td>
                                                                                 <td>{{$item->pack->name}}</td>
-                                                                                <td>{{$item->pivot->quantity}}</td>
-                                                                                <td>{{$item->pivot->final_quantity}}
+                                                                                <td>
+                                                                                   @php
+                                                                                        $weight1 = $item->pack->weight*$item->pivot->quantity; 
+                                                                                   @endphp
+                                                                                    <table class="table table-hover">
+                                                                                        <tbody>
+                                                                                          <tr>
+                                                                                            <th>{{$item->pivot->quantity}}pkt</th>
+                                                                                            <td>{{ $weight1}}kg</td>
+                                                                                          </tr>
+                                                                                        </tbody>
+                                                                                      </table>
+                                                                                </td>
+                                                                                <td>
                                                                                     @php
                                                                                         $total_qty += $item->pivot->final_quantity;
                                                                                         $total_weight += $item->pack->weight*$item->pivot->final_quantity;
+                                                                                        $weight2 = $item->pack->weight*$item->pivot->final_quantity; 
                                                                                     @endphp
+                                                                                    <table class="table table-hover">
+                                                                                        <tbody>
+                                                                                          <tr>
+                                                                                            <th>{{$item->pivot->final_quantity}}pkt</th>
+                                                                                            <td>{{ $weight2}}kg</td>
+                                                                                          </tr>
+                                                                                        </tbody>
+                                                                                      </table>
                                                                                 </td>
                                                                                 {{-- <td>{{$item->pivot->packet}}</td> --}}
                                                                                 @if($item->pivot->final_quantity || $item->pivot->final_quantity>0)
@@ -202,10 +226,10 @@
                                                                                                                 <b>Product Name: {{$value->product_name}}</b>
                                                                                                             </div>
                                                                                                             <div class="col-md-4">
-                                                                                                                <b>Provided Quantity: {{$value->pivot->quantity}}</b>
+                                                                                                                <b>Requested Quantity: {{$value->pivot->quantity}}</b>
                                                                                                             </div>
                                                                                                             <div class="col-md-4">
-                                                                                                                <input name="final_quantity[{{$keyupdated}}]" value="{{$value->pivot->final_quantity}}" class="form-control" type="number" required placeholder="Available Quantity">
+                                                                                                                <input name="final_quantity[{{$keyupdated}}]" value="{{$value->pivot->final_quantity}}" class="form-control" type="number" required placeholder="Dispatch Quantity">
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     @endforeach

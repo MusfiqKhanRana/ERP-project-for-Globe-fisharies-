@@ -28,11 +28,11 @@ class SalePointController extends Controller
     {
         $id = $request->id;
         $product = Party_product::where('party_id',$id)->get();
-        // dd($product);
         $output ="";
 
         foreach($product as $value){
-            $output.= '<option value="'.$value->product_id.'">'.$value->product->product_name.'('.$value->product_id.')</option>';
+            // return $value->product->pack;
+            $output.= '<option data-pack_weight="'.$value->product->pack->weight.'" data-pack_name="'.$value->product->pack->name.'" data-category_name="'.$value->product->category->name.'" value="'.$value->product_id.'">'.$value->product->product_name.'-'.$value->product->pack->name.'</option>';
 
         }
         $data['output'] = $output;
@@ -44,7 +44,7 @@ class SalePointController extends Controller
     {
         $id = $request->id;
         $product = Product::where('id',$id)->first();
-        return response()->json($product) ;
+        return response()->json($product);
     }
 
     public function saleProduct(Request $request)

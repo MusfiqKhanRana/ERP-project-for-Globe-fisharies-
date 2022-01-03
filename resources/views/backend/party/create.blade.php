@@ -69,12 +69,12 @@
                                             </select>
                                         </div>
                                     </div> --}}
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label class="col-md-3 control-label">Party Short Name</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="party_short_name" placeholder="Type Party Short Name" value="">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group">
                                         <label class="col-md-3 control-label"></label>
                                         <div class="col-md-9" id="product_field">
@@ -98,7 +98,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <button type="submit" data-loading-text="Submitting..." class="col-md-12 btn btn btn-info">
-                                        <i class="fa fa-plus"></i>	Submit </button>
+                                        <i class="fa fa-plus"></i>	Create Party </button>
                                 </div>
                             </div>
                         </div>
