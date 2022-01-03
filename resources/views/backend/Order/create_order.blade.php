@@ -312,7 +312,7 @@
                                     </div>
                                 </div> --}}
                                 <div class="col-md-2">
-                                    <label class="control-label"><b>Payment Amount</b></label>
+                                    <label class="control-label"><b>Paid Amount</b></label>
                                     <input type="number" class="form-control" id="paid_amount" name="paid_amount">
                                 </div>
                                 <div class="col-md-2">
