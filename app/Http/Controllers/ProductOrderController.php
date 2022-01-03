@@ -192,14 +192,11 @@ class ProductOrderController extends Controller
     public function dataAjax(Request $request)
     {
     	$data = [];
-
-        
-            $search = $request->q;
-            $data =Cutomer::select("id","full_name","customer_type",'phone')
-            		->where('full_name','LIKE',"%$search%")
-            		->orWhere('customer_type','LIKE',"%$search%")
-            		->get();
-        
+        $search = $request->q;
+        $data =Cutomer::with('area')->select("id","full_name","customer_type",'area_id','phone')
+                ->where('full_name','LIKE',"%$search%")
+                ->orWhere('customer_type','LIKE',"%$search%")
+                ->get();
         return response()->json($data);
     }
 }

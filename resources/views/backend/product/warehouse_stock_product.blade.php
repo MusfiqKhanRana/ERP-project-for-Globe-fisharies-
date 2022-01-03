@@ -56,11 +56,11 @@ Product Quantity
                 <div class="portlet-body">
                     <table class="table table-striped table-bordered table-hover" id="sample_2">
                         <thead>
-                        <tr>
-                            <th> Serial </th>
-                            <th> Product Name </th>
-                            <th> Quantity(Present) </th>
-                        </tr>
+                            <tr>
+                                <th> Serial </th>
+                                <th> Product Name </th>
+                                <th> Quantity(Present) </th>
+                            </tr>
                         </thead>
                         <tbody>
                         @foreach($stock_product as $key => $data)
