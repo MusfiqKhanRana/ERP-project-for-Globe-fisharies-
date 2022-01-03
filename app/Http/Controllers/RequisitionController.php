@@ -233,4 +233,13 @@ class RequisitionController extends Controller
         $requisition->forceDelete();
         return redirect()->back()->withmsg('Successfully Deleted');
     }
+    public function requisitionPrint($id){
+       $data=Requisition::with(['warehouse','party',
+       'products'=>function($q){
+           $q->with(['category','pack']);
+       }
+        ])->where('id',$id)->first();
+    //    dd($data->toArray());
+       return view('backend.requisition.print_requisition',compact('data'));
+    }
 }

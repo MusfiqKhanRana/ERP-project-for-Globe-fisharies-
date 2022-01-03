@@ -82,7 +82,7 @@
                                                 Status
                                             </th>
                                             <th>
-                                                Clearence Date
+                                                Expected Date
                                             </th>
                                             <th>
                                                 Remark
@@ -130,11 +130,11 @@
                                                                     Pack Size
                                                                 </th>
                                                                 <th>
-                                                                    Quantity
+                                                                    Quantity(PKT)
                                                                 </th>
-                                                                {{-- <th>
-                                                                    Packet
-                                                                </th> --}}
+                                                                <th>
+                                                                    Weight(kg)
+                                                                </th>
                                                                 <th>
                                                                     Action
                                                                 </th>
@@ -144,6 +144,7 @@
                                                             @php
                                                              $total_weight=0;
                                                              $total_qty=0;   
+                                                             $weight = 0;
                                                             @endphp
                                                             @foreach ($data->products as $key2 => $item)
                                                                 <tr>
@@ -157,8 +158,12 @@
                                                                         {{$item->pivot->quantity}}
                                                                         @php
                                                                         $total_qty += $item->pivot->quantity;
+                                                                        $weight = $item->pack->weight*$item->pivot->quantity;
                                                                         $total_weight += $item->pack->weight*$item->pivot->quantity;
                                                                         @endphp
+                                                                    </td>
+                                                                    <td>
+                                                                        {{$weight}}
                                                                     </td>
                                                                     {{-- <td>{{$item->pivot->packet}}</td> --}}
                                                                     <td>
@@ -181,13 +186,33 @@
                                                 </td>
                                                 <td>
                                                     @if($data->confirmed == false)
-                                                        <a class="btn purple" href="{{route('requisition.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i> confirm</a>
+                                                        <a class="btn purple" data-toggle="modal"  href="#ConfirmRequisitionModal{{$data->id}}"><i class="fa fa-check-circle-o"></i> confirm</a>
                                                         <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Add Product</a>
                                                     @endif
                                                     <a class="btn blue-chambray"  data-toggle="modal" href="{{route('requisition.edit',$data)}}"><i class="fa fa-edit"></i> Edit</a>
                                                     <a class="btn red" data-toggle="modal" href="#deleteModal"><i class="fa fa-trash"></i> Delete</a>
+                                                    <a class="btn btn-success" href="{{route('requisition.view.print',$data->id)}}" target="_blank"><b><i class="fa fa-print" aria-hidden="true"></i></b></a>
                                                 </td>
                                             </tr>
+                                            <div id="ConfirmRequisitionModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                {{csrf_field()}}
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                            <h2 class="modal-title" style="color: red;">Are you sure?</h2>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <a class="btn purple" href="{{route('requisition.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i>Confirm</a>               
+                                                            <a type="button" data-dismiss="modal" class="btn default">Cancel</a>
+                                                            <a class="btn btn-success"  href="{{route('requisition.view.print',$data->id)}}" target="_blank"><b><i class="fa fa-print" aria-hidden="true"></i></b></a>
+                                                          
+                                        
+                                                            {{-- <a type="submit" href="{{route('customer.delete', $data)}}" class="btn red" id="delete"><i class="fa fa-trash"></i> Delete</a> --}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div id="addProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                 {{csrf_field()}}
                                                 <input type="hidden" value="" id="delete_id">
@@ -205,7 +230,7 @@
                                                                     <input type="hidden" name="requisition_id" value="{{$data->id}}">
                                                                     <div class="col-md-3">
                                                                         <label for="category">Category</label>
-                                                                        <select class="form-control select2me category1" id="department" name="category_id" required>
+                                                                        <select class="form-control select2me category1" name="category_id" required>
                                                                             <option value="">--select--</option>
                                                                             @foreach($category as $data)
                                                                                 <option value="{{$data->id}}">{{$data->name}}</option>
@@ -214,7 +239,7 @@
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <label for="category">Product</label>
-                                                                        <select class="form-control select2me product" name="product_id" id="product" placeholder="Product" required>
+                                                                        <select class="form-control select2me product" name="product_id"  placeholder="Product" required>
                 
                                                                         </select>
                                                                     </div>
@@ -248,6 +273,7 @@
                                                 </div>
                                             </div>
 
+                                            <!-- Modal -->
                                             <div id="deleteModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                 {{csrf_field()}}
                                                 <input type="hidden" value="" id="delete_id">
@@ -263,13 +289,14 @@
                                                             <form action="{{route('requisition.destroy',[$data])}}" method="POST">
                                                                 @method('DELETE')
                                                                 @csrf
-                                                                <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
+                                                                <button class="btn red"><i class="fa fa-trash"></i>Delete</button>               
                                                             </form>
                                                             {{-- <a type="submit" href="{{route('customer.delete', $data)}}" class="btn red" id="delete"><i class="fa fa-trash"></i> Delete</a> --}}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -284,6 +311,7 @@
                 </div>
             </div>
             <!-- END PAGE CONTENT-->
+
             <div id="basic" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -361,30 +389,35 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label for="inputEmail1" class="col-md-6 control-label">Add Products</label>
+                                    <label for="inputEmail1" class="col-md-6 control-label"><b>Add Products</b></label>
                                     <div class="description" style="width: 100%;border: 1px solid #ddd;padding: 10px;border-radius: 5px" >
                                             <div class="col-md-12" id="planDescriptionContainer">
                                                 <div class="input-group">
                                                     <div class="col-md-3">
                                                         <label for="category">Product</label>
-                                                        <select class="form-control select2me product" name="product_id[1]" id="product" placeholder="Product" required>
+                                                        <select class="form-control select2me product1" name="product_id[1]" id="product" placeholder="Product" required>
 
                                                         </select>
                                                     </div>
-                                                    {{-- <div class="col-md-3">
-                                                        <label for="">Packet</label>
-                                                        <input name="packet[1]" class="form-control" type="number" required placeholder="Packet">
-                                                    </div> --}}
                                                     <div class="col-md-3">
-                                                        <label for="">Packet</label>
-                                                        <input name="quantity[1]" class="form-control" type="number" required placeholder="Quantity">
+                                                        <label for="">Catagory</label>
+                                                        <input class="form-control catagory1" id="catagory1" type="text" value="" readonly>
                                                     </div>
                                                     <div class="col-md-3">
+                                                        <label for="">Packet</label>
+                                                        <input name="quantity[1]" class="form-control qty1" id="qty1" type="number" required placeholder="Quantity">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <label for="">Weight<sub>(kg)</sub></label>
+                                                        <input class="form-control weight1" id="weight1" type="text" value="" readonly>
+                                                    </div>
+                                                    <div class="col-md-1">
                                                         <span class="input-group-btn">
                                                             <button class="btn btn-danger margin-top-20 delete_desc" type="button"><i class='fa fa-times'></i></button>
                                                         </span>
                                                     </div>
                                                 </div>
+                                                <span style="margin-left:20px"><b>Pack :</b></span><span class="span1" id="span1"></span>
                                             </div>
                                         <div class="row">
                                             <div class="col-md-12 text-right margin-top-10">
@@ -409,6 +442,7 @@
 @section('script')
     <script>
         var max = 1;
+        var w =0;
         var categories = @json($category, JSON_PRETTY_PRINT);
         var party_id = null;
         function appendPlanDescField(container) {
@@ -420,19 +454,28 @@
                 '<div class="input-group">'+
                     '<div class="col-md-3">'+
                         '<label for="category">Product</label>'+
-                        '<select class="form-control select2me product" name="product_id['+max+']"  placeholder="Product" required>'+
+                        '<select class="form-control select2me product'+max+'" name="product_id['+max+']"  placeholder="Product" required>'+
                         '</select>'
                     +'</div>'+
                     '<div class="col-md-3">'+
-                        '<label for="">Packet</label>'+
-                        '<input name="quantity['+max+']" class="form-control" type="number" required placeholder="Quantity">'+
-                    '</div>'+
+                        '<label for="">Catagory</label>'+
+                        '<input class="form-control catagory'+max+'" id="catagory" type="text" value="" readonly>'+ 
+                    '</div>'+   
                     '<div class="col-md-3">'+
+                        '<label for="">Packet</label>'+
+                        '<input name="quantity[1]" class="form-control qty'+max+'" type="number" required placeholder="Quantity">'+
+                    '</div>'+
+                    '<div class="col-md-2">'+
+                        '<label for="">Weight<sub>(kg)</sub></label>'+
+                        '<input class="form-control weight'+max+'" id="weight'+max+'" type="text" value="" readonly>'+
+                    '</div>'+
+                    '<div class="col-md-1">'+
                         '<span class="input-group-btn">'+
                             '<button class="btn btn-danger margin-top-20 delete_desc" type="button"><i class="fa fa-times"></i></button>'+
                         '</span>'+
                     '</div>'+
-                '</div>'
+                '</div>'+
+                ' <span style="margin-left:20px"><b>Pack :</b></span><span class="span'+max+'" id="span'+max+'"></span>'
 
             );
         }
@@ -442,6 +485,7 @@
                 appendPlanDescField($("#planDescriptionContainer"));
                 // console.log(party_id);
                 partySelect(party_id);
+                productload();
             });
             function partySelect(id){
                 $.ajax({
@@ -452,19 +496,40 @@
                         '_token' : $('input[name=_token]').val()
                     },
                     success:function(data){
-                        $('.product').html("");
-                        $('.product').append(data.output);
+                        $('.product'+max).html("");
+                        $('.product'+max).append(data.output);
                     }
                 });
             }
-            $(document).on('change',".party_select",function(){
+            function productload() {
+                $(document).on('change',".party_select",function(){
                 // console.log(max);
                 party_id = $(this).val();
                 partySelect(party_id);
-            });
-            $(document).on('click', '.delete_desc', function () {
-                $(this).closest('.input-group').remove();
-            });
+                });
+                $(document).on('click', '.delete_desc', function () {
+                    $(this).closest('.input-group').remove();
+                });
+                $(document).on('change',".product"+max,function(){
+                    // console.log(max);
+                    w=$(this).find(':selected').attr('data-pack_weight');
+                    $(".catagory"+max).val($(this).find(':selected').attr('data-category_name'));
+                    $(".span"+max).html($(this).find(':selected').attr('data-pack_name'));
+                    weightCount();
+                });
+                $(document).on('keyup change',".qty"+max,function(){
+                    // console.log(max);
+
+                    weightCount();
+                });
+            }
+            productload();
+            function weightCount() {
+                var weight=0;
+              
+                weight = w * $(".qty"+max).val();
+                $(".weight"+max).val(weight);
+            }
         });
     </script>
 @endsection
