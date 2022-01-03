@@ -25,7 +25,7 @@ class RequisitionController extends Controller
     {
         $category = Category::select('id','name')->get();
         $warehouse = Warehouse::select('id','name')->get();
-        $party = Party::select('id','party_name')->get();
+        $party = Party::all();
         $requisition = Requisition::with(['warehouse','party',
             'products'=>function($q){
                 $q->with(['category','pack']);
