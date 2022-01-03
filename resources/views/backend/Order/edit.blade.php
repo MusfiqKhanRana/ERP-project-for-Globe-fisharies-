@@ -37,7 +37,7 @@
                                 <div class="form-section">
                                     <label class="col-md-2 control-label pull-left bold">Customer Select: </label>
                                     <div class="col-md-10">
-                                        <select name="customer_id">
+                                        <select class="form-control" name="customer_id">
                                             @foreach($customer as $data)
                                                 <option value="{{$data->id}}" {{ ( $data->id == $order->customer_id) ? 'selected' : '' }}>{{$data->full_name}}</option>
                                             @endforeach
