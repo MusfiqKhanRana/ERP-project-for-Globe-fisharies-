@@ -52,7 +52,7 @@
                                         <td>{{$data->name}}</td>
                                         <td style="text-align: center">
                                             <a class="btn btn-primary" href="{{ route('product.detail.warehouse', $data->id)  }}"><i class="fa fa-eye"></i>View Product</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <a class="btn blue" data-status="{{$data->id}}" data-toggle="modal" class="addModal" href="#addproductModal{{$data->id}}"><i class="fa fa-plus"></i> Add Product</a>
+                                            {{-- <a class="btn blue" data-status="{{$data->id}}" data-toggle="modal" class="addModal" href="#addproductModal{{$data->id}}"><i class="fa fa-plus"></i> Add Product</a> --}}
                                             <a class="btn blue-chambray" data-toggle="modal" href="#editWarehouse{{$data->id}}"><i class="fa fa-edit"></i>Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
                                             <a class="btn red" data-status="{{$data->id}}" data-toggle="modal" class="deleteModal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
    

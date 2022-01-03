@@ -22,7 +22,10 @@ class Cutomer extends Model
     {
         return $this->belongsTo(CustomerBalance::class)->withDefault();
     }
-
+    public function area()
+    {
+        return $this->belongsTo(Area::class)->withDefault();
+    }
     public function sale_point()
     {
         return $this->belongsTo(SalePoint::class)->withDefault();

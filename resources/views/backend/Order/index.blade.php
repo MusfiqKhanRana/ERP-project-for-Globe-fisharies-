@@ -170,12 +170,16 @@
                                                                                             $discount_type = "Percentage";
                                                                                         }
                                                                                     @endphp --}}
-                                                                                    <label for="inputEmail1" class="col-md-2 control-label">Discount</label>
+                                                                                    @if($item->pivot->discount_in_amount>0)
+                                                                                    <label for="inputEmail1" class="col-md-2 control-label">Discount (Amount)</label>
+                                                                                    @else 
+                                                                                    <label for="inputEmail1" class="col-md-2 control-label">Discount (Percent)</label>
+                                                                                    @endif
                                                                                     <div class="col-md-10">
                                                                                        @if ($item->pivot->discount_in_amount>0)
-                                                                                       <input type="text" class="form-control" value="{{$item->pivot->discount_in_amount." TK"}}" required name="discount_in_amount"> 
+                                                                                       <input type="text" class="form-control" value="{{$item->pivot->discount_in_amount}}" required name="discount_in_amount"> 
                                                                                        @else 
-                                                                                        <input type="text" class="form-control" value="{{$item->pivot->discount_in_percentage." Percent"}}" required name="discount_in_percentage"> 
+                                                                                        <input type="text" class="form-control" value="{{$item->pivot->discount_in_percentage}}" required name="discount_in_percentage"> 
                                                                                        @endif
                                                                                     </div>
                                                                                 </div>
