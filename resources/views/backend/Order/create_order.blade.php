@@ -632,7 +632,7 @@
                     return {
                         results:  $.map(data, function (item) {
                             return {
-                                text: item.full_name + " ("+item.customer_type+")",
+                                text: item.full_name + " | "+item.customer_type+" | "+item.phone+" | "+item.area.name,
                                 title:item.phone,
                                 id: item.id
                             }
