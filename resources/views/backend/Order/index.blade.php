@@ -237,7 +237,7 @@
                                                             <a class="btn purple" href="{{route('order.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i> confirm</a>
                                                         </td>
                                                         <td>
-                                                            <a class="btn blue-chambray" href="{{route('order.updated.edit',$data->id)}}" ><i class="fa fa-edit"></i> Edit</a>
+                                                            <a class="btn blue-chambray" name ="customer_id" href="{{route('order.updated.edit',$data->id)}}" ><i class="fa fa-edit"></i> Edit</a>
                                                         </td>
                                                         <td>
                                                             <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Add Product</a>
@@ -249,7 +249,7 @@
                                                         </td>
                                                         <td>
                                                             <form action="{{route('order.test.delete',$data->id)}}" method="POST">
-                                                                @method('DELETE')
+                                                                @method('POST')
                                                                 @csrf
                                                                 <button type="submit" class="btn red"><i class="fa fa-trash"></i> Delete</button>
                                                             </form>
