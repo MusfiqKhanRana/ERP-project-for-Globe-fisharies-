@@ -463,7 +463,7 @@
                     '</div>'+   
                     '<div class="col-md-3">'+
                         '<label for="">Packet</label>'+
-                        '<input name="quantity[1]" class="form-control qty'+max+'" type="number" required placeholder="Quantity">'+
+                        '<input name="quantity['+max+']" class="form-control qty'+max+'" type="number" required placeholder="Quantity">'+
                     '</div>'+
                     '<div class="col-md-2">'+
                         '<label for="">Weight<sub>(kg)</sub></label>'+
