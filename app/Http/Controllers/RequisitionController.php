@@ -58,8 +58,8 @@ class RequisitionController extends Controller
         // dd($imperfect_massage);
         foreach ($data['id'] as $key => $value) {
             $received_quantity = $data['received_quantity'][$key];
-            $product_id = $data['product_id'][$key];
-            $buying_price = $data['product_id'][$key];
+            $product_id = $data['requisition_product_id'][$key];
+            $buying_price = $data['buying_price'][$key];
             $warehouse_id = $data['warehouse_id'][$key];
             DB::table('requisition_product')
             ->where('id', $value)
@@ -80,8 +80,8 @@ class RequisitionController extends Controller
         // dd($data);
         foreach ($data['requisition_product_id'] as $key => $value) {
             $received_quantity = $data['received_quantity'][$key];
-            $product_id = $data['product_id'][$key];
-            $buying_price = $data['product_id'][$key];
+            $product_id = $data['requisition_product_id'][$key];
+            $buying_price = $data['buying_price'][$key];
             $warehouse_id = $data['warehouse_id'][$key];
             DB::table('requisition_product')
             ->where('id', $value)
@@ -101,8 +101,8 @@ class RequisitionController extends Controller
         // dd($data);
         foreach ($data['requisition_product_id'] as $key => $value) {
             $received_quantity = $data['received_quantity'][$key];
-            $product_id = $data['product_id'][$key];
-            $buying_price = $data['product_id'][$key];
+            $product_id = $data['requisition_product_id'][$key];
+            $buying_price = $data['buying_price'][$key];
             $warehouse_id = $data['warehouse_id'][$key];
             DB::table('requisition_product')
             ->where('id', $value)
@@ -127,8 +127,8 @@ class RequisitionController extends Controller
         );
         foreach ($data['requisition_product_id'] as $key => $value) {
             $resolve_quantity = $data['resolve_quantity'][$key];
-            $product_id = $data['product_id'][$key];
-            $buying_price = $data['product_id'][$key];
+            $product_id = $data['requisition_product_id'][$key];
+            $buying_price = $data['buying_price'][$key];
             $warehouse_id = $data['warehouse_id'][$key];
             StockProduct::create(['warehouse_id'=>$warehouse_id,'product_id'=>$product_id,'requisition_id'=>$data['requisition_id'],'quantity'=>$resolve_quantity,'buying_price'=>$buying_price]);
         }
