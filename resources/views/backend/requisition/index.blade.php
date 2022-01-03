@@ -326,7 +326,7 @@
                                 <label for="inputEmail1" class="col-md-2 control-label">Warehouse</label>
                                 <div class="col-md-8">
                                     <select class="form-control select2me" id="warehouse" name="warehouse_id" required>
-                                        <option value="">--select--</option>
+                                        <option value="">--select warehouse--</option>
                                         @foreach($warehouse as $data)
                                             <option value="{{$data->id}}">{{$data->name}}</option>
                                         @endforeach
@@ -338,9 +338,9 @@
                                 <label for="inputEmail1" class="col-md-2 control-label">Party</label>
                                 <div class="col-md-8">
                                     <select class="form-control select2me party_select" id="party" name="party_id" required>
-                                        <option value="">--select--</option>
+                                        <option value="">--select Party(code)--</option>
                                         @foreach($party as $data)
-                                            <option value="{{$data->id}}">{{$data->party_name}}</option>
+                                            <option value="{{$data->id}}">{{$data->party_name}}({{$data->party_code}})</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -463,7 +463,7 @@
                     '</div>'+   
                     '<div class="col-md-3">'+
                         '<label for="">Packet</label>'+
-                        '<input name="quantity[1]" class="form-control qty'+max+'" type="number" required placeholder="Quantity">'+
+                        '<input name="quantity['+max+']" class="form-control qty'+max+'" type="number" required placeholder="Quantity">'+
                     '</div>'+
                     '<div class="col-md-2">'+
                         '<label for="">Weight<sub>(kg)</sub></label>'+
