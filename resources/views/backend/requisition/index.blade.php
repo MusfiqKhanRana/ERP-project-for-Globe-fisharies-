@@ -389,7 +389,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <label for="inputEmail1" class="col-md-6 control-label"><b>Add Products</b></label>
+                                    <label for="inputEmail1" class="col-md-6 control-label"><b>Add Products</b></label><hr>
                                     <div class="description" style="width: 100%;border: 1px solid #ddd;padding: 10px;border-radius: 5px" >
                                             <div class="col-md-12" id="planDescriptionContainer">
                                                 <div class="input-group">
@@ -416,8 +416,8 @@
                                                             <button class="btn btn-danger margin-top-20 delete_desc" type="button"><i class='fa fa-times'></i></button>
                                                         </span>
                                                     </div>
+                                                    <div class="col-md-12" style="margin-top:20px;margin-bottom:20px"><b>Pack :</b><span class="span1" id="span1"></span> <span style="margin-left:20px"><b>Party_Price :</b></span> <span class="pprice1" id="pprice1"></span><span style="margin-left:5%"><b>Total:</b></span><span><input type="number" class="singleTotal1" value="0" placeholder="total"></span></div>
                                                 </div>
-                                                <span style="margin-left:20px"><b>Pack :</b></span><span class="span1" id="span1"></span>
                                             </div>
                                         <div class="row">
                                             <div class="col-md-12 text-right margin-top-10">
@@ -427,7 +427,34 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="input-group">
+                                <div class="col-md-3">
+                                    <label for="category">Total Amount :</label>
+                                    <input name="totalamount" type="text" class="form-control totalprice" value="">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="">Payment Method</label>
+                                    <select class="form-control bank" name="payment_method">
+                                        <option value="">--Select Method--</option>
+                                        <option value="cash">Cash</option>
+                                        <option value="bank">Bank</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="">Paid Amount</label>
+                                    <input name="paid_amount" class="form-control" type="number"placeholder="paid amount">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="">Due</label>
+                                    <input name="due_amount" class="form-control"type="text" value="">
+                                </div>
+                            </div><br>
+                            <div class="input-group accountnumber">
+                                <div class="col-md-6">
+                                    <label for="">Account_Number:</label>
+                                    <input name="acc_number" type="text" class="form-control" value="" placeholder="account number">
+                                </div>
+                            </div><br>
                             <div class="modal-footer">
                                 <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                 <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
@@ -441,8 +468,13 @@
 @endsection
 @section('script')
     <script>
+        var check =0;
         var max = 1;
+        var min = 0;
+        var tp = [];
         var w =0;
+        var grandT=0;
+        var T_price = 0;
         var categories = @json($category, JSON_PRETTY_PRINT);
         var party_id = null;
         function appendPlanDescField(container) {
@@ -473,17 +505,17 @@
                         '<span class="input-group-btn">'+
                             '<button class="btn btn-danger margin-top-20 delete_desc" type="button"><i class="fa fa-times"></i></button>'+
                         '</span>'+
-                    '</div>'+
-                '</div>'+
-                ' <span style="margin-left:20px"><b>Pack :</b></span><span class="span'+max+'" id="span'+max+'"></span>'
-
+                    '</div> <br>'+
+                    '<div class="col-md-12" style="margin-top:20px;margin-bottom:20px"><b>Pack :</b><span class="span'+max+'" id="span'+max+'"></span> <span style="margin-left:20px"><b>Party_Price :</b></span><span class="pprice'+max+'" id="pprice'+max+'"></span> <span style="margin-left:5%"><b>Total:</b></span><span><input type="number" class="singleTotal'+max+'" value="0" placeholder="total"></span></div><hr>'+
+                '</div>'
             );
         }
         $(document).ready(function(){
+            $(".singleTotal"+max).val(0);
             $("#btnAddDescription").on('click', function () {
                 max++;
+                min++;
                 appendPlanDescField($("#planDescriptionContainer"));
-                // console.log(party_id);
                 partySelect(party_id);
                 productload();
             });
@@ -507,20 +539,20 @@
                 party_id = $(this).val();
                 partySelect(party_id);
                 });
-                $(document).on('click', '.delete_desc', function () {
-                    $(this).closest('.input-group').remove();
-                });
                 $(document).on('change',".product"+max,function(){
                     // console.log(max);
+                    tp[max] =0;
                     w=$(this).find(':selected').attr('data-pack_weight');
                     $(".catagory"+max).val($(this).find(':selected').attr('data-category_name'));
-                    $(".span"+max).html($(this).find(':selected').attr('data-pack_name'));
+                    $(".span"+max).html($(this).find(':selected').attr('data-pack_name'));  
+                    $(".pprice"+max).html($(this).find(':selected').attr('data-product_price'));
                     weightCount();
+                    tp[max] = $(this).find(':selected').attr('data-product_price');
                 });
                 $(document).on('keyup change',".qty"+max,function(){
                     // console.log(max);
-
                     weightCount();
+                    totalPrice();
                 });
             }
             productload();
@@ -530,6 +562,37 @@
                 weight = w * $(".qty"+max).val();
                 $(".weight"+max).val(weight);
             }
+            function totalPrice() {
+                // console.log(tp);
+                T_price = tp[max] * $(".qty"+max).val();
+                if(max==1){
+                    $(".singleTotal"+max).val(T_price);
+                    $(".totalprice").val(T_price);
+                }
+                if(max>1){
+                    $(".singleTotal"+max).val(T_price);
+                    grandT=0;
+                    for (let i = 1; i <= max; i++) {
+                        grandT+= parseInt($(".singleTotal"+i).val());
+                    }
+                    $(".totalprice").val(grandT);
+                }
+            }
+            $(document).on('click', '.delete_desc', function () {
+                    $(this).closest('.input-group').remove();
+                    max=max-1;
+                    totalPrice()
+            });
+            $('.accountnumber').hide();
+            $(".bank").change(function() {
+                if($('.bank').val()=='bank'){
+                    $(".accountnumber").show();
+                }
+                if($('.bank').val()=='cash'){
+                    $(".accountnumber").hide();
+                }
+            });
+
         });
     </script>
 @endsection
