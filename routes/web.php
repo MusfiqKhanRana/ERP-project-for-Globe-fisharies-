@@ -306,6 +306,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('order/discount',[OrderController::class,'orderDiscount'])->name('order.discount');
     Route::post('order/payment-info',[OrderController::class,'orderPayment'])->name('order.payment');
     Route::post('order/delivery-confirm',[OrderController::class,'orderDelivery'])->name('order.delivery.confirm');
+    Route::post('order/delivery-success',[OrderController::class,'orderDeliverySuccess'])->name('order.delivery.success');
+    Route::post('order/delivery-return',[OrderController::class,'orderDeliveryReturn'])->name('order.delivery.return');
+    Route::post('order/delivery-cancel',[OrderController::class,'orderDeliveryCancel'])->name('order.delivery.cancel');
 
     Route::get('order/edit/{id}',[OrderController::class,'orderEdit'])->name('order.updated.edit');
     Route::put('order/product/edit/{id}',[ProductOrderController::class,'OrderProductUpdate'])->name('order.product.updated');

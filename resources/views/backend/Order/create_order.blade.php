@@ -479,10 +479,10 @@
                 $("#rate").empty();
                 var customer_type = $('#customer_type').html();
                 var selling_price = null;
-                if(customer_type==="inhouse"){
+                if(customer_type=="inhouse"){
                     selling_price = product_inhouse_rate;
                 }
-                else if(customer_type === "online"){
+                else if(customer_type == "online"){
                     selling_price = product_online_rate;
                 }
                 $("#rate").val(selling_price);

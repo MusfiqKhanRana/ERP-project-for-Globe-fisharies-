@@ -215,7 +215,7 @@
                                                 </tbody>
                                             </table>
                                         </td>
-                                        @if($data->status=="Confirm")
+                                        @if($data->status=="Confirm" || $data->status == "Delivered")
                                             <td>
                                                 <ul>
                                                     <li><p>Method: {{$data->payment_method}}</p></li>
@@ -263,9 +263,10 @@
                                                         @endif
                                                     @endif
                                                     @if ($data->status == 'Delivered')
-                                                        <a class="btn btn-primary" data-toggle="modal" href="#paymentInfo{{$data->id}}"><i class="fa fa-plus"></i>Success</a>
-                                                        <a class="btn btn-primary" data-toggle="modal" href="#paymentInfo{{$data->id}}"><i class="fa fa-plus"></i>Return</a>
-                                                        <a class="btn btn-primary" data-toggle="modal" href="#paymentInfo{{$data->id}}"><i class="fa fa-plus"></i>Cancel</a>
+                                                        <a class="btn btn-success" data-toggle="modal" href="#deliveryConfirm{{$data->id}}"><i class="fa fa-check" aria-hidden="true"></i> Success</a>
+                                                        <a class="btn btn-primary" data-toggle="modal" href="#deliveryReturn{{$data->id}}"><i class="fa fa-repeat" aria-hidden="true"></i> Return</a>
+                                                        <a class="btn btn-danger" data-toggle="modal" href="#deliveryCancel{{$data->id}}"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</a>
+
                                                         {{-- @if ($data->payment_method)
                                                             <a class="btn btn-success" data-toggle="modal" href="#confirmdelevery{{$data->id}}"><i class="fa fa-cart-plus"></i> Confirm Delivery</a>  
                                                         @endif --}}
@@ -375,6 +376,115 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div id="deliveryConfirm{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h4 class="modal-title" style="color: red"><b>Do you want to confirm this delivery?</b></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="form-horizontal" role="form" method="post" action="{{route('order.delivery.success')}}">
+                                                        {{csrf_field()}}
+                                                        <input type="hidden" value="{{$data->id}}" name="order_id">
+                                                        <div class="form-group">
+                                                            <label for="inputEmail1" class="col-md-4 control-label">Order Id : </label>
+                                                            <div class="col-md-8">
+                                                                {{$data->id}}
+                                                                {{-- <input type="text" class="form-control" value="{{$data->product_name}}" name="name" required> --}}
+                                                            </div><br><br>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="inputEmail1" class="col-md-4 control-label">Due Amount</label>
+                                                            <div class="col-md-8">
+                                                                <input type="number" value="{{$intotal_amount - $data->paid_amount}}" class="form-control" name="due_amount">
+                                                            </div><br><br>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="inputEmail1" class="col-md-4 control-label">Payment Method</label>
+                                                            <div class="col-md-8">
+                                                                <select name="payment_method" class="form-control payment_method">
+                                                                    <option value="Cash">Cash</option>
+                                                                    <option value="Bkash">Bkash</option>
+                                                                    <option value="Nagad">Nagad</option>
+                                                                    <option value="Rocket">Rocket</option>
+                                                                </select>
+                                                                {{-- <input type="text" class="form-control" value="{{$data->product_name}}" name="name" required> --}}
+                                                            </div><br><br>
+                                                        </div>
+                                                        <div class="transaction_number">
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-4 control-label">Transaction Number *</label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control" name="trx_number">
+                                                                </div><br><br>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-4 control-label">Transaction Id *</label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control" name="trx_id">
+                                                                </div><br><br>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Confirm</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="deliveryReturn{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h4 class="modal-title" style="color: red"><b>Do you want to Return this delivery?</b></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="form-horizontal" role="form" method="post" action="{{route('order.delivery.return')}}">
+                                                        {{csrf_field()}}
+                                                        <input type="hidden" value="{{$data->id}}" name="order_id">
+                                                        <div class="form-group">
+                                                            <label for="inputEmail1" class="col-md-4 control-label"><b> Order #Id : {{$data->id}}</b></label>
+                                                        </div>
+                                                        <div class="from-group">
+                                                            <label for="col-md-4 control-label">Remark :</label>
+                                                            <textarea name="remark" id="" cols="40" rows="5" placeholder="give a return remark"></textarea>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-check" aria-hidden="true"></i> Confirm</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="deliveryCancel{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h4 class="modal-title" style="color: red"><b>Do you want to Cancel this delivery?</b></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="form-horizontal" role="form" method="post" action="{{route('order.delivery.cancel')}}">
+                                                        {{csrf_field()}}
+                                                        <input type="hidden" value="{{$data->id}}" name="order_id">
+                                                        <div class="form-group">
+                                                            <textarea name="cancelMassage" id="" cols="40" rows="5"></textarea>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-check" aria-hidden="true"></i> Confirm</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div id="addDiscount{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -401,7 +511,7 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-check" aria-hidden="true"></i> Update</button>
                                                         </div>
                                                     </form>
             
