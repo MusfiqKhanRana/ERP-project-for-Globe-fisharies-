@@ -464,6 +464,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         jQuery(document).ready(function() {
+            function nullmaking(){
+
+                $("#category").val(null);
+                $("#product").val(null);
+                $("#pack_size").val(null);
+                $("#rate").val(null);
+                $("#quantity_pkt").val(null);
+                $("#quantity_kg").val(null);
+                $("#percentage_id").val(null);
+                $("#amount_id").val(null);
+                $("#price").val(null);
+            }
             $("#product").chained("#category");
             var category_id,category_name,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,product_name,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
             var product_array = [];
@@ -546,6 +558,7 @@
                     $("#grand_total").val(total())
                     $("#"+$(this).data("id")).remove();
                 });
+                nullmaking();
             });
             function total() {
                 var inTotal = 0;
