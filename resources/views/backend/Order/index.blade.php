@@ -103,6 +103,7 @@
                                                         $intotal_amount = 0;
                                                     @endphp
                                                     @foreach($data->products as $key2=> $item)
+                                                        @if ($item->pivot->status == "Received")
                                                         <tr>
                                                             <th>{{++$key2}}</th>
                                                             <th>{{$item->category->name}}</th>
@@ -134,7 +135,39 @@
                                                                     </form>
                                                                 </th>
                                                             @endif
-                                                        </tr>
+                                                            @if ($data->status == "Delivered")
+                                                                <th>
+                                                                    <form action="{{route('order.singleProduct.Return',$item->pivot->id)}}" method="POST">
+                                                                        @csrf
+                                                                        <a class="btn blue-chambray" data-toggle="modal" href="#returnSingleOrderModal{{$item->pivot->id}}" ><i class="fa fa-repeat" aria-hidden="true"></i>Return</a>
+                                                                    </form>
+                                                                </th>
+                                                            @endif
+                                                        </tr>                                                               
+                                                        @endif
+                                                        <div id="returnSingleOrderModal{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                        <h4 class="modal-title" style="color: red"><b>Do you want to Cancel this delivery?</b></h4>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form class="form-horizontal" role="form" method="post" action="{{route('order.singleProduct.Return')}}">
+                                                                            {{csrf_field()}}
+                                                                            <input type="hidden" value="{{$item->pivot->id}}" name="productOrder_id">
+                                                                            <div class="form-group">
+                                                                                <textarea style="margin-left: 10%" name="SinglecancelMassage" id="" cols="40" rows="5" placeholder="give a cancel Massage(Optional)"></textarea>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                                                <button type="submit" class="btn red-flamingo"><i class="fa fa-check" aria-hidden="true"></i> Confirm</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                         <div id="editOrderProductModal{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">
@@ -474,7 +507,7 @@
                                                         {{csrf_field()}}
                                                         <input type="hidden" value="{{$data->id}}" name="order_id">
                                                         <div class="form-group">
-                                                            <textarea name="cancelMassage" id="" cols="40" rows="5"></textarea>
+                                                            <textarea style="margin-left: 10%" name="cancelMassage" id="" cols="40" rows="5" placeholder="give a cancel Massage(Optional)"></textarea>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
@@ -485,6 +518,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div id="addDiscount{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                         <div class="modal-dialog">
                                             <div class="modal-content">

@@ -309,6 +309,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('order/delivery-success',[OrderController::class,'orderDeliverySuccess'])->name('order.delivery.success');
     Route::post('order/delivery-return',[OrderController::class,'orderDeliveryReturn'])->name('order.delivery.return');
     Route::post('order/delivery-cancel',[OrderController::class,'orderDeliveryCancel'])->name('order.delivery.cancel');
+    Route::post('order/singleProduct-return',[OrderController::class,'ordersingleProductReturn'])->name('order.singleProduct.Return');
 
     Route::get('order/edit/{id}',[OrderController::class,'orderEdit'])->name('order.updated.edit');
     Route::put('order/product/edit/{id}',[ProductOrderController::class,'OrderProductUpdate'])->name('order.product.updated');
