@@ -30,6 +30,11 @@ class CreateRequisitionsTable extends Migration
             $table->dateTime('return_date')->nullable();
             $table->dateTime('solve_date')->nullable();
             $table->text('return_note')->nullable();
+            $table->double('totalamount')->nullable();
+            $table->string('payment_method')->nullable();
+            $table->double('paid_amount')->nullable();
+            $table->double('due_amount')->nullable();
+            $table->string('acc_number')->nullable();
             $table->unsignedInteger('submitted_by')->nullable();
             $table->unsignedInteger('created_by')->nullable();
             $table->timestamps();
