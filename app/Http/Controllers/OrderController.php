@@ -51,7 +51,31 @@ class OrderController extends Controller
     public function orderDelivery(Request $request)
     {
         $order_status = Order::where('id',$request->order_id)->update(['status'=>'Delivered']);
-        return redirect()->back()->withMsg('Successfully Confirmed');
+        return redirect()->back()->withMsg('Successfully Ready To Delivery');
+    }
+    public function orderDeliverySuccess(Request $request)
+    {
+        // dd($request);
+        $order_status = Order::where('id',$request->order_id)->update(['status'=>'DeliverySuccess','due_amount'=>$request->due_amount,'payment_method'=>$request->payment_method,'trx_number'=>$request->trx_number,'trx_id'=>$request->trx_id]);
+        return redirect()->back()->withMsg('Successfully Delivered');
+    }
+    public function orderDeliveryReturn(Request $request)
+    {
+        // dd($request);
+        $order_status = Order::where('id',$request->order_id)->update(['status'=>'Returned','remark'=>$request->remark]);
+        return redirect()->back()->withMsg('Successfully Returned');
+    }
+    public function orderDeliveryCancel(Request $request)
+    {
+        // dd($request);
+        $order_status = Order::where('id',$request->order_id)->update(['status'=>'Cancel','cancelMassage'=>$request->cancelMassage]);
+        return redirect()->back()->withMsg('Successfully Canceled');
+    }
+    public function ordersingleProductReturn(Request $request)
+    {
+        // dd($request);
+        $order_status = ProductOrder::where('id',$request->productOrder_id)->update(['status'=>'Returned','SinglecancelMassage'=>$request->SinglecancelMassage]);
+        return redirect()->back()->withMsg('Successfully Returned');
     }
     /**
      * Show the form for creating a new resource.
@@ -178,4 +202,5 @@ class OrderController extends Controller
         }
         return $process_array;
     }
+
 }
