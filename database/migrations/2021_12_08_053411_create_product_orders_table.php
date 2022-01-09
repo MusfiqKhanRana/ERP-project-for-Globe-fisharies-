@@ -22,6 +22,8 @@ class CreateProductOrdersTable extends Migration
             $table->string('discount_in_amount')->nullable();
             $table->string('discount_in_percentage')->nullable();
             $table->double('selling_price')->nullable();
+            $table->enum('status', ['Received','Returned'])->default('Received');
+            $table->longText('SinglecancelMassage')->nullable();
             $table->timestamps();
         });
     }

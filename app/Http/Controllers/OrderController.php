@@ -71,6 +71,12 @@ class OrderController extends Controller
         $order_status = Order::where('id',$request->order_id)->update(['status'=>'Cancel','cancelMassage'=>$request->cancelMassage]);
         return redirect()->back()->withMsg('Successfully Canceled');
     }
+    public function ordersingleProductReturn(Request $request)
+    {
+        // dd($request);
+        $order_status = ProductOrder::where('id',$request->productOrder_id)->update(['status'=>'Returned','SinglecancelMassage'=>$request->SinglecancelMassage]);
+        return redirect()->back()->withMsg('Successfully Returned');
+    }
     /**
      * Show the form for creating a new resource.
      *
