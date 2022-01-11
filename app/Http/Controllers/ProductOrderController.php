@@ -54,7 +54,7 @@ class ProductOrderController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->toArray());
+        dd($request);
         // $this->validate($request, array(
         //     'customer_id' => 'required',
         //     'category_id' => 'required',
@@ -130,7 +130,7 @@ class ProductOrderController extends Controller
             'discount_in_percentage' =>$request->discount_in_percentage,
             'selling_price' => $request->selling_price,
         ]);
-        return redirect()->route('order-history.index',"status=Pending")->withMsg("Successfully Ordered Product Updated");;
+        return redirect()->route('order-history.index',"status=Pending")->withMsg("Successfully Ordered Product Updated");
         //return redirect()->back()->withMsg("Successfully Updated");
     }
 
@@ -198,5 +198,18 @@ class ProductOrderController extends Controller
                 ->orWhere('customer_type','LIKE',"%$search%")
                 ->get();
         return response()->json($data);
+    }
+    public function singleProductOrderStore(Request $request){
+        // dd($request);
+        $product_order = ProductOrder::create([
+            'order_id' => $request->order_id,
+            'product_id' => $request->product_id,
+            'category_id' => $request->category_id,
+            'quantity' => $request->quantity,
+            'discount_in_amount' => floatval($request->discount_in_amount),
+            'discount_in_percentage' => floatval($request->discount_in_percentage),
+            'selling_price' => floatval($request->selling_price),
+        ]);
+        return redirect()->back()->withMsg("Successfully added Product to The List");
     }
 }

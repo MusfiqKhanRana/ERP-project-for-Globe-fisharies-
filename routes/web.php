@@ -314,6 +314,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('order/edit/{id}',[OrderController::class,'orderEdit'])->name('order.updated.edit');
     Route::put('order/product/edit/{id}',[ProductOrderController::class,'OrderProductUpdate'])->name('order.product.updated');
     Route::post('order/delete/{id}',[ProductOrderController::class,'order_delete'])->name('order.test.delete');
+    Route::post('order/singleProductOrderStore',[ProductOrderController::class,'singleProductOrderStore'])->name('single.Product.Order.Store');
     Route::put('order/update/{id}',[OrderController::class,'OrderUpdate'])->name('order.updated');
     Route::resource('order-history', OrderController::class);
 
@@ -321,6 +322,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     Route::get('order/confirm/{id}',[OrderController::class,'confirm'])->name('order.confirm');
     Route::post('order/product/pass',[OrderController::class,'product_pass'])->name('order.product.pass');
+    Route::post('order/addproduct/pass',[OrderController::class,'addproduct_pass'])->name('order.addproduct.pass');
     
 
 });

@@ -187,7 +187,7 @@
                                                 <td>
                                                     @if($data->confirmed == false)
                                                         <a class="btn purple" data-toggle="modal"  href="#ConfirmRequisitionModal{{$data->id}}"><i class="fa fa-check-circle-o"></i> confirm</a>
-                                                        <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Add Product</a>
+                                                        <a class="btn btn-primary addProduct" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Add Product</a>
                                                     @endif
                                                     <a class="btn blue-chambray"  data-toggle="modal" href="{{route('requisition.edit',$data)}}"><i class="fa fa-edit"></i> Edit</a>
                                                     <a class="btn red" data-toggle="modal" href="#deleteModal"><i class="fa fa-trash"></i> Delete</a>
@@ -228,18 +228,14 @@
                                                                 <form action="{{route('requisition-product.store')}}" method="POST">
                                                                     @csrf
                                                                     <input type="hidden" name="requisition_id" value="{{$data->id}}">
+                                                                    <input type="hidden" class="modalParty" value="{{$data->party->id}}">
                                                                     <div class="col-md-3">
-                                                                        <label for="category">Category</label>
-                                                                        <select class="form-control select2me category1" name="category_id" required>
-                                                                            <option value="">--select--</option>
-                                                                            @foreach($category as $data)
-                                                                                <option value="{{$data->id}}">{{$data->name}}</option>
-                                                                            @endforeach
-                                                                        </select>
+                                                                        <label for="category">Party</label><br>
+                                                                            Party Code : <b>{{$data->party->party_code}}</b>
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <label for="category">Product</label>
-                                                                        <select class="form-control select2me product" name="product_id"  placeholder="Product" required>
+                                                                        <select class="form-control select2me productxx" name="product_id"  placeholder="Product" required>
                 
                                                                         </select>
                                                                     </div>
@@ -249,7 +245,11 @@
                                                                     </div> --}}
                                                                     <div class="col-md-3">
                                                                         <label for="">Packet</label>
-                                                                        <input name="quantity" class="form-control" type="number" required placeholder="Quantity">
+                                                                        <input name="quantity" class="form-control qtyx" type="number" required placeholder="Quantity">
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <label for="">Weight</label>
+                                                                        <input class="form-control weightx" type="number" required placeholder="Quantity">
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <label><span>&nbsp;</span></label><br>
@@ -473,6 +473,8 @@
         var min = 0;
         var tp = [];
         var w =0;
+        var w2=0;
+        var qtyxx =0;
         var grandT=0;
         var T_price = 0;
         var categories = @json($category, JSON_PRETTY_PRINT);
@@ -511,6 +513,31 @@
             );
         }
         $(document).ready(function(){
+            $(document).on('click',".addProduct",function(){
+                // console.log(max);
+                var pId = 0;
+                pId= $(".modalParty").val();
+                 console.log(pId);
+                partyFixed(pId);
+                });
+                $(document).on('change',".productxx",function(){
+                   
+                    w2=$(this).find(':selected').attr('data-pack_weight');
+                     console.log(w2);
+                    weightCount2()
+                });
+                $(document).on('keyup change',".qtyx",function(){
+                    // console.log(max);
+                    qtyxx=$(this).val();
+                    weightCount2();
+                });
+                function weightCount2() {
+                var weight=0;
+              
+                weight = w2 * qtyxx;
+                console.log(weight);
+                $(".weightx").val(weight);
+                }
             $(".singleTotal"+max).val(0);
             $("#btnAddDescription").on('click', function () {
                 max++;
@@ -530,6 +557,20 @@
                     success:function(data){
                         $('.product'+max).html("");
                         $('.product'+max).append(data.output);
+                    }
+                });
+            }
+           function partyFixed(id){
+                $.ajax({
+                    type:"POST",
+                    url:"{{route('product.pass')}}",
+                    data:{
+                        'id' : id,
+                        '_token' : $('input[name=_token]').val()
+                    },
+                    success:function(data){
+                        $('.productxx').html("");
+                        $('.productxx').append(data.output);
                     }
                 });
             }
