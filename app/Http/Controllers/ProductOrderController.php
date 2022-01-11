@@ -54,7 +54,7 @@ class ProductOrderController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        // dd($request);
         // $this->validate($request, array(
         //     'customer_id' => 'required',
         //     'category_id' => 'required',
