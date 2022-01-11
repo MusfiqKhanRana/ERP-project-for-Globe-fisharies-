@@ -275,9 +275,9 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        {{-- <td>
                                                             <a class="btn btn-primary" data-toggle="modal" href="#addDiscount{{$data->id}}"><i class="fa fa-plus"></i>Add Discount</a>
-                                                        </td>
+                                                        </td> --}}
                                                         <td>
                                                             <form action="{{route('order.test.delete',$data->id)}}" method="POST">
                                                                 @method('POST')
