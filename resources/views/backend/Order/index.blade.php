@@ -20,7 +20,7 @@
             <!-- BEGIN PAGE TITLE-->
             <h3 class="page-title bold">Order List</h3>
             <a class="btn btn-danger" href="{{route('order-history.index',"status=Pending")}}"><i class="fa fa-spinner"></i> Pending Order ({{$pendingcount}})</a>
-            <a class="btn btn-primary"  href="{{route('order-history.index',"status=Confirm")}}"><i class="fa fa-check-circle"></i> Confirm Order List ({{$confirmcount}})</a>
+            {{-- <a class="btn btn-primary"  href="{{route('order-history.index',"status=Confirm")}}"><i class="fa fa-check-circle"></i> Confirm Order List ({{$confirmcount}})</a> --}}
             <a class="btn btn-success" href="{{route('order-history.index',"status=Delivered")}}"><i class="fa fa-cart-plus"></i> Delivery List ({{$delivery_count}})</a>
                 <br><br>
             <div class="row">
@@ -103,48 +103,45 @@
                                                         $intotal_amount = 0;
                                                     @endphp
                                                     @foreach($data->products as $key2=> $item)
-                                                        @if ($item->pivot->status == "Received")
+                                                     @if ($item->pivot->status == "Received" || $item->pivot->status == Null)
                                                         <tr>
                                                             <th>{{++$key2}}</th>
-                                                            <th>{{$item->category->name}}</th>
-                                                            <th>{{$item->product_name}}</th>
-                                                            <th>{{$item->pivot->quantity}}</th>
-                                                            <th>
-                                                                @php
-                                                                    if($item->pivot->discount_in_amount){
-                                                                        echo $item->pivot->discount_in_amount." TK";
-                                                                    }
-                                                                    elseif ($item->pivot->discount_in_percentage) {
-                                                                        echo $item->pivot->discount_in_percentage." Percent";
-                                                                    }
-                                                                @endphp
-                                                            </th>
-                                                            <th>
-                                                                {{$item->pivot->selling_price}}
-                                                                @php
-                                                                    $total_amount += $item->pivot->selling_price;
-                                                                @endphp
-                                                            </th>
-                                                            @if ($data->status == "Pending")
+                                                                <th>{{$item->category->name}}</th>
+                                                                <th>{{$item->product_name}}</th>
+                                                                <th>{{$item->pivot->quantity}}</th>
                                                                 <th>
-                                                                    <form action="{{route('order.destroy',$item->pivot->id)}}" method="POST">
-                                                                        @method('DELETE')
-                                                                        @csrf
-                                                                        <button type="submit" class="btn red"><i class="fa fa-trash"></i> Delete</button>
-                                                                        <a class="btn blue-chambray" data-toggle="modal" href="#editOrderProductModal{{$item->pivot->id}}" ><i class="fa fa-edit"></i> Edit</a>
-                                                                    </form>
+                                                                    @php
+                                                                        if($item->pivot->discount_in_amount){
+                                                                            echo $item->pivot->discount_in_amount." TK";
+                                                                        }
+                                                                        elseif ($item->pivot->discount_in_percentage) {
+                                                                            echo $item->pivot->discount_in_percentage." Percent";
+                                                                        }
+                                                                    @endphp
                                                                 </th>
-                                                            @endif
-                                                            @if ($data->status == "Delivered")
                                                                 <th>
-                                                                    <form action="{{route('order.singleProduct.Return',$item->pivot->id)}}" method="POST">
-                                                                        @csrf
+                                                                    {{$item->pivot->selling_price}}
+                                                                    @php
+                                                                        $total_amount += $item->pivot->selling_price;
+                                                                    @endphp
+                                                                </th>
+                                                                @if ($data->status == "Pending")
+                                                                    <th>
+                                                                        <form action="{{route('order.destroy',$item->pivot->id)}}" method="POST">
+                                                                            @method('DELETE')
+                                                                            @csrf
+                                                                            <button type="submit" class="btn red"><i class="fa fa-trash"></i> Delete</button>
+                                                                            <a class="btn blue-chambray" data-toggle="modal" href="#editOrderProductModal{{$item->pivot->id}}" ><i class="fa fa-edit"></i> Edit</a>
+                                                                        </form>
+                                                                    </th>
+                                                                @endif
+                                                                @if ($data->status == "Delivered")
+                                                                    <th>
                                                                         <a class="btn blue-chambray" data-toggle="modal" href="#returnSingleOrderModal{{$item->pivot->id}}" ><i class="fa fa-repeat" aria-hidden="true"></i>Return</a>
-                                                                    </form>
-                                                                </th>
-                                                            @endif
-                                                        </tr>                                                               
-                                                        @endif
+                                                                    </th>
+                                                                @endif
+                                                        </tr> 
+                                                        @endif                                                                                                                    
                                                         <div id="returnSingleOrderModal{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">
@@ -262,12 +259,13 @@
                                             </td>
                                         @endif
                                         <td style="text-align: center" >
-                                            @if($data->status == 'Pending')
+                                            
                                             <table>
                                                 <tbody>
+                                                    @if($data->status == 'Pending')
                                                     <tr>
                                                         <td>
-                                                            <a class="btn purple" href="{{route('order.confirm',$data->id)}}"><i class="fa fa-check-circle-o"></i> confirm</a>
+                                                            <a class="btn btn-success" data-toggle="modal" href="#confirmdelevery{{$data->id}}"><i class="fa fa-cart-plus"></i> Confirm Delivery</a>  
                                                         </td>
                                                         <td>
                                                             <a class="btn blue-chambray" name ="customer_id" href="{{route('order.updated.edit',$data->id)}}" ><i class="fa fa-edit"></i> Edit</a>
@@ -289,12 +287,12 @@
                                                         </td>
                                                     </tr>
                                                     @endif
-                                                    @if ($data->status == 'Confirm')
+                                                    {{-- @if ($data->status == 'Confirm')
                                                         <a class="btn btn-primary" data-toggle="modal" href="#paymentInfo{{$data->id}}"><i class="fa fa-plus"></i> Payment Info</a>
                                                         @if ($data->payment_method)
                                                             <a class="btn btn-success" data-toggle="modal" href="#confirmdelevery{{$data->id}}"><i class="fa fa-cart-plus"></i> Confirm Delivery</a>  
                                                         @endif
-                                                    @endif
+                                                    @endif --}}
                                                     @if ($data->status == 'Delivered')
                                                         <a class="btn btn-success" data-toggle="modal" href="#deliveryConfirm{{$data->id}}"><i class="fa fa-check" aria-hidden="true"></i> Success</a>
                                                         <a class="btn btn-primary" data-toggle="modal" href="#deliveryReturn{{$data->id}}"><i class="fa fa-repeat" aria-hidden="true"></i> Return</a>
@@ -607,42 +605,81 @@
                                                 <br>
                                                 <div class="modal-body">
                                                     <div class="m-5 row">
-                                                        <form action="{{route('order.store')}}" method="POST">
+                                                        <form action="{{route('single.Product.Order.Store')}}" method="POST">
                                                             @csrf
-                                                            <div class="col-md-3">
-                                                                <label for="product">Warehouse</label>
-                                                                <select class="form-control" name="warehouse_id" id="warehouse" required>
-                                                                    <option selected>Select</option>
-                                                                    @foreach($warehouse as $data)
-                                                                        <option value="{{$data->id}}">{{$data->name}}</option>
-                                                                    @endforeach
-                                                                    {{csrf_field()}}
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <label >Product</label>
-                                                                <select class="form-control  product_id" name="product_id" placeholder="Product" required>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <label for="">Quantity</label>
-                                                                <input name="quantity" class="form-control" type="number" required placeholder="Quantity">
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <label class="col-md-2 control-label">Discount: </label>
-                                                                <span class="disper">
-                                                                    <input type="text" class="form-control"  name="discount_in_percentage" placeholder="discount in %" id="coupon_1"/>
-                                                                </span>
-                                                                <span class="amount1">
-                                                                    <input type="text" class="form-control" name="discount_in_amount" placeholder="discount in amount" id="coupon_2"/>
-                                                                </span>
-                                                                <fieldset class="radio-inline question coupon_question2">
-                                                                    <input class="form-check-input amountxx" type="checkbox">Want in Amount ? 
-                                                                </fieldset>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <label for="">Price</label>
-                                                                <input type="text" class="form-control " placeholder="Total"  readonly name="price" >
+                                                            <input type="hidden" name="order_id" value="{{$data->id}}">
+                                                            <input type="hidden" name="customer_id" value="{{$data->customer->id}}">
+                                                            <input type="hidden" class="customer_typexx" value="{{$data->customer->customer_type}}">
+                                                            <div class="row" style="padding:3%;">
+                                                                <div class="col-md-6">
+                                                                    <div class="card">
+                                                                        <div class="card-header">
+                                                                            <h4><b>Product Info</b></h4>
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <label for="">Category</label>
+                                                                                    <select name="category_id" class="form-control category">
+                                                                                        <option selected>Select</option>
+                                                                                        @foreach($category as $data)
+                                                                                            <option value="{{$data->id}}" data-name="{{$data->name}}">{{$data->name}}</option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label for="product">Product</label>
+                                                                                        <select class="form-control add_product" name="product_id"  id="product" placeholder="Product" required>
+                                                                                            {{-- <option selected>Select</option> --}}
+                                                                                        </select>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label for="product">Pack Size</label>
+                                                                                    <input type="text" class="form-control pack_size" readonly>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label for="product">Rate (TK)</label>
+                                                                                    <input  type="text" class="form-control rate" id="rate" readonly>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="card">
+                                                                        <div class="card-header">
+                                                                            <h4><b>Quantity & Price</b></h4>
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <label for="">Quantity(pkt)</label>
+                                                                                    <input name="quantity" type="number" id="quantity_pkt" class="form-control quantity_pkt">
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label for="">Quantity In KG</label>
+                                                                                    <input type="number" id="quantity_kg" class="form-control quantity_kg" readonly>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label for="discount"> Discount </label>
+                                                                                    <span class="discount_in_percentage">
+                                                                                        <input name="discount_in_percentage" type="text" class="form-control"  placeholder="discount in %" id="percentage_id"/>
+                                                                                    </span>
+                                                                                    <span class="discount_in_amount">
+                                                                                        <input name="discount_in_amount" type="text" class="form-control" placeholder="discount in amount" id="amount_id"/>
+                                                                                    </span>
+                                                                                    <fieldset class="radio-inline question coupon_question2">
+                                                                                        <input class="form-check-input want_in_amount" type="checkbox">Want in Amount ? 
+                                                                                    </fieldset>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label for="price">Price</label>
+                                                                                    <input name="selling_price" type="text" class="form-control pricex" id="price" readonly>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <label><span>&nbsp;</span></label><br>
@@ -839,6 +876,7 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function() {
+            // console.log("this is good");
             $(".transaction_number").hide();
             $('.payment_method').change(function(){
                 var input = $(this).val();
@@ -873,71 +911,150 @@
                     }
                 });
             });
-        });
-    </script>
-    <script>
-         $("#addService").click(function(){
-                max++;
-                appendPlanDescField($("#orderBox"));
-                $('.discount_in_amount').hide();
-                $(".want_in_amount").click(function() {
-                    if($(this).is(":checked")) {
-                        $(".discount_in_amount").show();
-                        $(".discount_in_percentage").hide();
-                        $('#percentage_id').val('');
-                    } else {
-                        $(".discount_in_amount").hide();
-                        $(".discount_in_percentage").show();
-                        $('#amount_id').val('');
+            $(".category").change(function() {
+                var id = $(this).val();
+                $.ajax({
+                    type:"POST",
+                    url:"{{route('order.addproduct.pass')}}",
+                    data:{
+                        'id' : id,
+                        '_token' : $('input[name=_token]').val()
+                    },
+                    success:function(data){
+                        // console.log(data);
+                        $('.add_product').html("");
+                        $('.add_product').append(data.output);
                     }
                 });
-    </script>
-    <script>
-        $(document).on('change',product_id,function(){
-            var id = $(this).val();
-            $.ajax({
-                type:"POST",
-                url:"{{route('warehouse.product.price')}}",
-                data:{
-                    'id' : id,
-                    '_token' : $('input[name=_token]').val()
-                },
-                success:function(data){
-                    var $results = $('.product_price');
-                    var $userDiv = $results.append('<div class="user-div'"></div>')
-                    $("<input type='radio' class='selling_price' name='selling_price' id='a' value='"+data.inhouse_selling_price+"'> <span>Inhouse:"+data.inhouse_selling_price+"</span>").appendTo( ".user-div" );
-                $("<input type='radio' class='selling_price' name='selling_price' id='b' value='"+data.online_selling_price+"'> <span>Online:"+data.online_selling_price+"</span>").appendTo( ".user-div" );
-                $("<input type='radio' class='selling_price' name='selling_price' id='c' value='"+data.retail_selling_price+"'> <span>Retail:"+data.retail_selling_price+"</span>").appendTo( ".user-div" );
-                    // $('.product_price'+ max).append(
-                    //     $('<input>').prop({
-                    //         type: 'radio',
-                    //         id: 'price',
-                    //         name: 'selling_price',
-                    //         value: data.inhouse_selling_price
-                    //     })
-                    // ).append(
-                    //     $('<label>').prop({
-                    //         for: 'Price'
-                    //     }).html('inhouse_selling_price'+ "(" + data.inhouse_selling_price +")" )
-                    // ).append(
-                    //     $('<br>')
-                    // );
+            });
+            var category_id,category_name,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,product_name,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
+            $('.add_product').change(function(){
+                product_id = $(this).val();
+                product_name = $(this).find(':selected').attr('data-product_name');
+                product_pack_id = $(this).find(':selected').attr('data-pack_id');
+                product_pack_name = $(this).find(':selected').attr('data-pack_name');
+                product_pack_weight = $(this).find(':selected').attr('data-pack_weight');
+                product_online_rate = $(this).find(':selected').attr('data-online_selling_price');
+                product_inhouse_rate = $(this).find(':selected').attr('data-inhouse_selling_price');
+                $('.pack_size').val(product_pack_name);
+                $(".rate").empty();
+                var customer_type = $('.customer_typexx').val();
+                var selling_price = null;
+                if(customer_type=="inhouse"){
+                    selling_price = product_inhouse_rate;
+                }
+                else if(customer_type == "online"){
+                    selling_price = product_online_rate;
+                }
+                $(".rate").val(selling_price);
+                // console.log(product_online_rate,product_inhouse_rate,product_id,product_name,product_pack_id,product_pack_name,product_pack_weight);
+            })
+            $('.quantity_pkt').keyup(function(){
+                console.log("good");
+                packet_quantity = $(this).val();
+                $(".quantity_kg").val(packet_quantity*product_pack_weight);
+                $(".pricex").val(packet_quantity * $(".rate").val());
+                total_price = $(".pricex").val();
+            })
+            $(document).on('keyup','#percentage_id',function() {
+                let main_price = total_price - (total_price*$(this).val())/100;
+                $('#price').val(main_price);
+                discount_in_percentage = $(this).val()
+            });
+            $(document).on('keyup','#amount_id',function() {
+                let main_price = total_price - ($(this).val());
+                discount_in_amount = $(this).val();
+                $('#price').val(main_price);
+            });
+            $('.discount_in_amount').hide();
+            $(".want_in_amount").click(function() {
+                if($(this).is(":checked")) {
+                    $(".discount_in_amount").show();
+                    $(".discount_in_percentage").hide();
+                    $('#percentage_id').val('');
+                    discount_in_percentage = 0;
+                } else {
+                    $(".discount_in_amount").hide();
+                    $(".discount_in_percentage").show();
+                    discount_in_amount = 0;
+                    $('#amount_id').val('');
                 }
             });
+            // $(document).on('change',".category",(function(){
+            //     console.log("changed");
+            //     var id = $(this).val();
+            //     $.ajax({
+            //         type:"POST",
+            //         url:"{{route('order.addproduct.pass')}}",
+            //         data:{
+            //             'id' : id,
+            //             '_token' : $('input[name=_token]').val()
+            //         },
+            //         success:function(data){
+            //             $('.add_product').html("");
+            //             $('.add_product').append(data.output);
+            //         }
+            //     });
+            // });
         });
-    </script>
-    <script>
-    $(".amount1").hide();
-        $(".amountxx").click(function() {
-            if($(this).is(":checked")) {
-                $(".amount1").show();
-                $(".disper").hide();
-                $('#coupon_1').val('');
-            } else {
-                $(".amount1").hide();
-                $(".disper").show();
-                $('#coupon_2').val('');
-            }
-        });
+        // $("#addService").click(function(){
+        //     max++;
+        //     appendPlanDescField($("#orderBox"));
+        //     $('.discount_in_amount').hide();
+        //     $(".want_in_amount").click(function() {
+        //         if($(this).is(":checked")) {
+        //             $(".discount_in_amount").show();
+        //             $(".discount_in_percentage").hide();
+        //             $('#percentage_id').val('');
+        //         } else {
+        //             $(".discount_in_amount").hide();
+        //             $(".discount_in_percentage").show();
+        //             $('#amount_id').val('');
+        //         }
+        // });
+        // $(document).on('change',product_id,function(){
+        //     var id = $(this).val();
+        //     $.ajax({
+        //         type:"POST",
+        //         url:"{{route('warehouse.product.price')}}",
+        //         data:{
+        //             'id' : id,
+        //             '_token' : $('input[name=_token]').val()
+        //         },
+        //         success:function(data){
+        //             var $results = $('.product_price');
+        //             var $userDiv = $results.append('<div class="user-div'"></div>')
+        //             $("<input type='radio' class='selling_price' name='selling_price' id='a' value='"+data.inhouse_selling_price+"'> <span>Inhouse:"+data.inhouse_selling_price+"</span>").appendTo( ".user-div" );
+        //         $("<input type='radio' class='selling_price' name='selling_price' id='b' value='"+data.online_selling_price+"'> <span>Online:"+data.online_selling_price+"</span>").appendTo( ".user-div" );
+        //         $("<input type='radio' class='selling_price' name='selling_price' id='c' value='"+data.retail_selling_price+"'> <span>Retail:"+data.retail_selling_price+"</span>").appendTo( ".user-div" );
+        //             // $('.product_price'+ max).append(
+        //             //     $('<input>').prop({
+        //             //         type: 'radio',
+        //             //         id: 'price',
+        //             //         name: 'selling_price',
+        //             //         value: data.inhouse_selling_price
+        //             //     })
+        //             // ).append(
+        //             //     $('<label>').prop({
+        //             //         for: 'Price'
+        //             //     }).html('inhouse_selling_price'+ "(" + data.inhouse_selling_price +")" )
+        //             // ).append(
+        //             //     $('<br>')
+        //             // );
+        //         }
+        //     });
+        // });
+        // $(".amount1").hide();
+        // $(".amountxx").click(function() {
+        //     if($(this).is(":checked")) {
+        //         $(".amount1").show();
+        //         $(".disper").hide();
+        //         $('#coupon_1').val('');
+        //     } else {
+        //         $(".amount1").hide();
+        //         $(".disper").show();
+        //         $('#coupon_2').val('');
+        //     }
+        // });
     </script>
 @endsection

@@ -37,7 +37,6 @@ class SalePointController extends Controller
         }
         $data['output'] = $output;
         return response()->json($data);
-
     }
 
     public function productGet(Request $request)

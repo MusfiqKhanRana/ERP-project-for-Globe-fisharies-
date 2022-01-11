@@ -22,7 +22,9 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         //$order = Order::all();
+     
         $order = Order::with(['products','customer'])->where('status',$request->status)->latest()->paginate(10);
+        // dd($order);
         $customer = Cutomer::all();
         $warehouse = Warehouse::all();
         $area  = Area::all();
@@ -94,7 +96,8 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {  
+        // dd($request);
         $data = $request->all();
         unset($data['_token']);
         DB::table('product_orders')->insert($data);
@@ -179,7 +182,7 @@ class OrderController extends Controller
     
     public function product_pass(Request $request){
         $id = $request->id;
-        $warehouse = Warehouse::with('products')->find($id);
+        $warehouse = Product::where('category_id',$id)->get();
         $process_product = $this->processWarehouseProduct($warehouse);
         // $output ="";
         // foreach($process_product as $value){
@@ -188,6 +191,19 @@ class OrderController extends Controller
         // }
         // $data['output'] = $output;
         return response($process_product);
+    }
+    public function addproduct_pass(Request $request){
+        $id = $request->id;
+        $product = Product::where('category_id',$id)->get();
+        $output ="";
+
+        foreach($product as $value){
+            // return $value->product->pack;
+            $output.= '<option data-product_name="'.$value->product_name.'" data-pack_id="'.$value->pack_id.'" data-pack_name="'.$value->pack->name.'" data-pack_weight="'.$value->pack->weight.'" data-online_selling_price="'.$value->online_selling_price.'" data-inhouse_selling_price="'.$value->inhouse_selling_price.'" value="'.$value->id.'">'.$value->product_name.'-'.$value->pack->name.'</option>';
+
+        }
+        $data['output'] = $output;
+        return response()->json($data);
     }
     public function processWarehouseProduct($warehouse)
     {

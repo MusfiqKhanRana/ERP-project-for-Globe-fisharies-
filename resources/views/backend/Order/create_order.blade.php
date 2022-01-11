@@ -91,7 +91,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="product">Product</label>
-                                                <select class="form-control product_id" id="product" required>
+                                                <select class="form-control product_id" id="product">
                                                     @foreach ($category as $data)
                                                         @foreach ($data->product as $product)
                                                             <option value="{{$product->id}}" class="{{$data->id}}" title="{{$product->pack->name}}" data-pack_name="{{$product->pack->name}}" data-online_selling_price="{{$product->online_selling_price}}" data-inhouse_selling_price="{{$product->inhouse_selling_price}}" data-pack_weight="{{$product->pack->weight}}" data-pack_id="{{$product->pack->id}}" data-id="{{$data->id}}" data-name="{{$product->product_name}}">{{$product->product_name}} - {{$product->pack->name}} </option>
