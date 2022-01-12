@@ -58,13 +58,13 @@ class OrderController extends Controller
     public function orderDeliverySuccess(Request $request)
     {
         // dd($request);
-        $order_status = Order::where('id',$request->order_id)->update(['status'=>'DeliverySuccess','due_amount'=>$request->due_amount,'payment_method'=>$request->payment_method,'trx_number'=>$request->trx_number,'trx_id'=>$request->trx_id]);
+        $order_status = Order::where('id',$request->order_id)->update(['status'=>'DeliverySuccess','payment_method'=>$request->payment_method,'paid_amount'=>$request->totalpaid,'trx_number'=>$request->trx_number,'trx_id'=>$request->trx_id]);
         return redirect()->back()->withMsg('Successfully Delivered');
     }
     public function orderDeliveryReturn(Request $request)
     {
         // dd($request);
-        $order_status = Order::where('id',$request->order_id)->update(['status'=>'Returned','remark'=>$request->remark]);
+        $order_status = Order::where('id',$request->order_id)->update(['status'=>'Returned','return_remark'=>$request->return_remark]);
         return redirect()->back()->withMsg('Successfully Returned');
     }
     public function orderDeliveryCancel(Request $request)
@@ -97,7 +97,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {  
-        // dd($request);
+        dd($request);
         $data = $request->all();
         unset($data['_token']);
         DB::table('product_orders')->insert($data);
@@ -163,6 +163,7 @@ class OrderController extends Controller
             'delivery_charge' => $request->delivery_charge,
             'remark' => $request->remark,
             'payment_method' => $request->payment_method,
+            'total_discount' => $request->total_discount,
         ]);
         return redirect()->route('order-history.index',"status=Pending")->withMsg("Successfully Updated");;
         //return redirect()->back()->withMsg("Successfully Updated");

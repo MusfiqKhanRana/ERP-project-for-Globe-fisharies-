@@ -79,7 +79,7 @@ class ProductOrderController extends Controller
                     'quantity' => $product->quantity_packet,
                     'discount_in_amount' => floatval($product->amount_discount),
                     'discount_in_percentage' => floatval($product->percentage_discount),
-                    'selling_price' => floatval($product->rate),
+                    'selling_price' => floatval($product->total_price),
                 ]);
             }
             
