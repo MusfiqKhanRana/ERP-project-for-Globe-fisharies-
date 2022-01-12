@@ -50,7 +50,7 @@
                                 <div class="form-section">
                                     <label class="col-md-2 control-label pull-left bold">Delivery Charge </label>
                                     <div class="col-md-10">
-                                        <input class="form-control" name="delivery_charge" value="{{$order->delivery_charge}}"  required  id="delivery_charge">
+                                        <input class="form-control" name="delivery_charge" value="{{$order->delivery_charge}}"   id="delivery_charge">
                                     </div>
                                 </div><br><br>
                             </div>
@@ -63,6 +63,14 @@
                                         </select>
                                         {{-- <select class="select2Ajax form-control" name="customer_id" value = "" required  id="customer_id"></select> }}
                                     </div> --}}
+                            <div class="form-body">
+                                <div class="form-section">
+                                    <label class="col-md-2 control-label pull-left bold"> Total Discount </label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" name="total_discount" value="{{$order->total_discount}}"  required  id="payment_method">
+                                    </div>
+                                </div><br><br>
+                            </div>
                             <div class="form-body">
                                 <div class="form-section">
                                     <label class="col-md-2 control-label pull-left bold"> Payment Method </label>

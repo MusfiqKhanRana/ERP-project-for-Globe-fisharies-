@@ -37,7 +37,7 @@
                                 <tr>
                                     {{-- <th> Date </th> --}}
                                     <th> Sl. </th>
-                                    <th>Name</th>
+                                    <th>Customer Name</th>
                                     <th> Customer Type </th> 
                                     <th> Status </th>
                                     <th> Remark</th>
@@ -234,12 +234,12 @@
                                                         </div>
                                                     @endforeach
                                                     <tr>
-                                                        <th colspan="5">total Amount <small> (Inc. Delivary Charge and Discount)</small></th>
+                                                        <th colspan="5">total Amount <small> (Inc. Discount)</small></th>
                                                         <th>
                                                             @php
-                                                                $intotal_amount=$total_amount+$data->delivery_charge-$data->total_discount;
+                                                                $intotal_amount=$total_amount-$data->total_discount;
                                                             @endphp
-                                                            {{$total_amount+$data->delivery_charge-$data->total_discount}}
+                                                            {{$total_amount-$data->total_discount}}
                                                         </th>
                                                     </tr>
                                                 </tbody>
@@ -251,10 +251,10 @@
                                                     <li><p>Method: {{$data->payment_method}}</p></li>
                                                     <li><p>Paid Amount: {{$data->paid_amount}}</p></li>
                                                     <li><p>Due: {{$intotal_amount - $data->paid_amount}}</p></li>
-                                                    @if ($data->payment_method != "Cash")
+                                                    {{-- @if ($data->payment_method != "Cash")
                                                         <li><p>Transaction Number: {{$data->trx_number}}</p></li>
                                                         <li><p>Transaction ID: {{$data->trx_id}}</p> </li>
-                                                    @endif
+                                                    @endif --}}
                                                 </ul>
                                             </td>
                                         @endif
@@ -419,26 +419,27 @@
                                                         {{csrf_field()}}
                                                         <input type="hidden" value="{{$data->id}}" name="order_id">
                                                         <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-4 control-label">Order Id : </label>
+                                                            <label for="inputEmail1" class="col-md-4 control-label">Order #Code : </label>
                                                             <div class="col-md-8">
-                                                                {{$data->id}}
+                                                                <b>111212</b>
                                                                 {{-- <input type="text" class="form-control" value="{{$data->product_name}}" name="name" required> --}}
                                                             </div><br><br>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="inputEmail1" class="col-md-4 control-label">Due Amount</label>
                                                             <div class="col-md-8">
-                                                                <input type="number" value="{{$intotal_amount - $data->paid_amount}}" class="form-control" name="due_amount">
+                                                                <input type="number" value="{{$intotal_amount - $data->paid_amount}}" readonly class="form-control">
                                                             </div><br><br>
                                                         </div>
+                                                        <input type="hidden" name="totalpaid" value="{{$intotal_amount}}">
                                                         <div class="form-group">
                                                             <label for="inputEmail1" class="col-md-4 control-label">Payment Method</label>
                                                             <div class="col-md-8">
                                                                 <select name="payment_method" class="form-control payment_method">
-                                                                    <option value="Cash">Cash</option>
-                                                                    <option value="Bkash">Bkash</option>
-                                                                    <option value="Nagad">Nagad</option>
-                                                                    <option value="Rocket">Rocket</option>
+                                                                    <option {{ ($data->payment_method) == 'Cash' ? 'selected' : '' }} value="Cash">Cash</option>
+                                                                    <option {{ ($data->payment_method) == 'Bkash' ? 'selected' : '' }} value="Bkash">Bkash</option>
+                                                                    <option {{ ($data->payment_method) == 'Nagad' ? 'selected' : '' }} value="Nagad">Nagad</option>
+                                                                    <option {{ ($data->payment_method) == 'Rocket' ? 'selected' : '' }} value="Rocket">Rocket</option>
                                                                 </select>
                                                                 {{-- <input type="text" class="form-control" value="{{$data->product_name}}" name="name" required> --}}
                                                             </div><br><br>
@@ -478,11 +479,11 @@
                                                         {{csrf_field()}}
                                                         <input type="hidden" value="{{$data->id}}" name="order_id">
                                                         <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-4 control-label"><b> Order #Id : {{$data->id}}</b></label>
-                                                        </div>
+                                                            <label for="inputEmail1" class="col-md-4 control-label"><b> Order #Code :  <b>111212</b></b></label>
+                                                        </div><br><br>
                                                         <div class="from-group">
-                                                            <label for="col-md-4 control-label">Remark :</label>
-                                                            <textarea name="remark" id="" cols="40" rows="5" placeholder="give a return remark"></textarea>
+                                                            <label for="col-md-4 control-label"><b>Remark : </b></label><br>
+                                                            <textarea name="return_remark" id="" cols="40" rows="5" placeholder="give a return remark"></textarea>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
