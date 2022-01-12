@@ -258,7 +258,7 @@
                                                 </ul>
                                             </td>
                                         @endif
-                                        <td style="text-align: center" >
+                                        <td style="text-align: center" class="align-middle" >
                                             
                                             <table>
                                                 <tbody>
@@ -274,7 +274,7 @@
                                                             <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Add Product</a>
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr class="ml-auto mr-auto mt-auto" style="text-align: center">
                                                         {{-- <td>
                                                             <a class="btn btn-primary" data-toggle="modal" href="#addDiscount{{$data->id}}"><i class="fa fa-plus"></i>Add Discount</a>
                                                         </td> --}}

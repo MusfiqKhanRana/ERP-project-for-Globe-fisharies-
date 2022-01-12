@@ -235,8 +235,7 @@
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <label for="category">Product</label>
-                                                                        <select class="form-control select2me productxx" name="product_id"  placeholder="Product" required>
-                
+                                                                        <select class="form-control select2me productxx" name="product_id"  placeholder="Product" required>                
                                                                         </select>
                                                                     </div>
                                                                     {{-- <div class="col-md-3">
