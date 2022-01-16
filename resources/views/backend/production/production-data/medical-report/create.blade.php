@@ -108,18 +108,17 @@
 
                                 </div>
                             </div>
-                        <div class="form-actions">
-                            
+                            <div class="form-actions">
                                 <div class="col-md-2 pull-right">
                                     <button type="submit" data-loading-text="Submitting..." class="col-md-12 btn btn btn-info">
                                         <i class="fa fa-plus"></i>  Submit</button>
                                 </div>
                                 <div class="row"><div class=" pull-right ">
-                                    <a class="col-md-12 btn btn btn-warning" href="{{route("medical_report.index")}}">
+                                    <a class="col-md-12 btn btn dark" href="{{route("medical_report.index")}}">
                                         <i class="fa fa-backward"></i>  Back</a>
                                 </div>
+                                </div>
                             </div>
-                        </div>
                     </form>
                     </div>
                 </div>

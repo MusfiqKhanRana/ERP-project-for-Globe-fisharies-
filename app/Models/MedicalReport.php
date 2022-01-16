@@ -18,4 +18,7 @@ class MedicalReport extends Model
     {
         return $this->belongsTo(Designation::class);
     }
+    public function getDateAttribute($value){
+        return  \Carbon\Carbon::parse($value)->format('d/m/Y');
+    }
 }
