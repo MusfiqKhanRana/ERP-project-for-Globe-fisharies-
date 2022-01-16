@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use  App\Models\Designation;
 
 class User extends Authenticatable
 {
@@ -63,6 +64,10 @@ class User extends Authenticatable
     public function office_loan()
     {
         return $this->belongsTo(OfficeLoan::class)->withDefault();
+    }
+    public function designation()
+    {
+        return $this->belongsTo(Designation::class,'deg_id');
     }
 
     /**
