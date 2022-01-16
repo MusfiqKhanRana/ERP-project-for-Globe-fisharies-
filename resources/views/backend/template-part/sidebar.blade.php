@@ -493,13 +493,56 @@
 
                 </ul>
             </li>           
-            <li class="nav-item">
-                <a href="" class="nav-link nav-toggle">
-                <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                    <span class="title">Production Management</span>
-                    <span class="selected"></span>
-                </a>
-            </li>
+            <li class="nav-item @if( request()->path() == 'admin/department' || request()->path() == 'admin/department' ) active open @endif
+                @if( request()->path() == '' || request()->path() == '' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/add-employee' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/individual-attendance' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance-count' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/edit-employee' ) active open @endif
+                @php echo "active",(request()->path() != 'admin/payroll')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/payroll/chart')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/payroll/salary/sheet')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/award')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/award/create')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/award/edit/{$url}')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/employee/task')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/employee/task-add')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/notice')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/notice/create')?:"";@endphp
+                @php if (request()->path() == 'admin/notice/edit/{id}') echo "active" @endphp
+                @php echo "active",(request()->path() != 'admin/holidays')?:"";@endphp
+                @php echo "active",(request()->path() != 'holidays')?:"";@endphp">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="fa fa-archive" aria-hidden="true"></i>
+                        <span class="title">Production Management</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+    
+                        <li class="nav-item @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee' ) active open @endif
+                        @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/add-employee' ) active open @endif
+                        @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance' ) active open @endif
+                        @if( request()->path() == 'admin/employee' || request()->path() == 'admin/individual-attendance' ) active open @endif
+                        @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance-count' ) active open @endif
+                        @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/edit-employee' ) active open @endif">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="fa fa-user"></i>
+                                <span class="title">Production Data</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item  @if( request()->path() == 'admin/production' ) active open @endif">
+                                    <a href="{{route('medical_report.index')}}" class="nav-link ">
+                                        <span class="title">Medical Report</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            
             <li class="nav-item">
                 <a href="" class="nav-link nav-toggle" >
                     <i class="fa fa-trash" aria-hidden="true"></i>
