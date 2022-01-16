@@ -154,7 +154,7 @@
                                                                             {{csrf_field()}}
                                                                             <input type="hidden" value="{{$item->pivot->id}}" name="productOrder_id">
                                                                             <div class="form-group">
-                                                                                <textarea style="margin-left: 10%" name="SinglecancelMassage" id="" cols="40" rows="5" placeholder="give a cancel Massage(Optional)"></textarea>
+                                                                                <textarea style="margin-left: 10%" name="single_cancel_massage" id="" cols="40" rows="5" placeholder="give a cancel Massage(Optional)"></textarea>
                                                                             </div>
                                                                             <div class="modal-footer">
                                                                                 <button type="button" data-dismiss="modal" class="btn default">Cancel</button>

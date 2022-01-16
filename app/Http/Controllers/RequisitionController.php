@@ -158,7 +158,7 @@ class RequisitionController extends Controller
         unset($data['_token']);
         $data['requisition_id'] = Str::random(6);
         $data['confirmed'] = false;
-        $requisition = Requisition::create(['party_id'=>$data['party_id'],'requisition_id'=>$data['requisition_id'],'warehouse_id'=>$data['warehouse_id'],'remark'=>$data['remark'],'clearance_date'=>$data['clearance_date'],'confirmed'=>$data['confirmed'],'totalamount'=>$data['totalamount'],'payment_method'=>$data['payment_method'],'paid_amount'=>$data['paid_amount'],'due_amount'=>$data['due_amount'],'acc_number'=>$data['acc_number'],'created_by'=>Auth::user()->id]);
+        $requisition = Requisition::create(['party_id'=>$data['party_id'],'requisition_id'=>$data['requisition_id'],'warehouse_id'=>$data['warehouse_id'],'remark'=>$data['remark'],'clearance_date'=>$data['clearance_date'],'confirmed'=>$data['confirmed'],'totalamount'=>$data['totalamount'],'payment_method'=>$data['payment_method'],'paid_amount'=>$data['paid_amount'],'acc_number'=>$data['acc_number'],'created_by'=>Auth::user()->id]);
         foreach ($data['product_id'] as $key => $value) {
             $product_id = $value;
             $requisition_id = $requisition->id;

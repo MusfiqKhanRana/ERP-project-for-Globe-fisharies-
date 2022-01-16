@@ -76,7 +76,7 @@ class OrderController extends Controller
     public function ordersingleProductReturn(Request $request)
     {
         // dd($request);
-        $order_status = ProductOrder::where('id',$request->productOrder_id)->update(['status'=>'Returned','SinglecancelMassage'=>$request->SinglecancelMassage]);
+        $order_status = ProductOrder::where('id',$request->productOrder_id)->update(['status'=>'Returned','single_cancel_massage'=>$request->single_cancel_massage]);
         return redirect()->back()->withMsg('Successfully Returned');
     }
     /**
