@@ -29,6 +29,7 @@ use App\Http\Controllers\CateringManagement;
 use App\Http\Controllers\OfficeDetailController;
 use App\Http\Controllers\FoodMillController;
 use App\Http\Controllers\CateringController;
+use App\Http\Controllers\MedicalReportController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PackControler;
 use App\Http\Controllers\PartyController;
@@ -323,6 +324,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('order/confirm/{id}',[OrderController::class,'confirm'])->name('order.confirm');
     Route::post('order/product/pass',[OrderController::class,'product_pass'])->name('order.product.pass');
     Route::post('order/addproduct/pass',[OrderController::class,'addproduct_pass'])->name('order.addproduct.pass');
+
+    // Medical Report
+
+    Route::resource('medical_report', MedicalReportController::class);
     
 
 });
