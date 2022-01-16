@@ -2,15 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Party;
-use App\Models\User;
-use App\Models\UserType;
-use App\Models\Pack;
-use App\Models\Area;
-use App\Models\Coldstorage;
+use App\Models\ColdStorage;
 use Illuminate\Http\Request;
 
-class UserTypeController extends Controller
+class ColdstorageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,12 +14,7 @@ class UserTypeController extends Controller
      */
     public function index()
     {
-        $users = UserType::orderBy('id', 'DESC')->latest()->paginate(10); 
-        $tests = Party::orderBy('id', 'DESC')->latest()->paginate(10);
-        $packs = Pack::orderBy('id', 'DESC')->latest()->paginate(10);
-        $areas = Area::orderBy('id', 'DESC')->latest()->paginate(10);
-        $coldstorages = Coldstorage::orderBy('id', 'DESC')->latest()->paginate(10);
-       return view('backend.menu.index', compact('users','packs','areas','tests','coldstorages'));
+        //
     }
 
     /**
@@ -34,7 +24,7 @@ class UserTypeController extends Controller
      */
     public function create()
     {
-        return view('backend.users_type.create');
+        //
     }
 
     /**
@@ -49,7 +39,7 @@ class UserTypeController extends Controller
         $this->validate($request,array(
            'name' => 'min:4|max:191',
         ));
-        $users = new UserType;
+        $users = new ColdStorage();
         $users->name = $request->name;
         $users->save();
 
@@ -75,8 +65,7 @@ class UserTypeController extends Controller
      */
     public function edit($id)
     {
-        
-    
+        //
     }
 
     /**
@@ -88,7 +77,7 @@ class UserTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        UserType::whereId($id)
+        ColdStorage::whereId($id)
         ->update([
             'name' => $request->name,
         ]);
@@ -103,7 +92,7 @@ class UserTypeController extends Controller
      */
     public function destroy($id)
     {
-        UserType::whereId($id)->delete();
+        ColdStorage::whereId($id)->delete();
         return redirect()->back()->withMsg("Successfully Deleted");
     }
 }
