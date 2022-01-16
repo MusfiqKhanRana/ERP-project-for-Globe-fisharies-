@@ -86,6 +86,9 @@
                                                             Remark
                                                         </th>
                                                         <th>
+                                                            paymentInfo
+                                                        </th>
+                                                        <th>
                                                             Products
                                                         </th>
                                                         <th>
@@ -115,6 +118,29 @@
                                                             </td>
                                                             <td> {{$data->clearance_date}} </td>
                                                             <td> {{$data->remark}} </td>
+                                                            <td>
+                                                                <li>
+                                                                    Total_amount : {{$data->totalamount}}
+                                                                </li>
+                                                                <li>
+                                                                    Paid_amount : {{$data->paid_amount}}
+                                                                </li>
+                                                                <li>
+                                                                    @php
+                                                                     $duee_amount=0;    
+                                                                     $duee_amount = $data->totalamount-$data->paid_amount;
+                                                                    @endphp
+                                                                      Due_amount : {{$duee_amount }}
+                                                                </li>
+                                                                <li>
+                                                                    Payment_method : {{$data->payment_method}}
+                                                                </li>
+                                                                @if ($data->payment_method == 'bank')
+                                                                    <li>
+                                                                        ACC_number : {{$data->acc_number}}
+                                                                    </li>
+                                                                @endif
+                                                            </td>
                                                             <td> 
                                                                 {{-- {{$data->products}} --}}
                                                                 <table class="table table-striped table-bordered table-hover">

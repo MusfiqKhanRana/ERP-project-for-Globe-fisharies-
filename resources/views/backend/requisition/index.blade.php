@@ -88,6 +88,9 @@
                                                 Remark
                                             </th>
                                             <th>
+                                                paymentInfo
+                                            </th>
+                                            <th>
                                                 Products
                                             </th>
                                             <th>
@@ -111,6 +114,29 @@
                                                 <td> {{$data->clearance_date}} </td>
                                                 <td>
                                                     {{$data->remark}}
+                                                </td>
+                                                <td>
+                                                    <li>
+                                                        Total_amount : {{$data->totalamount}}
+                                                    </li>
+                                                    <li>
+                                                        Paid_amount : {{$data->paid_amount}}
+                                                    </li>
+                                                    <li>
+                                                        @php
+                                                         $duee_amount=0;    
+                                                         $duee_amount = $data->totalamount-$data->paid_amount;
+                                                        @endphp
+                                                          Due_amount : {{$duee_amount }}
+                                                    </li>
+                                                    <li>
+                                                        Payment_method : {{$data->payment_method}}
+                                                    </li>
+                                                    @if ($data->payment_method == 'bank')
+                                                        <li>
+                                                            ACC_number : {{$data->acc_number}}
+                                                        </li>
+                                                    @endif
                                                 </td>
                                                 <td> 
                                                     {{-- {{$data->products}} --}}
@@ -415,7 +441,7 @@
                                                             <button class="btn btn-danger margin-top-20 delete_desc" type="button"><i class='fa fa-times'></i></button>
                                                         </span>
                                                     </div>
-                                                    <div class="col-md-12" style="margin-top:20px;margin-bottom:20px"><b>Pack :</b><span class="span1" id="span1"></span> <span style="margin-left:20px"><b>Party_Price :</b></span> <span class="pprice1" id="pprice1"></span><span style="margin-left:5%"><b>Total:</b></span><span><input type="number" class="singleTotal1" value="0" placeholder="total"></span></div>
+                                                    <div class="col-md-12" style="margin-top:20px;margin-bottom:20px"><b>Pack :</b><span class="span1" id="span1"></span> <span style="margin-left:20px"><b>Party_Price :</b></span> <span class="pprice1" id="pprice1"></span><span style="margin-left:5%"><b>Total:</b></span><span><input type="number" class="singleTotal1" value="0" readonly placeholder="total"></span></div>
                                                 </div>
                                             </div>
                                         <div class="row">
@@ -429,7 +455,7 @@
                             <div class="input-group">
                                 <div class="col-md-3">
                                     <label for="category">Total Amount :</label>
-                                    <input name="totalamount" type="text" class="form-control totalprice" value="">
+                                    <input name="totalamount" type="text" class="form-control totalprice" readonly value="">
                                 </div>
                                 <div class="col-md-3">
                                     <label for="">Payment Method</label>
@@ -441,11 +467,11 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="">Paid Amount</label>
-                                    <input name="paid_amount" class="form-control" type="number"placeholder="paid amount">
+                                    <input name="paid_amount" class="form-control paid_amount" type="number"placeholder="paid amount">
                                 </div>
                                 <div class="col-md-2">
                                     <label for="">Due</label>
-                                    <input name="due_amount" class="form-control"type="text" value="">
+                                    <input class="form-control due_amount"type="text" readonly value="">
                                 </div>
                             </div><br>
                             <div class="input-group accountnumber">
@@ -507,7 +533,7 @@
                             '<button class="btn btn-danger margin-top-20 delete_desc" type="button"><i class="fa fa-times"></i></button>'+
                         '</span>'+
                     '</div> <br>'+
-                    '<div class="col-md-12" style="margin-top:20px;margin-bottom:20px"><b>Pack :</b><span class="span'+max+'" id="span'+max+'"></span> <span style="margin-left:20px"><b>Party_Price :</b></span><span class="pprice'+max+'" id="pprice'+max+'"></span> <span style="margin-left:5%"><b>Total:</b></span><span><input type="number" class="singleTotal'+max+'" value="0" placeholder="total"></span></div><hr>'+
+                    '<div class="col-md-12" style="margin-top:20px;margin-bottom:20px"><b>Pack :</b><span class="span'+max+'" id="span'+max+'"></span> <span style="margin-left:20px"><b>Party_Price :</b></span><span class="pprice'+max+'" id="pprice'+max+'"></span> <span style="margin-left:5%"><b>Total:</b></span><span><input type="number" readonly class="singleTotal'+max+'" value="0" placeholder="total"></span></div><hr>'+
                 '</div>'
             );
         }
@@ -617,6 +643,7 @@
                     }
                     $(".totalprice").val(grandT);
                 }
+                dueCount();
             }
             $(document).on('click', '.delete_desc', function () {
                     $(this).closest('.input-group').remove();
@@ -634,5 +661,11 @@
             });
 
         });
+        $(document).on('change keyup', '.paid_amount', function() {
+            dueCount();
+        });
+        function dueCount() {
+            $(".due_amount").val(($(".totalprice").val())-($(".paid_amount").val()));
+        }
     </script>
 @endsection
