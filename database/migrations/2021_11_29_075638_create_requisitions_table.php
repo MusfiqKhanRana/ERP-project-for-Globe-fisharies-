@@ -33,7 +33,6 @@ class CreateRequisitionsTable extends Migration
             $table->double('totalamount')->nullable();
             $table->string('payment_method')->nullable();
             $table->double('paid_amount')->nullable();
-            $table->double('due_amount')->nullable();
             $table->string('acc_number')->nullable();
             $table->unsignedInteger('submitted_by')->nullable();
             $table->unsignedInteger('created_by')->nullable();
