@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('site-title')
-    Requisition
+Temp. Monitoring
 @endsection
 @section('main-content')
 <!-- BEGIN CONTENT -->
@@ -62,31 +62,45 @@
 <script type="text/javascript">
     $(function () {
       
-      var table = $('.yajra-datatable').DataTable({
-          processing: true,
-          serverSide: true,
-          ajax: "{{ route('temp.monitoring.list') }}",
-          columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
-            // {data: 'cold_storage_id', name: 'cold_storage_id'},
-            {data: 'storage_name', name: 'storage_name'},
-            {data: 'temp_c_ddt', name: 'temp_c_ddt'},
-            {data: 'temp_c_dts', name: 'temp_c_dts'},
-            {data: 'master_carton_no', name: 'master_carton_no'},
-            {data: 'commodity_count', name: 'commodity_count'},
-            {data: 'date_of_production', name: 'date_of_production'},
-            {data: 'block_core_temp', name: 'block_core_temp'},
-            {data: 'remarks', name: 'remarks'},
-            {
-                data: 'action', 
-                name: 'action', 
-                orderable: true, 
-                searchable: true
-            },
-          ]
-      });
-      
+        var table = $('.yajra-datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('temp.monitoring.list') }}",
+            columns: [
+                {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
+                // {data: 'cold_storage_id', name: 'cold_storage_id'},
+                {data: 'storage_name', name: 'storage_name'},
+                {data: 'temp_c_ddt', name: 'temp_c_ddt'},
+                {data: 'temp_c_dts', name: 'temp_c_dts'},
+                {data: 'master_carton_no', name: 'master_carton_no'},
+                {data: 'commodity_count', name: 'commodity_count'},
+                {data: 'date_of_production', name: 'date_of_production'},
+                {data: 'block_core_temp', name: 'block_core_temp'},
+                {data: 'remarks', name: 'remarks'},
+                {
+                    data: 'action', 
+                    name: 'action', 
+                    orderable: true, 
+                    searchable: true
+                },
+            ]
+        });
+       
+        $('.delete').click(function() {
+            alert( "Handler for .click() called." );
+        });
     });
+    // $(document).ready(function(){
+    //     $(document).on('click',".edit_temp",function(){
+    //         console.log(hey Bro);
+    //                     // w=$(this).find(':selected').attr('data-pack_weight');
+    //                     // $(".catagory"+max).val($(this).find(':selected').attr('data-category_name'));
+    //                     // $(".span"+max).html($(this).find(':selected').attr('data-pack_name'));  
+    //                     // $(".pprice"+max).html($(this).find(':selected').attr('data-product_price'));
+    //                     // weightCount();
+    //                     // tp[max] = $(this).find(':selected').attr('data-product_price');
+    //     });
+    // });
   </script>
     
 @endsection
