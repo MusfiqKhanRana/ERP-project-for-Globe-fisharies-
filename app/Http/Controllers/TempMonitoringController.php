@@ -29,7 +29,7 @@ class TempMonitoringController extends Controller
                     return $data->coldstorage->name;
                 })
                 ->addColumn('action', function($row){
-                    $actionBtn = '<button data-id="'.$row->id.'" data-coldstorage_name="'.$row->coldstorage->name.'" data-temp_c_ddt="'.$row->temp_c_ddt.'" data-temp_c_dts="'.$row->temp_c_dts.'" data-master_carton_no="'.$row->master_carton_no.'" data-commodity_count="'.$row->commodity_count.'" data-date_of_production="'.$row->date_of_production.'" data-block_core_temp="'.$row->block_core_temp.'" data-remarks="'.$row->remarks.'" class="edit btn btn-success btn-sm edit_temp">Edit</button> <button class="delete btn btn-danger btn-sm">Delete</button>';
+                    $actionBtn = '<button data-toggle="modal" data-target="#editModal" data-id="'.$row->id.'" data-coldstorage_name="'.$row->coldstorage->name.'" data-temp_c_ddt="'.$row->temp_c_ddt.'" data-temp_c_dts="'.$row->temp_c_dts.'" data-master_carton_no="'.$row->master_carton_no.'" data-commodity_count="'.$row->commodity_count.'" data-date_of_production="'.$row->date_of_production.'" data-block_core_temp="'.$row->block_core_temp.'" data-remarks="'.$row->remarks.'" class="edit btn btn-success btn-sm edit_temp">Edit</button> <button class="delete btn btn-danger btn-sm">Delete</button>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
