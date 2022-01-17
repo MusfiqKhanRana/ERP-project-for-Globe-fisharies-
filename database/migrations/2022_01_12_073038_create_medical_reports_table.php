@@ -20,7 +20,7 @@ class CreateMedicalReportsTable extends Migration
             $table->string('name')->nullable();
             $table->string('dressing')->nullable();
             $table->string('complain')->nullable();
-            $table->string('medicine_name')->nullable();
+            $table->text('medicine_details')->nullable();
             $table->string('medicine_schedule')->nullable();
             $table->timestamps();
         });

@@ -53,8 +53,7 @@
                                         <th>Designation</th>
                                         <th>C/Complain</th>
                                         <th>Dressing</th>
-                                        <th>Name Of Medicine</th>
-                                        <th>Medicine Schedule</th>
+                                        <th>Medicine Details</th>
                                         <th style="text-align: center">Action</th>
                                     </tr>
                                     </thead>
@@ -75,8 +74,7 @@
                                                 <td style="text-align: center"> {{$data->user->designation->deg_name}}</td>
                                                 <td style="text-align: center"> {{$data->complain}}</td>
                                                 <td style="text-align: center"> {{$data->dressing}}</td>
-                                                <td style="text-align: center"> {{$data->medicine_name}}</td>
-                                                <td style="text-align: center"> {{$data->medicine_schedule}}</td>
+                                                <td style="text-align: center"> {!! $data->medicine_details !!}</td>
                                                 <td style="text-align: center">
                                                     <a class="btn btn-info"  data-toggle="modal" href="#editModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
                                                     <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
@@ -136,20 +134,20 @@
                                                                 </div><br><br>
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
-                                                                        <label for="inputEmail1" class="col-md-2 control-label">Name Of Medicine:</label>
+                                                                        <label for="inputEmail1" class="col-md-2 control-label"> Medicine Details</label>
                                                                         <div class="col-md-8">
-                                                                            <input type="text" class="form-control" value="{{$data->medicine_name}}" required name="medicine_name">
+                                                                            <input type="text" class="form-control" value="{{$data->medicine_details}}" required name="medicine_details">
                                                                         </div>
                                                                     </div>
                                                                 </div><br><br>
-                                                                <div class="col-md-12">
+                                                                {{-- <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for="inputEmail1" class="col-md-2 control-label">Medicine Schedule:</label>
                                                                         <div class="col-md-8">
                                                                             <input type="text" class="form-control" value="{{$data->medicine_schedule}}" required name="medicine_schedule">
                                                                         </div>
                                                                     </div>
-                                                                </div><br><br><br><br>
+                                                                </div><br><br><br><br> --}}
                                                                 <div class="modal-footer">
                                                                     <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                                                     <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>

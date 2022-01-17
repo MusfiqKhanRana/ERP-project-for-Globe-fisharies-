@@ -50,18 +50,18 @@ class MedicalReportController extends Controller
         $this->validate($request,array(
            'date' => 'max:191',
            'user_id' => 'min:4|max:191',
-           'complain' => 'min:4|max:191',
+           'complain' => 'min:4',
            'dressing' => 'max:191',
-           'medicine_name' => 'max:191',
-           'medicine_schedule' => 'max:191'
+           'medicine_details' => 'required',
+           //'medicine_schedule' => 'max:191'
         ));
         $medicine_report = new MedicalReport();
         $medicine_report->date = $request->date;
         $medicine_report->user_id = $request->user_id;
         $medicine_report->complain = $request->complain;
         $medicine_report->dressing = $request->dressing;
-        $medicine_report->medicine_name = $request->medicine_name;
-        $medicine_report->medicine_schedule = $request->medicine_schedule;
+        $medicine_report->medicine_details = $request->medicine_details;
+        //$medicine_report->medicine_schedule = $request->medicine_schedule;
         $medicine_report->save();
 
         return redirect()->route('medical_report.index')->withMsg('Successfully Created');
