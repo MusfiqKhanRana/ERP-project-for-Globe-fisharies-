@@ -299,8 +299,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('pack', PackControler::class);
     Route::resource('area', AreaController::class);
     Route::resource('coldstorage', ColdstorageController::class);
-    Route::get('temp-monitoring-list',[TempMonitoringController::class,'TempMonitoringList'])->name('temp.monitoring.list');
-    Route::resource('temp_monitoring', TempMonitoringController::class);
+    
 
     //Order
     Route::post('order/product',[ProductOrderController::class,'warehouse_product_pass'])->name('warehouse.product.pass');
@@ -334,6 +333,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     // Medical Report
 
     Route::resource('medical_report', MedicalReportController::class);
+
+    //tempmonitoring
+
+    Route::get('temp-monitoring-list',[TempMonitoringController::class,'TempMonitoringList'])->name('temp.monitoring.list');
+    Route::resource('temp_monitoring', TempMonitoringController::class);
     
 
 });

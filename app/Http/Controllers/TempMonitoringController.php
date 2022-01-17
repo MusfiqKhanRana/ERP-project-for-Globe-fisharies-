@@ -20,17 +20,20 @@ class TempMonitoringController extends Controller
     }
     public function TempMonitoringList(Request $request)
     {
-        
         if ($request->ajax()) {
-            $data = TempMonitoring::latest()->get();
-            return Datatables::of($data)
-                    ->addIndexColumn()
-                    ->addColumn('action', function($row){
-                        $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
-                        return $actionBtn;
-                    })
-                    ->rawColumns(['action'])
-                    ->make(true);
+            $temp_monitoring = TempMonitoring::with('coldstorage')->latest();
+            return Datatables::of($temp_monitoring)
+                ->addIndexColumn()
+                ->editColumn('storage_name', function($data)
+                {
+                    return $data->coldstorage->name;
+                })
+                ->addColumn('action', function($row){
+                    $actionBtn = '<button data-id="'.$row->id.'" data-coldstorage_name="'.$row->coldstorage->name.'" data-temp_c_ddt="'.$row->temp_c_ddt.'" data-temp_c_dts="'.$row->temp_c_dts.'" data-master_carton_no="'.$row->master_carton_no.'" data-commodity_count="'.$row->commodity_count.'" data-date_of_production="'.$row->date_of_production.'" data-block_core_temp="'.$row->block_core_temp.'" data-remarks="'.$row->remarks.'" class="edit btn btn-success btn-sm edit_temp">Edit</button> <button class="delete btn btn-danger btn-sm">Delete</button>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
             
         }
     }
