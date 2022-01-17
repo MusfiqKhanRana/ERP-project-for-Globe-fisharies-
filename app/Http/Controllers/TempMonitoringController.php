@@ -20,17 +20,20 @@ class TempMonitoringController extends Controller
     }
     public function TempMonitoringList(Request $request)
     {
-        
         if ($request->ajax()) {
-            $data = TempMonitoring::latest()->get();
-            return Datatables::of($data)
-                    ->addIndexColumn()
-                    ->addColumn('action', function($row){
-                        $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
-                        return $actionBtn;
-                    })
-                    ->rawColumns(['action'])
-                    ->make(true);
+            $temp_monitoring = TempMonitoring::with('coldstorage')->latest();
+            return Datatables::of($temp_monitoring)
+                ->addIndexColumn()
+                ->editColumn('storage_name', function($data)
+                {
+                    return $data->coldstorage->name;
+                })
+                ->addColumn('action', function($row){
+                    $actionBtn = '<a href="javascript:void(0)" data-id="'.$row->id.'" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
             
         }
     }
