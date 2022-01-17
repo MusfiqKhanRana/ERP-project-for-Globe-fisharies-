@@ -9,4 +9,9 @@ class TempMonitoring extends Model
 {
     protected $guarded = [];
     use HasFactory;
+
+    public function coldstorage()
+    {
+        return $this->belongsTo(ColdStorage::class,'cold_storage_id');
+    }
 }
