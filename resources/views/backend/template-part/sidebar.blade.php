@@ -538,6 +538,11 @@
                                         <span class="title">Medical Report</span>
                                     </a>
                                 </li>
+                                <li class="nav-item  @if( request()->path() == 'admin/temp_monitoring' ) active open @endif">
+                                    <a href="{{route('temp_monitoring.index')}}" class="nav-link ">
+                                        <span class="title">Storage Temp. Monitoring</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>

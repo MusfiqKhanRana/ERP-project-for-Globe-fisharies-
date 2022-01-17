@@ -42,6 +42,9 @@
                             <div class="col-md-6">
                                 @include('backend.area.index')
                             </div>
+                            <div class="col-md-6">
+                                @include('backend.cold_storage.index')
+                            </div>
                         </div>
                     </div>
                 {{-- </div>
