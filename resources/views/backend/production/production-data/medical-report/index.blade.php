@@ -187,6 +187,80 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Detele File</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                    {{-- <p id="storage_id"></p> --}}
+                                    <input type="hidden" id="del_report"  value="">
+                                    <h3 style="color: red"><b>Are You sure ?</b></h3>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-primary confirm_delete">Confirm</button>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div id="editModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                        <h4 class="modal-title">Update Report</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form-group" role="form" id="frm" method="post" action="">
+                                            {{csrf_field()}}
+                                            {{ method_field('PUT') }}
+                                            <input type="hidden" id="medical_id" name="id" value="">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="inputEmail1" class="col-md-2 control-label">Complain:</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="form-control" id="complain" value="{{--$data->complain--}}" required name="complain">
+                                                    </div>
+                                                </div>
+                                            </div><br><br>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="inputEmail1" class="col-md-2 control-label">Dressing:</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="form-control" id="dressing" value="{{--$data->dressing--}}" required name="dressing">
+                                                    </div>
+                                                </div>
+                                            </div><br><br>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="inputEmail1" class="col-md-2 control-label"> Medicine Details</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="form-control" id="medicine_details" value="{{--$data->medicine_details--}}" required name="medicine_details">
+                                                    </div>
+                                                </div>
+                                            </div><br><br>
+                                            {{-- <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="inputEmail1" class="col-md-2 control-label">Medicine Schedule:</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="form-control" value="{{$data->medicine_schedule}}" required name="medicine_schedule">
+                                                    </div>
+                                                </div>
+                                            </div><br><br><br><br> --}}
+                                            <div class="modal-footer">
+                                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                <button type="button" class="btn btn-primary btn_submit"><i class="fa fa-floppy-o"></i> Update</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -194,6 +268,7 @@
     </div>
 @endsection
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
     $(function () {
       
@@ -204,12 +279,13 @@
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
                 {data: 'date', name: 'date'},
-                {data: 'name', name: 'name'},
-                {data: 'b_date', name: 'b_date'},
+                {data: 'name', name: 'user.name'},
+                {data: 'b_date', name: 'user.b_date', orderable: false, searchable: false},
                 // {data: 'designation', name: 'designation'},
-                {data: 'dressing', name: 'dressing'},
+                
                 {data: 'complain', name: 'complain'},
-                {data: 'medicine_details', name: 'medicine_details' },
+                {data: 'dressing', name: 'dressing'},
+                {data: 'medicine_details', name: 'medicine_details', orderable: false, searchable: false },
                 {
                     data: 'action', 
                     name: 'action', 
@@ -218,23 +294,69 @@
                 },
             ]
         });
-        $('.yajra-datatable').on('click', '.edit_temp', function(){
-            // alert( "Handler for .click() called." );
-            // console.log($(this).attr("data-id"));
-            $("#storage_id").html($(this).attr("data-id"));
+        
+    $('.yajra-datatable').on('click', '.edit_report', function(){
+            x = $(this).attr("data-medical_report");
+            $("#complain").val($(this).attr("data-complain"));
+            $("#dressing").val($(this).attr("data-dressing"));
+            $("#medicine_details").val($(this).attr("data-medicine_details"));
+            $("#medical_report").val(x);
+            $("#medical_id").val($(this).attr("data-id"));
         });
+        $('.yajra-datatable').on('click', '.delete_report', function(){
+
+            $("#del_report").val($(this).attr("data-id"));
+        });
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $(".btn_submit").click(function(e){
+                var id =  $("#medical_id").val();
+                console.log(id);
+                $.ajax({
+                    type:'POST',
+                    url:"/admin/medical_report/"+id,
+                    data:jQuery('#frm').serialize(),
+                    success:function(data){
+                        // console.log(data);
+                        $('#editModal').modal('hide');
+                        Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: data,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                        })
+                        table.draw();
+                    }
+                });
+
+            });
+            $(".confirm_delete").click(function(e){
+                var id =  $("#del_report").val();
+                // console.log(id);
+                $.ajax({
+                    type:'POST',
+                    url:"/admin/medical_report/"+id,
+                    data:{"_method":"DELETE","id":id},
+                    success:function(data){
+                        // alert(data.success);
+                        $('#deleteModal').modal('hide');
+                        Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: data,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                        })
+                        table.draw();
+                    }
+                });
+
+            });
     });
-    // $(document).ready(function(){
-    //     $(document).on('click',".edit_temp",function(){
-    //         console.log(hey Bro);
-    //                     // w=$(this).find(':selected').attr('data-pack_weight');
-    //                     // $(".catagory"+max).val($(this).find(':selected').attr('data-category_name'));
-    //                     // $(".span"+max).html($(this).find(':selected').attr('data-pack_name'));  
-    //                     // $(".pprice"+max).html($(this).find(':selected').attr('data-product_price'));
-    //                     // weightCount();
-    //                     // tp[max] = $(this).find(':selected').attr('data-product_price');
-    //     });
-    // });
-  </script>
+</script>
     
 @endsection
