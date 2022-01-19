@@ -56,7 +56,7 @@ Temp. Monitoring
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                              <h5 class="modal-title" id="exampleModalLabel">Edit File</h5>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
@@ -65,6 +65,7 @@ Temp. Monitoring
                                 {{-- <p id="storage_id"></p> --}}
                                 <form class="form-horizontal" id="frm" role="form" method="post" action="">
                                     {{csrf_field()}}
+                                    {{ method_field('PUT') }}
                                     <input type="hidden" id="storage_id" name="id" value="">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -188,6 +189,27 @@ Temp. Monitoring
                           </div>
                         </div>
                     </div>
+                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Detele File</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                {{-- <p id="storage_id"></p> --}}
+                                <input type="hidden" id="storage_id2"  value="">
+                                <h3 style="color: red"><b>Are You sure ?</b></h3>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary confirm_delete">Confirm</button>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -195,6 +217,7 @@ Temp. Monitoring
 </div>
 @endsection
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
     $(function () {
         var x =0;
@@ -206,7 +229,7 @@ Temp. Monitoring
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
                 // {data: 'cold_storage_id', name: 'cold_storage_id'},
-                {data: 'storage_name', name: 'storage_name'},
+                {data: 'storage_name', name: 'coldstorage.name'},
                 {data: 'temp_c_ddt', name: 'temp_c_ddt'},
                 {data: 'temp_c_dts', name: 'temp_c_dts'},
                 {data: 'master_carton_no', name: 'master_carton_no'},
@@ -239,6 +262,10 @@ Temp. Monitoring
             // console.log(x);
 
         });
+        $('.yajra-datatable').on('click', '.delete_temp', function(){
+
+            $("#storage_id2").val($(this).attr("data-id"));
+        });
         $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -259,13 +286,43 @@ Temp. Monitoring
                 // var remarks = $("#remarks").val();
 
                 $.ajax({
-                    type:'put',
+                    type:'POST',
                     url:"/admin/temp_monitoring/"+id,
                     // data:{storage_id:storage_id, temp_c_ddt:temp_c_ddt, temp_c_dts:temp_c_dts, master_carton_no:master_carton_no, commodity_count:commodity_count, date_of_production:date_of_production, block_core_temp:block_core_temp, remarks:remarks},
                     data:jQuery('#frm').serialize(),
                     success:function(data){
                         // alert(data.success);
-                        console.log(data);
+                        $('#editModal').modal('hide');
+                        Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: data,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                        })
+                        table.draw();
+                    }
+                });
+
+            });
+            $(".confirm_delete").click(function(e){
+                var id =  $("#storage_id2").val();
+                // console.log(id);
+                $.ajax({
+                    type:'POST',
+                    url:"/admin/temp_monitoring/"+id,
+                    data:{"_method":"DELETE","id":id},
+                    success:function(data){
+                        // alert(data.success);
+                        $('#deleteModal').modal('hide');
+                        Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: data,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                        })
+                        table.draw();
                     }
                 });
 
