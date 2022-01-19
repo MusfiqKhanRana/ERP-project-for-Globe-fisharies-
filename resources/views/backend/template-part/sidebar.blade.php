@@ -543,6 +543,11 @@
                                         <span class="title">Storage Temp. Monitoring</span>
                                     </a>
                                 </li>
+                                <li class="nav-item  @if( request()->path() == 'admin/production_test' ) active open @endif">
+                                    <a href="{{route('production_test.index')}}" class="nav-link ">
+                                        <span class="title">Proiduction Test</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
