@@ -536,7 +536,7 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a href="" class="nav-link ">
+                                <a href="{{route('production-supplier.index')}}" class="nav-link ">
                                     <span class="title">Manage Suplyer</span>
                                 </a>
                             </li>
