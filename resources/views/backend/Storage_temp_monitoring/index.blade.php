@@ -62,11 +62,128 @@ Temp. Monitoring
                               </button>
                             </div>
                             <div class="modal-body">
-                                <p id="storage_id"></p>
+                                {{-- <p id="storage_id"></p> --}}
+                                <form class="form-horizontal" id="frm" role="form" method="post" action="">
+                                    {{csrf_field()}}
+                                    <input type="hidden" id="storage_id" name="id" value="">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-body">
+        
+                                                <div class="form-group clearfix">
+                                                    <label class="col-md-3 control-label">Cold Storage</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                            <select class="form-control select2me" id="cold_storage" name="cold_storage_id" required>
+                                                                <option value="">--select--</option>
+                                                                @foreach($cold_storage as $data)
+                                                                    <option value="{{$data->id}}">{{$data->name}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <span class="input-group-addon"><i class="fa fa-archive" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+        
+                                                <div class="form-group clearfix">
+                                                    <label class="col-md-3 control-label">Temp(<sup>0</sup>C)(DDT)</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                           <input type="text" class="form-control" id="temp_c_ddt" name="temp_c_ddt" value="">
+                                                            <span class="input-group-addon"><i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group clearfix">
+                                                    <label class="col-md-3 control-label">Temp(<sup>0</sup>C)(DTS)</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                           <input type="text" class="form-control" id="temp_c_dts" name="temp_c_dts" value="">
+                                                            <span class="input-group-addon"><i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group clearfix">
+                                                    <label class="col-md-3 control-label">Master Carton No</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                           <input type="text" class="form-control" id="master_carton_no" name="master_carton_no" value="">
+                                                            <span class="input-group-addon"><i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group clearfix">
+                                                    <label class="col-md-3 control-label">Commodity Count</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                           <input type="text" class="form-control" id="commodity_count" name="commodity_count" value="">
+                                                            <span class="input-group-addon"><i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group clearfix">
+                                                    <label class="col-md-3 control-label">Production Date</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="date_of_production" name="date_of_production" value="">
+                                                            <span class="input-group-addon"><i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group clearfix">
+                                                    <label class="col-md-3 control-label">Block Core Temp.</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="block_core_temp" name="block_core_temp" value="">
+                                                            <span class="input-group-addon"><i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group clearfix">
+                                                    <label class="col-md-3 control-label">Remark</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="remarks" name="remarks" value="">
+                                                            <span class="input-group-addon"><i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{-- <div class="form-group clearfix">
+                                                    <label class="col-md-3 control-label">Date</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                            <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                                                <input type="text" class="form-control" name="clearance_date" value="{{$requisition->clearance_date}}"  readonly>
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                                </span>
+                                                            </div>
+                                                            <span class="input-group-addon"><i class="fa fa-th" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div> --}}
+        
+        
+                                                {{-- <div class="form-group clearfix">
+                                                    <div class="col-md-12">
+                                                        <button class="btn btn-info col-md-12" type="submit" ><i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                                            Update</button>
+                                                    </div>
+                                                </div> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                              <button type="button" class="btn btn-primary">Save changes</button>
+                              <button type="button" class="btn btn-primary btn_submit">Save changes</button>
                             </div>
                           </div>
                         </div>
@@ -80,6 +197,7 @@ Temp. Monitoring
 @section('script')
 <script type="text/javascript">
     $(function () {
+        var x =0;
       
         var table = $('.yajra-datatable').DataTable({
             processing: true,
@@ -106,9 +224,52 @@ Temp. Monitoring
         });
         $('.yajra-datatable').on('click', '.edit_temp', function(){
             // alert( "Handler for .click() called." );
-            // console.log($(this).attr("data-id"));
-            $("#storage_id").html($(this).attr("data-id"));
+            // console.log($(this).attr("data-cold_storage_id"));
+            x = $(this).attr("data-cold_storage_id");
+            $("#storage_id").val($(this).attr("data-id"));
+            $("#temp_c_ddt").val($(this).attr("data-temp_c_ddt"));
+            $("#temp_c_dts").val($(this).attr("data-temp_c_dts"));
+            $("#master_carton_no").val($(this).attr("data-master_carton_no"));
+            $("#commodity_count").val($(this).attr("data-commodity_count"));
+            $("#date_of_production").val($(this).attr("data-date_of_production"));
+            $("#block_core_temp").val($(this).attr("data-block_core_temp"));
+            $("#remarks").val($(this).attr("data-remarks"));
+            $("#cold_storage").val(x).trigger('change');
+            // $('#cold_storage option[value="{{'$(this).attr("data-cold_storage_id")'}}"]').attr("selected", "selected");
+            // console.log(x);
+
         });
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $(".btn_submit").click(function(e){
+                // alert('test');
+                // e.preventDefault();
+
+                var id =  $("#storage_id").val();
+                console.log(id);
+                // var temp_c_ddt = $("#temp_c_ddt").val();
+                // var temp_c_dts = $("#temp_c_dts").val();
+                // var master_carton_no = $("#master_carton_no").val();
+                // var commodity_count = $("#commodity_count").val();
+                // var date_of_production = $("#date_of_production").val();
+                // var block_core_temp = $("#block_core_temp").val();
+                // var remarks = $("#remarks").val();
+
+                $.ajax({
+                    type:'put',
+                    url:"/admin/temp_monitoring/"+id,
+                    // data:{storage_id:storage_id, temp_c_ddt:temp_c_ddt, temp_c_dts:temp_c_dts, master_carton_no:master_carton_no, commodity_count:commodity_count, date_of_production:date_of_production, block_core_temp:block_core_temp, remarks:remarks},
+                    data:jQuery('#frm').serialize(),
+                    success:function(data){
+                        // alert(data.success);
+                        console.log(data);
+                    }
+                });
+
+            });
     });
     // $(document).ready(function(){
     //     $(document).on('click',".edit_temp",function(){
