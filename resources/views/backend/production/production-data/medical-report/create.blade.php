@@ -82,8 +82,9 @@
                                         <label class="col-md-3 control-label">Dressing</label>
                                         <div class="col-md-9">
                                             <select  class="form-control" name="dressing" id="dressing">
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
+                                                <option>--Select--</option>
+                                                <option value="YES">Yes</option>
+                                                <option value="NO">No</option>
                                             </select>
                                         </div>
                                     </div>
