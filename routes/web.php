@@ -42,6 +42,7 @@ use App\Http\Controllers\RequisitionReceiveController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\PratyProductController;
 use App\Http\Controllers\ProductionTestController;
+use App\Http\Controllers\SupplyItemController;
 use App\Http\Controllers\TempMonitoringController;
 use App\Models\TempMonitoring;
 use Illuminate\Support\Facades\Route;
@@ -330,7 +331,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('order/confirm/{id}',[OrderController::class,'confirm'])->name('order.confirm');
     Route::post('order/product/pass',[OrderController::class,'product_pass'])->name('order.product.pass');
     Route::post('order/addproduct/pass',[OrderController::class,'addproduct_pass'])->name('order.addproduct.pass');
-
+    //Production
     // Medical Report
     Route::get('medical-report-list',[MedicalReportController::class,'MedicalReport'])->name('medical.report.list');
     Route::resource('medical_report', MedicalReportController::class);
@@ -342,6 +343,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //Production Test 
     Route::resource('production_test', ProductionTestController::class);
-    
+    //Supply Management
+
+    //item
+    Route::resource('supply-item', SupplyItemController::class);
 
 });
