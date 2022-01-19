@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductionSuppliersTable extends Migration
+class CreateFishGradesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateProductionSuppliersTable extends Migration
      */
     public function up()
     {
-        Schema::create('production_suppliers', function (Blueprint $table) {
+        Schema::create('fish_grades', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('grade_id')->nullable();
             $table->string('name')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('address')->nullable();
-            $table->string('email')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ class CreateProductionSuppliersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('production_suppliers');
+        Schema::dropIfExists('fish_grades');
     }
 }

@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('site-title')
-    Customer
+    Supply Items
 @endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
