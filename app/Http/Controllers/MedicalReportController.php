@@ -7,6 +7,8 @@ use App\Models\Employee;
 use App\Models\MedicalReport;
 use App\Models\User;
 use Illuminate\Http\Request;
+use DataTables;
+use DateTime;
 
 class MedicalReportController extends Controller
 {
@@ -50,18 +52,18 @@ class MedicalReportController extends Controller
         $this->validate($request,array(
            'date' => 'max:191',
            'user_id' => 'min:4|max:191',
-           'complain' => 'min:4|max:191',
+           'complain' => 'min:4',
            'dressing' => 'max:191',
-           'medicine_name' => 'max:191',
-           'medicine_schedule' => 'max:191'
+           'medicine_details' => 'required',
+           //'medicine_schedule' => 'max:191'
         ));
         $medicine_report = new MedicalReport();
         $medicine_report->date = $request->date;
         $medicine_report->user_id = $request->user_id;
         $medicine_report->complain = $request->complain;
         $medicine_report->dressing = $request->dressing;
-        $medicine_report->medicine_name = $request->medicine_name;
-        $medicine_report->medicine_schedule = $request->medicine_schedule;
+        $medicine_report->medicine_details = $request->medicine_details;
+        //$medicine_report->medicine_schedule = $request->medicine_schedule;
         $medicine_report->save();
 
         return redirect()->route('medical_report.index')->withMsg('Successfully Created');
@@ -114,9 +116,35 @@ class MedicalReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        MedicalReport::whereId($id)->delete();
-        return redirect()->back()->withMsg("Successfully Deleted");
+        $book = MedicalReport::where('id',$request->id)->delete();
+     
+        return Response()->json($book);
+    }
+    public function MedicalReport(Request $request)
+    {
+        if ($request->ajax()) {
+            $medical_report = MedicalReport::with('user')->latest();
+            return Datatables::of($medical_report)
+                ->addIndexColumn()
+                ->editColumn('b_date',function($data){
+                    $origin = new DateTime($data->user->b_date);
+                    $target = new DateTime("now");
+                    $interval = $origin->diff($target);
+                    return $interval->format('%y years');
+                })
+                ->addColumn('name', function($data)
+                {
+                    return $data->user->name;
+                })
+                ->addColumn('action', function($row){
+                    $actionBtn = '<button class="edit btn btn-success btn-sm edit_temp">Edit</button> <button class="delete btn btn-danger btn-sm">Delete</button>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+            
+        }
     }
 }

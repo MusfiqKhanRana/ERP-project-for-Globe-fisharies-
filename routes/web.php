@@ -41,6 +41,7 @@ use App\Http\Controllers\RequisitionProductController;
 use App\Http\Controllers\RequisitionReceiveController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\PratyProductController;
+use App\Http\Controllers\ProductionTestController;
 use App\Http\Controllers\TempMonitoringController;
 use App\Models\TempMonitoring;
 use Illuminate\Support\Facades\Route;
@@ -331,13 +332,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('order/addproduct/pass',[OrderController::class,'addproduct_pass'])->name('order.addproduct.pass');
 
     // Medical Report
-
+    Route::get('medical-report-list',[MedicalReportController::class,'MedicalReport'])->name('medical.report.list');
     Route::resource('medical_report', MedicalReportController::class);
 
     //tempmonitoring
 
     Route::get('temp-monitoring-list',[TempMonitoringController::class,'TempMonitoringList'])->name('temp.monitoring.list');
     Route::resource('temp_monitoring', TempMonitoringController::class);
+
+    //Production Test 
+    Route::resource('production_test', ProductionTestController::class);
     
 
 });
