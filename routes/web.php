@@ -42,6 +42,7 @@ use App\Http\Controllers\RequisitionProductController;
 use App\Http\Controllers\RequisitionReceiveController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\PratyProductController;
+use App\Http\Controllers\ProductionRequisitionController;
 use App\Http\Controllers\ProductionSupplierController;
 use App\Http\Controllers\ProductionTestController;
 use App\Http\Controllers\SupplyItemController;
@@ -350,10 +351,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //item
     Route::resource('supply-item', SupplyItemController::class);
     //supplier
+    Route::get('all-supplier',[ProductionSupplierController::class,'AllSupplier'])->name('production-supplier.all');
     Route::resource('production-supplier', ProductionSupplierController::class);
 
     //Fish Grade
 
     Route::resource('fish-grade', FishGradeController::class);
+
+    //production requistion
+    Route::resource('production-requisition', ProductionRequisitionController::class);
 
 });
