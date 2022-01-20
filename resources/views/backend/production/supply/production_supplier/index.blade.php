@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('site-title')
-    Supply Items
+    Supplier
 @endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
@@ -22,13 +22,13 @@
                     });
                 </script>
             @endif
-            <h3 class="page-title bold form-inline">Items
-                <small> Supply-Items </small>
+            <h3 class="page-title bold form-inline">Supplier
+                <small> Management </small>
                 {{-- <div class="form-group" style="margin-left: 10%">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </div> --}}
                 <a class="btn blue-ebonyclay pull-right" data-toggle="modal" href="#basic">
-                    Add Item
+                    Add New Supplier
                     <i class="fa fa-plus"></i>
                 </a>
             </h3>
@@ -164,25 +164,77 @@
                             <h4 class="modal-title">Add New Customer</h4>
                         </div>
                         <br>
-                        <form class="form-horizontal" role="form" method="post" action="{{route('supply-item.store')}}">
+                        <form class="form-horizontal" role="form" method="post" action="{{route('production-supplier.store')}}">
                             {{csrf_field()}}
 
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Full Name</label>
+                                <label for="inputEmail1" class="col-md-2 control-label">Name</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" placeholder="Customer Name" required name="name">
+                                    <input type="text" class="form-control" placeholder="Supplier Name" name="supplier_name">
                                 </div>
                             </div>
-
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-7 control-label">Suggestions or topics you would like to be included:</label>
-                                <div class="col-md-12">
-                                    <div class="col-md-12 ">
-                                        <input type="text" class="form-control" placeholder="Remark (Not Required)" name="details">
-                                    </div>
+                                <label for="inputEmail1" class="col-md-2 control-label">Contract Number</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" placeholder="Contract Number" name="supplier_mobile">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Address</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" placeholder="Address" name="supplier_address">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Email</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" placeholder="Email" name="supplier_email">
+                                </div>
+                            </div>
+                            <input type="hidden" value="" id="provided_item" name="provided_item">
+                            <div class="form-group" style="padding:2%">
+                                <label for="inputEmail1" class="col-md-2 control-label">Add Item</label>  
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <select class="form-control" name="supply_item_id" id="select_item">
+                                            <option value="">--Select Item--</option>
+                                            @foreach ($items as $item)
+                                                <option value="{{$item->id}}" data-item_name="{{$item->name}}">{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-control" name="grade_id" id="select_grade">
+                                            <option value="">--Select Grade--</option>
+                                            @foreach ($grades as $item)
+                                                <option value="{{$item->id}}" data-grade_name="{{$item->name}}">{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" class="form-control" placeholder="Rate" id="suppliers_rate" name="rate">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-success" id="add_items">add</button>
+                                    </div>
+                                </div>                                
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Provided Item</label>
+                                <div class="col-md-8">
+                                    <table  class="table table-striped table-bordered table-hover" id="mytable">
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Grade</th>
+                                            <th>Rate</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        <tr>
 
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
                             <div class="modal-footer">
                                 <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                 <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
@@ -198,7 +250,36 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-           
+           var item_name,item_id,grade_name,grade_id,rate = null;
+           var items_array = [];
+           function nullmaking(){
+                $("#select_item").val(null);
+                $("#select_grade").val(null);
+                $("#suppliers_rate").val(null);
+            }
+            $("#select_item").change(function(){
+                item_id = $(this).val();
+                item_name = $(this).find(':selected').data("item_name");
+                console.log(item_id);
+            });
+            $("#select_grade").change(function(){
+                grade_id = $(this).val();
+                grade_name = $(this).find(':selected').data("grade_name");
+                console.log(grade_id);
+            });
+           $("#add_items").click(function(){
+                items_array.push({"item_id":item_id,"item_name":item_name,"grade_id":grade_id,"grade_name":grade_name,"rate":$("#suppliers_rate").val(),"status":"stay"});
+                $("#provided_item").val('');
+                $("#provided_item").val(JSON.stringify(items_array));
+                $.each( items_array, function( key, item ) {
+                    if (item.status == "stay") {
+                        if(items_array.length-1 == key){
+                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+item.item_name+"</td><td>"+item.grade_name+"</td><td>"+item.rate+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                        }
+                    }
+                });
+                nullmaking();
+           });
             
         });
     </script>
