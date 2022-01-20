@@ -14,7 +14,8 @@ class ProductionSupplierController extends Controller
      */
     public function index()
     {
-        return view('backend.production.supply.production_supplier.index');
+        $items = ProductionSupplier::get();
+        return view('backend.production.supply.production_supplier.index',compact('items'));
     }
 
     /**
