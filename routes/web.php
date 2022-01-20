@@ -41,6 +41,7 @@ use App\Http\Controllers\RequisitionProductController;
 use App\Http\Controllers\RequisitionReceiveController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\PratyProductController;
+use App\Http\Controllers\ProductionSupplierController;
 use App\Http\Controllers\ProductionTestController;
 use App\Http\Controllers\SupplyItemController;
 use App\Http\Controllers\TempMonitoringController;
@@ -347,5 +348,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //item
     Route::resource('supply-item', SupplyItemController::class);
+    //supplier
+    Route::resource('production-supplier', ProductionSupplierController::class);
 
 });

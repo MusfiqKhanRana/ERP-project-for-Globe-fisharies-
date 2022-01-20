@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use DataTables;
 use DateTime;
+use Faker\Provider\Medical;
 
 class MedicalReportController extends Controller
 {
@@ -100,14 +101,18 @@ class MedicalReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        MedicalReport::whereId($id)
-        ->update([
-            'complain' => $request->complain,
-            'dressing' => $request->dressing,
-            'medicine_name' => $request->medicine_name,
-            'medicine_schedule' => $request->medicine_schedule,
-        ]);
-        return redirect()->back()->withMsg("Successfully Updated");
+        $input = $request->all();
+        // return $id;
+        $medical_reports = MedicalReport::where('id',$id)->update(['complain'=>$input['complain'],'dressing'=>$input['dressing'],'medicine_details'=>$input['medicine_details']]);
+        return response()->json("successfully updated", 200);
+        // MedicalReport::whereId($id)
+        // ->update([
+        //     'complain' => $request->complain,
+        //     'dressing' => $request->dressing,
+        //     'medicine_name' => $request->medicine_name,
+        //     'medicine_schedule' => $request->medicine_schedule,
+        // ]);
+        // return redirect()->back()->withMsg("Successfully Updated");
     }
 
     /**
@@ -116,11 +121,10 @@ class MedicalReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $book = MedicalReport::where('id',$request->id)->delete();
-     
-        return Response()->json($book);
+        MedicalReport::find($id)->delete($id);
+        return response()->json("successfully deleted", 200);
     }
     public function MedicalReport(Request $request)
     {
@@ -139,7 +143,7 @@ class MedicalReportController extends Controller
                     return $data->user->name;
                 })
                 ->addColumn('action', function($row){
-                    $actionBtn = '<button class="edit btn btn-success btn-sm edit_temp">Edit</button> <button class="delete btn btn-danger btn-sm">Delete</button>';
+                    $actionBtn = '<button data-toggle="modal" data-target="#editModal" data-id="'.$row->id.'" data-complain="'.$row->complain.'"  data-dressing="'.$row->dressing.'" data-medicine_details="'.$row->medicine_details.'" class="edit btn btn-success btn-sm edit_report">Edit</button> <button  data-toggle="modal" data-target="#deleteModal" data-id="'.$row->id.'" class="delete btn btn-danger btn-sm delete_report">Delete</button>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
