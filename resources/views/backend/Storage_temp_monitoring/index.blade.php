@@ -241,7 +241,7 @@ Temp. Monitoring
                     data: 'action', 
                     name: 'action', 
                     orderable: true, 
-                    searchable: true
+                    searchable: false
                 },
             ]
         });
