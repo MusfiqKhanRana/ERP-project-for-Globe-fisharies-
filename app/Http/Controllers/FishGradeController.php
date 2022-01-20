@@ -44,7 +44,7 @@ class FishGradeController extends Controller
         $grades->name = $request->name;
         $grades->save();
 
-        return redirect()->route('fish-grade.index')->withMsg('Successfully Created');
+        return redirect()->back()->withMsg('Successfully Created');
     }
 
     /**
