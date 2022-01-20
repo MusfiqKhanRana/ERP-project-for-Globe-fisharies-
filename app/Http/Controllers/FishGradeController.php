@@ -14,7 +14,7 @@ class FishGradeController extends Controller
      */
     public function index()
     {
-        //
+       //
     }
 
     /**
@@ -35,7 +35,16 @@ class FishGradeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $inputs = $request->except('_token');
+        $this->validate($request,array(
+           'name' => 'required|max:191',
+        ));
+        $grades = new FishGrade();
+        $grades->name = $request->name;
+        $grades->save();
+
+        return redirect()->route('fish-grade.index')->withMsg('Successfully Created');
     }
 
     /**
@@ -67,9 +76,13 @@ class FishGradeController extends Controller
      * @param  \App\Models\FishGrade  $fishGrade
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FishGrade $fishGrade)
+    public function update(Request $request, $id)
     {
-        //
+        FishGrade::whereId($id)
+        ->update([
+            'name' => $request->name,
+        ]);
+        return redirect()->back()->withMsg("Successfully Updated");
     }
 
     /**
@@ -78,8 +91,9 @@ class FishGradeController extends Controller
      * @param  \App\Models\FishGrade  $fishGrade
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FishGrade $fishGrade)
+    public function destroy($id)
     {
-        //
+        FishGrade::whereId($id)->delete();
+        return redirect()->back()->withMsg("Successfully Deleted");
     }
 }

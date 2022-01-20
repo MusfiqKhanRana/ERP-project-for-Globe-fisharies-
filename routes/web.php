@@ -30,6 +30,7 @@ use App\Http\Controllers\OfficeDetailController;
 use App\Http\Controllers\FoodMillController;
 use App\Http\Controllers\CateringController;
 use App\Http\Controllers\ColdstorageController;
+use App\Http\Controllers\FishGradeController;
 use App\Http\Controllers\MedicalReportController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PackControler;
@@ -350,5 +351,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('supply-item', SupplyItemController::class);
     //supplier
     Route::resource('production-supplier', ProductionSupplierController::class);
+
+    //Fish Grade
+
+    Route::resource('fish-grade', FishGradeController::class);
 
 });

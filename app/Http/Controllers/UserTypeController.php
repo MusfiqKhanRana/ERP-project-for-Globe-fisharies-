@@ -8,6 +8,7 @@ use App\Models\UserType;
 use App\Models\Pack;
 use App\Models\Area;
 use App\Models\Coldstorage;
+use App\Models\FishGrade;
 use Illuminate\Http\Request;
 
 class UserTypeController extends Controller
@@ -24,7 +25,8 @@ class UserTypeController extends Controller
         $packs = Pack::orderBy('id', 'DESC')->latest()->paginate(10);
         $areas = Area::orderBy('id', 'DESC')->latest()->paginate(10);
         $coldstorages = Coldstorage::orderBy('id', 'DESC')->latest()->paginate(10);
-       return view('backend.menu.index', compact('users','packs','areas','tests','coldstorages'));
+        $grades = FishGrade::orderBy('id', 'DESC')->latest()->paginate(10);
+       return view('backend.menu.index', compact('users','packs','areas','tests','coldstorages','grades'));
     }
 
     /**
