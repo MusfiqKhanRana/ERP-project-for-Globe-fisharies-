@@ -57,9 +57,9 @@ Temp. Monitoring
                           <div class="modal-content">
                             <div class="modal-header">
                               <h5 class="modal-title" id="exampleModalLabel">Edit File</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
                             <div class="modal-body">
                                 {{-- <p id="storage_id"></p> --}}
@@ -91,7 +91,7 @@ Temp. Monitoring
                                                     <label class="col-md-3 control-label">Temp(<sup>0</sup>C)(DDT)</label>
                                                     <div class="col-md-9">
                                                         <div class="input-group">
-                                                           <input type="text" class="form-control" id="temp_c_ddt" name="temp_c_ddt" value="">
+                                                            <input type="text" class="form-control" id="temp_c_ddt" name="temp_c_ddt" value="">
                                                             <span class="input-group-addon"><i class="fa fa-arrow-down" aria-hidden="true"></i>
                                                             </span>
                                                         </div>
@@ -101,7 +101,7 @@ Temp. Monitoring
                                                     <label class="col-md-3 control-label">Temp(<sup>0</sup>C)(DTS)</label>
                                                     <div class="col-md-9">
                                                         <div class="input-group">
-                                                           <input type="text" class="form-control" id="temp_c_dts" name="temp_c_dts" value="">
+                                                            <input type="text" class="form-control" id="temp_c_dts" name="temp_c_dts" value="">
                                                             <span class="input-group-addon"><i class="fa fa-arrow-down" aria-hidden="true"></i>
                                                             </span>
                                                         </div>
@@ -111,7 +111,7 @@ Temp. Monitoring
                                                     <label class="col-md-3 control-label">Master Carton No</label>
                                                     <div class="col-md-9">
                                                         <div class="input-group">
-                                                           <input type="text" class="form-control" id="master_carton_no" name="master_carton_no" value="">
+                                                            <input type="text" class="form-control" id="master_carton_no" name="master_carton_no" value="">
                                                             <span class="input-group-addon"><i class="fa fa-hand-o-left" aria-hidden="true"></i>
                                                             </span>
                                                         </div>
@@ -121,7 +121,7 @@ Temp. Monitoring
                                                     <label class="col-md-3 control-label">Commodity Count</label>
                                                     <div class="col-md-9">
                                                         <div class="input-group">
-                                                           <input type="text" class="form-control" id="commodity_count" name="commodity_count" value="">
+                                                            <input type="text" class="form-control" id="commodity_count" name="commodity_count" value="">
                                                             <span class="input-group-addon"><i class="fa fa-hand-o-left" aria-hidden="true"></i>
                                                             </span>
                                                         </div>
@@ -241,7 +241,7 @@ Temp. Monitoring
                     data: 'action', 
                     name: 'action', 
                     orderable: true, 
-                    searchable: true
+                    searchable: false
                 },
             ]
         });
