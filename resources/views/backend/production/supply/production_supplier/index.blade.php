@@ -67,10 +67,19 @@
                                             sl
                                         </th>
                                         <th>
-                                            Item Name
+                                            Supplier Name
                                         </th>
                                         <th>
-                                            Remark
+                                            Supplier Mobile
+                                        </th>
+                                        <th>
+                                            Supplier Email
+                                        </th>
+                                        <th>
+                                            Supplier Address
+                                        </th>
+                                        <th>
+                                            Supplier Items
                                         </th>
                                         <th style="text-align: center">
                                             Action

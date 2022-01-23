@@ -58,7 +58,13 @@ class TempMonitoringController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        // dd($input);
+        $TempMonitoring = TempMonitoring::create(['cold_storage_id'=> $input['cold_storage_id'],'temp_c_ddt'=>$input['temp_c_ddt'],'temp_c_dts'=>$input['temp_c_dts'],'master_carton_no'=>$input['master_carton_no'],'commodity_count'=>$input['commodity_count'],'date_of_production'=>$input['date_of_production'],'block_core_temp'=>$input['block_core_temp'],'remarks'=>$input['remarks']]);
+        // TempMonitoring::where('id',)
+     
+        // return redirect()->back()->withmsg('Successfully Updated');
+        return redirect()->back()->withmsg('Successfully Added');
     }
 
     /**
