@@ -243,7 +243,7 @@
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item @if( request()->path() == 'admin/add/personal/loan' || request()->path() == 'admin/add/personal/loan' ) active open @endif
-                                @if( request()->path() == 'admin/personal/loan' || request()->path() == 'admin/personal/loan' ) active open @endif">
+                                    @if( request()->path() == 'admin/personal/loan' || request()->path() == 'admin/personal/loan' ) active open @endif">
                                     <a href="javascript:;" class="nav-link nav-toggle">
                                         <span class="title">Personal Loan</span>
                                         <span class="arrow open"></span>
@@ -265,7 +265,7 @@
                                 </li>
 
                                 <li class="nav-item @if( request()->path() == 'admin/add/office/loan' || request()->path() == 'admin/add/office/loan' ) active open @endif
-                                @if( request()->path() == 'admin/office/loan' || request()->path() == 'admin/office/loan' ) active open @endif">
+                                    @if( request()->path() == 'admin/office/loan' || request()->path() == 'admin/office/loan' ) active open @endif">
                                     <a href="javascript:;" class="nav-link nav-toggle">
                                         <span class="title">Office Loan</span>
                                         <span class="arrow open"></span>
@@ -540,10 +540,23 @@
                                     <span class="title">Manage Suplyer</span>
                                 </a>
                             </li>
-                            <li class="nav-item ">
-                                <a href="" class="nav-link ">
+                            <li class="nav-item">
+                                <a href="javascript:;" class="nav-link nav-toggle">
                                     <span class="title">Requisition</span>
+                                    <span class="arrow"></span>
                                 </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item ">
+                                        <a href="{{route('production-requisition.index')}}" class="nav-link ">
+                                            <span class="title">Add Requisition</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="" class="nav-link ">
+                                            <span class="title">Requisition List</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </li>
@@ -614,12 +627,12 @@
             </li>
             
             <li class="nav-item  @if( request()->path() == 'admin/office' || request()->path() == 'admin/office' ) active open @endif
-            @if( request()->path() == 'admin/food/mill' || request()->path() == 'admin/food/mill' ) active open @endif
-            @if( request()->path() == 'admin/catering/system' || request()->path() == 'admin/catering/system' ) active open @endif
-            @if( request()->path() == 'admin/catering/add' || request()->path() == 'admin/catering/add' ) active open @endif
-            @php echo "active",(request()->path() != 'admin/account/catering')?:"";@endphp
-            @php echo "active",(request()->path() != '')?:"";@endphp
-                    ">
+                @if( request()->path() == 'admin/food/mill' || request()->path() == 'admin/food/mill' ) active open @endif
+                @if( request()->path() == 'admin/catering/system' || request()->path() == 'admin/catering/system' ) active open @endif
+                @if( request()->path() == 'admin/catering/add' || request()->path() == 'admin/catering/add' ) active open @endif
+                @php echo "active",(request()->path() != 'admin/account/catering')?:"";@endphp
+                @php echo "active",(request()->path() != '')?:"";@endphp
+                ">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-cog" aria-hidden="true"></i>
                     <span class="title">General Management</span>

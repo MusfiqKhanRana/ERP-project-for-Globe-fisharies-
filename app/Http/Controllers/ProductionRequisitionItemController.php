@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FishGrade;
+use App\Models\ProductionRequisitionItem;
 use Illuminate\Http\Request;
 
-class FishGradeController extends Controller
+class ProductionRequisitionItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class FishGradeController extends Controller
      */
     public function index()
     {
-       //
+        //
     }
 
     /**
@@ -35,25 +35,16 @@ class FishGradeController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $inputs = $request->except('_token');
-        $this->validate($request,array(
-           'name' => 'required|max:191',
-        ));
-        $grades = new FishGrade();
-        $grades->name = $request->name;
-        $grades->save();
-
-        return redirect()->back()->withMsg('Successfully Created');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\FishGrade  $fishGrade
+     * @param  \App\Models\ProductionRequisitionItem  $productionRequisitionItem
      * @return \Illuminate\Http\Response
      */
-    public function show(FishGrade $fishGrade)
+    public function show(ProductionRequisitionItem $productionRequisitionItem)
     {
         //
     }
@@ -61,10 +52,10 @@ class FishGradeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\FishGrade  $fishGrade
+     * @param  \App\Models\ProductionRequisitionItem  $productionRequisitionItem
      * @return \Illuminate\Http\Response
      */
-    public function edit(FishGrade $fishGrade)
+    public function edit(ProductionRequisitionItem $productionRequisitionItem)
     {
         //
     }
@@ -73,27 +64,22 @@ class FishGradeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\FishGrade  $fishGrade
+     * @param  \App\Models\ProductionRequisitionItem  $productionRequisitionItem
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ProductionRequisitionItem $productionRequisitionItem)
     {
-        FishGrade::whereId($id)
-        ->update([
-            'name' => $request->name,
-        ]);
-        return redirect()->back()->withMsg("Successfully Updated");
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\FishGrade  $fishGrade
+     * @param  \App\Models\ProductionRequisitionItem  $productionRequisitionItem
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ProductionRequisitionItem $productionRequisitionItem)
     {
-        FishGrade::whereId($id)->delete();
-        return redirect()->back()->withMsg("Successfully Deleted");
+        //
     }
 }

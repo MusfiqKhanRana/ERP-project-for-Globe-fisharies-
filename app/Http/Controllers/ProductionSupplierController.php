@@ -24,6 +24,12 @@ class ProductionSupplierController extends Controller
         return view('backend.production.supply.production_supplier.index',compact('items','suppliers','grades'));
     }
 
+    public function AllSupplier()
+    {
+        $items = ProductionSupplier::get();
+        return $items;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
