@@ -19,7 +19,7 @@ class ProductionSupplierController extends Controller
     public function index()
     {
         $items = SupplyItem::get();
-        $suppliers = ProductionSupplier::get();
+        $suppliers = ProductionSupplier::with(suppliers)->get();
         $grades = FishGrade::get();
         return view('backend.production.supply.production_supplier.index',compact('items','suppliers','grades'));
     }
