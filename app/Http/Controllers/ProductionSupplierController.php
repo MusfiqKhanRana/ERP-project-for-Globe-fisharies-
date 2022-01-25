@@ -27,7 +27,7 @@ class ProductionSupplierController extends Controller
 
     public function AllSupplier()
     {
-        $items = ProductionSupplier::get();
+        $items = ProductionSupplier::where('activated',"=",1)->get();
         return $items;
     }
 

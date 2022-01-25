@@ -491,13 +491,10 @@
             $("#supplier_id").change(function() {
                 // console.log($(this).val());
                 $.ajax({
-                    type:"POST",
-                    url:"{{route('customer.info')}}",
-                    data:{
-                        'id' : $(this).val(),
-                        '_token' : $('input[name=_token]').val()
-                    },
+                    type:"get",
+                    url:"get-supplier/"+$(this).val(),
                     success:function(data){
+                        console.log(data);
                         // $("#supplier_info").empty();
                         // var $results = $('#supplier_info');
                         // var $userDiv = $results.append('<div class="user-div"></div>')
