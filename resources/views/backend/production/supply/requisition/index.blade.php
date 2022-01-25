@@ -59,7 +59,7 @@
                                 <button type="button" class="btn dark pull-right " id="addbtn">Add Another Item <i class= 'fa fa-plus'> </i> </button>
                                 <label class="col-md-2 control-label pull-left bold">Supplier Select: </label>
                                 <div class="col-md-6">
-                                    <select class="select2Ajax form-control" name="supplier_id" id="Supplier_id"></select>
+                                    <select class="select2Ajax form-control" name="supplier_id" id="supplier_id"></select>
                                 </div>
                             </div><br><br>
                         </div>
@@ -488,7 +488,8 @@
                     $("#delivery_charge").val('');
                 }
             });
-            $("#Supplier_id").change(function() {
+            $("#supplier_id").change(function() {
+                // console.log($(this).val());
                 $.ajax({
                     type:"POST",
                     url:"{{route('customer.info')}}",

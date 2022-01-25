@@ -355,6 +355,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('supply-item', SupplyItemController::class);
     //supplier
     Route::get('all-supplier',[ProductionSupplierController::class,'AllSupplier'])->name('production-supplier.all');
+    Route::get('get-supplier/{id}',[ProductionSupplierController::class,'getSupplier'])->name('production-supplier.getSupplier');
     Route::resource('production-supplier', ProductionSupplierController::class);
 
     //Fish Grade
