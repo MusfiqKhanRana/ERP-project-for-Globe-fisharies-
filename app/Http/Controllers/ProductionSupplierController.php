@@ -31,6 +31,12 @@ class ProductionSupplierController extends Controller
         return $items;
     }
 
+    public function getSupplier($id)
+    {
+        $items = ProductionSupplier::find($id);
+        return $items;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
