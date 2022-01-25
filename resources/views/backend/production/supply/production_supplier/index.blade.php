@@ -87,17 +87,74 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($items as $key=>$item)
+                                    @foreach ($suppliers as $key=>$supplier)
                                         <tr>
                                             <td>{{++$key}}</td>
-                                            <td>{{$item->name}}</td>
-                                            <td>{{$item->details}}</td>
+                                            <td>{{$supplier->name}}</td>
+                                            <td>{{$supplier->phone}}</td>
+                                            <td>{{$supplier->address}}</td>
+                                            <td>{{$supplier->email}}</td>
+                                            <td>
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Sl.
+                                                            </th>
+                                                            <th>
+                                                                Name
+                                                            </th>
+                                                            <th>
+                                                                details
+                                                            </th>
+                                                            {{-- <th>
+                                                                Supplier ID
+                                                            </th> --}}
+                                                            <th>
+                                                                Grade ID
+                                                            </th>
+                                                            <th>
+                                                                Rate
+                                                            </th>
+                                                            <th>
+                                                                Action
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @php
+                                                         $total_weight=0;
+                                                         $total_qty=0;   
+                                                         $weight = 0;
+                                                        @endphp
+                                                        @foreach ($supplier->supplier_items as $key2 => $item)
+                                                            <tr>
+                                                                <td>{{++$key2}}</td>
+                                                                <td>
+                                                                    {{$item->name}}
+                                                                </td>
+                                                                <td>
+                                                                    {{$item->details}}
+                                                                </td>
+                                                                {{-- <td>{{$item->pivot->production_supplier_id}}</td> --}}
+                                                                <td>{{$item->pivot->grade_id}}</td>
+                                                                <td>
+                                                                    {{$item->pivot->rate}}
+                                                                </td>
+                                                                <td>
+                                                                        <button type="submit" class="btn red"><i class="fa fa-trash"></i> Delete</button>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </td>
                                             <td style="text-align: center">
-                                                <a class="btn btn-info"  data-toggle="modal" href="#editareaModal{{$item->id}}"><i class="fa fa-edit"></i> Edit</a>
-                                                <a class="btn red" data-toggle="modal" href="#deleteareaModal{{$item->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                                <a class="btn btn-info"  data-toggle="modal" href="#editareaModal{{$supplier->id}}"><i class="fa fa-edit"></i> Edit</a>
+                                                <a class="btn red" data-toggle="modal" href="#deleteareaModal{{$supplier->id}}"><i class="fa fa-trash"></i> Delete</a>
                                             </td>
                                         </tr>
-                                        <div id="deleteareaModal{{$item->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                        <div id="deleteareaModal{{$supplier->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                             {{csrf_field()}}
                                             <input type="hidden" value="" id="delete_id">
                                             <div class="modal-dialog">
@@ -111,7 +168,7 @@
                                                             <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
                                                         </div>
                                                         <div class="caption pull-right">
-                                                            <form action="{{route('supply-item.destroy',[$item])}}" method="POST">
+                                                            <form action="{{route('supply-item.destroy',[$supplier])}}" method="POST">
                                                                 @method('DELETE')
                                                                 @csrf
                                                                 <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
@@ -121,7 +178,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="editareaModal{{$item->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                        <div id="editareaModal{{$supplier->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -129,20 +186,20 @@
                                                         <h4 class="modal-title">Update Area</h4>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form class="form-horizontal" role="form" method="post" action="{{route('supply-item.update', $item)}}">
+                                                        <form class="form-horizontal" role="form" method="post" action="{{route('supply-item.update', $supplier)}}">
                                                             {{csrf_field()}}
                                                             {{method_field('put')}}
                                                             <div class="form-group">
                                                                 <label for="inputEmail1" class="col-md-2 control-label">Item Name</label>
                                                                 <div class="col-md-8">
-                                                                    <input type="text" class="form-control" value="{{$item->name}}" required name="name">
+                                                                    <input type="text" class="form-control" value="{{$supplier->name}}" required name="name">
                                                                 </div>
                                                                 <br><br>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
                                                                 <div class="col-md-8">
-                                                                    <input type="text" class="form-control" value="{{$item->details}}" required name="details">
+                                                                    <input type="text" class="form-control" value="{{$supplier->details}}" required name="details">
                                                                 </div>
                                                                 <br><br>
                                                             </div>
