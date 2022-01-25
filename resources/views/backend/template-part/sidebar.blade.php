@@ -521,6 +521,11 @@
                                     <span class="title">Proiduction Test</span>
                                 </a>
                             </li>
+                            <li class="nav-item  @if( request()->path() == 'admin/temp-thermocouple' ) active open @endif">
+                                <a href="{{route('temp-thermocouple.index')}}" class="nav-link ">
+                                    <span class="title">Temperature Thermocouple</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item">

@@ -39,11 +39,20 @@ class ProductionTestController extends Controller
         $inputs = $request->except('_token');
         $this->validate($request,array(
             'date' => 'date',
+            'description' => 'required',
+            'replace_record' => 'required',
             'remark' => 'required',
+            'bayer' => 'required',
+            'manager' => 'required',
         ));
         $p_tests = new ProductionTest();
         $p_tests->date = $request->date;
+        $p_tests->description = $request->description;
+        $p_tests->replace_record = $request->replace_record;
         $p_tests->remark = $request->remark;
+        $p_tests->frozen = $request->frozen;
+        $p_tests->bayer = $request->bayer;
+        $p_tests->manager = $request->manager;
         $p_tests->save();
 
         return redirect()->route('production_test.index')->withMsg('Successfully Created');

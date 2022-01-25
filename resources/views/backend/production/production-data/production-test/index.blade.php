@@ -45,6 +45,11 @@
                             <tr>
                                 <th>Serial</th>
                                 <th>Date</th>
+                                <th>Description</th>
+                                <th>Replacement Record</th>
+                                <th>Frozen Opent</th>
+                                <th>Bayer</th>
+                                <th>Manager</th>
                                 <th>Remark</th>
                                 <th style="text-align: center">Action</th>
                             </tr>
@@ -54,6 +59,11 @@
                                     <tr id="row1">
                                         <td>{{ $data->id }}</td>
                                         <td class="text-align: center;"> {{$data->date}}</td>
+                                        <td class="text-align: center;"> {!! $data->description !!}</td>
+                                        <td class="text-align: center;"> {{$data->replace_record}}</td>
+                                        <td class="text-align: center;"> {{$data->frozen}}</td>
+                                        <td class="text-align: center;"> {{$data->bayer}}</td>
+                                        <td class="text-align: center;"> {{$data->manager}}</td>
                                         <td class="text-align: center;"> {{$data->remark}}</td>
                                         <td style="text-align: center">
                                             <a class="btn btn-info"  data-toggle="modal" href="#editModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
@@ -101,12 +111,43 @@
                                                                 <input type="text" class="form-control" value="{{$data->date}}" required name="date">
                                                             </div><br><br>
                                                         </div>
+                                                        
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">Replacement Record</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" class="form-control" value="{{$data->replace_record}}" name="replace_record" >
+                                                            </div><br><br>
+                                                        </div><br>
+                                                        <div class="form-group">
+                                                            <label for="inputEmail1" class="col-md-2 control-label">Frozen or Opent</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" class="form-control" value="{{$data->frozen}}" name="frozen" >
+                                                            </div>
+                                                        </div><br><br>
+                                                        <div class="form-group">
+                                                            <label for="inputEmail1" class="col-md-2 control-label">Bayer</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" class="form-control" value="{{$data->bayer}}" name="bayer" >
+                                                            </div>
+                                                        </div><br><br>
+                                                        <div class="form-group">
+                                                            <label for="inputEmail1" class="col-md-2 control-label">Manager</label>
+                                                            <div class="col-md-8">
+                                                                <input type="text" class="form-control" value="{{$data->manager}}" name="manager" >
+                                                            </div>
+                                                        </div><br><br>
                                                         <div class="form-group">
                                                             <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
                                                             <div class="col-md-8">
                                                                 <input type="text" class="form-control" value="{{$data->remark}}" required name="remark">
                                                             </div><br><br>
                                                         </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">Description</label>
+                                                            <div class="col-md-8">
+                                                                <input class="form-control"  value="{{$data->description}}" name="description" >
+                                                            </div><br><br>
+                                                        </div><br><br>
                                                         <div class="modal-footer">
                                                             <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                                             <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
@@ -139,17 +180,41 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Remark</label>
+                                    <label class="col-md-2 control-label">Description</label>
                                     <div class="col-md-8">
-                                        <textarea class="form-control" name="remark" placeholder="Type Notes" value=""></textarea>
+                                        <textarea class="form-control" name="description" placeholder="Type Description" value=""></textarea>
                                     </div>
                                 </div>
-                                {{-- <div class="form-group">
+                                <div class="form-group">
+                                    <label for="inputEmail1" class="col-md-2 control-label">Replacement Record</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" name="replace_record" placeholder="Type Replacement Record"  >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail1" class="col-md-2 control-label">Frozen or Opent</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" name="frozen" placeholder="Type Frozen or Opent" >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail1" class="col-md-2 control-label">Bayer</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" name="bayer" >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail1" class="col-md-2 control-label">Manager</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" name="manager" >
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="remark" placeholder="Remark">
+                                        <textarea type="text" class="form-control" name="remark" placeholder="Remark"></textarea>
                                     </div>
-                                </div> --}}
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                     <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
