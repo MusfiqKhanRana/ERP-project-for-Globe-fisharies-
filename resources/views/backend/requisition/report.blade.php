@@ -152,9 +152,9 @@
                                                                             <th>
                                                                                 Pack Size
                                                                             </th>
-                                                                            {{-- <th>
+                                                                            <th>
                                                                                Requested Quantity
-                                                                            </th> --}}
+                                                                            </th>
                                                                             <th>
                                                                                 Provided Quantity
                                                                             </th>
@@ -198,7 +198,7 @@
                                                                             <td>{{$item->category->name}}</td>
                                                                             <td>{{$item->product_name}}</td>
                                                                             <td>{{$item->pack->name}}</td>
-                                                                            {{-- <td>{{$item->pivot->quantity}}</td> --}}
+                                                                            <td>{{$item->pivot->quantity}}</td>
                                                                             <td>
                                                                                 @php
                                                                                     $total_qty += $item->pivot->resolve_quantity;
@@ -248,7 +248,7 @@
                                                                                 <td>{{$item->category->name}}</td>
                                                                                 <td>{{$item->product_name}}</td>
                                                                                 <td>{{$item->pack->name}}</td>
-                                                                                {{-- <td>{{$item->pivot->quantity}}</td> --}}
+                                                                                <td>{{$item->pivot->quantity}}</td>
                                                                                 <td>
                                                                                     @php
                                                                                     $total_qty += $item->pivot->received_quantity;
@@ -295,7 +295,7 @@
                                                                                 <td>{{$item->category->name}}</td>
                                                                                 <td>{{$item->product_name}}</td>
                                                                                 <td>{{$item->pack->name}}</td>
-                                                                                {{-- <td>{{$item->pivot->quantity}}</td> --}}
+                                                                                <td>{{$item->pivot->quantity}}</td>
                                                                                 <td>
                                                                                     @php
                                                                                     $total_qty += $item->pivot->final_quantity;

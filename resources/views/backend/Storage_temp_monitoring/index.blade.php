@@ -52,6 +52,144 @@ Temp. Monitoring
                         </div>
 
                     </div>
+                    <div class="modal fade" id="basic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Edit File</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form class="form-horizontal" id="frm" role="form" method="post" action="{{route('temp_monitoring.store')}}">
+                                {{csrf_field()}}
+                                <div class="modal-body">
+                                    {{-- <p id="storage_id"></p> --}}
+                                    <input type="hidden" id="storage_id" name="id" value="">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-body">
+
+                                                <div class="form-group clearfix">
+                                                    <label class="col-md-3 control-label">Cold Storage</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                            <select class="form-control select2me" id="cold_storage" name="cold_storage_id" required>
+                                                                <option value="">--select--</option>
+                                                                @foreach($cold_storage as $data)
+                                                                    <option value="{{$data->id}}">{{$data->name}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <span class="input-group-addon"><i class="fa fa-archive" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group clearfix">
+                                                    <label class="col-md-3 control-label">Temp(<sup>0</sup>C)(DDT)</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="temp_c_ddt" name="temp_c_ddt" value="">
+                                                            <span class="input-group-addon"><i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group clearfix">
+                                                    <label class="col-md-3 control-label">Temp(<sup>0</sup>C)(DTS)</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="temp_c_dts" name="temp_c_dts" value="">
+                                                            <span class="input-group-addon"><i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group clearfix">
+                                                    <label class="col-md-3 control-label">Master Carton No</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="master_carton_no" name="master_carton_no" value="">
+                                                            <span class="input-group-addon"><i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group clearfix">
+                                                    <label class="col-md-3 control-label">Commodity Count</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="commodity_count" name="commodity_count" value="">
+                                                            <span class="input-group-addon"><i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group clearfix">
+                                                    <label class="col-md-3 control-label">Production Date</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                                            <input type="text" class="form-control" name="date_of_production" readonly >
+                                                            <span class="input-group-btn">
+                                                                <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group clearfix">
+                                                    <label class="col-md-3 control-label">Block Core Temp.</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="block_core_temp" name="block_core_temp" value="">
+                                                            <span class="input-group-addon"><i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group clearfix">
+                                                    <label class="col-md-3 control-label">Remark</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="remarks" name="remarks" value="">
+                                                            <span class="input-group-addon"><i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{-- <div class="form-group clearfix">
+                                                    <label class="col-md-3 control-label">Date</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                            <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                                                <input type="text" class="form-control" name="clearance_date" value="{{$requisition->clearance_date}}"  readonly>
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                                </span>
+                                                            </div>
+                                                            <span class="input-group-addon"><i class="fa fa-th" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div> --}}
+
+
+                                                {{-- <div class="form-group clearfix">
+                                                    <div class="col-md-12">
+                                                        <button class="btn btn-info col-md-12" type="submit" ><i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                                            Update</button>
+                                                    </div>
+                                                </div> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                          </div>
+                        </div>
+                    </div>
                     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
