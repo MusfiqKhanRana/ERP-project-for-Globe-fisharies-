@@ -47,7 +47,10 @@ use App\Http\Controllers\ProductionSupplierController;
 use App\Http\Controllers\ProductionTestController;
 use App\Http\Controllers\SupplyItemController;
 use App\Http\Controllers\TempMonitoringController;
+use App\Http\Controllers\TempTherController;
+use App\Models\TemperatureThermocouple;
 use App\Models\TempMonitoring;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -360,5 +363,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //production requistion
     Route::resource('production-requisition', ProductionRequisitionController::class);
+
+    //Tepm Thermocouple
+
+    Route::resource('temp-thermocouple', TempTherController::class);
 
 });
