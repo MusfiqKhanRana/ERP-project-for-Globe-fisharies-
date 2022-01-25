@@ -44,6 +44,7 @@ use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\PratyProductController;
 use App\Http\Controllers\ProductionRequisitionController;
 use App\Http\Controllers\ProductionSupplierController;
+use App\Http\Controllers\ProductionSupplierItemController;
 use App\Http\Controllers\ProductionTestController;
 use App\Http\Controllers\SupplyItemController;
 use App\Http\Controllers\TempMonitoringController;
@@ -368,5 +369,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Tepm Thermocouple
 
     Route::resource('temp-thermocouple', TempTherController::class);
+    Route::get('production-Supplier-item/{id}',[ProductionSupplierItemController::class,'destroy'])->name('production-Supplier-item.destroy');
 
 });
