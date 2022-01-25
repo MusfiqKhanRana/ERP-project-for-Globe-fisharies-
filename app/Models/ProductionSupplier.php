@@ -11,7 +11,7 @@ class ProductionSupplier extends Model
     protected $guarded = [];
     public function supplier_items()
     {
-        return $this->belongsToMany(SupplyItem::class,'production_supplier_items','production_supplier_id','supply_item_id')->withPivot('production_supplier_id','supply_item_id', 'grade_id','rate');
+        return $this->belongsToMany(SupplyItem::class,'production_supplier_items','production_supplier_id','supply_item_id')->withPivot('id','production_supplier_id','supply_item_id', 'grade_id','rate');
     }
 }
 

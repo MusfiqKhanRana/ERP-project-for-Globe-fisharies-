@@ -57,7 +57,7 @@ class ProductionSupplierController extends Controller
     {
         // dd($request->all());
         $data = $request->all();
-        $Supplier = ProductionSupplier::create(['supplier_name' => $data['supplier_name'],'supplier_mobile' => $data['supplier_mobile'],'supplier_address' => $data['supplier_address'],'supplier_email' => $data['supplier_email'],]);
+        $Supplier = ProductionSupplier::create(['name' => $data['supplier_name'],'phone' => $data['supplier_mobile'],'address' => $data['supplier_address'],'email' => $data['supplier_email'],]);
         foreach (json_decode($request->provided_item) as $key => $item) {
             // dd(var_dump($product->amount_discount));
             if ($item->status=="stay"){
@@ -113,8 +113,9 @@ class ProductionSupplierController extends Controller
      * @param  \App\Models\ProductionSupplier  $productionSupplier
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductionSupplier $productionSupplier)
+    public function destroy($id)
     {
-        //
+        ProductionSupplierItem::find($id)->delete();
+        return redirect()->back()->withMsg("Successfully Deleted");
     }
 }

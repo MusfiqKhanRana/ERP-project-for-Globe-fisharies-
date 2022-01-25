@@ -142,7 +142,11 @@
                                                                     {{$item->pivot->rate}}
                                                                 </td>
                                                                 <td>
-                                                                        <button type="submit" class="btn red"><i class="fa fa-trash"></i> Delete</button>
+                                                                    {{-- <form action="{{route('production-Supplier-item-destroy',$item->pivot->id)}}" method="get"> --}}
+                                                                        {{-- @method('DELETE')
+                                                                        @csrf --}}
+                                                                        <a href="{{route('production-Supplier-item.destroy',$item->pivot->id)}}" class="btn red"><i class="fa fa-trash"></i> Delete</a>
+                                                                    {{-- </form> --}}
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -152,6 +156,7 @@
                                             <td style="text-align: center">
                                                 <a class="btn btn-info"  data-toggle="modal" href="#editareaModal{{$supplier->id}}"><i class="fa fa-edit"></i> Edit</a>
                                                 <a class="btn red" data-toggle="modal" href="#deleteareaModal{{$supplier->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                                <a class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i>Activate</a>
                                             </td>
                                         </tr>
                                         <div id="deleteareaModal{{$supplier->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
