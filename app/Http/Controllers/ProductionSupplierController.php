@@ -19,7 +19,8 @@ class ProductionSupplierController extends Controller
     public function index()
     {
         $items = SupplyItem::get();
-        $suppliers = ProductionSupplier::with(suppliers)->get();
+        $suppliers = ProductionSupplier::with(['supplier_items'])->get();
+        // return $suppliers;
         $grades = FishGrade::get();
         return view('backend.production.supply.production_supplier.index',compact('items','suppliers','grades'));
     }
@@ -50,7 +51,7 @@ class ProductionSupplierController extends Controller
     {
         // dd($request->all());
         $data = $request->all();
-        $Supplier = Supplier::create(['supplier_name' => $data['supplier_name'],'supplier_mobile' => $data['supplier_mobile'],'supplier_address' => $data['supplier_address'],'supplier_email' => $data['supplier_email'],]);
+        $Supplier = ProductionSupplier::create(['supplier_name' => $data['supplier_name'],'supplier_mobile' => $data['supplier_mobile'],'supplier_address' => $data['supplier_address'],'supplier_email' => $data['supplier_email'],]);
         foreach (json_decode($request->provided_item) as $key => $item) {
             // dd(var_dump($product->amount_discount));
             if ($item->status=="stay"){

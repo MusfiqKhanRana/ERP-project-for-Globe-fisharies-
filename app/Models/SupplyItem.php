@@ -9,4 +9,8 @@ class SupplyItem extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function grade()
+    {
+        return $this->belongsTo(FishGrade::class)->withDefault();
+    }
 }
