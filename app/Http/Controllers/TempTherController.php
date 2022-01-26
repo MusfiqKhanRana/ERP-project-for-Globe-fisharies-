@@ -81,8 +81,9 @@ class TempTherController extends Controller
      * @param  \App\Models\TempTher  $tempTher
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TempTher $tempTher)
+    public function destroy($id)
     {
-        //
+        TempTher::whereId($id)->delete();
+        return redirect()->back()->withMsg("Successfully Deleted");
     }
 }
