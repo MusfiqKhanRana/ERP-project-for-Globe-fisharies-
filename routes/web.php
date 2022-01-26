@@ -355,6 +355,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //item
     Route::resource('supply-item', SupplyItemController::class);
     //supplier
+    Route::get('activate/{id}',[ProductionSupplierController::class,'activate'])->name('production-supplier.activate');
     Route::get('all-supplier',[ProductionSupplierController::class,'AllSupplier'])->name('production-supplier.all');
     Route::get('all-supplier',[ProductionSupplierController::class,'AllSupplier'])->name('production-supplier.all');
     Route::get('get-supplier/{id}',[ProductionSupplierController::class,'getSupplier'])->name('production-supplier.getSupplier');

@@ -125,7 +125,16 @@ class ProductionSupplierController extends Controller
      */
     public function destroy($id)
     {
-        ProductionSupplierItem::find($id)->delete();
+        // dd($id);
+        ProductionSupplier::find($id)->delete();
         return redirect()->back()->withMsg("Successfully Deleted");
+    }
+    public function activate($id){
+        // dd($id);
+        ProductionSupplier::where('id', $id)
+        ->update(
+            ['activated'=>'1']
+        );
+        return redirect()->back()->withMsg("Successfully Activated");
     }
 }
