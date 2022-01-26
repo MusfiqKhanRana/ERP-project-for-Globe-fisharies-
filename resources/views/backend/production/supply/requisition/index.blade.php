@@ -69,45 +69,43 @@
                             </div> --}}
                         </div>
                         <div class="row" style="margin-top:2%">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-header">
                                         <h4><b>Product Info</b></h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="">Category</label>
-                                                <select class="form-control" id="category">
+                                            <div class="col-md-2">
+                                                <label for="">Select Item</label>
+                                                <select class="form-control" id="item">
                                                     <option selected>Select</option>
-                                                    @foreach($category as $data)
+                                                    {{-- @foreach($category as $data)
                                                         <option value="{{$data->id}}" data-name="{{$data->name}}">{{$data->name}}</option>
-                                                    @endforeach
+                                                    @endforeach --}}
                                                 </select>
                                             </div>
-                                            <div class="col-md-6">
-                                                <label for="product">Product</label>
-                                                <select class="form-control product_id" id="product">
-                                                    @foreach ($category as $data)
-                                                        @foreach ($data->product as $product)
-                                                            <option value="{{$product->id}}" class="{{$data->id}}" title="{{$product->pack->name}}" data-pack_name="{{$product->pack->name}}" data-online_selling_price="{{$product->online_selling_price}}" data-inhouse_selling_price="{{$product->inhouse_selling_price}}" data-pack_weight="{{$product->pack->weight}}" data-pack_id="{{$product->pack->id}}" data-id="{{$data->id}}" data-name="{{$product->product_name}}">{{$product->product_name}} - {{$product->pack->name}} </option>
-                                                        @endforeach
-                                                    @endforeach
-                                                </select>
+                                            <div class="col-md-2">
+                                                <label for="product">Grade</label>
+                                                <input type="text" class="form-control" id="grade" readonly>
                                             </div>
-                                            <div class="col-md-6">
-                                                <label for="product">Pack Size</label>
-                                                <input type="text" class="form-control" id="pack_size" readonly>
+                                            <div class="col-md-2">
+                                                <label for="product">Unit Price</label>
+                                                <input type="text" class="form-control" id="unit_price" readonly>
                                             </div>
-                                            <div class="col-md-6">
-                                                <label for="product">Rate (TK)</label>
-                                                <input type="text" class="form-control" id="rate" readonly>
+                                            <div class="col-md-2">
+                                                <label for="product">Quantity</label>
+                                                <input type="text" class="form-control" id="quantity">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="product">Amount</label>
+                                                <input type="text" class="form-control" id="amount" readonly>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="card">
                                     <div class="card-header">
                                         <h4><b>Quantity & Price</b></h4>
@@ -141,7 +139,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="row" style="margin: 1%">
                             <div class="card m-2">
@@ -151,11 +149,11 @@
                                 <div class="card-body">
                                     <table class="table table-striped table-bordered table-hover" id="mytable">
                                         <tr>
-                                            <th>Category Name</th>
-                                            <th>Product Name</th>
-                                            <th>Pack Size</th>
-                                            <th>Quantity(Packet)</th>
-                                            <th>Quantity(KG)</th>
+                                            <th>Item Name</th>
+                                            <th>Item Grade</th>
+                                            <th>Unit Price</th>
+                                            <th>Quantity</th>
+                                            <th>Amount</th>
                                             <th>Rate</th>
                                             <th>Discount(Percentage)</th>
                                             <th>Discount(Amount)</th>
@@ -342,7 +340,7 @@
         jQuery(document).ready(function() {
             function nullmaking(){
 
-                $("#category").val(null);
+                $("#item").val(null);
                 $("#product").val(null);
                 $("#pack_size").val(null);
                 $("#rate").val(null);
@@ -352,8 +350,8 @@
                 $("#amount_id").val(null);
                 $("#price").val(null);
             }
-            $("#product").chained("#category");
-            var category_id,category_name,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,product_name,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
+            // $("#product").chained("#category");
+            var item_id,item_name,item_grade_id,item_unit_price,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,product_name,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
             var product_array = [];
             $('#product').change(function(){
                 product_id = $(this).val();
@@ -376,15 +374,28 @@
                 $("#rate").val(selling_price);
                 // console.log(product_online_rate,product_inhouse_rate,product_id,product_name,product_pack_id,product_pack_name,product_pack_weight);
             })
-            $('#quantity_pkt').keyup(function(){
+            $('#quantity').keyup(function(){
                 packet_quantity = $(this).val();
-                $("#quantity_kg").val(packet_quantity*product_pack_weight);
-                $("#price").val(packet_quantity * $("#rate").val());
-                total_price = $("#price").val();
+                // $("#quantity_kg").val(packet_quantity*product_pack_weight);
+                $("#amount").val(packet_quantity * item_unit_price);
+                // total_price = $("#amount").val();
+                total_price = packet_quantity * item_unit_price;
             })
-            $('#category').change(function(){
-                category_id = $(this).val();
-                category_name = $(this).find(':selected').data("name");
+            $('#item').change(function(){
+                item_id = $(this).val();
+                item_name = $(this).find(':selected').data("name");
+                item_grade_id = $(this).find(':selected').data("grade_id");
+                item_unit_price = $(this).find(':selected').data("unit_price");
+                // console.log(item_grade_id);
+                $.ajax({
+                    type:"get",
+                    url:"get-supplier-items-grade/"+item_grade_id,
+                    success:function(data){
+                        // console.log(data);
+                        $("#grade").val(data.name);
+                    }
+                });
+                $("#unit_price").val(item_unit_price);
             })
             $(document).on('keyup','#percentage_id',function() {
                 let main_price = total_price - (total_price*$(this).val())/100;
@@ -411,13 +422,13 @@
                 }
             });
             $("#addbtn").click(function() {
-                product_array.push({"category_id":category_id,"category_name":category_name,"product_id":product_id,"product_name":product_name,"pack_size":$('#pack_size').val(),"quantity_packet":$('#quantity_pkt').val(),"quantity_kg":$('#quantity_kg').val(),"rate":$('#rate').val(),"percentage_discount":$('#percentage_id').val(),"amount_discount":$('#amount_id').val(),'total_price':$('#price').val(),"status":"stay"})
+                product_array.push({"item_id":item_id,"item_name":item_name,"product_id":product_id,"product_name":product_name,"pack_size":$('#pack_size').val(),"quantity_packet":$('#quantity_pkt').val(),"quantity_kg":$('#quantity_kg').val(),"rate":$('#rate').val(),"percentage_discount":$('#percentage_id').val(),"amount_discount":$('#amount_id').val(),'total_price':$('#price').val(),"status":"stay"})
                 $("#products").val('');
                 $("#products").val(JSON.stringify(product_array));
                 $.each( product_array, function( key, product ) {
                     if (product.status == "stay") {
                         if(product_array.length-1 == key){
-                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+product.category_name+"</td><td>"+product.product_name+"</td><td>"+$('#pack_size').val()+"</td><td>"+$('#quantity_pkt').val()+"</td><td>"+$('#quantity_kg').val()+"</td><td>"+$('#rate').val()+"</td><td>"+$('#percentage_id').val()+"</td><td>"+$('#amount_id').val()+"</td><td>"+$('#price').val()+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+product.item_name+"</td><td>"+product.product_name+"</td><td>"+$('#pack_size').val()+"</td><td>"+$('#quantity_pkt').val()+"</td><td>"+$('#quantity_kg').val()+"</td><td>"+$('#rate').val()+"</td><td>"+$('#percentage_id').val()+"</td><td>"+$('#amount_id').val()+"</td><td>"+$('#price').val()+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
                         }
                     }
                 });
@@ -494,16 +505,28 @@
                     type:"get",
                     url:"get-supplier/"+$(this).val(),
                     success:function(data){
+                        $("#supplier_info").empty();
+                        var $results = $('#supplier_info');
+                        var $userDiv = $results.append('<div class="user-div"></div>')
+                        $( '<div class="row">'+
+                            '<div class="col-md-3 text-center"><span> <b>Supplier Name: </b>'+data.name+'</span></div>'
+                            +'<div class="col-md-3 text-center"><span> <b>Supplier Address: </b>'+data.address+'</span></div>'
+                            +'<div class="col-md-3 text-center"><span> <b>Supplier Phone: </b>'+data.phone+'</span></div>'
+                            +'<div class="col-md-3 text-center"><span> <b>Supplier Email: </b><span id="customer_type">'+data.email+'</span></span></div>'
+                        +'</div>').appendTo( ".user-div" );
+                    }
+                });
+                $.ajax({
+                    type:"get",
+                    url:"get-supplier-items/"+$(this).val(),
+                    success:function(data){
                         console.log(data);
-                        // $("#supplier_info").empty();
-                        // var $results = $('#supplier_info');
-                        // var $userDiv = $results.append('<div class="user-div"></div>')
-                        // $( '<div class="row">'+
-                        //     '<div class="col-md-3 text-center"><span> <b>cusotmer Name: </b>'+data.full_name+'</span></div>'
-                        //     +'<div class="col-md-3 text-center"><span> <b>cusotmer Address: </b>'+data.address+'</span></div>'
-                        //     +'<div class="col-md-3 text-center"><span> <b>cusotmer Phone: </b>'+data.phone+'</span></div>'
-                        //     +'<div class="col-md-3 text-center"><span> <b>cusotmer Type: </b><span id="customer_type">'+data.customer_type+'</span></span></div>'
-                        // +'</div>').appendTo( ".user-div" );
+                        $("#item").html("");
+                        let option="<option value=''>Select</option>";
+                        $.each( data, function( key, data ) {
+                            option+='<option data-name="'+data.name+'" data-unit_price="'+data.pivot.rate+'" data-grade_id="'+data.pivot.grade_id+'" value="'+data.id+'">'+data.name+'</option>';
+                        });
+                        $('#item').append(option);
                     }
                 });
             });

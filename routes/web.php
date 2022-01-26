@@ -356,7 +356,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('supply-item', SupplyItemController::class);
     //supplier
     Route::get('all-supplier',[ProductionSupplierController::class,'AllSupplier'])->name('production-supplier.all');
+    Route::get('all-supplier',[ProductionSupplierController::class,'AllSupplier'])->name('production-supplier.all');
     Route::get('get-supplier/{id}',[ProductionSupplierController::class,'getSupplier'])->name('production-supplier.getSupplier');
+    Route::get('get-supplier-items/{id}',[ProductionSupplierController::class,'getSupplierItems'])->name('production-supplier.getSupplierItems');
+    Route::get('get-supplier-items-grade/{id}',[ProductionSupplierController::class,'getSupplierItemsGrade'])->name('production-supplier.getSupplierItems.grade');
     Route::resource('production-supplier', ProductionSupplierController::class);
 
     //Fish Grade
@@ -366,7 +369,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //production requistion
     Route::resource('production-requisition', ProductionRequisitionController::class);
 
-    //Tepm Thermocouple
+    //Temp Thermocouple
 
     Route::resource('temp-thermocouple', TempTherController::class);
     Route::get('production-Supplier-item/{id}',[ProductionSupplierItemController::class,'destroy'])->name('production-Supplier-item.destroy');

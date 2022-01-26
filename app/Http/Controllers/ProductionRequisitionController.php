@@ -14,9 +14,9 @@ class ProductionRequisitionController extends Controller
      */
     public function index()
     {
-        $category=[];
-        $areas=[];
-        return view('backend.production.supply.requisition.index',compact('category','areas'));
+        // $category=[];
+        // $areas=[];
+        return view('backend.production.supply.requisition.index');
     }
 
     /**

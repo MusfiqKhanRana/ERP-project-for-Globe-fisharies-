@@ -24,7 +24,16 @@ class ProductionSupplierController extends Controller
         $grades = FishGrade::get();
         return view('backend.production.supply.production_supplier.index',compact('items','suppliers','grades'));
     }
-
+    public function getSupplierItems($id)
+    {
+        $items = ProductionSupplier::with(['supplier_items'])->where('id',$id)->first();
+        return $items->supplier_items;
+    }
+    public function getSupplierItemsGrade($id)
+    {
+        $grades = FishGrade::find($id);
+        return $grades;
+    }
     public function AllSupplier()
     {
         $items = ProductionSupplier::where('activated',"=",1)->get();
@@ -36,6 +45,7 @@ class ProductionSupplierController extends Controller
         $items = ProductionSupplier::find($id);
         return $items;
     }
+
 
     /**
      * Show the form for creating a new resource.
