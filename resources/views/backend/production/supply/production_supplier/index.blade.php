@@ -156,7 +156,7 @@
                                             <td style="text-align: center">
                                                 <a class="btn btn-info"  data-toggle="modal" href="#editareaModal{{$supplier->id}}"><i class="fa fa-edit"></i> Edit</a>
                                                 <a class="btn red" data-toggle="modal" href="#deleteareaModal{{$supplier->id}}"><i class="fa fa-trash"></i> Delete</a>
-                                                <a class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i>Activate</a>
+                                                <a href="{{route('production-supplier.activate',$supplier->id)}}" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i>Activate</a>
                                             </td>
                                         </tr>
                                         <div id="deleteareaModal{{$supplier->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -173,7 +173,7 @@
                                                             <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
                                                         </div>
                                                         <div class="caption pull-right">
-                                                            <form action="{{route('supply-item.destroy',[$supplier])}}" method="POST">
+                                                            <form action="{{route('production-supplier.destroy',[$supplier->id])}}" method="POST">
                                                                 @method('DELETE')
                                                                 @csrf
                                                                 <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
@@ -345,9 +345,16 @@
                 $.each( items_array, function( key, item ) {
                     if (item.status == "stay") {
                         if(items_array.length-1 == key){
-                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+item.item_name+"</td><td>"+item.grade_name+"</td><td>"+item.rate+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+item.item_name+"</td><td>"+item.grade_name+"</td><td>"+item.rate+"</td><td><button class='btn btn-danger delete_item' data-id='"+key+"'>Delete</button></td></tr>");
                         }
                     }
+                });
+                $(".delete_item").click(function(){
+                    items_array[$(this).data("id")].status="delete";
+                    // console.log(product_array,$(this).data("id"));
+                    $("#provided_item").val('');
+                    $("#provided_item").val(JSON.stringify(items_array));
+                    $("#"+$(this).data("id")).remove();
                 });
                 nullmaking();
            });
