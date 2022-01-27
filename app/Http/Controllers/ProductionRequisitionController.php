@@ -15,9 +15,13 @@ class ProductionRequisitionController extends Controller
      */
     public function index()
     {
-        // $category=[];
-        // $areas=[];
-        return view('backend.production.supply.requisition.index');
+        $production_requisition = ProductionRequisition::with(['production_supplier',
+        'production_requisition_items' => function($q){
+
+        }
+        ])->get();
+        dd($production_requisition->toArray());   
+        return view('backend.production.supply.requisition.list',compact('production_requisition'));
     }
 
     /**
@@ -27,7 +31,7 @@ class ProductionRequisitionController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.production.supply.requisition.index');
     }
 
     /**
@@ -55,7 +59,7 @@ class ProductionRequisitionController extends Controller
             }
             
         }
-        dd("good");
+        // dd("good");
         return redirect()->back()->withMsg('Successfully Created');
     }
 

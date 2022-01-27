@@ -552,12 +552,12 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item ">
-                                        <a href="{{route('production-requisition.index')}}" class="nav-link ">
+                                        <a href="{{route('production-requisition.create')}}" class="nav-link ">
                                             <span class="title">Add Requisition</span>
                                         </a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a href="" class="nav-link ">
+                                        <a href="{{route('production-requisition.index')}}" class="nav-link ">
                                             <span class="title">Requisition List</span>
                                         </a>
                                     </li>
