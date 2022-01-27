@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Party;
-use App\Models\party_product;
+use App\Models\PartyProduct;
 use App\Models\Product;
 
 class PartyController extends Controller
@@ -17,7 +17,7 @@ class PartyController extends Controller
     public function index()
     {
         $parties = Party::all();
-        $product_party = party_product::all();
+        $product_party = PartyProduct::all();
         //dd($party_products);
         return view('backend.party.index', compact('parties','product_party'));
     }
@@ -68,7 +68,7 @@ class PartyController extends Controller
         // $order = Order::create(['customer_id' => $data['customer_id'],'remark' => $data['remark']]);
         // dd($parties->id);
         foreach ($data['party_products'] as $key => $value) {
-            $product_order = party_product::create([
+            $product_order = PartyProduct::create([
                 'party_id' => $parties->id,
                 'product_id' => $data['party_products'][$key],
                 'price' => $data['party_price'][$key], 

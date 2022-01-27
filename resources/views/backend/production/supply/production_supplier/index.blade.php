@@ -156,7 +156,12 @@
                                             <td style="text-align: center">
                                                 <a class="btn btn-info"  data-toggle="modal" href="#editareaModal{{$supplier->id}}"><i class="fa fa-edit"></i> Edit</a>
                                                 <a class="btn red" data-toggle="modal" href="#deleteareaModal{{$supplier->id}}"><i class="fa fa-trash"></i> Delete</a>
-                                                <a href="{{route('production-supplier.activate',$supplier->id)}}" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i>Activate</a>
+                                                @if ($supplier->activated == 0)
+                                                    <a href="{{route('production-supplier.activate',$supplier->id)}}" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i>Activate</a>
+                                                @endif
+                                                @if ($supplier->activated == 1)
+                                                    <a href="{{route('production-supplier.deactivate',$supplier->id)}}" class="btn btn-warning"><i class="fa fa-times" aria-hidden="true"></i>Deactivate</a>
+                                                @endif
                                             </td>
                                         </tr>
                                         <div id="deleteareaModal{{$supplier->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">

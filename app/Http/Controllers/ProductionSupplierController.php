@@ -137,4 +137,12 @@ class ProductionSupplierController extends Controller
         );
         return redirect()->back()->withMsg("Successfully Activated");
     }
+    public function deactivate($id){
+        // dd($id);
+        ProductionSupplier::where('id', $id)
+        ->update(
+            ['activated'=>'0']
+        );
+        return redirect()->back()->withMsg("Successfully Deactivated");
+    }
 }

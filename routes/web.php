@@ -32,6 +32,7 @@ use App\Http\Controllers\CateringController;
 use App\Http\Controllers\ColdstorageController;
 use App\Http\Controllers\FishGradeController;
 use App\Http\Controllers\MedicalReportController;
+use App\Http\Controllers\MicrobiologicalTestController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PackControler;
 use App\Http\Controllers\PartyController;
@@ -356,6 +357,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('supply-item', SupplyItemController::class);
     //supplier
     Route::get('activate/{id}',[ProductionSupplierController::class,'activate'])->name('production-supplier.activate');
+    Route::get('deactivate/{id}',[ProductionSupplierController::class,'deactivate'])->name('production-supplier.deactivate');
     Route::get('all-supplier',[ProductionSupplierController::class,'AllSupplier'])->name('production-supplier.all');
     Route::get('all-supplier',[ProductionSupplierController::class,'AllSupplier'])->name('production-supplier.all');
     Route::get('get-supplier/{id}',[ProductionSupplierController::class,'getSupplier'])->name('production-supplier.getSupplier');
@@ -375,4 +377,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('temp-thermocouple', TempTherController::class);
     Route::get('production-Supplier-item/{id}',[ProductionSupplierItemController::class,'destroy'])->name('production-Supplier-item.destroy');
 
+    //Microbiological Test Report
+    Route::get('report-genarate',[MicrobiologicalTestController::class,'report_genarate'])->name('microbiological.test.report.genarate');
+    Route::resource('microbiological-test',MicrobiologicalTestController::class);
 });
