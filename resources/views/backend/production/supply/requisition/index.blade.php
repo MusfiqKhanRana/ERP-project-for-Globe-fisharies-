@@ -52,11 +52,11 @@
                     <div class="tools"> </div>
                 </div>
                 <div class="portlet-body">
-                    <form action="{{route('order.store')}}" class="form-horizontal" method="POST">
+                    <form action="{{route('production-requisition.store')}}" class="form-horizontal" method="POST">
                         {{ csrf_field() }}
                         <div class="form-body">
                             <div class="form-section">
-                                <button type="button" class="btn dark pull-right " id="addbtn">Add Another Item <i class= 'fa fa-plus'> </i> </button>
+                                
                                 <label class="col-md-2 control-label pull-left bold">Supplier Select: </label>
                                 <div class="col-md-6">
                                     <select class="select2Ajax form-control" name="supplier_id" id="supplier_id"></select>
@@ -64,9 +64,7 @@
                             </div><br><br>
                         </div>
                         <div id="supplier_info">
-                            {{-- <div class="col-md-3 text-center">
-                                <span> <b>cusotmer Name:</b> this is good</span>
-                            </div> --}}
+                            
                         </div>
                         <div class="row" style="margin-top:2%">
                             <div class="col-md-12">
@@ -80,9 +78,7 @@
                                                 <label for="">Select Item</label>
                                                 <select class="form-control" id="item">
                                                     <option selected>Select</option>
-                                                    {{-- @foreach($category as $data)
-                                                        <option value="{{$data->id}}" data-name="{{$data->name}}">{{$data->name}}</option>
-                                                    @endforeach --}}
+                                                    
                                                 </select>
                                             </div>
                                             <div class="col-md-2">
@@ -100,6 +96,10 @@
                                             <div class="col-md-2">
                                                 <label for="product">Amount</label>
                                                 <input type="text" class="form-control" id="amount" readonly>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="addbtn"><b>&nbsp;</b></label>
+                                                <button type="button" class="btn dark pull-right " id="addbtn">Add Another Item <i class= 'fa fa-plus'> </i> </button>
                                             </div>
                                         </div>
                                     </div>
@@ -153,15 +153,11 @@
                                             <th>Item Grade</th>
                                             <th>Unit Price</th>
                                             <th>Quantity</th>
-                                            <th>Amount</th>
-                                            <th>Rate</th>
-                                            <th>Discount(Percentage)</th>
-                                            <th>Discount(Amount)</th>
                                             <th>Price</th>
                                             <th>Action</th>
                                         </tr>
                                         <tr>
-                                            <th colspan="8" style="text-align: right;">Sub Total</th>
+                                            <th colspan="4" style="text-align: right;">Sub Total</th>
                                             <th><span id="intotal_amount">0</span></th>
                                             <th></th>
                                         </tr>
@@ -169,21 +165,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row serviceRow redBorder"  id="orderBox">
+                        {{-- <div class="row serviceRow redBorder"  id="orderBox">
                            
-                        </div>
+                        </div> --}}
                         <div class="form-action">
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <div class="col-md-2">
                                     <label class="control-label"><b>Total Discount</b></label>
                                     <input type="number" id="grand_discount" class="form-control"  name="total_discount">
-                                </div>
+                                </div>--}}
                                 <div class="col-md-2">
-                                    <label class="control-label"><b>Grand Total</b></label>
-                                    <input type="number" id="grand_total" class="form-control" value="0" readonly>
+                                    {{-- <label class="control-label"><b>Grand Total</b></label>
+                                    <input type="number" id="grand_total" class="form-control" value="0" readonly> --}}
                                     <input type="hidden" name="products" value="" id="products">
                                 </div>
-                                <div class="col-md-2">
+                                {{--<div class="col-md-2">
                                     <label class="control-label"><b>Payment Method</b></label>
                                     <select name="payment_method" class="form-control payment_method">
                                         <option value="Cash">Cash</option>
@@ -206,15 +202,15 @@
                                 <fieldset class="radio-inline question">
                                     <input class="form-check-input want_delivery_charge" type="checkbox">Want to add delivery charge ? 
                                 </fieldset>
-                            </div>
+                            </div> --}}
                             <div class="form-group">
                                 <label class="col-md-1 control-label"><b>Remark</b></label>
                                 <div class="col-md-12">
-                                    <textarea class="form-control" name="remark" rows="3"></textarea>
+                                    <textarea class="form-control" name="details" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3">
+                                {{-- <div class="col-md-3">
                                     <div class="input-group add_delivery_charge">
                                         <div class="input-group-btn">
                                             <button type="button" class="btn btn-success pull-left">Add Delivery Charge</button>
@@ -222,7 +218,7 @@
                                         <!-- /btn-group -->
                                         <input type="number" id="delivery_charge" class="from-control" style="font-size:19px; font-weight: bold" placeholder="Delivery Charge" name="delivery_charge">
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-3 pull-right">
                                     <button type="submit" class="btn purple btn-block ">Submit</button>
                                 </div>
@@ -341,17 +337,17 @@
             function nullmaking(){
 
                 $("#item").val(null);
-                $("#product").val(null);
-                $("#pack_size").val(null);
-                $("#rate").val(null);
-                $("#quantity_pkt").val(null);
-                $("#quantity_kg").val(null);
-                $("#percentage_id").val(null);
-                $("#amount_id").val(null);
-                $("#price").val(null);
+                $("#grade").val(null);
+                $("#unit_price").val(null);
+                $("#quantity").val(null);
+                $("#amount").val(null);
+                // $("#quantity_kg").val(null);
+                // $("#percentage_id").val(null);
+                // $("#amount_id").val(null);
+                // $("#price").val(null);
             }
             // $("#product").chained("#category");
-            var item_id,item_name,item_grade_id,item_unit_price,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,product_name,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
+            var item_id,item_name,item_grade_id,item_grade_name,item_unit_price,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,product_name,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
             var product_array = [];
             $('#product').change(function(){
                 product_id = $(this).val();
@@ -422,13 +418,13 @@
                 }
             });
             $("#addbtn").click(function() {
-                product_array.push({"item_id":item_id,"item_name":item_name,"product_id":product_id,"product_name":product_name,"pack_size":$('#pack_size').val(),"quantity_packet":$('#quantity_pkt').val(),"quantity_kg":$('#quantity_kg').val(),"rate":$('#rate').val(),"percentage_discount":$('#percentage_id').val(),"amount_discount":$('#amount_id').val(),'total_price':$('#price').val(),"status":"stay"})
+                product_array.push({"item_id":item_id,"item_name":item_name,"item_grade_id":item_grade_id,"item_grade_name":$('#grade').val(),"quantity":$('#quantity').val(),"rate":item_unit_price,'total_price':$('#amount').val(),"status":"stay"})
                 $("#products").val('');
                 $("#products").val(JSON.stringify(product_array));
                 $.each( product_array, function( key, product ) {
                     if (product.status == "stay") {
                         if(product_array.length-1 == key){
-                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+product.item_name+"</td><td>"+product.product_name+"</td><td>"+$('#pack_size').val()+"</td><td>"+$('#quantity_pkt').val()+"</td><td>"+$('#quantity_kg').val()+"</td><td>"+$('#rate').val()+"</td><td>"+$('#percentage_id').val()+"</td><td>"+$('#amount_id').val()+"</td><td>"+$('#price').val()+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+product.item_name+"</td><td>"+product.item_grade_name+"</td><td>"+product.quantity+"</td><td>"+product.rate+"</td><td>"+product.total_price+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
                         }
                     }
                 });
@@ -457,23 +453,23 @@
                 });
                 return inTotal;
             }
-            $(".transaction_number").hide();
-            $('.payment_method').change(function(){
-                var input = $(this).val();
-                if (input=="Bkash" || input=="Nagad" || input=="Rocket"){
-                    $(".transaction_number").show();
-                }else{
-                    $(".transaction_number").hide();
-                }
-            })
-            $('#grand_discount').keyup(function(){
-                let grand_total = parseInt($("#intotal_amount").html())-$(this).val();
-                $("#grand_total").val(grand_total);
-            })
-            $('#paid_amount').keyup(function(){
-                let grand_total = $("#grand_total").val()-$(this).val();
-                $("#grand_due_amount").val(grand_total);
-            })
+            // $(".transaction_number").hide();
+            // $('.payment_method').change(function(){
+            //     var input = $(this).val();
+            //     if (input=="Bkash" || input=="Nagad" || input=="Rocket"){
+            //         $(".transaction_number").show();
+            //     }else{
+            //         $(".transaction_number").hide();
+            //     }
+            // })
+            // $('#grand_discount').keyup(function(){
+            //     let grand_total = parseInt($("#intotal_amount").html())-$(this).val();
+            //     $("#grand_total").val(grand_total);
+            // })
+            // $('#paid_amount').keyup(function(){
+            //     let grand_total = $("#grand_total").val()-$(this).val();
+            //     $("#grand_due_amount").val(grand_total);
+            // })
             // $(document).on('click', '#due', function () {
             //     $("#due_amount").show();
             // });
@@ -481,24 +477,24 @@
             //     $("#due_amount").hide();
             // });
             //Commom Script
-            $('.dpicker').datepicker({
-                autoclose: true
-            });
-            var currentDate = new Date();
-            $(".createdpicker").datepicker("setDate",currentDate);
-            $("#loader").css("display",'none');
-            $("#myDiv").removeAttr("style");
-            $("#addService").removeAttr("disabled");
-            $('.add_delivery_charge').hide();
+            // $('.dpicker').datepicker({
+            //     autoclose: true
+            // });
+            // var currentDate = new Date();
+            // $(".createdpicker").datepicker("setDate",currentDate);
+            // $("#loader").css("display",'none');
+            // $("#myDiv").removeAttr("style");
+            // $("#addService").removeAttr("disabled");
+            // $('.add_delivery_charge').hide();
 
-            $(".want_delivery_charge").click(function() {
-                if($(this).is(":checked")) {
-                    $(".add_delivery_charge").show();
-                } else {
-                    $(".add_delivery_charge").hide();
-                    $("#delivery_charge").val('');
-                }
-            });
+            // $(".want_delivery_charge").click(function() {
+            //     if($(this).is(":checked")) {
+            //         $(".add_delivery_charge").show();
+            //     } else {
+            //         $(".add_delivery_charge").hide();
+            //         $("#delivery_charge").val('');
+            //     }
+            // });
             $("#supplier_id").change(function() {
                 // console.log($(this).val());
                 $.ajax({

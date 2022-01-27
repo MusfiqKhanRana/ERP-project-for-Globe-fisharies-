@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductionRequisition;
+use App\Models\ProductionRequisitionItem;
 use Illuminate\Http\Request;
 
 class ProductionRequisitionController extends Controller
@@ -37,7 +38,25 @@ class ProductionRequisitionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        // dd($data);
+        // dd(var_dump($data));
+        $production_requisition = ProductionRequisition::create(['production_supplier_id' => $data['supplier_id'],'details' => $data['details']]);
+        foreach (json_decode($request->products) as $key => $product) {
+            // dd(var_dump($product));
+            if ($product->status=="stay"){
+                $production_requisition_item = ProductionRequisitionItem::create([
+                    'production_requisition_id' => $production_requisition->id,
+                    'supply_item_id' => $product->item_id,
+                    'rate' => $product->rate,
+                    'quantity' => $product->quantity,
+                    'amount' => floatval($product->total_price),
+                ]);
+            }
+            
+        }
+        dd("good");
+        return redirect()->back()->withMsg('Successfully Created');
     }
 
     /**
