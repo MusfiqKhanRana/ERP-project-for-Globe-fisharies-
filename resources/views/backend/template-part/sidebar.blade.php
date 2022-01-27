@@ -565,6 +565,20 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="fa fa-user"></i>
+                            <span class="title">Microbiological Test Report</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item">
+                                <a href="{{route('microbiological.test.report.genarate')}}" class="nav-link ">
+                                    <span class="title">Genarate Report</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
             

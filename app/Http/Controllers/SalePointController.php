@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Cutomer;
-use App\Models\Party_product;
-use App\Models\Party_product as ModelsParty_product;
+use App\Models\PartyProduct;
 use App\Models\Product;
 use App\Models\ProductOrder;
 use App\Models\SalePoint;
@@ -27,7 +26,7 @@ class SalePointController extends Controller
     public function product_pass(Request $request)
     {
         $id = $request->id;
-        $product = Party_product::where('party_id',$id)->get();
+        $product = PartyProduct::where('party_id',$id)->get();
         $output ="";
 
         foreach($product as $value){
