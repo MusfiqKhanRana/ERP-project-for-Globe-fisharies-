@@ -15,11 +15,7 @@ class ProductionRequisitionController extends Controller
      */
     public function index()
     {
-        $production_requisition = ProductionRequisition::with(['production_supplier',
-        'production_requisition_items' => function($q){
-
-        }
-        ])->get();
+        $production_requisition = ProductionRequisition::with(['production_supplier','production_requisition_items'])->get();
         dd($production_requisition->toArray());   
         return view('backend.production.supply.requisition.list',compact('production_requisition'));
     }
