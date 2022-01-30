@@ -9,7 +9,7 @@
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title" class="portlet box dark">Create Party
+            <h3 class="page-title" class="portlet box dark">Edit Party
             </h3>
             <hr>
             @if (count($errors) > 0)
@@ -35,7 +35,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="inputEmail1" class="col-md-2 control-label">Party Code</label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-10">
                                         <input type="text" class="form-control" value="{{$data->party_code}}" required name="party_code">
                                     </div>
                                 </div>
@@ -43,7 +43,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="inputEmail1" class="col-md-2 control-label">Party Name</label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-10">
                                         <input type="text" class="form-control" value="{{$data->party_name}}" required name="party_name">
                                     </div>
                                 </div>
@@ -51,7 +51,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="inputEmail1" class="col-md-2 control-label">Phone</label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-10">
                                         <input type="text" class="form-control" value="{{$data->phone}}" required name="phone">
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="inputEmail1" class="col-md-2 control-label"> Address</label>
-                                    <div class="col-md-8">
+                                    <div class="col-md-10">
                                         <input type="text" class="form-control" value="{{$data->address}}" required name="address">
                                     </div>
                                 </div>
