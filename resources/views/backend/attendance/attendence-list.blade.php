@@ -42,7 +42,7 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center">
-                                        EmployeeID
+                                        Employee ID
                                     </th>
 
                                     <th style="text-align: center">
@@ -50,7 +50,7 @@
                                     </th>
 
                                     <th class="text-center">
-                                        Dept./Designation
+                                        Dept. & Designation
                                     </th>
 
                                     <th class="text-center">

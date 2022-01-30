@@ -9,7 +9,7 @@ Temp. Monitoring
         <div class="page-content">
             <!-- BEGIN CONTENT -->  
         <!-- BEGIN PAGE TITLE-->
-        <h3 class="page-title bold">Temp. Monitoring
+        <h3 class="page-title bold">Tempature Monitoring
             <a class="btn blue-ebonyclay pull-right" data-toggle="modal" href="#basic">
                 Add Monitoring to List
                 <i class="fa fa-plus"></i>
@@ -35,12 +35,12 @@ Temp. Monitoring
                                     <tr>
                                         <th>sl.</th>
                                         <th>Frozen Storage Name</th>
-                                        <th>Temp(<sup>0</sup>C)(DDT)</th>
-                                        <th>Temp(<sup>0</sup>C)(DTS)</th>
-                                        <th>Master Carton No</th>
+                                        <th>Temp.(<sup>0</sup>C)(DDT)</th>
+                                        <th>Temp.(<sup>0</sup>C)(DTS)</th>
+                                        <th>Master Carton No.</th>
                                         <th>Commodity & Count</th>
                                         <th>Date Of Production</th>
-                                        <th>Block Core Temp(<sup>0</sup>C)</th>
+                                        <th>Block Core Temp.(<sup>0</sup>C)</th>
                                         <th>Remark</th>
                                         {{-- <th>Cold Storage Name</th> --}}
                                         <th>Action</th>
@@ -87,7 +87,7 @@ Temp. Monitoring
                                                 </div>
 
                                                 <div class="form-group clearfix">
-                                                    <label class="col-md-3 control-label">Temp(<sup>0</sup>C)(DDT)</label>
+                                                    <label class="col-md-3 control-label">Temp.(<sup>0</sup>C)(DDT)</label>
                                                     <div class="col-md-9">
                                                         <div class="input-group">
                                                             <input type="text" class="form-control" id="temp_c_ddt" name="temp_c_ddt" value="">
@@ -97,7 +97,7 @@ Temp. Monitoring
                                                     </div>
                                                 </div>
                                                 <div class="form-group clearfix">
-                                                    <label class="col-md-3 control-label">Temp(<sup>0</sup>C)(DTS)</label>
+                                                    <label class="col-md-3 control-label">Temp.(<sup>0</sup>C)(DTS)</label>
                                                     <div class="col-md-9">
                                                         <div class="input-group">
                                                             <input type="text" class="form-control" id="temp_c_dts" name="temp_c_dts" value="">
@@ -107,7 +107,7 @@ Temp. Monitoring
                                                     </div>
                                                 </div>
                                                 <div class="form-group clearfix">
-                                                    <label class="col-md-3 control-label">Master Carton No</label>
+                                                    <label class="col-md-3 control-label">Master Carton No.</label>
                                                     <div class="col-md-9">
                                                         <div class="input-group">
                                                             <input type="text" class="form-control" id="master_carton_no" name="master_carton_no" value="">
@@ -226,7 +226,7 @@ Temp. Monitoring
                                                 </div>
         
                                                 <div class="form-group clearfix">
-                                                    <label class="col-md-3 control-label">Temp(<sup>0</sup>C)(DDT)</label>
+                                                    <label class="col-md-3 control-label">Temp.(<sup>0</sup>C)(DDT)</label>
                                                     <div class="col-md-9">
                                                         <div class="input-group">
                                                             <input type="text" class="form-control" id="temp_c_ddt" name="temp_c_ddt" value="">
@@ -236,7 +236,7 @@ Temp. Monitoring
                                                     </div>
                                                 </div>
                                                 <div class="form-group clearfix">
-                                                    <label class="col-md-3 control-label">Temp(<sup>0</sup>C)(DTS)</label>
+                                                    <label class="col-md-3 control-label">Temp.(<sup>0</sup>C)(DTS)</label>
                                                     <div class="col-md-9">
                                                         <div class="input-group">
                                                             <input type="text" class="form-control" id="temp_c_dts" name="temp_c_dts" value="">
@@ -246,7 +246,7 @@ Temp. Monitoring
                                                     </div>
                                                 </div>
                                                 <div class="form-group clearfix">
-                                                    <label class="col-md-3 control-label">Master Carton No</label>
+                                                    <label class="col-md-3 control-label">Master Carton No.</label>
                                                     <div class="col-md-9">
                                                         <div class="input-group">
                                                             <input type="text" class="form-control" id="master_carton_no" name="master_carton_no" value="">

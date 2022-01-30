@@ -43,9 +43,9 @@
                             <table class="table table-striped table-bordered table-hover" id="awards">
                                 <thead>
                                 <tr>
-                                    <th> EmployeeID </th>
+                                    <th> Employee ID </th>
                                     <th> Employee Name </th>
-                                    <th> Awardee Name </th>
+                                    <th> Awardee's Name </th>
                                     <th> Gift </th>
                                     <th> Price </th>
                                     <th> For the Month </th>

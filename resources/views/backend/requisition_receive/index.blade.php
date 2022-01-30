@@ -86,7 +86,7 @@
                                                             Remark
                                                         </th>
                                                         <th>
-                                                            paymentInfo
+                                                            Payment Info.
                                                         </th>
                                                         <th>
                                                             Products
@@ -271,7 +271,7 @@
                                                                             </div>
                                                                         @endforeach
                                                                         <tr>
-                                                                            <th colspan="4">total Pack & Weight</th>
+                                                                            <th colspan="4">Total Pack & Weight</th>
                                                                             <th  colspan="5">
                                                                                <span>{{ $total_qty}}pack</span> <span> & {{ $total_weight}}KG</span>     
                                                                             </th>
