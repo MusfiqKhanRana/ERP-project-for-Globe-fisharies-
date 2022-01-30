@@ -16,6 +16,7 @@ class CreateMedicalReportsTable extends Migration
         Schema::create('medical_reports', function (Blueprint $table) {
             $table->id();
             $table->date('date')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
             $table->string('dressing')->nullable();
             $table->string('complain')->nullable();
             $table->text('medicine_details')->nullable();

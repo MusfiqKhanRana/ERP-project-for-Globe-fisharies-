@@ -24,7 +24,7 @@
                         </div>
                     </div>
                 </div>
-        @endif
+            @endif
             <!-- END PAGE TITLE-->
             <div class="row">
                 <div class="col-md-12">
