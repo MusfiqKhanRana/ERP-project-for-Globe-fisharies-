@@ -79,7 +79,7 @@ class ProductOrderController extends Controller
                     'quantity' => $product->quantity_packet,
                     'discount_in_amount' => floatval($product->amount_discount),
                     'discount_in_percentage' => floatval($product->percentage_discount),
-                    'selling_price' => floatval($product->total_price),
+                    'rate' => floatval($product->rate),
                 ]);
             }
             
@@ -122,13 +122,12 @@ class ProductOrderController extends Controller
     }
     public function OrderProductUpdate(Request $request, $id)
     {
-        //dd($request);
+        // dd($request);
         ProductOrder::whereId($id)
         ->update([
             'quantity' => $request->quantity,
             'discount_in_amount' => $request->discount_in_amount,
             'discount_in_percentage' =>$request->discount_in_percentage,
-            'selling_price' => $request->selling_price,
         ]);
         return redirect()->route('order-history.index',"status=Pending")->withMsg("Successfully Ordered Product Updated");
         //return redirect()->back()->withMsg("Successfully Updated");
@@ -208,7 +207,7 @@ class ProductOrderController extends Controller
             'quantity' => $request->quantity,
             'discount_in_amount' => floatval($request->discount_in_amount),
             'discount_in_percentage' => floatval($request->discount_in_percentage),
-            'selling_price' => floatval($request->selling_price),
+            'rate' => floatval($request->rate),
         ]);
         return redirect()->back()->withMsg("Successfully added Product to The List");
     }
