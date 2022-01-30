@@ -38,7 +38,23 @@ class TempTherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inputs = $request->except('_token');
+        $this->validate($request,array(
+           'date' => 'required|date',
+           'load_time' => 'required|date_format:H:i',
+           'Unload_time' => 'required|date_format:H:i',
+           'freezer_no' => 'required',
+           'remark' => 'max:256',
+        ));
+        $thermos = new TempTher();
+        $thermos->date = $request->date;
+        $thermos->load_time = $request->load_time;
+        $thermos->Unload_time = $request->Unload_time;
+        $thermos->freezer_no = $request->freezer_no;
+        $thermos->remark = $request->remarks;
+        $thermos->save();
+
+        return redirect()->back()->withMsg('Successfully Created');
     }
 
     /**

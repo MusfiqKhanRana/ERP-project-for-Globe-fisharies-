@@ -67,11 +67,19 @@
                                             sl
                                         </th>
                                         <th>
-                                            Item Name
+                                            Date
                                         </th>
                                         <th>
-                                            Remark
+                                           Loading Time
                                         </th>
+                                        <th>
+                                            Unloading Time
+                                        </th>
+                                        <th>
+                                          Freezer Name
+                                        </th>
+                                        <th>Temp Info</th>
+                                        <th>Remark</th>
                                         <th style="text-align: center">
                                             Action
                                         </th>
@@ -81,8 +89,12 @@
                                     @foreach ($items as $key=>$item)
                                         <tr>
                                             <td>{{++$key}}</td>
-                                            <td>{{$item->name}}</td>
-                                            <td>{{$item->details}}</td>
+                                            <td>{{$item->date}}</td>
+                                            <td>{{$item->load_time}}</td>
+                                            <td>{{$item->unload_time}}</td>
+                                            <td>{{$item->cold_storages->name}}</td>
+                                            <td></td>
+                                            <td>{{$item->remark}}</td>
                                             <td style="text-align: center">
                                                 <a class="btn btn-info"  data-toggle="modal" href="#editModal{{$item->id}}"><i class="fa fa-edit"></i> Edit</a>
                                                 <a class="btn red" data-toggle="modal" href="#deleteModal{{$item->id}}"><i class="fa fa-trash"></i> Delete</a>
@@ -188,7 +200,7 @@
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Freezer Name</label>
                                 <div class="col-md-9">
-                                    <select class="form-control" name="freezer_name" id="freezer_name">
+                                    <select class="form-control" name="freezer_no" id="freezer_no">
                                         <option value="">--Select Item--</option>
                                         @foreach ($cold_storages as $item)
                                             <option value="{{$item->id}}" data-item_name="{{$item->name}}">{{$item->name}}</option>

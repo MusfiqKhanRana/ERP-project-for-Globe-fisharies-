@@ -1,7 +1,7 @@
 
 @extends('backend.master')
 @section('site-title')
-   Production Test List
+Maintenance Records
 @endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
@@ -9,7 +9,7 @@
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title" class="portlet box dark">Production Test List
+            <h3 class="page-title" class="portlet box dark">Maintenance Records
             </h3>
             <hr>
             @if (count($errors) > 0)
@@ -32,7 +32,7 @@
                 </div>
                     <div class="caption pull-right">
                         <a class="btn green-meadow pull-right" data-toggle="modal" href="#addModal">
-                            Add New Test
+                            Add New Records
                         <i class="fa fa-plus"></i> </a>
                     </div>
                     <div class="tools">

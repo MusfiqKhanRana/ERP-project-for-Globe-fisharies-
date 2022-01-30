@@ -518,7 +518,7 @@
                             </li>
                             <li class="nav-item  @if( request()->path() == 'admin/production_test' ) active open @endif">
                                 <a href="{{route('production_test.index')}}" class="nav-link ">
-                                    <span class="title">Production Test</span>
+                                    <span class="title">Maintenance Records</span>
                                 </a>
                             </li>
                             <li class="nav-item  @if( request()->path() == 'admin/temp-thermocouple' ) active open @endif">
