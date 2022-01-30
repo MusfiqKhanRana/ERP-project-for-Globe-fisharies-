@@ -48,19 +48,15 @@ class PartyController extends Controller
         $this->validate($request,array(
            'party_code' => 'required|max:191',
            'party_name' => 'required|max:191',
-           'phone' => 'required|max:191',
-           'party_type' => 'required|max:191',
-           'party_short_name' => 'required|max:191',
+           'phone' => 'required|min:11|max:11',
            'address' => 'required|max:191',
-           
-
         ));
         $parties = new Party;
         $parties->party_code = $request->party_code;
         $parties->party_name = $request->party_name;
         $parties->phone = $request->phone;
-        $parties->party_type = $request->party_type;
-        $parties->party_short_name = $request->party_short_name;
+        // $parties->party_type = $request->party_type;
+        // $parties->party_short_name = $request->party_short_name;
         $parties->address = $request->address;
         $parties->save();
         $data = $request->all();
