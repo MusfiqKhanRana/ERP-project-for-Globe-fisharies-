@@ -101,6 +101,7 @@
                                                     @php
                                                         $total_amount = 0;
                                                         $intotal_amount = 0;
+                                                        $single_total =0;
                                                     @endphp
                                                     @foreach($data->products as $key2=> $item)
                                                      @if ($item->pivot->status == "Received" || $item->pivot->status == Null)
@@ -113,16 +114,18 @@
                                                                     @php
                                                                         if($item->pivot->discount_in_amount){
                                                                             echo $item->pivot->discount_in_amount." TK";
+                                                                            $single_total = ($item->pivot->rate * $item->pivot->quantity)-$item->pivot->discount_in_amount;
                                                                         }
                                                                         elseif ($item->pivot->discount_in_percentage) {
                                                                             echo $item->pivot->discount_in_percentage." Percent";
+                                                                            $single_total =(($item->pivot->rate * $item->pivot->quantity)-(($item->pivot->rate * $item->pivot->quantity)*($item->pivot->discount_in_percentage/100)));
                                                                         }
                                                                     @endphp
                                                                 </th>
                                                                 <th>
-                                                                    {{$item->pivot->selling_price}}
+                                                                    {{$single_total}}
                                                                     @php
-                                                                        $total_amount += $item->pivot->selling_price;
+                                                                        $total_amount += $single_total;
                                                                     @endphp
                                                                 </th>
                                                                 @if ($data->status == "Pending")
@@ -211,15 +214,6 @@
                                                                                        @else 
                                                                                         <input type="text" class="form-control" value="{{$item->pivot->discount_in_percentage}}" required name="discount_in_percentage"> 
                                                                                        @endif
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div><br><br><br>
-                                                                            <div class="col-md-12">
-                                                                                <div class="form-group">
-                                                                                    <label for="inputEmail1" class="col-md-2 control-label">Selling Price</label>
-                                                                                    <div class="col-md-10">
-                                                                                        <input type="text" class="form-control" value="{{$item->pivot->selling_price}}" required name="selling_price">
-                                                                                        <input type="hidden" value="{{$item->pivot->id}}">
                                                                                     </div>
                                                                                 </div>
                                                                             </div><br><br><br>
@@ -675,7 +669,7 @@
                                                                                 </div>
                                                                                 <div class="col-md-6">
                                                                                     <label for="price">Price</label>
-                                                                                    <input name="selling_price" type="text" class="form-control pricex" id="price" readonly>
+                                                                                    <input name="rate" type="text" class="form-control pricex" id="price" readonly>
                                                                                 </div>
                                                                             </div>
                                                                         </div>

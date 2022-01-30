@@ -155,6 +155,18 @@ Microbiological Test Report
                             </tr>
                         </tbody>
                     </table>
+                    <div class="form-group row">
+                        <label class="col-md-3 control-label">8. Remarks :</span></label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="" id="" cols="60" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 control-label">9.Overall Remarks :</span></label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="" id="" cols="60" rows="5"></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
 
