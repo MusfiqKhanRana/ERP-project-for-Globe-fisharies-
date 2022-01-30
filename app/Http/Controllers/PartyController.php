@@ -95,7 +95,8 @@ class PartyController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Party::find($id);
+        return view('backend.party.edit',compact('data'));
     }
 
     /**
@@ -116,7 +117,7 @@ class PartyController extends Controller
             'party_short_name' => $request->party_short_name,
             'address' => $request->address,
         ]);
-        return redirect()->back()->withMsg("Successfully Updated");
+        return redirect()->route('party.index')->withMsg("Successfully Updated");
     }
 
     /**

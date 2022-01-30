@@ -1,7 +1,7 @@
 
 @extends('backend.master')
 @section('site-title')
-   Create Party
+ Edit Party
 @endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
@@ -29,58 +29,46 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="portlet-body" style="height: auto;">
-                    <form method="post" action="{{route('party.store')}}" class="form-horizontal">
-                        {{csrf_field()}}
-                        <div class="col-md-12 ">
-                            <div class="portlet-body">
-                                <div class="form-body">
-                                    <div class="form-group">
-                                            <div class="form-group">
-                                                <label class="col-md-3 control-label">Name</label>
-                                                <div class="col-md-9">
-                                                    <input type="text" class="form-control" name="name" placeholder="Name" value="{{$user-type->name }}">
-                                                </div>
-                                            </div>
-                                        <label class="col-md-3 control-label">ID</span></label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="party_id" placeholder="Party ID" value="{{$parties->id}}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Party Code</label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="party_code" placeholder="Party Code" value="{{$parties->party_code}}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Party Name</span></label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="party_name" placeholder="Party Name" value="{{$parties->party_name}}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Party Type</label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="party_type" value="{{$parties->party_type}}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Party Short Name</label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="party_short_name" placeholder="Party Short Name" value="{{$parties->party_short_name}}">
-                                        </div>
+                        <form class="form-horizontal" role="form" action="{{route('party.update',$data->id)}}" method="post">
+                            {{csrf_field()}}
+                            {{method_field('put')}}
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="inputEmail1" class="col-md-2 control-label">Party Code</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" value="{{$data->party_code}}" required name="party_code">
                                     </div>
                                 </div>
-                            </div>
-                        <div class="form-actions">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button type="submit" data-loading-text="Submitting..." class="col-md-12 btn btn btn-info">
-                                        <i class="fa fa-plus"></i>	Update </button>
+                            </div><br><br>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="inputEmail1" class="col-md-2 control-label">Party Name</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" value="{{$data->party_name}}" required name="party_name">
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </form>
+                            </div><br><br>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="inputEmail1" class="col-md-2 control-label">Phone</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" value="{{$data->phone}}" required name="phone">
+                                    </div>
+                                </div>
+                            </div><br><br><br>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="inputEmail1" class="col-md-2 control-label"> Address</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" value="{{$data->address}}" required name="address">
+                                    </div>
+                                </div>
+                            </div><br><br><br>
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                            </div><br><br><br><br>
+                        </form>
                     </div>
                 </div>
             </div>

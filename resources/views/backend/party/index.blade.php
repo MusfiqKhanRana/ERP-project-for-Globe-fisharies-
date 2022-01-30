@@ -44,8 +44,6 @@
                                         <th style="text-align: center"> Code</th>
                                         <th style="text-align: center"> Name</th>
                                         <th style="text-align: center"> Phone</th>
-                                        <th style="text-align:center"> Type</th>
-                                        <th style="text-align: center"> Short Name</th>
                                         <th style="text-align: center"> Address</th>
                                         <th style="text-align: center"> Enlisted Product</th>
                                         <th style="text-align: center"> Action</th>
@@ -58,8 +56,6 @@
                                                 <td class="text-align: center;"> {{$data->party_code}}</td>
                                                 <td class="text-align: center;"> {{$data->party_name}}</td>
                                                 <td class="text-align: center;"> {{$data->phone}}</td>
-                                                <td class="text-align: center;"> {{$data->party_type}}</td>
-                                                <td class="text-align: center;"> {{$data->party_short_name}}</td>
                                                 <td class="text-align: center;"> {{$data->address}}</td>
                                                 <td>
                                                     <table class="table table-striped table-bordered table-hover">
@@ -157,7 +153,7 @@
                                                     </table>
                                                 </td>
                                                 <td style="text-align: center">
-                                                    <a class="btn blue"  data-toggle="modal" href="#edit_partyModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
+                                                    <a class="btn blue"  data-toggle="modal" href="{{route('party.edit',$data->id)}}"><i class="fa fa-edit"></i> Edit</a>
                                                     <a class="btn red" data-toggle="modal" href="#deletepartyModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
                                                 </td>
                                             </tr>
@@ -205,7 +201,7 @@
                                                                             <input type="text" class="form-control" value="{{$data->party_code}}" required name="party_code">
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                </div><br><br>
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for="inputEmail1" class="col-md-2 control-label">Party Name</label>
@@ -213,7 +209,7 @@
                                                                             <input type="text" class="form-control" value="{{$data->party_name}}" required name="party_name">
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                </div><br><br>
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for="inputEmail1" class="col-md-2 control-label">Phone</label>
@@ -221,7 +217,7 @@
                                                                             <input type="text" class="form-control" value="{{$data->phone}}" required name="phone">
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                </div><br><br>
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for="inputEmail1" class="col-md-2 control-label">Party Type</label>
@@ -229,7 +225,7 @@
                                                                             <input type="text" class="form-control" value="{{$data->party_type}}" required name="party_type">
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                </div><br><br>
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for="inputEmail1" class="col-md-2 control-label">Party Short Name</label>
@@ -237,7 +233,7 @@
                                                                             <input type="text" class="form-control" value="{{$data->party_short_name}}" required name="party_short_name">
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                </div><br><br>
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for="inputEmail1" class="col-md-2 control-label"> Address</label>
@@ -245,11 +241,11 @@
                                                                             <input type="text" class="form-control" value="{{$data->address}}" required name="address">
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                </div><br><br>
                                                                 <div class="modal-footer">
                                                                     <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                                                     <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
-                                                                </div>
+                                                                </div><br><br><br><br>
                                                             </form>
                                                         </div>
                                                     </div>

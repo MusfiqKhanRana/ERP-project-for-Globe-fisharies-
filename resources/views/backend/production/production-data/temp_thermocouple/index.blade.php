@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('site-title')
-    Supplier
+    Production Data
 @endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
@@ -67,11 +67,19 @@
                                             sl
                                         </th>
                                         <th>
-                                            Item Name
+                                            Date
                                         </th>
                                         <th>
-                                            Remark
+                                           Loading Time
                                         </th>
+                                        <th>
+                                            Unloading Time
+                                        </th>
+                                        <th>
+                                          Freezer Name
+                                        </th>
+                                        <th>Temp Info</th>
+                                        <th>Remark</th>
                                         <th style="text-align: center">
                                             Action
                                         </th>
@@ -81,8 +89,12 @@
                                     @foreach ($items as $key=>$item)
                                         <tr>
                                             <td>{{++$key}}</td>
-                                            <td>{{$item->name}}</td>
-                                            <td>{{$item->details}}</td>
+                                            <td>{{$item->date}}</td>
+                                            <td>{{$item->load_time}}</td>
+                                            <td>{{$item->unload_time}}</td>
+                                            <td>{{$item->cold_storages->name}}</td>
+                                            <td></td>
+                                            <td>{{$item->remark}}</td>
                                             <td style="text-align: center">
                                                 <a class="btn btn-info"  data-toggle="modal" href="#editModal{{$item->id}}"><i class="fa fa-edit"></i> Edit</a>
                                                 <a class="btn red" data-toggle="modal" href="#deleteModal{{$item->id}}"><i class="fa fa-trash"></i> Delete</a>
@@ -102,7 +114,7 @@
                                                             <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
                                                         </div>
                                                         <div class="caption pull-right">
-                                                            <form action="{{route('supply-item.destroy',[$item])}}" method="POST">
+                                                            <form action="{{route('temp-thermocouple.destroy',[$item])}}" method="POST">
                                                                 @method('DELETE')
                                                                 @csrf
                                                                 <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
@@ -120,7 +132,7 @@
                                                         <h4 class="modal-title">Update Area</h4>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form class="form-horizontal" role="form" method="post" action="{{route('supply-item.update', $item)}}">
+                                                        <form class="form-horizontal" role="form" method="post" action="{{route('temp-thermocouple.update', $item)}}">
                                                             {{csrf_field()}}
                                                             {{method_field('put')}}
                                                             <div class="form-group">
@@ -164,7 +176,7 @@
                             <h4 class="modal-title">Add New Temperature Thermocouple</h4>
                         </div>
                         <br>
-                        <form class="form-horizontal" role="form" method="post" action="{{route('production-supplier.store')}}">
+                        <form class="form-horizontal" role="form" method="post" action="{{route('temp-thermocouple.store')}}">
                             {{csrf_field()}}
 
                             <div class="form-group">
@@ -188,7 +200,7 @@
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Freezer Name</label>
                                 <div class="col-md-9">
-                                    <select class="form-control" name="freezer_name" id="freezer_name">
+                                    <select class="form-control" name="freezer_no" id="freezer_no">
                                         <option value="">--Select Item--</option>
                                         @foreach ($cold_storages as $item)
                                             <option value="{{$item->id}}" data-item_name="{{$item->name}}">{{$item->name}}</option>
@@ -230,6 +242,12 @@
                                     </table>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
+                                <div class="col-md-9">
+                                    <textarea type="text" class="form-control"  name="remark"></textarea>
+                                </div>
+                            </div>
                             <div class="modal-footer">
                                 <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                 <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
@@ -245,28 +263,20 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-           var time,c_temp,f_m_r = null;
+        //    var time,c_temp,f_m_r = null;
            var items_array = [];
            function nullmaking(){
                 $("#time").val(null);
                 $("#c_temp").val(null);
                 $("#f_m_r").val(null);
             }
-            $("#select_item").change(function(){
-                item_id = $(this).val();
-                item_name = $(this).find(':selected').data("item_name");
-                console.log(item_id);
-            });
-            $("#select_grade").change(function(){
-                grade_id = $(this).val();
-                grade_name = $(this).find(':selected').data("grade_name");
-                console.log(grade_id);
-            });
            $("#add_items").click(function(){
-                items_array.push({"item_id":item_id,"item_name":item_name,"grade_id":grade_id,"grade_name":grade_name,"rate":$("#suppliers_rate").val(),"status":"stay"});
+               console.log($("#time").val());
+                items_array.push({"time":$("#time").val(),"c_temp":$("#c_temp").val(),"f_m_r":$("#f_m_r").val(),"status":"stay"});
                 $("#provided_item").val('');
                 $("#provided_item").val(JSON.stringify(items_array));
                 $.each( items_array, function( key, item ) {
+                    // console.log(item);
                     if (item.status == "stay") {
                         if(items_array.length-1 == key){
                             $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+item.time+"</td><td>"+item.c_temp+"</td><td>"+item.f_m_r+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
