@@ -67,7 +67,7 @@
                                                             <tr>
                                                                 <th>Sl.</th>
                                                                 <th>Name</th>
-                                                                <th>Purchase Price</th>
+                                                                {{-- <th>Purchase Price</th> --}}
                                                                 <th>Party Price</th>
                                                                 <th>Action</th>
                                                             </tr>
@@ -77,7 +77,7 @@
                                                                 <tr>
                                                                     <th>{{++$key2}}</th>
                                                                     <th>{{$item->product_name}}</th>
-                                                                    <th>{{$item->buying_price}}</th>
+                                                                    {{-- <th>{{$item->buying_price}}</th> --}}
                                                                     <th>{{$item->pivot->price}}</th>  
                                                                     <th>
                                                                         <a class="btn red" data-toggle="modal" href="#deletproductModal{{$item->pivot->id}}"><i class="fa fa-trash"></i> Delete</a>
