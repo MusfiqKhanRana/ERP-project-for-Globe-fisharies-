@@ -436,7 +436,7 @@
             
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <span class="title">Requisition Management</span>
+                    <span class="title">Requisition</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
@@ -450,17 +450,17 @@
                             <span class="title">Dispatch Requisition</span>
                         </a>
                     </li>
-                    <li class="nav-item  @if( request()->path() == 'admin/add/purchase' ) active open @endif">
+                    {{-- <li class="nav-item  @if( request()->path() == 'admin/add/purchase' ) active open @endif">
                         <a href="{{route('add.purchase')}}" class="nav-link ">
                             <span class="title">Add Purchase</span>
                         </a>
-                    </li>
+                    </li> --}}
 
-                    <li class="nav-item  @if( request()->path() == 'admin/purchase' ) active open @endif">
+                    {{-- <li class="nav-item  @if( request()->path() == 'admin/purchase' ) active open @endif">
                         <a href="{{route('purchase.reports')}}" class="nav-link ">
                             <span class="title">Purchase Reports</span>
                         </a>
-                    </li>
+                    </li> --}}
 
                 </ul>
             </li>
@@ -542,7 +542,7 @@
                             </li>
                             <li class="nav-item ">
                                 <a href="{{route('production-supplier.index')}}" class="nav-link ">
-                                    <span class="title">Manage Supplier</span>
+                                    <span class="title">Manage Suplyer</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -552,30 +552,16 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item ">
-                                        <a href="{{route('production-requisition.create')}}" class="nav-link ">
+                                        <a href="{{route('production-requisition.index')}}" class="nav-link ">
                                             <span class="title">Add Requisition</span>
                                         </a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a href="{{route('production-requisition.index')}}" class="nav-link ">
+                                        <a href="" class="nav-link ">
                                             <span class="title">Requisition List</span>
                                         </a>
                                     </li>
                                 </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="javascript:;" class="nav-link nav-toggle">
-                            <i class="fa fa-user"></i>
-                            <span class="title">Microbiological Test Report</span>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            <li class="nav-item">
-                                <a href="{{route('microbiological.test.report.genarate')}}" class="nav-link ">
-                                    <span class="title">Genarate Report</span>
-                                </a>
                             </li>
                         </ul>
                     </li>
