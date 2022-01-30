@@ -370,6 +370,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">Add New Customer</h4>
                 </div>
+                <br>
                 <form class="form-horizontal" role="form" method="post" action="{{route('customer.detail.store')}}">
                     {{csrf_field()}}
 
@@ -430,12 +431,12 @@
                                 <label class="radio-inline">
                                     <input type="radio" value="online" name="customer_type">Online
                                 </label>
-                                <label class="radio-inline">
+                                {{-- <label class="radio-inline">
                                     <input type="radio" value="modern_trade" name="customer_type">Modern Trade
                                 </label>
                                 <label class="radio-inline">
                                     <input type="radio" value="sample" name="customer_type">Sample
-                                </label>
+                                </label> --}}
                               </div>
                         </div>
                     </div>
