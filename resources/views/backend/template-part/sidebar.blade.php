@@ -436,7 +436,7 @@
             
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <span class="title">Requisition & Purchase</span>
+                    <span class="title">Requisition Management</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
@@ -518,7 +518,7 @@
                             </li>
                             <li class="nav-item  @if( request()->path() == 'admin/production_test' ) active open @endif">
                                 <a href="{{route('production_test.index')}}" class="nav-link ">
-                                    <span class="title">Proiduction Test</span>
+                                    <span class="title">Production Test</span>
                                 </a>
                             </li>
                             <li class="nav-item  @if( request()->path() == 'admin/temp-thermocouple' ) active open @endif">
@@ -542,7 +542,7 @@
                             </li>
                             <li class="nav-item ">
                                 <a href="{{route('production-supplier.index')}}" class="nav-link ">
-                                    <span class="title">Manage Suplyer</span>
+                                    <span class="title">Manage Supplier</span>
                                 </a>
                             </li>
                             <li class="nav-item">

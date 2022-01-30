@@ -43,7 +43,7 @@
                                     <thead>
                                     <tr>
                                         <th>
-                                            ID
+                                            Serial
                                         </th>
                                         <th>
                                             Category Name

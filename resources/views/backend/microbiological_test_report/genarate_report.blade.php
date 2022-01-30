@@ -58,49 +58,49 @@ Microbiological Test Report
                         <div class="form-group row" style="margin-left:2%;">
                             <label class="col-md-3 control-label">a. Received From :</span></label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="party_name" placeholder="Party Name">
+                                <input type="text" class="form-control" name="party_name" placeholder="Received From">
                             </div>
                         </div>
                         <div class="form-group row" style="margin-left:2%;">
                             <label class="col-md-3 control-label">b. Species & type :</span></label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="party_name" placeholder="Party Name">
+                                <input type="text" class="form-control" name="party_name" placeholder="Species & type">
                             </div>
                         </div>
                         <div class="form-group row" style="margin-left:2%;">
                             <label class="col-md-3 control-label">c. Size/Count :</span></label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="party_name" placeholder="Party Name">
+                                <input type="text" class="form-control" name="party_name" placeholder="Size/Count">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 control-label">2. Date of Production:</span></label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="party_name" placeholder="Party Name">
+                                <input type="text" class="form-control" name="party_name" placeholder="Date of Production">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 control-label">3. Date of Collection :</span></label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="party_name" placeholder="Party Name">
+                                <input type="text" class="form-control" name="party_name" placeholder="Date of Collection">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 control-label">4. Date of test inception :</span></label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="party_name" placeholder="Party Name">
+                                <input type="text" class="form-control" name="party_name" placeholder="Date of test inception">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 control-label">5. Date of test inception :</span></label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="party_name" placeholder="Party Name">
+                                <input type="text" class="form-control" name="party_name" placeholder="Date of test inception">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 control-label">6. Incubation Tempature & time :</span></label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="party_name" placeholder="Party Name">
+                                <input type="text" class="form-control" name="party_name" placeholder="Incubation Tempature & time">
                             </div>
                         </div>
                         <div class="form-group row">

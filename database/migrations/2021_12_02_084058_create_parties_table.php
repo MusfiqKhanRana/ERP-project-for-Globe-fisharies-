@@ -18,8 +18,8 @@ class CreatePartiesTable extends Migration
             $table->string('party_code')->nullable();
             $table->string('party_name')->nullable();
             $table->string('phone')->nullable();
-            $table->string('party_type')->nullable();
-            $table->string('party_short_name')->nullable();
+            // $table->string('party_type')->nullable();
+            // $table->string('party_short_name')->nullable();
             $table->string('address')->nullable();
             $table->timestamps();
         });
