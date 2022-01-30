@@ -68,7 +68,7 @@
                                 <tr>
                                     <th> Image</th>
                                     <th> Name</th>
-                                    <th> ID </th>
+                                    <th> Product ID </th>
                                     <th> Category</th>
                                     <th> Unit</th>
                                     <th>Buying Price</th>

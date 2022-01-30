@@ -19,7 +19,7 @@
             @endif
             <!-- BEGIN PAGE TITLE-->
             <h3 class="page-title bold">Order List</h3>
-            <a class="btn btn-danger" href="{{route('order-history.index',"status=Pending")}}"><i class="fa fa-spinner"></i> Pending Order ({{$pendingcount}})</a>
+            <a class="btn btn-danger" href="{{route('order-history.index',"status=Pending")}}"><i class="fa fa-spinner"></i> Pending Orders ({{$pendingcount}})</a>
             {{-- <a class="btn btn-primary"  href="{{route('order-history.index',"status=Confirm")}}"><i class="fa fa-check-circle"></i> Confirm Order List ({{$confirmcount}})</a> --}}
             <a class="btn btn-success" href="{{route('order-history.index',"status=Delivered")}}"><i class="fa fa-cart-plus"></i> Delivery List ({{$delivery_count}})</a>
                 <br><br>
@@ -88,7 +88,7 @@
                                             <table class="table table-striped table-bordered table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>s.l</th>
+                                                        <th>Sl.</th>
                                                         <th>Category</th>
                                                         <th>Name</th>
                                                         <th>Quantity</th>
@@ -234,7 +234,7 @@
                                                         </div>
                                                     @endforeach
                                                     <tr>
-                                                        <th colspan="5">total Amount <small> (Inc. Discount)</small></th>
+                                                        <th colspan="5">Total Amount <small> (Inc. Discount)</small></th>
                                                         <th>
                                                             @php
                                                                 $intotal_amount=$total_amount-$data->total_discount;

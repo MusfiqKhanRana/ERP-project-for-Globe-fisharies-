@@ -56,7 +56,7 @@ Department List
                                             <thead>
                                             <tr>
                                                 <th>
-                                                    ID
+                                                    Serial
                                                 </th>
                                                 <th>
                                                     Department Name

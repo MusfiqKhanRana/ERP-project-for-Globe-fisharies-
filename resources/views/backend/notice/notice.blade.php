@@ -44,7 +44,7 @@
                             <table class="table table-striped table-bordered table-hover" id="notices">
                                 <thead>
                                 <tr>
-                                    <th> ID </th>
+                                    <th> Sl. </th>
                                     <th> Title </th>
                                     <th> Description </th>
                                     <th> Created on </th>

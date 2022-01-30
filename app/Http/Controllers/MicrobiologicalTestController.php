@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ColdStorage;
 use Illuminate\Http\Request;
 
 class MicrobiologicalTestController extends Controller
@@ -83,6 +84,7 @@ class MicrobiologicalTestController extends Controller
     }
     public function report_genarate()
     {
-        return view('backend.microbiological_test_report.genarate_report');
+        $coldstorage = ColdStorage::all();
+        return view('backend.microbiological_test_report.genarate_report',compact('coldstorage'));
     }
 }

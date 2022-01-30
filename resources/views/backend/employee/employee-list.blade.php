@@ -52,7 +52,7 @@
                                         Name
                                     </th>
                                     <th class="text-center">
-                                        Dept./Designation
+                                        Dept. & Designation
                                     </th>
                                     <th class="text-center">
                                         Joining Date

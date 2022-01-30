@@ -37,20 +37,20 @@
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th scope="col"> Employee Email </th>
                                         <th scope="col"> Employee Name </th>
+                                        <th scope="col"> Employee Email </th>
                                         <th scope="col"> Task </th>
                                         <th scope="col" style="width:450px !important"> Description </th>
-                                        <th scope="col"> Deal Time </th>
-                                        <th scope="col"> Death Time </th>
+                                        <th scope="col"> Starting Time </th>
+                                        <th scope="col"> End Time </th>
                                         <th scope="col"> Action </th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($task as $data)
                                     <tr>
-                                        <td> {{$data->employee_Id }} </td>
                                         <td> {{$data->employee_name }} </td>
+                                        <td> {{$data->employee_Id }} </td>
                                         <td> {{$data->task_name }} </td>
                                         <td> {!!  $data->description !!} </td>
                                         <td> {{ date('jS F, Y',strtotime($data->start_date ))  }} </td>

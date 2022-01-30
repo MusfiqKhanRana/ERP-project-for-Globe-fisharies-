@@ -104,7 +104,7 @@
                                                 <input type="text" class="form-control" id="pack_size" readonly>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="product">Rate (TK)</label>
+                                                <label for="product">Rate (BDT)</label>
                                                 <input type="text" class="form-control" id="rate" readonly>
                                             </div>
                                         </div>
@@ -119,11 +119,11 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="">Quantity In Packet</label>
+                                                <label for="">Quantity (In Packet)</label>
                                                 <input type="number" id="quantity_pkt" class="form-control">
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="">Quantity In KG</label>
+                                                <label for="">Quantity (In KG)</label>
                                                 <input type="number" id="quantity_kg" class="form-control" readonly>
                                             </div>
                                             <div class="col-md-6">
@@ -340,7 +340,7 @@
                                         <!-- /btn-group -->
                                         {{-- <input type="text" class="form-control total" id="total" name="total_amount" style="font-size:25px; font-weight: bold" readonly>  --}}
                                         {{-- <input type="number" class="from-control" style="font-size:19px; font-weight: bold" placeholder="Total discount in amount" name="total_discount"> --}}
-                                        <input type="number" id="delivery_charge" class="from-control" style="font-size:19px; font-weight: bold" placeholder="Delivery Charge" name="delivery_charge">
+                                        <input type="number" id="delivery_charge" class="from-control" style="font-size:19px; font-weight: bold" placeholder="Type Delivery Charge" name="delivery_charge">
                                     </div>
                                 </div>
                                 {{-- <div class="col-md-3">
@@ -625,10 +625,10 @@
                         var $results = $('#customer_info');
                         var $userDiv = $results.append('<div class="user-div"></div>')
                         $( '<div class="row">'+
-                            '<div class="col-md-3 text-center"><span> <b>cusotmer Name: </b>'+data.full_name+'</span></div>'
-                            +'<div class="col-md-3 text-center"><span> <b>cusotmer Address: </b>'+data.address+'</span></div>'
-                            +'<div class="col-md-3 text-center"><span> <b>cusotmer Phone: </b>'+data.phone+'</span></div>'
-                            +'<div class="col-md-3 text-center"><span> <b>cusotmer Type: </b><span id="customer_type">'+data.customer_type+'</span></span></div>'
+                            '<div class="col-md-3 text-center"><span> <b>Customer Name: </b>'+data.full_name+'</span></div>'
+                            +'<div class="col-md-3 text-center"><span> <b>Customer Address: </b>'+data.address+'</span></div>'
+                            +'<div class="col-md-3 text-center"><span> <b>Customer Phone: </b>'+data.phone+'</span></div>'
+                            +'<div class="col-md-3 text-center"><span> <b>Customer Type: </b><span id="customer_type">'+data.customer_type+'</span></span></div>'
                         +'</div>').appendTo( ".user-div" );
                     }
                 });

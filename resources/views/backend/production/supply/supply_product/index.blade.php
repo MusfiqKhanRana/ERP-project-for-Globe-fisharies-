@@ -64,7 +64,7 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            sl
+                                            Sl.
                                         </th>
                                         <th>
                                             Item Name
