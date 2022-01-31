@@ -58,43 +58,68 @@ Microbiological Test Report
                         <div class="form-group row" style="margin-left:2%;">
                             <label class="col-md-3 control-label">a. Received From :</span></label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="party_name" placeholder="Received From">
+                                <select class="form-group form-control" name="coldstorage_id" id="">
+                                    <option value="">--Select--</option>
+                                    @foreach ($coldstorage as $item)
+                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row" style="margin-left:2%;">
                             <label class="col-md-3 control-label">b. Species & type :</span></label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="party_name" placeholder="Species & type">
+                                <input type="text" class="form-control" name="spacies_type" placeholder="Species & type">
                             </div>
                         </div>
                         <div class="form-group row" style="margin-left:2%;">
                             <label class="col-md-3 control-label">c. Size/Count :</span></label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="party_name" placeholder="Size/Count">
+                                <input type="text" class="form-control" name="size_count" placeholder="Size/Count">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 control-label">2. Date of Production:</span></label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="party_name" placeholder="Date of Production">
+                                <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                    <input type="text" class="form-control" name="date_of_production" placeholder="date_of_production" id="clearance_date" readonly >
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 control-label">3. Date of Collection :</span></label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="party_name" placeholder="Date of Collection">
+                                <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                    <input type="text" class="form-control" name="date_of_collection" id="clearance_date" placeholder="date_of_collection" readonly >
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-md-3 control-label">4. Date of test inception :</span></label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="party_name" placeholder="Date of test inception">
+                                <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                    <input type="text" class="form-control" name="date_of_test_inception" placeholder="date_of_test_inception" id="clearance_date" readonly >
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 control-label">5. Date of test inception :</span></label>
+                            <label class="col-md-3 control-label">5. Date of test Completion :</span></label>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" name="party_name" placeholder="Date of test inception">
+                                <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                    <input type="text" class="form-control" name="date_of_test_completion" placeholder="date_of_test_completion" id="clearance_date" readonly >
+                                    <span class="input-group-btn">
+                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -165,6 +190,12 @@ Microbiological Test Report
                         <label class="col-md-3 control-label">9.Overall Remarks :</span></label>
                         <div class="col-md-6">
                             <textarea class="form-control" name="" id="" cols="60" rows="5"></textarea>
+                        </div>
+                    </div><br><br>
+                    <div class="form-group clearfix">
+                        <div class="col-md-12">
+                            <button class="btn btn-info col-md-12" type="submit" ><i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                Submit</button>
                         </div>
                     </div>
                 </div>
