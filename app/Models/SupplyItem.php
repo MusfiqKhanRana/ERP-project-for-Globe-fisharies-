@@ -11,6 +11,6 @@ class SupplyItem extends Model
     protected $guarded = [];
     public function grade()
     {
-        return $this->belongsTo(FishGrade::class)->withDefault();
+        return $this->belongsTo(FishGrade::class);
     }
 }
