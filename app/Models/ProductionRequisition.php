@@ -16,6 +16,6 @@ class ProductionRequisition extends Model
     public function production_requisition_items()
     {
         return $this->belongsToMany(SupplyItem::class,'production_requisition_items','production_requisition_id','supply_item_id')
-        ->withPivot('id','production_requisition_id','rate', 'quantity','amount');
+        ->withPivot('id','production_requisition_id','rate', 'quantity');
     }
 }

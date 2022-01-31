@@ -16,10 +16,10 @@ class ProductionRequisitionController extends Controller
     public function index()
     {
         $production_requisition = ProductionRequisition::with(['production_supplier',
-        'production_requisition_items'=>function($q){
-            $q->with(['grade']);
-        }
-        ])->get();
+            'production_requisition_items'=>function($q){
+                $q->with(['grade']);
+            }
+        ])->latest()->get();
         // dd($production_requisition->toArray());   
         return view('backend.production.supply.requisition.list',compact('production_requisition'));
     }
@@ -54,7 +54,7 @@ class ProductionRequisitionController extends Controller
                     'supply_item_id' => $product->item_id,
                     'rate' => $product->rate,
                     'quantity' => $product->quantity,
-                    'amount' => floatval($product->total_price),
+                    // 'amount' => floatval($product->total_price),
                 ]);
             }
             

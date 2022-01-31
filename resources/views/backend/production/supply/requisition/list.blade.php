@@ -51,7 +51,7 @@
                                     <tbody>
                                         @foreach($production_requisition as $key=> $data)
                                             <tr id="row1">
-                                                <td>{{$data->id}}</td>
+                                                <td>{{++$key}}</td>
                                                 <td class="text-align: center;"> {{$data->production_supplier->name}}</td>
                                                 <td class="text-align: center;"> {{$data->status}}</td>
                                                 <td class="text-align: center;"> {{$data->details}}</td>
@@ -61,25 +61,37 @@
                                                             <tr>
                                                                 <th>Sl.</th>
                                                                 <th>Name</th>
-                                                                <th>Purchase Price</th>
-                                                                <th>Party Price</th>
+                                                                <th>Grade Name</th>
+                                                                <th>Quantity(kg)</th>
+                                                                <th>Rate</th>
+                                                                <th>Amount(total)</th>
                                                                 <th>Action</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {{-- @foreach($data->product_parties as $key2=> $item)
+                                                            @php
+                                                                $total = 0;
+                                                            @endphp
+                                                            @foreach($data->production_requisition_items as $key2=> $item)
                                                                 <tr>
                                                                     <th>{{++$key2}}</th>
-                                                                    <th>{{$item->product_name}}</th>
-                                                                    <th>{{$item->buying_price}}</th>
-                                                                    <th>{{$item->pivot->price}}</th>  
+                                                                    <th>{{$item->name}}</th>
+                                                                    <th>{{$item->grade->name}}</th>
+                                                                    <th>{{$item->pivot->quantity}}</th>  
+                                                                    <th>{{$item->pivot->rate}}</th>  
+                                                                    <th>
+                                                                        @php
+                                                                            $total+=$item->pivot->quantity*$item->pivot->rate;
+                                                                        @endphp
+                                                                        {{$item->pivot->quantity*$item->pivot->rate}}
+                                                                    </th>  
                                                                     <th>
                                                                         <a class="btn red" data-toggle="modal" href="#deletproductModal{{$item->pivot->id}}"><i class="fa fa-trash"></i> Delete</a>
                                                                         
                                                                         <a class="btn blue"  data-toggle="modal" href="#edit_product_Modal{{$item->pivot->id}}"><i class="fa fa-edit"></i> Edit</a>
                                                                     </th>
                                                                 </tr>
-                                                                <div id="edit_product_Modal{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                                {{-- <div id="edit_product_Modal{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
@@ -132,8 +144,12 @@
                                                                             
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            @endforeach --}}
+                                                                </div> --}}
+                                                            @endforeach
+                                                            <tr>
+                                                                <th colspan="5" class="text-center">Total</th>
+                                                                <th>{{$total}}</th>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </td>
