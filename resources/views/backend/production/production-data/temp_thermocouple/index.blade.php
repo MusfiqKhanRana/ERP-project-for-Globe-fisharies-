@@ -92,8 +92,35 @@
                                             <td>{{$item->date}}</td>
                                             <td>{{$item->load_time}}</td>
                                             <td>{{$item->unload_time}}</td>
-                                            <td>{{$item->cold_storages->name}}</td>
-                                            <td></td>
+                                            <td>{{$item->cold_storage->name}}</td>
+                                            <td>
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Time
+                                                            </th>
+                                                            <th>
+                                                               C.Temp
+                                                            </th>
+                                                            <th>
+                                                               F.M.R
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (unserialize($item->info_temp) as $info_temp)
+
+                                                        <tr> 
+                                                                <td>{{$info_temp->time}}</td>
+                                                                <td>{{$info_temp->c_temp}}</td> 
+                                                                <td>{{$info_temp->f_m_r}}</td>                                           
+                                                        </tr>
+                                                    @endforeach
+
+                                                    </tbody>
+                                                </table>
+                                            </td>
                                             <td>{{$item->remark}}</td>
                                             <td style="text-align: center">
                                                 <a class="btn btn-info"  data-toggle="modal" href="#editModal{{$item->id}}"><i class="fa fa-edit"></i> Edit</a>
@@ -279,9 +306,16 @@
                     // console.log(item);
                     if (item.status == "stay") {
                         if(items_array.length-1 == key){
-                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+item.time+"</td><td>"+item.c_temp+"</td><td>"+item.f_m_r+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+item.time+"</td><td>"+item.c_temp+"</td><td>"+item.f_m_r+"</td><td><button class='btn btn-danger delete_item' data-id='"+key+"'>Delete</button></td></tr>");
                         }
                     }
+                });
+                $(".delete_item").click(function(){
+                    items_array[$(this).data("id")].status="delete";
+                    // console.log(product_array,$(this).data("id"));
+                    $("#provided_item").val('');
+                    $("#provided_item").val(JSON.stringify(items_array));
+                    $("#"+$(this).data("id")).remove();
                 });
                 nullmaking();
            });
