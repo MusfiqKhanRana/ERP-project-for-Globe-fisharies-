@@ -111,7 +111,7 @@
                                                                 Supplier ID
                                                             </th> --}}
                                                             <th>
-                                                                Grade ID
+                                                                Grade name
                                                             </th>
                                                             <th>
                                                                 Rate
@@ -137,7 +137,7 @@
                                                                     {{$item->details}}
                                                                 </td>
                                                                 {{-- <td>{{$item->pivot->production_supplier_id}}</td> --}}
-                                                                <td>{{$item->pivot->grade_id}}</td>
+                                                                <td>{{$item->grade->name}}</td>
                                                                 <td>
                                                                     {{$item->pivot->rate}}
                                                                 </td>
@@ -275,17 +275,12 @@
                                         <select class="form-control" name="supply_item_id" id="select_item">
                                             <option value="">--Select Item--</option>
                                             @foreach ($items as $item)
-                                                <option value="{{$item->id}}" data-item_name="{{$item->name}}">{{$item->name}}</option>
+                                                <option value="{{$item->id}}" data-grade_name="{{$item->grade->name}}" data-grade_id="{{$item->grade->id}}" data-item_name="{{$item->name}}">{{$item->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="col-md-3">
-                                        <select class="form-control" name="grade_id" id="select_grade">
-                                            <option value="">--Select Grade--</option>
-                                            @foreach ($grades as $item)
-                                                <option value="{{$item->id}}" data-grade_name="{{$item->name}}">{{$item->name}}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" class="form-control" id="select_grade" readonly>
                                     </div>
                                     <div class="col-md-2">
                                         <input type="text" class="form-control" placeholder="Rate" id="suppliers_rate" name="rate">
@@ -336,15 +331,17 @@
             $("#select_item").change(function(){
                 item_id = $(this).val();
                 item_name = $(this).find(':selected').data("item_name");
-                console.log(item_id);
-            });
-            $("#select_grade").change(function(){
-                grade_id = $(this).val();
                 grade_name = $(this).find(':selected').data("grade_name");
-                console.log(grade_id);
+                $("#select_grade").val(grade_name);
+                console.log(grade_name);
             });
+            // $("#select_grade").change(function(){
+            //     grade_id = $(this).val();
+            //     grade_name = $(this).find(':selected').data("grade_name");
+            //     console.log(grade_id);
+            // });
            $("#add_items").click(function(){
-                items_array.push({"item_id":item_id,"item_name":item_name,"grade_id":grade_id,"grade_name":grade_name,"rate":$("#suppliers_rate").val(),"status":"stay"});
+                items_array.push({"item_id":item_id,"item_name":item_name,"grade_name":grade_name,"rate":$("#suppliers_rate").val(),"status":"stay"});
                 $("#provided_item").val('');
                 $("#provided_item").val(JSON.stringify(items_array));
                 $.each( items_array, function( key, item ) {

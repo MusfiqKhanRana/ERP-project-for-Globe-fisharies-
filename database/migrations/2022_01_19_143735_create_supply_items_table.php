@@ -16,6 +16,7 @@ class CreateSupplyItemsTable extends Migration
         Schema::create('supply_items', function (Blueprint $table) {
             $table->id();
             $table->string("name")->nullable();
+            $table->integer("grade_id")->nullable();
             $table->text("details")->nullable();
             $table->timestamps();
         });

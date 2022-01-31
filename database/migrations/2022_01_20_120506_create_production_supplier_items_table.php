@@ -17,7 +17,6 @@ class CreateProductionSupplierItemsTable extends Migration
             $table->id();
             $table->unsignedInteger('production_supplier_id')->nullable();
             $table->unsignedInteger('supply_item_id')->nullable();
-            $table->unsignedInteger('grade_id')->nullable();
             $table->integer('rate')->nullable();
             $table->timestamps();
         });

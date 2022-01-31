@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FishGrade;
 use App\Models\SupplyItem;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,10 @@ class SupplyItemController extends Controller
      */
     public function index()
     {
-        $items = SupplyItem::get();
-        return view('backend.production.supply.supply_product.index',compact('items'));
+        $items = SupplyItem::with('grade')->get();
+        // return $items;
+        $grades = FishGrade::get();
+        return view('backend.production.supply.supply_product.index',compact('items','grades'));
     }
 
     /**

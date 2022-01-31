@@ -70,6 +70,9 @@
                                             Item Name
                                         </th>
                                         <th>
+                                            Grade Name
+                                        </th>
+                                        <th>
                                             Remark
                                         </th>
                                         <th style="text-align: center">
@@ -82,6 +85,7 @@
                                         <tr>
                                             <td>{{++$key}}</td>
                                             <td>{{$item->name}}</td>
+                                            <td>{{$item->grade->name}}</td>
                                             <td>{{$item->details}}</td>
                                             <td style="text-align: center">
                                                 <a class="btn btn-info"  data-toggle="modal" href="#editareaModal{{$item->id}}"><i class="fa fa-edit"></i> Edit</a>
@@ -161,22 +165,33 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                            <h4 class="modal-title">Add New Customer</h4>
+                            <h4 class="modal-title">Add New Item</h4>
                         </div>
                         <br>
                         <form class="form-horizontal" role="form" method="post" action="{{route('supply-item.store')}}">
                             {{csrf_field()}}
 
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Full Name</label>
+                                <label for="inputEmail1" class="col-md-2 control-label">Item Name</label>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" placeholder="Customer Name" required name="name">
+                                    <input type="text" class="form-control" placeholder="Item Name" required name="name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Grades</label>
+                                <div class="col-md-8">
+                                    <select name="grade_id" class="form-control" id="">
+                                        <option value="">--Select--</option>
+                                            @foreach ($grades as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                            @endforeach
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-7 control-label">Suggestions or topics you would like to be included:</label>
-                                <div class="col-md-12">
+                                <div class="col-md-8">
                                     <div class="col-md-12 ">
                                         <input type="text" class="form-control" placeholder="Remark (Not Required)" name="details">
                                     </div>

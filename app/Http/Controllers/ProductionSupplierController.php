@@ -18,8 +18,10 @@ class ProductionSupplierController extends Controller
      */
     public function index()
     {
-        $items = SupplyItem::get();
-        $suppliers = ProductionSupplier::with(['supplier_items'])->get();
+        $items = SupplyItem::with('grade')->get();
+        $suppliers = ProductionSupplier::with(['supplier_items'=>function($q){
+            $q->with(['grade']);
+        }])->get();
         // return $suppliers;
         $grades = FishGrade::get();
         return view('backend.production.supply.production_supplier.index',compact('items','suppliers','grades'));
@@ -74,7 +76,6 @@ class ProductionSupplierController extends Controller
                 $production_supplier_item = ProductionSupplierItem::create([
                     'production_supplier_id' => $Supplier->id,
                     'supply_item_id' => $item->item_id,
-                    'grade_id' => $item->grade_id,
                     'rate' => $item->rate
                 ]);
             }
