@@ -46,12 +46,15 @@ class TempTherController extends Controller
            'freezer_no' => 'required',
            'remark' => 'max:256',
         ));
+        $request->provided_item = json_decode($request->provided_item);
+        // dd($request->provided_item);
         $thermos = new TempTher();
         $thermos->date = $request->date;
         $thermos->load_time = $request->load_time;
         $thermos->Unload_time = $request->Unload_time;
         $thermos->freezer_no = $request->freezer_no;
-        $thermos->remark = $request->remarks;
+        $thermos->info_temp = serialize($request->provided_item);
+        $thermos->remark = $request->remark;
         $thermos->save();
 
         return redirect()->back()->withMsg('Successfully Created');

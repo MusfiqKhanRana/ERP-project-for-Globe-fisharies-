@@ -24,9 +24,9 @@ class UserTypeController extends Controller
         $tests = Party::orderBy('id', 'DESC')->latest()->paginate(10);
         $packs = Pack::orderBy('id', 'DESC')->latest()->paginate(10);
         $areas = Area::orderBy('id', 'DESC')->latest()->paginate(10);
-        $coldstorages = Coldstorage::orderBy('id', 'DESC')->latest()->paginate(10);
+        $coldstorages = ColdStorage::orderBy('id', 'DESC')->latest()->paginate(10);
         $grades = FishGrade::orderBy('id', 'DESC')->latest()->paginate(10);
-       return view('backend.menu.index', compact('users','packs','areas','tests','coldstorages','grades'));
+       return view('backend.Menu.index', compact('users','packs','areas','tests','coldstorages','grades'));
     }
 
     /**

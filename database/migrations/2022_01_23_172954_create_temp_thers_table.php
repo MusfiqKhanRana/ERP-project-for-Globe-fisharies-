@@ -18,8 +18,8 @@ class CreateTempThersTable extends Migration
             $table->date('date')->nullable();
             $table->time('load_time')->nullable();
             $table->time('unload_time')->nullable();
-            $table->string('freezer_no')->nullable();
-            $table->string('info_temp')->nullable();
+            $table->unsignedInteger('cold_storage_id')->nullable();
+            $table->text('info_temp')->nullable();
             $table->text('remark')->nullable();
             $table->timestamps();
         });
