@@ -94,7 +94,9 @@
                                                     {{$data->date_of_production}}
                                                 </td>
                                                 <td> 
-                                                    <a href="{{route('microbiological.test.report.details',$data->id)}}" class="btn btn success">View Details</a>
+                                                    <a href="{{route('microbiological.test.report.details',$data->id)}}" class="btn btn-success">View Details</a>
+                                                    <a href="{{route('microbiological-test.edit',$data->id)}}" class="btn btn-primary">Edit</a>
+                                                    <a href="{{route('microbiological-test.destroy',$data->id)}}" class="btn btn-danger">Delete</a>
                                                 </td>
                                             </tr>                                            
                                         @endforeach
