@@ -526,6 +526,24 @@
                                     <span class="title">Temperature Thermocouple</span>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <span class="title">Microbiological Test Reports</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item ">
+                                        <a href="{{route('microbiological.test.report.genarate')}}" class="nav-link ">
+                                            <span class="title">Report Genarate</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="{{route('microbiological-test.index')}}" class="nav-link ">
+                                            <span class="title">Reports</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -557,7 +575,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a href="{{route('production-requisition.index')}}" class="nav-link ">
+                                        <a href="{{route('production-requisition.index',['status'=>'Pending','page'=>1])}}" class="nav-link ">
                                             <span class="title">Requisition List</span>
                                         </a>
                                     </li>

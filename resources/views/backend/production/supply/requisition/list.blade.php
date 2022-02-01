@@ -8,8 +8,13 @@
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title" class="portlet box dark">Production Requisition
-            </h3>
+            <span class="page-title" class="portlet box dark"><b>Production Requisition: </b><span>{{ request()->status}} list</span>
+            </span>
+            <a class="btn btn-danger" href="{{route('production-requisition.index',['status'=>'Pending','page'=>1])}}"><i class="fa fa-spinner"></i> Pending List ({{$production_requisition_pending_count}})</a>
+            {{-- <a class="btn btn-primary"  href="{{route('order-history.index',"status=Confirm")}}"><i class="fa fa-check-circle"></i> Confirm Order List ({{$confirmcount}})</a> --}}
+            <a class="btn btn-success" href="{{route('production-requisition.index',['status'=>'Confirm','page'=>1])}}"><i class="fa fa-cart-plus"></i> Request  List ({{$production_requisition_Confirm_count}})</a>
+            <a class="btn purple" href="{{route('production-requisition.index',['status'=>'Approved','page'=>1])}}"><i class="fa fa-check"></i> Approved List ({{$production_requisition_Approved_count}})</a>
+                <br><br>
             <hr>
                 @if(Session::has('msg'))
                     <script>
@@ -51,7 +56,7 @@
                                     <tbody>
                                         @foreach($production_requisition as $key=> $data)
                                             <tr id="row1">
-                                                <td>{{$data->id}}</td>
+                                                <td>{{++$key}}</td>
                                                 <td class="text-align: center;"> {{$data->production_supplier->name}}</td>
                                                 <td class="text-align: center;"> {{$data->status}}</td>
                                                 <td class="text-align: center;"> {{$data->details}}</td>
@@ -61,25 +66,41 @@
                                                             <tr>
                                                                 <th>Sl.</th>
                                                                 <th>Name</th>
-                                                                <th>Purchase Price</th>
-                                                                <th>Party Price</th>
-                                                                <th>Action</th>
+                                                                <th>Grade Name</th>
+                                                                <th>Quantity(kg)</th>
+                                                                <th>Rate</th>
+                                                                <th>Amount(total)</th>
+                                                                @if (request()->status=="Pending")
+                                                                    <th>Action</th>
+                                                                @endif
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {{-- @foreach($data->product_parties as $key2=> $item)
+                                                            @php
+                                                                $total = 0;
+                                                            @endphp
+                                                            @foreach($data->production_requisition_items as $key2=> $item)
                                                                 <tr>
                                                                     <th>{{++$key2}}</th>
-                                                                    <th>{{$item->product_name}}</th>
-                                                                    <th>{{$item->buying_price}}</th>
-                                                                    <th>{{$item->pivot->price}}</th>  
+                                                                    <th>{{$item->name}}</th>
+                                                                    <th>{{$item->grade->name}}</th>
+                                                                    <th>{{$item->pivot->quantity}}</th>  
+                                                                    <th>{{$item->pivot->rate}}</th>  
                                                                     <th>
-                                                                        <a class="btn red" data-toggle="modal" href="#deletproductModal{{$item->pivot->id}}"><i class="fa fa-trash"></i> Delete</a>
-                                                                        
-                                                                        <a class="btn blue"  data-toggle="modal" href="#edit_product_Modal{{$item->pivot->id}}"><i class="fa fa-edit"></i> Edit</a>
-                                                                    </th>
+                                                                        @php
+                                                                            $total+=$item->pivot->quantity*$item->pivot->rate;
+                                                                        @endphp
+                                                                        {{$item->pivot->quantity*$item->pivot->rate}}
+                                                                    </th> 
+                                                                    @if (request()->status=="Pending")
+                                                                        <th>
+                                                                            <a class="btn red" data-toggle="modal" href="#deletproductModal{{$item->pivot->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                                                            
+                                                                            <a class="btn blue"  data-toggle="modal" href="#edit_product_Modal{{$item->pivot->id}}"><i class="fa fa-edit"></i> Edit</a>
+                                                                        </th>
+                                                                    @endif 
                                                                 </tr>
-                                                                <div id="edit_product_Modal{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                                {{-- <div id="edit_product_Modal{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
@@ -132,14 +153,32 @@
                                                                             
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            @endforeach --}}
+                                                                </div> --}}
+                                                            @endforeach
+                                                            <tr>
+                                                                <th colspan="5" class="text-center">Total</th>
+                                                                <th>{{$total}}</th>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
+                                                    <div class="row">
+                                                        {{-- <div class="col-md-12 text-center">{{ $employee->links() }}</div> --}}
+                                                        {{ $production_requisition->withQueryString()->links('vendor.pagination.custom') }}
+                                                    </div>
                                                 </td>
                                                 <td style="text-align: center">
-                                                    <a class="btn blue"  data-toggle="modal" href="#edit_partyModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
-                                                    <a class="btn red" data-toggle="modal" href="#deletepartyModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                                    @if (request()->status=="Pending")
+                                                        <a class="btn blue"  data-toggle="modal" href="#edit_partyModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
+                                                        <a class="btn red" data-toggle="modal" href="#deletepartyModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                                        <a class="btn green" data-toggle="modal" href="#confirmModal{{$data->id}}"><i class="fa fa-check"></i>Confirm</a>
+                                                    @elseif(request()->status=="Confirm")
+                                                        <a class="btn green" data-toggle="modal" href="#approveModal{{$data->id}}"><i class="fa fa-check"></i>Approve</a>
+                                                        <a class="btn btn-danger" data-toggle="modal" href="#rejectModal{{$data->id}}"><i class="fa fa-times-circle-o fa-2"></i> Reject</a>
+                                                        <a class="btn purple" data-toggle="modal" href="#returnModal{{$data->id}}"><i class="fa fa-undo"></i> Return</a>
+                                                    @elseif(request()->status=="Approved")
+                                                        <a class="btn green" data-toggle="modal" href="#dispatchModal{{$data->id}}"><i class="fa fa-arrow-circle-right"></i>Send to Production</a>
+                                                        <a class="btn purple" data-toggle="modal" href="#showModal{{$data->id}}"><i class="fa fa-print"></i> Show & Print</a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                             {{-- <div id="deletepartyModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">

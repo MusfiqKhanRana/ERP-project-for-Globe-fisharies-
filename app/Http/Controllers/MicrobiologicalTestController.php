@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ColdStorage;
+use App\Models\MicrobiologicalTest;
 use Illuminate\Http\Request;
 
 class MicrobiologicalTestController extends Controller
@@ -14,7 +15,8 @@ class MicrobiologicalTestController extends Controller
      */
     public function index()
     {
-        //
+        $reports = MicrobiologicalTest::all();
+        return view('backend.microbiological_test_report.report',compact('reports'));
     }
 
     /**
@@ -35,7 +37,9 @@ class MicrobiologicalTestController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $create = MicrobiologicalTest::create($request->all());
+        return redirect()->back()->withMsg("Successfully Created");
     }
 
     /**
@@ -86,5 +90,9 @@ class MicrobiologicalTestController extends Controller
     {
         $coldstorage = ColdStorage::all();
         return view('backend.microbiological_test_report.genarate_report',compact('coldstorage'));
+    }
+    public function report_details($id){
+        $report = MicrobiologicalTest::find($id)->get();
+        return view('backend.microbiological_test_report.report_details',compact('report'));
     }
 }

@@ -105,41 +105,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4><b>Quantity & Price</b></h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="">Quantity In Packet</label>
-                                                <input type="number" id="quantity_pkt" class="form-control">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="">Quantity In KG</label>
-                                                <input type="number" id="quantity_kg" class="form-control" readonly>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="discount"> Discount </label>
-                                                <span class="discount_in_percentage">
-                                                    <input type="text" class="form-control"  placeholder="discount in %" id="percentage_id"/>
-                                                </span>
-                                                <span class="discount_in_amount">
-                                                    <input type="text" class="form-control" placeholder="discount in amount" id="amount_id"/>
-                                                </span>
-                                                <fieldset class="radio-inline question coupon_question2">
-                                                    <input class="form-check-input want_in_amount" type="checkbox">Want in Amount ? 
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="price">Price</label>
-                                                <input type="text" class="form-control" id="price" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
                         </div>
                         <div class="row" style="margin: 1%">
                             <div class="card m-2">
@@ -169,40 +134,9 @@
                            
                         </div> --}}
                         <div class="form-action">
-                            {{-- <div class="form-group">
                                 <div class="col-md-2">
-                                    <label class="control-label"><b>Total Discount</b></label>
-                                    <input type="number" id="grand_discount" class="form-control"  name="total_discount">
-                                </div>--}}
-                                <div class="col-md-2">
-                                    {{-- <label class="control-label"><b>Grand Total</b></label>
-                                    <input type="number" id="grand_total" class="form-control" value="0" readonly> --}}
                                     <input type="hidden" name="products" value="" id="products">
                                 </div>
-                                {{--<div class="col-md-2">
-                                    <label class="control-label"><b>Payment Method</b></label>
-                                    <select name="payment_method" class="form-control payment_method">
-                                        <option value="Cash">Cash</option>
-                                        <option value="Bkash">Bkash</option>
-                                        <option value="Nagad">Nagad</option>
-                                        <option value="Rocket">Rocket</option>
-                                    </select>
-                                </div>
-                               
-                                <div class="col-md-2">
-                                    <label class="control-label"><b>Paid Amount</b></label>
-                                    <input type="number" class="form-control" id="paid_amount" name="paid_amount">
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="control-label"><b>Due</b></label>
-                                    <input type="number" value="0" id="grand_due_amount" class="form-control" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <fieldset class="radio-inline question">
-                                    <input class="form-check-input want_delivery_charge" type="checkbox">Want to add delivery charge ? 
-                                </fieldset>
-                            </div> --}}
                             <div class="form-group">
                                 <label class="col-md-1 control-label"><b>Remark</b></label>
                                 <div class="col-md-12">
@@ -210,15 +144,6 @@
                                 </div>
                             </div>
                             <div class="row">
-                                {{-- <div class="col-md-3">
-                                    <div class="input-group add_delivery_charge">
-                                        <div class="input-group-btn">
-                                            <button type="button" class="btn btn-success pull-left">Add Delivery Charge</button>
-                                        </div>
-                                        <!-- /btn-group -->
-                                        <input type="number" id="delivery_charge" class="from-control" style="font-size:19px; font-weight: bold" placeholder="Delivery Charge" name="delivery_charge">
-                                    </div>
-                                </div> --}}
                                 <div class="col-md-3 pull-right">
                                     <button type="submit" class="btn purple btn-block ">Submit</button>
                                 </div>
@@ -341,12 +266,7 @@
                 $("#unit_price").val(null);
                 $("#quantity").val(null);
                 $("#amount").val(null);
-                // $("#quantity_kg").val(null);
-                // $("#percentage_id").val(null);
-                // $("#amount_id").val(null);
-                // $("#price").val(null);
             }
-            // $("#product").chained("#category");
             var item_id,item_name,item_grade_id,item_grade_name,item_unit_price,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,product_name,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
             var product_array = [];
             $('#product').change(function(){
@@ -372,9 +292,7 @@
             })
             $('#quantity').keyup(function(){
                 packet_quantity = $(this).val();
-                // $("#quantity_kg").val(packet_quantity*product_pack_weight);
                 $("#amount").val(packet_quantity * item_unit_price);
-                // total_price = $("#amount").val();
                 total_price = packet_quantity * item_unit_price;
             })
             $('#item').change(function(){
@@ -382,12 +300,10 @@
                 item_name = $(this).find(':selected').data("name");
                 item_grade_id = $(this).find(':selected').data("grade_id");
                 item_unit_price = $(this).find(':selected').data("unit_price");
-                // console.log(item_grade_id);
                 $.ajax({
                     type:"get",
-                    url:"get-supplier-items-grade/"+item_grade_id,
+                    url:"/admin/get-supplier-items-grade/"+item_grade_id,
                     success:function(data){
-                        // console.log(data);
                         $("#grade").val(data.name);
                     }
                 });
@@ -453,53 +369,11 @@
                 });
                 return inTotal;
             }
-            // $(".transaction_number").hide();
-            // $('.payment_method').change(function(){
-            //     var input = $(this).val();
-            //     if (input=="Bkash" || input=="Nagad" || input=="Rocket"){
-            //         $(".transaction_number").show();
-            //     }else{
-            //         $(".transaction_number").hide();
-            //     }
-            // })
-            // $('#grand_discount').keyup(function(){
-            //     let grand_total = parseInt($("#intotal_amount").html())-$(this).val();
-            //     $("#grand_total").val(grand_total);
-            // })
-            // $('#paid_amount').keyup(function(){
-            //     let grand_total = $("#grand_total").val()-$(this).val();
-            //     $("#grand_due_amount").val(grand_total);
-            // })
-            // $(document).on('click', '#due', function () {
-            //     $("#due_amount").show();
-            // });
-            // $(document).on('click', '#paid', function () {
-            //     $("#due_amount").hide();
-            // });
-            //Commom Script
-            // $('.dpicker').datepicker({
-            //     autoclose: true
-            // });
-            // var currentDate = new Date();
-            // $(".createdpicker").datepicker("setDate",currentDate);
-            // $("#loader").css("display",'none');
-            // $("#myDiv").removeAttr("style");
-            // $("#addService").removeAttr("disabled");
-            // $('.add_delivery_charge').hide();
-
-            // $(".want_delivery_charge").click(function() {
-            //     if($(this).is(":checked")) {
-            //         $(".add_delivery_charge").show();
-            //     } else {
-            //         $(".add_delivery_charge").hide();
-            //         $("#delivery_charge").val('');
-            //     }
-            // });
             $("#supplier_id").change(function() {
                 // console.log($(this).val());
                 $.ajax({
                     type:"get",
-                    url:"get-supplier/"+$(this).val(),
+                    url:"/admin/get-supplier/"+$(this).val(),
                     success:function(data){
                         $("#supplier_info").empty();
                         var $results = $('#supplier_info');
@@ -514,13 +388,13 @@
                 });
                 $.ajax({
                     type:"get",
-                    url:"get-supplier-items/"+$(this).val(),
+                    url:"/admin/get-supplier-items/"+$(this).val(),
                     success:function(data){
                         console.log(data);
                         $("#item").html("");
                         let option="<option value=''>Select</option>";
                         $.each( data, function( key, data ) {
-                            option+='<option data-name="'+data.name+'" data-unit_price="'+data.pivot.rate+'" data-grade_id="'+data.pivot.grade_id+'" value="'+data.id+'">'+data.name+'</option>';
+                            option+='<option data-name="'+data.name+'" data-unit_price="'+data.pivot.rate+'" data-grade_id="'+data.grade_id+'" value="'+data.id+'">'+data.name+'</option>';
                         });
                         $('#item').append(option);
                     }

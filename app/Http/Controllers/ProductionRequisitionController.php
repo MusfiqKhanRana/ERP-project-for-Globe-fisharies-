@@ -13,15 +13,19 @@ class ProductionRequisitionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // dd($request->all());
+        $production_requisition_pending_count = ProductionRequisition::select('id')->where('status','Pending')->count();
+        $production_requisition_Confirm_count = ProductionRequisition::select('id')->where('status','Confirm')->count();
+        $production_requisition_Approved_count = ProductionRequisition::select('id')->where('status','Approved')->count();
         $production_requisition = ProductionRequisition::with(['production_supplier',
-        'production_requisition_items'=>function($q){
-            $q->with(['grade']);
-        }
-        ])->get();
+            'production_requisition_items'=>function($q){
+                $q->with(['grade']);
+            }
+        ])->where('status',$request->status)->latest()->paginate(1);
         // dd($production_requisition->toArray());   
-        return view('backend.production.supply.requisition.list',compact('production_requisition'));
+        return view('backend.production.supply.requisition.list',compact('production_requisition','production_requisition_pending_count','production_requisition_Confirm_count','production_requisition_Approved_count'));
     }
 
     /**
@@ -54,7 +58,7 @@ class ProductionRequisitionController extends Controller
                     'supply_item_id' => $product->item_id,
                     'rate' => $product->rate,
                     'quantity' => $product->quantity,
-                    'amount' => floatval($product->total_price),
+                    // 'amount' => floatval($product->total_price),
                 ]);
             }
             
