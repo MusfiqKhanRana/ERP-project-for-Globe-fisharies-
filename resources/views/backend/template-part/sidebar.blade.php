@@ -538,9 +538,9 @@
                                         </a>
                                     </li>
                                     <li class="nav-item ">
-                                        {{-- <a href="{{route('production-requisition.index')}}" class="nav-link ">
-                                            <span class="title">Requisition List</span>
-                                        </a> --}}
+                                        <a href="{{route('microbiological-test.index')}}" class="nav-link ">
+                                            <span class="title">Reports</span>
+                                        </a>
                                     </li>
                                 </ul>
                             </li>
