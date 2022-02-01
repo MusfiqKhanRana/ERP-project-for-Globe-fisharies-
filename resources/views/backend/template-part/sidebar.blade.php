@@ -575,7 +575,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a href="{{route('production-requisition.index')}}" class="nav-link ">
+                                        <a href="{{route('production-requisition.index',['page'=>1,'status'=>'pending'])}}" class="nav-link ">
                                             <span class="title">Requisition List</span>
                                         </a>
                                     </li>

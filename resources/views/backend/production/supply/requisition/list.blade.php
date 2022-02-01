@@ -152,10 +152,15 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                    <div class="row">
+                                                        {{-- <div class="col-md-12 text-center">{{ $employee->links() }}</div> --}}
+                                                        {{ $production_requisition->withQueryString()->links('vendor.pagination.custom') }}
+                                                    </div>
                                                 </td>
                                                 <td style="text-align: center">
                                                     <a class="btn blue"  data-toggle="modal" href="#edit_partyModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
                                                     <a class="btn red" data-toggle="modal" href="#deletepartyModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                                    <a class="btn green"><i class="fa fa-trash"></i>Confirm</a>
                                                 </td>
                                             </tr>
                                             {{-- <div id="deletepartyModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">

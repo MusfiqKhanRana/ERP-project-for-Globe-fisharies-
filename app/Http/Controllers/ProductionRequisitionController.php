@@ -19,7 +19,7 @@ class ProductionRequisitionController extends Controller
             'production_requisition_items'=>function($q){
                 $q->with(['grade']);
             }
-        ])->latest()->get();
+        ])->latest()->paginate(1);
         // dd($production_requisition->toArray());   
         return view('backend.production.supply.requisition.list',compact('production_requisition'));
     }
