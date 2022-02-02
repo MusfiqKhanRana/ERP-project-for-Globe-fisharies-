@@ -93,12 +93,32 @@
                                                 <td>
                                                     {{$data->date_of_production}}
                                                 </td>
-                                                <td> 
+                                                <td style="text-align: center"> 
                                                     <a href="{{route('microbiological.test.report.details',$data->id)}}" class="btn btn-success">View Details</a>
                                                     <a href="{{route('microbiological-test.edit',$data->id)}}" class="btn btn-primary">Edit</a>
-                                                    <a href="{{route('microbiological-test.destroy',$data->id)}}" class="btn btn-danger">Delete</a>
+                                                    <a class="btn btn-danger" data-toggle="modal" href="#deleteModal">Delete</a>
                                                 </td>
-                                            </tr>                                            
+                                            </tr>  
+                                            <div id="deleteModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                            <h2 class="modal-title" style="color: red;">Are you sure?</h2>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                            <br>
+                                                            <form style="margin-top: 5px" action="{{route('microbiological-test.destroy',$data->id)}}" method="POST">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                                                            </form>
+                                                            {{-- <a type="submit" href="{{route('customer.delete', $data)}}" class="btn red" id="delete"><i class="fa fa-trash"></i> Delete</a> --}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                                          
                                         @endforeach
                                     </tbody>
                                 </table>
