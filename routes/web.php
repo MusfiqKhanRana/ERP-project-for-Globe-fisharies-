@@ -43,6 +43,8 @@ use App\Http\Controllers\RequisitionProductController;
 use App\Http\Controllers\RequisitionReceiveController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\PratyProductController;
+use App\Http\Controllers\ProductionPurchaseTypeController;
+use App\Http\Controllers\ProductionPurchaseUnitController;
 use App\Http\Controllers\ProductionRequisitionController;
 use App\Http\Controllers\ProductionSupplierController;
 use App\Http\Controllers\ProductionSupplierItemController;
@@ -385,4 +387,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //Tiffin Bill
     Route::resource('tiffin-bill', TiffinBillController::class);
+
+    
+    //Procution Purchase Types
+    Route::resource('procution-purchase-types', ProductionPurchaseTypeController::class);
+
+    //Procution Purchase Units
+    Route::resource('procution-purchase-units', ProductionPurchaseUnitController::class);
+
 });

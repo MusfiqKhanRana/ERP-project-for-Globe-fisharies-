@@ -48,6 +48,12 @@
                             <div class="col-md-6">
                                 @include('backend.fish_grade.index')
                             </div>
+                            <div class="col-md-6">
+                                @include('backend.prodution_purchase_type.index')
+                            </div>
+                            <div class="col-md-6">
+                                @include('backend.prodution_purchase_unit.index')
+                            </div>
                         </div>
                     </div>
                 {{-- </div>
