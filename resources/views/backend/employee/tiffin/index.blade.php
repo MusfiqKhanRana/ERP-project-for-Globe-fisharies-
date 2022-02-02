@@ -23,7 +23,7 @@
                 </script>
             @endif
             <h3 class="page-title bold form-inline">HR Management
-                <small> Tiffin Bill </small>
+                <small> Employee Tiffin Bill </small>
                 {{-- <div class="form-group" style="margin-left: 10%">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </div> --}}
@@ -79,7 +79,7 @@
                                           Designation
                                         </th>
                                         <th>
-                                            DAys
+                                            Days
                                         </th>
                                         <th>
                                             Rate
@@ -98,12 +98,19 @@
                                         <tr>
                                             <td>{{++$key}}</td>
                                             <td>{{$item->date}}</td>
-                                            <td>{{--$item->name--}}</td>
-                                            <td>{{--$item->employee_id--}}</td>
-                                            <td>{{--$item->designation--}}</td>
-                                            <td>{{$items->days}}</td>
-                                            <td>{{$item->rate}}</td>
-                                            <td>{{--$items->taka--}}</td>
+                                            <td>{{$item->user->name}}</td>
+                                            <td>{{$item->user->employee_id}}</td>
+                                            <td>{{$item->user->designation->deg_name}}</td>
+                                            <td id="days">{{$item->days}}</td>
+                                            <td id="rate">{{$item->rate}}</td>
+                                            <td id="total">
+                                            @php
+                                                $x = $item->days; 
+                                                $y = $item->rate; 
+                                                $z=$x*$y; 
+                                                echo $z,"Tk";
+                                            @endphp
+                                            </td>
                                             <td>{{$item->remark}}</td>
                                             <td style="text-align: center">
                                                 <a class="btn btn-info"  data-toggle="modal" href="#editModal{{$item->id}}"><i class="fa fa-edit"></i> Edit</a>
@@ -134,6 +141,67 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div id="editModal{{$item->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                        <h4 class="modal-title">Update Employee Tiffin Bill</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form class="form-horizontal" role="form" method="post" action="{{route('tiffin-bill.update', $item)}}">
+                                                            {{csrf_field()}}
+                                                            {{method_field('put')}}
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Date</label>
+                                                                <div class="col-md-9">
+                                                                    <div class="input-group input-5 date date-picker" id="datepicker" data-date-format="MM-yyyy">
+                                                                        <input  type="text" class="form-control" value="{{$item->date}}" readonly="readonly" name="date" >    
+                                                                        <span class="input-group-btn">
+                                                                            <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                                        </span>      
+                                                                    </div> 
+                                                                </div><br><br>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-2 control-label"> Name</label>
+                                                                <div class="col-md-9">
+                                                                    <select class="form-control " id="employee_id" name="employee_id">
+                                                                        <option value="{{$item->user->id}}">{{$item->user->name}}</option>
+                                                                        @foreach($users as $data)
+                                                                            <option value="{{$data->id}}">{{$data->name}}</option>
+                                                                        @endforeach
+                                                                        {{csrf_field()}}
+                                                                    </select>
+                                                                </div><br><br>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Days</label>
+                                                                <div class="col-md-9">
+                                                                    <input type="number" class="form-control" value="{{$item->days}}"  name="days">
+                                                                </div><br><br>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Rate</label>
+                                                                <div class="col-md-9">
+                                                                    <input type="number" class="form-control" value="{{$item->rate}}"  name="rate">
+                                                                </div><br><br>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
+                                                                <div class="col-md-9">
+                                                                    <input type="text" class="form-control" value="{{$item->remark}}" name="remark">
+                                                                </div><br><br>
+                                                            </div><br>
+                                                            <div class="modal-footer">
+                                                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                                <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -157,19 +225,24 @@
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Date</label>
                                 <div class="col-md-9">
-                                    {{-- <input type="text" class="form-control" id="datepicker1"> --}}
-                                    <div class="input-group input-9 date date-picker" data-date-format="dd/mm/yyyy" data-date-viewmode="years">
-                                        <input type="text" class="form-control" name="date" id="datepicker1" readonly="" value="">
+                                    <div class="input-group input-5 date date-picker" id="datepicker" data-date-format="MM-yyyy">
+                                        <input  type="text" class="form-control" readonly="readonly" name="date" >    
                                         <span class="input-group-btn">
                                             <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                        </span>
-                                    </div>
+                                        </span>      
+                                    </div> 
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Name</label>
+                                <label class="col-md-2 control-label"> Name</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" name="name">
+                                    <select class="form-control " id="employee_id" name="employee_id">
+                                        <option value="">--Select--</option>
+                                        @foreach($users as $data)
+                                            <option value="{{$data->id}}">{{$data->name}}</option>
+                                        @endforeach
+                                        {{csrf_field()}}
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -198,10 +271,12 @@
                     </div>
                 </div>
             </div>
+           
         </div>
     </div>
     @endsection
     @section('script')
+        <script src="jquery-3.5.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script type="text/javascript">
             $(document).ready(function() {
@@ -216,7 +291,11 @@
                 // // endDate: end,
                 // // autoclose: true
                 // });
-                $('#datepicker1').val(moment(moment().toDate()).format('MM/DD/YYYY'));
+                // $('#datepicker1').val(moment(moment().toDate()).format('MM/DD/YYYY'));
+                // });
+                $("#datepicker").datepicker({
+                    viewMode: 'years',
+                    format: 'MM-yyyy'
                 });
         </script>
 @endsection

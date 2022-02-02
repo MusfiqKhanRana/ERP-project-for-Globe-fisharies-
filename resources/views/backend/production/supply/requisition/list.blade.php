@@ -128,7 +128,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                </div>--}}
                                                                 <div id="deletproductModal{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                                     {{csrf_field()}}
                                                                     <input type="hidden" value="" id="delete_id">
@@ -153,7 +153,7 @@
                                                                             
                                                                         </div>
                                                                     </div>
-                                                                </div> --}}
+                                                                </div>
                                                             @endforeach
                                                             <tr>
                                                                 <th colspan="5" class="text-center">Total</th>
