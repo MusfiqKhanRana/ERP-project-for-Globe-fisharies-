@@ -18,7 +18,10 @@ class CreateProductionRequisitionsTable extends Migration
             $table->unsignedInteger('production_supplier_id')->nullable();
             $table->enum('status', ['Pending', 'Confirm','Approved', 'Reject','Returned','InProduction','Received'])->default('Pending');
             $table->text('details')->nullable();
+            $table->dateTime('confirm_date')->nullable();
             $table->dateTime('approved_date')->nullable();
+            $table->dateTime('reject_date')->nullable();
+            $table->dateTime('returned_date')->nullable();
             $table->dateTime('in_production_date')->nullable();
             $table->dateTime('receive_date')->nullable();
             $table->timestamps();

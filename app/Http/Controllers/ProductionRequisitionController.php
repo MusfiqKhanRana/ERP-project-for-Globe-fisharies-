@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductionRequisition;
 use App\Models\ProductionRequisitionItem;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ProductionRequisitionController extends Controller
@@ -23,7 +24,7 @@ class ProductionRequisitionController extends Controller
             'production_requisition_items'=>function($q){
                 $q->with(['grade']);
             }
-        ])->where('status',$request->status)->latest()->paginate(1);
+        ])->where('status',$request->status)->latest()->paginate(10);
         // dd($production_requisition->toArray());   
         return view('backend.production.supply.requisition.list',compact('production_requisition','production_requisition_pending_count','production_requisition_Confirm_count','production_requisition_Approved_count'));
     }
@@ -37,7 +38,29 @@ class ProductionRequisitionController extends Controller
     {
         return view('backend.production.supply.requisition.index');
     }
-
+    public function changeStatus(Request $request)
+    {
+        // dd($request->all());
+        if ($request->status=="Confirm") {
+            ProductionRequisition::where('id',$request->id)->update(['status'=>"Confirm",'confirm_date'=>Carbon::now()]);
+            return redirect()->back()->withMsg("Successfully send to Admin");
+        }elseif($request->status=="Approved"){
+            ProductionRequisition::where('id',$request->id)->update(['status'=>"Approved",'approved_date'=>Carbon::now()]);
+            return redirect()->back()->withMsg("Successfully send to Approved List");
+        }
+        elseif($request->status=="Reject"){
+            ProductionRequisition::where('id',$request->id)->update(['status'=>"Reject",'reject_date'=>Carbon::now()]);
+            return redirect()->back()->withMsg("Successfully send to Reject List");
+        }
+        elseif($request->status=="Returned"){
+            ProductionRequisition::where('id',$request->id)->update(['status'=>"Returned",'returned_date'=>Carbon::now()]);
+            return redirect()->back()->withMsg("Successfully send to Return List");
+        }
+        elseif($request->status=="InProduction"){
+            ProductionRequisition::where('id',$request->id)->update(['status'=>"InProduction",'in_production_date'=>Carbon::now()]);
+            return redirect()->back()->withMsg("Successfully send to InProduction List");
+        }
+    }
     /**
      * Store a newly created resource in storage.
      *
