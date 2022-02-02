@@ -497,14 +497,14 @@
 
                 </ul>
             </li>            --}}
-            <li class="nav-item">
+            <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/microbiological-test' ||  request()->path() == 'admin/temp_monitoring') active open @endif">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-archive" aria-hidden="true"></i>
                     <span class="title">Production Management</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item">
+                    <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/microbiological-test' ||  request()->path() == 'admin/temp_monitoring') active open @endif">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
                             <span class="title">Production Data</span>
@@ -531,18 +531,18 @@
                                     <span class="title">Temperature Thermocouple</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/microbiological-test' ) active open @endif">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <span class="title">Microbiological Test Reports</span>
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li class="nav-item ">
+                                    <li class="nav-item @if( request()->path() == 'admin/report-genarate' ) active open @endif">
                                         <a href="{{route('microbiological.test.report.genarate')}}" class="nav-link ">
                                             <span class="title">Report Genarate</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item ">
+                                    <li class="nav-item @if( request()->path() == 'admin/microbiological-test' ) active open @endif">
                                         <a href="{{route('microbiological-test.index')}}" class="nav-link ">
                                             <span class="title">Reports</span>
                                         </a>
