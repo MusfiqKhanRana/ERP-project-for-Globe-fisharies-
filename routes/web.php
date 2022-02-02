@@ -372,11 +372,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //production requistion
     Route::resource('production-requisition', ProductionRequisitionController::class);
-
+    Route::post('production-requisition-status',[ProductionRequisitionController::class,'changeStatus'])->name('production_requisition.status');
     //Temp Thermocouple
 
     Route::resource('temp-thermocouple', TempTherController::class);
-    Route::get('production-Supplier-item/{id}',[ProductionSupplierItemController::class,'destroy'])->name('production-Supplier-item.destroy');
+    Route::get('production-Supplier-item',[ProductionSupplierItemController::class,'destroy'])->name('production-Supplier-item.destroy');
 
     //Microbiological Test Report
     Route::get('report-details/{id}',[MicrobiologicalTestController::class,'report_details'])->name('microbiological.test.report.details');
