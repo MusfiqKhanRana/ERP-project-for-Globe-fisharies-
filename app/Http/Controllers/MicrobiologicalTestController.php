@@ -61,7 +61,10 @@ class MicrobiologicalTestController extends Controller
      */
     public function edit($id)
     {
-        //
+        $coldstorage = ColdStorage::all();
+        $report = MicrobiologicalTest::with('coldstorage')->where('id',$id)->first();
+        // return $report;
+        return view('backend.microbiological_test_report.report_edit',compact('report','coldstorage'));
     }
 
     /**
@@ -73,7 +76,11 @@ class MicrobiologicalTestController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        unset($data['_token']);
+        unset($data['_method']);
+        $update = MicrobiologicalTest::where('id',$id)->update($data);
+        return redirect()->back()->withMsg("Successfully Updated");
     }
 
     /**
@@ -84,7 +91,8 @@ class MicrobiologicalTestController extends Controller
      */
     public function destroy($id)
     {
-        //
+        MicrobiologicalTest::find($id)->delete($id);
+        return redirect()->back()->withMsg("Successfully Deleted");
     }
     public function report_genarate()
     {
@@ -92,7 +100,8 @@ class MicrobiologicalTestController extends Controller
         return view('backend.microbiological_test_report.genarate_report',compact('coldstorage'));
     }
     public function report_details($id){
-        $report = MicrobiologicalTest::find($id)->get();
+        $report = MicrobiologicalTest::with('coldstorage')->where('id',$id)->first();
+        // return $report;
         return view('backend.microbiological_test_report.report_details',compact('report'));
     }
 }
