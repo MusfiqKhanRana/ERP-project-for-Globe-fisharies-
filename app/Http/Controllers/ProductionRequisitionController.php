@@ -130,8 +130,14 @@ class ProductionRequisitionController extends Controller
      * @param  \App\Models\ProductionRequisition  $productionRequisition
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductionRequisition $productionRequisition)
+    public function destroy($id)
     {
-        //
+        ProductionRequisition::whereId($id)->delete();
+        return redirect()->back()->withMsg("Successfully Deleted");
+    }
+    public function requisition_delete($id)
+    {
+        ProductionRequisition::whereId($id)->delete();
+        return redirect()->back()->withMsg("Successfully Deleted");
     }
 }
