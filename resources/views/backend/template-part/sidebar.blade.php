@@ -89,7 +89,12 @@
                                     <span class="title">Individual Attendance</span>
                                 </a>
                             </li>
-
+                            <li class="nav-item  @if( request()->path() == 'admin/tiffin-bill') active open @endif
+                                @if( request()->path() == 'tiffin-bill' ) active open @endif">
+                                    <a href="{{route('tiffin-bill.index')}}" class="nav-link">
+                                        <span class="title">Employee Tiffin Bill</span>
+                                    </a>
+                                </li>
                         </ul>
                     </li>
 

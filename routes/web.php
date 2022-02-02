@@ -50,9 +50,10 @@ use App\Http\Controllers\ProductionTestController;
 use App\Http\Controllers\SupplyItemController;
 use App\Http\Controllers\TempMonitoringController;
 use App\Http\Controllers\TempTherController;
+use App\Http\Controllers\TiffinBillController;
 use App\Models\TemperatureThermocouple;
 use App\Models\TempMonitoring;
-
+use App\Models\TiffinBill;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -381,4 +382,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('report-details/{id}',[MicrobiologicalTestController::class,'report_details'])->name('microbiological.test.report.details');
     Route::get('report-genarate',[MicrobiologicalTestController::class,'report_genarate'])->name('microbiological.test.report.genarate');
     Route::resource('microbiological-test',MicrobiologicalTestController::class);
+
+    //Tiffin Bill
+    Route::resource('tiffin-bill', TiffinBillController::class);
 });
