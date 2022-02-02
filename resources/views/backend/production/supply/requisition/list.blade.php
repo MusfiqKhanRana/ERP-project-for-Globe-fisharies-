@@ -280,7 +280,7 @@
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                            <h4 class="modal-title">Confirm Delivery</h4>
+                                                            <h4 class="modal-title">Confirm Requisition</h4>
                                                         </div>
                                                         <div class="modal-body">
                                                             <form class="form-horizontal" role="form" method="post" action="{{route('production_requisition.status')}}">
@@ -310,7 +310,6 @@
                                                                     <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Confirm</button>
                                                                 </div>
                                                             </form>
-                    
                                                         </div>
                                                     </div>
                                                 </div>
@@ -345,7 +344,7 @@
                                                                 <div class="form-group">
                                                                     <label for="inputEmail1" class="col-md-4 control-label">Note</label>
                                                                     <div class="col-md-8">
-                                                                         <b>{{"If you do this action This will go to Admin"}}</b> <small>(Important)</small>
+                                                                         <b>{{"If you do this action This will go to Approve List"}}</b> <small>(Important)</small>
                                                                     </div><br><br>
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -353,7 +352,6 @@
                                                                     <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Confirm</button>
                                                                 </div>
                                                             </form>
-                    
                                                         </div>
                                                     </div>
                                                 </div>
@@ -364,7 +362,7 @@
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                            <h4 class="modal-title">Approve Requisition</h4>
+                                                            <h4 class="modal-title">Reject Requisition</h4>
                                                         </div>
                                                         <div class="modal-body">
                                                             <form class="form-horizontal" role="form" method="post" action="{{route('production_requisition.status')}}">
@@ -386,7 +384,7 @@
                                                                 <div class="form-group">
                                                                     <label for="inputEmail1" class="col-md-4 control-label">Note</label>
                                                                     <div class="col-md-8">
-                                                                         <b>{{"If you do this action This will go to Admin"}}</b> <small>(Important)</small>
+                                                                         <b>{{"If you do this action This will go to Reject List"}}</b> <small>(Important)</small>
                                                                     </div><br><br>
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -394,7 +392,6 @@
                                                                     <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Confirm</button>
                                                                 </div>
                                                             </form>
-                    
                                                         </div>
                                                     </div>
                                                 </div>
@@ -405,7 +402,7 @@
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                            <h4 class="modal-title">Approve Requisition</h4>
+                                                            <h4 class="modal-title">Return Requisition</h4>
                                                         </div>
                                                         <div class="modal-body">
                                                             <form class="form-horizontal" role="form" method="post" action="{{route('production_requisition.status')}}">
@@ -427,7 +424,7 @@
                                                                 <div class="form-group">
                                                                     <label for="inputEmail1" class="col-md-4 control-label">Note</label>
                                                                     <div class="col-md-8">
-                                                                         <b>{{"If you do this action This will go to Admin"}}</b> <small>(Important)</small>
+                                                                         <b>{{"If you do this action This will go to return List"}}</b> <small>(Important)</small>
                                                                     </div><br><br>
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -435,7 +432,6 @@
                                                                     <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Confirm</button>
                                                                 </div>
                                                             </form>
-                    
                                                         </div>
                                                     </div>
                                                 </div>
@@ -447,7 +443,7 @@
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                            <h4 class="modal-title">Approve Requisition</h4>
+                                                            <h4 class="modal-title">Send to Production</h4>
                                                         </div>
                                                         <div class="modal-body">
                                                             <form class="form-horizontal" role="form" method="post" action="{{route('production_requisition.status')}}">
@@ -477,7 +473,6 @@
                                                                     <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Confirm</button>
                                                                 </div>
                                                             </form>
-                    
                                                         </div>
                                                     </div>
                                                 </div>
