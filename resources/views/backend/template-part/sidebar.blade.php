@@ -89,7 +89,12 @@
                                     <span class="title">Individual Attendance</span>
                                 </a>
                             </li>
-
+                            <li class="nav-item  @if( request()->path() == 'admin/tiffin-bill') active open @endif
+                                @if( request()->path() == 'tiffin-bill' ) active open @endif">
+                                    <a href="{{route('tiffin-bill.index')}}" class="nav-link">
+                                        <span class="title">Employee Tiffin Bill</span>
+                                    </a>
+                                </li>
                         </ul>
                     </li>
 
@@ -575,7 +580,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a href="{{route('production-requisition.index',['page'=>1,'status'=>'pending'])}}" class="nav-link ">
+                                        <a href="{{route('production-requisition.index',['status'=>'Pending','page'=>1])}}" class="nav-link ">
                                             <span class="title">Requisition List</span>
                                         </a>
                                     </li>

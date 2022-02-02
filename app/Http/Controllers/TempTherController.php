@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\ColdStorage;
 use App\Models\TempTher;
+use Carbon\Carbon;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 
 class TempTherController extends Controller
@@ -40,19 +42,20 @@ class TempTherController extends Controller
     {
         $inputs = $request->except('_token');
         $this->validate($request,array(
-           'date' => 'required|date',
+           'date' => 'required',
            'load_time' => 'required|date_format:H:i',
-           'Unload_time' => 'required|date_format:H:i',
-           'freezer_no' => 'required',
+           'unload_time' => 'required|date_format:H:i',
+           'cold_storage_id' => 'required',
            'remark' => 'max:256',
         ));
         $request->provided_item = json_decode($request->provided_item);
-        // dd($request->provided_item);
+        // dd($request->all());
+        $request->date=Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d');
         $thermos = new TempTher();
         $thermos->date = $request->date;
         $thermos->load_time = $request->load_time;
-        $thermos->Unload_time = $request->Unload_time;
-        $thermos->freezer_no = $request->freezer_no;
+        $thermos->unload_time = $request->unload_time;
+        $thermos->cold_storage_id = $request->cold_storage_id;
         $thermos->info_temp = serialize($request->provided_item);
         $thermos->remark = $request->remark;
         $thermos->save();
@@ -89,9 +92,19 @@ class TempTherController extends Controller
      * @param  \App\Models\TempTher  $tempTher
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TempTher $tempTher)
+    public function update(Request $request, $id)
     {
-        //
+        // dd();
+        TempTher::whereId($id)
+        ->update([
+            //$request->date=\Carbon\Carbon::parse($request->date)->format('Y-m-d'),
+            'date' => Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d'),
+            'load_time' => $request->load_time,
+            'unload_time' => $request->unload_time,
+            'cold_storage_id' => $request->cold_storage_id,
+            'remark' => $request->remark,
+        ]);
+        return redirect()->back()->withMsg("Successfully Updated");
     }
 
     /**

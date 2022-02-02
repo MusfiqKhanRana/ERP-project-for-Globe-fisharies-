@@ -163,16 +163,48 @@
                                                             {{csrf_field()}}
                                                             {{method_field('put')}}
                                                             <div class="form-group">
-                                                                <label for="inputEmail1" class="col-md-2 control-label">Item Name</label>
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Date</label>
                                                                 <div class="col-md-8">
-                                                                    <input type="text" class="form-control" value="{{$item->name}}" required name="name">
+                                                                    {{-- <input type="text" class="form-control" id="datepicker1"> --}}
+                                                                    <div class="input-group input-5 date date-picker" data-date-format="dd/mm/yyyy" data-date-viewmode="years">
+                                                                        <input type="text" class="form-control" value="{{$item->date}}" name="date" >
+                                                                        <span class="input-group-btn">
+                                                                            <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                                        </span>
+                                                                    </div>
+                                                                </div><br><br>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Load Time</label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control" value="{{$item->load_time}}"  name="load_time">
+                                                                </div>
+                                                                <br><br>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Unload Time</label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control" value="{{$item->unload_time}}"  name="unload_time">
                                                                 </div>
                                                                 <br><br>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
                                                                 <div class="col-md-8">
-                                                                    <input type="text" class="form-control" value="{{$item->details}}" required name="details">
+                                                                    <input type="text" class="form-control" value="{{$item->remark}}" name="remark">
+                                                                </div>
+                                                                <br><br>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Freezer Name</label>
+                                                                <div class="col-md-8">
+                                                                    <select class="form-control" name="cold_storage_id" id="cold_storage_id">
+                                                                            @foreach ($cold_storages as $item)
+                                                                                <option value="{{$item->id}}" data-item_name="{{$item->name}}">{{$item->name}}</option>
+                                                                            @endforeach
+                                                                    </select>
+                                                                        
+                                                                    {{-- <input type="text" class="form-control" value="{{$item->cold_storage->name}}" > --}}
                                                                 </div>
                                                                 <br><br>
                                                             </div>
@@ -205,11 +237,16 @@
                         <br>
                         <form class="form-horizontal" role="form" method="post" action="{{route('temp-thermocouple.store')}}">
                             {{csrf_field()}}
-
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Date</label>
                                 <div class="col-md-9">
-                                    <input type="date" class="form-control" name="date">
+                                    {{-- <input type="text" class="form-control" id="datepicker1"> --}}
+                                    <div class="input-group input-9 date date-picker" data-date-format="dd/mm/yyyy" data-date-viewmode="years">
+                                        <input type="text" class="form-control" name="date" id="datepicker1" readonly="" value="">
+                                        <span class="input-group-btn">
+                                            <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -221,13 +258,13 @@
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Unloading Time</label>
                                 <div class="col-md-9">
-                                    <input type="time" class="form-control"  name="Unload_time">
+                                    <input type="time" class="form-control"  name="unload_time">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Freezer Name</label>
                                 <div class="col-md-9">
-                                    <select class="form-control" name="freezer_no" id="freezer_no">
+                                    <select class="form-control" name="cold_storage_id" id="cold_storage_id">
                                         <option value="">--Select Item--</option>
                                         @foreach ($cold_storages as $item)
                                             <option value="{{$item->id}}" data-item_name="{{$item->name}}">{{$item->name}}</option>
@@ -287,40 +324,56 @@
     </div>
     @endsection
     @section('script')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-        //    var time,c_temp,f_m_r = null;
-           var items_array = [];
-           function nullmaking(){
-                $("#time").val(null);
-                $("#c_temp").val(null);
-                $("#f_m_r").val(null);
-            }
-           $("#add_items").click(function(){
-               console.log($("#time").val());
-                items_array.push({"time":$("#time").val(),"c_temp":$("#c_temp").val(),"f_m_r":$("#f_m_r").val(),"status":"stay"});
-                $("#provided_item").val('');
-                $("#provided_item").val(JSON.stringify(items_array));
-                $.each( items_array, function( key, item ) {
-                    // console.log(item);
-                    if (item.status == "stay") {
-                        if(items_array.length-1 == key){
-                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+item.time+"</td><td>"+item.c_temp+"</td><td>"+item.f_m_r+"</td><td><button class='btn btn-danger delete_item' data-id='"+key+"'>Delete</button></td></tr>");
-                        }
-                    }
-                });
-                $(".delete_item").click(function(){
-                    items_array[$(this).data("id")].status="delete";
-                    // console.log(product_array,$(this).data("id"));
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+            //    var time,c_temp,f_m_r = null;
+            var items_array = [];
+            function nullmaking(){
+                    $("#time").val(null);
+                    $("#c_temp").val(null);
+                    $("#f_m_r").val(null);
+                }
+            $("#add_items").click(function(){
+                console.log($("#time").val());
+                    items_array.push({"time":$("#time").val(),"c_temp":$("#c_temp").val(),"f_m_r":$("#f_m_r").val(),"status":"stay"});
                     $("#provided_item").val('');
                     $("#provided_item").val(JSON.stringify(items_array));
-                    $("#"+$(this).data("id")).remove();
+                    $.each( items_array, function( key, item ) {
+                        // console.log(item);
+                        if (item.status == "stay") {
+                            if(items_array.length-1 == key){
+                                $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+item.time+"</td><td>"+item.c_temp+"</td><td>"+item.f_m_r+"</td><td><button class='btn btn-danger delete_item' data-id='"+key+"'>Delete</button></td></tr>");
+                            }
+                        }
+                    });
+                    $(".delete_item").click(function(){
+                        items_array[$(this).data("id")].status="delete";
+                        // console.log(product_array,$(this).data("id"));
+                        $("#provided_item").val('');
+                        $("#provided_item").val(JSON.stringify(items_array));
+                        $("#"+$(this).data("id")).remove();
+                    });
+                    nullmaking();
+            });
+                
+            });
+        </script>
+        <script>
+            $(document).ready(function() {
+                // var date = new Date();
+                // var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+                // var end = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+                // $('#datepicker1').datepicker({
+                // format: "dd/mm/yyyy",
+                // todayHighlight: true,
+                // startDate: today,
+                // // endDate: end,
+                // // autoclose: true
+                // });
+                $('#datepicker1').val(moment(moment().toDate()).format('MM/DD/YYYY'));
                 });
-                nullmaking();
-           });
-            
-        });
-    </script>
+        </script>
 
 @endsection
