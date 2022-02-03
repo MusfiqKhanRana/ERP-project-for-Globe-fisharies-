@@ -248,13 +248,19 @@
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Days</label>
                                 <div class="col-md-9">
-                                    <input type="number" class="form-control"  name="days">
+                                    <input type="number" class="form-control"  name="days" id="days">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Rate</label>
                                 <div class="col-md-9">
-                                    <input type="number" class="form-control"  name="rate">
+                                    <input type="number" class="form-control"  name="rate" id="rate">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Taka</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control"  name="total" id="total" disabled>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -276,7 +282,6 @@
     </div>
     @endsection
     @section('script')
-        <script src="jquery-3.5.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script type="text/javascript">
             $(document).ready(function() {
@@ -297,5 +302,22 @@
                     viewMode: 'years',
                     format: 'MM-yyyy'
                 });
+                // $("#rate").on('change', function(){
+
+                //     var total=0;    	
+                //     var x = Number($("#days").val());
+                //     var y = Number($("#rate").val());
+                //     var total=x * y;  
+
+                //     $('#total').val(total);
+
+                // });
+                $("#rate").keyup(function(){
+                    // $("input").css("background-color", "pink");
+                   console.log($(this).val()); 
+                   
+                });
+            });
+                                    
         </script>
 @endsection

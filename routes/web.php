@@ -373,6 +373,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('fish-grade', FishGradeController::class);
 
     //production requistion
+    Route::post('requisition/product/delete/{id}',[ProductionRequisitionController::class,'requisition_product_delete'])->name('requisition.product.delete');
     Route::resource('production-requisition', ProductionRequisitionController::class);
     Route::post('production-requisition-status',[ProductionRequisitionController::class,'changeStatus'])->name('production_requisition.status');
     //Temp Thermocouple

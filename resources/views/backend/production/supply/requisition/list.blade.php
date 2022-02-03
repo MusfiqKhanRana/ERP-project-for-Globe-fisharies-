@@ -143,8 +143,8 @@
                                                                                     <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
                                                                                 </div>
                                                                                 <div class="caption pull-right">
-                                                                                    <form action="{{route('party-product.destroy',[$item->pivot->id])}}" method="POST">
-                                                                                        @method('DELETE')
+                                                                                    <form action="{{route('requisition.product.delete',[$item->pivot->id])}}" method="POST">
+                                                                                        @method('POST')
                                                                                         @csrf
                                                                                         <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
                                                                                     </form>
@@ -169,7 +169,7 @@
                                                 <td style="text-align: center">
                                                     @if (request()->status=="Pending")
                                                         <a class="btn blue"  data-toggle="modal" href="#edit_partyModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
-                                                        <a class="btn red" data-toggle="modal" href="#deletepartyModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                                        <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
                                                         <a class="btn green" data-toggle="modal" href="#confirmModal{{$data->id}}"><i class="fa fa-check"></i>Confirm</a>
                                                     @elseif(request()->status=="Confirm")
                                                         <a class="btn green" data-toggle="modal" href="#approveModal{{$data->id}}"><i class="fa fa-check"></i>Approve</a>
@@ -181,7 +181,7 @@
                                                     @endif
                                                 </td>
                                             </tr>
-                                            {{-- <div id="deletepartyModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                            <div id="deleteModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                 {{csrf_field()}}
                                                 <input type="hidden" value="" id="delete_id">
                                                 <div class="modal-dialog">
@@ -195,7 +195,7 @@
                                                                 <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
                                                             </div>
                                                             <div class="caption pull-right">
-                                                                <form action="{{route('party.destroy',[$data->id])}}" method="POST">
+                                                                <form action="{{route('production-requisition.destroy',[$data->id])}}" method="POST">
                                                                     @method('DELETE')
                                                                     @csrf
                                                                     <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
@@ -206,7 +206,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div id="edit_partyModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                            {{-- <div id="edit_partyModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -384,8 +384,10 @@
                                                                 <div class="form-group">
                                                                     <label for="inputEmail1" class="col-md-4 control-label">Note</label>
                                                                     <div class="col-md-8">
-                                                                         <b>{{"If you do this action This will go to Reject List"}}</b> <small>(Important)</small>
+                                                                        <textarea placeholder="Why You reject this item"></textarea>
+                                                                         
                                                                     </div><br><br>
+                                                                   
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
@@ -424,7 +426,7 @@
                                                                 <div class="form-group">
                                                                     <label for="inputEmail1" class="col-md-4 control-label">Note</label>
                                                                     <div class="col-md-8">
-                                                                         <b>{{"If you do this action This will go to return List"}}</b> <small>(Important)</small>
+                                                                        <textarea placeholder="Why you return this item" required></textarea>
                                                                     </div><br><br>
                                                                 </div>
                                                                 <div class="modal-footer">
