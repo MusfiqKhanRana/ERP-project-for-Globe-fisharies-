@@ -143,10 +143,10 @@
                                                                                     <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
                                                                                 </div>
                                                                                 <div class="caption pull-right">
-                                                                                    <form action="{{route('requisition.product.delete',[$item->pivot->id])}}" method="POST">
-                                                                                        @method('POST')
+                                                                                    <form action="{{route('production-requisition-item.destroy',[$item->pivot->id])}}" method="POST">
+                                                                                        @method('DELETE')
                                                                                         @csrf
-                                                                                        <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
+                                                                                        <button class="btn red"><i class="fa fa-trash"></i>Delete</button>               
                                                                                     </form>
                                                                                 </div>
                                                                             </div>

@@ -136,10 +136,5 @@ class ProductionRequisitionController extends Controller
         ProductionRequisition::whereId($id)->delete();
         return redirect()->back()->withMsg("Successfully Deleted");
     }
-    public function requisition_product_delete($id)
-    {
-        DB::table('production_requisition_items')->where('id', '=',$id)->delete();
-        return redirect()->back()->withmsg('Successfully Deleted');
-    }
     
 }
