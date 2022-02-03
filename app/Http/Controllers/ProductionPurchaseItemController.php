@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductionPurchaseItem;
 use App\Models\ProductionPurchaseType;
+use App\Models\ProductionPurchaseUnit;
 use App\Models\ProductionSupplierItem;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,10 @@ class ProductionPurchaseItemController extends Controller
      */
     public function index()
     {
-        //
+        $production_purchase_item = ProductionSupplierItem::all();
+        $production_purchase_unit = ProductionPurchaseUnit::all();
+        $production_purchase_type = ProductionPurchaseType::all();
+        return view('backend.production_purchase_item.index',compact('production_purchase_unit','production_purchase_type','production_purchase_item'));
     }
 
     /**

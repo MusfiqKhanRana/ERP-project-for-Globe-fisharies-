@@ -9,4 +9,12 @@ class ProductionPurchaseItem extends Model
 {
     protected $guarded = [];
     use HasFactory;
+    public function productionpurchasetype()
+    {
+        return $this->belongsTo(ProductionPurchaseType::class,'procution_purchase_type_id');
+    }
+    public function productionpurchaseunit()
+    {
+        return $this->belongsTo(ProductionPurchaseUnit::class,'production_purchase_unit_id');
+    }
 }
