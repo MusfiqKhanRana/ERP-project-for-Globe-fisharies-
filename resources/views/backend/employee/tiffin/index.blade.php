@@ -101,9 +101,9 @@
                                             <td>{{$item->user->name}}</td>
                                             <td>{{$item->user->employee_id}}</td>
                                             <td>{{$item->user->designation->deg_name}}</td>
-                                            <td id="days">{{$item->days}}</td>
-                                            <td id="rate">{{$item->rate}}</td>
-                                            <td id="total">
+                                            <td>{{$item->days}}</td>
+                                            <td>{{$item->rate}}</td>
+                                            <td>
                                             @php
                                                 $x = $item->days; 
                                                 $y = $item->rate; 
@@ -134,7 +134,7 @@
                                                             <form action="{{route('tiffin-bill.destroy',[$item])}}" method="POST">
                                                                 @method('DELETE')
                                                                 @csrf
-                                                                <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
+                                                                <button class="btn red"><i class="fa fa-trash"></i>Delete</button>               
                                                             </form>
                                                         </div>
                                                     </div>
@@ -236,7 +236,7 @@
                             <div class="form-group">
                                 <label class="col-md-2 control-label"> Name</label>
                                 <div class="col-md-9">
-                                    <select class="form-control " id="employee_id" name="employee_id">
+                                    <select class="form-control"  name="employee_id">
                                         <option value="">--Select--</option>
                                         @foreach($users as $data)
                                             <option value="{{$data->id}}">{{$data->name}}</option>
@@ -302,21 +302,11 @@
                     viewMode: 'years',
                     format: 'MM-yyyy'
                 });
-                // $("#rate").on('change', function(){
-
-                //     var total=0;    	
-                //     var x = Number($("#days").val());
-                //     var y = Number($("#rate").val());
-                //     var total=x * y;  
-
-                //     $('#total').val(total);
-
-                // });
-                $("#rate").keyup(function(){
-                    // $("input").css("background-color", "pink");
-                   console.log($(this).val()); 
-                   
+                $("#rate").keyup(function() {
+                    // console.log();
+                    $('#total').val($(this).val()*$('#days').val());
                 });
+                console.log("this is ready");
             });
                                     
         </script>

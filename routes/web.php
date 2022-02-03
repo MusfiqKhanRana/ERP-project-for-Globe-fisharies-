@@ -53,6 +53,7 @@ use App\Http\Controllers\SupplyItemController;
 use App\Http\Controllers\TempMonitoringController;
 use App\Http\Controllers\TempTherController;
 use App\Http\Controllers\TiffinBillController;
+use App\Models\ProductionRequisitionItem;
 use App\Models\TemperatureThermocouple;
 use App\Models\TempMonitoring;
 use App\Models\TiffinBill;
@@ -373,7 +374,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('fish-grade', FishGradeController::class);
 
     //production requistion
-    Route::post('requisition/product/delete/{id}',[ProductionRequisitionController::class,'requisition_product_delete'])->name('requisition.product.delete');
     Route::resource('production-requisition', ProductionRequisitionController::class);
     Route::post('production-requisition-status',[ProductionRequisitionController::class,'changeStatus'])->name('production_requisition.status');
     //Temp Thermocouple
@@ -395,5 +395,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //Procution Purchase Units
     Route::resource('procution-purchase-units', ProductionPurchaseUnitController::class);
+
+    //Production Requisition Item
+    Route::resource('production-requisition-item', ProductionRequisitionItem::class);
 
 });
