@@ -396,7 +396,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Procution Purchase Units
     Route::resource('procution-purchase-units', ProductionPurchaseUnitController::class);
 
+    //Procution Purchase Item
+    Route::resource('production-purchase-item', ProductionSupplierItemController::class);
+
     //Production Requisition Item
-    Route::resource('production-requisition-item', ProductionRequisitionItem::class);
+    Route::resource('production-requisition-Item', ProductionRequisitionItem::class);
+
+
+
 
 });
