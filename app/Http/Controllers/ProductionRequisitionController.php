@@ -6,6 +6,7 @@ use App\Models\ProductionRequisition;
 use App\Models\ProductionRequisitionItem;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductionRequisitionController extends Controller
 {
@@ -135,9 +136,10 @@ class ProductionRequisitionController extends Controller
         ProductionRequisition::whereId($id)->delete();
         return redirect()->back()->withMsg("Successfully Deleted");
     }
-    public function requisition_delete($id)
+    public function requisition_product_delete($id)
     {
-        ProductionRequisition::whereId($id)->delete();
-        return redirect()->back()->withMsg("Successfully Deleted");
+        DB::table('production_requisition_items')->where('id', '=',$id)->delete();
+        return redirect()->back()->withmsg('Successfully Deleted');
     }
+    
 }
