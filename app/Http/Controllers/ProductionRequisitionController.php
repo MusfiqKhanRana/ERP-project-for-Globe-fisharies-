@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductionRequisition;
 use App\Models\ProductionRequisitionItem;
+use App\Models\Supplier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -50,11 +51,11 @@ class ProductionRequisitionController extends Controller
             return redirect()->back()->withMsg("Successfully send to Approved List");
         }
         elseif($request->status=="Reject"){
-            ProductionRequisition::where('id',$request->id)->update(['status'=>"Reject",'reject_date'=>Carbon::now()]);
+            ProductionRequisition::where('id',$request->id)->update(['status'=>"Reject",'reject_date'=>Carbon::now(),'reject_note'=>$request->reject_note]);
             return redirect()->back()->withMsg("Successfully send to Reject List");
         }
         elseif($request->status=="Returned"){
-            ProductionRequisition::where('id',$request->id)->update(['status'=>"Returned",'returned_date'=>Carbon::now()]);
+            ProductionRequisition::where('id',$request->id)->update(['status'=>"Returned",'returned_date'=>Carbon::now(),'return_note'=>$request->return_note]);
             return redirect()->back()->withMsg("Successfully send to Return List");
         }
         elseif($request->status=="InProduction"){
@@ -136,5 +137,12 @@ class ProductionRequisitionController extends Controller
         ProductionRequisition::whereId($id)->delete();
         return redirect()->back()->withMsg("Successfully Deleted");
     }
-    
+    public function requisitionPrint($id){
+        $data=ProductionRequisition::with(['supplier'=>function($q){
+            $q->with(['phone','name']);
+        }
+         ])->where('id',$id)->first();
+     //    dd($data->toArray());
+        return view('backend.production.supply.requisition.print_requisition',compact('data'));
+     }
 }

@@ -2,6 +2,16 @@
 @section('site-title')
    Requisition
 @endsection 
+@section('style')
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+@endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
@@ -45,6 +55,7 @@
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
+                                        
                                         <th style="text-align: center;">Serial</th>
                                         <th style="text-align: center"> Supplier Name</th>
                                         <th style="text-align: center"> Status</th>
@@ -100,26 +111,106 @@
                                                                         </th>
                                                                     @endif 
                                                                 </tr>
-                                                                {{-- <div id="edit_product_Modal{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                                <div id="edit_product_Modal{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
                                                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                                                <h4 class="modal-title">Update Party ({{$item->product_name}}) </h4>
+                                                                                <h4 class="modal-title">Update Requisition Item </h4>
                                                                             </div>
                                                                             <div class="modal-body">
-                                                                                <form class="form-horizontal" role="form" method="post" action="{{route('party-product.update', $item->pivot->id)}}">
+                                                                                <form class="form-horizontal" role="form" method="post" action="{{route('production-requisition.update', $item->pivot->id)}}">
                                                                                     {{csrf_field()}}
                                                                                     {{method_field('put')}}
-                                                                                    <div class="col-md-12">
+                                                                                    <div class="form-body">
+                                                                                        <div class="form-section">
+                                                                                            
+                                                                                            <label class="col-md-2 control-label pull-left bold">Supplier Select: </label>
+                                                                                            <div class="col-md-6">
+                                                                                                <select class="select2Ajax form-control" name="supplier_id" id="supplier_id"></select>
+                                                                                            </div>
+                                                                                        </div><br><br>
+                                                                                    </div>
+                                                                                    <div class="row" style="margin-top:2%">
+                                                                                        <div class="col-md-12">
+                                                                                            <div class="card">
+                                                                                                <div class="card-header">
+                                                                                                    <h4><b>Product Info</b></h4>
+                                                                                                </div>
+                                                                                                <div class="card-body">
+                                                                                                    <div class="row">
+                                                                                                        <div class="col-md-3">
+                                                                                                            <label for="">Item</label>
+                                                                                                            <select class="form-control" value="{{$item->name}}" id="item">
+                                                                                                                <option selected>{{$item->name}}</option>
+                                                                                                            </select>
+                                                                                                        </div>
+                                                                                                        <div class="col-md-2">
+                                                                                                            <label for="product">Grade</label>
+                                                                                                            <input type="text" class="form-control" value="{{$item->grade->name}}" id="grade" readonly>
+                                                                                                        </div>
+                                                                                                        <div class="col-md-2">
+                                                                                                            <label for="product">Unit Price</label>
+                                                                                                            <input type="text" class="form-control" value="{{$item->pivot->rate}}" id="unit_price" readonly>
+                                                                                                        </div>
+                                                                                                        <div class="col-md-2">
+                                                                                                            <label for="product">Quantity</label>
+                                                                                                            <input type="text" class="form-control" value="{{$item->pivot->quantity}}" id="quantity">
+                                                                                                        </div>
+                                                                                                        <div class="col-md-2">
+                                                                                                            <label for="product">Amount</label>
+                                                                                                            <input type="text" class="form-control" id="amount" readonly>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div><br>
+                                                                                    {{-- <div class="col-md-12">
                                                                                         <div class="form-group">
-                                                                                            <label for="inputEmail1" class="col-md-2 control-label">Selling Price</label>
+                                                                                            <label for="inputEmail1" class="col-md-2 control-label">Select Item</label>
                                                                                             <div class="col-md-10">
-                                                                                                <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="price">
+                                                                                                <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="production_requisition_id">
                                                                                                 <input type="hidden" value="{{$item->pivot->id}}">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div><br><br><br>
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label for="inputEmail1" class="col-md-2 control-label">Grade Name</label>
+                                                                                            <div class="col-md-10">
+                                                                                                <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="supply_item_id">
+                                                                                                <input type="hidden" value="{{$item->pivot->id}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div><br><br><br>
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label for="inputEmail1" class="col-md-2 control-label">Quantity</label>
+                                                                                            <div class="col-md-10">
+                                                                                                <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="quantity">
+                                                                                                <input type="hidden" value="{{$item->pivot->id}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div><br><br><br>
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label for="inputEmail1" class="col-md-2 control-label">Rate</label>
+                                                                                            <div class="col-md-10">
+                                                                                                <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="rate">
+                                                                                                <input type="hidden" value="{{$item->pivot->id}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div><br><br><br>
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="form-group">
+                                                                                            <label for="inputEmail1" class="col-md-2 control-label">Total</label>
+                                                                                            <div class="col-md-10">
+                                                                                                <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="total">
+                                                                                                <input type="hidden" value="{{$item->pivot->id}}">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div><br><br><br> --}}
                                                                                     <div class="modal-footer">
                                                                                         <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                                                                         <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
@@ -128,7 +219,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>--}}
+                                                                </div>
                                                                 <div id="deletproductModal{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                                     {{csrf_field()}}
                                                                     <input type="hidden" value="" id="delete_id">
@@ -177,7 +268,7 @@
                                                         <a class="btn purple" data-toggle="modal" href="#returnModal{{$data->id}}"><i class="fa fa-undo"></i> Return</a>
                                                     @elseif(request()->status=="Approved")
                                                         <a class="btn green" data-toggle="modal" href="#dispatchModal{{$data->id}}"><i class="fa fa-arrow-circle-right"></i>Send to Production</a>
-                                                        <a class="btn purple" data-toggle="modal" href="#showModal{{$data->id}}"><i class="fa fa-print"></i> Show & Print</a>
+                                                        <a class="btn purple" data-toggle="modal" href="{{route('requisition.print',$data->id)}}"><i class="fa fa-print"></i> Show & Print</a>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -384,7 +475,7 @@
                                                                 <div class="form-group">
                                                                     <label for="inputEmail1" class="col-md-4 control-label">Note</label>
                                                                     <div class="col-md-8">
-                                                                        <textarea placeholder="Why You reject this item"></textarea>
+                                                                        <textarea placeholder="Why You reject this item" name="reject_note"></textarea>
                                                                          
                                                                     </div><br><br>
                                                                    
@@ -426,7 +517,7 @@
                                                                 <div class="form-group">
                                                                     <label for="inputEmail1" class="col-md-4 control-label">Note</label>
                                                                     <div class="col-md-8">
-                                                                        <textarea placeholder="Why you return this item" required></textarea>
+                                                                        <textarea placeholder="Why you return this item" name="return_note" required></textarea>
                                                                     </div><br><br>
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -492,3 +583,175 @@
         </div>
     </div>
 @endsection
+@section('script')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        jQuery(document).ready(function() {
+            function nullmaking(){
+
+                $("#item").val(null);
+                $("#grade").val(null);
+                $("#unit_price").val(null);
+                $("#quantity").val(null);
+                $("#amount").val(null);
+            }
+            var item_id,item_name,item_grade_id,item_grade_name,item_unit_price,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,product_name,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
+            var product_array = [];
+            $('#product').change(function(){
+                product_id = $(this).val();
+                product_name = $(this).find(':selected').data("name");
+                product_pack_id = $(this).find(':selected').data("pack_id");
+                product_pack_name = $(this).find(':selected').data("pack_name");
+                product_pack_weight = $(this).find(':selected').data("pack_weight");
+                product_online_rate = $(this).find(':selected').data("online_selling_price");
+                product_inhouse_rate = $(this).find(':selected').data("inhouse_selling_price");
+                $('#pack_size').val(product_pack_name);
+                $("#rate").empty();
+                var customer_type = $('#customer_type').html();
+                var selling_price = null;
+                if(customer_type=="inhouse"){
+                    selling_price = product_inhouse_rate;
+                }
+                else if(customer_type == "online"){
+                    selling_price = product_online_rate;
+                }
+                $("#rate").val(selling_price);
+                // console.log(product_online_rate,product_inhouse_rate,product_id,product_name,product_pack_id,product_pack_name,product_pack_weight);
+            })
+            $('#quantity').keyup(function(){
+                packet_quantity = $(this).val();
+                $("#amount").val(packet_quantity * item_unit_price);
+                total_price = packet_quantity * item_unit_price;
+            })
+            $('#item').change(function(){
+                item_id = $(this).val();
+                item_name = $(this).find(':selected').data("name");
+                item_grade_id = $(this).find(':selected').data("grade_id");
+                item_unit_price = $(this).find(':selected').data("unit_price");
+                $.ajax({
+                    type:"get",
+                    url:"/admin/get-supplier-items-grade/"+item_grade_id,
+                    success:function(data){
+                        $("#grade").val(data.name);
+                    }
+                });
+                $("#unit_price").val(item_unit_price);
+            })
+            $(document).on('keyup','#percentage_id',function() {
+                let main_price = total_price - (total_price*$(this).val())/100;
+                $('#price').val(main_price);
+                discount_in_percentage = $(this).val()
+            });
+            $(document).on('keyup','#amount_id',function() {
+                let main_price = total_price - ($(this).val());
+                discount_in_amount = $(this).val();
+                $('#price').val(main_price);
+            });
+            $('.discount_in_amount').hide();
+            $(".want_in_amount").click(function() {
+                if($(this).is(":checked")) {
+                    $(".discount_in_amount").show();
+                    $(".discount_in_percentage").hide();
+                    $('#percentage_id').val('');
+                    discount_in_percentage = 0;
+                } else {
+                    $(".discount_in_amount").hide();
+                    $(".discount_in_percentage").show();
+                    discount_in_amount = 0;
+                    $('#amount_id').val('');
+                }
+            });
+            $("#addbtn").click(function() {
+                product_array.push({"item_id":item_id,"item_name":item_name,"item_grade_id":item_grade_id,"item_grade_name":$('#grade').val(),"quantity":$('#quantity').val(),"rate":item_unit_price,'total_price':$('#amount').val(),"status":"stay"})
+                $("#products").val('');
+                $("#products").val(JSON.stringify(product_array));
+                $.each( product_array, function( key, product ) {
+                    if (product.status == "stay") {
+                        if(product_array.length-1 == key){
+                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+product.item_name+"</td><td>"+product.item_grade_name+"</td><td>"+product.quantity+"</td><td>"+product.rate+"</td><td>"+product.total_price+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                        }
+                    }
+                });
+                $("#intotal_amount").html("")
+                $("#intotal_amount").html(total())
+                $("#grand_total").val(total())
+                $(".delete").click(function(){
+                    product_array[$(this).data("id")].status="delete";
+                    // console.log(product_array,$(this).data("id"));
+                    $("#products").val('');
+                    $("#products").val(JSON.stringify(product_array));
+                    $("#intotal_amount").html("")
+                    $("#intotal_amount").html(total())
+                    $("#grand_total").val(total())
+                    $("#"+$(this).data("id")).remove();
+                });
+                nullmaking();
+            });
+            function total() {
+                var inTotal = 0;
+                $.each( product_array, function( key, product ) {
+                    if (product.status == "stay") {
+                        inTotal+= parseInt(product.total_price);
+                    }
+                    
+                });
+                return inTotal;
+            }
+            $("#supplier_id").change(function() {
+                // console.log($(this).val());
+                $.ajax({
+                    type:"get",
+                    url:"/admin/get-supplier/"+$(this).val(),
+                    success:function(data){
+                        $("#supplier_info").empty();
+                        var $results = $('#supplier_info');
+                        var $userDiv = $results.append('<div class="user-div"></div>')
+                        $( '<div class="row">'+
+                            '<div class="col-md-3 text-center"><span> <b>Supplier Name: </b>'+data.name+'</span></div>'
+                            +'<div class="col-md-3 text-center"><span> <b>Supplier Address: </b>'+data.address+'</span></div>'
+                            +'<div class="col-md-3 text-center"><span> <b>Supplier Phone: </b>'+data.phone+'</span></div>'
+                            +'<div class="col-md-3 text-center"><span> <b>Supplier Email: </b><span id="customer_type">'+data.email+'</span></span></div>'
+                        +'</div>').appendTo( ".user-div" );
+                    }
+                });
+                $.ajax({
+                    type:"get",
+                    url:"/admin/get-supplier-items/"+$(this).val(),
+                    success:function(data){
+                        console.log(data);
+                        $("#item").html("");
+                        let option="<option value=''>Select</option>";
+                        $.each( data, function( key, data ) {
+                            option+='<option data-name="'+data.name+'" data-unit_price="'+data.pivot.rate+'" data-grade_id="'+data.grade_id+'" value="'+data.id+'">'+data.name+'</option>';
+                        });
+                        $('#item').append(option);
+                    }
+                });
+            });
+        });
+
+        $('.select2Ajax').select2({
+            placeholder: 'Select an item',
+            ajax: {
+                url: "{{route('production-supplier.all')}}",
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    return {
+                        results:  $.map(data, function (item) {
+                            return {
+                                text: item.name + " | "+item.email+" | "+item.phone,
+                                title:item.phone,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+    </script>
+@endsection
+
+

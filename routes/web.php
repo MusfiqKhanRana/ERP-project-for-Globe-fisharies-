@@ -46,6 +46,7 @@ use App\Http\Controllers\PratyProductController;
 use App\Http\Controllers\ProductionPurchaseTypeController;
 use App\Http\Controllers\ProductionPurchaseUnitController;
 use App\Http\Controllers\ProductionRequisitionController;
+use App\Http\Controllers\ProductionRequisitionItemController;
 use App\Http\Controllers\ProductionSupplierController;
 use App\Http\Controllers\ProductionSupplierItemController;
 use App\Http\Controllers\ProductionTestController;
@@ -374,6 +375,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('fish-grade', FishGradeController::class);
 
     //production requistion
+    Route::get('requisition/print/{id}',[ProductionRequisitionController::class,'requisitionPrint'])->name('requisition.print');
     Route::resource('production-requisition', ProductionRequisitionController::class);
     Route::post('production-requisition-status',[ProductionRequisitionController::class,'changeStatus'])->name('production_requisition.status');
     //Temp Thermocouple
@@ -400,7 +402,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('production-purchase-item', ProductionSupplierItemController::class);
 
     //Production Requisition Item
-    Route::resource('production-requisition-Item', ProductionRequisitionItem::class);
+    Route::resource('production-requisition-item', ProductionRequisitionItemController::class);
 
 
 
