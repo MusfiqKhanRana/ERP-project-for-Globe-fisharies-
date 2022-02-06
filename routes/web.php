@@ -375,6 +375,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('fish-grade', FishGradeController::class);
 
     //production requistion
+    Route::get('requisition/print/{id}',[ProductionRequisitionController::class,'requisitionPrint'])->name('requisition.print');
     Route::resource('production-requisition', ProductionRequisitionController::class);
     Route::post('production-requisition-status',[ProductionRequisitionController::class,'changeStatus'])->name('production_requisition.status');
     //Temp Thermocouple
