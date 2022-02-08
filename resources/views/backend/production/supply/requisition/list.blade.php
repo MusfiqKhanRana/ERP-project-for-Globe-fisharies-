@@ -125,9 +125,9 @@
                                                                                     <div class="form-body">
                                                                                         <div class="form-section">
                                                                                             
-                                                                                            <label class="col-md-2 control-label pull-left bold">Supplier Select: </label>
-                                                                                            <div class="col-md-6">
-                                                                                                <select class="select2Ajax form-control" name="supplier_id" id="supplier_id"></select>
+                                                                                            <label class="col-md-2 control-label pull-left bold">Supplier Name: </label>
+                                                                                            <div class="col-md-9">
+                                                                                                <span class="form-control" selected><b>{{$data->production_supplier->name}}</b></span>
                                                                                             </div>
                                                                                         </div><br><br>
                                                                                     </div>
@@ -142,7 +142,9 @@
                                                                                                         <div class="col-md-3">
                                                                                                             <label for="">Item</label>
                                                                                                             <select class="form-control" value="{{$item->name}}" id="item">
-                                                                                                                <option selected>{{$item->name}}</option>
+                                                                                                                @foreach ($data->production_supplier->supplier_items as $item)
+                                                                                                                    <option value="{{$item->id}}" data-grade_name="{{$item->grade->name}}" data-grade_id="{{$item->grade->id}}" data-item_name="{{$item->name}}">{{$item->name}}</option>
+                                                                                                                @endforeach
                                                                                                             </select>
                                                                                                         </div>
                                                                                                         <div class="col-md-2">
@@ -151,7 +153,7 @@
                                                                                                         </div>
                                                                                                         <div class="col-md-2">
                                                                                                             <label for="product">Unit Price</label>
-                                                                                                            <input type="text" class="form-control" value="{{$item->pivot->rate}}" id="unit_price" readonly>
+                                                                                                            <input type="text" class="form-control" value="{{$item->pivot->rate}}" id="suppliers_rate"  name="rate" readonly>
                                                                                                         </div>
                                                                                                         <div class="col-md-2">
                                                                                                             <label for="product">Quantity</label>
@@ -159,7 +161,7 @@
                                                                                                         </div>
                                                                                                         <div class="col-md-2">
                                                                                                             <label for="product">Amount</label>
-                                                                                                            <input type="text" class="form-control" id="amount" readonly>
+                                                                                                            <input type="text" class="form-control" id="amount" value="{{$item->pivot->quantity*$item->pivot->rate}}" readonly>     
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
@@ -252,10 +254,6 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <div class="row">
-                                                        {{-- <div class="col-md-12 text-center">{{ $employee->links() }}</div> --}}
-                                                        {{ $production_requisition->withQueryString()->links('vendor.pagination.custom') }}
-                                                    </div>
                                                 </td>
                                                 <td style="text-align: center">
                                                     @if (request()->status=="Pending")
@@ -573,8 +571,10 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <div class="row">
-                                </div>
+                            </div>
+                            <div class="row">
+                                {{-- <div class="col-md-12 text-center">{{ $employee->links() }}</div> --}}
+                                {{ $production_requisition->withQueryString()->links('vendor.pagination.custom') }}
                             </div>
                         </div>
                     </div>
@@ -588,41 +588,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         jQuery(document).ready(function() {
-            function nullmaking(){
-
-                $("#item").val(null);
-                $("#grade").val(null);
-                $("#unit_price").val(null);
-                $("#quantity").val(null);
-                $("#amount").val(null);
-            }
-            var item_id,item_name,item_grade_id,item_grade_name,item_unit_price,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,product_name,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
+           
+            var item_id,item_name,item_grade_id,item_grade_name,item_unit_price,total_price,quantity = null;
             var product_array = [];
-            $('#product').change(function(){
-                product_id = $(this).val();
-                product_name = $(this).find(':selected').data("name");
-                product_pack_id = $(this).find(':selected').data("pack_id");
-                product_pack_name = $(this).find(':selected').data("pack_name");
-                product_pack_weight = $(this).find(':selected').data("pack_weight");
-                product_online_rate = $(this).find(':selected').data("online_selling_price");
-                product_inhouse_rate = $(this).find(':selected').data("inhouse_selling_price");
-                $('#pack_size').val(product_pack_name);
-                $("#rate").empty();
-                var customer_type = $('#customer_type').html();
-                var selling_price = null;
-                if(customer_type=="inhouse"){
-                    selling_price = product_inhouse_rate;
-                }
-                else if(customer_type == "online"){
-                    selling_price = product_online_rate;
-                }
-                $("#rate").val(selling_price);
-                // console.log(product_online_rate,product_inhouse_rate,product_id,product_name,product_pack_id,product_pack_name,product_pack_weight);
-            })
             $('#quantity').keyup(function(){
-                packet_quantity = $(this).val();
-                $("#amount").val(packet_quantity * item_unit_price);
-                total_price = packet_quantity * item_unit_price;
+                quantity = $(this).val();
+                $("#amount").val(quantity * item_unit_price);
+                total_price = quantity * item_unit_price;
             })
             $('#item').change(function(){
                 item_id = $(this).val();
@@ -631,7 +603,7 @@
                 item_unit_price = $(this).find(':selected').data("unit_price");
                 $.ajax({
                     type:"get",
-                    url:"/admin/get-supplier-items-grade/"+item_grade_id,
+                    url:"/admin/production-requisition-item/"+item_grade_id,
                     success:function(data){
                         $("#grade").val(data.name);
                     }
@@ -648,44 +620,6 @@
                 discount_in_amount = $(this).val();
                 $('#price').val(main_price);
             });
-            $('.discount_in_amount').hide();
-            $(".want_in_amount").click(function() {
-                if($(this).is(":checked")) {
-                    $(".discount_in_amount").show();
-                    $(".discount_in_percentage").hide();
-                    $('#percentage_id').val('');
-                    discount_in_percentage = 0;
-                } else {
-                    $(".discount_in_amount").hide();
-                    $(".discount_in_percentage").show();
-                    discount_in_amount = 0;
-                    $('#amount_id').val('');
-                }
-            });
-            $("#addbtn").click(function() {
-                product_array.push({"item_id":item_id,"item_name":item_name,"item_grade_id":item_grade_id,"item_grade_name":$('#grade').val(),"quantity":$('#quantity').val(),"rate":item_unit_price,'total_price':$('#amount').val(),"status":"stay"})
-                $("#products").val('');
-                $("#products").val(JSON.stringify(product_array));
-                $.each( product_array, function( key, product ) {
-                    if (product.status == "stay") {
-                        if(product_array.length-1 == key){
-                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+product.item_name+"</td><td>"+product.item_grade_name+"</td><td>"+product.quantity+"</td><td>"+product.rate+"</td><td>"+product.total_price+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
-                        }
-                    }
-                });
-                $("#intotal_amount").html("")
-                $("#intotal_amount").html(total())
-                $("#grand_total").val(total())
-                $(".delete").click(function(){
-                    product_array[$(this).data("id")].status="delete";
-                    // console.log(product_array,$(this).data("id"));
-                    $("#products").val('');
-                    $("#products").val(JSON.stringify(product_array));
-                    $("#intotal_amount").html("")
-                    $("#intotal_amount").html(total())
-                    $("#grand_total").val(total())
-                    $("#"+$(this).data("id")).remove();
-                });
                 nullmaking();
             });
             function total() {
@@ -698,58 +632,7 @@
                 });
                 return inTotal;
             }
-            $("#supplier_id").change(function() {
-                // console.log($(this).val());
-                $.ajax({
-                    type:"get",
-                    url:"/admin/get-supplier/"+$(this).val(),
-                    success:function(data){
-                        $("#supplier_info").empty();
-                        var $results = $('#supplier_info');
-                        var $userDiv = $results.append('<div class="user-div"></div>')
-                        $( '<div class="row">'+
-                            '<div class="col-md-3 text-center"><span> <b>Supplier Name: </b>'+data.name+'</span></div>'
-                            +'<div class="col-md-3 text-center"><span> <b>Supplier Address: </b>'+data.address+'</span></div>'
-                            +'<div class="col-md-3 text-center"><span> <b>Supplier Phone: </b>'+data.phone+'</span></div>'
-                            +'<div class="col-md-3 text-center"><span> <b>Supplier Email: </b><span id="customer_type">'+data.email+'</span></span></div>'
-                        +'</div>').appendTo( ".user-div" );
-                    }
-                });
-                $.ajax({
-                    type:"get",
-                    url:"/admin/get-supplier-items/"+$(this).val(),
-                    success:function(data){
-                        console.log(data);
-                        $("#item").html("");
-                        let option="<option value=''>Select</option>";
-                        $.each( data, function( key, data ) {
-                            option+='<option data-name="'+data.name+'" data-unit_price="'+data.pivot.rate+'" data-grade_id="'+data.grade_id+'" value="'+data.id+'">'+data.name+'</option>';
-                        });
-                        $('#item').append(option);
-                    }
-                });
-            });
-        });
-
-        $('.select2Ajax').select2({
-            placeholder: 'Select an item',
-            ajax: {
-                url: "{{route('production-supplier.all')}}",
-                dataType: 'json',
-                delay: 250,
-                processResults: function (data) {
-                    return {
-                        results:  $.map(data, function (item) {
-                            return {
-                                text: item.name + " | "+item.email+" | "+item.phone,
-                                title:item.phone,
-                                id: item.id
-                            }
-                        })
-                    };
-                },
-                cache: true
-            }
+            
         });
     </script>
 @endsection

@@ -33,53 +33,78 @@
                     </div>
                 </div>
             @endif
-          
             <!-- END PAGE TITLE-->
             <!-- BEGIN PAGE CONTENT-->
             <div class="row" id="printrequisition">
                 <div class="col-md-12">
-                    <div class="portlet box blue-chambray">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-briefcase"></i>Requisition
+                    <div class="" style="margin-left: 2%" >
+                        <div class="portlet-body">
+                            <div class="col" style="text-align: center">
+                                <h2><b>GLOBE FISHERIES LIMITED</b>
+                                </h2>
                             </div>
-                            <div class="tools">
+                            <div class="col" style="text-align: center">
+                                <h5>Mirwarishpur, Begumganj, Noakhali
+                                </h5>
                             </div>
-                        </div>
-                        <div class="portlet-body" style="background-image: url('C:\Users\GTCL-Core PC DEV\Pictures\Screenshots\Medical.PNG')">
-                            <div class="row">
-                                <div class="col">
-                                    <h4>Invoice Code:   <b>
-                                        @php
-                                            echo uniqid();
-                                        @endphp
-                                    </b></h4>
+                            <div class="col" style="text-align: center">
+                                Phone: +8801 562 458 621, 02 5865235, Email: sales@globefisheries.com
+                            </div><br><br>
+                            {{--<div class="row">
+                                 <div class="col-md-12">
+                                    <label class="col-md-2 control-label"><b>Invoice Code</b></label>
+                                        :   {{$data->invoice_code}}
                                 </div>
-                                <div class="col">
-                                    <h4>Supplyer Name:   <b>{{$data->production_supplier->name}}</b></h4>
+                                <div class="col-md-12">
+                                    <label class="col-md-2 control-label"> <b>Supplyer Name  </b></label>
+                                        :    {{$data->production_supplier->name}}
                                 </div>
-                                <div class="col">
-                                    <h4>Phone: <b>{{$data->production_supplier->phone}}</b>  </h4>
+                                <div class="col-md-12">
+                                    <label class="col-md-2 control-label"> <b>Phone </b></label>
+                                    :    {{$data->production_supplier->phone}}
                                 </div>
-                                <div class="col">
-                                    <h4>Address: <b>{{$data->production_supplier->address}}</b>  </h4>
+                                <div class="col-md-12">
+                                    <label class="col-md-2 control-label"><b>Address </b></label>
+                                    :    {{$data->production_supplier->address}}
                                 </div>
-                                <div class="col">
-                                    <h4>Date: <b>
-                                        @php
-                                          use Carbon\Carbon;
+                                <div class="col-md-12">
+                                    <label class="col-md-2 control-label"><b>Date </b></label>
+                                    :   
+                                </div>
+                            </div> --}}
+                            <table class="col-md-4">
+                                <tr >
+                                    <th><b>Invoice Code</b></th>
+                                    <td >  :  {{$data->invoice_code}}</td>
+                                </tr>
+                                <tr>
+                                    <th><b>Supplyer Name</th>
+                                    <td>  :  {{$data->production_supplier->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th><b>Phone </b></th>
+                                    <td>  :  {{$data->production_supplier->phone}}</td>
+                                </tr>
+                                <tr>
+                                    <th><b>Address </b></th>
+                                    <td>  :  {{$data->production_supplier->address}}</td>
+                                </tr>
+                                <tr>
+                                    <th><b>Date </b></th>
+                                    <td> 
+                                        :   @php
+                                            use Carbon\Carbon;
                                             $currentTime = Carbon::now();
                                             echo $currentTime->toDateTimeString();
                                         @endphp
-                                    </h4>
-                                </div>
-                            </div>
+                                    </td>
+                            </table><br><br><br>
                             <div class="row">
-                                <div class="col">
-                                    <h4>Products</h4>
+                                <div class="col-md-12">
+                                    <h4><b>Products</b></h4>
                                 </div>
-                                <div class="col">
-                                    <table class="table table-striped table-bordered table-hover">
+                                <div class="col-md-12">
+                                    <table class="table table-hover">
                                         <thead>
                                             <tr>
                                                 <th>
@@ -115,10 +140,12 @@
                                                     <td>
                                                         {{$item->pivot->rate}}
                                                     </td>
-                                                    <td style="text-align: center"> @php
-                                                        $total+=$item->pivot->quantity*$item->pivot->rate;
-                                                    @endphp
-                                                    {{$item->pivot->quantity*$item->pivot->rate}}</td>
+                                                    <td style="text-align: center"> 
+                                                        @php
+                                                            $total+=$item->pivot->quantity*$item->pivot->rate;
+                                                        @endphp
+                                                        {{$item->pivot->quantity*$item->pivot->rate}}
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                             <tr>
@@ -135,8 +162,9 @@
                 </div>
             </div>
             <!-- END PAGE CONTENT-->
-            <div class="row">
-                <button id="printbtn" class="btn btn-primary" >Print</button>
+            <div class="row" style="text-align: center" >
+                <a class="btn blue" style="background-color:#29931D"  href="{{ route('production-requisition.index',['status'=>'Approved','page'=>1])}}"><i class="fa fa-backward"></i>  Back</a>
+                <button id="printbtn" class="btn red" ><i class="fa fa-print" aria-hidden="true">  Print Invoice</i></button>
             </div>
         </div>
     </div>

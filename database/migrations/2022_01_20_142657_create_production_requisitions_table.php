@@ -15,6 +15,7 @@ class CreateProductionRequisitionsTable extends Migration
     {
         Schema::create('production_requisitions', function (Blueprint $table) {
             $table->id();
+            $table->text('invoice_code')->nullable();
             $table->unsignedInteger('production_supplier_id')->nullable();
             $table->enum('status', ['Pending', 'Confirm','Approved', 'Reject','Returned','InProduction','Received'])->default('Pending');
             $table->text('details')->nullable();
@@ -24,6 +25,8 @@ class CreateProductionRequisitionsTable extends Migration
             $table->dateTime('returned_date')->nullable();
             $table->dateTime('in_production_date')->nullable();
             $table->dateTime('receive_date')->nullable();
+            $table->dateTime('reject_note')->nullable();
+            $table->dateTime('return_note')->nullable();
             $table->timestamps();
         });
     }

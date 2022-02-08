@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductionRequisition;
 use App\Models\ProductionRequisitionItem;
+use App\Models\SupplyItem;
 use App\Models\Supplier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\helpers\helpers;
+use App\Models\FishGrade;
+use Helper;
 
 class ProductionRequisitionController extends Controller
 {
@@ -22,12 +26,15 @@ class ProductionRequisitionController extends Controller
         $production_requisition_pending_count = ProductionRequisition::select('id')->where('status','Pending')->count();
         $production_requisition_Confirm_count = ProductionRequisition::select('id')->where('status','Confirm')->count();
         $production_requisition_Approved_count = ProductionRequisition::select('id')->where('status','Approved')->count();
-        $production_requisition = ProductionRequisition::with(['production_supplier',
+        $production_requisition = ProductionRequisition::with([
+            'production_supplier'=>function($q){
+                $q->with(['supplier_items']);
+            },
             'production_requisition_items'=>function($q){
                 $q->with(['grade']);
             }
         ])->where('status',$request->status)->latest()->paginate(10);
-        // dd($production_requisition->toArray());   
+        //  dd($production_requisition->toArray());   
         return view('backend.production.supply.requisition.list',compact('production_requisition','production_requisition_pending_count','production_requisition_Confirm_count','production_requisition_Approved_count'));
     }
 
@@ -72,9 +79,11 @@ class ProductionRequisitionController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        // dd($data);
+        // $invoice_code = Helper::IDGenerator(new ProductionRequisition, 'invoice_code', 5, 'Requisition');
+        $invoice_code = random_int(100000, 999999);
+        //dd($invoice_code);
         // dd(var_dump($data));
-        $production_requisition = ProductionRequisition::create(['production_supplier_id' => $data['supplier_id'],'details' => $data['details']]);
+        $production_requisition = ProductionRequisition::create(['production_supplier_id' => $data['supplier_id'],'invoice_code'=>$invoice_code,'details' => $data['details']]);
         foreach (json_decode($request->products) as $key => $product) {
             // dd(var_dump($product));
             if ($product->status=="stay"){
@@ -145,4 +154,14 @@ class ProductionRequisitionController extends Controller
      //    dd($data->toArray());
         return view('backend.production.supply.requisition.print_requisition',compact('data'));
      }
+    //  public function getRequisitionItems($id)
+    //  {
+    //      $items = ProductionRequisitionItem::with(['requisition_items'])->where('id',$id)->first();
+    //      return $items->requisition_items;
+    //  }
+    //  public function getRequisitionItemsGrade($id)
+    //  {
+    //      $grades = FishGrade::find($id);
+    //      return $grades;
+    //  }
 }
