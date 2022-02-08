@@ -18,9 +18,10 @@ class ProductionPurchaseRequisitionController extends Controller
      */
     public function index()
     {
-        $requisition=ProductionPurchaseRequisition::with('items')->get();
-        dd($requisition->toArray());
-        return view('backend.production_purchase_requisition.index',compact('requisition'));
+        $requisition=ProductionPurchaseRequisition::where('status','Pending')->with('items','departments','users')->get();
+        $dept = Department::all();
+        // dd($requisition->toArray());
+        return view('backend.production_purchase_requisition.index',compact('requisition','dept'));
     }
 
     /**
@@ -87,9 +88,11 @@ class ProductionPurchaseRequisitionController extends Controller
      * @param  \App\Models\ProductionPurchaseRequisition  $productionPurchaseRequisition
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductionPurchaseRequisition $productionPurchaseRequisition)
+    public function update(Request $request, $id)
     {
-        //
+        // dd($request);
+        $update= ProductionPurchaseRequisition::where('id',$id)->update(['department'=>$request->department,'remark'=>$request->remark]);
+        return redirect()->back()->withmsg('Successfully Updated');
     }
 
     /**
@@ -98,8 +101,26 @@ class ProductionPurchaseRequisitionController extends Controller
      * @param  \App\Models\ProductionPurchaseRequisition  $productionPurchaseRequisition
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductionPurchaseRequisition $productionPurchaseRequisition)
+    public function destroy($id)
     {
-        //
+        // dd($id);
+        $delete= ProductionPurchaseRequisition::where('id',$id)->update(['status'=>'Reject']);
+        return redirect()->back()->withmsg('Successfully Deleted');
     }
+    public function status_confirm($id){
+        // dd($id);
+        $confirm= ProductionPurchaseRequisition::where('id',$id)->update(['status'=>'Confirm']);
+        return redirect()->back()->withmsg('Successfully Confirmed Requisition');
+    }
+    public function status_purchased($id){
+        // dd($id);
+        $confirm= ProductionPurchaseRequisition::where('id',$id)->update(['status'=>'Purchased']);
+        return redirect()->back()->withmsg('Successfully Purchase Confirmed');
+    }
+    public function order(){
+        $requisition=ProductionPurchaseRequisition::where('status','Confirm')->Orwhere('status','Purchased')->with('items','departments','users')->get();
+        // dd($requisition->toArray());
+        return view('backend.production_purchase_requisition.order',compact('requisition'));
+    }
+
 }
