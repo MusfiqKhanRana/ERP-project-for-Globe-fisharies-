@@ -79,7 +79,7 @@
                             <table class="col-md-4">
                                 <tr >
                                     <th><b>Invoice Code</b></th>
-                                    <td >   @php echo  DNS1D::getBarcodeSVG("444564", "CODABAR"); @endphp </td>
+                                    <td >   @php echo  DNS1D::getBarcodeSVG("444564", "CODABAR",2,28,'black', true); @endphp </td>
                                 </tr>
                                 <tr>
                                     <th><b>Supplyer Name</th>
