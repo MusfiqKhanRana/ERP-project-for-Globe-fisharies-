@@ -588,6 +588,38 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="fa fa-user"></i>
+                            <span class="title">Purchase Management</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item">
+                                <a href="{{route('production-purchase-item.index')}}" class="nav-link ">
+                                    <span class="title">Items</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <span class="title">Requisition</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item ">
+                                        <a href="{{route('production-purchase-requisition.create')}}" class="nav-link ">
+                                            <span class="title">Add Requisition</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="{{route('production-purchase-requisition.index',['status'=>'Pending','page'=>1])}}" class="nav-link ">
+                                            <span class="title">Requisition List</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
             

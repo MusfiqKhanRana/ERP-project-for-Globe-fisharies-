@@ -17,4 +17,8 @@ class ProductionPurchaseItem extends Model
     {
         return $this->belongsTo(ProductionPurchaseUnit::class,'production_purchase_unit_id');
     }
+    public function requisitions()
+    {
+        return $this->belongsToMany(ProductionPurchaseRequisition::class, 'production_purchase_requisition_items');
+    }
 }

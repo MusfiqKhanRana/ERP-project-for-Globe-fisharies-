@@ -43,6 +43,8 @@ use App\Http\Controllers\RequisitionProductController;
 use App\Http\Controllers\RequisitionReceiveController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\PratyProductController;
+use App\Http\Controllers\ProductionPurchaseItemController;
+use App\Http\Controllers\ProductionPurchaseRequisitionController;
 use App\Http\Controllers\ProductionPurchaseTypeController;
 use App\Http\Controllers\ProductionPurchaseUnitController;
 use App\Http\Controllers\ProductionRequisitionController;
@@ -399,7 +401,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('procution-purchase-units', ProductionPurchaseUnitController::class);
 
     //Procution Purchase Item
-    Route::resource('production-purchase-item', ProductionSupplierItemController::class);
+    Route::resource('production-purchase-item', ProductionPurchaseItemController::class);
+
+    //Production Purchase Requisition 
+    Route::resource('production-purchase-requisition', ProductionPurchaseRequisitionController::class);
 
     //Production Requisition Item
     Route::resource('production-requisition-item', ProductionRequisitionItemController::class);
