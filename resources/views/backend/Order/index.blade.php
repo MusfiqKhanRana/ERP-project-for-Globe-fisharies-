@@ -267,6 +267,9 @@
                                                         <td>
                                                             <a class="btn btn-primary" data-toggle="modal" href="#addProductModal{{$data->id}}"><i class="fa fa-plus"></i>Add Product</a>
                                                         </td>
+                                                        <td>
+                                                            <a class="btn yellow" href="{{route('order.print',$data->id)}}"><i class="fa fa-print"></i> Show & Print</a>
+                                                        </td>
                                                     </tr>
                                                     <tr class="ml-auto mr-auto mt-auto" style="text-align: center">
                                                         {{-- <td>

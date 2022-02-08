@@ -112,7 +112,13 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        
+    }
+    public function print($id)
+    {
+        $data = Order::with(['products','customer'])->where('id',$id)->first();
+        // dd($order->toArray());
+        return view('backend.Order.print', compact('data'));
     }
 
     /**
