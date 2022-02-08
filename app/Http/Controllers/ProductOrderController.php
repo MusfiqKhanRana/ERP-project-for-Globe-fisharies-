@@ -68,7 +68,8 @@ class ProductOrderController extends Controller
         $data = $request->all();
         // dd($data);
         // dd(var_dump($data));
-        $order = Order::create(['customer_id' => $data['customer_id'],'remark' => $data['remark'],'total_discount' => $data['total_discount'],'delivery_charge'=>$data['delivery_charge'],'payment_method'=>$request->payment_method,'trx_number'=>"", 'trx_id'=>"",'paid_amount'=>$request->paid_amount]);
+        $order = Order::create(['customer_id' => $data['customer_id'],'remark' => $data['remark'],'total_discount' => $data['total_discount'],'delivery_charge'=>$data['delivery_charge'],'payment_method'=>$request->payment_method,'trx_number'=>"", 'trx_id'=>"",
+        'invoice_code' => random_int(100000, 999999),'paid_amount'=>$request->paid_amount]);
         foreach (json_decode($request->products) as $key => $product) {
             // dd(var_dump($product->amount_discount));
             if ($product->status=="stay"){

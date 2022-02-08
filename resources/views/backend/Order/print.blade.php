@@ -76,7 +76,27 @@
                                 </div>
                             </div> --}}
                             {{-- <div class="mb-3">{!! DNS1D::getBarcodeHTML(123456, 'CODABAR') !!}</div> --}}
-                            <table class="col-md-4">
+                            <div class="col" >
+                                @php echo  DNS1D::getBarcodeSVG($data->invoice_code, "CODABAR",2,28,'black', false); @endphp
+                                <br>
+                                Invoice No: {{$data->invoice_code}}
+                                
+                            </div>
+                            <div class="col" style="text-align: right">
+                               <b>Date :</b> @php
+                               use Carbon\Carbon;
+                               $currentTime = Carbon::now();
+                               echo $currentTime->toDateTimeString();
+                           @endphp
+                            </div>
+                            <div class="col">
+                                <h5><b> Supplier Info</b></h5>
+                                {{$data->customer->full_name}}<br>
+                                {{$data->customer->phone}}<br>
+                                {{$data->customer->address}}<br><br><br>
+                               
+                            </div>
+                            {{-- <table class="col-md-4">
                                 <tr >
                                     <th><b>Invoice Code</b></th>
                                     <td >   @php echo  DNS1D::getBarcodeSVG("444564", "CODABAR",2,28,'black', true); @endphp </td>
@@ -102,7 +122,7 @@
                                             echo $currentTime->toDateTimeString();
                                         @endphp
                                     </td>
-                            </table><br><br><br>
+                            </table><br><br><br> --}}
                             <div class="row">
                                 <div class="col-md-12">
                                     <h4><b>Products</b></h4>

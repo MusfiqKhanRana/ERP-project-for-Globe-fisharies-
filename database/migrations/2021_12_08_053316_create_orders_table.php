@@ -15,6 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('invoice_code')->nullable();
             $table->unsignedInteger('customer_id')->nullable();
             $table->enum('status', ['Pending', 'Confirm','Delivered', 'Cancel','DeliverySuccess','Returned'])->default('Pending');
             $table->string('remark')->nullable();

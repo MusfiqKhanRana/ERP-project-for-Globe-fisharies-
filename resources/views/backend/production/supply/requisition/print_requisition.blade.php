@@ -50,6 +50,26 @@
                             <div class="col" style="text-align: center">
                                 Phone: +8801 562 458 621, 02 5865235, Email: sales@globefisheries.com
                             </div><br><br>
+                            <div class="col" >
+                                @php echo  DNS1D::getBarcodeSVG($data->invoice_code, "CODABAR",2,28,'black', false); @endphp
+                                <br>
+                                Invoice No: {{$data->invoice_code}}
+                                
+                            </div>
+                            <div class="col" style="text-align: right">
+                               <b>Date :</b> @php
+                               use Carbon\Carbon;
+                               $currentTime = Carbon::now();
+                               echo $currentTime->toDateTimeString();
+                           @endphp
+                            </div>
+                            <div class="col">
+                                <h5><b> Supplier Info</b></h5>
+                                {{$data->production_supplier->name}}<br>
+                                {{$data->production_supplier->phone}}<br>
+                                {{$data->production_supplier->address}}<br><br><br>
+                            </div>
+                           
                             {{--<div class="row">
                                  <div class="col-md-12">
                                     <label class="col-md-2 control-label"><b>Invoice Code</b></label>
@@ -72,10 +92,10 @@
                                     :   
                                 </div>
                             </div> --}}
-                            <table class="col-md-4">
+                            {{-- <table class="col-md-4">
                                 <tr >
                                     <th><b>Invoice Code</b></th>
-                                    <td >  :  {{$data->invoice_code}}</td>
+                                    <td>  :  {{$data->invoice_code}}</td>
                                 </tr>
                                 <tr>
                                     <th><b>Supplyer Name</th>
@@ -98,7 +118,8 @@
                                             echo $currentTime->toDateTimeString();
                                         @endphp
                                     </td>
-                            </table><br><br><br>
+                            </table><br><br><br> --}}
+                            <br>
                             <div class="row">
                                 <div class="col-md-12">
                                     <h4><b>Products</b></h4>
@@ -174,7 +195,9 @@
     <script>
        jQuery(document).ready(function() {
             $("#printbtn").click(function () {
-                $("#printrequisition").print();
+                $("#printrequisition").print({
+                    mediaPrint : false,
+                });
             });
         });
     </script>

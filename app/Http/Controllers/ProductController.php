@@ -28,16 +28,15 @@ class ProductController extends Controller
     {
              
         $this->validate($request,[
-            'product_id' => 'required',
             'category_id' => 'required',
             'product_name' => 'required',
-            'unit' => 'required',
             'buying_price' => 'required',
             'online_selling_price'=>'required',
-            'inhouse_selling_price'=>'required',
-            'retail_selling_price'=>'required',
+            'inhouse_selling_price'=>'required', 
         ]);
         $data = $request->except('_token');
+        $data['product_id'] = random_int(100000, 999999);
+        //dd ($product_id);
         if ($request->hasFile('image')) {
             // dd("get this");
             $image = $request->file('image');
@@ -82,11 +81,9 @@ class ProductController extends Controller
             'product_id' => 'required',
             'category_id' => 'required',
             'product_name' => 'required',
-            'unit' => 'required',
             'buying_price' => 'required',
             'online_selling_price'=>'required',
             'inhouse_selling_price'=>'required',
-            'retail_selling_price'=>'required',
         ]);
         $product=  Product::find($id);
             
@@ -104,11 +101,9 @@ class ProductController extends Controller
                'product_id' => $request->product_id,
                'product_name' => $request->product_name,
                'category_id' => $request->category_id,
-               'unit' => $request->unit,
                'buying_price' => $request->buying_price,
                'online_selling_price' => $request->online_selling_price,
                'inhouse_selling_price' => $request->inhouse_selling_price,
-               'retail_selling_price' => $request->retail_selling_price,
                'pack_id' => $request->pack_id,
                'safety_stock' => $request->safety_stock,
             ]);
@@ -173,12 +168,10 @@ class ProductController extends Controller
                 $data = Product::with(['pack','stock'])->where('category_id', 'like', '%'.$query.'%')
                         ->orWhere('product_name', 'like', '%'.$query.'%')
                         ->orWhere('product_id', 'like', '%'.$query.'%')
-                        ->orWhere('unit', 'like', '%'.$query.'%')
                         ->orWhere('buying_price', 'like', '%'.$query.'%')
                         ->orWhere('selling_price', 'like', '%'.$query.'%')
                         ->orWhere('online_selling_price', 'like', '%'.$query.'%')
                         ->orWhere('inhouse_selling_price', 'like', '%'.$query.'%')
-                        ->orWhere('retail_selling_price', 'like', '%'.$query.'%')
                         ->orWhere('pack_id', 'like', '%'.$query.'%')
                         ->orderBy('product_id', 'desc')
                         ->latest()
@@ -219,15 +212,11 @@ class ProductController extends Controller
                         .'</td><td>'.
                             $row->category->name
                         .'</td><td>'.
-                            $row->unit
-                        .'</td><td>'.
                             $row->buying_price
                         .'</td><td>'.
                             $row->online_selling_price
                         .'</td><td>'.
                             $row->inhouse_selling_price
-                        .'</td><td>'.
-                            $row->retail_selling_price
                         .'</td><td>'.
                             $row->pack->name
                         .'</td><td>'.
