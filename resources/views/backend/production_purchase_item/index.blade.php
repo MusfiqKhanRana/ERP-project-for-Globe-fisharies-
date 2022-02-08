@@ -135,9 +135,36 @@
                                                                 <br><br>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Type Name</label>
                                                                 <div class="col-md-8">
-                                                                    <input type="text" class="form-control" value="{{$item->details}}" required name="details">
+                                                                    <select class="form-group form-control" name="procution_purchase_type_id" id="">
+                                                                        <option value="">--Select--</option>
+                                                                        @foreach ($production_purchase_type as $item2)
+                                                                            @if ($item->productionpurchasetype->id == $item2->id)
+                                                                                <option value="{{$item2->id}}" selected>{{$item2->name}}</option>
+                                                                            @else
+                                                                                <option value="{{$item2->id}}">{{$item2->name}}</option>
+                                                                            @endif
+                                                                           
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <br><br>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Unit Name</label>
+                                                                <div class="col-md-8">
+                                                                    <select class="form-group form-control" name="production_purchase_unit_id" id="">
+                                                                        <option value="">--Select--</option>
+                                                                        @foreach ($production_purchase_unit as $item3)
+                                                                            @if ($item->productionpurchaseunit->id == $item3->id)
+                                                                                <option value="{{$item3->id}}" selected>{{$item3->name}}</option>
+                                                                            @else
+                                                                                <option value="{{$item3->id}}">{{$item3->name}}</option>
+                                                                            @endif
+                                                                           
+                                                                        @endforeach
+                                                                    </select>
                                                                 </div>
                                                                 <br><br>
                                                             </div>
@@ -168,7 +195,7 @@
                             <h4 class="modal-title">Add New Item</h4>
                         </div>
                         <br>
-                        <form class="form-horizontal" role="form" method="post" action="{{route('supply-item.store')}}">
+                        <form class="form-horizontal" role="form" method="post" action="{{route('production-purchase-item.store')}}">
                             {{csrf_field()}}
 
                             <div class="form-group">
@@ -178,26 +205,27 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Grades</label>
+                                <label for="inputEmail1" class="col-md-2 control-label">Item Types</label>
                                 <div class="col-md-8">
-                                    <select name="grade_id" class="form-control" id="">
+                                    <select class="form-group form-control" name="procution_purchase_type_id" id="">
                                         <option value="">--Select--</option>
-                                            @foreach ($grades as $item)
-                                                <option value="{{$item->id}}">{{$item->name}}</option>
-                                            @endforeach
+                                        @foreach ($production_purchase_type as $item)
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
-
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-7 control-label">Suggestions or topics you would like to be included:</label>
+                                <label for="inputEmail1" class="col-md-2 control-label">Item Units</label>
                                 <div class="col-md-8">
-                                    <div class="col-md-12 ">
-                                        <input type="text" class="form-control" placeholder="Remark (Not Required)" name="details">
-                                    </div>
+                                    <select class="form-group form-control" name="procution_purchase_unit_id" id="">
+                                        <option value="">--Select--</option>
+                                        @foreach ($production_purchase_unit as $item)
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
-
                             <div class="modal-footer">
                                 <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                 <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>

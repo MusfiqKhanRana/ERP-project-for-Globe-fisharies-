@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\ProductionPurchaseItem;
 use App\Models\ProductionPurchaseType;
 use App\Models\ProductionPurchaseUnit;
-use App\Models\ProductionSupplierItem;
 use Illuminate\Http\Request;
 
 class ProductionPurchaseItemController extends Controller
@@ -17,9 +16,10 @@ class ProductionPurchaseItemController extends Controller
      */
     public function index()
     {
-        $production_purchase_item = ProductionSupplierItem::all();
         $production_purchase_unit = ProductionPurchaseUnit::all();
         $production_purchase_type = ProductionPurchaseType::all();
+        $production_purchase_item = ProductionPurchaseItem::with('productionpurchasetype','productionpurchaseunit')->get();
+        // return $production_purchase_item;
         return view('backend.production_purchase_item.index',compact('production_purchase_unit','production_purchase_type','production_purchase_item'));
     }
 
@@ -44,13 +44,15 @@ class ProductionPurchaseItemController extends Controller
         // dd($request);
         $inputs = $request->except('_token');
         $this->validate($request,array(
-           'name' => 'min:4|max:191',
+           'name' => 'min:2|max:191',
         ));
-        $users = new ProductionSupplierItem();
+        $users = new ProductionPurchaseItem();
         $users->name = $request->name;
+        $users->procution_purchase_type_id = $request->procution_purchase_type_id;
+        $users->production_purchase_unit_id = $request->procution_purchase_unit_id;
         $users->save();
 
-        return redirect()->route('user-type.index')->withMsg('Successfully Created');
+        return redirect()->back()->withMsg('Successfully Created');
     }
 
     /**
@@ -84,9 +86,12 @@ class ProductionPurchaseItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        ProductionSupplierItem::whereId($id)
+        // dd($request);
+        ProductionPurchaseItem::whereId($id)
         ->update([
             'name' => $request->name,
+            'procution_purchase_type_id' => $request->procution_purchase_type_id,
+            'production_purchase_unit_id' => $request->production_purchase_unit_id,
         ]);
         return redirect()->back()->withMsg("Successfully Updated");
     }
@@ -99,7 +104,7 @@ class ProductionPurchaseItemController extends Controller
      */
     public function destroy($id)
     {
-        ProductionSupplierItem::whereId($id)->delete();
+        ProductionPurchaseItem::whereId($id)->delete();
         return redirect()->back()->withMsg("Successfully Deleted");
     }
 }
