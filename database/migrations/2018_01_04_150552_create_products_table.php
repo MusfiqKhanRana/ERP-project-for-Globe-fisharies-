@@ -17,12 +17,10 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->string('product_name')->nullable();
             $table->unsignedInteger('product_id')->nullable();
-            $table->string('unit')->nullable();
             $table->string('buying_price')->nullable();
             $table->string('selling_price')->nullable();
             $table->string('online_selling_price')->nullable();
             $table->string('inhouse_selling_price')->nullable();
-            $table->string('retail_selling_price')->nullable();
             $table->string('safety_stock')->nullable();
             $table->string('image')->nullable();
             $table->unsignedInteger('pack_id')->nullable();

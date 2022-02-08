@@ -70,11 +70,9 @@
                                     <th> Name</th>
                                     <th> Product ID </th>
                                     <th> Category</th>
-                                    <th> Unit</th>
                                     <th>Buying Price</th>
                                     <th>Online Selling Price</th>
                                     <th>In House Selling Price</th>
-                                    <th>Retail Selling Price</th>
                                     <th>Pack Size</th>
                                     <th>Safety Stock</th>
                                     <th>Available Stock</th>
@@ -145,16 +143,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="col-md-12">
-                                        <label class="control-label">Product Id</label>
-                                        <input class="form-control text-capitalize" placeholder="Product Id" type="text" required name="product_id">
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="col-md-12">
@@ -180,7 +168,6 @@
                                         <input type="hidden" name="selling_price" value="0">
                                         <input class="form-control text-capitalize" placeholder="Online Selling Price" type="number" required name="online_selling_price"><br>
                                         <input class="form-control text-capitalize" placeholder="In House Selling Price" type="number" required name="inhouse_selling_price"><br>
-                                        <input class="form-control text-capitalize" placeholder="Retail Selling Price" type="number" required name="retail_selling_price">
                                     </div>
                                 </div>
                             </div>
@@ -196,21 +183,6 @@
                                     </div>
                                 </div>
                             </div> --}}
-
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="col-md-12">
-                                        <label class="control-label">Unit</label>
-                                        <select class="form-control" name="unit">
-                                            <option value="Kg">Kg</option>
-                                            <option value="Feet">Feet</option>
-                                            <option value="Pieces">Pieces</option>
-                                            <option value="Liter">Liter</option>
-                                            <option value="Lb">Pound</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="col-md-12">
