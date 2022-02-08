@@ -111,142 +111,9 @@
                                                                         </th>
                                                                     @endif 
                                                                 </tr>
-                                                                <div id="edit_product_Modal{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                                                    <div class="modal-dialog">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                                                <h4 class="modal-title">Update Requisition Item </h4>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <form class="form-horizontal" role="form" method="post" action="{{route('production-requisition.update', $item->pivot->id)}}">
-                                                                                    {{csrf_field()}}
-                                                                                    {{method_field('put')}}
-                                                                                    <div class="form-body">
-                                                                                        <div class="form-section">
-                                                                                            
-                                                                                            <label class="col-md-2 control-label pull-left bold">Supplier Name: </label>
-                                                                                            <div class="col-md-9">
-                                                                                                <span class="form-control" selected><b>{{$data->production_supplier->name}}</b></span>
-                                                                                            </div>
-                                                                                        </div><br><br>
-                                                                                    </div>
-                                                                                    <div class="row" style="margin-top:2%">
-                                                                                        <div class="col-md-12">
-                                                                                            <div class="card">
-                                                                                                <div class="card-header">
-                                                                                                    <h4><b>Product Info</b></h4>
-                                                                                                </div>
-                                                                                                <div class="card-body">
-                                                                                                    <div class="row">
-                                                                                                        <div class="col-md-3">
-                                                                                                            <label for="">Item</label>
-                                                                                                            <select class="form-control" value="{{$item->name}}" id="item">
-                                                                                                                @foreach ($data->production_supplier->supplier_items as $item)
-                                                                                                                    <option value="{{$item->id}}" data-grade_name="{{$item->grade->name}}" data-grade_id="{{$item->grade->id}}" data-item_name="{{$item->name}}">{{$item->name}}</option>
-                                                                                                                @endforeach
-                                                                                                            </select>
-                                                                                                        </div>
-                                                                                                        <div class="col-md-2">
-                                                                                                            <label for="product">Grade</label>
-                                                                                                            <input type="text" class="form-control" value="{{$item->grade->name}}" id="grade" readonly>
-                                                                                                        </div>
-                                                                                                        <div class="col-md-2">
-                                                                                                            <label for="product">Unit Price</label>
-                                                                                                            <input type="text" class="form-control" value="{{$item->pivot->rate}}" id="suppliers_rate"  name="rate" readonly>
-                                                                                                        </div>
-                                                                                                        <div class="col-md-2">
-                                                                                                            <label for="product">Quantity</label>
-                                                                                                            <input type="text" class="form-control" value="{{$item->pivot->quantity}}" id="quantity">
-                                                                                                        </div>
-                                                                                                        <div class="col-md-2">
-                                                                                                            <label for="product">Amount</label>
-                                                                                                            <input type="text" class="form-control" id="amount" value="{{$item->pivot->quantity*$item->pivot->rate}}" readonly>     
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div><br>
-                                                                                    {{-- <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label for="inputEmail1" class="col-md-2 control-label">Select Item</label>
-                                                                                            <div class="col-md-10">
-                                                                                                <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="production_requisition_id">
-                                                                                                <input type="hidden" value="{{$item->pivot->id}}">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div><br><br><br>
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label for="inputEmail1" class="col-md-2 control-label">Grade Name</label>
-                                                                                            <div class="col-md-10">
-                                                                                                <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="supply_item_id">
-                                                                                                <input type="hidden" value="{{$item->pivot->id}}">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div><br><br><br>
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label for="inputEmail1" class="col-md-2 control-label">Quantity</label>
-                                                                                            <div class="col-md-10">
-                                                                                                <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="quantity">
-                                                                                                <input type="hidden" value="{{$item->pivot->id}}">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div><br><br><br>
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label for="inputEmail1" class="col-md-2 control-label">Rate</label>
-                                                                                            <div class="col-md-10">
-                                                                                                <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="rate">
-                                                                                                <input type="hidden" value="{{$item->pivot->id}}">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div><br><br><br>
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label for="inputEmail1" class="col-md-2 control-label">Total</label>
-                                                                                            <div class="col-md-10">
-                                                                                                <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="total">
-                                                                                                <input type="hidden" value="{{$item->pivot->id}}">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div><br><br><br> --}}
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                                                        <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
-                                                                                    </div>
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div id="deletproductModal{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                                                    {{csrf_field()}}
-                                                                    <input type="hidden" value="" id="delete_id">
-                                                                    <div class="modal-dialog">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                                                <h2 class="modal-title" style="color: red;">Are you sure?</h2>
-                                                                            </div>
-                                                                            <div class="modal-footer " >
-                                                                                <div class="d-flex justify-content-between">
-                                                                                    <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
-                                                                                </div>
-                                                                                <div class="caption pull-right">
-                                                                                    <form action="{{route('production-requisition-item.destroy',[$item->pivot->id])}}" method="POST">
-                                                                                        @method('DELETE')
-                                                                                        @csrf
-                                                                                        <button class="btn red"><i class="fa fa-trash"></i>Delete</button>               
-                                                                                    </form>
-                                                                                </div>
-                                                                            </div>
-                                                                            
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                @include('backend.production.supply.requisition.modals.edit_product_Modal')
+                                                                @include('backend.production.supply.requisition.modals.deletproductModal')
+                                                                
                                                             @endforeach
                                                             <tr>
                                                                 <th colspan="5" class="text-center">Total</th>
@@ -270,31 +137,8 @@
                                                     @endif
                                                 </td>
                                             </tr>
-                                            <div id="deleteModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                                {{csrf_field()}}
-                                                <input type="hidden" value="" id="delete_id">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                            <h2 class="modal-title" style="color: red;">Are you sure?</h2>
-                                                        </div>
-                                                        <div class="modal-footer " >
-                                                            <div class="d-flex justify-content-between">
-                                                                <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
-                                                            </div>
-                                                            <div class="caption pull-right">
-                                                                <form action="{{route('production-requisition.destroy',[$data->id])}}" method="POST">
-                                                                    @method('DELETE')
-                                                                    @csrf
-                                                                    <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
-                                                                </form>
-                                                            </div>
-                                                            <!-- <a type="submit" href="{{route('pack.destroy',$data->id)}}" class="btn red" id="delete"><i class="fa fa-trash"></i> Delete</a> -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            @include('backend.production.supply.requisition.modals.deleteModal')
+                                            
                                             {{-- <div id="edit_partyModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -364,210 +208,20 @@
                                                     </div>
                                                 </div>
                                             </div> --}}
-                                            <div id="confirmModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                            <h4 class="modal-title">Confirm Requisition</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form class="form-horizontal" role="form" method="post" action="{{route('production_requisition.status')}}">
-                                                                {{csrf_field()}}
-                                                                <div class="form-group">
-                                                                    <input type="hidden" value="{{$data->id}}" name="id">
-                                                                    <input type="hidden" value="Confirm" name="status">
-                                                                    <label for="inputEmail1" class="col-md-4 control-label">Total Selling Price</label>
-                                                                    <div class="col-md-8">
-                                                                        {{$total}} <b>TK.</b> <small>All Item</small>
-                                                                    </div><br><br>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="inputEmail1" class="col-md-4 control-label">Supplier Name</label>
-                                                                    <div class="col-md-8">
-                                                                        {{$data->production_supplier->name}}
-                                                                    </div><br><br>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="inputEmail1" class="col-md-4 control-label">Note</label>
-                                                                    <div class="col-md-8">
-                                                                         <b>{{"If you do this action This will go to Admin"}}</b> <small>(Important)</small>
-                                                                    </div><br><br>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                                    <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Confirm</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            @include('backend.production.supply.requisition.modals.confirmModal')
+                                            
 
                                             {{-- request list modal start --}}
+                                            @include('backend.production.supply.requisition.modals.approveModal')
+                                            @include('backend.production.supply.requisition.modals.rejectModal')
 
-                                            <div id="approveModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                            <h4 class="modal-title">Approve Requisition</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form class="form-horizontal" role="form" method="post" action="{{route('production_requisition.status')}}">
-                                                                {{csrf_field()}}
-                                                                <div class="form-group">
-                                                                    <input type="hidden" value="{{$data->id}}" name="id">
-                                                                    <input type="hidden" value="Approved" name="status">
-                                                                    <label for="inputEmail1" class="col-md-4 control-label">Total Selling Price</label>
-                                                                    <div class="col-md-8">
-                                                                        {{$total}} <b>TK.</b> <small>All Item</small>
-                                                                    </div><br><br>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="inputEmail1" class="col-md-4 control-label">Supplier Name</label>
-                                                                    <div class="col-md-8">
-                                                                        {{$data->production_supplier->name}}
-                                                                    </div><br><br>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="inputEmail1" class="col-md-4 control-label">Note</label>
-                                                                    <div class="col-md-8">
-                                                                         <b>{{"If you do this action This will go to Approve List"}}</b> <small>(Important)</small>
-                                                                    </div><br><br>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                                    <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Confirm</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            @include('backend.production.supply.requisition.modals.returnModal')
 
-                                            <div id="rejectModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                            <h4 class="modal-title">Reject Requisition</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form class="form-horizontal" role="form" method="post" action="{{route('production_requisition.status')}}">
-                                                                {{csrf_field()}}
-                                                                <div class="form-group">
-                                                                    <input type="hidden" value="{{$data->id}}" name="id">
-                                                                    <input type="hidden" value="Reject" name="status">
-                                                                    <label for="inputEmail1" class="col-md-4 control-label">Total Selling Price</label>
-                                                                    <div class="col-md-8">
-                                                                        {{$total}} <b>TK.</b> <small>All Item</small>
-                                                                    </div><br><br>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="inputEmail1" class="col-md-4 control-label">Supplier Name</label>
-                                                                    <div class="col-md-8">
-                                                                        {{$data->production_supplier->name}}
-                                                                    </div><br><br>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="inputEmail1" class="col-md-4 control-label">Note</label>
-                                                                    <div class="col-md-8">
-                                                                        <textarea placeholder="Why You reject this item" name="reject_note"></textarea>
-                                                                         
-                                                                    </div><br><br>
-                                                                   
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                                    <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Confirm</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div id="returnModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                            <h4 class="modal-title">Return Requisition</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form class="form-horizontal" role="form" method="post" action="{{route('production_requisition.status')}}">
-                                                                {{csrf_field()}}
-                                                                <div class="form-group">
-                                                                    <input type="hidden" value="{{$data->id}}" name="id">
-                                                                    <input type="hidden" value="Returned" name="status">
-                                                                    <label for="inputEmail1" class="col-md-4 control-label">Total Selling Price</label>
-                                                                    <div class="col-md-8">
-                                                                        {{$total}} <b>TK.</b> <small>All Item</small>
-                                                                    </div><br><br>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="inputEmail1" class="col-md-4 control-label">Supplier Name</label>
-                                                                    <div class="col-md-8">
-                                                                        {{$data->production_supplier->name}}
-                                                                    </div><br><br>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="inputEmail1" class="col-md-4 control-label">Note</label>
-                                                                    <div class="col-md-8">
-                                                                        <textarea placeholder="Why you return this item" name="return_note" required></textarea>
-                                                                    </div><br><br>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                                    <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Confirm</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
 
                                             {{-- Send to production Modal --}}
-                                            <div id="dispatchModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                            <h4 class="modal-title">Send to Production</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form class="form-horizontal" role="form" method="post" action="{{route('production_requisition.status')}}">
-                                                                {{csrf_field()}}
-                                                                <div class="form-group">
-                                                                    <input type="hidden" value="{{$data->id}}" name="id">
-                                                                    <input type="hidden" value="InProduction" name="status">
-                                                                    <label for="inputEmail1" class="col-md-4 control-label">Total Selling Price</label>
-                                                                    <div class="col-md-8">
-                                                                        {{$total}} <b>TK.</b> <small>All Item</small>
-                                                                    </div><br><br>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="inputEmail1" class="col-md-4 control-label">Supplier Name</label>
-                                                                    <div class="col-md-8">
-                                                                        {{$data->production_supplier->name}}
-                                                                    </div><br><br>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="inputEmail1" class="col-md-4 control-label">Note</label>
-                                                                    <div class="col-md-8">
-                                                                         <b>{{"If you do this action You won't be able to do any print out and send it into the production"}}</b> <small>(Important)</small>
-                                                                    </div><br><br><br>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                                    <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Confirm</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            @include('backend.production.supply.requisition.modals.dispatchModal')
+                                            
                                         @endforeach
                                     </tbody>
                                 </table>
