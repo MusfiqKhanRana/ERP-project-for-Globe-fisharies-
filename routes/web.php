@@ -405,6 +405,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('production-purchase-item', ProductionPurchaseItemController::class);
 
     //Production Purchase Requisition 
+    Route::get('production-purchase-requisition/Print/{id}',[ProductionPurchaseRequisitionController::class,'print'])->name('production-purchase-requisition.print');
     Route::get('production-purchase-requisition/Order',[ProductionPurchaseRequisitionController::class,'order'])->name('production-purchase-requisition.order');
     Route::get('production-purchase-requisition/status/purchased/{id}',[ProductionPurchaseRequisitionController::class,'status_purchased'])->name('production-purchase-requisition.status_purchased');
     Route::get('production-purchase-requisition/status/confirm/{id}',[ProductionPurchaseRequisitionController::class,'status_confirm'])->name('production-purchase-requisition.status_confirm');

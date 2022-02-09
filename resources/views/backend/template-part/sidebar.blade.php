@@ -591,7 +591,7 @@
                     <li class="nav-item">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
-                            <span class="title">Purchase </span>
+                            <span class="title">General Purchase </span>
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
