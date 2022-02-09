@@ -52,6 +52,7 @@ use App\Http\Controllers\ProductionRequisitionItemController;
 use App\Http\Controllers\ProductionSupplierController;
 use App\Http\Controllers\ProductionSupplierItemController;
 use App\Http\Controllers\ProductionTestController;
+use App\Http\Controllers\ProductionUnloadController;
 use App\Http\Controllers\ProductionUserPerformanceController;
 use App\Http\Controllers\SupplyItemController;
 use App\Http\Controllers\TempMonitoringController;
@@ -414,6 +415,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //Production Requisition Item
     Route::resource('production-requisition-item', ProductionRequisitionItemController::class);
+    // Production Unload
+    Route::get('production-unload',[ProductionUnloadController::class,'index'])->name('production-unload-index');
+    Route::post('production-unload-show',[ProductionUnloadController::class,'unloadShow'])->name('production-unload-show');
 
     //Production User Performance
 
