@@ -101,6 +101,12 @@ class ProductionPurchaseRequisitionController extends Controller
      * @param  \App\Models\ProductionPurchaseRequisition  $productionPurchaseRequisition
      * @return \Illuminate\Http\Response
      */
+    public function print($id){
+        // dd($id);
+        $requisition=ProductionPurchaseRequisition::where('id',$id)->with('items','departments','users')->get();
+        dd($requisition->toArray());
+        return view('backend.production_purchase_requisition.purchase_requisition_print',compact('requisition'));
+    }
     public function destroy($id)
     {
         // dd($id);

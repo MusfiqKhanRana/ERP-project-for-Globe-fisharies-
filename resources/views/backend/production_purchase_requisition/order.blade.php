@@ -158,10 +158,11 @@
                                     <td style="text-align: center">
                                         @if ($data->status=='Confirm')
                                             <a class="btn btn-info"  href="{{route('production-purchase-requisition.status_purchased',$data->id)}}"><i class="fa fa-edit"></i>Make Purchase</a>
-                                            <a class="btn btn-warning"  data-toggle="modal" href="#edit_procution_purchase_units{{$data->id}}"><i class="fa fa-edit"></i> View/Print</a>   
+                                            {{-- <a class="btn btn-warning"  data-toggle="modal" href="#edit_procution_purchase_units{{$data->id}}"><i class="fa fa-edit"></i> View/Print</a> --}}
+                                            <a class="btn purple"  href="{{route('production-purchase-requisition.print',$data->id)}}"><i class="fa fa-print"></i> View & Print</a>   
                                         @endif
                                         @if ($data->status=='Purchased')
-                                            <a class="btn btn-warning"  data-toggle="modal" href="#edit_procution_purchase_units{{$data->id}}"><i class="fa fa-edit"></i> View/Print</a>   
+                                        <a class="btn purple"  href="{{route('production-purchase-requisition.print',$data->id)}}"><i class="fa fa-print"></i> View & Print</a>   
                                         @endif
                                         {{-- <a class="btn red" data-toggle="modal" href="#delete_procution_purchase_units{{$data->id}}"><i class="fa fa-trash"></i> Delete</a> --}}
                                     </td>
