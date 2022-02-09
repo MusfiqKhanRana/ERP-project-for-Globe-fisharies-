@@ -28,9 +28,10 @@
                 </div>
                 <div class="portlet-body">
                     <div class="row">
-                        <form method="post" action="">
+                        <form method="post" action="{{route('production-unload-show')}}">
+                            @csrf
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="" placeholder="Please Write your Invoice No">
+                                <input type="text" name="invoice_no" class="form-control" id="" placeholder="Please Write your Invoice No">
                             </div>
                             <div class="col-md-3">
                                 <button type="submit" class="btn btn-primary"  autocomplete="off" >Search</button>
