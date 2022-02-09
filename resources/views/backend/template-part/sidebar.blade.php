@@ -526,6 +526,11 @@
                                     <span class="title">Maintenance Records</span>
                                 </a>
                             </li>
+                            <li class="nav-item  @if( request()->path() == 'admin/user-performance' ) active open @endif">
+                                <a href="{{route('user-performance.index')}}" class="nav-link ">
+                                    <span class="title">User Performance</span>
+                                </a>
+                            </li>
                             <li class="nav-item  @if( request()->path() == 'admin/temp-thermocouple' ) active open @endif">
                                 <a href="{{route('temp-thermocouple.index')}}" class="nav-link ">
                                     <span class="title">Temperature Thermocouple</span>

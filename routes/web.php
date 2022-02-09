@@ -52,6 +52,7 @@ use App\Http\Controllers\ProductionRequisitionItemController;
 use App\Http\Controllers\ProductionSupplierController;
 use App\Http\Controllers\ProductionSupplierItemController;
 use App\Http\Controllers\ProductionTestController;
+use App\Http\Controllers\ProductionUserPerformanceController;
 use App\Http\Controllers\SupplyItemController;
 use App\Http\Controllers\TempMonitoringController;
 use App\Http\Controllers\TempTherController;
@@ -414,6 +415,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Production Requisition Item
     Route::resource('production-requisition-item', ProductionRequisitionItemController::class);
 
+    //Production User Performance
+
+    Route::resource('user-performance', ProductionUserPerformanceController::class);
 
 
 
