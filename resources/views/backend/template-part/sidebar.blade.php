@@ -612,8 +612,13 @@
                                         </a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a href="{{route('production-purchase-requisition.index',['status'=>'Pending','page'=>1])}}" class="nav-link ">
+                                        <a href="{{route('production-purchase-requisition.index')}}" class="nav-link ">
                                             <span class="title">Requisition List</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="{{route('production-purchase-requisition.order')}}" class="nav-link ">
+                                            <span class="title">Purchase Order</span>
                                         </a>
                                     </li>
                                 </ul>

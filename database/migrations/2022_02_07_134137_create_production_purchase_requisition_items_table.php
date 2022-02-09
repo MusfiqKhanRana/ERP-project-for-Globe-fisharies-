@@ -25,6 +25,7 @@ class CreateProductionPurchaseRequisitionItemsTable extends Migration
             $table->dateTime('demand_date')->nullable();
             $table->string('image')->nullable();
             $table->integer('quantity')->nullable();
+            $table->string('supplier_info')->nullable();
             $table->longText('specification')->nullable();
             $table->longText('remark')->nullable();
             $table->timestamps();

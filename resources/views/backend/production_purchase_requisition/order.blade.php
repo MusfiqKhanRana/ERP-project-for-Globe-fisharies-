@@ -73,8 +73,8 @@
                                     <td>{{++ $key }}</td>
                                     <td class="text-align: center;"> {{$data->departments->name}}</td>
                                     <td class="text-align: center;"> {{$data->users->name}}</td>
-                                    <td class="text-align: center;"><button class="btn btn-success">Add info</button></td>
-                                    <td class="text-align: center;"> {{$data->remark}}</td>
+                                    <td class="text-align: center;"></td>
+                                    <td class="text-align: center;">{{$data->remark}}</td>
                                     <td class="text-align: center;">
                                         <table class="table table-striped table-bordered table-hover">
                                             <thead>
@@ -97,9 +97,9 @@
                                                     <th>
                                                         Remark
                                                     </th>
-                                                    <th>
+                                                    {{-- <th>
                                                         Action
-                                                    </th>
+                                                    </th> --}}
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -111,7 +111,7 @@
                                                         <td>{{$item->pivot->quantity}}</td>
                                                         <td>{{$item->pivot->specification}}</td>
                                                         <td>{{$item->pivot->remark}}</td>
-                                                        <td><button class="btn btn-success">Edit</button><button class="btn btn-danger">Delete</button></td>
+                                                        {{-- <td><button class="btn btn-success">Edit</button><button class="btn btn-danger">Delete</button></td> --}}
                                                     </tr>
                                                     {{-- <div id="addProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                         {{csrf_field()}}
@@ -156,9 +156,14 @@
                                         </table>
                                     </td>
                                     <td style="text-align: center">
-                                        <a class="btn btn-success"  data-toggle="modal" href="{{route('production-purchase-requisition.status_confirm',$data->id)}}"><i class="fa fa-edit"></i> Confirm</a>
-                                        <a class="btn btn-info"  data-toggle="modal" href="#edit_procution_purchase_units{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
-                                        <a class="btn red" data-toggle="modal" href="#delete_procution_purchase_units{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                        @if ($data->status=='Confirm')
+                                            <a class="btn btn-info"  href="{{route('production-purchase-requisition.status_purchased',$data->id)}}"><i class="fa fa-edit"></i>Make Purchase</a>
+                                            <a class="btn btn-warning"  data-toggle="modal" href="#edit_procution_purchase_units{{$data->id}}"><i class="fa fa-edit"></i> View/Print</a>   
+                                        @endif
+                                        @if ($data->status=='Purchased')
+                                            <a class="btn btn-warning"  data-toggle="modal" href="#edit_procution_purchase_units{{$data->id}}"><i class="fa fa-edit"></i> View/Print</a>   
+                                        @endif
+                                        {{-- <a class="btn red" data-toggle="modal" href="#delete_procution_purchase_units{{$data->id}}"><i class="fa fa-trash"></i> Delete</a> --}}
                                     </td>
                                 </tr> 
                                     <div id="delete_procution_purchase_units{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -197,25 +202,9 @@
                                                         {{csrf_field()}}
                                                         {{method_field('put')}}
                                                         <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-2 control-label">Departments</label>
+                                                            <label for="inputEmail1" class="col-md-2 control-label">Procution Purchase Units Name</label>
                                                             <div class="col-md-8">
-                                                                {{-- <input type="text" class="form-control" value="{{$data->name}}" required name="name"> --}}
-                                                                <select class="form-control" name="department" id="">
-                                                                    @foreach ($dept as $item)
-                                                                    @if ($data->department == $item->id)
-                                                                        <option value="{{$item->id}}" selected>{{$item->name}}</option>
-                                                                    @else    
-                                                                        <option value="{{$item->id}}">{{$item->name}}</option>
-                                                                    @endif
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                            <br><br>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-2 control-label">Remarks</label>
-                                                            <div class="col-md-8">
-                                                                <input type="text" class="form-control" value="{{$data->remark}}" required name="remark">
+                                                                <input type="text" class="form-control" value="{{$data->name}}" required name="name">
                                                             </div>
                                                             <br><br>
                                                         </div>
