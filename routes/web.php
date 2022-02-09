@@ -416,4 +416,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('production-requisition-item', ProductionRequisitionItemController::class);
     // Production Unload
     Route::get('production-unload',[ProductionUnloadController::class,'index'])->name('production-unload-index');
+    Route::post('production-unload-show',[ProductionUnloadController::class,'unloadShow'])->name('production-unload-show');
 });
