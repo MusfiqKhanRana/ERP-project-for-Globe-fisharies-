@@ -61,7 +61,6 @@
                                 <th>Serial</th>
                                 <th>Department</th>
                                 <th>Requested By</th>
-                                <th>Supplier Info</th>
                                 <th>Remark</th>
                                 <th>Items</th>
                                 <th style="text-align: center">Action</th>
@@ -73,7 +72,6 @@
                                     <td>{{++ $key }}</td>
                                     <td class="text-align: center;"> {{$data->departments->name}}</td>
                                     <td class="text-align: center;"> {{$data->users->name}}</td>
-                                    <td class="text-align: center;"><button class="btn btn-success">Add info</button></td>
                                     <td class="text-align: center;"> {{$data->remark}}</td>
                                     <td class="text-align: center;">
                                         <table class="table table-striped table-bordered table-hover">
@@ -111,14 +109,14 @@
                                                         <td>{{$item->pivot->quantity}}</td>
                                                         <td>{{$item->pivot->specification}}</td>
                                                         <td>{{$item->pivot->remark}}</td>
-                                                        <td><button class="btn btn-success">Edit</button><button class="btn btn-danger">Delete</button></td>
+                                                        <td><button data-toggle="modal" href="#edit_items{{$item->pivot->id}}" class="btn btn-success">Edit</button><button data-toggle="modal" href="#delete_items{{$item->pivot->id}}" class="btn btn-danger">Delete</button></td>
                                                     </tr>
-                                                    {{-- <div id="addProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                                        {{csrf_field()}}
-                                                        <input type="hidden" value="" id="delete_id">
+                                                    <div id="edit_items{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
-                                                                <form action="{{route('requisition.receive.updatesubmitted')}}" method="POST">
+                                                                <form action="{{route('purchase-requisition-item.update',$item->pivot->id)}}" method="POST">
+                                                                    {{csrf_field()}}
+                                                                    {{method_field('put')}}
                                                                     <div class="modal-header">
                                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                                                         <h2 class="modal-title" style="color: rgb(75, 65, 65);">Add Products</h2>
@@ -126,31 +124,116 @@
                                                                     <br>
                                                                     <div class="modal-body">
                                                                             @csrf
-                                                                            <input type="hidden" name="requisition_id" value="{{$data->id}}">
-                                                                            @foreach ($data->products as $keyupdated => $value)
-                                                                                <div class="m-5 row">
-                                                                                    <input type="hidden" name="requisition_product_id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
-                                                                                    <div class="col-md-4">
-                                                                                        <b>Product Name: {{$value->product_name}}</b>
-                                                                                    </div>
-                                                                                    <div class="col-md-4">
-                                                                                        <b>Requested Quantity: {{$value->pivot->quantity}}</b>
-                                                                                    </div>
-                                                                                    <div class="col-md-4">
-                                                                                        <input name="final_quantity[{{$keyupdated}}]" value="{{$value->pivot->final_quantity}}" class="form-control" type="number" required placeholder="Dispatch Quantity">
+                                                                            <input type="hidden" name="requisition_item_id" value="{{$item->pivot->id}}">
+                                                                            <div class="m-5 row">
+                                                                                <div class="col-md-3">
+                                                                                    <b>Image: </b><br>
+                                                                                    {{$item->pivot->image}}<br>
+                                                                                    <input class="form-control" type="file">
+                                                                                </div>
+                                                                                <div class="col-md-3">
+                                                                                    <label for="product">Item Types</label>
+                                                                                    <select class="form-control type" name="type">
+                                                                                        <option selected>--Select--</option>
+                                                                                        @foreach ($types as $itemx)
+                                                                                            @if ($item->pivot->item_type_id==$itemx->id)
+                                                                                                <option value="{{$itemx->id}}" selected>{{$itemx->name}}</option>  
+                                                                                            @else
+                                                                                                <option value="{{$itemx->id}}">{{$itemx->name}}</option> 
+                                                                                            @endif
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="col-md-3">
+                                                                                    <label for="">Select Item</label>
+                                                                                    <select class="form-control item" name="item" >
+                                                                                        <option selected>Select</option>
+                                                                                        @foreach ($requisition_item as $itemxx)
+                                                                                            @if ($item->pivot->item_id==$itemxx->id)
+                                                                                                <option value="{{$itemxx->id}}" selected>{{$itemxx->name}}</option>  
+                                                                                            @else
+                                                                                                <option value="{{$itemxx->id}}" selected>{{$itemxx->name}}</option>
+                                                                                            @endif
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="col-md-3">
+                                                                                    <label for="">Unit</label>
+                                                                                    <select class="form-control unit" name="unit">
+                                                                                        <option selected>Select</option>
+                                                                                        @foreach ($requisition_unit as $itemxxx)
+                                                                                        @if ($item->pivot->item_unit_id==$itemxxx->id)
+                                                                                            <option value="{{$itemxxx->id}}" selected>{{$itemxxx->name}}</option>  
+                                                                                        @else
+                                                                                            <option value="{{$itemxxx->id}}" selected>{{$itemxxx->name}}</option>
+                                                                                        @endif
+                                                                                    @endforeach
+                                                                                        
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row" style="margin-top:2%">
+                                                                                <label class="col-md-3 control-label">Demand Date :</span></label>
+                                                                                <div class="col-md-6">
+                                                                                    <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                                                                        <input type="text" class="form-control" value="{{$item->pivot->demand_date}}" name="demand_date" placeholder="Demand Date" readonly >
+                                                                                        <span class="input-group-btn">
+                                                                                            <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                                                        </span>
                                                                                     </div>
                                                                                 </div>
-                                                                            @endforeach
+                                                                            </div>
+                                                                            <div class="form-group row" style="margin-top:2%">
+                                                                                <label class="col-md-3 control-label">Quantity :</span></label>
+                                                                                <div class="col-md-6">
+                                                                                    <input type="text" value="{{$item->pivot->quantity}}" placeholder="quantity" name="quantity" class="form-control" id="quantity">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row" style="margin-top:2%">
+                                                                                <label class="col-md-3 control-label">Specification :</span></label>
+                                                                                <div class="col-md-6">
+                                                                                    <input type="text" value="{{$item->pivot->specification}}" placeholder="specification" class="form-control" name="specification" id="quantity">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group row" style="margin-top:2%">
+                                                                                <label class="col-md-3 control-label">Remark :</span></label>
+                                                                                <div class="col-md-6">
+                                                                                    <textarea name="remark" id="" cols="30" rows="2.5">{{$item->pivot->remark}}</textarea>
+                                                                                </div>
+                                                                            </div>
                                                                     </div>
                                                                     <br>
                                                                     <div class="modal-footer">
                                                                         <button type="submit" class="m-10 btn btn-success">Save</button>
-                                                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                                        <button type="button" data-dismiss="modal" class="btn default cancel">Cancel</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
                                                         </div>
-                                                    </div> --}}
+                                                    </div>
+                                                    <div id="delete_items{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                {{-- <form action="{{route('purchase-requisition-item.update',$item->pivot->id)}}" method="POST"> --}}
+                                                                    {{csrf_field()}}
+                                                                    {{-- {{method_field('put')}} --}}
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                        <b><h3>Are You Sure?</h3></b>
+                                                                    </div>
+                                                                    <br>
+                                                                    <div class="modal-body">
+                                                                            @csrf
+                                                                            <form action="{{route('purchase-requisition-item.destroy',[$item->pivot->id])}}" method="POST">
+                                                                                @method('DELETE')
+                                                                                @csrf
+                                                                                <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
+                                                                            </form>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 @endforeach
                                             </tbody>
                                         </table>
@@ -285,6 +368,9 @@
                 $("#specification").val(null);
                 $("#remark").val(null);
             }
+            $(".cancel").click(function(){
+                location.reload(true);
+            });
             $("#item").change(function(){
                 item_id = $(this).find('option:selected').val();
                 item_name = $(this).find('option:selected').text();
@@ -293,7 +379,7 @@
                 // console.log(item_id);
             });
             var product_array = [];
-            $("#type").change(function() {
+            $(".type").change(function() {
              
                 max = $(this).val();
                 item_type_id = $(this).find('option:selected').val();
@@ -304,18 +390,18 @@
                     url:"/admin/production-purchase-requisition/"+$(this).val(),
                     success:function(data){
                         console.log(data);
-                        $("#item").html("");
-                        $("#unit").html("");
-                        let option="<option value=''>Select</option>";
+                        $(".item").html("");
+                        $(".unit").html("");
+                        let option="<option value=''>--Select--</option>";
                         $.each( data, function( key, data ) {
                             option+='<option data-name="'+data.name+'" value="'+data.id+'">'+data.name+'</option>';
                         });
-                        let optionunit="<option value=''>Select</option>";
+                        let optionunit="<option value=''>--Select--</option>";
                         $.each( data, function( key, data ) {
                             optionunit='<option data-name="'+data.name+'" value="'+data.production_purchase_unit_id+'" selected>'+data.productionpurchaseunit.name+'</option>';
                         });
-                        $('#item').append(option);
-                        $("#unit").append(optionunit);
+                        $('.item').append(option);
+                        $(".unit").append(optionunit);
                     }
                 });
                 // $.ajax({

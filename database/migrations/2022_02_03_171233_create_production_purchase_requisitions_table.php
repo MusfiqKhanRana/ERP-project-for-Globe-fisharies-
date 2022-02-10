@@ -21,7 +21,6 @@ class CreateProductionPurchaseRequisitionsTable extends Migration
             $table->dateTime('confirm_date')->nullable();
             $table->dateTime('reject_date')->nullable();
             $table->dateTime('purchase_date')->nullable();
-            $table->string('supplier_info')->nullable();
             $table->longText('remark')->nullable();
             $table->timestamps();
         });

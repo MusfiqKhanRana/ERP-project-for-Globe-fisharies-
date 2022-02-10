@@ -45,6 +45,7 @@ use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\PratyProductController;
 use App\Http\Controllers\ProductionPurchaseItemController;
 use App\Http\Controllers\ProductionPurchaseRequisitionController;
+use App\Http\Controllers\ProductionPurchaseRequisitionItemController;
 use App\Http\Controllers\ProductionPurchaseTypeController;
 use App\Http\Controllers\ProductionPurchaseUnitController;
 use App\Http\Controllers\ProductionRequisitionController;
@@ -409,9 +410,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Production Purchase Requisition 
     Route::get('production-purchase-requisition/Print/{id}',[ProductionPurchaseRequisitionController::class,'print'])->name('production-purchase-requisition.print');
     Route::get('production-purchase-requisition/Order',[ProductionPurchaseRequisitionController::class,'order'])->name('production-purchase-requisition.order');
-    Route::get('production-purchase-requisition/status/purchased/{id}',[ProductionPurchaseRequisitionController::class,'status_purchased'])->name('production-purchase-requisition.status_purchased');
+    Route::post('production-purchase-requisition/status/purchased',[ProductionPurchaseRequisitionController::class,'status_purchased'])->name('production-purchase-requisition.status_purchased');
     Route::get('production-purchase-requisition/status/confirm/{id}',[ProductionPurchaseRequisitionController::class,'status_confirm'])->name('production-purchase-requisition.status_confirm');
     Route::resource('production-purchase-requisition', ProductionPurchaseRequisitionController::class);
+
+    //Production Purchase Requisition Item
+    Route::resource('purchase-requisition-item', ProductionPurchaseRequisitionItemController::class);
 
     //Production Requisition Item
     Route::resource('production-requisition-item', ProductionRequisitionItemController::class);

@@ -28,6 +28,7 @@ class CreateProductionPurchaseRequisitionItemsTable extends Migration
             $table->string('supplier_info')->nullable();
             $table->longText('specification')->nullable();
             $table->longText('remark')->nullable();
+            $table->integer('requisition_code')->nullable();
             $table->timestamps();
         });
     }

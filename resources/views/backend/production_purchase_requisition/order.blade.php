@@ -95,6 +95,9 @@
                                                        Specification
                                                     </th>
                                                     <th>
+                                                        supplier Info
+                                                    </th>
+                                                    <th>
                                                         Remark
                                                     </th>
                                                     {{-- <th>
@@ -110,54 +113,16 @@
                                                         <td>{{$item->pivot->demand_date}}</td>
                                                         <td>{{$item->pivot->quantity}}</td>
                                                         <td>{{$item->pivot->specification}}</td>
+                                                        <td>{{$item->pivot->supplier_info}}</td>
                                                         <td>{{$item->pivot->remark}}</td>
-                                                        {{-- <td><button class="btn btn-success">Edit</button><button class="btn btn-danger">Delete</button></td> --}}
                                                     </tr>
-                                                    {{-- <div id="addProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                                        {{csrf_field()}}
-                                                        <input type="hidden" value="" id="delete_id">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <form action="{{route('requisition.receive.updatesubmitted')}}" method="POST">
-                                                                    <div class="modal-header">
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                                        <h2 class="modal-title" style="color: rgb(75, 65, 65);">Add Products</h2>
-                                                                    </div>
-                                                                    <br>
-                                                                    <div class="modal-body">
-                                                                            @csrf
-                                                                            <input type="hidden" name="requisition_id" value="{{$data->id}}">
-                                                                            @foreach ($data->products as $keyupdated => $value)
-                                                                                <div class="m-5 row">
-                                                                                    <input type="hidden" name="requisition_product_id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
-                                                                                    <div class="col-md-4">
-                                                                                        <b>Product Name: {{$value->product_name}}</b>
-                                                                                    </div>
-                                                                                    <div class="col-md-4">
-                                                                                        <b>Requested Quantity: {{$value->pivot->quantity}}</b>
-                                                                                    </div>
-                                                                                    <div class="col-md-4">
-                                                                                        <input name="final_quantity[{{$keyupdated}}]" value="{{$value->pivot->final_quantity}}" class="form-control" type="number" required placeholder="Dispatch Quantity">
-                                                                                    </div>
-                                                                                </div>
-                                                                            @endforeach
-                                                                    </div>
-                                                                    <br>
-                                                                    <div class="modal-footer">
-                                                                        <button type="submit" class="m-10 btn btn-success">Save</button>
-                                                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div> --}}
                                                 @endforeach
                                             </tbody>
                                         </table>
                                     </td>
                                     <td style="text-align: center">
                                         @if ($data->status=='Confirm')
-                                            <a class="btn btn-info"  href="{{route('production-purchase-requisition.status_purchased',$data->id)}}"><i class="fa fa-edit"></i>Make Purchase</a>
+                                            <a class="btn btn-info" data-toggle="modal"  href="#make_purchase{{$data->id}}"><i class="fa fa-edit"></i>Make Purchase</a>
                                             {{-- <a class="btn btn-warning"  data-toggle="modal" href="#edit_procution_purchase_units{{$data->id}}"><i class="fa fa-edit"></i> View/Print</a> --}}
                                             <a class="btn purple"  href="{{route('production-purchase-requisition.print',$data->id)}}"><i class="fa fa-print"></i> View & Print</a>   
                                         @endif
@@ -217,8 +182,69 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                   
+                                    </div>  
+                                    <div id="make_purchase{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h4 class="modal-title">Confirm Requisition</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="form-horizontal" role="form" method="post" action="{{route('production-purchase-requisition.status_purchased')}}">
+                                                        {{csrf_field()}}
+                                                        {{-- {{method_field('put')}} --}}
+                                                        <div class="form-group">
+                                                            <input type="hidden" value="{{$data->id}}" name="requisition_id">
+                                                            <p>Department: {{$data->departments->name}}</p>
+                                                            <p>Requested_by : {{$data->users->name}}</p>
+                                                            <hr>
+                                                            <div class="col-md-12" style="overflow: scroll;">
+                                                                <div class="row">
+                                                                    <div class="col-md-3">
+                                                                        <b>Item Details</b>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <b>Demand Date</b>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <b>Quantity</b>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <b>supplier Info</b>
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+                                                                @foreach ($data->items as $key2 => $item)
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+                                                                            <ul><li>{{$item->pivot->image}}</li><li>{{$item->pivot->item_name}}</li><li>{{$item->pivot->item_type_name}}</li><li>{{$item->pivot->item_unit_name}}</li></ul>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            {{$item->pivot->demand_date}}
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            {{$item->pivot->quantity}}
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <input type="text" placeholder="Give Supplier info" class="form-control" name="supplier_info[]">
+                                                                            <input type="hidden" class="form-control" value="{{$item->pivot->id}}" name="id[]">
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                @endforeach           
+                                                            </div>
+                                                            <br><br>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                            <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> Confirm</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
                                 @endforeach
                             </tbody>
                         </table>
