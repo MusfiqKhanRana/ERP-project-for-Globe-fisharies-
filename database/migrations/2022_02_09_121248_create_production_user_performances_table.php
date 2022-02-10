@@ -15,6 +15,7 @@ class CreateProductionUserPerformancesTable extends Migration
     {
         Schema::create('production_user_performances', function (Blueprint $table) {
             $table->id();
+            $table->dateTime('date')->nullable();
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('item_id')->nullable();
             $table->text('performance_info')->nullable();
