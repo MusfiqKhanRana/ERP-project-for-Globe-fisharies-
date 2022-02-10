@@ -7,6 +7,8 @@ use App\Models\ProductionPurchaseItem;
 use App\Models\ProductionPurchaseRequisition;
 use App\Models\ProductionPurchaseRequisitionItem;
 use App\Models\ProductionPurchaseType;
+use App\Models\ProductionPurchaseUnit;
+use App\Models\ProductionRequisitionItem;
 use Illuminate\Http\Request;
 
 class ProductionPurchaseRequisitionController extends Controller
@@ -18,10 +20,13 @@ class ProductionPurchaseRequisitionController extends Controller
      */
     public function index()
     {
+        $types = ProductionPurchaseType::all();
+        $requisition_item = ProductionPurchaseItem::all();
+        $requisition_unit = ProductionPurchaseUnit::all();
         $requisition=ProductionPurchaseRequisition::where('status','Pending')->with('items','departments','users')->get();
         $dept = Department::all();
         // dd($requisition->toArray());
-        return view('backend.production_purchase_requisition.index',compact('requisition','dept'));
+        return view('backend.production_purchase_requisition.index',compact('requisition','dept','types','requisition_item','requisition_unit'));
     }
 
     /**
@@ -48,7 +53,8 @@ class ProductionPurchaseRequisitionController extends Controller
         // $data = $request->all();
         // dd($data);
         // unset($data['_token']);
-        $production_purchase_requisition = ProductionPurchaseRequisition::create(['department'=>$request->department,'requested_by'=>$request->requested_by,'remark'=>$request->remark]);
+        $requisition_code = random_int(100000, 999999);
+        $production_purchase_requisition = ProductionPurchaseRequisition::create(['department'=>$request->department,'requested_by'=>$request->requested_by,'remark'=>$request->remark,'requisition_code'=>$requisition_code]);
         // $data = $request->all();
         foreach (json_decode($request->products) as $key => $value) {
             // dd($value);
@@ -103,8 +109,8 @@ class ProductionPurchaseRequisitionController extends Controller
      */
     public function print($id){
         // dd($id);
-        $requisition=ProductionPurchaseRequisition::where('id',$id)->with('items','departments','users')->get();
-        dd($requisition->toArray());
+        $requisition=ProductionPurchaseRequisition::where('id',$id)->with('items','departments','users')->first();
+        // dd($requisition->toArray());
         return view('backend.production_purchase_requisition.purchase_requisition_print',compact('requisition'));
     }
     public function destroy($id)
@@ -118,9 +124,16 @@ class ProductionPurchaseRequisitionController extends Controller
         $confirm= ProductionPurchaseRequisition::where('id',$id)->update(['status'=>'Confirm']);
         return redirect()->back()->withmsg('Successfully Confirmed Requisition');
     }
-    public function status_purchased($id){
-        // dd($id);
-        $confirm= ProductionPurchaseRequisition::where('id',$id)->update(['status'=>'Purchased']);
+    public function status_purchased(Request $request){
+        // dd($request->all());
+        $data = $request->except(['_token']);
+        $confirm= ProductionPurchaseRequisition::where('id',$request->requisition_id)->update(['status'=>'Purchased']);
+        foreach ($data['supplier_info'] as $key => $value) {
+            // dd($value);
+            $supplier_info = $data['supplier_info'][$key];
+            $id = $data['id'][$key];
+            ProductionPurchaseRequisitionItem::where('id', $id)->update(['supplier_info'=>$supplier_info]);
+        }
         return redirect()->back()->withmsg('Successfully Purchase Confirmed');
     }
     public function order(){
