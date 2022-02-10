@@ -50,12 +50,12 @@
                             <div class="col" style="text-align: center">
                                 Phone: +8801 562 458 621, 02 5865235, Email: sales@globefisheries.com
                             </div><br><br>
-                            {{-- <div class="col" >
-                                @php echo  DNS1D::getBarcodeSVG($requisition->id, "CODABAR",2,28,'black', false); @endphp
+                            <div class="col" >
+                                @php echo  DNS1D::getBarcodeSVG($requisition->requisition_code, "CODABAR",2,28,'black', false); @endphp
                                 <br>
-                                Invoice No: {{$requisition->id}}
+                                Requisition No: {{$requisition->requisition_code}}
                                 
-                            </div> --}}
+                            </div>
                             <div class="col" style="text-align: right">
                                <b>Date :</b> @php
                                use Carbon\Carbon;
@@ -127,7 +127,7 @@
                                     <h4><b>Products</b></h4>
                                 </div>
                                 <div class="col-md-12">
-                                    <table class="table table-striped table-bordered table-hover">
+                                    <table class="table table-hover">
                                         <thead>
                                             <tr>
                                                 <th>
@@ -154,14 +154,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($requisition->items as $key2 => $item)
                                                 <tr>
                                                     <td>{{++$key2}}</td>
-                                                    <td><ul><li>{{$requisition->items->pivot->image}}</li><li>{{$item->pivot->item_name}}</li><li>{{$item->pivot->item_type_name}}</li><li>{{$item->pivot->item_unit_name}}</li></ul></td>
-                                                    <td>{{$requisition->items->pivot->demand_date}}</td>
-                                                    <td>{{$requisition->items->pivot->quantity}}</td>
-                                                    <td>{{$requisition->items->pivot->specification}}</td>
-                                                    <td>{{$requisition->items->pivot->remark}}</td>
-                                                    {{-- <td><button class="btn btn-success">Edit</button><button class="btn btn-danger">Delete</button></td> --}}
+                                                    <td><ul><li>{{$item->pivot->image}}</li><li>{{$item->pivot->item_name}}</li><li>{{$item->pivot->item_type_name}}</li><li>{{$item->pivot->item_unit_name}}</li></ul></td>
+                                                    <td>{{$item->pivot->demand_date}}</td>
+                                                    <td>{{$item->pivot->quantity}}</td>
+                                                    <td>{{$item->pivot->specification}}</td>
+                                                    <td>{{$item->pivot->remark}}</td>
                                                 </tr>
                                                 {{-- <div id="addProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                     {{csrf_field()}}
@@ -201,6 +201,7 @@
                                                         </div>
                                                     </div>
                                                 </div> --}}
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
