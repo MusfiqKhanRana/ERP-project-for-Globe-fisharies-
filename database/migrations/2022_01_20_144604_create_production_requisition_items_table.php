@@ -19,7 +19,8 @@ class CreateProductionRequisitionItemsTable extends Migration
             $table->unsignedInteger('supply_item_id')->nullable();
             $table->integer('rate')->nullable();
             $table->integer('quantity')->nullable();
-            // $table->integer('amount')->nullable();
+            $table->integer('received_quantity')->nullable();
+            $table->text('received_remark')->nullable();
             $table->timestamps();
         });
     }

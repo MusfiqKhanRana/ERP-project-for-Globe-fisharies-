@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductionRequisition;
+use App\Models\ProductionRequisitionItem;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 use function GuzzleHttp\Promise\all;
 
@@ -29,7 +32,15 @@ class ProductionUnloadController extends Controller
         if ($production_requistion) {
             return view('backend.production.unload.unload_list',compact('production_requistion'));
         } else {
-            dd("this is good");
+            return redirect()->back()->withMsg('Input Valid Code');
         }
+    }
+    public function store(Request $request)
+    {
+        ProductionRequisition::where('id',$request->requisition_id)->update(['receive_date'=>Carbon::now(),'status'=>'Received']);
+        foreach ($request->id as $key => $id) {
+            $item = ProductionRequisitionItem::where('id',$id)->update(['received_quantity'=>$request->received_quantity[$key],'received_remark'=>$request->received_remark[$key]]);
+        }
+        return redirect()->route('production-unload-index')->withMsg('Successfully Send to Chill Room');
     }
 }
