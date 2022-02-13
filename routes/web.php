@@ -422,6 +422,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     // Production Unload
     Route::get('production-unload',[ProductionUnloadController::class,'index'])->name('production-unload-index');
     Route::post('production-unload-show',[ProductionUnloadController::class,'unloadShow'])->name('production-unload-show');
+    Route::post('production-unload-store',[ProductionUnloadController::class,'store'])->name('production-unload-store');
 
     //Production User Performance
 

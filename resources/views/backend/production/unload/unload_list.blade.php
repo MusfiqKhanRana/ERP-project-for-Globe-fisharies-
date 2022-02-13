@@ -38,52 +38,70 @@
                                     {{-- @php
                                         dd($production_requistion->toArray());
                                     @endphp --}}
-                                    <span>{{$production_requistion->name}}</span><br>
-                                    <span>{{$production_requistion->phone}}</span><br>
-                                    <span>{{$production_requistion->address}}</span><br>
+                                    <span>{{$production_requistion->production_supplier->name}}</span><br>
+                                    <span>{{$production_requistion->production_supplier->phone}}</span><br>
+                                    <span>{{$production_requistion->production_supplier->address}}</span><br>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <b>Items.</b>
+                    <form action="{{route('production-unload-store')}}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <b>Items.</b>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12 table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Requested Quantity</th>
-                                                <th scope="col">Recived Quatity</th>
-                                                <th scope="col">Missing Quantity</th>
-                                                <th scope="col">Grade</th>
-                                                <th scope="col">Remark</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($production_requistion->production_requisition_items as $key=>$item)
+                                <div class="row">
+                                    <div class="col-md-12 table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
                                                 <tr>
-                                                    <th scope="row">{{++$key}}</th>
-                                                    <td>{{$item->name}}</td>
-                                                    <td>{{$item->pivot->quantity}}</td>
-                                                    <td><input type="text" class="form-control"></td>
-                                                    <td>Messing</td>
-                                                    <td>{{$item->grade->name}}</td>
-                                                    <td><input type="text" class="form-control"></td>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Requested Quantity</th>
+                                                    <th scope="col">Recived Quatity</th>
+                                                    <th scope="col">Missing Quantity</th>
+                                                    <th scope="col">Grade</th>
+                                                    <th scope="col">Remark</th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                                <input type="hidden" name="requisition_id" value="{{$production_requistion->id}}">
+                                                @foreach ($production_requistion->production_requisition_items as $key=>$item)
+                                                    <input type="hidden" name="id[]" value="{{$item->pivot->id}}">
+                                                    <tr>
+                                                        <th scope="row">{{++$key}}</th>
+                                                        <td>{{$item->name}}</td>
+                                                        <td>{{$item->pivot->quantity}}</td>
+                                                        <td><input type="text" name="received_quantity[]" class="form-control quantity" data-id="{{$item->pivot->id}}" data-req_quantity="{{$item->pivot->quantity}}"></td>
+                                                        <td id="{{$item->pivot->id}}"></td>
+                                                        <td>{{$item->grade->name}}</td>
+                                                        <td><input type="text" name="received_remark[]" class="form-control"></td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-3"></div>
+                            <div class="col-md-3"></div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn green">Comfirm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
 
@@ -92,43 +110,47 @@
 @endsection
 @section('script')
     <script>
-        // $(document).ready(function(){
-        //     $('#employee_select').change(function(){
-        //         $.ajax({
-        //             type:"POST",
-        //             url:"{{route('payroll.count')}}",
-        //             data:{
-        //                 id:$(this).val(),
-        //                 '_token' : $('input[name=_token]').val()
+        $(document).ready(function(){
+            $('.quantity').keyup(function(){
+                var missing = $(this).data('req_quantity') - $(this).val();
+                $("#"+$(this).data('id')).html(missing);
+            });
+            // $('#employee_select').change(function(){
+            //     $.ajax({
+            //         type:"POST",
+            //         url:"{{route('payroll.count')}}",
+            //         data:{
+            //             id:$(this).val(),
+            //             '_token' : $('input[name=_token]').val()
 
-        //             },
-        //             success:function(data)
-        //             {
-        //                 console.log(data);
-        //                 // var output = data.output;
-        //                 // var length = data.length;
-        //                 // var count = data.count;
+            //         },
+            //         success:function(data)
+            //         {
+            //             console.log(data);
+            //             var output = data.output;
+            //             var length = data.length;
+            //             var count = data.count;
 
-        //                 // $('#lenght').text(length);
-        //                 // $('#count').text(count);
-
-
-        //                 // if(output==''){
-        //                 //     $('#full_table').css('display','none');
-        //                 //     $('#message').css('display','block');
-        //                 // }else{
-        //                 //     $('#message').css('display','none');
-        //                 //     $('#full_table').css('display','block');
-        //                 //     $('#order_table tbody').html(output);
-        //                 // }
-
-        //             },
-        //             error:function () {
+            //             $('#lenght').text(length);
+            //             $('#count').text(count);
 
 
-        //             }
-        //         });
-        //     });
-        // });
+            //             if(output==''){
+            //                 $('#full_table').css('display','none');
+            //                 $('#message').css('display','block');
+            //             }else{
+            //                 $('#message').css('display','none');
+            //                 $('#full_table').css('display','block');
+            //                 $('#order_table tbody').html(output);
+            //             }
+
+            //         },
+            //         error:function () {
+
+
+            //         }
+            //     });
+            // });
+        });
     </script>
 @endsection
