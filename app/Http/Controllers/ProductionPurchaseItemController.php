@@ -20,7 +20,7 @@ class ProductionPurchaseItemController extends Controller
         $production_purchase_type = ProductionPurchaseType::all();
         $production_purchase_item = ProductionPurchaseItem::with('productionpurchasetype','productionpurchaseunit')->get();
         // return $production_purchase_item;
-        return view('backend.production_purchase_item.index',compact('production_purchase_unit','production_purchase_type','production_purchase_item'));
+        return view('backend.production.general_purchase.production_purchase_item.index',compact('production_purchase_unit','production_purchase_type','production_purchase_item'));
     }
 
     /**

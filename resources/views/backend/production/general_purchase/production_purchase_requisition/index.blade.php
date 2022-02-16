@@ -71,6 +71,9 @@
                                 <tr id="row1">
                                     <td>{{++ $key }}</td>
                                     <td class="text-align: center;"> {{$data->departments->name}}</td>
+                                    {{-- @php
+                                        dd($data->toArray());    
+                                    @endphp --}}
                                     <td class="text-align: center;"> {{$data->users->name}}</td>
                                     <td class="text-align: center;"> {{$data->remark}}</td>
                                     <td class="text-align: center;">

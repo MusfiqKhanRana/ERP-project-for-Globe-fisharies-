@@ -39,7 +39,7 @@ class MicrobiologicalTestController extends Controller
     {
         // dd($request);
         $create = MicrobiologicalTest::create($request->all());
-        return redirect()->back()->withMsg("Successfully Created");
+        return redirect()->route('microbiological-test.index');
     }
 
     /**
