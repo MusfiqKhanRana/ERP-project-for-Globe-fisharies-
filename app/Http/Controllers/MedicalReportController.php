@@ -104,7 +104,7 @@ class MedicalReportController extends Controller
         $input = $request->all();
         // return $id;
         $medical_reports = MedicalReport::where('id',$id)->update(['complain'=>$input['complain'],'dressing'=>$input['dressing'],'medicine_details'=>$input['medicine_details']]);
-        return response()->json("successfully updated", 200);
+        return redirect()->back()->withmsg('Successfully Updated');
         // MedicalReport::whereId($id)
         // ->update([
         //     'complain' => $request->complain,
@@ -124,31 +124,32 @@ class MedicalReportController extends Controller
     public function destroy($id)
     {
         MedicalReport::find($id)->delete($id);
-        return response()->json("successfully deleted", 200);
+       // return response()->json("successfully deleted", 200);
+       return redirect()->back()->withmsg('Successfully Deleted');
     }
-    public function MedicalReport(Request $request)
-    {
-        if ($request->ajax()) {
-            $medical_report = MedicalReport::with('user')->latest();
-            return Datatables::of($medical_report)
-                ->addIndexColumn()
-                ->editColumn('b_date',function($data){
-                    $origin = new DateTime($data->user->b_date);
-                    $target = new DateTime("now");
-                    $interval = $origin->diff($target);
-                    return $interval->format('%y years');
-                })
-                ->addColumn('name', function($data)
-                {
-                    return $data->user->name;
-                })
-                ->addColumn('action', function($row){
-                    $actionBtn = '<button data-toggle="modal" data-target="#editModal" data-id="'.$row->id.'" data-complain="'.$row->complain.'"  data-dressing="'.$row->dressing.'" data-medicine_details="'.$row->medicine_details.'" class="edit btn btn-success btn-sm edit_report">Edit</button> <button  data-toggle="modal" data-target="#deleteModal" data-id="'.$row->id.'" class="delete btn btn-danger btn-sm delete_report">Delete</button>';
-                    return $actionBtn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
+    // public function MedicalReport(Request $request)
+    // {
+    //     if ($request->ajax()) {
+    //         $medical_report = MedicalReport::with('user')->latest();
+    //         return Datatables::of($medical_report)
+    //             ->addIndexColumn()
+    //             ->editColumn('b_date',function($data){
+    //                 $origin = new DateTime($data->user->b_date);
+    //                 $target = new DateTime("now");
+    //                 $interval = $origin->diff($target);
+    //                 return $interval->format('%y years');
+    //             })
+    //             ->addColumn('name', function($data)
+    //             {
+    //                 return $data->user->name;
+    //             })
+    //             ->addColumn('action', function($row){
+    //                 $actionBtn = '<button data-toggle="modal" data-target="#editModal" data-id="'.$row->id.'" data-complain="'.$row->complain.'"  data-dressing="'.$row->dressing.'" data-medicine_details="'.$row->medicine_details.'" class="edit btn btn-success btn-sm edit_report">Edit</button> <button  data-toggle="modal" data-target="#deleteModal" data-id="'.$row->id.'" class="delete btn btn-danger btn-sm delete_report">Delete</button>';
+    //                 return $actionBtn;
+    //             })
+    //             ->rawColumns(['action'])
+    //             ->make(true);
             
-        }
-    }
+    //     }
+    // }
 }

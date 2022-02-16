@@ -108,7 +108,7 @@
                                                 $x = $item->days; 
                                                 $y = $item->rate; 
                                                 $z=$x*$y; 
-                                                echo $z,"Tk";
+                                                echo $z,"  Tk";
                                             @endphp
                                             </td>
                                             <td>{{$item->remark}}</td>

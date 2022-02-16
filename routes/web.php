@@ -32,6 +32,7 @@ use App\Http\Controllers\CateringController;
 use App\Http\Controllers\ColdstorageController;
 use App\Http\Controllers\FishGradeController;
 use App\Http\Controllers\MedicalReportController;
+use App\Http\Controllers\MetalDetectorCheckController;
 use App\Http\Controllers\MicrobiologicalTestController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PackControler;
@@ -422,6 +423,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Production User Performance
 
     Route::resource('user-performance', ProductionUserPerformanceController::class);
+
+    //Metal Detector
+
+    Route::resource('metal-detector', MetalDetectorCheckController::class);
+
 
 
 

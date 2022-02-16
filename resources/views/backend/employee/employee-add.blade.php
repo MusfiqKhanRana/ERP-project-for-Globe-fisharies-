@@ -139,9 +139,12 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Employee ID<span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="employee_id" placeholder="Employee ID" value="">
+                                            @php
+                                                $employee_code =  random_int(100000, 999999);
+                                            @endphp
+                                            <input type="text" class="form-control" name="employee_id" placeholder="Employee ID" value="{{$employee_code}}" readonly>
                                         </div>
-                                    </div>
+                                    </div> 
 
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Department</label>
@@ -178,12 +181,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label class="col-md-3 control-label">Joining Salary</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="salary" placeholder="Current Salary" value="">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Branch Address</label>
                                         <div class="col-md-9">

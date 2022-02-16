@@ -215,17 +215,19 @@
                                         </div>
                                     </div>
                                     <hr>
-                                    <h4><strong>Salary  ( <i class="fa fa-money"></i> )</strong>  {{-- $general->currency --}}</h4>
+                                    {{-- <h4><strong>Salary  ( <i class="fa fa-money"></i> )</strong>  {{-- $general->currency -}}</h4>
                                     <div class="form-body">
                                         <div class="form-group">
                                             <div class="col-md-6">
                                                 <input class="form-control form-control-inline"  type="text" name="salary" value="{{$employee->salary}}" placeholder="Salary"/>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="form-body">
                                         <div class="form-group">
-                                            <div class="col-md-6">
+                                            <label class="control-label col-md-3">Branch</label>
+                                            <div class="col-md-9">
+
                                                 <input class="form-control form-control-inline"  type="text" name="branch_name" value="{{$employee->branch_name}}" placeholder="Branch Name"/>
                                             </div>
                                         </div>
@@ -270,7 +272,7 @@
                                             <input type="text" name="bank_name" class="form-control" value="{{$employee->bank_name}}">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label class="col-md-3 control-label">IFSC Code(Optional)</label>
                                         <div class="col-md-9">
                                             <input type="text" name="code" class="form-control" value="{{$employee->code}}">
@@ -281,7 +283,7 @@
                                         <div class="col-md-9">
                                             <input type="text" name="pan_num" class="form-control" value="{{$employee->pan_num}}">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Branch</label>
                                         <div class="col-md-9">

@@ -51,20 +51,18 @@ class EmployeeController extends Controller
             'per_add' => 'required',
             'email'=> 'max:191',
             'password'=> 'max:191',
-            'employee_id'=> 'required',
+            //'employee_id'=> 'required',
             'dept_id'=> 'required',
             'deg_id'=> 'required',
             'date'=> 'max:191',
-            'salary'=> 'max:191',
-            'branch_address'=>'min:5|max:190',
+            //'salary'=> 'max:191',
+            'branch_address'=>'max:190',
             'ac_name'=> 'max:191',
             'ac_num'=> 'max:191',
             'bank_name'=> 'max:191',
-           
             'branch'=> 'max:191'
         ));
         $employee = new User;
-
         $employee->name = $request->name;
         $employee->f_name = $request->f_name;
         $employee->b_date = $request->b_date;
@@ -78,13 +76,13 @@ class EmployeeController extends Controller
         $employee->dept_id = $request->dept_id;
         $employee->deg_id = $request->deg_id;
         $employee->date = $request->date;
-        $employee->salary = $request->salary;
+        //$employee->salary = $request->salary;
         $employee->branch_address = $request->branch_address;
         $employee->ac_name = $request->ac_name;
         $employee->ac_num = $request->ac_num;
         $employee->bank_name = $request->bank_name;
-        $employee->code = $request->code;
-        $employee->pan_num = $request->pan_num;
+        //$employee->code = $request->code;
+        //$employee->pan_num = $request->pan_num;
         $employee->branch = $request->branch;
 
         //        image Upload
