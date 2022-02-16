@@ -26,7 +26,7 @@ class ProductionPurchaseRequisitionController extends Controller
         $requisition=ProductionPurchaseRequisition::where('status','Pending')->with('items','departments','users')->get();
         $dept = Department::all();
         // dd($requisition->toArray());
-        return view('backend.production_purchase_requisition.index',compact('requisition','dept','types','requisition_item','requisition_unit'));
+        return view('backend.production.general_purchase.production_purchase_requisition.index',compact('requisition','dept','types','requisition_item','requisition_unit'));
     }
 
     /**
@@ -38,7 +38,7 @@ class ProductionPurchaseRequisitionController extends Controller
     {
         $types = ProductionPurchaseType::all();
         $dept = Department::all();
-        return view('backend.production_purchase_requisition.create',compact('dept','types'));
+        return view('backend.production.general_purchase.production_purchase_requisition.create',compact('dept','types'));
     }
 
     /**
@@ -61,7 +61,9 @@ class ProductionPurchaseRequisitionController extends Controller
             $production_purchase_requisition_id = $production_purchase_requisition->id;
             $item=ProductionPurchaseRequisitionItem::create(['production_purchase_requisition_id'=>$production_purchase_requisition_id,'item_id'=>$value->item_id,'item_name'=>$value->item_name,'item_type_id'=>$value->item_type_id,'item_type_name'=>$value->item_type_name,'item_unit_id'=>$value->item_unit_id,'item_unit_name'=>$value->item_unit_name,'demand_date'=>$value->demand_date,'image'=>$value->image,'quantity'=>$value->quantity,'specification'=>$value->specification,'remark'=>$value->remark]);
         }
-        return redirect()->back()->withmsg('Successfully Created');
+        return redirect()->route('production-purchase-requisition.index');
+        // return redirect('backend.production.general_purchase.production_purchase_requisition.index')->withmsg('Successfully Created');
+        // return view('backend.production.general_purchase.production_purchase_requisition.index');
     }
 
     /**
@@ -111,7 +113,7 @@ class ProductionPurchaseRequisitionController extends Controller
         // dd($id);
         $requisition=ProductionPurchaseRequisition::where('id',$id)->with('items','departments','users')->first();
         // dd($requisition->toArray());
-        return view('backend.production_purchase_requisition.purchase_requisition_print',compact('requisition'));
+        return view('backend.production.general_purchase.production_purchase_requisition.purchase_requisition_print',compact('requisition'));
     }
     public function destroy($id)
     {
@@ -139,7 +141,7 @@ class ProductionPurchaseRequisitionController extends Controller
     public function order(){
         $requisition=ProductionPurchaseRequisition::where('status','Confirm')->Orwhere('status','Purchased')->with('items','departments','users')->get();
         // dd($requisition->toArray());
-        return view('backend.production_purchase_requisition.order',compact('requisition'));
+        return view('backend.production.general_purchase.production_purchase_requisition.order',compact('requisition'));
     }
 
 }
