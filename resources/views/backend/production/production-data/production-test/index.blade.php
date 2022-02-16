@@ -40,7 +40,7 @@ Maintenance Records
                 </div>
                 <div class="portlet-body">
                     <div class="table-scrollable">
-                        <table class="table table-striped table-bordered table-hover">
+                        <table class="table table-bordered">
                             <thead>
                             <tr>
                                 <th>Serial</th>
@@ -64,7 +64,7 @@ Maintenance Records
                                         <td class="text-align: center;"> {{$data->frozen}}</td>
                                         <td class="text-align: center;"> {{$data->bayer}}</td>
                                         <td class="text-align: center;"> {{$data->manager}}</td>
-                                        <td class="text-align: center;"> {{$data->remark}}</td>
+                                        <td class="text-align: center;"> {!! $data->remark !!}</td>
                                         <td style="text-align: center">
                                             <a class="btn btn-info"  data-toggle="modal" href="#editModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
                                             <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
@@ -105,55 +105,60 @@ Maintenance Records
                                                     <form class="form-horizontal" role="form" method="post" action="{{route('production_test.update', $data->id)}}">
                                                         {{csrf_field()}}
                                                         {{method_field('put')}}
-                                                        <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-2 control-label">Date</label>
-                                                            <div class="col-md-8">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Date</label>
                                                                 <input type="text" class="form-control" value="{{$data->date}}" required name="date">
-                                                            </div><br><br>
+                                                            </div>
                                                         </div>
-                                                        
-                                                        <div class="form-group">
-                                                            <label class="col-md-2 control-label">Replacement Record</label>
-                                                            <div class="col-md-8">
+                                                        {{-- <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div class="col-md-8">
+                                                                </div>
+                                                            </div>
+                                                        </div> --}}
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <label class="col-md-4 control-label">Replacement Record</label>
                                                                 <input type="text" class="form-control" value="{{$data->replace_record}}" name="replace_record" >
-                                                            </div><br><br>
-                                                        </div><br>
-                                                        <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-2 control-label">Frozen or Opent</label>
-                                                            <div class="col-md-8">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Frozen or Opent</label>
                                                                 <input type="text" class="form-control" value="{{$data->frozen}}" name="frozen" >
                                                             </div>
-                                                        </div><br><br>
-                                                        <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-2 control-label">Bayer</label>
-                                                            <div class="col-md-8">
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Bayer</label>
                                                                 <input type="text" class="form-control" value="{{$data->bayer}}" name="bayer" >
                                                             </div>
-                                                        </div><br><br>
-                                                        <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-2 control-label">Manager</label>
-                                                            <div class="col-md-8">
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Manager</label>
                                                                 <input type="text" class="form-control" value="{{$data->manager}}" name="manager" >
                                                             </div>
-                                                        </div><br><br>
-                                                        <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
-                                                            <div class="col-md-8">
-                                                                <input type="text" class="form-control" value="{{$data->remark}}" required name="remark">
-                                                            </div><br><br>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label class="col-md-2 control-label">Description</label>
-                                                            <div class="col-md-8">
-                                                                <input class="form-control"  value="{{$data->description}}" name="description" >
-                                                            </div><br><br>
-                                                        </div><br><br>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
+                                                                <textarea type="text" class="form-control" value="{{$data->remark}}" required name="remark"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <label  for="inputEmail1" class="col-md-2 control-label">Description</label>
+                                                                <textarea type="text" class="form-control"  value="{{$data->description}}" name="description" ></textarea>
+                                                            </div>
+                                                        </div>
+                                                        
                                                         <div class="modal-footer">
                                                             <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                                             <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
                                                         </div>
                                                     </form>
-            
                                                 </div>
                                             </div>
                                         </div>
@@ -228,15 +233,15 @@ Maintenance Records
     </div>
 @endsection
 @section('script')
-<script src="https://cdn.tiny.cloud/1/i2a8bjsghb2egjws1cli2w9fcs5ke9j47f8jhfky1sq28f5q/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-<script>
+<script src="https://cdn.tiny.cloud/1/uzb665mrkwi59olq2qu3cwqqyebsil4hznmwc45qu4exf7lt/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>	
+<script type="text/javascript">
     $(function() {
         tinymce.init({
             selector: 'textarea',
-            init_instance_callback : function(editor) {
-                var freeTiny = document.querySelector('.tox .tox-notification--in');
-                freeTiny.style.display = 'none';
-            }
+            // init_instance_callback : function(editor) {
+            //     var freeTiny = document.querySelector('.tox .tox-notification--in');
+            //     freeTiny.style.display = 'none';
+            // }
         });
     });
     
