@@ -60,6 +60,7 @@ use App\Http\Controllers\SupplyItemController;
 use App\Http\Controllers\TempMonitoringController;
 use App\Http\Controllers\TempTherController;
 use App\Http\Controllers\TiffinBillController;
+use App\Http\Controllers\RoPlantController;
 use App\Models\ProductionRequisitionItem;
 use App\Models\TemperatureThermocouple;
 use App\Models\TempMonitoring;
@@ -433,6 +434,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     Route::resource('metal-detector', MetalDetectorCheckController::class);
 
+    //Ro Plant 
+    Route::resource('ro-plant',RoPlantController::class);
 
 
 
