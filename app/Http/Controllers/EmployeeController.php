@@ -81,9 +81,10 @@ class EmployeeController extends Controller
         $employee->ac_name = $request->ac_name;
         $employee->ac_num = $request->ac_num;
         $employee->bank_name = $request->bank_name;
-        //$employee->code = $request->code;
-        //$employee->pan_num = $request->pan_num;
         $employee->branch = $request->branch;
+         $employee->status = $request->status;
+        $employee->bill = $request->bill;
+        $employee->leave = $request->leave;
 
         //        image Upload
         if ($request->hasFile('image')) {

@@ -243,6 +243,40 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="portlet box dark">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-calendar"></i>Employment Description
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"> Status</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control" id="status" name="status">
+                                                <option value="Permanent">Permanent</option>
+                                                <option value="Probational">Probational</option>
+                                                <option value="Retired">Retired</option>
+                                                <option value="Terminated">Terminated</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Tiffin Bill</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="bill" placeholder="Tiffin Bill" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Alocated Leave</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="leave" placeholder="Alocated Leave" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="clearfix">

@@ -128,7 +128,7 @@
                                                 </td>
                                                 <td>{{$item->remark}}</td>
                                                 <td style="text-align: center">
-                                                    {{-- <a class="btn btn-info"  data-toggle="modal" href="#editModal{{$item->id}}"><i class="fa fa-edit"></i> Edit</a> --}}
+                                                    <a class="btn btn-info"  data-toggle="modal" href="#editModal{{$item->id}}"><i class="fa fa-edit"></i> Edit</a>
                                                     <a class="btn red" data-toggle="modal" href="#deleteModal{{$item->id}}"><i class="fa fa-trash"></i> Delete</a>
                                                 </td>
                                             </tr>
@@ -156,7 +156,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{-- <div id="editModal{{$item->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                            <div id="editModal{{$item->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -191,17 +191,18 @@
                                                                     </div><br><br>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="inputEmail1" class="col-md-2 control-label">Days</label>
+                                                                    <label for="inputEmail1" class="col-md-2 control-label">Item</label>
                                                                     <div class="col-md-9">
-                                                                        <input type="number" class="form-control" value="{{$item->days}}"  name="days">
+                                                                        <select class="form-control" id="item_id" name="item_id">
+                                                                            <option value="{{$item->item->item_id}}">{{$item->item->name}}</option>
+                                                                            @foreach($items as $data)
+                                                                                <option value="{{$data->id}}">{{$data->name}}</option>
+                                                                            @endforeach
+                                                                            {{csrf_field()}}
+                                                                        </select>
                                                                     </div><br><br>
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <label for="inputEmail1" class="col-md-2 control-label">Rate</label>
-                                                                    <div class="col-md-9">
-                                                                        <input type="number" class="form-control" value="{{$item->rate}}"  name="rate">
-                                                                    </div><br><br>
-                                                                </div>
+                                                                
                                                                 <div class="form-group">
                                                                     <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
                                                                     <div class="col-md-9">
@@ -216,7 +217,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div> --}}
+                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>

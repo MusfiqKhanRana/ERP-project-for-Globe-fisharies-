@@ -37,6 +37,9 @@ class CreateUsersTable extends Migration
             $table->string('bank_name')->nullable();
             //$table->string('code')->nullable();
             //$table->string('pan_num')->nullable();
+            $table->enum('status', ['Permanent', 'Probational','Retired', 'Terminated'])->default('Probational');
+            $table->integer('bill')->nullable();
+            $table->integer('leave')->nullable();
             $table->string('branch')->nullable();
             $table->string('resume')->nullable();
             $table->string('offer_letter')->nullable();

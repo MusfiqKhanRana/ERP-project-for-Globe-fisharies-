@@ -93,9 +93,17 @@ class ProductionUserPerformanceController extends Controller
      * @param  \App\Models\ProductionUserPerformance  $productionUserPerformance
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductionUserPerformance $productionUserPerformance)
+    public function update(Request $request, $id)
     {
-        //
+        ProductionUserPerformance::whereId($id)
+        ->update([
+            //$request->date=\Carbon\Carbon::parse($request->date)->format('Y-m-d'),
+            'date' => Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d'),
+            'user_id' => $request->user_id,
+            'item_id' => $request->item_id,
+            'remark' => $request->remark,
+        ]);
+        return redirect()->back()->withMsg("Successfully Updated");
     }
 
     /**

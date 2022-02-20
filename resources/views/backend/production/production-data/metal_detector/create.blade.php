@@ -50,8 +50,11 @@
                                 <div class="form-group">
                                     <label for="inputEmail1" class="col-md-2 control-label">Date</label>
                                     <div class="col-md-9">
-                                        <div class="input-group input-9 " data-date-format="dd/mm/yyyy" data-date-viewmode="years">
-                                            <input type="text" class="form-control" name="date" id="datepicker1" disabled>
+                                        <div class="input-group input-9 date date-picker" data-date-format="dd/mm/yyyy" data-date-viewmode="years">
+                                            <input type="text" class="form-control" name="date" id="datepicker1" readonly>
+                                            <span class="input-group-btn">
+                                                <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
