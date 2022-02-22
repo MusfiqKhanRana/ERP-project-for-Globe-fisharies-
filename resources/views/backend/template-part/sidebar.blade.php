@@ -554,6 +554,24 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class="nav-item @if( request()->path() == 'admin/ro-plant') active open @endif">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <span class="title">Ro Plant</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item @if( request()->path() == 'admin/ro-plant' ) active open @endif">
+                                        <a href="{{route('ro-plant.create')}}" class="nav-link ">
+                                            <span class="title">Create Report</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item @if( request()->path() == 'admin/production/metal-detector' ) active open @endif">
+                                        <a href="{{route('ro-plant.index')}}" class="nav-link ">
+                                            <span class="title">Report List</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/microbiological-test' ) active open @endif">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <span class="title">Microbiological Test Reports</span>
