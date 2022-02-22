@@ -23,7 +23,9 @@ class CreateUsersTable extends Migration
             $table->string('f_name')->nullable();
             $table->string('b_date')->nullable();
             $table->string('gender')->nullable();
+            $table->string('blood')->nullable();
             $table->string('phone')->nullable();
+            $table->string('e_mail')->nullable();
             $table->text('local_add')->nullable();
             $table->text('per_add')->nullable();
             $table->integer('employee_id')->unique();
@@ -39,7 +41,9 @@ class CreateUsersTable extends Migration
             //$table->string('pan_num')->nullable();
             $table->enum('status', ['Permanent', 'Probational','Retired', 'Terminated'])->default('Probational');
             $table->integer('bill')->nullable();
-            $table->integer('leave')->nullable();
+            $table->integer('c_leave')->nullable();
+            $table->integer('m_leave')->nullable();
+            $table->integer('s_leave')->nullable();
             $table->string('branch')->nullable();
             $table->string('resume')->nullable();
             $table->string('offer_letter')->nullable();

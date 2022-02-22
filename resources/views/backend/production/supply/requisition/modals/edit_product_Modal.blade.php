@@ -30,7 +30,7 @@
                                             <label for="">Item</label>
                                             <select class="form-control" value="{{$item->name}}" id="item">
                                                 @foreach ($data->production_supplier->supplier_items as $item)
-                                                    <option value="{{$item->id}}" data-grade_name="{{$item->grade->name}}" data-grade_id="{{$item->grade->id}}" data-item_name="{{$item->name}}">{{$item->name}}</option>
+                                                    <option value="{{$item->id}}" data-grade_name="{{$item->grade->name}}" data-grade_id="{{$item->grade->id}}" data-item_name="{{$item->name}}" selected>{{$item->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
