@@ -28,11 +28,11 @@ class PayrollController extends Controller
         $end = Carbon::parse($to_date);
         $jdata['length'] = $start->diffInDays($end);
         $attend = Attendance::whereBetween('date', [$form_date, $to_date])
-            ->where('employee_id', $employee_select)
+            ->where('user_id', $employee_select)
             ->get();
-        $jdata['count'] = Attendance::where('employee_id', $employee_select)->where('status', 1)->count();
-        $jdata['holiday'] = Attendance::where('employee_id', $employee_select)->where('status', 9)->count();
-        $jdata['late'] = Attendance::where('employee_id', $employee_select)->where('status', 0)->count();
+        $jdata['count'] = Attendance::where('user_id', $employee_select)->where('status', 1)->count();
+        $jdata['holiday'] = Attendance::where('user_id', $employee_select)->where('status', 9)->count();
+        $jdata['late'] = Attendance::where('user_id', $employee_select)->where('status', 0)->count();
         $salary= User::where('id', $employee_select)->first();
         $jdata['salary'] = $salary->salary;
         $jdata['sum-attend'] = $jdata['count'] + $jdata['holiday'] + $jdata['late'];
