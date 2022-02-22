@@ -15,6 +15,8 @@ class CreateRoPlantsTable extends Migration
     {
         Schema::create('ro_plants', function (Blueprint $table) {
             $table->id();
+            $table->dateTime('date')->nullable();
+            $table->string('shift')->nullable();
             $table->timestamps();
         });
     }
