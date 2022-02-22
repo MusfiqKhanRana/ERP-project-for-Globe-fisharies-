@@ -92,9 +92,31 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-3 control-label">Blood Group</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control" name="blood">
+                                                <option>--Select--</option>
+                                                <option value="a+">A +(ve)</option>
+                                                <option value="b+">B +(ve)</option>
+                                                <option value="ab+">AB +(ve)</option>
+                                                <option value="o+">O +(ve)</option>
+                                                <option value="o-">O -(ve)</option>
+                                                <option value="a-">A -(ve)</option>
+                                                <option value="b-">B -(ve)</option>
+                                                <option value="ab-">AB -(ve)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-md-3 control-label">Phone</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="phone" placeholder="Contact Number" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">E-mail</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="e_mail" placeholder="Enter your E-mail" value="">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -121,6 +143,85 @@
                                         <div class="col-md-9">
                                             <input type="hidden" name="oldpassword">
                                             <input type="password" name="password" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet box dark">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-calendar"></i>Salary Description
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="form-body">
+                                    {{-- <div class="form-group">
+                                        <label class="col-md-3 control-label">Basic</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="basic" placeholder="Basic" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Medical Allowance</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="m_allowance" placeholder="Medical Allowance" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">House Rent</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="h_rent" placeholder="House Rent" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">TA</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="ta" placeholder="TA" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">DA</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="da" placeholder="Da" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Total</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="total" readonly>
+                                        </div>
+                                    </div> --}}
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="product">Basic</label>
+                                                <input type="text" class="form-control" name="basic" id="basic" placeholder="Basic">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="product">Medical </label>
+                                                <input type="text" class="form-control" name="medical_allowance" id="medical_allowance" placeholder="Medical">
+                                            </div>
+                                        
+                                            <div class="col-md-4">
+                                                <label for="product">House Rent</label>
+                                                <input type="text" class="form-control" name="house_rent" id="house_rent" placeholder="House">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="product">TA</label>
+                                                <input type="text" class="form-control"  name="ta" id="ta" placeholder="TA Bill">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="product">DA</label>
+                                                <input type="text" class="form-control" name="da" id="da" placeholder="DA Bill">
+                                            </div>
+                                        </div><br>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                               <p id="total"> Total:</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -268,10 +369,39 @@
                                             <input type="text" class="form-control" name="bill" placeholder="Tiffin Bill" value="">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label class="col-md-3 control-label">Alocated Leave</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="leave" placeholder="Alocated Leave" value="">
+                                        </div>
+                                    </div> --}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet box dark">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-calendar"></i>Leave Description
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Casual Leave</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="c_leave" placeholder="Casual Leave" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Medical Leave</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="m_leave" placeholder="Medical Leave" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Special Leave</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="s_leave" placeholder="It will be decided by Authority" readonly>
                                         </div>
                                     </div>
                                 </div>

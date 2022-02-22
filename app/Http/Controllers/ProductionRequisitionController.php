@@ -148,7 +148,7 @@ class ProductionRequisitionController extends Controller
     }
     public function requisitionPrint($id){
         $data=ProductionRequisition::with(['supplier'=>function($q){
-            $q->with(['phone','name']);
+            $q->with(['phone','name']);      
         }
          ])->where('id',$id)->first();
      //    dd($data->toArray());

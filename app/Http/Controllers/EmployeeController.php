@@ -8,6 +8,7 @@ use App\Models\Designation;
 use App\Models\Employee;
 use App\Models\User;
 use App\Models\Timezone;
+use App\Models\UserSalary;
 use Faker\Provider\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -46,7 +47,8 @@ class EmployeeController extends Controller
             'f_name'=> 'max:191',
             'b_date'=> 'max:191',
             'gender'=> 'max:191',
-            'phone'=> 'max:12|min:10',
+            'phone'=> 'max:11|min:11',
+            'e_mail' => 'required|email',
             'local_add'=> 'required',
             'per_add' => 'required',
             'email'=> 'max:191',
@@ -67,6 +69,7 @@ class EmployeeController extends Controller
         $employee->f_name = $request->f_name;
         $employee->b_date = $request->b_date;
         $employee->gender = $request->gender;
+        $employee->blood = $request->blood;
         $employee->phone = $request->phone;
         $employee->local_add = $request->local_add;
         $employee->per_add = $request->per_add;
@@ -82,9 +85,11 @@ class EmployeeController extends Controller
         $employee->ac_num = $request->ac_num;
         $employee->bank_name = $request->bank_name;
         $employee->branch = $request->branch;
-         $employee->status = $request->status;
+        $employee->status = $request->status;
         $employee->bill = $request->bill;
-        $employee->leave = $request->leave;
+        $employee->c_leave = $request->c_leave;
+        $employee->m_leave = $request->m_leave;
+        $employee->s_leave = $request->s_leave;
 
         //        image Upload
         if ($request->hasFile('image')) {
@@ -131,6 +136,16 @@ class EmployeeController extends Controller
             $employee->proof = $filename;
         }
         $employee->save();
+
+        $user_salary = new UserSalary;
+        $user_salary->user_id = $employee->id;
+        $user_salary->basic = $request->basic;
+        $user_salary->medical_allowance = $request->medical_allowance;
+        $user_salary->house_rent = $request->house_rent;
+        $user_salary->ta = $request->ta;
+        $user_salary->da = $request->da;
+        $user_salary->save();
+
         return redirect('admin/employee')->withMsg('Employee Added Successfully');
 
     }
@@ -181,6 +196,7 @@ class EmployeeController extends Controller
         $employee->f_name = $request->input('f_name');
         $employee->b_date = $request->input('b_date');
         $employee->gender = $request->input('gender');
+        $employee->blood = $request->input('blood');
         $employee->phone = $request->input('phone');
         $employee->local_add = $request->input('local_add');
         $employee->per_add = $request->input('per_add');
