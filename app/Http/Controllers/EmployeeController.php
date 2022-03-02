@@ -23,6 +23,7 @@ class EmployeeController extends Controller
     {
         $employee = User::orderBy('id', 'DESC')->paginate(10);
         $time = Timezone::find(1);
+        // dd($employee->toArraya());
         return view('backend.employee.employee-list', compact('employee','time'));
     }
 
@@ -372,5 +373,20 @@ class EmployeeController extends Controller
 
         }
 
+    }
+    public function ajaxlist(Request $request){
+        // return $request->id;
+        if($request->id==1){
+            return User::where('status',"Probational")->orderBy('id', 'DESC')->get();
+        }
+        if($request->id==2){
+            return User::where('status',"Permanent")->orderBy('id', 'DESC')->get();
+        }
+        if($request->id==3){
+            return User::where('status',"Retired")->orderBy('id', 'DESC')->get();
+        }
+        if($request->id==4){
+            return User::where('status',"Terminated")->orderBy('id', 'DESC')->get();
+        }
     }
 }

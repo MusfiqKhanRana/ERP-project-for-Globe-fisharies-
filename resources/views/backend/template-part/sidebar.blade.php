@@ -139,6 +139,18 @@
                                 </a>
                             </li>
 
+                            <li class="nav-item  @if( request()->path() == 'admin/payroll/add-increment' ) active open @endif">
+                                <a href="{{route('payroll.add-increment')}}" class="nav-link ">
+                                    <span class="title">Add Increment</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item  @if( request()->path() == 'admin/payroll/advance-loan' ) active open @endif">
+                                <a href="{{route('payroll.advance-loan')}}" class="nav-link ">
+                                    <span class="title">Advance Loan</span>
+                                </a>
+                            </li>
+
                         </ul>
                     </li>
 

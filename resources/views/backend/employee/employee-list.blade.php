@@ -30,16 +30,18 @@
             <!-- BEGIN PAGE CONTENT-->
             <div class="row">
                 <div class="col-md-12">
-
                     <div class="portlet box dark">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-users"></i>Employees List
-                            </div>
+                        <div class="portlet-title" style="text-align: left;">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" id="Probational" href="#probational">Probational</a></li>
+                                <li><a data-toggle="tab" id="Permanent" href="#permanent">Permanent</a></li>
+                                <li><a data-toggle="tab" id="Retired" href="#retired">Retired</a></li>
+                                <li><a data-toggle="tab" id="Terminated" href="#terminated">Terminated</a></li>
+                            </ul>
 
                         </div>
-                        <div class="portlet-body">
-                            <table class="table table-striped table-bordered table-hover" id="sample_employees">
+                        <div class="portlet-body tab-pane" id="probational">
+                            <table class="table table-striped table-bordered table-hover yajra-datatable" id="mytable">
                                 <thead>
                                 <tr>
                                     <th class="text-center">
@@ -66,55 +68,6 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($employee as $data)
-                                <tr id="row">
-                                    <td>
-                                        {{$data->employee_id}}
-                                    </td>
-                                    <td class="text-center">
-                                        <img src="{{asset('assets/images/employee/images/'.$data->image)}}" height="80px" alt="ProfileImage">
-                                    </td>
-                                    <td>
-                                        {{$data->name}}
-                                    </td>
-                                    <td>
-                                        @php $dep = \App\Models\Department::where('id', $data->dept_id )->first() @endphp
-                                        @php $deg = \App\Models\Designation::where('id', $data->deg_id )->first() @endphp
-                                        @php
-                                            if ($dep == ''){
-
-                                            }elseif($deg == ''){
-
-                                            }else{
-                                                $dep = \App\Models\Department::where('id', $data->dept_id )->first();
-                                                 $deg = \App\Models\Designation::where('id', $data->deg_id )->first();
-                                            }
-                                        @endphp
-
-                                        @if($dep == '')
-                                            <p>Department: <strong>None</strong></p>
-                                            <p>Designation: <strong>None</strong></p>
-                                        @elseif($deg == '')
-                                            <p>Department: <strong>None</strong></p>
-                                            <p>Designation: <strong>None</strong></p>
-                                        @else
-                                            <p>Department: <strong>{{$dep->name}}</strong></p>
-                                            <p>Designation: <strong>{{$deg->deg_name}}</strong></p>
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        {{$data->date}}
-                                    </td>
-                                    <td>
-                                        {{$data->phone}}
-                                    </td>
-
-                                    <td class="">
-                                        <p> <a class="btn bg-dark bg-font-dark" href="{{route('employee.edit', $data->id)}}"><i class="fa fa-edit"></i> View/Edit</a></p>
-                                        <p> <a class="btn red" style="width: 105px;" href="{{route('employee.delete', $data->id)}}"><i class="fa fa-trash"></i> Delete</a></p>
-                                    </td>
-                                </tr>
-                                @endforeach
                                 </tbody>
                             </table>
                             <div class="row">
@@ -131,4 +84,96 @@
 
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        var id =0;
+            $(document).ready(function(){
+                id = 1;
+                $.ajax({
+                    type:"POST",
+                        url:"{{route('employee.ajaxlist')}}",
+                        data:{
+                            'id' : id,
+                            '_token' : $('input[name=_token]').val(),
+                            page :1,
+                            pageLimit : 
+                        },
+                    success:function(data){
+                        employee = null;
+                        console.log(data);
+                        $.each( data, function( key, employee ) {
+                            console.log(employee);
+                            var img1 = '<a href="#"><img src="' + employee.image + '"/></a>';
+                            $("table#mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img1+"</td><td>"+employee.name+"</td><td>"+employee.dept_id+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                        });
+                    }
+                })
+            });
+            $(document).on('click',"#Permanent",function(){
+                $("table#mytable tbody").empty();
+                id = 2;
+                $.ajax({
+                    type:"POST",
+                        url:"{{route('employee.ajaxlist')}}",
+                        data:{
+                            'id' : id,
+                            '_token' : $('input[name=_token]').val(),
+                            page :1,
+                            pageLimit : 1
+                        },
+                    success:function(data){
+                        employee = null;
+                        console.log(data);
+                        $.each( data, function( key, employee ) {
+                            console.log(employee);
+                            var img1 = '<a href="#"><img src="' + employee.image + '"/></a>';
+                            $("table#mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img1+"</td><td>"+employee.name+"</td><td>"+employee.dept_id+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                        });
+                    }
+                })
+            });
+            $(document).on('click',"#Retired",function(){
+                $("table#mytable tbody").empty();
+                id = 3;
+                $.ajax({
+                    type:"POST",
+                        url:"{{route('employee.ajaxlist')}}",
+                        data:{
+                            'id' : id,
+                            '_token' : $('input[name=_token]').val()
+                        },
+                    success:function(data){
+                        employee = null;
+                        console.log(data);
+                        $.each( data, function( key, employee ) {
+                            console.log(employee);
+                            var img1 = '<a href="#"><img src="' + employee.image + '"/></a>';
+                            $("table#mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img1+"</td><td>"+employee.name+"</td><td>"+employee.dept_id+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                        });
+                    }
+                })
+            });
+            $(document).on('click',"#Terminated",function(){
+                $("table#mytable tbody").empty();
+                id = 4;
+                $.ajax({
+                    type:"POST",
+                        url:"{{route('employee.ajaxlist')}}",
+                        data:{
+                            'id' : id,
+                            '_token' : $('input[name=_token]').val()
+                        },
+                    success:function(data){
+                        employee = null;
+                        console.log(data);
+                        $.each( data, function( key, employee ) {
+                            console.log(employee);
+                            var img1 = '<a href="#"><img src="' + employee.image + '"/></a>';
+                            $("table#mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img1+"</td><td>"+employee.name+"</td><td>"+employee.dept_id+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                        });
+                    }
+                })
+            });
+    </script>
 @endsection

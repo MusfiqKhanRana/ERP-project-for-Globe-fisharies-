@@ -96,6 +96,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::put('/department/update/{id}', [DepartmentController::class,'update'])->name('department.update');
     Route::get('department-delete', [DepartmentController::class,'deleteDeign'])->name('dep-delete');
 
+    Route::post('/employee/ajaxlist',[EmployeeController::class,'ajaxlist'] )->name('employee.ajaxlist');
     Route::get('/employee',[EmployeeController::class,'index'] )->name('employee.list');
     Route::get('/employee/add-employee',[EmployeeController::class,'create'])->name('employee.add');
     Route::get('/employee/edit-employee/{id}',[EmployeeController::class,'edit'] )->name('employee.edit');
@@ -113,6 +114,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('individual-attendance', [AttendanceController::class,'individualIndex'])->name('employee.individual');
     Route::post('individual-attendance-search', [AttendanceController::class,'individualAttend'])->name('attend.search');
 
+    Route::get('payroll/advance-loan',[PayrollController::class,'advance_loan'])->name('payroll.advance-loan');
+    Route::get('payroll/add-increment',[PayrollController::class,'addIncrement'])->name('payroll.add-increment');
     Route::get('payroll', [PayrollController::class,'index'])->name('payroll.index');
     Route::post('payroll-count', [PayrollController::class,'count'])->name('payroll.count');
     Route::get('payroll/chart', [PayrollController::class,'show'])->name('payroll.chart');
