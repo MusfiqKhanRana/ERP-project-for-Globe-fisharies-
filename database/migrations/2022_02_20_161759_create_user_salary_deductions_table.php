@@ -15,12 +15,11 @@ class CreateUserSalaryDeductionsTable extends Migration
     {
         Schema::create('user_salary_deductions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('department_id')->nullable();
-            $table->unsignedInteger('designation_id')->nullable();
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('amount')->nullable();
             $table->date('deduction_date')->nullable();
             $table->date('taken_date')->nullable();
+            $table->text('attachment')->nullable();
             $table->timestamps();
         });
     }

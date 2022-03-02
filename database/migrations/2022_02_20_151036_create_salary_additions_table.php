@@ -15,9 +15,10 @@ class CreateSalaryAdditionsTable extends Migration
     {
         Schema::create('salary_additions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_salary_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('amount')->nullable();
             $table->unsignedInteger('type')->nullable();
+            $table->string('applied_date')->nullable();
             $table->timestamps();
         });
     }
