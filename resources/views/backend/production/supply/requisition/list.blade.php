@@ -124,7 +124,7 @@
                                                 </td>
                                                 <td style="text-align: center">
                                                     @if (request()->status=="Pending")
-                                                        <a class="btn blue"  data-toggle="modal" href="#edit_partyModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
+                                                        {{-- <a class="btn blue"  data-toggle="modal" href="#edit_partyModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a> --}}
                                                         <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
                                                         <a class="btn green" data-toggle="modal" href="#confirmModal{{$data->id}}"><i class="fa fa-check"></i>Confirm</a>
                                                     @elseif(request()->status=="Confirm")
@@ -243,39 +243,77 @@
     <script>
         jQuery(document).ready(function() {
            
-            var item_id,item_name,item_grade_id,item_grade_name,item_unit_price,total_price,quantity = null;
-            var product_array = [];
-            $('#quantity').keyup(function(){
-                quantity = $(this).val();
-                $("#amount").val(quantity * item_unit_price);
-                total_price = quantity * item_unit_price;
-            })
-            $('#item').change(function(){
+            var item_id,item_name,item_grade_id,item_grade_name,item_unit_price,total_price = null;
+            // var product_array = [];
+            // $('#product').change(function(){
+            //     product_id = $(this).val();
+            //     product_name = $(this).find(':selected').data("name");
+            //     product_pack_id = $(this).find(':selected').data("pack_id");
+            //     product_pack_name = $(this).find(':selected').data("pack_name");
+            //     product_pack_weight = $(this).find(':selected').data("pack_weight");
+            //     product_online_rate = $(this).find(':selected').data("online_selling_price");
+            //     product_inhouse_rate = $(this).find(':selected').data("inhouse_selling_price");
+            //     $('#pack_size').val(product_pack_name);
+            //     $("#rate").empty();
+            //     var customer_type = $('#customer_type').html();
+            //     var selling_price = null;
+            //     if(customer_type=="inhouse"){
+            //         selling_price = product_inhouse_rate;
+            //     }
+            //     else if(customer_type == "online"){
+            //         selling_price = product_online_rate;
+            //     }
+            //     $("#rate").val(selling_price);
+            //     // console.log(product_online_rate,product_inhouse_rate,product_id,product_name,product_pack_id,product_pack_name,product_pack_weight);
+            // })
+            // $('#quantity').keyup(function(){
+            //     packet_quantity = $(this).val();
+            //     $("#amount").val(packet_quantity * item_unit_price);
+            //     total_price = packet_quantity * item_unit_price;
+            // })
+            $('.item').change(function(){
                 item_id = $(this).val();
-                item_name = $(this).find(':selected').data("name");
-                item_grade_id = $(this).find(':selected').data("grade_id");
-                item_unit_price = $(this).find(':selected').data("unit_price");
+                console.log($(this).val());
+                // item_name = $(this).find(':selected').data("name");
+                // item_grade_id = $(this).find(':selected').data("grade_id");
+                // item_unit_price = $(this).find(':selected').data("unit_price");
                 $.ajax({
                     type:"get",
-                    url:"/admin/production-requisition-item/"+item_grade_id,
+                    url:"/admin/production-requisition-item/"+item_id,
                     success:function(data){
+                        console.log(data);
                         $("#grade").val(data.name);
                     }
                 });
                 $("#unit_price").val(item_unit_price);
             })
-            $(document).on('keyup','#percentage_id',function() {
-                let main_price = total_price - (total_price*$(this).val())/100;
-                $('#price').val(main_price);
-                discount_in_percentage = $(this).val()
             });
-            $(document).on('keyup','#amount_id',function() {
-                let main_price = total_price - ($(this).val());
-                discount_in_amount = $(this).val();
-                $('#price').val(main_price);
-            });
-                nullmaking();
-            });
+            // $("#addbtn").click(function() {
+            //     product_array.push({"item_id":item_id,"item_name":item_name,"item_grade_id":item_grade_id,"item_grade_name":$('#grade').val(),"quantity":$('#quantity').val(),"rate":item_unit_price,'total_price':$('#amount').val(),"status":"stay"})
+            //     $("#products").val('');
+            //     $("#products").val(JSON.stringify(product_array));
+            //     $.each( product_array, function( key, product ) {
+            //         if (product.status == "stay") {
+            //             if(product_array.length-1 == key){
+            //                 $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+product.item_name+"</td><td>"+product.item_grade_name+"</td><td>"+product.quantity+"</td><td>"+product.rate+"</td><td>"+product.total_price+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+            //             }
+            //         }
+            //     });
+            //     $("#intotal_amount").html("")
+            //     $("#intotal_amount").html(total())
+            //     $("#grand_total").val(total())
+            //     $(".delete").click(function(){
+            //         product_array[$(this).data("id")].status="delete";
+            //         // console.log(product_array,$(this).data("id"));
+            //         $("#products").val('');
+            //         $("#products").val(JSON.stringify(product_array));
+            //         $("#intotal_amount").html("")
+            //         $("#intotal_amount").html(total())
+            //         $("#grand_total").val(total())
+            //         $("#"+$(this).data("id")).remove();
+            //     });
+            //     nullmaking();
+            // });
             function total() {
                 var inTotal = 0;
                 $.each( product_array, function( key, product ) {
@@ -286,7 +324,58 @@
                 });
                 return inTotal;
             }
-            
+            $("#supplier_id").change(function() {
+                // console.log($(this).val());
+                $.ajax({
+                    type:"get",
+                    url:"/admin/get-supplier/"+$(this).val(),
+                    success:function(data){
+                        $("#supplier_info").empty();
+                        var $results = $('#supplier_info');
+                        var $userDiv = $results.append('<div class="user-div"></div>')
+                        $( '<div class="row">'+
+                            '<div class="col-md-3 text-center"><span> <b>Supplier Name: </b>'+data.name+'</span></div>'
+                            +'<div class="col-md-3 text-center"><span> <b>Supplier Address: </b>'+data.address+'</span></div>'
+                            +'<div class="col-md-3 text-center"><span> <b>Supplier Phone: </b>'+data.phone+'</span></div>'
+                            +'<div class="col-md-3 text-center"><span> <b>Supplier Email: </b><span id="customer_type">'+data.email+'</span></span></div>'
+                        +'</div>').appendTo( ".user-div" );
+                    }
+                });
+                $.ajax({
+                    type:"get",
+                    url:"/admin/get-supplier-items/"+$(this).val(),
+                    success:function(data){
+                        console.log(data);
+                        $("#item").html("");
+                        let option="<option value=''>Select</option>";
+                        $.each( data, function( key, data ) {
+                            option+='<option data-name="'+data.name+'" data-unit_price="'+data.pivot.rate+'" data-grade_id="'+data.grade_id+'" value="'+data.id+'">'+data.name+'</option>';
+                        });
+                        $('#item').append(option);
+                    }
+                });
+            });
+        });
+
+        $('.select2Ajax').select2({
+            placeholder: 'Select an item',
+            ajax: {
+                url: "{{route('production-supplier.all')}}",
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    return {
+                        results:  $.map(data, function (item) {
+                            return {
+                                text: item.name + " | "+item.email+" | "+item.phone,
+                                title:item.phone,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
         });
     </script>
 @endsection
