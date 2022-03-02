@@ -154,14 +154,15 @@ class ProductionRequisitionController extends Controller
      //    dd($data->toArray());
         return view('backend.production.supply.requisition.print_requisition',compact('data'));
      }
-    //  public function getRequisitionItems($id)
-    //  {
-    //      $items = ProductionRequisitionItem::with(['requisition_items'])->where('id',$id)->first();
-    //      return $items->requisition_items;
-    //  }
-    //  public function getRequisitionItemsGrade($id)
-    //  {
-    //      $grades = FishGrade::find($id);
-    //      return $grades;
-    //  }
+     public function getRequisitionItems($id)
+     {
+         return $id;
+         $items = ProductionRequisitionItem::with(['requisition_items'])->where('id',$id)->first();
+         return $items->requisition_items;
+     }
+     public function getRequisitionItemsGrade($id)
+     {
+         $grades = FishGrade::find($id);
+         return $grades;
+     }
 }

@@ -30,6 +30,7 @@ use App\Http\Controllers\OfficeDetailController;
 use App\Http\Controllers\FoodMillController;
 use App\Http\Controllers\CateringController;
 use App\Http\Controllers\ColdstorageController;
+use App\Http\Controllers\EmployeeAttendanceController;
 use App\Http\Controllers\FishGradeController;
 use App\Http\Controllers\MedicalReportController;
 use App\Http\Controllers\MetalDetectorCheckController;
@@ -61,6 +62,7 @@ use App\Http\Controllers\TempMonitoringController;
 use App\Http\Controllers\TempTherController;
 use App\Http\Controllers\TiffinBillController;
 use App\Http\Controllers\RoPlantController;
+use App\Models\ProductionRequisition;
 use App\Models\ProductionRequisitionItem;
 use App\Models\TemperatureThermocouple;
 use App\Models\TempMonitoring;
@@ -436,6 +438,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //Ro Plant 
     Route::resource('ro-plant',RoPlantController::class);
+
+    //Employee Attendance
+
+    Route::resource('employee-attendance',EmployeeAttendanceController::class);
+
+    Route::post('production-requisition-item/{id}',[ProductionRequisitionController::class,'getRequisitionItems'])->name('production.requisition.item');
 
 
 

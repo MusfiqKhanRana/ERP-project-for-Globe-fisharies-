@@ -28,7 +28,8 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <label for="">Item</label>
-                                            <select class="form-control" value="{{$item->name}}" id="item">
+                                            <select class="form-control" >
+                                                <option value=" ">{{$item->name}}</option>
                                                 @foreach ($data->production_supplier->supplier_items as $item)
                                                     <option value="{{$item->id}}" data-grade_name="{{$item->grade->name}}" data-grade_id="{{$item->grade->id}}" data-item_name="{{$item->name}}" selected>{{$item->name}}</option>
                                                 @endforeach
@@ -36,70 +37,25 @@
                                         </div>
                                         <div class="col-md-2">
                                             <label for="product">Grade</label>
-                                            <input type="text" class="form-control" value="{{$item->grade->name}}" id="grade" readonly>
+                                            <input type="text" class="form-control grade" value="{{$item->grade->name}}"  name="grade" readonly>
                                         </div>
                                         <div class="col-md-2">
                                             <label for="product">Unit Price</label>
-                                            <input type="text" class="form-control" value="{{$item->pivot->rate}}" id="suppliers_rate"  name="rate" readonly>
+                                            <input type="text" class="form-control rate" value="{{$item->pivot->rate}}"  name="rate" readonly>
                                         </div>
                                         <div class="col-md-2">
-                                            <label for="product">Quantity</label>
-                                            <input type="text" class="form-control" value="{{$item->pivot->quantity}}" id="quantity">
+                                            <label for="quantity">Quantity</label>
+                                            <input type="text" class="form-control quantity" value="{{$item->pivot->quantity}}"  name="quantity">
                                         </div>
                                         <div class="col-md-2">
                                             <label for="product">Amount</label>
-                                            <input type="text" class="form-control" id="amount" value="{{$item->pivot->quantity*$item->pivot->rate}}" readonly>     
+                                            <input type="text" class="form-control amount"  name="amount" value="{{$item->pivot->rate*$item->pivot->quantity}}" readonly>     
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div><br>
-                    {{-- <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="inputEmail1" class="col-md-2 control-label">Select Item</label>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="production_requisition_id">
-                                <input type="hidden" value="{{$item->pivot->id}}">
-                            </div>
-                        </div>
-                    </div><br><br><br>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="inputEmail1" class="col-md-2 control-label">Grade Name</label>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="supply_item_id">
-                                <input type="hidden" value="{{$item->pivot->id}}">
-                            </div>
-                        </div>
-                    </div><br><br><br>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="inputEmail1" class="col-md-2 control-label">Quantity</label>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="quantity">
-                                <input type="hidden" value="{{$item->pivot->id}}">
-                            </div>
-                        </div>
-                    </div><br><br><br>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="inputEmail1" class="col-md-2 control-label">Rate</label>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="rate">
-                                <input type="hidden" value="{{$item->pivot->id}}">
-                            </div>
-                        </div>
-                    </div><br><br><br>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="inputEmail1" class="col-md-2 control-label">Total</label>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" value="{{$item->pivot->price}}" required name="total">
-                                <input type="hidden" value="{{$item->pivot->id}}">
-                            </div>
-                        </div>
-                    </div><br><br><br> --}}
                     <div class="modal-footer">
                         <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                         <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>

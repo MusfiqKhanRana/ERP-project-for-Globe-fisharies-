@@ -29,7 +29,7 @@
             <div class="menu-toggler sidebar-toggler"></div>
         </div>
         <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
-
+        
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
 

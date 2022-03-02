@@ -76,13 +76,6 @@
                                     <span class="title">Employee List</span>
                                 </a>
                             </li>
-
-                            <li class="nav-item  @if( request()->path() == 'admin/employee/attendance' ) active open @endif">
-                                <a href="{{route('employee.attend')}}" class="nav-link ">
-                                    <span class="title">Attendance Management</span>
-                                </a>
-                            </li>
-
                             <li class="nav-item  @if( request()->path() == 'admin/individual-attendance' ) active open @endif
                             @if( request()->path() == 'individual-attendance' ) active open @endif">
                                 <a href="{{route('employee.individual')}}" class="nav-link">
@@ -97,7 +90,34 @@
                                 </li>
                         </ul>
                     </li>
-
+                    <li class="nav-item start @php echo "active",(request()->path() != 'admin/payroll')?:"";@endphp
+                        @php echo "active",(request()->path() != 'admin/payroll/chart')?:"";@endphp
+                        @php echo "active",(request()->path() != 'admin/payroll/salary/sheet')?:"";@endphp">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                <span class="title">Attendance </span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item  @if( request()->path() == 'admin/payroll' ) active open @endif">
+                                    <a href="{{route('employee-attendance.index')}}" class="nav-link ">
+                                        <span class="title">My Attendance</span>
+                                    </a>
+                                </li>
+    
+                                <li class="nav-item  @if( request()->path() == 'admin/payroll/chart' ) active open @endif">
+                                    <a href="{{route('employee-attendance.create')}}" class="nav-link ">
+                                        <span class="title">Attendance List</span>
+                                    </a>
+                                </li>
+    
+                            </ul>
+                        </li>
+                    {{-- <li class="nav-item  @if( request()->path() == 'admin/employee/attendance' ) active open @endif">
+                        <a href="{{route('employee.attend')}}" class="nav-link ">
+                            <span class="title">Attendance Management</span>
+                        </a>
+                    </li> --}}
                     <li class="nav-item start @php echo "active",(request()->path() != 'admin/payroll')?:"";@endphp
                     @php echo "active",(request()->path() != 'admin/payroll/chart')?:"";@endphp
                     @php echo "active",(request()->path() != 'admin/payroll/salary/sheet')?:"";@endphp">
