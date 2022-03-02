@@ -172,6 +172,13 @@ class PayrollController extends Controller
         $payment->save();
         return back()->withMsg("Payment Successful");
     }
-
+    public function addIncrement(){
+        $employee = User::all();
+        return view('backend.payroll.add_increment',compact('employee'));
+    }
+    public function advance_loan(){
+        $employee = User::all();
+        return view('backend.payroll.advance_loan',compact('employee'));
+    }
 
 }
