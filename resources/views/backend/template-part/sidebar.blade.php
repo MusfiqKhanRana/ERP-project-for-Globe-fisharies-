@@ -698,6 +698,20 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="fa fa-user"></i>
+                            <span class="title">Processing Unit</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item">
+                                <a href="{{route('production.processing.iqf')}}" class="nav-link ">
+                                    <span class="title">IQF</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
             
