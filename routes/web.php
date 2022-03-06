@@ -448,6 +448,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     Route::post('production-requisition-item/{id}',[ProductionRequisitionController::class,'getRequisitionItems'])->name('production.requisition.item');
 
+    //Processing Unit
+    Route::get('production/processing-unit/IQF', function () {
+        return view('backend.production.processig.iqf.index');
+    })->name('production.processing.iqf');
+
 
 
 });
