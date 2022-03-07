@@ -49,10 +49,10 @@
                                 @include('backend.fish_grade.index')
                             </div>
                             <div class="col-md-6">
-                                @include('backend.prodution_purchase_type.index')
+                                @include('backend.production.general_purchase.prodution_purchase_type.index')
                             </div>
                             <div class="col-md-6">
-                                @include('backend.prodution_purchase_unit.index')
+                                @include('backend.production.general_purchase.prodution_purchase_unit.index')
                             </div>
                         </div>
                     </div>

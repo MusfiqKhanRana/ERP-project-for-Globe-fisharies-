@@ -737,6 +737,11 @@
                                     <span class="title">Block Frozen</span>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{route('production.processing.raw_bf_shrimp')}}" class="nav-link ">
+                                    <span class="title">RAW BF(Shrimp)</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
