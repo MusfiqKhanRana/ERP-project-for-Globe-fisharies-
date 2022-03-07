@@ -457,4 +457,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
         return view('backend.production.processing.block_frozen.index');
     })->name('production.processing.block_frozen');
 
+    Route::get('production/processing-unit/raw_bf_shrimp', function () {
+        return view('backend.production.processing.raw_bf_shrimp.index');
+    })->name('production.processing.raw_bf_shrimp');
 });

@@ -31,14 +31,11 @@
                 <div class="col-md-12">
                     <div class="portlet-body" style="height: auto;">
                         <ul class="nav nav-pills nav-stacked col-md-2">
-                            <li style="margin-bottom:5px;" class="active"><a href="#fillet" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Fillet</b></a></li>
-                            <li style="margin-bottom:5px;"><a href="#whole" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Whole</b></a></li>
-                            <li style="margin-bottom:5px;"><a href="#whole_gutted" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Whole Gutted</b></a></li>
-                            <li style="margin-bottom:5px;"><a href="#cleaned" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Cleaned</b></a></li>
-                            <li style="margin-bottom:5px;"><a href="#sliced_fmly" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Sliced(Family Cut)</b></a></li>
-                            <li style="margin-bottom:5px;"><a href="#sliced_chinese" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Sliced(Chinese Cut)</b></a></li>
-                            <li style="margin-bottom:5px;"><a href="#butter_fly" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Butter Fly</b></a></li>
-                            <li style="margin-bottom:5px;"><a href="#hgto" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>HGTO</b></a></li>
+                            <li style="margin-bottom:5px;" class="active"><a href="#hlso" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>HLSO</b></a></li>
+                            <li style="margin-bottom:5px;"><a href="#pud" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>PUD</b></a></li>
+                            <li style="margin-bottom:5px;"><a href="#p_n_d" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>P & D</b></a></li>
+                            <li style="margin-bottom:5px;"><a href="#cleaned" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>PDTO</b></a></li>
+                            <li style="margin-bottom:5px;"><a href="#sliced_fmly" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>PTO</b></a></li>
                         </ul>
                         <div class="tab-content col-md-10 portlet-body">
                                 @include('backend.production.processing.iqf.fillet.index')
@@ -63,6 +60,3 @@
     
   </script>
 @endsection
-
-
-
