@@ -453,8 +453,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
         return view('backend.production.processing.iqf.index');
     })->name('production.processing.iqf');
 
-    Route::get('production/processing-unit/BlockFrozen', function () {
+    Route::get('production/processing-unit/block-frozen', function () {
         return view('backend.production.processing.block_frozen.index');
-    })->name('production.processing.blockfrozen');
+    })->name('production.processing.block_frozen');
 
 });
