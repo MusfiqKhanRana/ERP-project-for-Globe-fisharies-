@@ -701,6 +701,28 @@
                     <li class="nav-item">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
+                            <span class="title">Unload Unit</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item">
+                                {{-- <a href="{{route('production.processing.iqf')}}" class="nav-link ">
+                                    <span class="title">IQF</span>
+                                </a> --}}
+                                <a href="#" class="nav-link ">
+                                    <span class="title">Gate Man</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('production-unload-index')}}" class="nav-link ">
+                                    <span class="title">Raw Item Unload</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="fa fa-user"></i>
                             <span class="title">Processing Unit</span>
                             <span class="arrow"></span>
                         </a>
