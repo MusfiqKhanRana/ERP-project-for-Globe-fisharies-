@@ -711,7 +711,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('production.processing.blockfrozen')}}" class="nav-link ">
+                                <a href="{{route('production.processing.block_frozen')}}" class="nav-link ">
                                     <span class="title">Block Frozen</span>
                                 </a>
                             </li>
