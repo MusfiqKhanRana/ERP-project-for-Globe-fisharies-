@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="portlet-body" style="height: auto;">
-                        <ul class="nav nav-pills nav-stacked col-md-2">
+                        {{-- <ul class="nav nav-pills nav-stacked col-md-2">
                             <li style="margin-bottom:5px;" class="active"><a href="#hlso" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>HLSO</b></a></li>
                             <li style="margin-bottom:5px;"><a href="#pud" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>PUD</b></a></li>
                             <li style="margin-bottom:5px;"><a href="#tailon" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>P & D Tail Off</b></a></li>
@@ -49,7 +49,243 @@
                                 @include('backend.production.processing.raw_iqf_shrimp.hlso_easy_peel.index')
                                 @include('backend.production.processing.raw_iqf_shrimp.butterfly_pud_skewer.index')
                                 @include('backend.production.processing.raw_iqf_shrimp.pdu_pull_vein.index')
-                        </div><!-- tab content -->
+                        </div> --}}
+                        <ul class="nav nav-pills nav-stacked col-md-2">
+                            <li style="margin-bottom:5px;" class="active"><a href="#hlso" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">HLSO</a></li>
+                            <li style="margin-bottom:5px;" ><a href="#pud" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">PUD</a></li>
+                            <li style="margin-bottom:5px;"><a href="#pd_tail_on" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">P&D Tail on</a></li>
+                            <li style="margin-bottom:5px;"><a href="#pd_tail_off" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">P&D Tail Off</a></li>
+                        </ul>
+                        <div class="tab-content col-md-10">
+                            <div class="tab-pane active" id="hlso">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-header">
+                                                <h2 style="margin-left: 2%">HLSO</h2> 
+                                            </div>
+                                            <div class="panel-body">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Invoice No.
+                                                            </th>
+                                                            <th>
+                                                                Item Name
+                                                            </th>
+                                                            <th>
+                                                                Grade
+                                                            </th>
+                                                            <th>
+                                                                Quantity
+                                                            </th>
+                                                            <th style="text-align: center">
+                                                                Action
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                1001
+                                                            </td>
+                                                            <td>
+                                                                Rui
+                                                            </td>
+                                                            <td>
+                                                                300-500gm
+                                                            </td>
+                                                            <td>
+                                                                60kg
+                                                            </td>
+                                                            <td>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#processData" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Process Data</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#grade" class="btn btn-success"><i class="fa fa-bar-chart" aria-hidden="true"></i> Grading</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#soaking" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i>Soaking</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#glazing" class="btn btn-warning"><i class="fa fa-refresh" aria-hidden="true"></i> Glazing</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#WastageReturn" class="btn btn-danger"><i class="fa fa-refresh" aria-hidden="true"></i> Wastage/Return</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="pud">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-header">
+                                                <h2 style="margin-left: 2%">PUD</h2> 
+                                            </div>
+                                            <div class="panel-body">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Invoice No.
+                                                            </th>
+                                                            <th>
+                                                                Item Name
+                                                            </th>
+                                                            <th>
+                                                                Grade
+                                                            </th>
+                                                            <th>
+                                                                Quantity
+                                                            </th>
+                                                            <th style="text-align: center">
+                                                                Action
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                1001
+                                                            </td>
+                                                            <td>
+                                                                Rui
+                                                            </td>
+                                                            <td>
+                                                                300-500gm
+                                                            </td>
+                                                            <td>
+                                                                60kg
+                                                            </td>
+                                                            <td>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#processData" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Process Data</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#grade" class="btn btn-success"><i class="fa fa-bar-chart" aria-hidden="true"></i> Grading</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#soaking" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i>Soaking</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#glazing" class="btn btn-warning"><i class="fa fa-refresh" aria-hidden="true"></i> Glazing</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#WastageReturn" class="btn btn-danger"><i class="fa fa-refresh" aria-hidden="true"></i> Wastage/Return</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="pd_tail_on">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-header">
+                                                <h2 style="margin-left: 2%">P&D Tail On</h2> 
+                                            </div>
+                                            <div class="panel-body">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Invoice No.
+                                                            </th>
+                                                            <th>
+                                                                Item Name
+                                                            </th>
+                                                            <th>
+                                                                Grade
+                                                            </th>
+                                                            <th>
+                                                                Quantity
+                                                            </th>
+                                                            <th style="text-align: center">
+                                                                Action
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                1001
+                                                            </td>
+                                                            <td>
+                                                                Rui
+                                                            </td>
+                                                            <td>
+                                                                300-500gm
+                                                            </td>
+                                                            <td>
+                                                                60kg
+                                                            </td>
+                                                            <td>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#processData" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Process Data</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#grade" class="btn btn-success"><i class="fa fa-bar-chart" aria-hidden="true"></i> Grading</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#soaking" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i>Soaking</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#glazing" class="btn btn-warning"><i class="fa fa-refresh" aria-hidden="true"></i> Glazing</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#WastageReturn" class="btn btn-danger"><i class="fa fa-refresh" aria-hidden="true"></i> Wastage/Return</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="pd_tail_off">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-header">
+                                                <h2 style="margin-left: 2%">P&D Tail Off</h2> 
+                                            </div>
+                                            <div class="panel-body">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Invoice No.
+                                                            </th>
+                                                            <th>
+                                                                Item Name
+                                                            </th>
+                                                            <th>
+                                                                Grade
+                                                            </th>
+                                                            <th>
+                                                                Quantity
+                                                            </th>
+                                                            <th style="text-align: center">
+                                                                Action
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                1001
+                                                            </td>
+                                                            <td>
+                                                                Rui
+                                                            </td>
+                                                            <td>
+                                                                300-500gm
+                                                            </td>
+                                                            <td>
+                                                                60kg
+                                                            </td>
+                                                            <td>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#processData" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Process Data</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#grade" class="btn btn-success"><i class="fa fa-bar-chart" aria-hidden="true"></i> Grading</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#soaking" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i>Soaking</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#glazing" class="btn btn-warning"><i class="fa fa-refresh" aria-hidden="true"></i> Glazing</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#WastageReturn" class="btn btn-danger"><i class="fa fa-refresh" aria-hidden="true"></i> Wastage/Return</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
