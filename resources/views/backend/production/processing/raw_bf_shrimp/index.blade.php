@@ -1,7 +1,7 @@
 
 @extends('backend.master')
 @section('site-title')
-    Medicine Report
+    RAW BF Shrimp
 @endsection
 
 @section('main-content')
@@ -34,18 +34,15 @@
                             <li style="margin-bottom:5px;" class="active"><a href="#hlso" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>HLSO</b></a></li>
                             <li style="margin-bottom:5px;"><a href="#pud" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>PUD</b></a></li>
                             <li style="margin-bottom:5px;"><a href="#p_n_d" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>P & D</b></a></li>
-                            <li style="margin-bottom:5px;"><a href="#cleaned" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>PDTO</b></a></li>
-                            <li style="margin-bottom:5px;"><a href="#sliced_fmly" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>PTO</b></a></li>
+                            <li style="margin-bottom:5px;"><a href="#pdto" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>PDTO</b></a></li>
+                            <li style="margin-bottom:5px;"><a href="#pto" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>PTO</b></a></li>
                         </ul>
                         <div class="tab-content col-md-10 portlet-body">
-                                @include('backend.production.processing.iqf.fillet.index')
-                                @include('backend.production.processing.iqf.whole.index')
-                                @include('backend.production.processing.iqf.whole_gutted.index')
-                                @include('backend.production.processing.iqf.cleaned.index')
-                                @include('backend.production.processing.iqf.sliced_fmly.index')
-                                @include('backend.production.processing.iqf.sliced_chinese.index')
-                                @include('backend.production.processing.iqf.butter_fly.index')
-                                @include('backend.production.processing.iqf.hgto.index')
+                                @include('backend.production.processing.raw_bf_shrimp.hlso.index')
+                                @include('backend.production.processing.raw_bf_shrimp.pud.index')
+                                @include('backend.production.processing.raw_bf_shrimp.p_n_d.index')
+                                @include('backend.production.processing.raw_bf_shrimp.pdto.index')
+                                @include('backend.production.processing.raw_bf_shrimp.pto.index')
                         </div><!-- tab content -->
                     </div>
                 </div>
