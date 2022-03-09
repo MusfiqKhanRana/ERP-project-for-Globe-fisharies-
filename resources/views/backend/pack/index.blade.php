@@ -78,7 +78,7 @@
                                                 </div><br><br>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputEmail1" class="col-md-2 control-label">Width</label>
+                                                <label for="inputEmail1" class="col-md-2 control-label">Weight</label>
                                                 <div class="col-md-8">
                                                     <input type="text" class="form-control" value="{{$data->weight}}" required name="weight">
                                                 </div><br><br>
