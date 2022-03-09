@@ -453,6 +453,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
         return view('backend.production.processing.iqf.index');
     })->name('production.processing.iqf');
 
+    //Block Frozen
     Route::get('production/processing-unit/block-frozen', function () {
         return view('backend.production.processing.block_frozen.index');
     })->name('production.processing.block_frozen');
@@ -460,4 +461,24 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('production/processing-unit/raw_bf_shrimp', function () {
         return view('backend.production.processing.raw_bf_shrimp.index');
     })->name('production.processing.raw_bf_shrimp');
+
+    //Raw IQF Shrimp
+    Route::get('production/processing-unit/raw-iqf-shrimp', function () {
+        return view('backend.production.processing.raw_iqf_shrimp.index');
+    })->name('production.processing.raw_iqf_shrimp');
+
+    //Semi IQF
+    Route::get('production/processing-unit/semi-iqf', function () {
+        return view('backend.production.processing.semi_iqf.index');
+    })->name('production.processing.semi_iqf');
+
+    //Cooked IQF
+    Route::get('production/processing-unit/cooked-iqf', function () {
+        return view('backend.production.processing.cooked_iqf.cooked');
+    })->name('production.processing.cooked_iqf');
+
+    //Blanched IQF
+    Route::get('production/processing-unit/blanched-iqf', function () {
+        return view('backend.production.processing.blanched_iqf.index');
+    })->name('production.processing.blanched_iqf');
 });

@@ -742,6 +742,26 @@
                                     <span class="title">RAW BF(Shrimp)</span>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{route('production.processing.raw_iqf_shrimp')}}" class="nav-link ">
+                                    <span class="title">RAW IQF(Shrimp)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('production.processing.semi_iqf')}}" class="nav-link ">
+                                    <span class="title">Semi IQF</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('production.processing.cooked_iqf')}}" class="nav-link ">
+                                    <span class="title">Cooked IQF(Shrimp)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('production.processing.cooked_iqf')}}" class="nav-link ">
+                                    <span class="title">Blanched IQF(Shrimp)</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
