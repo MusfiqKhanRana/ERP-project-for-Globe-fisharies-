@@ -601,12 +601,10 @@
             }
             function productload() {
                 $(document).on('change',".party_select",function(){
-                // console.log(max);
-                party_id = $(this).val();
-                partySelect(party_id);
+                    party_id = $(this).val();
+                    partySelect(party_id);
                 });
                 $(document).on('change',".product"+max,function(){
-                    // console.log(max);
                     tp[max] =0;
                     w=$(this).find(':selected').attr('data-pack_weight');
                     $(".catagory"+max).val($(this).find(':selected').attr('data-category_name'));
