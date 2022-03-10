@@ -38,11 +38,984 @@
                             <li style="margin-bottom:5px;"><a href="#pto" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>PTO</b></a></li>
                         </ul>
                         <div class="tab-content col-md-10 portlet-body">
-                                @include('backend.production.processing.raw_bf_shrimp.hlso.index')
-                                @include('backend.production.processing.raw_bf_shrimp.pud.index')
-                                @include('backend.production.processing.raw_bf_shrimp.p_n_d.index')
-                                @include('backend.production.processing.raw_bf_shrimp.pdto.index')
-                                @include('backend.production.processing.raw_bf_shrimp.pto.index')
+                            <div class="tab-pane active" id="hlso">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-header">
+                                                <h2 style="margin-left: 2%">HLSO</h2> 
+                                            </div>
+                                            <div class="panel-body">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Invoice No.
+                                                            </th>
+                                                            <th>
+                                                                Item Name
+                                                            </th>
+                                                            <th>
+                                                                Grade
+                                                            </th>
+                                                            <th>
+                                                                Quantity
+                                                            </th>
+                                                            <th style="text-align: center">
+                                                                Action
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                1001
+                                                            </td>
+                                                            <td>
+                                                                Rui
+                                                            </td>
+                                                            <td>
+                                                                300-500gm
+                                                            </td>
+                                                            <td>
+                                                                60kg
+                                                            </td>
+                                                            <td>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#hlsoProcessingDataModal" class="btn btn-success"><i class="fa fa-refresh" aria-hidden="true"></i> Processing Data</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#hlsoGradingModal" class="btn btn-primary"><i class="fa fa-list-ol" aria-hidden="true"></i> Grading</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#hlsoBlockCounterModal" class="btn purple"><i class="fa fa-calculator" aria-hidden="true"></i> Block Counter</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#hlsoSoakingModal" class="btn btn-warning"><i class="fa fa-superpowers" aria-hidden="true"></i> Soaking</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#hlsoExcessVolumeModal" class="btn btn-info"><i class="fa fa-expand" aria-hidden="true"></i> Excess Vol.</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#hlsoReturnModal" class="btn btn-danger"><i class="fa fa-backward" aria-hidden="true"></i><i class="fa fa-exchange" aria-hidden="true"></i> Return</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoProcessingDataModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoBlockCounterModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoGradingModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoSoakingModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoExcessVolumeModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoReturnModal')
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="hlso_processData" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="delete_id">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="#" method="POST">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Process Data (HLSO)</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                        @csrf
+                                                    <p><b>Invoice no:</b> 1111111</p>
+                                                    <p><b>Item Name:</b> Pangas</p>
+                                                    <p><b>Quantity:</b> 50kg</p>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                            <label>HLSO</label>
+                                                            <input type="text" class="form-control" placeholder="Type after de heading">
+                                                        </div>
+                                                        <div class="col-md-3" style="margin-top: 5%"><b>Parcentage:</b> 12%</div>
+                                                    </div><br>
+                                                </div>
+                                                
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="m-10 btn btn-success">Confirm</button>
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="hlso_grade" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="delete_id">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="#" method="POST">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Grading (HLSO)</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                        @csrf
+                                                    <p><b>Invoice no:</b> 1111111</p>
+                                                    <p><b>Item Name:</b> Pangas</p>
+                                                    <p><b>Quantity:</b> 50kg</p>
+                                                    <p><b>HLSO:</b> 50kg</p>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Select Grade</label>
+                                                            <select type="text" class="form-control" >
+                                                                <option>300-500gm</option>
+                                                                <option>400-500gm</option>
+                                                                <option>500-700gm</option>
+                                                                <option>600-800gm</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <label>Weight</label>
+                                                            <input type="text" class="form-control" placeholder="Type Weight">
+                                                        </div>
+                                                        <div class="col-md-1" style="margin-top: 4%">
+                                                            <button class="btn btn-success">+ Add</button>
+                                                        </div>
+                                                    </div><br>
+                                                    <div class="col-md-12">
+                                                        <table class="table table-striped table-bordered table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th style="text-align: center">
+                                                                        Grade
+                                                                    </th>
+                                                                    <th style="text-align: center">
+                                                                        Weight
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td style="text-align: center">
+                                                                        300-500gm
+                                                                    </td>
+                                                                    <td style="text-align: center">
+                                                                        5
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <br><br><br><br><br>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="m-10 btn btn-success">Confirm</button>
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="hlso_soaking" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="delete_id">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="#" method="POST">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Soaking (HLSO)</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                    @csrf
+                                                <p><b>Invoice no:</b> 1111111</p>
+                                                <p><b>Item Name:</b> Pangas</p>
+                                                <p><b>Quantity:</b> 50kg</p>
+                                                <p><b>HLSO:</b> 50kg</p>
+                                                <div class="col-md-12">
+                                                    <table class="table table-striped table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    Grade
+                                                                </th>
+                                                                <th>
+                                                                    Weight
+                                                                </th>
+                                                                <th>
+                                                                   Soaking Weight
+                                                                </th>
+                                                                <th>
+                                                                    Return Weight
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    300-500gm
+                                                                </td>
+                                                                <td>
+                                                                    5kg
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control" placeholder="Type Soaking Weight">
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control" placeholder="Type Return Weight">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                                <br><br><br><br><br>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="m-10 btn btn-success">Confirm</button>
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="hlso_glazing" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="delete_id">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="#" method="POST">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Glazing (HLSO)</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                    @csrf
+                                                <p><b>Invoice no:</b> 1111111</p>
+                                                <p><b>Item Name:</b> Pangas</p>
+                                                <p><b>Quantity:</b> 50kg</p>
+                                                <p><b>HLSO:</b> 50kg</p>
+                                                <div class="col-md-12">
+                                                    <table class="table table-striped table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    Grade
+                                                                </th>
+                                                                <th>
+                                                                    Weight
+                                                                </th>
+                                                                <th>
+                                                                   Soaking Weight
+                                                                </th>
+                                                                <th>
+                                                                    Return Weight
+                                                                </th>
+                                                                <th>
+                                                                    Glazing Weight
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    300-500gm
+                                                                </td>
+                                                                <td>
+                                                                    5kg
+                                                                </td>
+                                                                <td>
+                                                                    100
+                                                                </td>
+                                                                <td>
+                                                                    50kg
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control" placeholder="Type  Glazing Volume">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                                <br><br><br><br><br>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="m-10 btn btn-success">Confirm</button>
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="hlso_WastageReturn" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="delete_id">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="#" method="POST">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Wastage & Return (HLSO)</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row" style="margin: 3%" >
+                                                        @csrf
+                                                        <p><b>Invoice no:</b> 1111111</p>
+                                                        <p><b>Item Name:</b> Pangas</p>
+                                                        <p><b>Quantity:</b> 50kg</p>
+                                                        <p><b>HLSO:</b> 50kg</p>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <table class="table table-striped table-bordered table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        Grade
+                                                                    </th>
+                                                                    <th>
+                                                                        Weight
+                                                                    </th>
+                                                                    <th>
+                                                                        Soaking Weight
+                                                                    </th>
+                                                                    <th>
+                                                                        Return Weight
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        300-500gm
+                                                                    </td>
+                                                                    <td>
+                                                                        5kg
+                                                                    </td>
+                                                                    <td>
+                                                                        15
+                                                                    </td>
+                                                                    <td>
+                                                                        5
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>Wastage (Kg)</label>
+                                                                <input type="text" class="form-control" placeholder=" Type Wastage Volume">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>Return (Kg)</label>
+                                                                <input type="text" class="form-control" placeholder=" Type Return Volume">
+                                                            </div>
+                                                        </div><br>
+                                                    </div>
+                                                </div><br><br>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="m-10 btn btn-success">Confirm</button>
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="pud">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-header">
+                                                <h2 style="margin-left: 2%">PUD</h2> 
+                                            </div>
+                                            <div class="panel-body">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Invoice No.
+                                                            </th>
+                                                            <th>
+                                                                Item Name
+                                                            </th>
+                                                            <th>
+                                                                Grade
+                                                            </th>
+                                                            <th>
+                                                                Quantity
+                                                            </th>
+                                                            <th style="text-align: center">
+                                                                Action
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                1001
+                                                            </td>
+                                                            <td>
+                                                                Rui
+                                                            </td>
+                                                            <td>
+                                                                300-500gm
+                                                            </td>
+                                                            <td>
+                                                                60kg
+                                                            </td>
+                                                            <td>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#pudProcessingDataModal" class="btn btn-success"><i class="fa fa-refresh" aria-hidden="true"></i> Processing Data</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#pudGradingModal" class="btn btn-primary"><i class="fa fa-list-ol" aria-hidden="true"></i> Grading</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#pudBlockCounterModal" class="btn purple"><i class="fa fa-calculator" aria-hidden="true"></i> Block Counter</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#pudSoakingModal" class="btn btn-warning"><i class="fa fa-superpowers" aria-hidden="true"></i> Soaking</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#pudExcessVolumeModal" class="btn btn-info"><i class="fa fa-expand" aria-hidden="true"></i> Excess Vol.</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#pudReturnModal" class="btn btn-danger"><i class="fa fa-backward" aria-hidden="true"></i><i class="fa fa-exchange" aria-hidden="true"></i> Return</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                @include('backend.production.processing.raw_bf_shrimp.pud.pudProcessingDataModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.pud.pudBlockCounterModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.pud.pudGradingModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.pud.pudSoakingModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.pud.pudExcessVolumeModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.pud.pudReturnModal')
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="hlso_processData" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="delete_id">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="#" method="POST">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Process Data (HLSO)</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                        @csrf
+                                                    <p><b>Invoice no:</b> 1111111</p>
+                                                    <p><b>Item Name:</b> Pangas</p>
+                                                    <p><b>Quantity:</b> 50kg</p>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                            <label>HLSO</label>
+                                                            <input type="text" class="form-control" placeholder="Type after de heading">
+                                                        </div>
+                                                        <div class="col-md-3" style="margin-top: 5%"><b>Parcentage:</b> 12%</div>
+                                                    </div><br>
+                                                </div>
+                                                
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="m-10 btn btn-success">Confirm</button>
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="hlso_grade" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="delete_id">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="#" method="POST">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Grading (HLSO)</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                        @csrf
+                                                    <p><b>Invoice no:</b> 1111111</p>
+                                                    <p><b>Item Name:</b> Pangas</p>
+                                                    <p><b>Quantity:</b> 50kg</p>
+                                                    <p><b>HLSO:</b> 50kg</p>
+                                                    <div class="row">
+                                                        <div class="col-md-5">
+                                                            <label>Select Grade</label>
+                                                            <select type="text" class="form-control" >
+                                                                <option>300-500gm</option>
+                                                                <option>400-500gm</option>
+                                                                <option>500-700gm</option>
+                                                                <option>600-800gm</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <label>Weight</label>
+                                                            <input type="text" class="form-control" placeholder="Type Weight">
+                                                        </div>
+                                                        <div class="col-md-1" style="margin-top: 4%">
+                                                            <button class="btn btn-success">+ Add</button>
+                                                        </div>
+                                                    </div><br>
+                                                    <div class="col-md-12">
+                                                        <table class="table table-striped table-bordered table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th style="text-align: center">
+                                                                        Grade
+                                                                    </th>
+                                                                    <th style="text-align: center">
+                                                                        Weight
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td style="text-align: center">
+                                                                        300-500gm
+                                                                    </td>
+                                                                    <td style="text-align: center">
+                                                                        5
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <br><br><br><br><br>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="m-10 btn btn-success">Confirm</button>
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="hlso_soaking" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="delete_id">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="#" method="POST">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Soaking (HLSO)</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                    @csrf
+                                                <p><b>Invoice no:</b> 1111111</p>
+                                                <p><b>Item Name:</b> Pangas</p>
+                                                <p><b>Quantity:</b> 50kg</p>
+                                                <p><b>HLSO:</b> 50kg</p>
+                                                <div class="col-md-12">
+                                                    <table class="table table-striped table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    Grade
+                                                                </th>
+                                                                <th>
+                                                                    Weight
+                                                                </th>
+                                                                <th>
+                                                                   Soaking Weight
+                                                                </th>
+                                                                <th>
+                                                                    Return Weight
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    300-500gm
+                                                                </td>
+                                                                <td>
+                                                                    5kg
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control" placeholder="Type Soaking Weight">
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control" placeholder="Type Return Weight">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                                <br><br><br><br><br>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="m-10 btn btn-success">Confirm</button>
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="hlso_glazing" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="delete_id">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="#" method="POST">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Glazing (HLSO)</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                    @csrf
+                                                <p><b>Invoice no:</b> 1111111</p>
+                                                <p><b>Item Name:</b> Pangas</p>
+                                                <p><b>Quantity:</b> 50kg</p>
+                                                <p><b>HLSO:</b> 50kg</p>
+                                                <div class="col-md-12">
+                                                    <table class="table table-striped table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    Grade
+                                                                </th>
+                                                                <th>
+                                                                    Weight
+                                                                </th>
+                                                                <th>
+                                                                   Soaking Weight
+                                                                </th>
+                                                                <th>
+                                                                    Return Weight
+                                                                </th>
+                                                                <th>
+                                                                    Glazing Weight
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    300-500gm
+                                                                </td>
+                                                                <td>
+                                                                    5kg
+                                                                </td>
+                                                                <td>
+                                                                    100
+                                                                </td>
+                                                                <td>
+                                                                    50kg
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control" placeholder="Type  Glazing Volume">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                                <br><br><br><br><br>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="m-10 btn btn-success">Confirm</button>
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="hlso_WastageReturn" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="delete_id">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="#" method="POST">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Wastage & Return (HLSO)</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row" style="margin: 3%" >
+                                                        @csrf
+                                                        <p><b>Invoice no:</b> 1111111</p>
+                                                        <p><b>Item Name:</b> Pangas</p>
+                                                        <p><b>Quantity:</b> 50kg</p>
+                                                        <p><b>HLSO:</b> 50kg</p>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <table class="table table-striped table-bordered table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        Grade
+                                                                    </th>
+                                                                    <th>
+                                                                        Weight
+                                                                    </th>
+                                                                    <th>
+                                                                        Soaking Weight
+                                                                    </th>
+                                                                    <th>
+                                                                        Return Weight
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        300-500gm
+                                                                    </td>
+                                                                    <td>
+                                                                        5kg
+                                                                    </td>
+                                                                    <td>
+                                                                        15
+                                                                    </td>
+                                                                    <td>
+                                                                        5
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label>Wastage (Kg)</label>
+                                                                <input type="text" class="form-control" placeholder=" Type Wastage Volume">
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>Return (Kg)</label>
+                                                                <input type="text" class="form-control" placeholder=" Type Return Volume">
+                                                            </div>
+                                                        </div><br>
+                                                    </div>
+                                                </div><br><br>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="m-10 btn btn-success">Confirm</button>
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="p_n_d">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-header">
+                                                <h2 style="margin-left: 2%">P & D List</h2> 
+                                            </div>
+                                            <div class="panel-body">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Invoice No.
+                                                            </th>
+                                                            <th>
+                                                                Item Name
+                                                            </th>
+                                                            <th>
+                                                                Grade
+                                                            </th>
+                                                            <th>
+                                                                Quantity
+                                                            </th>
+                                                            <th>
+                                                                Action
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                11111
+                                                            </td>
+                                                            <td>
+                                                                Rui
+                                                            </td>
+                                                            <td>
+                                                                300-500gm
+                                                            </td>
+                                                            <td>
+                                                                60kg
+                                                            </td>
+                                                            <td>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#p_n_dProcessingDataModal" class="btn btn-success"><i class="fa fa-refresh" aria-hidden="true"></i> Processing Data</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#p_n_dGradingModal" class="btn btn-primary"><i class="fa fa-list-ol" aria-hidden="true"></i> Grading</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#p_n_dBlockCounterModal" class="btn purple"><i class="fa fa-calculator" aria-hidden="true"></i> Block Counter</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#p_n_dSoakingModal" class="btn btn-warning"><i class="fa fa-superpowers" aria-hidden="true"></i> Soaking</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#p_n_dExcessVolumeModal" class="btn btn-info"><i class="fa fa-expand" aria-hidden="true"></i> Excess Vol.</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#p_n_dReturnModal" class="btn btn-danger"><i class="fa fa-backward" aria-hidden="true"></i><i class="fa fa-exchange" aria-hidden="true"></i> Return</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                @include('backend.production.processing.raw_bf_shrimp.p_n_d.p_n_dProcessingDataModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.p_n_d.p_n_dBlockCounterModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.p_n_d.p_n_dGradingModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.p_n_d.p_n_dSoakingModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.p_n_d.p_n_dExcessVolumeModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.p_n_d.p_n_dReturnModal')
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="pdto">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-header">
+                                                <h2 style="margin-left: 2%">P & D Tail On List</h2> 
+                                            </div>
+                                            <div class="panel-body">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Invoice No.
+                                                            </th>
+                                                            <th>
+                                                                Item Name
+                                                            </th>
+                                                            <th>
+                                                                Grade
+                                                            </th>
+                                                            <th>
+                                                                Quantity
+                                                            </th>
+                                                            <th>
+                                                                Action
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                11111
+                                                            </td>
+                                                            <td>
+                                                                Rui
+                                                            </td>
+                                                            <td>
+                                                                300-500gm
+                                                            </td>
+                                                            <td>
+                                                                60kg
+                                                            </td>
+                                                            <td>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#pdtoProcessingDataModal" class="btn btn-success"><i class="fa fa-refresh" aria-hidden="true"></i> Processing Data</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#pdtoGradingModal" class="btn btn-primary"><i class="fa fa-list-ol" aria-hidden="true"></i> Grading</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#pdtoBlockCounterModal" class="btn purple"><i class="fa fa-calculator" aria-hidden="true"></i> Block Counter</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#pdtoSoakingModal" class="btn btn-warning"><i class="fa fa-superpowers" aria-hidden="true"></i> Soaking</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#pdtoExcessVolumeModal" class="btn btn-info"><i class="fa fa-expand" aria-hidden="true"></i> Excess Vol.</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#pdtoReturnModal" class="btn btn-danger"><i class="fa fa-backward" aria-hidden="true"></i><i class="fa fa-exchange" aria-hidden="true"></i> Return</button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                22222
+                                                            </td>
+                                                            <td>
+                                                                Pangash
+                                                            </td>
+                                                            <td>
+                                                                200-300gm
+                                                            </td>
+                                                            <td>
+                                                                50kg
+                                                            </td>
+                                                            <td>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#pdtoProcessingDataModal" class="btn btn-success"><i class="fa fa-refresh" aria-hidden="true"></i> Processing Data</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#pdtoGradingModal" class="btn btn-primary"><i class="fa fa-list-ol" aria-hidden="true"></i> Grading</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#pdtoBlockCounterModal" class="btn purple"><i class="fa fa-calculator" aria-hidden="true"></i> Block Counter</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#pdtoSoakingModal" class="btn btn-warning"><i class="fa fa-superpowers" aria-hidden="true"></i> Soaking</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#pdtoExcessVolumeModal" class="btn btn-info"><i class="fa fa-expand" aria-hidden="true"></i> Excess Vol.</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#pdtoReturnModal" class="btn btn-danger"><i class="fa fa-backward" aria-hidden="true"></i><i class="fa fa-exchange" aria-hidden="true"></i> Return</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                @include('backend.production.processing.raw_bf_shrimp.pdto.pdtoProcessingDataModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.pdto.pdtoBlockCounterModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.pdto.pdtoGradingModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.pdto.pdtoSoakingModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.pdto.pdtoExcessVolumeModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.pdto.pdtoReturnModal')
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="pto">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-header">
+                                                <h2 style="margin-left: 2%">P & D Tail Off List</h2> 
+                                            </div>
+                                            <div class="panel-body">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Invoice No.
+                                                            </th>
+                                                            <th>
+                                                                Item Name
+                                                            </th>
+                                                            <th>
+                                                                Grade
+                                                            </th>
+                                                            <th>
+                                                                Quantity
+                                                            </th>
+                                                            <th>
+                                                                Action
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                11111
+                                                            </td>
+                                                            <td>
+                                                                Rui
+                                                            </td>
+                                                            <td>
+                                                                300-500gm
+                                                            </td>
+                                                            <td>
+                                                                60kg
+                                                            </td>
+                                                            <td>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#ptoProcessingDataModal" class="btn btn-success"><i class="fa fa-refresh" aria-hidden="true"></i> Processing Data</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#ptoGradingModal" class="btn btn-primary"><i class="fa fa-list-ol" aria-hidden="true"></i> Grading</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#ptoBlockCounterModal" class="btn purple"><i class="fa fa-calculator" aria-hidden="true"></i> Block Counter</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#ptoSoakingModal" class="btn btn-warning"><i class="fa fa-superpowers" aria-hidden="true"></i> Soaking</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#ptoExcessVolumeModal" class="btn btn-info"><i class="fa fa-expand" aria-hidden="true"></i> Excess Vol.</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#ptoReturnModal" class="btn btn-danger"><i class="fa fa-backward" aria-hidden="true"></i><i class="fa fa-exchange" aria-hidden="true"></i> Return</button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                22222
+                                                            </td>
+                                                            <td>
+                                                                Pangash
+                                                            </td>
+                                                            <td>
+                                                                200-300gm
+                                                            </td>
+                                                            <td>
+                                                                50kg
+                                                            </td>
+                                                            <td>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#ptoProcessingDataModal" class="btn btn-success"><i class="fa fa-refresh" aria-hidden="true"></i> Processing Data</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#ptoGradingModal" class="btn btn-primary"><i class="fa fa-list-ol" aria-hidden="true"></i> Grading</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#ptoBlockCounterModal" class="btn purple"><i class="fa fa-calculator" aria-hidden="true"></i> Block Counter</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#ptoSoakingModal" class="btn btn-warning"><i class="fa fa-superpowers" aria-hidden="true"></i> Soaking</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#ptoExcessVolumeModal" class="btn btn-info"><i class="fa fa-expand" aria-hidden="true"></i> Excess Vol.</button>
+                                                                <button style="margin-bottom:3px" data-toggle="modal" href="#ptoReturnModal" class="btn btn-danger"><i class="fa fa-backward" aria-hidden="true"></i><i class="fa fa-exchange" aria-hidden="true"></i> Return</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                @include('backend.production.processing.raw_bf_shrimp.pto.ptoProcessingDataModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.pto.ptoBlockCounterModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.pto.ptoGradingModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.pto.ptoSoakingModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.pto.ptoExcessVolumeModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.pto.ptoReturnModal')
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div><!-- tab content -->
                     </div>
                 </div>
