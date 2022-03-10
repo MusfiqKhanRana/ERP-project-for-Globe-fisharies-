@@ -27,7 +27,7 @@ class SalePointController extends Controller
     {
         $id = $request->id;
         $product = PartyProduct::where('party_id',$id)->get();
-        $output ="";
+        $output ="<option value=''>--Select--</option>";
 
         foreach($product as $value){
             // return $value->product->pack;
