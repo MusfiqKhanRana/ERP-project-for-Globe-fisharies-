@@ -1,4 +1,4 @@
-<div id="WastageReturn" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+<div id="WastageReturn_tail_off" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
     {{csrf_field()}}
     <input type="hidden" value="" id="delete_id">
     <div class="modal-dialog">

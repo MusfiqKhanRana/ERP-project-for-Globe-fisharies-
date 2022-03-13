@@ -6,7 +6,7 @@
             <form action="#" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Return / Wastage</h2>
+                    <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Return / Wastage  (PUD)</h2>
                 </div>
                 <br>
                 <div class="modal-body">
