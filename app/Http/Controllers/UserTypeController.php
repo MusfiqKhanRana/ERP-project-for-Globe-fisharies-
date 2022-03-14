@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\UserType;
 use App\Models\Pack;
 use App\Models\Area;
-use App\Models\Coldstorage;
+use App\Models\ColdStorage;
 use App\Models\FishGrade;
 use App\Models\ProductionPurchaseType;
 use App\Models\ProductionPurchaseUnit;
