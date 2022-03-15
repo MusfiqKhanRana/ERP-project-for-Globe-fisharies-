@@ -10,15 +10,76 @@
                 </div>
                 <br>
                 <div class="modal-body">
-                        @csrf
-                    <p><b>Invoice no:</b> 1111111</p>
-                    <p><b>Item Name:</b> Pangas</p>
-                    <p><b>Quantity:</b> 50kg</p>
-                    <div class="row"><div class="col-md-3"><b>Return : </b></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div></div><br>
-                    <div class="row">
-                        <div class="col-md-3"><b>Wastage : </b></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div>
+                    @csrf
+                <p><b>Invoice no:</b> 1111111</p>
+                <p><b>Item Name:</b> Pangas</p>
+                <p><b>Quantity:</b> 50kg</p>
+                <p><b>HLSO:</b> 50kg</p>
+                <div class="col-md-12">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center">
+                                    Block Size				
+                                </th>
+                                <th style="text-align: center">
+                                    Size
+                                </th>
+                                <th>
+                                    Block Quantity (Pc)
+                                </th>
+                                <th>
+                                    Soaking Weight (Kg)
+                                </th>
+                                <th>
+                                    Return Weight (Kg)
+                                </th>
+                                <th>
+                                    Excess Volume (Kg)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center">
+                                    300-500gm
+                                </td>
+                                <td style="text-align: center">
+                                    5
+                                </td>
+                                <td>
+                                    24
+                                </td>
+                                <td>
+                                    4
+                                </td>
+                                <td>
+                                    6
+                                </td>
+                                <td>
+                                    5
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <b>Return Weight (Kg): </b>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" placeholder=" Return weight">
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-3">
+                        <b>Wastage Weight(Kg): </b>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" placeholder="Wastage weight">
                     </div>
                 </div>
+            </div>
                 <br>
                 <div class="modal-footer">
                     <button type="submit" class="m-10 btn btn-success">Confirm</button>

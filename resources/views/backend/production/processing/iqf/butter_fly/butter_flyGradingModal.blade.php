@@ -10,37 +10,57 @@
                 </div>
                 <br>
                 <div class="modal-body">
-                        @csrf
-                    <p><b>Invoice no:</b> 1111111</p>
-                    <p><b>Item Name:</b> Pangas</p>
-                    <p><b>Quantity:</b> 50kg</p>
-                    <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button type="button" class="btn btn-success">add</button></div>
-                        <div class="col-md-12">
-                            <table class="table table-striped table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Grade
-                                        </th>
-                                        <th>
-                                            Quantity
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            300-500gm
-                                        </td>
-                                        <td>
-                                            5kg
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    @csrf
+                <p><b>Invoice no:</b> 1111111</p>
+                <p><b>Item Name:</b> Pangas</p>
+                <p><b>Quantity:</b> 50kg</p>
+                <p><b>Initial Weight:</b> 50kg</p>
+                <p><b>Cleaned Weight:</b> 50kg</p>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label>Select Grade</label>
+                        <select type="text" class="form-control" >
+                            <option>300-500gm</option>
+                            <option>400-500gm</option>
+                            <option>500-700gm</option>
+                            <option>600-800gm</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5" >
+                        <label>Quantity (Kg) </label>
+                        <input type="text" class="form-control" placeholder="weight">
+                    </div>
+                    <div class="col-md-2" style="margin-top: 3%">
+                        <button type="button" class="btn btn-success">add</button>
+                    </div>
+                </div><br><br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Grade
+                                    </th>
+                                    <th>
+                                        Quantity (Kg)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        300-500gm
+                                    </td>
+                                    <td>
+                                        5
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+            </div>
                 <div class="modal-footer">
                     <button type="submit" class="m-10 btn btn-success">Confirm</button>
                     <button type="button" data-dismiss="modal" class="btn default">Cancel</button>

@@ -25,7 +25,7 @@
                                     Size
                                 </th>
                                 <th>
-                                   Quantity
+                                   Quantity (Pc)
                                 </th>
                             </tr>
                         </thead>
@@ -35,7 +35,7 @@
                                     300-500gm
                                 </td>
                                 <td>
-                                    5kg
+                                    5
                                 </td>
                                 <td>
                                     <input type="text" class="form-control" placeholder="Type Quantity">

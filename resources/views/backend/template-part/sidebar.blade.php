@@ -709,7 +709,7 @@
                                 {{-- <a href="{{route('production.processing.iqf')}}" class="nav-link ">
                                     <span class="title">IQF</span>
                                 </a> --}}
-                                <a href="#" class="nav-link ">
+                                <a href="{{route('production.processing.gate_man')}}" class="nav-link ">
                                     <span class="title">Gate Man</span>
                                 </a>
                             </li>
@@ -758,7 +758,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('production.processing.cooked_iqf')}}" class="nav-link ">
+                                <a href="{{route('production.processing.blanched_iqf')}}" class="nav-link ">
                                     <span class="title">Blanched IQF(Shrimp)</span>
                                 </a>
                             </li>

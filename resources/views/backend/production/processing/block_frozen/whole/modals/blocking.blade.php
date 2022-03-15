@@ -25,7 +25,7 @@
                             </select>
                         </div>
                         <div class="col-md-5">
-                            <label>Block Quantity</label>
+                            <label>Size</label>
                             <select type="text" class="form-control">
                                 <option>10</option>
                                 <option>12</option>

@@ -13,7 +13,7 @@
                     <p><b>Invoice no:</b> 1111111</p>
                     <p><b>Item Name:</b> Pangas</p>
                     <p><b>Quantity:</b> 50kg</p>
-                    <p><b>HLSO:</b> 50kg</p>
+                    <p><b>Initial Weight:</b> 50kg</p>
                     <div class="row">
                         <div class="col-md-5">
                             <label>Select Grade</label>
@@ -40,7 +40,7 @@
                                         Grade
                                     </th>
                                     <th style="text-align: center">
-                                        Weight
+                                        Weight (Kg)
                                     </th>
                                 </tr>
                             </thead>

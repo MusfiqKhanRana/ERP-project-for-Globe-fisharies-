@@ -25,10 +25,10 @@
                                     Size
                                 </th>
                                 <th>
-                                   Block Quantity
+                                   Block Quantity (Pc)
                                 </th>
                                 <th>
-                                    Excess Volume
+                                    Excess Volume (Kg)
                                 </th>
                             </tr>
                         </thead>
@@ -38,7 +38,7 @@
                                     300-500gm
                                 </td>
                                 <td>
-                                    5kg
+                                    5
                                 </td>
                                 <td>
                                     100

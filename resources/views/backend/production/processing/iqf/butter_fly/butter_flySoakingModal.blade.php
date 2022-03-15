@@ -1,4 +1,4 @@
-<div id="butter_flySoakingModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+<div id="butter_flyCleaningModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
     {{csrf_field()}}
     <input type="hidden" value="" id="delete_id">
     <div class="modal-dialog">
@@ -10,47 +10,23 @@
                 </div>
                 <br>
                 <div class="modal-body">
-                        @csrf
+                    @csrf
                     <p><b>Invoice no:</b> 1111111</p>
                     <p><b>Item Name:</b> Pangas</p>
                     <p><b>Quantity:</b> 50kg</p>
+                    <p><b>Initial Weight:</b> 50kg</p>
                     {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
                     <div class="row">
                         <div class="col-md-12">
-                            <table class="table table-striped table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Grade
-                                        </th>
-                                        <th>
-                                            Quantity
-                                        </th>
-                                        <th>
-                                            Soaking
-                                        </th>
-                                        <th>
-                                            Damage Weight
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            300-500gm
-                                        </td>
-                                        <td>
-                                            5kg
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control">
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <label>Cleaning Weight</label>
+                                    <input type="text" class="form-control" placeholder="Type Clean Weight">
+                                </div>
+                                <div class="col-md-3" style="margin-top: 5%">
+                                    <b>Parcentage:</b> 12%
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

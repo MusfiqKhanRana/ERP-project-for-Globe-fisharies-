@@ -14,6 +14,7 @@
                     <p><b>Invoice no:</b> 1111111</p>
                     <p><b>Item Name:</b> Pangas</p>
                     <p><b>Quantity:</b> 50kg</p>
+                    <p><b>Initial Weight:</b> 50kg</p>
                     <div class="row" style="margin-top: 2%">
                         <div class="col-md-12">
                             <table class="table table-striped table-bordered table-hover">
@@ -26,13 +27,13 @@
                                             Size
                                         </th>
                                         <th>
-                                            Block Quantity
+                                            Block Quantity (Pc)
                                         </th>
                                         <th>
-                                            Soaking Weight
+                                            Soaking Weight (Kg)
                                         </th>
                                         <th>
-                                            Return Weight
+                                            Return Weight (Kg)
                                         </th>
                                     </tr>
                                 </thead>

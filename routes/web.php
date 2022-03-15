@@ -481,4 +481,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('production/processing-unit/blanched-iqf', function () {
         return view('backend.production.processing.blanched_iqf.index');
     })->name('production.processing.blanched_iqf');
+
+    //Unload
+    Route::get('production/processing/unload', function () {
+        return view('backend.production.unload.gate_man.index');
+    })->name('production.processing.gate_man');
 });
