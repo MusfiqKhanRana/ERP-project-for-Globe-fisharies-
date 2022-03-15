@@ -78,9 +78,9 @@
                                         <th>
                                             Supplier Address
                                         </th>
-                                        <th>
+                                        {{-- <th>
                                             Supplier Items
-                                        </th>
+                                        </th> --}}
                                         <th style="text-align: center">
                                             Action
                                         </th>
@@ -94,7 +94,7 @@
                                             <td>{{$supplier->phone}}</td>
                                             <td>{{$supplier->address}}</td>
                                             <td>{{$supplier->email}}</td>
-                                            <td>
+                                            {{-- <td>
                                                 <table class="table table-striped table-bordered table-hover">
                                                     <thead>
                                                         <tr>
@@ -107,9 +107,6 @@
                                                             <th>
                                                                 details
                                                             </th>
-                                                            {{-- <th>
-                                                                Supplier ID
-                                                            </th> --}}
                                                             <th>
                                                                 Grade name
                                                             </th>
@@ -136,23 +133,18 @@
                                                                 <td>
                                                                     {{$item->details}}
                                                                 </td>
-                                                                {{-- <td>{{$item->pivot->production_supplier_id}}</td> --}}
                                                                 <td>{{$item->grade->name}}</td>
                                                                 <td>
                                                                     {{$item->pivot->rate}}
                                                                 </td>
                                                                 <td>
-                                                                    {{-- <form action="{{route('production-Supplier-item-destroy',$item->pivot->id)}}" method="get"> --}}
-                                                                        {{-- @method('DELETE')
-                                                                        @csrf --}}
-                                                                        <a href="{{route('production-Supplier-item.destroy',$item->pivot->id)}}" class="btn red"><i class="fa fa-trash"></i> Delete</a>
-                                                                    {{-- </form> --}}
+                                                                    <a href="{{route('production-Supplier-item.destroy',$item->pivot->id)}}" class="btn red"><i class="fa fa-trash"></i> Delete</a>
                                                                 </td>
                                                             </tr>
                                                         @endforeach
                                                     </tbody>
                                                 </table>
-                                            </td>
+                                            </td> --}}
                                             <td style="text-align: center">
                                                 <a class="btn btn-info"  data-toggle="modal" href="#editareaModal{{$supplier->id}}"><i class="fa fa-edit"></i> Edit</a>
                                                 <a class="btn red" data-toggle="modal" href="#deleteareaModal{{$supplier->id}}"><i class="fa fa-trash"></i> Delete</a>
@@ -237,7 +229,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                            <h4 class="modal-title">Add New Customer</h4>
+                            <h4 class="modal-title">Add New Supplier</h4>
                         </div>
                         <br>
                         <form class="form-horizontal" role="form" method="post" action="{{route('production-supplier.store')}}">
@@ -267,7 +259,7 @@
                                     <input type="text" class="form-control" placeholder="Email" name="supplier_email">
                                 </div>
                             </div>
-                            <input type="hidden" value="" id="provided_item" name="provided_item">
+                            {{-- <input type="hidden" value="" id="provided_item" name="provided_item">
                             <div class="form-group" style="padding:2%">
                                 <label for="inputEmail1" class="col-md-2 control-label">Add Item</label>  
                                 <div class="row">
@@ -305,7 +297,7 @@
                                         </tr>
                                     </table>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="modal-footer">
                                 <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                 <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
@@ -321,45 +313,45 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-           var item_name,item_id,grade_name,grade_id,rate = null;
-           var items_array = [];
-           function nullmaking(){
-                $("#select_item").val(null);
-                $("#select_grade").val(null);
-                $("#suppliers_rate").val(null);
-            }
-            $("#select_item").change(function(){
-                item_id = $(this).val();
-                item_name = $(this).find(':selected').data("item_name");
-                grade_name = $(this).find(':selected').data("grade_name");
-                $("#select_grade").val(grade_name);
-                console.log(grade_name);
-            });
+        //    var item_name,item_id,grade_name,grade_id,rate = null;
+        //    var items_array = [];
+        //    function nullmaking(){
+        //         $("#select_item").val(null);
+        //         $("#select_grade").val(null);
+        //         $("#suppliers_rate").val(null);
+        //     }
+        //     $("#select_item").change(function(){
+        //         item_id = $(this).val();
+        //         item_name = $(this).find(':selected').data("item_name");
+        //         grade_name = $(this).find(':selected').data("grade_name");
+        //         $("#select_grade").val(grade_name);
+        //         console.log(grade_name);
+        //     });
             // $("#select_grade").change(function(){
             //     grade_id = $(this).val();
             //     grade_name = $(this).find(':selected').data("grade_name");
             //     console.log(grade_id);
             // });
-           $("#add_items").click(function(){
-                items_array.push({"item_id":item_id,"item_name":item_name,"grade_name":grade_name,"rate":$("#suppliers_rate").val(),"status":"stay"});
-                $("#provided_item").val('');
-                $("#provided_item").val(JSON.stringify(items_array));
-                $.each( items_array, function( key, item ) {
-                    if (item.status == "stay") {
-                        if(items_array.length-1 == key){
-                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+item.item_name+"</td><td>"+item.grade_name+"</td><td>"+item.rate+"</td><td><button class='btn btn-danger delete_item' data-id='"+key+"'>Delete</button></td></tr>");
-                        }
-                    }
-                });
-                $(".delete_item").click(function(){
-                    items_array[$(this).data("id")].status="delete";
-                    // console.log(product_array,$(this).data("id"));
-                    $("#provided_item").val('');
-                    $("#provided_item").val(JSON.stringify(items_array));
-                    $("#"+$(this).data("id")).remove();
-                });
-                nullmaking();
-           });
+        //    $("#add_items").click(function(){
+        //         items_array.push({"item_id":item_id,"item_name":item_name,"grade_name":grade_name,"rate":$("#suppliers_rate").val(),"status":"stay"});
+        //         $("#provided_item").val('');
+        //         $("#provided_item").val(JSON.stringify(items_array));
+        //         $.each( items_array, function( key, item ) {
+        //             if (item.status == "stay") {
+        //                 if(items_array.length-1 == key){
+        //                     $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+item.item_name+"</td><td>"+item.grade_name+"</td><td>"+item.rate+"</td><td><button class='btn btn-danger delete_item' data-id='"+key+"'>Delete</button></td></tr>");
+        //                 }
+        //             }
+        //         });
+        //         $(".delete_item").click(function(){
+        //             items_array[$(this).data("id")].status="delete";
+        //             // console.log(product_array,$(this).data("id"));
+        //             $("#provided_item").val('');
+        //             $("#provided_item").val(JSON.stringify(items_array));
+        //             $("#"+$(this).data("id")).remove();
+        //         });
+        //         nullmaking();
+        //    });
             
         });
     </script>

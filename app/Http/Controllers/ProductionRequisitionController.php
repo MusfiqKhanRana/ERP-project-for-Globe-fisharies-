@@ -45,7 +45,8 @@ class ProductionRequisitionController extends Controller
      */
     public function create()
     {
-        return view('backend.production.supply.requisition.index');
+        $supply_item = SupplyItem::with('grade')->get();
+        return view('backend.production.supply.requisition.index',compact('supply_item'));
     }
     public function changeStatus(Request $request)
     {
