@@ -42,31 +42,11 @@
                 </td>
                 <td>
                     <button style="margin-bottom:3px" data-toggle="modal" href="#butter_flyProcessingDataModal" class="btn btn-success"><i class="fa fa-refresh" aria-hidden="true"></i> Processing Data</button>
+                    <button style="margin-bottom:3px" data-toggle="modal" href="#butter_flyCleaningModal" class="btn btn-warning"><i class="fa fa-refresh" aria-hidden="true"></i> Cleaning</button>
                     <button style="margin-bottom:3px" data-toggle="modal" href="#butter_flyGradingModal" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Grading</button>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#butter_flySoakingModal" class="btn btn-warning"><i class="fa fa-refresh" aria-hidden="true"></i> Soaking</button>
+                    {{-- <button style="margin-bottom:3px" data-toggle="modal" href="#butter_flySoakingModal" class="btn btn-warning"><i class="fa fa-refresh" aria-hidden="true"></i> Soaking</button> --}}
                     <button style="margin-bottom:3px" data-toggle="modal" href="#butter_flyGlazingModal" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Glazing</button>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#butter_flyReturnModal" class="btn btn-danger"><i class="fa fa-repeat" aria-hidden="true"></i> Return</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    22222
-                </td>
-                <td>
-                    Pangash
-                </td>
-                <td>
-                    200-300gm
-                </td>
-                <td>
-                    50kg
-                </td>
-                <td>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#butter_flyProcessingDataModal" class="btn btn-success"><i class="fa fa-refresh" aria-hidden="true"></i> Processing Data</button>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#butter_flyGradingModal" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Grading</button>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#butter_flySoakingModal" class="btn btn-warning"><i class="fa fa-refresh" aria-hidden="true"></i> Soaking</button>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#butter_flyGlazingModal" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Glazing</button>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#butter_flyReturnModal" class="btn btn-danger"><i class="fa fa-repeat" aria-hidden="true"></i> Return</button>
+                    <button style="margin-bottom:3px" data-toggle="modal" href="#butter_flyReturnModal" class="btn btn-danger"><i class="fa fa-repeat" aria-hidden="true"></i> Return & Wastage</button>
                 </td>
             </tr>
         </tbody>

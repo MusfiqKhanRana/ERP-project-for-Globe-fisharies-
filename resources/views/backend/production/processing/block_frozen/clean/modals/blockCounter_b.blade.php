@@ -13,7 +13,7 @@
                 <p><b>Invoice no:</b> 1111111</p>
                 <p><b>Item Name:</b> Pangas</p>
                 <p><b>Quantity:</b> 50kg</p>
-                <p><b>Clining Weight (Kg):</b> 50kg</p>
+                <p><b>Cleaning Weight (Kg):</b> 50kg</p>
                 <div class="col-md-12">
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
@@ -25,7 +25,7 @@
                                     Size
                                 </th>
                                 <th>
-                                   Quantity
+                                   Quantity (Pc)
                                 </th>
                             </tr>
                         </thead>
@@ -35,7 +35,7 @@
                                     300-500gm
                                 </td>
                                 <td>
-                                    5kg
+                                    5
                                 </td>
                                 <td>
                                     <input type="text" class="form-control" placeholder="Type Quantity">

@@ -14,7 +14,7 @@
                         <p><b>Invoice no:</b> 1111111</p>
                         <p><b>Item Name:</b> Pangas</p>
                         <p><b>Quantity:</b> 50kg</p>
-                        <p><b>Clining Weight (Kg):</b> 50kg</p>
+                        <p><b>Cleaning Weight (Kg):</b> 50kg</p>
                     </div>
                     <div class="col-md-12">
                         <table class="table table-striped table-bordered table-hover">
@@ -27,10 +27,10 @@
                                         Size
                                     </th>
                                     <th>
-                                    Block Quantity
+                                        Block Quantity (Pc)
                                     </th>
                                     <th>
-                                        Excess Volume
+                                        Excess Volume (Kg)
                                     </th>
                                 </tr>
                             </thead>
@@ -40,7 +40,7 @@
                                         300-500gm
                                     </td>
                                     <td>
-                                        5kg
+                                        5
                                     </td>
                                     <td>
                                         15

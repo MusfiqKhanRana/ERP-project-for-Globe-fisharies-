@@ -14,6 +14,7 @@
                     <p><b>Invoice no:</b> 1111111</p>
                     <p><b>Item Name:</b> Pangas</p>
                     <p><b>Quantity:</b> 50kg</p>
+                    <p><b>HLSO:</b> 50kg</p>
                     <div class="row" style="margin-bottom: 2%">
                         <div class="col-md-5">
                             <label for="">Block Size</label>

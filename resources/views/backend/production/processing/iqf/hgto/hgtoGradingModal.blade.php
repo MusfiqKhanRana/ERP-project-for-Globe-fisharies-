@@ -10,11 +10,30 @@
                 </div>
                 <br>
                 <div class="modal-body">
-                        @csrf
+                    @csrf
                     <p><b>Invoice no:</b> 1111111</p>
                     <p><b>Item Name:</b> Pangas</p>
                     <p><b>Quantity:</b> 50kg</p>
-                    <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button type="button" class="btn btn-success">add</button></div>
+                    <p><b>Initial Weight:</b> 50kg</p>
+                    <p><b>Cleaned Weight:</b> 5 kg</p>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>Select Grade</label>
+                            <select class="form-control">
+                                <option>100-200</option>
+                                <option>100-200</option>
+                                <option>100-200</option>
+                            </select>
+                        </div>
+                        <div class="col-md-5">
+                            <label>Quantity (Kg)</label>
+                            <input type="text" class="form-control" placeholder="Type weight">
+                        </div>
+                        <div class="col-md-1" style="margin-top: 4%">
+                            <button type="button" class="btn btn-success">add</button>
+                        </div>
+                    </div><br><br>
+                    <div class="row">
                         <div class="col-md-12">
                             <table class="table table-striped table-bordered table-hover">
                                 <thead>
@@ -23,7 +42,7 @@
                                             Grade
                                         </th>
                                         <th>
-                                            Quantity
+                                            Quantity (Kg)
                                         </th>
                                     </tr>
                                 </thead>
@@ -33,7 +52,7 @@
                                             300-500gm
                                         </td>
                                         <td>
-                                            5kg
+                                            5
                                         </td>
                                     </tr>
                                 </tbody>

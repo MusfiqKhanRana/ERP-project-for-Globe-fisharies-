@@ -10,44 +10,52 @@
                 </div>
                 <br>
                 <div class="modal-body">
-                        @csrf
-                    <p><b>Invoice no:</b> 1111111</p>
-                    <p><b>Item Name:</b> Pangas</p>
-                    <p><b>Quantity:</b> 50kg</p>
-                    {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-striped table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Grade
-                                        </th>
-                                        <th>
-                                            Quantity
-                                        </th>
-                                        <th>
-                                            Glazing
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            300-500gm
-                                        </td>
-                                        <td>
-                                            5kg
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    @csrf
+                <p><b>Invoice no:</b> 1111111</p>
+                <p><b>Item Name:</b> Pangas</p>
+                <p><b>Quantity:</b> 50kg</p>
+                <p><b>Initial Weight:</b> 50kg</p>
+               
+                {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Grade
+                                    </th>
+                                    <th>
+                                        Quantity (Kg)
+                                    </th>
+                                    <th>
+                                        Cleaned Weight (Kg)
+                                    </th>
+                                    <th>
+                                        Glazing Weight (Kg)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        300-500gm
+                                    </td>
+                                    <td>
+                                        5
+                                    </td>
+                                    <td>
+                                        2
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" placeholder="Type Glazing Weight">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+            </div>
                 <div class="modal-footer">
                     <button type="submit" class="m-10 btn btn-success">Confirm</button>
                     <button type="button" data-dismiss="modal" class="btn default">Cancel</button>

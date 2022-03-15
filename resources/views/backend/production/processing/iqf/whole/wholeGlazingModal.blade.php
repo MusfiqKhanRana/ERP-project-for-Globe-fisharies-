@@ -14,6 +14,7 @@
                     <p><b>Invoice no:</b> 1111111</p>
                     <p><b>Item Name:</b> Pangas</p>
                     <p><b>Quantity:</b> 50kg</p>
+                    <p><b>Initial Weight:</b> 50kg</p>
                     {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
                     <div class="row">
                         <div class="col-md-12">
@@ -24,10 +25,11 @@
                                             Grade
                                         </th>
                                         <th>
-                                            Quantity
+                                            Quantity (Kg)
                                         </th>
+                                        
                                         <th>
-                                            Glazing
+                                            Glazing Weight (Kg)
                                         </th>
                                     </tr>
                                 </thead>
@@ -37,10 +39,10 @@
                                             300-500gm
                                         </td>
                                         <td>
-                                            5kg
+                                            5
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" placeholder="Type Glazing Weight ">
                                         </td>
                                     </tr>
                                 </tbody>

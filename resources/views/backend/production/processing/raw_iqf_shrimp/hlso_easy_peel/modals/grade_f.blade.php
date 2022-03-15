@@ -25,7 +25,7 @@
                             </select>
                         </div>
                         <div class="col-md-5">
-                            <label>Weight</label>
+                            <label>Weight (Kg)</label>
                             <input type="text" class="form-control" placeholder="Type Weight">
                         </div>
                         <div class="col-md-1" style="margin-top: 4%">
@@ -40,7 +40,7 @@
                                         Grade
                                     </th>
                                     <th style="text-align: center">
-                                        Weight
+                                        Weight (Kg)
                                     </th>
                                 </tr>
                             </thead>

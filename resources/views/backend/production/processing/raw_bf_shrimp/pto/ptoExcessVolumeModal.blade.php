@@ -26,16 +26,16 @@
                                             Size
                                         </th>
                                         <th>
-                                            Block Quantity
+                                            Block Quantity (Pc)
                                         </th>
                                         <th>
-                                            Soaking Weight
+                                            Soaking Weight (Kg)
                                         </th>
                                         <th>
-                                            Return Weight
+                                            Return Weight (Kg)
                                         </th>
                                         <th>
-                                            Excess Volume
+                                            Excess Volume (Kg)
                                         </th>
                                     </tr>
                                 </thead>
@@ -51,10 +51,10 @@
                                             3
                                         </td>
                                         <td>
-                                            10kg
+                                            10
                                         </td>
                                         <td>
-                                            2kg
+                                            2
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" placeholder="Excess Volume">

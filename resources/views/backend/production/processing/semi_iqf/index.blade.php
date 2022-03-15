@@ -56,7 +56,7 @@
                                                 Grade
                                             </th>
                                             <th>
-                                                Quantity
+                                                Quantity 
                                             </th>
                                             <th style="text-align: center">
                                                 Action
@@ -82,26 +82,6 @@
                                                 <button style="margin-bottom:3px" data-toggle="modal" href="#grading" class="btn btn-success"><i class="fa fa-bar-chart" aria-hidden="true"></i> Grading</button>
                                                 <button style="margin-bottom:3px" data-toggle="modal" href="#blockCounter" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i> Block Counter</button>
                                                 <button style="margin-bottom:3px" data-toggle="modal" href="#WastageReturn" class="btn btn-danger"><i class="fa fa-refresh" aria-hidden="true"></i> Wastage/Return</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                1002
-                                            </td>
-                                            <td>
-                                                Pangash
-                                            </td>
-                                            <td>
-                                                200-300gm
-                                            </td>
-                                            <td>
-                                                50kg
-                                            </td>
-                                            <td>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#processData" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Process Data</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#grading" class="btn btn-success"><i class="fa fa-bar-chart" aria-hidden="true"></i> Grading</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#blockCounter" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i> Block Counter</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#WastageReturn" class="btn btn-danger"><i class="fa fa-refresh" aria-hidden="true"></i>  Wastage/Return</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -157,26 +137,6 @@
                                                 
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                200011
-                                            </td>
-                                            <td>
-                                                Pangash
-                                            </td>
-                                            <td>
-                                                200-300gm
-                                            </td>
-                                            <td>
-                                                50kg
-                                            </td>
-                                            <td>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#processData_b" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Process Data</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#grading_b" class="btn btn-success"><i class="fa fa-bar-chart" aria-hidden="true"></i> Grading</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#blockCounter_b" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i>Block Counter</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#WastageReturn_b" class="btn btn-danger"><i class="fa fa-refresh" aria-hidden="true"></i> Wastage/Return</button>
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -199,7 +159,7 @@
                                                 <div class="row">
                                                     <div class="col-md-7">
                                                         <label>Whole Weight (Kg)</label>
-                                                        <input type="text" class="form-control" placeholder="Type Initial weight">
+                                                        <input type="text" class="form-control" placeholder="Type Whole weight">
                                                     </div>
                                                     <div class="col-md-3" style="margin-top: 5%"><b>Parcentage:</b> 12%</div>
                                                 </div><br>
@@ -221,14 +181,14 @@
                                         <form action="#" method="POST">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Blocking</h2>
+                                                <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Blocking </h2>
                                             </div>
                                             <div class="modal-body">
                                                     @csrf
                                                 <p><b>Invoice no:</b> 1111111</p>
                                                 <p><b>Item Name:</b> Pangas</p>
                                                 <p><b>Quantity:</b> 50kg</p>
-                                                <p><b>Initial Weight (Kg):</b> 50kg</p>
+                                                <p><b>Whole Weight (Kg):</b> 50kg</p>
                                                 <div class="row">
                                                     <div class="col-md-5">
                                                         <label>Block Size</label>
@@ -301,7 +261,7 @@
                                             <p><b>Invoice no:</b> 1111111</p>
                                             <p><b>Item Name:</b> Pangas</p>
                                             <p><b>Quantity:</b> 50kg</p>
-                                            <p><b>Initial Weight:</b> 50kg</p>
+                                            <p><b>Whole Weight:</b> 50kg</p>
                                             <div class="col-md-12">
                                                 <table class="table table-striped table-bordered table-hover">
                                                     <thead>
@@ -323,14 +283,14 @@
                                                                 300-500gm
                                                             </td>
                                                             <td>
-                                                                5kg
+                                                                5
                                                             </td>
                                                             <td>
                                                                 <div class="row-col">
                                                                     <div>
-                                                                        <input type="text" class="form-control" placeholder="Type Quantity">
+                                                                        <input type="text" class="form-control" placeholder="Type Block Quantity(Pc)">
 
-                                                                        <input type="text" class="form-control" placeholder="Type Weight">
+                                                                        <input type="text" class="form-control" placeholder="Type Block Weight(Kg)">
                                                                     </div>
 
                                                                 </div>
@@ -366,7 +326,7 @@
                                                     <p><b>Invoice no:</b> 1111111</p>
                                                     <p><b>Item Name:</b> Pangas</p>
                                                     <p><b>Quantity:</b> 50kg</p>
-                                                    <p><b>Initial Weight (Kg):</b> 50kg</p>
+                                                    <p><b>Whole Weight (Kg):</b> 50kg</p>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <table class="table table-striped table-bordered table-hover">
@@ -379,10 +339,13 @@
                                                                     Size
                                                                 </th>
                                                                 <th>
-                                                                Block Quantity
+                                                                    Block Quantity (Pc)
                                                                 </th>
                                                                 <th>
-                                                                    Excess Volume
+                                                                    Block Weight (Kg)
+                                                                </th>
+                                                                <th>
+                                                                    Excess Volume (Kg)
                                                                 </th>
                                                             </tr>
                                                         </thead>
@@ -392,10 +355,13 @@
                                                                     300-500gm
                                                                 </td>
                                                                 <td>
-                                                                    5kg
+                                                                    5
                                                                 </td>
                                                                 <td>
                                                                     15
+                                                                </td>
+                                                                <td>
+                                                                    4
                                                                 </td>
                                                                 <td>
                                                                     5
@@ -474,7 +440,7 @@
                                                 <p><b>Invoice no:</b> 1111111</p>
                                                 <p><b>Item Name:</b> Pangas</p>
                                                 <p><b>Quantity:</b> 50kg</p>
-                                                <p><b>Initial Weight (Kg):</b> 50kg</p>
+                                                <p><b>Whole Weight (Kg):</b> 50kg</p>
                                                 <div class="row">
                                                     <div class="col-md-5">
                                                         <label>Block Size</label>
@@ -547,7 +513,7 @@
                                             <p><b>Invoice no:</b> 1111111</p>
                                             <p><b>Item Name:</b> Pangas</p>
                                             <p><b>Quantity:</b> 50kg</p>
-                                            <p><b>Initial Weight:</b> 50kg</p>
+                                            <p><b>Whole Weight:</b> 50kg</p>
                                             <div class="col-md-12">
                                                 <table class="table table-striped table-bordered table-hover">
                                                     <thead>
@@ -569,14 +535,14 @@
                                                                 300-500gm
                                                             </td>
                                                             <td>
-                                                                5kg
+                                                                5
                                                             </td>
                                                             <td>
                                                                 <div class="row-col">
                                                                     <div>
-                                                                        <input type="text" class="form-control" placeholder="Type Quantity">
+                                                                        <input type="text" class="form-control" placeholder="Type Block Quantity(Pc)">
 
-                                                                        <input type="text" class="form-control" placeholder="Type Weight">
+                                                                        <input type="text" class="form-control" placeholder="Type Block Weight(Kg)">
                                                                     </div>
 
                                                                 </div>
@@ -612,7 +578,7 @@
                                                     <p><b>Invoice no:</b> 1111111</p>
                                                     <p><b>Item Name:</b> Pangas</p>
                                                     <p><b>Quantity:</b> 50kg</p>
-                                                    <p><b>Initial Weight (Kg):</b> 50kg</p>
+                                                    <p><b>Whole Weight (Kg):</b> 50kg</p>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <table class="table table-striped table-bordered table-hover">
@@ -625,10 +591,13 @@
                                                                     Size
                                                                 </th>
                                                                 <th>
-                                                                Block Quantity
+                                                                    Block Quantity (Pc)
                                                                 </th>
                                                                 <th>
-                                                                    Excess Volume
+                                                                    Block Weight (Kg)
+                                                                </th>
+                                                                <th>
+                                                                    Excess Volume (Kg)
                                                                 </th>
                                                             </tr>
                                                         </thead>
@@ -638,10 +607,13 @@
                                                                     300-500gm
                                                                 </td>
                                                                 <td>
-                                                                    5kg
+                                                                    5
                                                                 </td>
                                                                 <td>
                                                                     15
+                                                                </td>
+                                                                <td>
+                                                                    4
                                                                 </td>
                                                                 <td>
                                                                     5

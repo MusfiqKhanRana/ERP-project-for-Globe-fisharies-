@@ -13,7 +13,7 @@
                     <p><b>Invoice no:</b> 1111111</p>
                     <p><b>Item Name:</b> Pangas</p>
                     <p><b>Quantity:</b> 50kg</p>
-                    <p><b>Clining Weight (Kg):</b> 50kg</p>
+                    <p><b>Cleaning Weight (Kg):</b> 50kg</p>
                     <div class="row">
                         <div class="col-md-5">
                             <label>Block Size</label>
@@ -25,7 +25,7 @@
                             </select>
                         </div>
                         <div class="col-md-5">
-                            <label>Block Quantity</label>
+                            <label>Size</label>
                             <select type="text" class="form-control">
                                 <option>10</option>
                                 <option>12</option>
