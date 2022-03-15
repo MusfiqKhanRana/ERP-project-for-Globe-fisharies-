@@ -54,7 +54,7 @@
                 <div class="portlet-body">
                     <form action="{{route('production-requisition.store')}}" class="form-horizontal" method="POST">
                         {{ csrf_field() }}
-                        <div class="form-body">
+                        {{-- <div class="form-body">
                             <div class="form-section">
                                 
                                 <label class="col-md-2 control-label pull-left bold">Supplier Select: </label>
@@ -65,7 +65,7 @@
                         </div>
                         <div id="supplier_info">
                             
-                        </div>
+                        </div> --}}
                         <div class="row" style="margin-top:2%">
                             <div class="col-md-12">
                                 <div class="card">
@@ -78,27 +78,23 @@
                                                 <label for="">Select Item</label>
                                                 <select class="form-control" id="item">
                                                     <option selected>Select</option>
-                                                    
+                                                    @foreach ($supply_item as $item)
+                                                        <option value="{{$item->id}}" data-name="{{$item->name}}" data-grade_id="{{$item->grade->id}}" data-grade_name="{{$item->grade->name}}">{{$item->name}} ({{$item->grade->name}})</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="col-md-2">
                                                 <label for="product">Grade</label>
                                                 <input type="text" class="form-control" id="grade" readonly>
                                             </div>
-                                            <div class="col-md-2">
-                                                <label for="product">Unit Price</label>
-                                                <input type="text" class="form-control" id="unit_price" readonly>
-                                            </div>
+                                           
                                             <div class="col-md-2">
                                                 <label for="product">Quantity</label>
                                                 <input type="text" class="form-control" id="quantity">
                                             </div>
+                                            
                                             <div class="col-md-2">
-                                                <label for="product">Amount</label>
-                                                <input type="text" class="form-control" id="amount" readonly>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label for="addbtn"><b>&nbsp;</b></label>
+                                                <label for="addbtn"><p><b>&nbsp;</b></p></label>
                                                 <button type="button" class="btn dark pull-right " id="addbtn">Add Another Item <i class= 'fa fa-plus'> </i> </button>
                                             </div>
                                         </div>
@@ -130,9 +126,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="row serviceRow redBorder"  id="orderBox">
-                           
-                        </div> --}}
                         <div class="form-action">
                                 <div class="col-md-2">
                                     <input type="hidden" name="products" value="" id="products">
@@ -269,70 +262,63 @@
             }
             var item_id,item_name,item_grade_id,item_grade_name,item_unit_price,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,product_name,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
             var product_array = [];
-            $('#product').change(function(){
-                product_id = $(this).val();
-                product_name = $(this).find(':selected').data("name");
-                product_pack_id = $(this).find(':selected').data("pack_id");
-                product_pack_name = $(this).find(':selected').data("pack_name");
-                product_pack_weight = $(this).find(':selected').data("pack_weight");
-                product_online_rate = $(this).find(':selected').data("online_selling_price");
-                product_inhouse_rate = $(this).find(':selected').data("inhouse_selling_price");
-                $('#pack_size').val(product_pack_name);
-                $("#rate").empty();
-                var customer_type = $('#customer_type').html();
-                var selling_price = null;
-                if(customer_type=="inhouse"){
-                    selling_price = product_inhouse_rate;
-                }
-                else if(customer_type == "online"){
-                    selling_price = product_online_rate;
-                }
-                $("#rate").val(selling_price);
-                // console.log(product_online_rate,product_inhouse_rate,product_id,product_name,product_pack_id,product_pack_name,product_pack_weight);
-            })
-            $('#quantity').keyup(function(){
-                packet_quantity = $(this).val();
-                $("#amount").val(packet_quantity * item_unit_price);
-                total_price = packet_quantity * item_unit_price;
-            })
+            // $('#product').change(function(){
+            //     product_id = $(this).val();
+            //     product_name = $(this).find(':selected').data("name");
+            //     product_pack_id = $(this).find(':selected').data("pack_id");
+            //     product_pack_name = $(this).find(':selected').data("pack_name");
+            //     product_pack_weight = $(this).find(':selected').data("pack_weight");
+            //     product_online_rate = $(this).find(':selected').data("online_selling_price");
+            //     product_inhouse_rate = $(this).find(':selected').data("inhouse_selling_price");
+            //     $('#pack_size').val(product_pack_name);
+            //     $("#rate").empty();
+            //     var customer_type = $('#customer_type').html();
+            //     var selling_price = null;
+            //     if(customer_type=="inhouse"){
+            //         selling_price = product_inhouse_rate;
+            //     }
+            //     else if(customer_type == "online"){
+            //         selling_price = product_online_rate;
+            //     }
+            //     $("#rate").val(selling_price);
+            //     // console.log(product_online_rate,product_inhouse_rate,product_id,product_name,product_pack_id,product_pack_name,product_pack_weight);
+            // })
+            // $('#quantity').keyup(function(){
+            //     packet_quantity = $(this).val();
+            //     $("#amount").val(packet_quantity * item_unit_price);
+            //     total_price = packet_quantity * item_unit_price;
+            // })
             $('#item').change(function(){
                 item_id = $(this).val();
                 item_name = $(this).find(':selected').data("name");
                 item_grade_id = $(this).find(':selected').data("grade_id");
-                item_unit_price = $(this).find(':selected').data("unit_price");
-                $.ajax({
-                    type:"get",
-                    url:"/admin/get-supplier-items-grade/"+item_grade_id,
-                    success:function(data){
-                        $("#grade").val(data.name);
-                    }
-                });
-                $("#unit_price").val(item_unit_price);
+                item_grade_name = $(this).find(':selected').data("grade_name");
+                $("#grade").val(item_grade_name);
             })
-            $(document).on('keyup','#percentage_id',function() {
-                let main_price = total_price - (total_price*$(this).val())/100;
-                $('#price').val(main_price);
-                discount_in_percentage = $(this).val()
-            });
-            $(document).on('keyup','#amount_id',function() {
-                let main_price = total_price - ($(this).val());
-                discount_in_amount = $(this).val();
-                $('#price').val(main_price);
-            });
-            $('.discount_in_amount').hide();
-            $(".want_in_amount").click(function() {
-                if($(this).is(":checked")) {
-                    $(".discount_in_amount").show();
-                    $(".discount_in_percentage").hide();
-                    $('#percentage_id').val('');
-                    discount_in_percentage = 0;
-                } else {
-                    $(".discount_in_amount").hide();
-                    $(".discount_in_percentage").show();
-                    discount_in_amount = 0;
-                    $('#amount_id').val('');
-                }
-            });
+            // $(document).on('keyup','#percentage_id',function() {
+            //     let main_price = total_price - (total_price*$(this).val())/100;
+            //     $('#price').val(main_price);
+            //     discount_in_percentage = $(this).val()
+            // });
+            // $(document).on('keyup','#amount_id',function() {
+            //     let main_price = total_price - ($(this).val());
+            //     discount_in_amount = $(this).val();
+            //     $('#price').val(main_price);
+            // });
+            // $('.discount_in_amount').hide();
+            // $(".want_in_amount").click(function() {
+            //     if($(this).is(":checked")) {
+            //         $(".discount_in_amount").show();
+            //         $(".discount_in_percentage").hide();
+            //         $('#percentage_id').val('');
+            //         discount_in_percentage = 0;
+            //     } else {
+            //         $(".discount_in_amount").hide();
+            //         $(".discount_in_percentage").show();
+            //         discount_in_amount = 0;
+            //         $('#amount_id').val('');
+            //     }
+            // });
             $("#addbtn").click(function() {
                 product_array.push({"item_id":item_id,"item_name":item_name,"item_grade_id":item_grade_id,"item_grade_name":$('#grade').val(),"quantity":$('#quantity').val(),"rate":item_unit_price,'total_price':$('#amount').val(),"status":"stay"})
                 $("#products").val('');
@@ -349,7 +335,6 @@
                 $("#grand_total").val(total())
                 $(".delete").click(function(){
                     product_array[$(this).data("id")].status="delete";
-                    // console.log(product_array,$(this).data("id"));
                     $("#products").val('');
                     $("#products").val(JSON.stringify(product_array));
                     $("#intotal_amount").html("")
@@ -400,27 +385,6 @@
                     }
                 });
             });
-        });
-
-        $('.select2Ajax').select2({
-            placeholder: 'Select an item',
-            ajax: {
-                url: "{{route('production-supplier.all')}}",
-                dataType: 'json',
-                delay: 250,
-                processResults: function (data) {
-                    return {
-                        results:  $.map(data, function (item) {
-                            return {
-                                text: item.name + " | "+item.email+" | "+item.phone,
-                                title:item.phone,
-                                id: item.id
-                            }
-                        })
-                    };
-                },
-                cache: true
-            }
         });
     </script>
 @endsection
