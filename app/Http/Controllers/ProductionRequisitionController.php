@@ -82,7 +82,7 @@ class ProductionRequisitionController extends Controller
         $data = $request->all();
         // $invoice_code = Helper::IDGenerator(new ProductionRequisition, 'invoice_code', 5, 'Requisition');
         $invoice_code = random_int(100000, 999999);
-        //dd($invoice_code);
+        dd($data);
         // dd(var_dump($data));
         $production_requisition = ProductionRequisition::create(['production_supplier_id' => $data['supplier_id'],'invoice_code'=>$invoice_code,'details' => $data['details']]);
         foreach (json_decode($request->products) as $key => $product) {
