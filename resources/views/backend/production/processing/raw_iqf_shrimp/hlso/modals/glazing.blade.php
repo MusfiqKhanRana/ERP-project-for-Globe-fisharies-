@@ -22,16 +22,16 @@
                                     Grade
                                 </th>
                                 <th>
-                                    Weight
+                                    Weight (Kg)
                                 </th>
                                 <th>
-                                   Soaking Weight
+                                   Soaking Weight (Kg)
                                 </th>
                                 <th>
-                                    Return Weight
+                                    Return Weight(Kg)
                                 </th>
                                 <th>
-                                    Glazing Weight
+                                    Glazing Weight (Kg)
                                 </th>
                             </tr>
                         </thead>
@@ -41,13 +41,13 @@
                                     300-500gm
                                 </td>
                                 <td>
-                                    5kg
+                                    5
                                 </td>
                                 <td>
                                     100
                                 </td>
                                 <td>
-                                    50kg
+                                    50
                                 </td>
                                 <td>
                                     <input type="text" class="form-control" placeholder="Type  Glazing Volume">

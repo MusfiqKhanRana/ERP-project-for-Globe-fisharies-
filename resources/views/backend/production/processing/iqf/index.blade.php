@@ -1,7 +1,7 @@
 
 @extends('backend.master')
 @section('site-title')
-    Medicine Report
+    IQF Report
 @endsection
 
 @section('main-content')

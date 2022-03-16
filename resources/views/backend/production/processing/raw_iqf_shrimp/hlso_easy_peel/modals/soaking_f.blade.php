@@ -13,7 +13,7 @@
                 <p><b>Invoice no:</b> 1111111</p>
                 <p><b>Item Name:</b> Pangas</p>
                 <p><b>Quantity:</b> 50kg</p>
-                <p><b>HLSO:</b> 50kg</p>
+                <p><b>nitial Weight:</b> 50kg</p>
                 <div class="col-md-12">
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
@@ -22,13 +22,13 @@
                                     Grade
                                 </th>
                                 <th>
-                                    Weight
+                                    Weight (Kg)
                                 </th>
                                 <th>
-                                   Soaking Weight
+                                   Soaking Weight (Kg)
                                 </th>
                                 <th>
-                                    Return Weight
+                                    Return Weight (Kg)
                                 </th>
                             </tr>
                         </thead>
@@ -38,7 +38,7 @@
                                     300-500gm
                                 </td>
                                 <td>
-                                    5kg
+                                    5
                                 </td>
                                 <td>
                                     <input type="text" class="form-control" placeholder="Type Soaking Weight">
