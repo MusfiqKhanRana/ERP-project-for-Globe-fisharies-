@@ -1,7 +1,7 @@
 
 @extends('backend.master')
 @section('site-title')
-    Medicine Report
+    Raw IQF Shrimp
 @endsection
 
 @section('main-content')

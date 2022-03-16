@@ -52,23 +52,20 @@
                     <div class="tools"> </div>
                 </div>
                 <div class="portlet-body">
-                    <form action="{{route('production-requisition.store')}}" class="form-horizontal" method="POST">
+                    <form action="{{route('production-supply.store')}}" class="form-horizontal" method="POST">
                         {{ csrf_field() }}
                         <div class="form-body">
                             <div class="form-section">
                                 <div class="row">
-                                    <label class="col-md-2 control-label pull-left bold">Expected Date:</label>
-                                    <div class="col-md-4">
-                                        <div class="input-group input-medium date date-picker"  data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-                                            <input type="text" class="form-control" name="expected_date" readonly value="">
-                                            <span class="input-group-btn">
-                                                <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                            </span>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Expected Date</label>
+                                        <div class="col-md-9">
+                                            <input type="date" class="form-control" name="expected_date" value="">
                                         </div>
                                     </div>
                                 </div>
                             </div><br><br>
-                        </div>
+                        </div><hr>
                         <div class="row" style="margin-top:2%">
                             <div class="col-md-12">
                                 <div class="card">
@@ -128,15 +125,15 @@
                                     </table>
                                 </div>
                             </div>
-                        </div>
+                        </div><hr>
                         <div class="form-action">
                                 <div class="col-md-2">
                                     <input type="hidden" name="products" value="" id="products">
                                 </div>
                             <div class="form-group">
-                                <label class="col-md-1 control-label"><b>Remark</b></label>
+                                <label class="col-md control-label"><b>Remark</b></label>
                                 <div class="col-md-12">
-                                    <textarea class="form-control" name="details" rows="3"></textarea>
+                                    <textarea class="form-control" name="remark" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="row">

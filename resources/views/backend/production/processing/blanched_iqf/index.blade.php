@@ -1,7 +1,7 @@
 
 @extends('backend.master')
 @section('site-title')
-    Blanched IQF Report
+    Blanched IQF 
 @endsection
 
 @section('main-content')
