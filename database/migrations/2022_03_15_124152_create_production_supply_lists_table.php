@@ -15,6 +15,9 @@ class CreateProductionSupplyListsTable extends Migration
     {
         Schema::create('production_supply_lists', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('supply_id')->nullable();
+            $table->date('expected_date')->nullable();
+            $table->text('remark')->nullable();
             $table->timestamps();
         });
     }

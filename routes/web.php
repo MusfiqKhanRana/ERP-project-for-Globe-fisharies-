@@ -54,6 +54,7 @@ use App\Http\Controllers\ProductionRequisitionController;
 use App\Http\Controllers\ProductionRequisitionItemController;
 use App\Http\Controllers\ProductionSupplierController;
 use App\Http\Controllers\ProductionSupplierItemController;
+use App\Http\Controllers\ProductionSupplyListController;
 use App\Http\Controllers\ProductionTestController;
 use App\Http\Controllers\ProductionUnloadController;
 use App\Http\Controllers\ProductionUserPerformanceController;
@@ -64,6 +65,7 @@ use App\Http\Controllers\TiffinBillController;
 use App\Http\Controllers\RoPlantController;
 use App\Models\ProductionRequisition;
 use App\Models\ProductionRequisitionItem;
+use App\Models\ProductionSupplyList;
 use App\Models\TemperatureThermocouple;
 use App\Models\TempMonitoring;
 use App\Models\TiffinBill;
@@ -486,4 +488,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('production/processing/unload', function () {
         return view('backend.production.unload.gate_man.index');
     })->name('production.processing.gate_man');
+
+
+    //Production Supply
+    Route::resource('production-supply',ProductionSupplyListController::class);
+
 });

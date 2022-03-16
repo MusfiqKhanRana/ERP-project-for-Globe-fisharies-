@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductionSupplyList;
+use App\Models\ProductionSupplyListItem;
 use Illuminate\Http\Request;
 
 class ProductionSupplyListController extends Controller
@@ -35,7 +36,25 @@ class ProductionSupplyListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->toArray());
+        $data = $request->all();
+        $production_supply = ProductionSupplyList::create(['expected_date'=>$data['expected_date'],'remark' => $data['remark']]);
+        foreach (json_decode($request->products) as $key => $product) {
+            //dd(($product));
+            if ($product->status=="stay"){
+                $production_supply_item = ProductionSupplyListItem::create([
+                    'production_supply_list_id' => $production_supply->id,
+                    'item_id' => $product->item_id,
+                    'grade_id' => $product->item_grade_id,
+                    'grade_name' => $product->item_grade_name,
+                    'quantity' => $product->quantity,
+                ]);
+            
+            }
+            
+        }
+        // dd("good");
+        return redirect()->back()->withMsg('Successfully Created');
     }
 
     /**
