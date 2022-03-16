@@ -1,7 +1,7 @@
 
 @extends('backend.master')
 @section('site-title')
-    Medicine Report
+   Block Frozen
 @endsection
 
 @section('main-content')

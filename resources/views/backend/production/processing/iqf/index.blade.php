@@ -1,7 +1,7 @@
 
 @extends('backend.master')
 @section('site-title')
-    IQF Report
+    IQF
 @endsection
 
 @section('main-content')
