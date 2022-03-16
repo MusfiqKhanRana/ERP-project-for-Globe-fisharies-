@@ -20,6 +20,9 @@ class CreateProductionRequisitionItemsTable extends Migration
             $table->integer('rate')->nullable();
             $table->integer('quantity')->nullable();
             $table->integer('received_quantity')->nullable();
+            $table->integer('alive_quantity')->nullable();
+            $table->integer('dead_quantity')->nullable();
+            $table->integer('return_quantity')->nullable();
             $table->text('received_remark')->nullable();
             $table->timestamps();
         });
