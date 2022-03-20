@@ -29,6 +29,7 @@ use App\Http\Controllers\CateringManagement;
 use App\Http\Controllers\OfficeDetailController;
 use App\Http\Controllers\FoodMillController;
 use App\Http\Controllers\CateringController;
+use App\Http\Controllers\ChillStorageController;
 use App\Http\Controllers\ColdstorageController;
 use App\Http\Controllers\EmployeeAttendanceController;
 use App\Http\Controllers\FishGradeController;
@@ -493,4 +494,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Production Supply
     Route::resource('production-supply',ProductionSupplyListController::class);
 
-});
+    //Production Chill Room 
+    Route::get('/production/chill-room',[ChillStorageController::class,'index'])->name('production.chill_room.index');
+});Route::get('/production/chill-room/pagination/fetch_data',[PaginationController::class,'fetch_data']);

@@ -625,6 +625,12 @@
                         </ul>
                     </li>
                     <li class="nav-item">
+                        <a href="{{route('production.chill_room.index')}}" class="nav-link nav-toggle">
+                            <i class="fa fa-user"></i>
+                            <span class="title">Chill Room</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
                             <span class="title">Supply </span>
