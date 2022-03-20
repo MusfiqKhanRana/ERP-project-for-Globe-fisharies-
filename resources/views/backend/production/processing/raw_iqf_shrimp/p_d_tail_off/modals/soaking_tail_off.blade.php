@@ -6,14 +6,14 @@
             <form action="#" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Soaking </h2>
+                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Soaking (Tail off)</h2>
                 </div>
                 <div class="modal-body">
                     @csrf
                 <p><b>Invoice no:</b> 1111111</p>
                 <p><b>Item Name:</b> Pangas</p>
                 <p><b>Quantity:</b> 50kg</p>
-                <p><b>Initial Weight:</b> 50kg</p>
+                <p><b>Initial Data:</b> 50kg</p>
                 <div class="col-md-12">
                     <table class="table table-striped table-bordered table-hover">
                         <thead>

@@ -6,7 +6,7 @@
             <form action="#" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Glazing</h2>
+                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Glazing (Tail On)</h2>
                 </div>
                 <div class="modal-body">
                     @csrf
@@ -50,7 +50,7 @@
                                     50
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" placeholder="Type  Glazing Volume">
+                                    <input type="text" class="form-control" placeholder="Glazing Volume">
                                 </td>
                             </tr>
                         </tbody>

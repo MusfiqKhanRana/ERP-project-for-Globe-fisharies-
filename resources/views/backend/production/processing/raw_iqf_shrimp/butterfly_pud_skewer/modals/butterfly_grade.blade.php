@@ -1,4 +1,4 @@
-<div id="grade" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+<div id="butterfly_grade" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
     {{csrf_field()}}
     <input type="hidden" value="" id="delete_id">
     <div class="modal-dialog">
@@ -13,7 +13,7 @@
                     <p><b>Invoice no:</b> 1111111</p>
                     <p><b>Item Name:</b> Pangas</p>
                     <p><b>Quantity:</b> 50kg</p>
-                    <p><b>Initial Weight:</b> 50kg</p>
+                    <p><b>Initial Data:</b> 50kg</p>
                     <div class="row">
                         <div class="col-md-5">
                             <label>Select Grade</label>

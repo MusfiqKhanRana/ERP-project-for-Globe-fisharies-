@@ -6,7 +6,7 @@
             <form action="#" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Wastage & Return</h2>
+                    <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Wastage & Return (Tail off)</h2>
                 </div>
                 <div class="modal-body">
                     <div class="row" style="margin: 3%" >
@@ -29,7 +29,7 @@
                                     <th>
                                         Soaking Weight (Kg)
                                     </th>
-                                    <th> 
+                                    <th>
                                         Return Weight (Kg)
                                     </th>
                                 </tr>
