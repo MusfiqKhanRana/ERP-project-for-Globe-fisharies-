@@ -653,6 +653,11 @@
                                         </a>
                                     </li>
                                     <li class="nav-item ">
+                                        <a href="{{route('production-supply.index')}}" class="nav-link ">
+                                            <span class="title">Production Supply List</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
                                         <a href="{{route('production-requisition.index',['status'=>'Pending','page'=>1])}}" class="nav-link ">
                                             <span class="title">Requisition List</span>
                                         </a>
