@@ -23,4 +23,8 @@ class ProductionRequisition extends Model
         return $this->belongsTo(Supplier::class);
     }
     
+    public function production_processing_unit()
+    {
+        return $this->hasMany(ProductionProcessingUnit::class,'requisition_id');
+    }
 }

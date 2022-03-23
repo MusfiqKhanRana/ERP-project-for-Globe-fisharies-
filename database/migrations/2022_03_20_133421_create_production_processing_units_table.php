@@ -17,13 +17,15 @@ class CreateProductionProcessingUnitsTable extends Migration
             $table->id();
             $table->unsignedInteger('requisition_id')->nullable();
             $table->unsignedInteger('requisition_code')->nullable();
+            $table->unsignedInteger('item_id')->nullable();
             $table->unsignedInteger('invoice_code')->nullable();
             $table->string('processing_code')->nullable();
             $table->string('processing_name')->nullable();
-            $table->string('processing_type')->nullable();
-            $table->enum('status', ['Initial', 'Grading','Blocking','BlockCounter','clean','Soaking', 'Glazing','ExcessVolume',"RandW"])->default('Probational');
+            $table->string('processing_variant')->nullable();
+            $table->enum('status', ['Initial', 'Grading','Blocking','BlockCounter','clean','Soaking', 'Glazing','ExcessVolume',"RandW"])->default('Initial');
             $table->enum('type', ['Regular', 'Grading','Block'])->default('Regular');
-            $table->unsignedInteger('production_quantity')->nullable();
+            $table->unsignedInteger('alive_quantity')->nullable();
+            $table->unsignedInteger('dead_quantity')->nullable();
             $table->unsignedInteger('Initial_weight')->nullable();
             $table->dateTime('initial_weight_datetime')->nullable();
             $table->unsignedInteger('cleaning_weight')->nullable();
