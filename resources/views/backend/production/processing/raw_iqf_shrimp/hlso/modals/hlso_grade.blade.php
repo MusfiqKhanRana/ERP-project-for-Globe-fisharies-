@@ -1,4 +1,4 @@
-<div id="grade" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+<div id="hlso_grade" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
     {{csrf_field()}}
     <input type="hidden" value="" id="delete_id">
     <div class="modal-dialog">
@@ -6,7 +6,7 @@
             <form action="#" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Grading</h2>
+                    <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Grading (HLSO)</h2>
                 </div>
                 <div class="modal-body">
                         @csrf

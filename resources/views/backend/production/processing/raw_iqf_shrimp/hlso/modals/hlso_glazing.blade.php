@@ -1,4 +1,4 @@
-<div id="soaking" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+<div id="hlso_glazing" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
     {{csrf_field()}}
     <input type="hidden" value="" id="delete_id">
     <div class="modal-dialog">
@@ -6,7 +6,7 @@
             <form action="#" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Soaking </h2>
+                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Glazing (HLSO)</h2>
                 </div>
                 <div class="modal-body">
                     @csrf
@@ -30,6 +30,9 @@
                                 <th>
                                     Return Weight (Kg)
                                 </th>
+                                <th>
+                                    Glazing Weight (Kg)
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,10 +44,13 @@
                                     5
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" placeholder="Type Soaking Weight">
+                                    100
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" placeholder="Type Return Weight">
+                                    50
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="Type  Glazing Volume">
                                 </td>
                             </tr>
                         </tbody>

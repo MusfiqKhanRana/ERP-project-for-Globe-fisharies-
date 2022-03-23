@@ -9,14 +9,14 @@ class ProductionSupplyList extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function production_supplier()
+    public function supply_lists()
     {
-        return $this->belongsTo(ProductionSupplier::class,'production_supplier_id');
+        return $this->belongsTo(ProductionSupplyList::class,'id');
     }
-    public function production_requisition_items()
+    public function production_supply_list_items()
     {
-        return $this->belongsToMany(SupplyItem::class,'production_requisition_items','production_requisition_id','supply_item_id')
-        ->withPivot('id','production_requisition_id','rate', 'quantity');
+        return $this->belongsToMany(SupplyItem::class,"production_supply_list_items","production_supply_list_id","item_id")
+        ->withPivot('quantity');
     }
     public function supplier()
     {

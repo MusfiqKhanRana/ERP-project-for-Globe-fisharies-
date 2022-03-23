@@ -67,7 +67,7 @@ class ProductionRequisitionController extends Controller
             return redirect()->back()->withMsg("Successfully send to Return List");
         }
         elseif($request->status=="InProduction"){
-            ProductionRequisition::where('id',$request->id)->update(['status'=>"InProduction",'in_production_date'=>Carbon::now()]);
+            ProductionRequisition::where('id',$request->id)->update(['status'=>"InGateman",'in_gateman_date'=>Carbon::now()]);
             return redirect()->back()->withMsg("Successfully send to InProduction List");
         }
     }

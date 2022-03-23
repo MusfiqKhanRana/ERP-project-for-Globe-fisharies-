@@ -22,6 +22,9 @@ class ProductionRequisition extends Model
     {
         return $this->belongsTo(Supplier::class);
     }
+    public function getDateAttribute($value){
+        return  \Carbon\Carbon::parse($value)->format('d/m/Y');
+    }
     
     public function production_processing_unit()
     {

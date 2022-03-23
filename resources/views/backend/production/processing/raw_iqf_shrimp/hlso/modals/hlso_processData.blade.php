@@ -1,4 +1,4 @@
-<div id="processData" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+<div id="hlso_processData" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
     {{csrf_field()}}
     <input type="hidden" value="" id="delete_id">
     <div class="modal-dialog">
@@ -6,7 +6,7 @@
             <form action="#" method="POST">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Initial Data (Vein)</h2>
+                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Initial Data (HLSO)</h2>
                 </div>
                 <div class="modal-body">
                         @csrf
@@ -16,8 +16,8 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-9">
-                            <label>Initial Weight</label>
-                            <input type="text" class="form-control" placeholder="Type Initial weight">
+                            <label>HLSO</label>
+                            <input type="text" class="form-control" placeholder="Type after de heading">
                         </div>
                         <div class="col-md-3" style="margin-top: 5%"><b>Parcentage:</b> 12%</div>
                     </div><br>
