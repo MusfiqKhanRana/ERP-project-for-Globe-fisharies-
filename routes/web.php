@@ -496,4 +496,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //Production Chill Room 
     Route::get('/production/chill-room',[ChillStorageController::class,'index'])->name('production.chill_room.index');
-});Route::get('/production/chill-room/pagination/fetch_data',[PaginationController::class,'fetch_data']);
+    Route::post('/production/chill-room/data_pass',[ChillStorageController::class,'data_pass'])->name('production.chill_room.data_pass');
+    Route::post('/production/chill-room/process',[ChillStorageController::class,'process'])->name('production.chill_room.process');
+});
