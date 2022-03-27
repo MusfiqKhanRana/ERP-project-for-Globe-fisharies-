@@ -9,4 +9,8 @@ class ProductionProcessingUnit extends Model
 {
     protected $guarded = [];
     use HasFactory;
+    public function production_processing_item()
+    {
+        return $this->belongsTo(SupplyItem::class,'item_id');
+    }
 }

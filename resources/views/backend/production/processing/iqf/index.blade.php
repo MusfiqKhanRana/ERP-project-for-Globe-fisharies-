@@ -31,14 +31,14 @@
                 <div class="col-md-12">
                     <div class="portlet-body" style="height: auto;">
                         <ul class="nav nav-pills nav-stacked col-md-2">
-                            <li style="margin-bottom:5px;" class="active"><a href="#fillet" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Fillet</b></a></li>
-                            <li style="margin-bottom:5px;"><a href="#whole" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Whole</b></a></li>
-                            <li style="margin-bottom:5px;"><a href="#whole_gutted" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Whole Gutted</b></a></li>
-                            <li style="margin-bottom:5px;"><a href="#cleaned" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Cleaned</b></a></li>
-                            <li style="margin-bottom:5px;"><a href="#sliced_fmly" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Sliced(Family Cut)</b></a></li>
-                            <li style="margin-bottom:5px;"><a href="#sliced_chinese" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Sliced(Chinese Cut)</b></a></li>
-                            <li style="margin-bottom:5px;"><a href="#butter_fly" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Butter Fly</b></a></li>
-                            <li style="margin-bottom:5px;"><a href="#hgto" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>HGTO</b></a></li>
+                            <li style="margin-bottom:5px;" class="active"><a href="#fillet" data-id="fillet" class="fillet" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Fillet({{$fillet_count}})</b></a></li>
+                            <li style="margin-bottom:5px;"><a href="#whole" class="whole" data-id="whole" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Whole({{$whole_count}})</b></a></li>
+                            <li style="margin-bottom:5px;"><a href="#whole_gutted" class="whole_gutted" data-id="whole_gutted" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Whole Gutted({{$whole_gutted_count}})</b></a></li>
+                            <li style="margin-bottom:5px;"><a href="#cleaned" class="cleaned" data-id="cleaned" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Cleaned({{$cleaned_count}})</b></a></li>
+                            <li style="margin-bottom:5px;"><a href="#sliced_fmly" class="sliced_fmly" data-id="sliced_fmly" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Sliced(Family Cut) ({{$sliced_fmly_cut_count}})</b></a></li>
+                            <li style="margin-bottom:5px;"><a href="#sliced_chinese" class="sliced_chinese" data-id="sliced_chinese" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Sliced(Chinese Cut) ({{$sliced_chinese_cut_count}})</b></a></li>
+                            <li style="margin-bottom:5px;"><a href="#butter_fly" class="butter_fly" data-id="butter_fly" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>Butter Fly({{$butter_fly_count}})</b></a></li>
+                            <li style="margin-bottom:5px;"><a href="#hgto" class="hgto" data-id="hgto" style="text-align:center;border:2px solid #337AB7" data-toggle="pill"><b>HGTO({{$hgto_count}})</b></a></li>
                         </ul>
                         <div class="tab-content col-md-10 portlet-body">
                                 @include('backend.production.processing.iqf.fillet.index')
@@ -58,7 +58,144 @@
 @endsection
 @section('script')
 <script>
-    $(function() {
+    $(document).ready(function()
+    {
+        $('.fillet').click(function() {
+            var id =null;
+            id = $(this).attr("data-id");
+            $.ajax({
+                type:"POST",
+                url:"{{route('production.processing-unit.iqf.data_pass')}}",
+                data:{
+                    'type' : 'iqf',
+                    'sub_type' : 'fillet',
+                    'id' : id,
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    console.log(data);
+                }
+        });
+        });
+        $('.whole').click(function() {
+            var id =null;
+            id = $(this).attr("data-id");
+            $.ajax({
+                type:"POST",
+                url:"{{route('production.processing-unit.iqf.data_pass')}}",
+                data:{
+                    'type' : 'iqf',
+                    'sub_type' : 'whole',
+                    'id' : id,
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    console.log(data);
+                }
+        });
+        });
+        $('.whole_gutted').click(function() {
+            var id =null;
+            id = $(this).attr("data-id");
+            $.ajax({
+                type:"POST",
+                url:"{{route('production.processing-unit.iqf.data_pass')}}",
+                data:{
+                    'type' : 'iqf',
+                    'sub_type' : 'whole_gutted',
+                    'id' : id,
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    console.log(data);
+                }
+        });
+        });
+        $('.cleaned').click(function() {
+            var id =null;
+            id = $(this).attr("data-id");
+            $.ajax({
+                type:"POST",
+                url:"{{route('production.processing-unit.iqf.data_pass')}}",
+                data:{
+                    'type' : 'iqf',
+                    'sub_type' : 'cleaned',
+                    'id' : id,
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    console.log(data);
+                }
+        });
+        });
+        $('.sliced_fmly').click(function() {
+            var id =null;
+            id = $(this).attr("data-id");
+            $.ajax({
+                type:"POST",
+                url:"{{route('production.processing-unit.iqf.data_pass')}}",
+                data:{
+                    'type' : 'iqf',
+                    'sub_type' : 'sliced_fmly',
+                    'id' : id,
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    console.log(data);
+                }
+        });
+        });
+        $('.sliced_chinese').click(function() {
+            var id =null;
+            id = $(this).attr("data-id");
+            $.ajax({
+                type:"POST",
+                url:"{{route('production.processing-unit.iqf.data_pass')}}",
+                data:{
+                    'type' : 'iqf',
+                    'sub_type' : 'sliced_chinese',
+                    'id' : id,
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    console.log(data);
+                }
+        });
+        });
+        $('.butter_fly').click(function() {
+            var id =null;
+            id = $(this).attr("data-id");
+            $.ajax({
+                type:"POST",
+                url:"{{route('production.processing-unit.iqf.data_pass')}}",
+                data:{
+                    'type' : 'iqf',
+                    'sub_type' : 'butter_fly',
+                    'id' : id,
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    console.log(data);
+                }
+        }); 
+        });
+        $('.hgto').click(function() {
+            var id =null;
+            id = $(this).attr("data-id");
+            $.ajax({
+                type:"POST",
+                url:"{{route('production.processing-unit.iqf.data_pass')}}",
+                data:{
+                    'type' : 'iqf',
+                    'sub_type' : 'hgto',
+                    'id' : id,
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    console.log(data);
+                }
+        });
+        });
     });
     
   </script>

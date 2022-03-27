@@ -46,6 +46,7 @@ use App\Http\Controllers\RequisitionProductController;
 use App\Http\Controllers\RequisitionReceiveController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\PratyProductController;
+use App\Http\Controllers\Production\ProductionIqfController;
 use App\Http\Controllers\ProductionPurchaseItemController;
 use App\Http\Controllers\ProductionPurchaseRequisitionController;
 use App\Http\Controllers\ProductionPurchaseRequisitionItemController;
@@ -452,9 +453,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('production-requisition-item/{id}',[ProductionRequisitionController::class,'getRequisitionItems'])->name('production.requisition.item');
 
     //Processing Unit
-    Route::get('production/processing-unit/IQF', function () {
-        return view('backend.production.processing.iqf.index');
-    })->name('production.processing.iqf');
+    //IGF
+    Route::get('production/processing-unit/iqf', [ProductionIqfController::class,'index'])->name('production.processing.iqf');
+    Route::post('production/processing-unit/iqf/data_pass',[ProductionIqfController::class,'data_pass'])->name('production.processing-unit.iqf.data_pass');
 
     //Block Frozen
     Route::get('production/processing-unit/block-frozen', function () {
