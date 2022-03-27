@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductionRequisition;
+use App\Models\ProductionRequisitionItem;
 use App\Models\ProductionSupplyListItem;
 use Illuminate\Http\Request;
 
@@ -35,7 +37,18 @@ class ProductionSupplyListItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $invoice_code = random_int(100000, 999999);
+        // dd($data);
+        $production_supply = ProductionRequisition::create(['invoice_code'=>$invoice_code,'remark' => $data['remark'],'expected_date'=>$data['expected_date'],'production_supplier_id'=>$data['production_supplier_id']]);
+        foreach ($data['item_id'] as $key => $item) {
+            // dd($item);
+            // dd($data['rate'][$key]);
+            $production_requisition_id = $production_supply->id;
+            $production_requisition_item=ProductionRequisitionItem::create(['production_requisition_id'=> $production_requisition_id,'supply_item_id'=>$item,'rate'=>$data['rate'][$key],'quantity'=>$data['qty'][$key]]);
+            //dd($production_requisition_item);
+        }
+        return redirect()->back()->withMsg('Successfully Created');
     }
 
     /**
