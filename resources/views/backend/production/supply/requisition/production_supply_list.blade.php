@@ -89,7 +89,7 @@
                                                 </td>
                                                 <td>{{$data->remark}}</td>
                                                 <td style="text-align: center">
-                                                    <a class="btn green" data-toggle="modal" href={{route('production-supply.create', $data->id)}}><i class="fa fa-arrow-circle-right"></i>Add Supply</a>
+                                                    <a class="btn green"  href={{route('supply.list.show', $data->id)}}><i class="fa fa-arrow-circle-right"></i>Add Supply</a>
                                             </tr>
                                         @endforeach
                                     </tbody>

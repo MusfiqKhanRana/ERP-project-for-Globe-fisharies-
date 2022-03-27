@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductionSupplier;
 use App\Models\ProductionSupplyList;
 use App\Models\ProductionSupplyListItem;
 use Illuminate\Http\Request;
@@ -28,10 +29,10 @@ class ProductionSupplyListController extends Controller
      */
     public function create()
     {
-        $lists = ProductionSupplyList::with("production_supply_list_items")->get();
+        //$lists = ProductionSupplyList::with("production_supply_list_items")->where('id',$id)->get();
         $supply_list_items = ProductionSupplyListItem::get();
-        //dd($supply_list_items->toArray());
-        return view('backend.production.supply.requisition.production_add_supply',compact('supply_list_items','lists'));
+        //dd($lists->toArray());
+        return view('backend.production.supply.requisition.production_add_supply',compact('supply_list_items'));
     }
 
     /**
@@ -71,7 +72,16 @@ class ProductionSupplyListController extends Controller
      */
     public function show(ProductionSupplyList $productionSupplyList)
     {
-        //
+        
+    }
+    public function addSupplyPage($id)
+    {
+        $supplier = ProductionSupplier::all();
+        $lists = ProductionSupplyList::with("production_supply_list_items")->where('id',$id)->first();
+        $supply_list_items = ProductionSupplyListItem::get();
+        //dd($lists->toArray());
+         return view('backend.production.supply.requisition.production_add_supply',compact('lists','supply_list_items','supplier'));
+       
     }
 
     /**
@@ -106,5 +116,13 @@ class ProductionSupplyListController extends Controller
     public function destroy(ProductionSupplyList $productionSupplyList)
     {
         //
+    }
+
+    public function supply_items(Request $request)
+    {
+        $process_array = [];
+        $id = $request->id;
+        $items = ProductionSupplyListItem::with('pack')->find($id);
+        return $items;
     }
 }

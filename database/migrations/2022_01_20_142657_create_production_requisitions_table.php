@@ -18,7 +18,8 @@ class CreateProductionRequisitionsTable extends Migration
             $table->integer('invoice_code')->nullable();
             $table->unsignedInteger('production_supplier_id')->nullable();
             $table->enum('status', ['Pending', 'Confirm','Approved','InGateman','Reject','Returned','InProduction','Received'])->default('Pending');
-            $table->text('details')->nullable();
+            $table->text('remark')->nullable();
+            $table->dateTime('expected_date')->nullable();
             $table->dateTime('confirm_date')->nullable();
             $table->dateTime('approved_date')->nullable();
             $table->dateTime('in_gateman_date')->nullable();

@@ -55,6 +55,7 @@ use App\Http\Controllers\ProductionPurchaseUnitController;
 use App\Http\Controllers\ProductionRequisitionController;
 use App\Http\Controllers\ProductionRequisitionItemController;
 use App\Http\Controllers\ProductionSupplierController;
+use App\Http\Controllers\ProductionSupplyListItemController;
 use App\Http\Controllers\ProductionSupplierItemController;
 use App\Http\Controllers\ProductionSupplyListController;
 use App\Http\Controllers\ProductionTestController;
@@ -493,7 +494,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
 
     //Production Supply
+    Route::post('supply/items/info',[ProductionSupplyListController::class,'supply_items'])->name('supply.items.info');
+    Route::get('production-supply-show/{id}',[ProductionSupplyListController::class,'addSupplyPage'])->name('supply.list.show');
     Route::resource('production-supply',ProductionSupplyListController::class);
+    Route::resource('supply-list-item',ProductionSupplyListItemController::class);
 
     //Production Chill Room 
     Route::get('/production/chill-room',[ChillStorageController::class,'index'])->name('production.chill_room.index');
