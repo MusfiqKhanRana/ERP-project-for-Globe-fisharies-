@@ -49,7 +49,7 @@
                                         <div class="row">
                                         <label class="col-md-1 control-label"><b>Date :</b></label>
 
-                                            <div class="col-md-9" style="margin-top: 1%" name="expected_date">
+                                            <div class="col-md-9"  name="expected_date">
                                                 {{$lists->expected_date}}
                                             </div>
                                         </div>
@@ -71,6 +71,7 @@
                                             </thead>
                                             <tbody>
                                                 @foreach($lists->production_supply_list_items as $key2=> $item)
+                                                @if($item->pivot->status == 'NotDone')
                                                     <tr>
                                                         <th style="text-align: center">
                                                             <input type="checkbox" class="supply_item" data-id={{$item->id}} data-name={{$item->name}} data-grade_name={{$item->grade->name}} data-qty={{$item->pivot->quantity}} name="supply_item_ids[]" multiple="multiple">
@@ -79,13 +80,15 @@
                                                         <th>{{$item->grade->name}}</th>
                                                         <th>{{$item->pivot->quantity}}</th>  
                                                     </tr>
+                                                @endif
+                                                
                                                 @endforeach
                                             </tbody>
                                         </table>
                                         <div class="row">
                                             <label class="col-md-1 control-label"><b>Remark:</b></label>
 
-                                                <div class="col-md-9" style="margin-top: 1%" name="remark">
+                                                <div class="col-md-9" name="remark">
                                                     {{$lists->remark}}
                                                 </div>
                                             </div>
@@ -93,19 +96,19 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h4 class="modal-title">Update</h4>
+                                                        <h4 class="modal-title">Add Supplier</h4>
                                                     </div>
                                                     <div class="modal-body">
                                                         <form class="form-horizontal" role="form" method="post" action="{{route('supply-list-item.store')}}">
                                                             {{csrf_field()}}
                                                             <div class="form-group">
                                                                 <label class="col-md-2 control-label" name="expected_date">Date  :</label>
-                                                                <div class="col-md-9" style="margin-top: 1%">
+                                                                <div class="col-md-9" >
                                                                     <input type="hidden" name="expected_date" value="{{$lists->expected_date}}">{{$lists->expected_date}}
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="col-md-2 control-label"> Select Supplier</label>
+                                                                <label class="col-md-2 control-label"> Supplier</label>
                                                                 <div class="col-md-9">
                                                                     <select class="form-control" name="production_supplier_id">
                                                                         @foreach ($supplier as $item)
@@ -128,7 +131,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="col-md-2 control-label"><b>Remark :</b></label>
-                                                                <div class="col-md-9" name="remark" style="margin: auto">
+                                                                <div class="col-md-9" style="margin-top: 1%" name="remark" >
                                                                         <input type="hidden" name="remark" value="{{$lists->remark}}">{{$lists->remark}}
                                                                 </div><br><br>
                                                             </div>
@@ -201,7 +204,7 @@
                 //console.log(supply_item_ids);
                 $.each( supply_item_ids, function( key, product ) {
                     console.log(product);
-                    $("table#supplyTable tr").last().after("<tr><td> <input type='hidden' value='"+product.id+"' name='item_id[]'>"+product.name+"</td><td>"+product.grade_name+"</td><td ><input name='qty[]'type='hidden' value='"+product.qty+"'> <span>"+product.qty+"</span></td><td><input name='rate[]'></td></tr>");
+                    $("table#supplyTable tr").last().after("<tr><td> <input type='hidden' value='"+product.id+"' name='id[]'> <input type='hidden' value='"+product.id+"' name='item_id[]'>"+product.name+"</td><td>"+product.grade_name+"</td><td ><input name='qty[]'type='hidden' value='"+product.qty+"'> <span>"+product.qty+"</span></td><td><input name='rate[]'></td></tr>");
                 });
                 //$("#myTable tr").empty();
                // $("table#myTable tr").remove();
