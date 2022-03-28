@@ -45,9 +45,12 @@ class ProductionSupplyListItemController extends Controller
             // dd($item);
             // dd($data['rate'][$key]);
             $production_requisition_id = $production_supply->id;
+            
             $production_requisition_item=ProductionRequisitionItem::create(['production_requisition_id'=> $production_requisition_id,'supply_item_id'=>$item,'rate'=>$data['rate'][$key],'quantity'=>$data['qty'][$key]]);
             //dd($production_requisition_item);
         }
+        $production = ProductionSupplyListItem::where('id',$data['id'][$key])->update(['status'=>"Done"]);
+            //dd($production);
         return redirect()->back()->withMsg('Successfully Created');
     }
 

@@ -94,8 +94,8 @@
                                             </div>
                                             
                                             <div class="col-md-2">
-                                                <label for="addbtn"><p><b>&nbsp;</b></p></label>
-                                                <button type="button" class="btn dark pull-right " id="addbtn">Add Another Item <i class= 'fa fa-plus'> </i> </button>
+                                                <label for="addbtn" ></label>
+                                                <button type="button" style="margin-top: 3%" class="btn dark pull-right " id="addbtn">Add Another Item <i class= 'fa fa-plus'> </i> </button>
                                             </div>
                                         </div>
                                     </div>

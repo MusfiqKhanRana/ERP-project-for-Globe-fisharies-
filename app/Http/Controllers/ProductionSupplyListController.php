@@ -18,7 +18,7 @@ class ProductionSupplyListController extends Controller
     {
         $supply_lists = ProductionSupplyList::with("production_supply_list_items")->get();
         $production_supply_list_items = ProductionSupplyListItem::get();
-        //dd($supply_lists->toArray());
+        // dd($supply_lists);
         return view('backend.production.supply.requisition.production_supply_list',compact('supply_lists','production_supply_list_items'));
     }
 
@@ -55,6 +55,7 @@ class ProductionSupplyListController extends Controller
                     'grade_id' => $product->item_grade_id,
                     'grade_name' => $product->item_grade_name,
                     'quantity' => $product->quantity,
+                    'status' => 'NotDone',
                 ]);
             
             }

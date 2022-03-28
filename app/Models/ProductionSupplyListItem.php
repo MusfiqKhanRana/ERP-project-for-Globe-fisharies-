@@ -18,7 +18,7 @@ class ProductionSupplyListItem extends Model
     public function production_supply_items()
     {
         return $this->belongsToMany(SupplyItem::class,"production_supply_items","production_supply_list_id","item_id")
-        ->withPivot('quantity','expected_date');
+        ->withPivot('quantity','expected_date','status');
     }
     
 }

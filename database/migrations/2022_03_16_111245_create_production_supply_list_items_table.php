@@ -20,6 +20,7 @@ class CreateProductionSupplyListItemsTable extends Migration
             $table->unsignedInteger('grade_id')->nullable();
             $table->string('grade_name')->nullable();
             $table->integer('quantity')->nullable();
+            $table->enum('status', ['Done','NotDone']);
             $table->timestamps();
         });
     }
