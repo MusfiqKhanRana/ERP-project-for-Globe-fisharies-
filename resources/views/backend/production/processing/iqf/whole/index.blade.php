@@ -6,7 +6,7 @@
         <div class="tools"> </div>
     </div>
     <hr>
-    <table class="table table-striped table-bordered table-hover">
+    <table class="table table-striped table-bordered table-hover" id="whole_table">
         <thead>
             <tr>
                 <th>
@@ -26,7 +26,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="whole_tbody">
             <tr>
                 <td>
                     11111

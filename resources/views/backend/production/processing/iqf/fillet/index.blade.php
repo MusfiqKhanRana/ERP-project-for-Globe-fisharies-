@@ -3,10 +3,11 @@
         <div class="caption">
            <b>Fillet List</b>
         </div>
-        <div class="tools"> </div>
+        <div class="tools">
+        </div>
     </div>
     <hr>
-    <table class="table table-striped table-bordered table-hover">
+    <table class="table table-striped table-bordered table-hover" id="fillet_table">
         <thead>
             <tr>
                 <th>
@@ -26,7 +27,7 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="fillet_tbody">
             <tr>
                 <td>
                     11111
@@ -41,7 +42,7 @@
                     60kg
                 </td>
                 <td>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#filletProcessingDataModal" class="btn btn-success"><i class="fa fa-refresh" aria-hidden="true"></i> Processing Data</button>
+                    <button style="margin-bottom:3px" data-toggle="modal" href="#filletProcessingDataModal" class="btn btn-success fillet_processing"><i class="fa fa-refresh" aria-hidden="true"></i> Processing Data</button>
                     <button style="margin-bottom:3px" data-toggle="modal" href="#filletGradingModal" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Grading</button>
                     <button style="margin-bottom:3px" data-toggle="modal" href="#filletSoakingModal" class="btn btn-warning"><i class="fa fa-refresh" aria-hidden="true"></i> Soaking</button>
                     <button style="margin-bottom:3px" data-toggle="modal" href="#filletGlazingModal" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Glazing</button>
@@ -58,3 +59,9 @@
     {{-- @include('backend.production.processing.iqf.fillet.index');
     @include('backend.production.processing.iqf.fillet.modals'); --}}
 </div>
+<script>
+    $(document).ready(function()
+    {
+        
+    });
+</script>

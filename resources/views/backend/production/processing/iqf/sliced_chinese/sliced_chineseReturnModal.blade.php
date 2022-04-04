@@ -1,9 +1,8 @@
 <div id="sliced_chineseReturnModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-    {{csrf_field()}}
-    <input type="hidden" value="" id="delete_id">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="#" method="POST">
+            <form class="form-horizontal" role="form" method="post" action="{{route('production.processing-unit.randw')}}">
+                {{csrf_field()}}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Wastage & Return</h2>
@@ -11,13 +10,13 @@
                 <div class="modal-body">
                     <div class="row" style="margin: 3%" >
                         @csrf
-                        <p><b>Invoice no:</b> 1111111</p>
-                        <p><b>Item Name:</b> Pangas</p>
-                        <p><b>Quantity:</b> 50kg</p>
-                        <p><b>Initial Weight:</b> 50kg</p>
+                        <input type="hidden" class="randw_ppu_id" name="randw_ppu_id">
+                        <p><b>Invoice no:</b> <span class="sliced_chinese_invoice"></span></p>
+                        <p><b>Item Name:</b> <span class="sliced_chinese_item"></span></p>
+                        <p><b>Quantity:</b> <span class="sliced_chinese_qty"></span></p>
                     </div>
                     <div class="col-md-12">
-                        <table class="table table-striped table-bordered table-hover">
+                        <table class="table table-striped table-bordered table-hover sliced_chinese_randw_table">
                             <thead>
                                 <tr>
                                     <th>
@@ -25,9 +24,6 @@
                                     </th>
                                     <th>
                                         Quantity (Kg)
-                                    </th>
-                                    <th>
-                                        Cleaned Weight (Kg)
                                     </th>
                                     <th>
                                         Glazing Weight (Kg)
@@ -43,10 +39,10 @@
                                         5
                                     </td>
                                     <td>
-                                        1
+                                        5
                                     </td>
                                     <td>
-                                        2
+                                        15
                                     </td>
                                 </tr>
                             </tbody>
@@ -57,11 +53,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Wastage (Kg)</label>
-                                <input type="text" class="form-control" placeholder=" Type Wastage Volume">
+                                <input type="text" class="form-control" name="wastage_quantity" placeholder=" Type Wastage Volume">
                             </div>
                             <div class="col-md-6">
                                 <label>Return (Kg)</label>
-                                <input type="text" class="form-control" placeholder=" Type Return Volume">
+                                <input type="text" class="form-control" name="return_quantity" placeholder=" Type Return Volume">
                             </div>
                         </div><br>
                     </div>

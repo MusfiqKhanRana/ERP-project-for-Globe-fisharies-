@@ -6,7 +6,7 @@
         <div class="tools"> </div>
     </div>
     <hr>
-    <table class="table table-striped table-bordered table-hover">
+    <table class="table table-striped table-bordered table-hover" id="whole_gutted_table">
         <thead>
             <tr>
                 <th>
@@ -53,7 +53,7 @@
     </table>
     @include('backend.production.processing.iqf.whole_gutted.whole_guttedProcessingDataModal')
     @include('backend.production.processing.iqf.whole_gutted.whole_guttedGradingModal')
-    @include('backend.production.processing.iqf.whole_gutted.whole_guttedSoakingModal')
+    @include('backend.production.processing.iqf.whole_gutted.whole_guttedCleanModal')
     @include('backend.production.processing.iqf.whole_gutted.whole_guttedGlazingModal')
     @include('backend.production.processing.iqf.whole_gutted.whole_guttedReturnModal')
 </div>

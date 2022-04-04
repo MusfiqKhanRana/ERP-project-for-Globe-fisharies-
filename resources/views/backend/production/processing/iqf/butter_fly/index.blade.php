@@ -6,7 +6,7 @@
         <div class="tools"> </div>
     </div>
     <hr>
-    <table class="table table-striped table-bordered table-hover">
+    <table class="table table-striped table-bordered table-hover" id="butter_fly_table">
         <thead>
             <tr>
                 <th>
@@ -53,7 +53,7 @@
     </table>
     @include('backend.production.processing.iqf.butter_fly.butter_flyProcessingDataModal')
     @include('backend.production.processing.iqf.butter_fly.butter_flyGradingModal')
-    @include('backend.production.processing.iqf.butter_fly.butter_flySoakingModal')
+    @include('backend.production.processing.iqf.butter_fly.butter_flyCleaningModal')
     @include('backend.production.processing.iqf.butter_fly.butter_flyGlazingModal')
     @include('backend.production.processing.iqf.butter_fly.butter_flyReturnModal')
 </div>

@@ -6,7 +6,7 @@
         <div class="tools"> </div>
     </div>
     <hr>
-    <table class="table table-striped table-bordered table-hover">
+    <table class="table table-striped table-bordered table-hover" id="sliced_chinese_table">
         <thead>
             <tr>
                 <th>
@@ -53,7 +53,7 @@
     </table>
     @include('backend.production.processing.iqf.sliced_chinese.sliced_chineseProcessingDataModal')
     @include('backend.production.processing.iqf.sliced_chinese.sliced_chineseGradingModal')
-    @include('backend.production.processing.iqf.sliced_chinese.sliced_chineseSoakingModal')
+    @include('backend.production.processing.iqf.sliced_chinese.sliced_chineseCleaningModal')
     @include('backend.production.processing.iqf.sliced_chinese.sliced_chineseGlazingModal')
     @include('backend.production.processing.iqf.sliced_chinese.sliced_chineseReturnModal')
 </div>

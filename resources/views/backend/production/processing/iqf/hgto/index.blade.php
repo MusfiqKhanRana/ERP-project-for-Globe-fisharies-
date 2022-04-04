@@ -6,7 +6,7 @@
         <div class="tools"> </div>
     </div>
     <hr>
-    <table class="table table-striped table-bordered table-hover">
+    <table class="table table-striped table-bordered table-hover" id="hgto_table">
         <thead>
             <tr>
                 <th>
@@ -53,7 +53,7 @@
     </table>
     @include('backend.production.processing.iqf.hgto.hgtoProcessingDataModal')
     @include('backend.production.processing.iqf.hgto.hgtoGradingModal')
-    @include('backend.production.processing.iqf.hgto.hgtoSoakingModal')
+    @include('backend.production.processing.iqf.hgto.hgtoCleaningModal')
     @include('backend.production.processing.iqf.hgto.hgtoGlazingModal')
     @include('backend.production.processing.iqf.hgto.hgtoReturnModal')
 </div>

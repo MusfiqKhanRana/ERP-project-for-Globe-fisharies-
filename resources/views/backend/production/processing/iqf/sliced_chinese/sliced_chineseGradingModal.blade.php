@@ -1,9 +1,8 @@
 <div id="sliced_chineseGradingModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-    {{csrf_field()}}
-    <input type="hidden" value="" id="delete_id">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="#" method="POST">
+            <form class="form-horizontal" role="form" method="post" action="{{route('production.processing-unit.grading_to_glazing')}}">
+                {{csrf_field()}}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Grading</h2>
@@ -11,54 +10,56 @@
                 <br>
                 <div class="modal-body">
                     @csrf
-                <p><b>Invoice no:</b> 1111111</p>
-                <p><b>Item Name:</b> Pangas</p>
-                <p><b>Quantity:</b> 50kg</p>
-                <p><b>Initial Weight:</b> 50kg</p>
-                <p><b>Cleaned Weight:</b> 5 kg</p>
-                <div class="row">
-                    <div class="col-md-5">
-                        <label>Select Grade</label>
-                        <select class="form-control">
-                            <option>100-200</option>
-                            <option>100-200</option>
-                            <option>100-200</option>
-                        </select>
+                    <input type="hidden" name="grade_ppu_id" class="grade_ppu_id">
+                    <input type="hidden" name="inputs" class="inputs">
+                    <p><b>Invoice no:</b> <span class="sliced_chinese_invoice"></span></p>
+                    <p><b>Item Name:</b> <span class="sliced_chinese_item"></span></p>
+                    <p><b>Quantity:</b> <span class="sliced_chinese_qty"></span></p>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>Select Grade</label>
+                            <select type="text" class="form-control grade_select" >
+                                <option>--Select--</option>
+                                @foreach ($grades as $item)
+                                <option value="{{$item->id}}" data-grade_name="{{$item->name}}">{{$item->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-5" >
+                            <label>Quantity (Kg) </label>
+                            <input type="text" class="form-control grade_weight"  placeholder="weight">
+                        </div>
+                        <div class="col-md-2" style="margin-top: 3%">
+                            <button type="button" class="btn btn-success add_btn">add</button>
+                        </div>
                     </div>
-                    <div class="col-md-5">
-                        <label>Quantity (Kg)</label>
-                        <input type="text" class="form-control" placeholder="Type weight">
+                    <div class="row">
+                        <br><br>
+                        <div class="col-md-12">
+                            <table class="table table-striped table-bordered table-hover sliced_chinese_grading_table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Grade
+                                        </th>
+                                        <th>
+                                            Quantity (Kg)
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            300-500gm
+                                        </td>
+                                        <td>
+                                            5
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="col-md-1" style="margin-top: 4%">
-                        <button type="button" class="btn btn-success">add</button>
-                    </div>
-                </div><br><br>
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table table-striped table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Grade
-                                    </th>
-                                    <th>
-                                        Quantity (Kg)
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        300-500gm
-                                    </td>
-                                    <td>
-                                        5
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
                 <div class="modal-footer">
                     <button type="submit" class="m-10 btn btn-success">Confirm</button>
