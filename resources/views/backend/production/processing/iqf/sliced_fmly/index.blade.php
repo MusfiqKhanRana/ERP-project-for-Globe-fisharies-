@@ -6,7 +6,7 @@
         <div class="tools"> </div>
     </div>
     <hr>
-    <table class="table table-striped table-bordered table-hover">
+    <table class="table table-striped table-bordered table-hover" id="sliced_fmly_table">
         <thead>
             <tr>
                 <th>
@@ -53,7 +53,7 @@
     </table>
     @include('backend.production.processing.iqf.sliced_fmly.sliced_fmlyProcessingDataModal')
     @include('backend.production.processing.iqf.sliced_fmly.sliced_fmlyGradingModal')
-    @include('backend.production.processing.iqf.sliced_fmly.sliced_fmlySoakingModal')
+    @include('backend.production.processing.iqf.sliced_fmly.sliced_fmlyCLeaningModal')
     @include('backend.production.processing.iqf.sliced_fmly.sliced_fmlyGlazingModal')
     @include('backend.production.processing.iqf.sliced_fmly.sliced_fmlyReturnModal')
 </div>

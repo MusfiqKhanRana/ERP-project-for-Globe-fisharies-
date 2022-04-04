@@ -65,6 +65,7 @@ use App\Http\Controllers\TempMonitoringController;
 use App\Http\Controllers\TempTherController;
 use App\Http\Controllers\TiffinBillController;
 use App\Http\Controllers\RoPlantController;
+use App\Models\ProductionProcessingGrade;
 use App\Models\ProductionRequisition;
 use App\Models\ProductionRequisitionItem;
 use App\Models\ProductionSupplyList;
@@ -453,9 +454,23 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('production-requisition-item/{id}',[ProductionRequisitionController::class,'getRequisitionItems'])->name('production.requisition.item');
 
     //Processing Unit
+
+    Route::resource('production-processing-grade',ProductionProcessingGrade::class);
     //IGF
     Route::get('production/processing-unit/iqf', [ProductionIqfController::class,'index'])->name('production.processing.iqf');
+    Route::get('production/processing-unit/raw_iqf_shrimp', [ProductionIqfController::class,'raw_iqf_shrimp_index'])->name('production.processing.raw_iqf_shrimp');
     Route::post('production/processing-unit/iqf/data_pass',[ProductionIqfController::class,'data_pass'])->name('production.processing-unit.iqf.data_pass');
+    Route::post('production/processing-unit/processing',[ProductionIqfController::class,'processing'])->name('production.processing-unit.processing');
+    Route::post('production/processing-unit/processing_to_clean',[ProductionIqfController::class,'processing_to_clean'])->name('production.processing-unit.processing_to_clean');
+    Route::post('production/processing-unit/cleaning_to_grading',[ProductionIqfController::class,'cleaning_to_grading'])->name('production.processing-unit.cleaning_to_grading');
+    Route::post('production/processing-unit/grading',[ProductionIqfController::class,'grading'])->name('production.processing-unit.grading');
+    Route::post('production/processing-unit/grading_to_glazing',[ProductionIqfController::class,'grading_to_glazing'])->name('production.processing-unit.grading_to_glazing');
+    Route::post('production/processing-unit/soaking',[ProductionIqfController::class,'soaking'])->name('production.processing-unit.soaking');
+    Route::post('production/processing-unit/glazing',[ProductionIqfController::class,'glazing'])->name('production.processing-unit.glazing');
+    Route::post('production/processing-unit/randw',[ProductionIqfController::class,'randw'])->name('production.processing-unit.randw');
+    Route::post('production/processing-unit/soaking/data_pass',[ProductionIqfController::class,'soaking_data_pass'])->name('production.processing-unit.soaking.data_pass');
+    Route::post('production/processing-unit/glazing/data_pass',[ProductionIqfController::class,'glazing_data_pass'])->name('production.processing-unit.glazing.data_pass');
+    Route::post('production/processing-unit/randw/data_pass',[ProductionIqfController::class,'randw_data_pass'])->name('production.processing-unit.randw.data_pass');
 
     //Block Frozen
     Route::get('production/processing-unit/block-frozen', function () {
@@ -465,11 +480,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('production/processing-unit/raw_bf_shrimp', function () {
         return view('backend.production.processing.raw_bf_shrimp.index');
     })->name('production.processing.raw_bf_shrimp');
-
-    //Raw IQF Shrimp
-    Route::get('production/processing-unit/raw-iqf-shrimp', function () {
-        return view('backend.production.processing.raw_iqf_shrimp.index');
-    })->name('production.processing.raw_iqf_shrimp');
 
     //Semi IQF
     Route::get('production/processing-unit/semi-iqf', function () {

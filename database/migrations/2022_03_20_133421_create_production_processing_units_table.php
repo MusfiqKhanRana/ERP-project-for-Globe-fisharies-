@@ -22,7 +22,7 @@ class CreateProductionProcessingUnitsTable extends Migration
             $table->string('processing_code')->nullable();
             $table->string('processing_name')->nullable();
             $table->string('processing_variant')->nullable();
-            $table->enum('status', ['Initial', 'Grading','Blocking','BlockCounter','clean','Soaking', 'Glazing','ExcessVolume',"RandW"])->default('Initial');
+            $table->enum('status', ['Initial', 'Grading','Blocking','BlockCounter','Clean','Soaking', 'Glazing','ExcessVolume',"RandW",'StoreIn'])->default('Initial');
             $table->enum('type', ['Regular', 'Grading','Block'])->default('Regular');
             $table->unsignedInteger('alive_quantity')->nullable();
             $table->unsignedInteger('dead_quantity')->nullable();

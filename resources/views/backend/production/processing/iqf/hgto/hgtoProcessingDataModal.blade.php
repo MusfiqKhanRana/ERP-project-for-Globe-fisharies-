@@ -1,9 +1,8 @@
 <div id="hgtoProcessingDataModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-    {{csrf_field()}}
-    <input type="hidden" value="" id="delete_id">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="#" method="POST">
+            <form class="form-horizontal" role="form" method="post" action="{{route('production.processing-unit.processing_to_clean')}}">
+                {{csrf_field()}}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Initial Data</h2>
@@ -11,17 +10,19 @@
                 <br>
                 <div class="modal-body">
                         @csrf
-                    <p><b>Invoice no:</b> 1111111</p>
-                    <p><b>Item Name:</b> Pangas</p>
-                    <p><b>Quantity:</b> 50kg</p>
+                        <input type="hidden" class="ppu_id" name="ppu_id">
+                        <p><b>Invoice no:</b> <span class="hgto_invoice"></span></p>
+                        <p><b>Item Name:</b> <span class="hgto_item"></span></p>
+                        <p><b>Quantity:</b> <span class="hgto_qty"></span></p>
                     <div class="row">
                         <div class="col-md-3">
                             <b>Initial Weight:</b>
-                        </div><div class="col-md-6">
-                            <input type="text" class="form-control" placeholder="Type Initial Weight">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="number" class="form-control initial_weight" name="initial_weight" placeholder="Type Initial Weight">
                         </div>
                         <div class="col-md-3">
-                            <b>Parcentage:</b> 12%
+                            <p><b>Parcentage:</b> <span class="parcentage"></span></p>
                         </div>
                     </div>
                 </div>

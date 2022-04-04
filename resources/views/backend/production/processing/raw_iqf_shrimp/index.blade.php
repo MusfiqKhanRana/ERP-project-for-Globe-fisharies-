@@ -51,14 +51,14 @@
                                 @include('backend.production.processing.raw_iqf_shrimp.pdu_pull_vein.index')
                         </div> --}}
                         <ul class="nav nav-pills nav-stacked col-md-2">
-                            <li style="margin-bottom:5px;" class="active"><a href="#hlso" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">HLSO</a></li>
-                            <li style="margin-bottom:5px;" ><a href="#pud" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">PUD</a></li>
-                            <li style="margin-bottom:5px;"><a href="#pd_tail_on" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">P&D Tail on</a></li>
-                            <li style="margin-bottom:5px;"><a href="#pd_tail_off" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">P&D Tail Off</a></li>
-                            <li style="margin-bottom:5px;" ><a href="#special_cut" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">Special Cut P & D</a></li>
-                            <li style="margin-bottom:5px;"><a href="#hlso_easy_peel" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">HLSO Easy Pell</a></li>
-                            <li style="margin-bottom:5px;"><a href="#butterfly" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">Butterfly/PUD Skewer</a></li>
-                            <li style="margin-bottom:5px;"><a href="#pud_pull_vein" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">PUD Pull Vein</a></li>
+                            <li style="margin-bottom:5px;" class="active"><a href="#hlso" class="hlso"  style="text-align:center;border:2px solid #337AB7" data-toggle="pill">HLSO({{$hlso}})</a></li>
+                            <li style="margin-bottom:5px;" ><a href="#pud" class="pud" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">PUD({{$pud}})</a></li>
+                            <li style="margin-bottom:5px;"><a href="#pd_tail_on" class="pd_tail_on" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">P&D Tail on({{$p_n_d_tail_on}})</a></li>
+                            <li style="margin-bottom:5px;"><a href="#pd_tail_off" class="pd_tail_off" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">P&D Tail Off({{$p_n_d_tail_off}})</a></li>
+                            <li style="margin-bottom:5px;" ><a href="#special_cut" class="special_cut" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">Special Cut P & D({{$special_cut_p_n_d}})</a></li>
+                            <li style="margin-bottom:5px;"><a href="#hlso_easy_peel" class="hlso_easy_peel" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">HLSO Easy Pell({{$hlso_easy_pell}})</a></li>
+                            <li style="margin-bottom:5px;"><a href="#butterfly" class="butterfly" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">Butterfly/PUD Skewer({{$butterfly_pud_skewer}})</a></li>
+                            <li style="margin-bottom:5px;"><a href="#pud_pull_vein" class="pud_pull_vein" style="text-align:center;border:2px solid #337AB7" data-toggle="pill">PUD Pull Vein({{$pud_pull_vein}})</a></li>
                         </ul>
                         <div class="tab-content col-md-10">
                             <div class="tab-pane active" id="hlso">
@@ -69,7 +69,7 @@
                                                 <h2 style="margin-left: 2%">HLSO</h2> 
                                             </div>
                                             <div class="panel-body">
-                                                <table class="table table-striped table-bordered table-hover">
+                                                <table class="table table-striped table-bordered table-hover" id="hlso_table">
                                                     <thead>
                                                         <tr>
                                                             <th>
@@ -136,7 +136,7 @@
                                                 <h2 style="margin-left: 2%">PUD</h2> 
                                             </div>
                                             <div class="panel-body">
-                                                <table class="table table-striped table-bordered table-hover">
+                                                <table class="table table-striped table-bordered table-hover" id="pud_table">
                                                     <thead>
                                                         <tr>
                                                             <th>
@@ -198,7 +198,7 @@
                                                 <h2 style="margin-left: 2%">P&D Tail On</h2> 
                                             </div>
                                             <div class="panel-body">
-                                                <table class="table table-striped table-bordered table-hover">
+                                                <table class="table table-striped table-bordered table-hover" id="pd_tail_on_table">
                                                     <thead>
                                                         <tr>
                                                             <th>
@@ -260,7 +260,7 @@
                                                 <h2 style="margin-left: 2%">P&D Tail Off</h2> 
                                             </div>
                                             <div class="panel-body">
-                                                <table class="table table-striped table-bordered table-hover">
+                                                <table class="table table-striped table-bordered table-hover" id="pd_tail_off_table">
                                                     <thead>
                                                         <tr>
                                                             <th>
@@ -322,7 +322,7 @@
                                                 <h2 style="margin-left: 2%">Special Cut P & D</h2> 
                                             </div>
                                             <div class="panel-body">
-                                                <table class="table table-striped table-bordered table-hover">
+                                                <table class="table table-striped table-bordered table-hover" id="special_cut_table">
                                                     <thead>
                                                         <tr>
                                                             <th>
@@ -389,7 +389,7 @@
                                                 <h2 style="margin-left: 2%">HLSO Easy Pell</h2> 
                                             </div>
                                             <div class="panel-body">
-                                                <table class="table table-striped table-bordered table-hover">
+                                                <table class="table table-striped table-bordered table-hover" id="hlso_easy_peel_table">
                                                     <thead>
                                                         <tr>
                                                             <th>
@@ -451,7 +451,7 @@
                                                 <h2 style="margin-left: 2%">Butterfly/PUD Skewer</h2> 
                                             </div>
                                             <div class="panel-body">
-                                                <table class="table table-striped table-bordered table-hover">
+                                                <table class="table table-striped table-bordered table-hover" id="butterfly_table">
                                                     <thead>
                                                         <tr>
                                                             <th>
@@ -513,7 +513,7 @@
                                                 <h2 style="margin-left: 2%">PUD Pull Vein</h2> 
                                             </div>
                                             <div class="panel-body">
-                                                <table class="table table-striped table-bordered table-hover">
+                                                <table class="table table-striped table-bordered table-hover" id="pud_pull_vein_table">
                                                     <thead>
                                                         <tr>
                                                             <th>
@@ -576,7 +576,349 @@
 @endsection
 @section('script')
 <script>
-    $(function() {
+     $(document).ready(function()
+    {
+        // $(".fillet_tbody").empty();
+            id = 'hlso';
+            $.ajax({
+                type:"POST",
+                url:"{{route('production.processing-unit.iqf.data_pass')}}",
+                data:{
+                    'type' : 'raw_iqf_shrimp',
+                    'sub_type' : 'hlso',
+                    'id' : id,
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    console.log(data);
+                    $("table#hlso_table tbody tr").empty();
+                    $.each( data, function( key, product ) {
+                        if (product.status == "Initial") {
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+(product.alive_quantity+product.dead_quantity)+"' data-toggle='modal' href='#hlso_processData' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                            // $('.fillet_invoice').html(product.requisition_code);
+                            // $('.fillet_item').html(product.production_processing_item.name);
+                            // $('.fillet_qty').html((product.alive_quantity+product.dead_quantity));
+                            $('.processing').click(function () {
+                                var fillet_invoice = $(this).attr("data-fillet_invoice");
+                                var fillet_item = $(this).attr("data-fillet_item");
+                                var fillet_qty = $(this).attr("data-fillet_qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                console.log(ppu_id);
+                                $('.fillet_invoice').html(fillet_invoice);
+                                $('.fillet_item').html(fillet_item);
+                                $('.fillet_qty').html((fillet_qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = ((((product.alive_quantity+product.dead_quantity) - a)/(product.alive_quantity+product.dead_quantity))*100);
+                                    p = p.toFixed(2);
+                                    $('.parcentage').html(p+'%');
+                                });
+                            });
+                            
+                        }
+                        if (product.status == "Grading") {
+                            $("table#fillet_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#filletGradingModal' class='btn btn-primary iqf_grading'  data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
+                            $('.iqf_grading').click(function () {
+                                $("table.fillet_grading_table tbody tr").empty();
+                                var fillet_invoice = $(this).attr("data-fillet_invoice");
+                                var fillet_item = $(this).attr("data-fillet_item");
+                                var fillet_qty = $(this).attr("data-fillet_qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                console.log(ppu_id);
+                                $('.fillet_invoice').html(fillet_invoice);
+                                $('.fillet_item').html(fillet_item);
+                                $('.fillet_qty').html((fillet_qty));
+                                $('.grade_ppu_id').val(ppu_id);
+                                var product_array = [];
+                                var grade_id , grade_name ,grade_weight = null; 
+                                $('.grade_select').change(function() {
+                                    grade_id=$('option:selected',this).val();
+                                    grade_name =$('option:selected',this).attr("data-grade_name");
+                                    console.log(grade_name);
+                                });
+                                $('.grade_weight').on("change keyup",function() {
+                                    grade_weight = $(this).val();
+                                });
+                                $('.add_btn').click(function () {
+                                    $("table.fillet_grading_table tbody tr").empty();
+                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight});
+                                    $.each( product_array, function( key, product ) {
+                                        $("table.fillet_grading_table tr").last().after("<tr><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td></tr>");
+                                    });
+                                    $(".inputs").val('');
+                                    $(".inputs").val(JSON.stringify(product_array));
+                                    $('.grade_weight').val(0);
+                                    $('.grade_select').val("--select--");
+                                })
+                            });
+
+                        }
+                        if (product.status == "Soaking") {
+                            $("table#fillet_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#filletSoakingModal' class='btn btn-warning iqf_soaking' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $('.iqf_soaking').click(function () {
+                                $("table.fillet_soaking_table tbody tr").empty();
+                                var fillet_invoice = $(this).attr("data-fillet_invoice");
+                                var fillet_item = $(this).attr("data-fillet_item");
+                                var fillet_qty = $(this).attr("data-fillet_qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                console.log(ppu_id);
+                                $('.fillet_invoice').html(fillet_invoice);
+                                $('.fillet_item').html(fillet_item);
+                                $('.fillet_qty').html((fillet_qty));
+                                $('.soaking_ppu_id').val(ppu_id);
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.soaking.data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        // console.log(data);
+                                        $("table.fillet_soaking_table tbody tr").empty();
+                                        $.each( data, function( key, product ) {
+                                            $("table.fillet_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='text' class='form-control' name='soaking_weight[]' placeholder='Soaking Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='text' class='form-control' name='return_weight[]' placeholder='Return Weight'></td></tr>");
+                                        });
+                                    }
+                                });
+                            });
+                        }
+                        if (product.status == "Glazing") {
+                            $("table#fillet_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#filletGlazingModal' class='btn btn-info iqf_glazing' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
+                            $('.iqf_glazing').click(function () {
+                                $("table.fillet_glazing_table tbody tr").empty();
+                                var fillet_invoice = $(this).attr("data-fillet_invoice");
+                                var fillet_item = $(this).attr("data-fillet_item");
+                                var fillet_qty = $(this).attr("data-fillet_qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                console.log(ppu_id);
+                                $('.fillet_invoice').html(fillet_invoice);
+                                $('.fillet_item').html(fillet_item);
+                                $('.fillet_qty').html((fillet_qty));
+                                $('.glazing_ppu_id').val(ppu_id);
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.glazing.data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $("table.fillet_glazing_table tbody tr").empty();
+                                        $.each( data, function( key, product ) {
+                                            $("table.fillet_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='text' class='form-control' name='glazing_weight[]' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                        });
+                                    }
+                                });
+                            });
+                        }
+                        if (product.status == "RandW") {
+                            $("table#fillet_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#filletReturnModal' class='btn btn-danger iqf_randw' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $('.iqf_randw').click(function () {
+                                $("table.fillet_randw_table tbody tr").empty();
+                                var fillet_invoice = $(this).attr("data-fillet_invoice");
+                                var fillet_item = $(this).attr("data-fillet_item");
+                                var fillet_qty = $(this).attr("data-fillet_qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                console.log(ppu_id);
+                                $('.fillet_invoice').html(fillet_invoice);
+                                $('.fillet_item').html(fillet_item);
+                                $('.fillet_qty').html((fillet_qty));
+                                $('.randw_ppu_id').val(ppu_id);
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.randw.data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $("table.fillet_randw_table tbody tr").empty();
+                                        $.each( data, function( key, product ) {
+                                            $("table.fillet_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td>"+product.glazing_weight+"</td></tr>");
+                                        });
+                                    }
+                                });
+                            });
+                        }
+                    });
+                }
+        });
+        $('.fillet').on("load click",function() {
+            // $(".fillet_tbody").empty();
+            var id =null;
+            id = $(this).attr("data-id");
+            $.ajax({
+                type:"POST",
+                url:"{{route('production.processing-unit.iqf.data_pass')}}",
+                data:{
+                    'type' : 'iqf',
+                    'sub_type' : 'fillet',
+                    'id' : id,
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    // console.log(data);
+                    $("table#fillet_table tbody tr").empty();
+                    $.each( data, function( key, product ) {
+                        if (product.status == "Initial") {
+                            $("table#fillet_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+(product.alive_quantity+product.dead_quantity)+"' data-toggle='modal' href='#filletProcessingDataModal' class='btn btn-success fillet_processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                            // $('.fillet_invoice').html(product.requisition_code);
+                            // $('.fillet_item').html(product.production_processing_item.name);
+                            // $('.fillet_qty').html((product.alive_quantity+product.dead_quantity));
+                            $('.fillet_processing').click(function () {
+                                var fillet_invoice = $(this).attr("data-fillet_invoice");
+                                var fillet_item = $(this).attr("data-fillet_item");
+                                var fillet_qty = $(this).attr("data-fillet_qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                console.log(ppu_id);
+                                $('.fillet_invoice').html(fillet_invoice);
+                                $('.fillet_item').html(fillet_item);
+                                $('.fillet_qty').html((fillet_qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = ((((product.alive_quantity+product.dead_quantity) - a)/(product.alive_quantity+product.dead_quantity))*100);
+                                    p = p.toFixed(2);
+                                    $('.parcentage').html(p+'%');
+                                });
+                            });
+                            
+                        }
+                        if (product.status == "Grading") {
+                            $("table#fillet_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#filletGradingModal' class='btn btn-primary iqf_grading'  data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
+                            $('.iqf_grading').click(function () {
+                                $("table.fillet_grading_table tbody tr").empty();
+                                var fillet_invoice = $(this).attr("data-fillet_invoice");
+                                var fillet_item = $(this).attr("data-fillet_item");
+                                var fillet_qty = $(this).attr("data-fillet_qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                console.log(ppu_id);
+                                $('.fillet_invoice').html(fillet_invoice);
+                                $('.fillet_item').html(fillet_item);
+                                $('.fillet_qty').html((fillet_qty));
+                                $('.grade_ppu_id').val(ppu_id);
+                                var product_array = [];
+                                var grade_id , grade_name ,grade_weight = null; 
+                                $('.grade_select').change(function() {
+                                    grade_id=$('option:selected',this).val();
+                                    grade_name =$('option:selected',this).attr("data-grade_name");
+                                    console.log(grade_name);
+                                });
+                                $('.grade_weight').on("change keyup",function() {
+                                    grade_weight = $(this).val();
+                                });
+                                $('.add_btn').click(function () {
+                                    $("table.fillet_grading_table tbody tr").empty();
+                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight});
+                                    $.each( product_array, function( key, product ) {
+                                        $("table.fillet_grading_table tr").last().after("<tr><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td></tr>");
+                                    });
+                                    $(".inputs").val('');
+                                    $(".inputs").val(JSON.stringify(product_array));
+                                    $('.grade_weight').val(0);
+                                    $('.grade_select').val("--select--");
+                                })
+                            });
+
+                        }
+                        if (product.status == "Soaking") {
+                            $("table#fillet_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#filletSoakingModal' class='btn btn-warning iqf_soaking' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $('.iqf_soaking').click(function () {
+                                $("table.fillet_soaking_table tbody tr").empty();
+                                var fillet_invoice = $(this).attr("data-fillet_invoice");
+                                var fillet_item = $(this).attr("data-fillet_item");
+                                var fillet_qty = $(this).attr("data-fillet_qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                console.log(ppu_id);
+                                $('.fillet_invoice').html(fillet_invoice);
+                                $('.fillet_item').html(fillet_item);
+                                $('.fillet_qty').html((fillet_qty));
+                                $('.soaking_ppu_id').val(ppu_id);
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.soaking.data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        // console.log(data);
+                                        $("table.fillet_soaking_table tbody tr").empty();
+                                        $.each( data, function( key, product ) {
+                                            $("table.fillet_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='text' class='form-control' name='soaking_weight[]' placeholder='Soaking Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='text' class='form-control' name='return_weight[]' placeholder='Return Weight'></td></tr>");
+                                        });
+                                    }
+                                });
+                            });
+                        }
+                        if (product.status == "Glazing") {
+                            $("table#fillet_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#filletGlazingModal' class='btn btn-info iqf_glazing' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
+                            $('.iqf_glazing').click(function () {
+                                $("table.fillet_glazing_table tbody tr").empty();
+                                var fillet_invoice = $(this).attr("data-fillet_invoice");
+                                var fillet_item = $(this).attr("data-fillet_item");
+                                var fillet_qty = $(this).attr("data-fillet_qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                console.log(ppu_id);
+                                $('.fillet_invoice').html(fillet_invoice);
+                                $('.fillet_item').html(fillet_item);
+                                $('.fillet_qty').html((fillet_qty));
+                                $('.glazing_ppu_id').val(ppu_id);
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.glazing.data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $("table.fillet_glazing_table tbody tr").empty();
+                                        $.each( data, function( key, product ) {
+                                            $("table.fillet_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='text' class='form-control' name='glazing_weight[]' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                        });
+                                    }
+                                });
+                            });
+                        }
+                        if (product.status == "RandW") {
+                            $("table#fillet_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#filletReturnModal' class='btn btn-danger iqf_randw' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $('.iqf_randw').click(function () {
+                                $("table.fillet_randw_table tbody tr").empty();
+                                var fillet_invoice = $(this).attr("data-fillet_invoice");
+                                var fillet_item = $(this).attr("data-fillet_item");
+                                var fillet_qty = $(this).attr("data-fillet_qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                console.log(ppu_id);
+                                $('.fillet_invoice').html(fillet_invoice);
+                                $('.fillet_item').html(fillet_item);
+                                $('.fillet_qty').html((fillet_qty));
+                                $('.randw_ppu_id').val(ppu_id);
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.randw.data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $("table.fillet_randw_table tbody tr").empty();
+                                        $.each( data, function( key, product ) {
+                                            $("table.fillet_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td>"+product.glazing_weight+"</td></tr>");
+                                        });
+                                    }
+                                });
+                            });
+                        }
+                    });
+                }
+        });
+        });
     });
     
   </script>
