@@ -18,9 +18,9 @@ class CreateProductionProcessingGradesTable extends Migration
             $table->unsignedInteger('production_processing_unit_id')->nullable();
             $table->unsignedInteger('block_id')->nullable();
             $table->text('block_name')->nullable();
-            $table->string('block_value')->nullable();
+            $table->double('block_value')->nullable();
             $table->string('block_size')->nullable();
-            $table->string('quantity_type')->nullable();
+            $table->double('block_quantity')->nullable();
             $table->string('excess_volume')->nullable();
             $table->string('block_weight')->nullable();
             $table->unsignedInteger('grade_id')->nullable();

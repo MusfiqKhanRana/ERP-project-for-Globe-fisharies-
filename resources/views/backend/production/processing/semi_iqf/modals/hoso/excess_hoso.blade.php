@@ -1,21 +1,20 @@
 <div id="excess_hoso" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-    {{csrf_field()}}
-    <input type="hidden" value="" id="delete_id">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="#" method="POST">
+            <form class="form-horizontal" role="form" method="post" action="{{route('production.processing-unit.blocking.ex_volume_to_return')}}">
+                {{csrf_field()}}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h2 class="modal-title" style="color: rgb(75, 65, 65);">Excess Volume </h2>
                 </div>
                 <div class="modal-body">
-                    @csrf
-                <p><b>Invoice no:</b> 1111111</p>
-                <p><b>Item Name:</b> Pangas</p>
-                <p><b>Quantity:</b> 50kg</p>
-                <p><b>Whole Weight:</b> 50kg</p>
+                    <input type="hidden" class="ppu_id" name="ppu_id">
+                    <p><b>Invoice no:</b> <span class="invoice"></span></p>
+                    <p><b>Item Name:</b> <span class="item"></span></p>
+                    <p><b>Quantity:</b> <span class="qty"></span></p>
+                {{-- <p><b>Initial Weight (Kg):</b> 50kg</p> --}}
                 <div class="col-md-12">
-                    <table class="table table-striped table-bordered table-hover">
+                    <table class="table table-striped table-bordered table-hover excess_volume_table_hoso">
                         <thead>
                             <tr>
                                 <th>
@@ -24,15 +23,12 @@
                                 <th>
                                     Size
                                 </th>
-                                <th style="text-align: center">
-                                   Block Quantity(Pc)
+                                <th>
+                                   Block Quantity (Pc)
                                 </th>
-                                <th style="text-align: center">
-                                    Block Weight(Kg)
-                                 </th>
-                                 <th>
-                                     Excess Volume (Kg)
-                                 </th>
+                                <th>
+                                    Excess Volume (Kg)
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -44,13 +40,10 @@
                                     5
                                 </td>
                                 <td>
-                                    50
+                                    100
                                 </td>
                                 <td>
-                                    60
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" placeholder="Excess Volume">
+                                    <input type="text" class="form-control" placeholder="Type  Excess Volume">
                                 </td>
                             </tr>
                         </tbody>
