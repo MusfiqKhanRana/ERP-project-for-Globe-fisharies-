@@ -85,6 +85,49 @@ class ProductionIqfController extends Controller
         $production_processing_grade = ProductionProcessingGrade::all();
         return view('backend.production.processing.raw_iqf_shrimp.index',compact('grades','production_processing_grade','hlso','pud','p_n_d_tail_on','p_n_d_tail_off','special_cut_p_n_d','hlso_easy_pell','butterfly_pud_skewer','pud_pull_vein'));
     }
+    public function cooked_iqf_shrimp_index(){
+        $hoso_count = ProductionProcessingUnit::select('id')->where('processing_name','cooked_iqf_shrimp')
+        ->where('processing_variant','hoso')
+        ->where('status','!=','StoreIn')
+        ->get()->count();
+        $pud_count = ProductionProcessingUnit::select('id')->where('processing_name','cooked_iqf_shrimp')
+        ->where('processing_variant','pud')
+        ->where('status','!=','StoreIn')
+        ->get()->count();
+        $p_n_d_tail_on_count = ProductionProcessingUnit::select('id')->where('processing_name','cooked_iqf_shrimp')
+        ->where('processing_variant','p_n_d_tail_on')
+        ->where('status','!=','StoreIn')
+        ->get()->count();
+        $p_n_d_tail_off_count = ProductionProcessingUnit::select('id')->where('processing_name','cooked_iqf_shrimp')
+        ->where('processing_variant','p_n_d_tail_off')
+        ->where('status','!=','StoreIn')
+        ->get()->count();
+        $grades = FishGrade::all();
+        $production_processing_grade = ProductionProcessingGrade::all();
+        return view('backend.production.processing.cooked_iqf.index',compact('grades','production_processing_grade','hoso_count','pud_count','p_n_d_tail_on_count','p_n_d_tail_off_count')); 
+    }
+
+    public function blanched_iqf_shrimp_index(){
+        $hoso_count = ProductionProcessingUnit::select('id')->where('processing_name','blanched_iqf_shrimp')
+        ->where('processing_variant','hoso')
+        ->where('status','!=','StoreIn')
+        ->get()->count();
+        $pud_count = ProductionProcessingUnit::select('id')->where('processing_name','blanched_iqf_shrimp')
+        ->where('processing_variant','pud')
+        ->where('status','!=','StoreIn')
+        ->get()->count();
+        $p_n_d_tail_on_count = ProductionProcessingUnit::select('id')->where('processing_name','blanched_iqf_shrimp')
+        ->where('processing_variant','p_n_d_tail_on')
+        ->where('status','!=','StoreIn')
+        ->get()->count();
+        $p_n_d_tail_off_count = ProductionProcessingUnit::select('id')->where('processing_name','blanched_iqf_shrimp')
+        ->where('processing_variant','p_n_d_tail_off')
+        ->where('status','!=','StoreIn')
+        ->get()->count();
+        $grades = FishGrade::all();
+        $production_processing_grade = ProductionProcessingGrade::all();
+        return view('backend.production.processing.blanched_iqf.index',compact('grades','production_processing_grade','hoso_count','pud_count','p_n_d_tail_on_count','p_n_d_tail_off_count')); 
+    }
     public function soaking_data_pass(Request $request){
         $soaking_data = ProductionProcessingGrade::where('production_processing_unit_id',$request->id)->select('id','grade_name','grade_quantity')->get();
         return response()->json($soaking_data);

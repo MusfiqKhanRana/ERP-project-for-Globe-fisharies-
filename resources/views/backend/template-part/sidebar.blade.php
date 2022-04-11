@@ -631,6 +631,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{route('processing-grade.index')}}" class="nav-link nav-toggle">
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                            <span class="title">Configuration</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
                             <span class="title">Supply </span>
@@ -764,12 +770,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('production.processing.cooked_iqf')}}" class="nav-link ">
+                                <a href="{{route('production.processing.cooked_iqf_shrimp')}}" class="nav-link ">
                                     <span class="title">Cooked IQF(Shrimp)</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('production.processing.blanched_iqf')}}" class="nav-link ">
+                                <a href="{{route('production.processing.blanched_iqf_shrimp')}}" class="nav-link ">
                                     <span class="title">Blanched IQF(Shrimp)</span>
                                 </a>
                             </li>
