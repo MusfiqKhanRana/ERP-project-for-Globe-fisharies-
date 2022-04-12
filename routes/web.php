@@ -51,6 +51,7 @@ use App\Http\Controllers\ProcessingBlockSizeController;
 use App\Http\Controllers\ProcessingGradeController;
 use App\Http\Controllers\Production\ProductionBlockController;
 use App\Http\Controllers\Production\ProductionIqfController;
+use App\Http\Controllers\ProductionGeneralPurchaseQuotationController;
 use App\Http\Controllers\ProductionPurchaseItemController;
 use App\Http\Controllers\ProductionPurchaseRequisitionController;
 use App\Http\Controllers\ProductionPurchaseRequisitionItemController;
@@ -425,10 +426,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('production-purchase-item', ProductionPurchaseItemController::class);
 
     //Production Purchase Requisition 
+    Route::post('production/purchase/quotation/data-pass',[ProductionPurchaseRequisitionController::class,'add_quotation_data_pass'])->name('production.purchase.quotation.data_pass');
+    Route::get('production/purchase/quotation',[ProductionPurchaseRequisitionController::class,'quotation'])->name('production-purchase-quotation');
     Route::get('production-purchase-requisition/Print/{id}',[ProductionPurchaseRequisitionController::class,'print'])->name('production-purchase-requisition.print');
     Route::get('production-purchase-requisition/Order',[ProductionPurchaseRequisitionController::class,'order'])->name('production-purchase-requisition.order');
     Route::post('production-purchase-requisition/status/purchased',[ProductionPurchaseRequisitionController::class,'status_purchased'])->name('production-purchase-requisition.status_purchased');
-    Route::get('production-purchase-requisition/status/confirm/{id}',[ProductionPurchaseRequisitionController::class,'status_confirm'])->name('production-purchase-requisition.status_confirm');
+    Route::post('production-purchase-requisition/status/confirm/{id}',[ProductionPurchaseRequisitionController::class,'status_confirm'])->name('production-purchase-requisition.status_confirm');
+    Route::post('production-purchase-requisition/status/quotation/{id}',[ProductionPurchaseRequisitionController::class,'status_quotation'])->name('production-purchase-requisition.status_quotation');
     Route::resource('production-purchase-requisition', ProductionPurchaseRequisitionController::class);
 
     //Production Purchase Requisition Item
@@ -515,6 +519,29 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     // Route::get('production/processing-unit/blanched-iqf', function () {
     //     return view('backend.production.processing.blanched_iqf.index');
     // })->name('production.processing.blanched_iqf');
+    //Block Frozen
+    Route::get('production/processing-unit/block-frozen', function () {
+        return view('backend.production.processing.block_frozen.index');
+    })->name('production.processing.block_frozen');
+
+    Route::get('production/processing-unit/raw_bf_shrimp', function () {
+        return view('backend.production.processing.raw_bf_shrimp.index');
+    })->name('production.processing.raw_bf_shrimp');
+
+    //Semi IQF
+    Route::get('production/processing-unit/semi-iqf', function () {
+        return view('backend.production.processing.semi_iqf.index');
+    })->name('production.processing.semi_iqf');
+
+    //Cooked IQF
+    Route::get('production/processing-unit/cooked-iqf', function () {
+        return view('backend.production.processing.cooked_iqf.cooked');
+    })->name('production.processing.cooked_iqf');
+
+    //Blanched IQF
+    Route::get('production/processing-unit/blanched-iqf', function () {
+        return view('backend.production.processing.blanched_iqf.index');
+    })->name('production.processing.blanched_iqf');
 
     //Unload
     Route::get('production/processing/unload', function () {
@@ -537,4 +564,26 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('processing-grade',ProcessingGradeController::class);
     Route::resource('processing-block',ProcessingBlockController::class);
     Route::resource('processing-block-size',ProcessingBlockSizeController::class);
+    // //Quotation
+    // Route::get('production/purchase/quotation', function () {
+    //     return view('backend.production.general_purchase.quotation.index');
+    // })->name('production-purchase-quotation');
+
+    //Quotation Show
+    Route::get('production/purchase/quotation/show', function () {
+        return view('backend.production.general_purchase.quotation.show_quotation');
+    })->name('production.purchase.quotation.show');
+
+    //Cs List
+    Route::get('production/purchase/cs/list', function () {
+        return view('backend.production.general_purchase.cs/cs_list');
+    })->name('production.purchase.cs.list');
+
+    //Cs List
+    Route::get('production/purchase/cs/show', function () {
+        return view('backend.production.general_purchase.cs/cs_list_show');
+    })->name('production.purchase.cs.show');
+
+    Route::resource('production-quotation-all-list',ProductionGeneralPurchaseQuotationController::class);
+    
 });
