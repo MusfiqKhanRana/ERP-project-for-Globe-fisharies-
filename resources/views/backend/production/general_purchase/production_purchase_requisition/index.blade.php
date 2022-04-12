@@ -53,6 +53,9 @@
                     <div class="tools">
                     </div>
                 </div>
+            </div>
+            <a class="btn btn-danger" href="{{route('production-purchase-requisition.index',"status=Pending")}}"><i class="fa fa-spinner"></i> Pending List({{$pendingcount}})</a>
+            <a class="btn btn-success" href="{{route('production-purchase-requisition.index',"status=Confirm")}}"><i class="fa-solid fa-check"></i> Confirm List ({{$confirmcount}})</a>
                 <div class="portlet-body">
                     <div class="table-scrollable">
                         <table class="table table-striped table-bordered table-hover">
@@ -112,7 +115,18 @@
                                                         <td>{{$item->pivot->quantity}}</td>
                                                         <td>{{$item->pivot->specification}}</td>
                                                         <td>{{$item->pivot->remark}}</td>
-                                                        <td><button data-toggle="modal" href="#edit_items{{$item->pivot->id}}" class="btn btn-success">Edit</button><button data-toggle="modal" href="#delete_items{{$item->pivot->id}}" class="btn btn-danger">Delete</button></td>
+                                                        @if ($data->status == "Pending")
+                                                        <td>
+                                                            <button data-toggle="modal" href="#edit_items{{$item->pivot->id}}" class="btn btn-success">Edit</button>
+                                                            <button data-toggle="modal" href="#delete_items{{$item->pivot->id}}" class="btn btn-danger">Delete</button>
+                                                        </td>
+                                                        @endif
+                                                        @if ($data->status == "Confirm")
+                                                        <th>
+                                                            {{-- <button data-toggle="modal" href="#" class="btn btn-success"><i class="fa fa-check"></i> Confirm</button> --}}
+                                                            <button data-toggle="modal" href="#" class="btn btn-danger"><i class="fa fa-repeat"></i> Reject</button>
+                                                        </th>
+                                                        @endif
                                                     </tr>
                                                     <div id="edit_items{{$item->pivot->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                         <div class="modal-dialog">
@@ -241,80 +255,126 @@
                                             </tbody>
                                         </table>
                                     </td>
+                                    @if ($data->status == "Pending")
                                     <td style="text-align: center">
-                                        <a class="btn btn-success"  data-toggle="modal" href="{{route('production-purchase-requisition.status_confirm',$data->id)}}"><i class="fa fa-edit"></i> Confirm</a>
+                                        {{-- <a class="btn btn-success"  data-toggle="modal" href="{{route('production-purchase-requisition.status_confirm',$data->id)}}"><i class="fa fa-edit"></i> Confirm</a> --}}
+                                        <a class="btn btn-success"  data-toggle="modal" href="#confirm{{$data->id}}"><i class="fa fa-check"></i> Confirm</a>
                                         <a class="btn btn-info"  data-toggle="modal" href="#edit_procution_purchase_units{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
                                         <a class="btn red" data-toggle="modal" href="#delete_procution_purchase_units{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
                                     </td>
+                                    @endif
+                                    @if ($data->status == "Confirm")
+                                    <td>
+                                        <a class="btn btn-success"  data-toggle="modal" href="#confirm_to_quotation{{$data->id}}"><i class="fa fa-check"></i> Confirm</a>
+                                        <a class="btn btn-danger"  data-toggle="modal" href="#edit_procution_purchase_units{{$data->id}}"><i class="fa fa-repeat"></i> Reject</a>
+                                    </td>
+                                    @endif
                                 </tr> 
-                                    <div id="delete_procution_purchase_units{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                        {{csrf_field()}}
-                                        <input type="hidden" value="" id="delete_id">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h2 class="modal-title" style="color: red;">Are you sure?</h2>
-                                                </div>
-                                                <div class="modal-footer " >
-                                                    <div class="d-flex justify-content-between">
-                                                        <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
-                                                    </div>
-                                                    <div class="caption pull-right">
-                                                        <form action="{{route('production-purchase-requisition.destroy',[$data->id])}}" method="POST">
-                                                            @method('DELETE')
-                                                            @csrf
-                                                            <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
-                                                        </form>
-                                                    </div>
-                                                </div>
+                                <div id="confirm{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h4 class="modal-title">Are You want to print it?</h4>
                                             </div>
+                                            <br>
+                                            <form class="form-horizontal" role="form" method="post" action="{{route('production-purchase-requisition.status_confirm',[$data->id])}}">
+                                                {{csrf_field()}}
+                                                <div class="modal-footer"><br>
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                    <button type="button"  class="btn red">Print</button>
+                                                    <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
-                                    <div id="edit_procution_purchase_units{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h4 class="modal-title">Update Procution Purchase Units</h4>
+                                </div>
+                                <div id="delete_procution_purchase_units{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="delete_id">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h2 class="modal-title" style="color: red;">Are you sure?</h2>
+                                            </div>
+                                            <div class="modal-footer " >
+                                                <div class="d-flex justify-content-between">
+                                                    <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
                                                 </div>
-                                                <div class="modal-body">
-                                                    <form class="form-horizontal" role="form" method="post" action="{{route('production-purchase-requisition.update', $data->id)}}">
-                                                        {{csrf_field()}}
-                                                        {{method_field('put')}}
-                                                        <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-2 control-label">Departments</label>
-                                                            <div class="col-md-8">
-                                                                {{-- <input type="text" class="form-control" value="{{$data->name}}" required name="name"> --}}
-                                                                <select class="form-control" name="department" id="">
-                                                                    @foreach ($dept as $item)
-                                                                    @if ($data->department == $item->id)
-                                                                        <option value="{{$item->id}}" selected>{{$item->name}}</option>
-                                                                    @else    
-                                                                        <option value="{{$item->id}}">{{$item->name}}</option>
-                                                                    @endif
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                            <br><br>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-2 control-label">Remarks</label>
-                                                            <div class="col-md-8">
-                                                                <input type="text" class="form-control" value="{{$data->remark}}" required name="remark">
-                                                            </div>
-                                                            <br><br>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
-                                                        </div>
+                                                <div class="caption pull-right">
+                                                    <form action="{{route('production-purchase-requisition.destroy',[$data->id])}}" method="POST">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                   
+                                </div>
+                                <div id="edit_procution_purchase_units{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h4 class="modal-title">Update Procution Purchase Units</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="form-horizontal" role="form" method="post" action="{{route('production-purchase-requisition.update', $data->id)}}">
+                                                    {{csrf_field()}}
+                                                    {{method_field('put')}}
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Departments</label>
+                                                        <div class="col-md-8">
+                                                            {{-- <input type="text" class="form-control" value="{{$data->name}}" required name="name"> --}}
+                                                            <select class="form-control" name="department" id="">
+                                                                @foreach ($dept as $item)
+                                                                @if ($data->department == $item->id)
+                                                                    <option value="{{$item->id}}" selected>{{$item->name}}</option>
+                                                                @else    
+                                                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                                                @endif
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <br><br>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Remarks</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" value="{{$data->remark}}" required name="remark">
+                                                        </div>
+                                                        <br><br>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                        <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="confirm_to_quotation{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h4 class="modal-title">Are You want to print it?</h4>
+                                            </div>
+                                            <br>
+                                            <form class="form-horizontal" role="form" method="post" action="{{route('production-purchase-requisition.status_quotation',[$data->id])}}">
+                                                {{csrf_field()}}
+                                                <div class="modal-footer"><br>
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                    <button type="button"  class="btn red">Print</button>
+                                                    <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                                 @endforeach
                             </tbody>
                         </table>
