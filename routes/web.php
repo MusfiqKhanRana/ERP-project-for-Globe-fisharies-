@@ -51,6 +51,7 @@ use App\Http\Controllers\ProcessingBlockSizeController;
 use App\Http\Controllers\ProcessingGradeController;
 use App\Http\Controllers\Production\ProductionBlockController;
 use App\Http\Controllers\Production\ProductionIqfController;
+use App\Http\Controllers\ProductionGeneralPurchaseQuotationController;
 use App\Http\Controllers\ProductionPurchaseItemController;
 use App\Http\Controllers\ProductionPurchaseRequisitionController;
 use App\Http\Controllers\ProductionPurchaseRequisitionItemController;
@@ -425,10 +426,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('production-purchase-item', ProductionPurchaseItemController::class);
 
     //Production Purchase Requisition 
+    Route::post('production/purchase/quotation/data-pass',[ProductionPurchaseRequisitionController::class,'add_quotation_data_pass'])->name('production.purchase.quotation.data_pass');
+    Route::get('production/purchase/quotation',[ProductionPurchaseRequisitionController::class,'quotation'])->name('production-purchase-quotation');
     Route::get('production-purchase-requisition/Print/{id}',[ProductionPurchaseRequisitionController::class,'print'])->name('production-purchase-requisition.print');
     Route::get('production-purchase-requisition/Order',[ProductionPurchaseRequisitionController::class,'order'])->name('production-purchase-requisition.order');
     Route::post('production-purchase-requisition/status/purchased',[ProductionPurchaseRequisitionController::class,'status_purchased'])->name('production-purchase-requisition.status_purchased');
-    Route::get('production-purchase-requisition/status/confirm/{id}',[ProductionPurchaseRequisitionController::class,'status_confirm'])->name('production-purchase-requisition.status_confirm');
+    Route::post('production-purchase-requisition/status/confirm/{id}',[ProductionPurchaseRequisitionController::class,'status_confirm'])->name('production-purchase-requisition.status_confirm');
+    Route::post('production-purchase-requisition/status/quotation/{id}',[ProductionPurchaseRequisitionController::class,'status_quotation'])->name('production-purchase-requisition.status_quotation');
     Route::resource('production-purchase-requisition', ProductionPurchaseRequisitionController::class);
 
     //Production Purchase Requisition Item
@@ -493,6 +497,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('production/processing-unit/block_counter_to_soaking',[ProductionBlockController::class,'block_counter_to_soaking'])->name('production.processing-unit.block_counter_to_soaking');
     Route::post('production/processing-unit/soaking_to_excess_volume',[ProductionBlockController::class,'soaking_to_excess_volume'])->name('production.processing-unit.soaking_to_excess_volume');
 
+
     //Unload
     Route::get('production/processing/unload', function () {
         return view('backend.production.unload.gate_man.index');
@@ -514,4 +519,26 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('processing-grade',ProcessingGradeController::class);
     Route::resource('processing-block',ProcessingBlockController::class);
     Route::resource('processing-block-size',ProcessingBlockSizeController::class);
+    // //Quotation
+    // Route::get('production/purchase/quotation', function () {
+    //     return view('backend.production.general_purchase.quotation.index');
+    // })->name('production-purchase-quotation');
+
+    //Quotation Show
+    Route::get('production/purchase/quotation/show', function () {
+        return view('backend.production.general_purchase.quotation.show_quotation');
+    })->name('production.purchase.quotation.show');
+
+    //Cs List
+    Route::get('production/purchase/cs/list', function () {
+        return view('backend.production.general_purchase.cs/cs_list');
+    })->name('production.purchase.cs.list');
+
+    //Cs List
+    Route::get('production/purchase/cs/show', function () {
+        return view('backend.production.general_purchase.cs/cs_list_show');
+    })->name('production.purchase.cs.show');
+
+    Route::resource('production-quotation-all-list',ProductionGeneralPurchaseQuotationController::class);
+    
 });

@@ -702,8 +702,18 @@
                                         </a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a href="{{route('production-purchase-requisition.index')}}" class="nav-link ">
+                                        <a href="{{route('production-purchase-requisition.index',"status=Pending")}}" class="nav-link ">
                                             <span class="title">Requisition List</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="{{route('production-purchase-quotation')}}" class="nav-link ">
+                                            <span class="title">Qoutation List</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="{{route('production.purchase.cs.list')}}" class="nav-link ">
+                                            <span class="title">CS List</span>
                                         </a>
                                     </li>
                                     <li class="nav-item ">

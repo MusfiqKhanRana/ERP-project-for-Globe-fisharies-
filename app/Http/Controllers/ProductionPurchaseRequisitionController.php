@@ -9,6 +9,8 @@ use App\Models\ProductionPurchaseRequisitionItem;
 use App\Models\ProductionPurchaseType;
 use App\Models\ProductionPurchaseUnit;
 use App\Models\ProductionRequisitionItem;
+use App\Models\ProductionSupplier;
+use App\Models\ProductionSupplyList;
 use Illuminate\Http\Request;
 
 class ProductionPurchaseRequisitionController extends Controller
@@ -18,15 +20,20 @@ class ProductionPurchaseRequisitionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $suppliers = ProductionSupplier::get();
+        $pendingcount = ProductionPurchaseRequisition::select('id','status')->where('status','Pending')->count();
+        $confirmcount = ProductionPurchaseRequisition::select('id','status')->where('status','Confirm')->count();
         $types = ProductionPurchaseType::all();
         $requisition_item = ProductionPurchaseItem::all();
         $requisition_unit = ProductionPurchaseUnit::all();
-        $requisition=ProductionPurchaseRequisition::where('status','Pending')->with('items','departments','users')->get();
+        // $requisition=ProductionPurchaseRequisition::where('status','Pending')->with('items','departments','users')->get();
+        $requisition=ProductionPurchaseRequisition::with(['items','departments','users'])->where('status',$request->status)->latest()->paginate(10);
         $dept = Department::all();
-        // dd($requisition->toArray());
-        return view('backend.production.general_purchase.production_purchase_requisition.index',compact('requisition','dept','types','requisition_item','requisition_unit'));
+       
+         //dd($supply_lists->toArray());
+        return view('backend.production.general_purchase.production_purchase_requisition.index',compact('requisition','dept','types','requisition_item','requisition_unit','confirmcount','pendingcount','suppliers'));
     }
 
     /**
@@ -124,7 +131,12 @@ class ProductionPurchaseRequisitionController extends Controller
     public function status_confirm($id){
         // dd($id);
         $confirm= ProductionPurchaseRequisition::where('id',$id)->update(['status'=>'Confirm']);
-        return redirect()->back()->withmsg('Successfully Confirmed Requisition');
+        return redirect('backend.production.general_purchase.quotation.index')->withmsg('Successfully Confirmed Quotation');
+    }
+    public function status_quotation($id){
+        // dd($id);
+        $confirm= ProductionPurchaseRequisition::where('id',$id)->update(['status'=>'Quotation']);
+        return redirect()->back()->withmsg('Successfully Confirmed Quotation');
     }
     public function status_purchased(Request $request){
         // dd($request->all());
@@ -143,5 +155,38 @@ class ProductionPurchaseRequisitionController extends Controller
         // dd($requisition->toArray());
         return view('backend.production.general_purchase.production_purchase_requisition.order',compact('requisition'));
     }
+
+    public function ch_list(){
+        $dept = Department::all();
+        $types = ProductionPurchaseType::all();
+        $requisition_item = ProductionPurchaseItem::all();
+        $requisition_unit = ProductionPurchaseUnit::all();
+        $requisition=ProductionPurchaseRequisition::where('status','Pending')->with('items','departments','users')->get();
+        return view('backend.production.general_purchase.ch.ch_list',compact('requisition','types','requisition_item','requisition_unit','dept'));
+    }
+    public function ChItemList(){
+        $dept = Department::all();
+        $types = ProductionPurchaseType::all();
+        $requisition_item = ProductionPurchaseItem::all();
+        $requisition_unit = ProductionPurchaseUnit::all();
+        $requisition=ProductionPurchaseRequisition::where('status','Pending')->with('items','departments','users')->get();
+        return view('backend.production.general_purchase.ch.ch_item_list',compact('requisition','types','requisition_item','requisition_unit','dept'));
+    }
+    public function quotation(){
+        $requisition=ProductionPurchaseRequisition::where('status','Quotation')->with('items','departments','users')->get();
+        $supplier = ProductionSupplier::get();
+        return view('backend.production.general_purchase.quotation.index',compact('supplier','requisition'));
+    }
+
+    public function add_quotation_data_pass(Request $request){
+        //return $request;
+       $quotation_data = ProductionPurchaseRequisition::where('id','requisition_id')->with('items','departments','users','demand_date')->get();
+       dd( $quotation_data->toArray);
+    }
+    // public function quotation_list(){
+    //     $requisition=ProductionPurchaseRequisition::where('status','Confirm')->Orwhere('status','Purchased')->with('items','departments','users')->get();
+    //     dd($requisition->toArray());
+    //     return view('backend.production.general_purchase.quotation.index',compact('requisition'));
+    // }
 
 }
