@@ -492,29 +492,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('production/processing-unit/block_randw',[ProductionBlockController::class,'block_randw'])->name('production.processing-unit.block_randw');
     Route::post('production/processing-unit/block_counter_to_soaking',[ProductionBlockController::class,'block_counter_to_soaking'])->name('production.processing-unit.block_counter_to_soaking');
     Route::post('production/processing-unit/soaking_to_excess_volume',[ProductionBlockController::class,'soaking_to_excess_volume'])->name('production.processing-unit.soaking_to_excess_volume');
-    //Block Frozen
-    // Route::get('production/processing-unit/block-frozen', function () {
-    //     return view('backend.production.processing.block_frozen.index');
-    // })->name('production.processing.block_frozen');
-
-    // Route::get('production/processing-unit/raw_bf_shrimp', function () {
-    //     return view('backend.production.processing.raw_bf_shrimp.index');
-    // })->name('production.processing.raw_bf_shrimp');
-
-    //Semi IQF
-    // Route::get('production/processing-unit/semi-iqf', function () {
-    //     return view('backend.production.processing.semi_iqf.index');
-    // })->name('production.processing.semi_iqf');
-
-    //Cooked IQF
-    // Route::get('production/processing-unit/cooked-iqf', function () {
-    //     return view('backend.production.processing.cooked_iqf.cooked');
-    // })->name('production.processing.cooked_iqf');
-
-    // //Blanched IQF
-    // Route::get('production/processing-unit/blanched-iqf', function () {
-    //     return view('backend.production.processing.blanched_iqf.index');
-    // })->name('production.processing.blanched_iqf');
 
     //Unload
     Route::get('production/processing/unload', function () {
