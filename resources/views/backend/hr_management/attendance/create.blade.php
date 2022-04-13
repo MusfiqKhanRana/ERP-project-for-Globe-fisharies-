@@ -50,8 +50,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="portlet-body" style="height: auto;">
-                        <form method="post" action="{{route('employee-attendance.store')}}" class="form-horizontal">
-                            {{csrf_field()}}
+                        <form method="get" action="{{route('employee.attend')}}" class="form-horizontal">
+                            {{-- {{csrf_field()}} --}}
                             <div class="col-md-12 ">
                                 <div class="portlet-body">
                                     <div class="form-body">
@@ -68,35 +68,57 @@
                                             <label class="col-md-1 control-label">Designation</label>
                                             <div class="col-md-3">
                                                 <select  class="form-control" name="designation" id="designation">
-                                                    <option>--Select--</option>
-                                                    <option value="YES">Yes</option>
-                                                    <option value="NO">No</option>
+                                                    <option value="">--Select--</option>
+                                                    @foreach ($departments as $department)
+                                                        @foreach ($department->designation as $designation)
+                                                            <option value="{{$designation->id}}" class="{{$department->id}}">{{$designation->deg_name}}</option>
+                                                        @endforeach    
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <label class="col-md-1 control-label">Name</label>
                                             <div class="col-md-3">
-                                                <select  class="form-control" name="name" id="name">
-                                                    <option>--Select--</option>
-                                                    <option value="YES">Yes</option>
-                                                    <option value="NO">No</option>
+                                                <select  class="form-control" name="user_id" id="name">
+                                                    <option value="null">--Select--</option>
+                                                    @foreach ($departments as $department)
+                                                        @foreach ($department->designation as $designation)
+                                                            @foreach ($designation->employee as $employee)
+                                                                <option value="{{$employee->id}}" class="{{$designation->id}}">{{$employee->name}}</option>
+                                                            @endforeach
+                                                        @endforeach    
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div><br>
                                         <div class="row" >
                                             <label class="col-md-1 control-label">Date From</label>
                                             <div class="col-md-3">
-                                                <input type="date" class="form-control" name="date_from"  value="">
+                                                <input type="date" class="form-control" name="date_from"  value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
                                             </div>
                                             <label class="col-md-1 control-label">Date To</label>
                                             <div class="col-md-3">
-                                                <input type="date" class="form-control" name="date_to" value="">
+                                                <input type="date" class="form-control" name="date_to" value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
                                             </div>
                                             <label class="col-md-1 control-label">Status</label>
                                             <div class="col-md-3">
                                                 <select  class="form-control" name="status" id="status">
-                                                    <option>--Select--</option>
-                                                    <option value="YES">Yes</option>
-                                                    <option value="NO">No</option>
+                                                    <option value="null">--Select--</option>
+                                                    <option value="Absent">Absent</option>
+                                                    <option value="Present">Present</option>
+                                                    <option value="Medical">Medical</option>
+                                                    <option value="Casual">Casual</option>
+                                                    <option value="Special">Special</option>
+                                                    <option value="Earned">Earned</option>
+                                                    <option value="Office">Office</option>
+                                                    <option value="Early">Early Leave</option>
+                                                    <option value="Late">Late</option>
+                                                    <option value="Delay">Delay</option>
+                                                    <option value="Weekly Holiday">Weekly Holiday</option>
+                                                    <option value="Holiday">Holiday</option>
+                                                    <option value="Application Applied">Application Applied</option>
+                                                    <option value="Late Application Accepted">Late Application Accepted</option>
+                                                    <option value="Absent Application Denied">Absent Application Denied</option>
+                                                    <option value="Late Application Denied">Late Application Denied</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -198,135 +220,19 @@
                                         <td>05.15 pm</td>
                                         <td style="color:blue;">Late</td>
                                     </tr>
-                                            {{-- <div id="deleteModal{{$item->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                                {{csrf_field()}}
-                                                <input type="hidden" value="" id="delete_id">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                            <h2 class="modal-title" style="color: red;">Are you sure?</h2>
-                                                        </div>
-                                                        <div class="modal-footer " >
-                                                            <div class="d-flex justify-content-between">
-                                                                <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
-                                                            </div>
-                                                            <div class="caption pull-right">
-                                                                <form action="{{route('tiffin-bill.destroy',[$item])}}" method="POST">
-                                                                    @method('DELETE')
-                                                                    @csrf
-                                                                    <button class="btn red"><i class="fa fa-trash"></i>Delete</button>               
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="editModal{{$item->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                            <h4 class="modal-title">Update Employee Tiffin Bill</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form class="form-horizontal" role="form" method="post" action="{{route('tiffin-bill.update', $item)}}">
-                                                                {{csrf_field()}}
-                                                                {{method_field('put')}}
-                                                                <div class="form-group">
-                                                                    <label for="inputEmail1" class="col-md-2 control-label">Date</label>
-                                                                    <div class="col-md-9">
-                                                                        <div class="input-group input-5 date date-picker" id="datepicker" data-date-format="MM-yyyy">
-                                                                            <input  type="text" class="form-control" value="{{$item->date}}" readonly="readonly" name="date" >    
-                                                                            <span class="input-group-btn">
-                                                                                <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                                                            </span>      
-                                                                        </div> 
-                                                                    </div><br><br>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label class="col-md-2 control-label"> Name</label>
-                                                                    <div class="col-md-9">
-                                                                        <select class="form-control " id="employee_id" name="employee_id">
-                                                                            <option value="{{$item->user->id}}">{{$item->user->name}}</option>
-                                                                            @foreach($users as $data)
-                                                                                <option value="{{$data->id}}">{{$data->name}}</option>
-                                                                            @endforeach
-                                                                            {{csrf_field()}}
-                                                                        </select>
-                                                                    </div><br><br>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="inputEmail1" class="col-md-2 control-label">Days</label>
-                                                                    <div class="col-md-9">
-                                                                        <input type="number" class="form-control" value="{{$item->days}}"  name="days">
-                                                                    </div><br><br>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="inputEmail1" class="col-md-2 control-label">Rate</label>
-                                                                    <div class="col-md-9">
-                                                                        <input type="number" class="form-control" value="{{$item->rate}}"  name="rate">
-                                                                    </div><br><br>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
-                                                                    <div class="col-md-9">
-                                                                        <input type="text" class="form-control" value="{{$item->remark}}" name="remark">
-                                                                    </div><br><br>
-                                                                </div><br>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                                    <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> --}}
-                                    
                                 </tbody>
                             </table>
                             </div>
                         </div>
                     </div>
-                    <!-- END EXAMPLE TABLE PORTLET-->
                 </div>
             </div>
-            {{-- <div id="basic" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                            <h4 class="modal-title">Add New Tiffin Bill</h4>
-                        </div>
-                        <br>
-                        <form class="form-horizontal" role="form" method="post" action="{{route('tiffin-bill.store')}}">
-                            {{csrf_field()}}
-                            <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Attachment</label>
-                                <div class="col-md-8">
-                                    <input type="file" class="form-control"  name="attachment">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label"></label>
-                                <div class="col-md-8">
-                                    <textarea type="text" class="form-control" id="" name=""></textarea>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i>Submit Application</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div> --}}
         </div>
     </div>
     @endsection
     @section('script')
     <script src="https://cdn.tiny.cloud/1/i2a8bjsghb2egjws1cli2w9fcs5ke9j47f8jhfky1sq28f5q/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(function() {
             tinymce.init({
@@ -336,6 +242,8 @@
                     freeTiny.style.display = 'none';
                 }
             });
+            $("#designation").chained("#department");
+            $("#name").chained("#designation");
         });
         
       </script>
