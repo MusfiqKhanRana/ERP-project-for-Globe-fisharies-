@@ -106,7 +106,7 @@
                                 </li>
     
                                 <li class="nav-item  @if( request()->path() == 'admin/payroll/chart' ) active open @endif">
-                                    <a href="{{route('employee-attendance.create')}}" class="nav-link ">
+                                    <a href="{{route('employee.attend')}}" class="nav-link ">
                                         <span class="title">Attendance List</span>
                                     </a>
                                 </li>

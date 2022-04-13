@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\Department;
 use App\Models\Employee;
 use App\Models\User;
 use App\Models\Holiday;
@@ -19,9 +20,36 @@ class AttendanceController extends Controller
 
     public function index()
     {
-        $attendance = Attendance::orderBy('id', 'DESC')->paginate(15);
-        
-        return view('backend.attendance.attendence-list', compact('attendance'));
+        // dd("got this");
+        $departments = Department::with(
+            [
+                'designation'=>function($q){
+                    $q->with([
+                        'employee'=>function($q){
+                            $q->select('id','name','deg_id');
+                        }
+                    ]);
+                }
+            ]
+        )->get();
+        $start_date=Carbon::now()->format('Y-m-d 00:00:00');
+        $end_date=Carbon::now()->format('Y-m-d 11:59:59');
+        if (\request('date_from') && \request('date_to')){
+            $start_date=Carbon::parse(\request('date_from'))->format('Y-m-d 00:00:00');
+            $end_date=Carbon::parse(\request('date_to'))->format('Y-m-d 11:59:59');
+        }
+        $attendance = Attendance::with([
+            'employee'=>function($q){
+                $q->where(function($q){
+                    if (\request('user_id')) {
+                        $q->where('id',\request('user_id'));
+                    }
+                })
+                ->select('id','name','employee_id','dept_id','deg_id','email');
+            }
+        ])->where('date','>=',$start_date)->where('date','<=',$end_date)->orderBy('id', 'DESC')->get();
+        dd($attendance->toArray());
+        return view('backend.hr_management.attendance.create', compact('departments','attendance'));
     }
 
     public function countIndex()

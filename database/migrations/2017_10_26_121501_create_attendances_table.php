@@ -15,12 +15,14 @@ class CreateAttendancesTable extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('date');
-            $table->string('employee_email');
-            $table->string('user_id');
-            $table->string('status');
-            $table->string('ip');
-            $table->string('device');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->dateTime('date')->nullable();
+            $table->Time('in_time')->nullable();
+            $table->Time('out_time')->nullable();
+            $table->text('other_times')->nullable();
+            $table->enum('status', ['Absent','Present','Medical','Casual','Special','Earned','Office','Early','Late','Delay','Weekly Holiday','Holiday','Application Applied','Late Application Accepted','Absent Application Denied','Late Application Denied'])->default('Absent');
+            $table->string('ip')->nullable();
+            $table->string('device')->nullable();
             $table->timestamps();
         });
     }
