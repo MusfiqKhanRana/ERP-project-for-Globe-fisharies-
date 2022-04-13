@@ -40,15 +40,33 @@ class AttendanceController extends Controller
         }
         $attendance = Attendance::with([
             'employee'=>function($q){
+                $q->select('id','name','employee_id','dept_id','deg_id','email');
+            }
+            ])->whereHas(
+            'employee',function($q){
                 $q->where(function($q){
                     if (\request('user_id')) {
                         $q->where('id',\request('user_id'));
                     }
                 })
-                ->select('id','name','employee_id','dept_id','deg_id','email');
-            }
-        ])->where('date','>=',$start_date)->where('date','<=',$end_date)->orderBy('id', 'DESC')->get();
-        dd($attendance->toArray());
+                ->where(function($q){
+                    if (\request('department')) {
+                        $q->where('dept_id',\request('department'));
+                    }
+                })
+                ->where(function($q){
+                    if (\request('designation')) {
+                        $q->where('deg_id',\request('designation'));
+                    }
+                });
+            })->where('date','>=',$start_date)->where('date','<=',$end_date)
+            ->where(function($q){
+                if (\request('status')) {
+                    $q->where('status',\request('status'));
+                }
+            })
+            ->orderBy('id', 'DESC')->get();
+        // dd($attendance->toArray());
         return view('backend.hr_management.attendance.create', compact('departments','attendance'));
     }
 
