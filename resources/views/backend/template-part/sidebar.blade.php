@@ -736,9 +736,26 @@
                                 {{-- <a href="{{route('production.processing.iqf')}}" class="nav-link ">
                                     <span class="title">IQF</span>
                                 </a> --}}
-                                <a href="{{route('production.processing.gate_man')}}" class="nav-link ">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="fa fa-user"></i>
                                     <span class="title">Gate Man</span>
+                                    <span class="arrow"></span>
                                 </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item">
+                                        {{-- <a href="{{route('production.processing.iqf')}}" class="nav-link ">
+                                            <span class="title">IQF</span>
+                                        </a> --}}
+                                        <a href="{{route('production.unload.gateman.general_item')}}" class="nav-link ">
+                                            <span class="title">General Item Check In</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{route('production.unload.gateman.raw_item')}}" class="nav-link ">
+                                            <span class="title">Raw Item Check In</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('production-unload-index')}}" class="nav-link ">
@@ -802,7 +819,7 @@
                                 {{-- <a href="{{route('production.processing.iqf')}}" class="nav-link ">
                                     <span class="title">IQF</span>
                                 </a> --}}
-                                <a href="{{route('production.processing.gate_man')}}" class="nav-link ">
+                                <a href="#" class="nav-link ">
                                     <span class="title">Store In</span>
                                 </a>
                             </li>

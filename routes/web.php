@@ -441,6 +441,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Production Requisition Item
     Route::resource('production-requisition-item', ProductionRequisitionItemController::class);
     // Production Unload
+    Route::post('production/unload/gate_man/raw_item/check',[ProductionUnloadController::class,'check_raw_item'])->name('production.unload.gateman.raw_item.check');
+    Route::get('production/unload/gate_man/raw_item',[ProductionUnloadController::class,'gateman_raw_item'])->name('production.unload.gateman.raw_item');
+    Route::get('production/unload/gate_man/general_item',[ProductionUnloadController::class,'gateman_general_item'])->name('production.unload.gateman.general_item');
     Route::get('production-unload',[ProductionUnloadController::class,'index'])->name('production-unload-index');
     Route::post('production-unload-show',[ProductionUnloadController::class,'unloadShow'])->name('production-unload-show');
     Route::post('production-unload-store',[ProductionUnloadController::class,'store'])->name('production-unload-store');
@@ -495,14 +498,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('production/processing-unit/blocking/ex_volume_to_return',[ProductionBlockController::class, 'ex_volume_to_return'])->name('production.processing-unit.blocking.ex_volume_to_return');
     Route::post('production/processing-unit/block_randw',[ProductionBlockController::class,'block_randw'])->name('production.processing-unit.block_randw');
     Route::post('production/processing-unit/block_counter_to_soaking',[ProductionBlockController::class,'block_counter_to_soaking'])->name('production.processing-unit.block_counter_to_soaking');
-    Route::post('production/processing-unit/soaking_to_excess_volume',[ProductionBlockController::class,'soaking_to_excess_volume'])->name('production.processing-unit.soaking_to_excess_volume');
-
-
-    //Unload
-    Route::get('production/processing/unload', function () {
-        return view('backend.production.unload.gate_man.index');
-    })->name('production.processing.gate_man');
-
+    Route::post('production/processing-unit/soaking_to_excess_volume',[ProductionBlockController::class,'soaking_to_excess_volume'])->name('production.processing-unit.soaking_to_excess_volume');  
 
     //Production Supply
     Route::post('supply/items/info',[ProductionSupplyListController::class,'supply_items'])->name('supply.items.info');

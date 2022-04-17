@@ -30,7 +30,7 @@ class ProductionUnloadController extends Controller
                                     }
                                 ])
                                 ->where('invoice_code',$request->invoice_no)
-                                ->Where('status',"InProduction")->first();
+                                ->Where('status',"Unload")->first();
         if ($production_requistion) {
             return view('backend.production.unload.unload_list',compact('production_requistion','items'));
         } else {
@@ -60,5 +60,38 @@ class ProductionUnloadController extends Controller
             $item = ProductionRequisitionItem::where('id',$id)->update(['alive_quantity'=>$request->alive_quantity[$key],'dead_quantity'=>$request->dead_quantity[$key],'return_quantity'=>$request->return_quantity[$key],'received_quantity'=>$request->total_quantity[$key],'received_remark'=>$request->received_remark[$key]]);
         }
         return redirect()->route('production-unload-index')->withMsg('Successfully Send to Chill Room');
+    }
+
+    public function gateman_general_item(){
+        $production_requistion = ProductionRequisition::with([
+            'production_supplier'=>function($q){
+                $q->with(['supplier_items']);
+            },
+            'production_requisition_items'=>function($q){
+                $q->with(['grade']);
+            }
+        ])
+        ->Where('status',"InGateman")->latest();
+        return view('backend.production.unload.gate_man.general_item.index',compact('production_requistion'));
+    }
+    public function gateman_raw_item(){
+        $production_requistion = ProductionRequisition::with([
+            'production_supplier'=>function($q){
+                $q->with(['supplier_items']);
+            },
+            'production_requisition_items'=>function($q){
+                $q->with(['grade']);
+            }
+        ])
+        ->Where('status',"InGateman")->get();
+        return view('backend.production.unload.gate_man.raw_item.index',compact('production_requistion'));
+    }
+    public function check_raw_item(Request $request){
+        // dd($request);
+        ProductionRequisition::where('id',$request->requisition_id)
+        ->update(
+            ['status'=>'Unload','vehicle_number'=>$request->vehicle_number,'challan_number'=>$request->challan_number,'gateman_remark'=>$request->remark]
+        );
+        return redirect()->back()->withmsg('Successfully Send For Unloading');
     }
 }
