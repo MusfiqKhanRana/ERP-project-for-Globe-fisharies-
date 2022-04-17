@@ -49,13 +49,14 @@
                     </div>
                 </div>
             </div>
+           
                 <div class="portlet-body">
+                   
                     <div class="row" style="margin: 3%" >
-                        <p ><b>Item name:</b> Pen</p>
                         <p ><b>Department:</b> Laravel</p>
-                        <p ><b>Request By:</b> Sohel</p>
-                        <p ><b>Demand Date:</b> 20/04/2022</p>
+                        <p ><b>Request By:</b>Sohel</p>
                     </div>
+                    
                     <div class="table-scrollable">
                         
                         <table class="table table-striped table-bordered table-hover">
@@ -69,9 +70,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                                 @foreach($requisition as $key=> $data)
+                                
                                 <tr id="row1">
-                                    <td>{{++ key}}</td>
+                                    <td>1</td>
                                     <td> Globe</td>
                                     <td> 100</td>
                                     <td> 10 Days Return policy</td>
@@ -143,6 +144,7 @@
                         </button>
                     </div>
                 </div>
+               
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('site-title')
-    Add Requisition
+    Add Quotation
 @endsection
 @section('style')
 
@@ -110,135 +110,26 @@
                                                         <td>{{$item->pivot->quantity}}</td>
                                                         <td>{{$item->pivot->specification}}</td>
                                                         <td>{{$item->pivot->remark}}</td>
-                                                        <td>
-                                                            <button data-toggle="modal" href="#add_supply{{--$item->pivot->id--}}" class="btn btn-success add_quotation" data-requisition_id="{{$data->id}}">+ Add Quotation</button>
-                                                        </td>
+                                                        @if ($data->status == "AddQuotation")
+                                                            <td>
+                                                                <a class="btn btn-success addquation" data-toggle="modal" href="#addquation" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Add Quationtion </a>
+                                                            </td>
+                                                        @endif
+                                                        @if ($data->status == "ShowQuotation")
+                                                            <td>
+                                                                <a class="btn btn-success addquation" data-toggle="modal" href="#addquation" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Add Quationtion </a>
+                                                            </td>
+                                                        @endif
                                                     </tr>
-                                                    <div id="delete_items{{--$item->pivot->id--}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                {{-- <form action="{{route('purchase-requisition-item.update',$item->pivot->id)}}" method="POST"> --}}
-                                                                    {{csrf_field()}}
-                                                                    {{-- {{method_field('put')}} --}}
-                                                                    <div class="modal-header">
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                                        <b><h3>Are You Sure?</h3></b>
-                                                                    </div>
-                                                                    <br>
-                                                                    <div class="modal-body">
-                                                                        @csrf
-                                                                        <form action="{{--route('purchase-requisition-item.destroy',[$item->pivot->id])--}}" method="POST">
-                                                                            @method('DELETE')
-                                                                            @csrf
-                                                                            <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
-                                                                        </form>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 @endforeach
                                             </tbody>
                                         </table>
                                     </td>
-                                    {{-- <td style="text-align: center">
-                                        <a class="btn btn-success"  data-toggle="modal" href="{{route('production-purchase-requisition.status_confirm',$data->id)}}"><i class="fa fa-edit"></i> Confirm</a> 
-                                        <a class="btn btn-success"  data-toggle="modal" href="#confirm{{$data->id}}"><i class="fa fa-edit"></i> Confirm</a>
-                                        <a class="btn btn-info"  data-toggle="modal" href="#edit_procution_purchase_units{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
-                                        <a class="btn red" data-toggle="modal" href="#delete_procution_purchase_units{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
-                                    </td> --}}
-                                </tr> 
-                                <div id="confirm{{--$data->id--}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                <h4 class="modal-title">Are You want to print it?</h4>
-                                            </div>
-                                            <br>
-                                            <form class="form-horizontal" role="form" method="post" action="{{route('procution-purchase-units.store')}}">
-                                                {{csrf_field()}}
-                                                <div class="modal-footer"><br>
-                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                    <button type="button"  class="btn red">Print</button>
-                                                    <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                    <div id="delete_procution_purchase_units{{--$data->id--}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                        {{csrf_field()}}
-                                        <input type="hidden" value="" id="delete_id">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h2 class="modal-title" style="color: red;">Are you sure?</h2>
-                                                </div>
-                                                <div class="modal-footer " >
-                                                    <div class="d-flex justify-content-between">
-                                                        <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
-                                                    </div>
-                                                    <div class="caption pull-right">
-                                                        <form action="{{--route('production-purchase-requisition.destroy',[$data->id])--}}" method="POST">
-                                                            @method('DELETE')
-                                                            @csrf
-                                                            <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="edit_procution_purchase_units{{--$data->id--}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h4 class="modal-title">Update Procution Purchase Units</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form class="form-horizontal" role="form" method="post" action="{{--route('production-purchase-requisition.update', $data->id)--}}">
-                                                        {{csrf_field()}}
-                                                        {{method_field('put')}}
-                                                        <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-2 control-label">Departments</label>
-                                                            <div class="col-md-8">
-                                                                {{-- <input type="text" class="form-control" value="{{$data->name}}" required name="name"> --}}
-                                                                <select class="form-control" name="department" id="">
-                                                                    {{-- @foreach ($dept as $item)
-                                                                    @if ($data->department == $item->id)
-                                                                        <option value="{{$item->id}}" selected>{{$item->name}}</option>
-                                                                    @else    
-                                                                        <option value="{{$item->id}}">{{$item->name}}</option>
-                                                                    @endif
-                                                                    @endforeach --}}
-                                                                </select>
-                                                            </div>
-                                                            <br><br>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-2 control-label">Remarks</label>
-                                                            <div class="col-md-8">
-                                                                <input type="text" class="form-control" value="{{--$data->remark--}}" required name="remark">
-                                                            </div>
-                                                            <br><br>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        <div id="add_supply" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                        <div id="addquation" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -249,24 +140,24 @@
                                         {{csrf_field()}}
                                         {{method_field('post')}}
                                         <div class="row" style="margin: 3%" >
-                                            <p ><b>Item name:</b> {{$item->pivot->item_name}}</p>
-                                            <p ><b>Department:</b> {{$data->departments->name}}</p>
-                                            <p ><b>Request By:</b> {{$data->users->name}}</p>
-                                            <p ><b>Demand Date:</b> {{$item->pivot->demand_date}}</p>
+                                            <p ><b>Item name:</b> <span id="item_name"></span> </p>
+                                            <p ><b>Department:</b> <span id="department"></span> </p>
+                                            <p ><b>Request By:</b> <span id="request_by"></span></p>
+                                            <p ><b>Demand Date:</b> <span id="demand_date"></span> </p>
                                         </div>
                                         <input type="hidden" value="" id="provided_item" name="provided_item">
                                         <div class="form-group">
                                             <div class="col-md-3">
                                                 <label class="col-md-3 control-label"> Supplier</label>
-                                                <select class="form-control" style="margin-left: 5%" name="supplier_id" id="supplier_id">
-                                                    <option value="">Select Supplier</option>
+                                                <select class="form-control supplier_name" style="margin-left: 5%" name="supplier_id" id="supplier_id">
+                                                    <option selected>Select Supplier</option>
                                                     @foreach ($supplier as $item)
-                                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                                        <option value="{{$item->id}}" data-supplier_name="{{$item->name}}">{{$item->name}}</option>
                                                     @endforeach 
                                                 </select>
-                                                <div >
+                                                {{-- <div >
                                                     <button class="btn btn-info" style="margin-left: 7%">+ Add Supplier</button>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                             <div class="col-md-3">
                                                 <label class="col-md-3 control-label">Price</label>
@@ -313,134 +204,31 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            {{-- <div class="col-md-12 text-center">{{ $employee->links() }}</div> --}}
-                            {{-- {{ $requisition->links('vendor.pagination.custom') }} --}}
-                        </div>
-                    </div>
-                </div>
-                <div id="add_procution_purchase_units" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                <h4 class="modal-title">Add New Procution Purchase Units</h4>
-                            </div>
-                            <br>
-                            <form class="form-horizontal" role="form" method="post" action="{{route('procution-purchase-units.store')}}">
-                                {{csrf_field()}}
-                                <div class="form-group">
-                                    <label for="inputEmail1" class="col-md-2 control-label">Name</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" name="name" placeholder="procution_purchase_Units Name">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                    <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
-                                </div>
-                            </form>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-        jQuery(document).ready(function() {
-            var max=0;
-            var item_id,item_name,item_type_id,item_type_name,item_unit_id,item_unit_name,demand_date,image,quantity,specification,remark = null;
-            function nullmaking(){
-
-                $("#item").val(null);
-                $("#type").val(null);
-                $("#demand_date").val(null);
-                $("#image").val(null);
-                $("#quantity").val(null);
-                $("#unit").val(null);
-                $("#specification").val(null);
-                $("#remark").val(null);
-            }
-            $(".cancel").click(function(){
-                location.reload(true);
-            });
-            $("#item").change(function(){
-                item_id = $(this).find('option:selected').val();
-                item_name = $(this).find('option:selected').text();
-                item_unit_id = $("#unit").find('option:selected').val();
-                item_unit_name = $("#unit").find('option:selected').text();
-                // console.log(item_id);
-            });
-            var product_array = [];
-            $(".type").change(function() {
-             
-                max = $(this).val();
-                item_type_id = $(this).find('option:selected').val();
-                item_type_name = $(this).find('option:selected').text();
-                // console.log($(this).val());
-                $.ajax({
-                    type:"get",
-                    url:"/admin/production-purchase-requisition/"+$(this).val(),
-                    success:function(data){
-                        console.log(data);
-                        $(".item").html("");
-                        $(".unit").html("");
-                        let option="<option value=''>--Select--</option>";
-                        $.each( data, function( key, data ) {
-                            option+='<option data-name="'+data.name+'" value="'+data.id+'">'+data.name+'</option>';
-                        });
-                        let optionunit="<option value=''>--Select--</option>";
-                        $.each( data, function( key, data ) {
-                            optionunit='<option data-name="'+data.name+'" value="'+data.production_purchase_unit_id+'" selected>'+data.productionpurchaseunit.name+'</option>';
-                        });
-                        $('.item').append(option);
-                        $(".unit").append(optionunit);
-                    }
-                });
-                // $.ajax({
-                //     type:"get",
-                //     url:"/admin/get-supplier-items/"+$(this).val(),
-                //     success:function(data){
-                //         console.log(data);
-                //         $("#item").html("");
-                //         let option="<option value=''>Select</option>";
-                //         $.each( data, function( key, data ) {
-                //             option+='<option data-name="'+data.name+'" data-unit_price="'+data.pivot.rate+'" data-grade_id="'+data.grade_id+'" value="'+data.id+'">'+data.name+'</option>';
-                //         });
-                //         $('#item').append(option);
-                //     }
-                // });
-            });
-            $("#addbtn").click(function() {
-                product_array.push({"item_id":item_id,"item_name":item_name,"item_type_id":item_type_id,"item_type_name":item_type_name,"item_unit_id":item_unit_id,"item_unit_name":item_unit_name,"image":"abc.jpg","demand_date":$('#demand_date').val(),"quantity":$('#quantity').val(),"specification":$('#specification').val(),"remark":$('#remark').val(),"status":"stay"})
-                $("#products").val('');
-                $("#products").val(JSON.stringify(product_array));
-                $.each( product_array, function( key, product ) {
-                    if (product.status == "stay") {
-                        if(product_array.length-1 == key){
-                            $("table#mytable tr").last().after("<tr id='"+key+"'><td><ul><li>"+product.image+"</li><li>Item-name :"+product.item_name+"</li><li>Item type : "+product.item_type_name+"</li><li>Item Unit : "+product.item_unit_name+"</li></ul></td><td>"+product.demand_date+"</td><td>"+product.specification+"</td><td>"+product.quantity+"</td><td>"+product.remark+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
-                        }
-                    }
-                });
-                $(".delete").click(function(){
-                    product_array[$(this).data("id")].status="delete";
-                    // console.log(product_array,$(this).data("id"));
-                    $("#products").val('');
-                    $("#products").val(JSON.stringify(product_array));
-                    $("#"+$(this).data("id")).remove();
-                });
-                nullmaking();
-            });
-        });
-    </script>
     <script type="text/javascript">
         $(document).ready(function () {
-        //    var time,c_temp,f_m_r = null;
+            var pivot_item = null;
+            var all_item = null;
+            $('.addquation').click(function(){
+                 console.log($(this).data('all')); 
+                // console.log($(this).data('pivot')); 
+                //console.log($(this).data('pivot').users.name);
+                pivot_item = $(this).data('pivot');
+                all_item = $(this).data('all');
+                $('#item_name').html(pivot_item.item_name);
+                $('#department').html(all_item.departments.name);
+                $('#request_by').html(all_item.users.name);
+                $('#demand_date').html(pivot_item.demand_date);
+            })
+           var supplier_id,name,price,speciality = null;
         var items_array = [];
         function nullmaking(){
                 $("#supplier_id").val(null);
@@ -463,16 +251,28 @@
                 });
 
         });
+        // $(".supplier_name").change(function(){
+        //    //console.log($(this).attr("name"));
+        //    name = $(this).attr("name");
+        
+        // });
+        $('.supplier_name').change(function(){
+            supplier_id = $(this).val();
+            // console.log($(this).find(':selected').data("name"));
+            name = $(this).find(':selected').data("supplier_name");
+            //console.log(name);
+                
+            });
         $(".ItemAdd").click(function(){
-            console.log($("#supplier_id").val());
-                items_array.push({"supplier_id":$("#supplier_id").val(),"price":$("#price").val(),"speciality":$("#speciality").val(),"status":"stay"});
+            console.log($(".supplier_name").val());
+                items_array.push({"supplier_id":supplier_id,"name":name,"price":$("#price").val(),"speciality":$("#speciality").val(),"status":"stay"});
                 $("#provided_item").val('');
                 $("#provided_item").val(JSON.stringify(items_array));
                 $.each( items_array, function( key, item ) {
                     // console.log(item);
                     if (item.status == "stay") {
                         if(items_array.length-1 == key){
-                            $("table.itemsTable tr").last().before("<tr id='"+key+"'><td>"+item.supplier_id+"</td><td>"+item.price+"</td><td>"+item.speciality+"</td><td><button class='btn btn-danger delete_item' data-id='"+key+"'>Delete</button></td></tr>");
+                            $("table.itemsTable tr").last().before("<tr id='"+key+"'><td ><input name='supplier_id' type='hidden' value='"+item.supplier_id+"'> <span>"+item.name+"</span></td><td ><input name='price' type='hidden' value='"+item.price+"'> <span>"+item.price+"</span></td><td ><input name='speciality'type='hidden' value='"+item.speciality+"'> <span>"+item.speciality+"</span></td><td><button class='btn btn-danger delete_item' data-id='"+key+"'>Delete</button></td></tr>");
                         }
                     }
                 });
@@ -488,39 +288,4 @@
             
         });
     </script>
-     {{-- <script type="text/javascript">
-        $(document).ready(function () {
-        //    var supplier,price,speciality = null;
-        var items_array = [];
-        function nullmaking(){
-                $("#supplier").val(null);
-                $("#price").val(null);
-                $("#speciality").val(null);
-            }
-        $(".ItemAdd").click(function(){
-            console.log($("#supplier").val());
-                //console.log('Good');
-                items_array.push({"supplier":$("#supplier").val(),"price":$("#price").val(),"speciality":$("#speciality").val(),"status":"stay"});
-                $("#provided_item").val('');
-                $("#provided_item").val(JSON.stringify(items_array));
-                $.each( items_array, function( key, item ) {
-                     //console.log(item);
-                    if (item.status == "stay") {
-                        if(items_array.length-1 == key){
-                            $("table.itemsTable tr").last().after("<tr id='"+key+"'><td>"+item.supplier+"</td><td>"+item.price+"</td><td>"+item.speciality+"</td><td><button class='btn btn-danger delete_item' data-id='"+key+"'>Delete</button></td></tr>");
-                        }
-                    }
-                });
-                $(".delete_item").click(function(){
-                    items_array[$(this).data("id")].status="delete";
-                    // console.log(product_array,$(this).data("id"));
-                    $("#provided_item").val('');
-                    $("#provided_item").val(JSON.stringify(items_array));
-                    $("#"+$(this).data("id")).remove();
-                });
-                nullmaking();
-        });
-            
-        });
-    </script> --}}
 @endsection
