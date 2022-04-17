@@ -38,9 +38,9 @@ class AttendanceController extends Controller
             $start_date=Carbon::parse(\request('date_from'))->format('Y-m-d 00:00:00');
             $end_date=Carbon::parse(\request('date_to'))->format('Y-m-d 11:59:59');
         }
-        $attendance = Attendance::with([
+        $attendances = Attendance::with([
             'employee'=>function($q){
-                $q->select('id','name','employee_id','dept_id','deg_id','email');
+                $q->with(['designation','department'])->select('id','name','employee_id','dept_id','deg_id','email');
             }
             ])->whereHas(
             'employee',function($q){
@@ -66,8 +66,7 @@ class AttendanceController extends Controller
                 }
             })
             ->orderBy('id', 'DESC')->get();
-        // dd($attendance->toArray());
-        return view('backend.hr_management.attendance.create', compact('departments','attendance'));
+        return view('backend.hr_management.attendance.create', compact('departments','attendances'));
     }
 
     public function countIndex()

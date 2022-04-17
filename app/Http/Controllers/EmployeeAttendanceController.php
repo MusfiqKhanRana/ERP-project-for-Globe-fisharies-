@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use App\Models\Department;
 use App\Models\EmployeeAttendance;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeAttendanceController extends Controller
 {
@@ -15,8 +18,11 @@ class EmployeeAttendanceController extends Controller
      */
     public function index()
     {
-        //$attendances = EmployeeAttendance::all();
-        return view('backend.hr_management.attendance.index');
+        $start_date=Carbon::now()->format('Y-m-d 00:00:00');
+        $end_date=Carbon::now()->format('Y-m-d 11:59:59');
+        $attendances = Attendance::with('employee')->where('user_id',Auth::user()->id)->where('date','>=',$start_date)->where('date','<=',$end_date)->get();
+        // return $attendances;
+        return view('backend.hr_management.attendance.index',compact('attendances'));
     }
 
     /**
