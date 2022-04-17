@@ -65,7 +65,6 @@
                                         <th>
                                             S.l
                                         </th>
-                                        <th>Select</th>
                                         <th>Supplier Name</th>
                                         <th>Price</th>
                                         <th>Speciality</th>
@@ -79,21 +78,18 @@
                                         <td>
                                             1
                                         </td>
-                                        <td style="text-align: center">
-                                            <input type="radio" checked>
-                                        </td>
                                         <td>Globe</td>
                                         <td>100</td>
                                         <td>6 Months Warranty</td>
                                         <td>
-                                            <input type="text" placeholder="Price">
+                                            <input type="text" class="price" placeholder="Price">
                                         </td>
                                         <td>
-                                            <textarea type="text" placeholder="Remark"></textarea>
+                                            <textarea type="text" class="remark" placeholder="Remark"></textarea>
                                         </td>
                                         
                                         <td>
-                                            <button class="btn btn-danger">Reject</button>
+                                            <button class="btn btn-danger" data-toggle="modal" href="#rejectModal">Reject</button>
                                             <button class="btn btn-info">Confirm</button>
                                         </td>
                                     </tr>
@@ -101,28 +97,48 @@
                                         <td>
                                             2
                                         </td>
-                                        <td style="text-align: center">
-                                            <input type="radio" >
-                                        </td>
                                         <td>RFL</td>
                                         <td>120</td>
                                         <td>6 Months Warranty</td>
                                         <td>
-                                            <input type="text" placeholder="Price">
+                                            <input type="text" class="price" name="price" placeholder="Price">
                                         </td>
                                         <td>
-                                            <textarea type="text" placeholder="Remark"></textarea>
+                                            <textarea type="text" name="remark" placeholder="Remark"></textarea>
                                         </td>
-                                        
                                         <td>
-                                            <button class="btn btn-danger">Reject</button>
+                                            <button class="btn btn-danger" data-toggle="modal" href="#rejectModal">Reject</button>
                                             <button class="btn btn-info">Confirm</button>
                                         </td>
                                     </tr>
+                                    <div id="rejectModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Reject Note</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="form-horizontal" role="form" method="post" action="{{--route('supply-list-item.store')--}}">
+                                                        {{csrf_field()}}
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label" name="remark">Remark  :</label>
+                                                            <div class="col-md-9" >
+                                                                <textarea type="text"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Save</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </tbody>
                             </table>
                             <div>
-                                <button type="submit" class="col-md-12 btn btn-info"><i class="fa fa-floppy-o"></i> Submit</button>
+                                <button type="submit" class="col-md-12 btn btn-info submitButton" ><i class="fa fa-floppy-o"></i> Submit</button>
                             </div>
                         </form>
                     </div>
@@ -130,4 +146,18 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function(){
+        $('.submitButton').hide();
+        $('.price').keyup(function()
+        {
+            ($(this).is(':input')) 
+                $('.submitButton').show();
+
+        });
+        
+    });
+</script>
 @endsection

@@ -21,4 +21,8 @@ class ProductionPurchaseRequisition extends Model
     {
         return $this->belongsTo(User::class, 'requested_by');
     }
+     public function production_requisition_item()
+    {
+        return $this->belongsTo(ProductionPurchaseRequisitionItem::class,'item_id');
+    }
 }

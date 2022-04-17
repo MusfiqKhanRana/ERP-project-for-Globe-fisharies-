@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductionGeneralPurchaseQuotation;
+use App\Models\ProductionPurchaseRequisition;
+use App\Models\ProductionRequisition;
+use App\Models\ProductionSupplier;
 use Illuminate\Http\Request;
 
 class ProductionGeneralPurchaseQuotationController extends Controller
@@ -14,7 +17,11 @@ class ProductionGeneralPurchaseQuotationController extends Controller
      */
     public function index()
     {
-        //
+        $add_quotation = ProductionGeneralPurchaseQuotation::select('id','status')->where('status','AddQuotation');
+        $show_quotation = ProductionGeneralPurchaseQuotation::select('id','status')->where('status','ShowQuotation');
+        $show_quotation = ProductionGeneralPurchaseQuotation::all();
+        $purchase_requisition = ProductionPurchaseRequisition::get();
+        return view('backend.production.general_purchase.quotation.show_quotation',compact('show_quotation','purchase_requisition','show_quotation','add_quotation'));
     }
 
     /**
@@ -24,7 +31,9 @@ class ProductionGeneralPurchaseQuotationController extends Controller
      */
     public function create()
     {
-        //
+        $requisition=ProductionPurchaseRequisition::where('status','Quotation')->with('items','departments','users')->get();
+        $supplier = ProductionSupplier::get();
+        return view('backend.production.general_purchase.quotation.add_quotation',compact('supplier','requisition'));
     }
 
     /**
@@ -38,17 +47,17 @@ class ProductionGeneralPurchaseQuotationController extends Controller
         
        // dd($request);
 
-       $inputs = $request->except('_token');
+       $data = $request->all();
         
         $request->provided_item = json_decode($request->provided_item);
-        $quotation = ProductionGeneralPurchaseQuotation::create(['price'=>$request->peice,'speciality'=>$request->speciality,'remark'=>$request->remark]);
-        // foreach ($data['item_id'] as $key => $item) {
+        $quotation = ProductionGeneralPurchaseQuotation::create(['supplier_id'=>$request->supplier_id,'price'=>$request->price,'speciality'=>$request->speciality,'remark'=>$request->remark]);
+        // dd($quotation);
+        foreach ($data as $key => $item) {
+            $requisition_id = $quotation->id;
             
-        //     $production_requisition_id = $production_supply->id;
-        // $production_item = ProductionPurchaseRequisitionItem::create(['production_purchase_requisition_item_id'=> $production_purchase_requisition_item_id);
-        //}
-        //dd($quotation->toArray());
-        //$quotation->save();
+            $production_requisition_item=ProductionGeneralPurchaseQuotation::create(['requisition_id'=> $requisition_id]);
+
+       }
 
         return redirect()->back()->withMsg('Successfully Created');
     }
@@ -96,5 +105,8 @@ class ProductionGeneralPurchaseQuotationController extends Controller
     public function destroy(ProductionGeneralPurchaseQuotation $productionGeneralPurchaseQuotation)
     {
         //
+    }
+    public function quotation(){
+        return view('backend.production.general_purchase.quotation.add_quotation');
     }
 }

@@ -175,14 +175,43 @@ class ProductionPurchaseRequisitionController extends Controller
     public function quotation(){
         $requisition=ProductionPurchaseRequisition::where('status','Quotation')->with('items','departments','users')->get();
         $supplier = ProductionSupplier::get();
+        //dd($supplier->toArray());
         return view('backend.production.general_purchase.quotation.index',compact('supplier','requisition'));
     }
 
+    // public function add_quotation_data_pass(Request $request){
+    // //return $request->id;
+    //    $quotation_data = ProductionPurchaseRequisition::where('id',$request->id)->select('items','departments','users','demand_date')->get();
+    //    return $quotation_data;
+    // }
     public function add_quotation_data_pass(Request $request){
-        //return $request;
-       $quotation_data = ProductionPurchaseRequisition::where('id','requisition_id')->with('items','departments','users','demand_date')->get();
-       dd( $quotation_data->toArray);
+        $block_data = ProductionPurchaseRequisition::where('id',$request->id)->get();
+        return $block_data;
+        return response()->json($block_data);
     }
+    public function block_data_pass(Request $request){
+        $data = ProductionPurchaseRequisition::with(
+            ['production_requisition_item' => function($q){
+                $q->with([
+                    'grade'=>function($q){
+                            $q->select('id','name');
+                        }
+                    ]);
+                }
+            ]
+            )
+        ->select('id','users','item','department')
+        ->where(function ($q) use($request)
+        {
+            if ($request->type) {
+                $q->where('processing_name',$request->type);
+            }
+        })
+        ->where('processing_variant',$request->sub_type)
+        ->latest()
+        ->get();
+        return response()->json($data);
+}
     // public function quotation_list(){
     //     $requisition=ProductionPurchaseRequisition::where('status','Confirm')->Orwhere('status','Purchased')->with('items','departments','users')->get();
     //     dd($requisition->toArray());
