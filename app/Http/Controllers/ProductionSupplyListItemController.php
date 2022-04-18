@@ -40,6 +40,7 @@ class ProductionSupplyListItemController extends Controller
         $data = $request->all();
         $invoice_code = random_int(100000, 999999);
         $production_supply = ProductionRequisition::create(['invoice_code'=>$invoice_code,'remark' => $data['remark'],'expected_date'=>$data['expected_date'],'production_supplier_id'=>$data['production_supplier_id']]);
+        // dd($data);
         foreach ($data['item_id'] as $key => $item) {
             $production_requisition_id = $production_supply->id;
             
