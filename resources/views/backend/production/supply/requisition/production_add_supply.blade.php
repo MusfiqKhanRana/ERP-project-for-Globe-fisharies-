@@ -72,9 +72,10 @@
                                             <tbody>
                                                 @foreach($lists->production_supply_list_items as $key2=> $item)
                                                 @if($item->pivot->status == 'NotDone')
+
                                                     <tr>
                                                         <th style="text-align: center">
-                                                            <input type="checkbox" class="supply_item" data-id={{$item->id}} data-name={{$item->name}} data-grade_name={{$item->grade->name}} data-qty={{$item->pivot->quantity}} name="supply_item_ids[]" multiple="multiple">
+                                                            <input type="checkbox" class="supply_item" data-item_id={{$item->id}} data-id={{$item->pivot->id}} data-name={{$item->name}} data-grade_name={{$item->grade->name}} data-qty={{$item->pivot->quantity}} name="supply_item_ids[]" multiple="multiple">
                                                         </th>
                                                         <th>{{$item->name}}</th>
                                                         <th>{{$item->grade->name}}</th>
@@ -164,7 +165,7 @@
 <script>
     $(document).ready(function(){
         var supply_item_ids = [];
-        var id , name, grade_name, qty = 0;
+        var id , name, grade_name, qty = null;
         $('#sb1').hide();
         $('.supply_item').click(function()
         {
@@ -172,10 +173,11 @@
                 $('#sb1').show();
                 id = $(this).attr("data-id");
                 name = $(this).attr("data-name");
+                item_id = $(this).attr("data-item_id");
                 grade_name = $(this).attr("data-grade_name");
                 qty = $(this).attr("data-qty");
                 rate = $(this).attr("data-rate")
-                supply_item_ids.push({"id":id,"name":name,"grade_name":grade_name,"qty":qty,"rate":rate});
+                supply_item_ids.push({"id":id,"item_id":item_id,"name":name,"grade_name":grade_name,"qty":qty,"rate":rate});
                 let uniqueObjArray = [
                     ...new Map(supply_item_ids.map((item) => [item["id"], item])).values(),
                 ];
@@ -191,23 +193,11 @@
             }
         });
         $('#sb1').click(function() {
-                //$("#supplyTable tr").empty();
-                //$("#supplyTable").find("tr:gt(0)").remove();
-                //$("#supplyTable tr"). detach();
-                //$('#supplyTable tr'). remove();
-                //$("#supplyTable tr"). empty();
                 $("table#supplyTable td").remove();
-                //$("#supplyTable tr").html("");
-                //$('#supplyTable tr').empty();
-                //console.log(supply_item_ids);
-                //$('#supplyTable tr').empty();
-                //console.log(supply_item_ids);
                 $.each( supply_item_ids, function( key, product ) {
                     console.log(product);
-                    $("table#supplyTable tr").last().after("<tr><td> <input type='hidden' value='"+product.id+"' name='id[]'> <input type='hidden' value='"+product.id+"' name='item_id[]'>"+product.name+"</td><td>"+product.grade_name+"</td><td ><input name='qty[]'type='hidden' value='"+product.qty+"'> <span>"+product.qty+"</span></td><td><input name='rate[]'></td></tr>");
+                    $("table#supplyTable tr").last().after("<tr><td> <input type='hidden' value='"+product.id+"' name='id[]'> <input type='hidden' value='"+product.item_id+"' name='item_id[]'>"+product.name+"</td><td>"+product.grade_name+"</td><td ><input name='qty[]'type='hidden' value='"+product.qty+"'> <span>"+product.qty+"</span></td><td><input name='rate[]'></td></tr>");
                 });
-                //$("#myTable tr").empty();
-               // $("table#myTable tr").remove();
         });
         //$('::option').css({"width": "100%"});
     });
