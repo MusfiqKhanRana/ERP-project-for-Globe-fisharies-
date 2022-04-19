@@ -49,16 +49,14 @@
                     </div>
                 </div>
             </div>
-           
                 <div class="portlet-body">
-                   
                     <div class="row" style="margin: 3%" >
-                        <p ><b>Department:</b> Laravel</p>
-                        <p ><b>Request By:</b>Sohel</p>
+                        <p ><b>Item Name:</b> <span id="item_name"></span></p>
+                        <p ><b>Department:</b> <span id="department"></span></p>
+                        <p ><b>Request By:</b><span id="request_by"></span></p>
+                        <p ><b>Demand Date:</b> <span id="demand_date"></span></p>
                     </div>
-                    
                     <div class="table-scrollable">
-                        
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
                             <tr>
@@ -70,12 +68,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                                
+                                @foreach($general_purchase as $key=> $data)
                                 <tr id="row1">
-                                    <td>1</td>
-                                    <td> Globe</td>
-                                    <td> 100</td>
-                                    <td> 10 Days Return policy</td>
+                                    <td>{{++ $key}}</td>
+                                    <td> {{$data->supplier->name}}</td>
+                                    <td> {{$data->price}}</td>
+                                    <td>{{$data->speciality}}</td>
                                     <td style="text-align: center">
                                         <a class="btn btn-info"  data-toggle="modal" href="#editModal"><i class="fa fa-edit"></i> Edit</a>
                                         <a class="btn red" data-toggle="modal" href="#delete"><i class="fa fa-trash"></i> Delete</a>
@@ -135,11 +133,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-                    <div >
-                        <button type="button" class="col-md-12 btn btn-info pull-right">
+                    <div class="row">
+                        <button type="button" class="col-md-12 btn btn-info pull-right" >
                             Submit
                         </button>
                     </div>
@@ -149,4 +148,5 @@
         </div>
     </div>
 @endsection
+
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductionGeneralPurchaseQuotation;
 use App\Models\ProductionPurchaseRequisition;
+use App\Models\ProductionPurchaseRequisitionItem;
 use App\Models\ProductionRequisition;
 use App\Models\ProductionSupplier;
 use Illuminate\Http\Request;
@@ -17,11 +18,12 @@ class ProductionGeneralPurchaseQuotationController extends Controller
      */
     public function index()
     {
-        $add_quotation = ProductionGeneralPurchaseQuotation::select('id','status')->where('status','AddQuotation');
-        $show_quotation = ProductionGeneralPurchaseQuotation::select('id','status')->where('status','ShowQuotation');
+        $supplier = ProductionSupplier::all();
+        $addquotation = ProductionGeneralPurchaseQuotation::select('id','status')->where('status','AddQuotation');
+        $showquotation = ProductionGeneralPurchaseQuotation::select('id','status')->where('status','ShowQuotation');
         $show_quotation = ProductionGeneralPurchaseQuotation::all();
         $purchase_requisition = ProductionPurchaseRequisition::get();
-        return view('backend.production.general_purchase.quotation.show_quotation',compact('show_quotation','purchase_requisition','show_quotation','add_quotation'));
+        return view('backend.production.general_purchase.quotation.show_quotation',compact('show_quotation','purchase_requisition','showquotation','addquotation','supplier'));
     }
 
     /**
@@ -31,9 +33,8 @@ class ProductionGeneralPurchaseQuotationController extends Controller
      */
     public function create()
     {
-        $requisition=ProductionPurchaseRequisition::where('status','Quotation')->with('items','departments','users')->get();
-        $supplier = ProductionSupplier::get();
-        return view('backend.production.general_purchase.quotation.add_quotation',compact('supplier','requisition'));
+        $general_purchase = ProductionGeneralPurchaseQuotation::get();
+        return view('backend.production.general_purchase.quotation.show_quotation',compact('general_purchase'));
     }
 
     /**
@@ -48,17 +49,14 @@ class ProductionGeneralPurchaseQuotationController extends Controller
        // dd($request);
 
        $data = $request->all();
-        
+        //dd($data);
         $request->provided_item = json_decode($request->provided_item);
-        $quotation = ProductionGeneralPurchaseQuotation::create(['supplier_id'=>$request->supplier_id,'price'=>$request->price,'speciality'=>$request->speciality,'remark'=>$request->remark]);
-        // dd($quotation);
-        foreach ($data as $key => $item) {
-            $requisition_id = $quotation->id;
-            
-            $production_requisition_item=ProductionGeneralPurchaseQuotation::create(['requisition_id'=> $requisition_id]);
+        foreach ( $request->provided_item as $key => $value) {
+           // dd($value);
+            $quotation = ProductionGeneralPurchaseQuotation::create(['supplier_id'=>$value->supplier_id,'price'=>$value->price,'speciality'=>$value->speciality,'production_purchase_requisition_id'=>$data['requisition_id'],'production_purchase_requisition_item_id'=>$data['requisition_item_id'],'remark'=>$data['remark']]);
 
-       }
-
+        }
+        
         return redirect()->back()->withMsg('Successfully Created');
     }
 
@@ -109,4 +107,23 @@ class ProductionGeneralPurchaseQuotationController extends Controller
     public function quotation(){
         return view('backend.production.general_purchase.quotation.add_quotation');
     }
+    public function confirmquotation(){
+        $general_purchase = ProductionGeneralPurchaseQuotation::get();
+        return view('backend.production.general_purchase.cs.cs_list_show',compact('general_purchase'));
+    }
+    public function status_addquotation($id){
+        // dd($id);
+        $add= ProductionPurchaseRequisitionItem::where('id',$id)->update(['status'=>'AddQuotation']);
+        return redirect()->back()->withmsg('Successfully Add Quotation');
+    }
+    public function status_showquotation($id){
+        // dd($id);
+        $show= ProductionPurchaseRequisitionItem::where('id',$id)->update(['status'=>'ShowQuotation']);
+        return redirect()->back()->withmsg('Successfully Add Quotation');
+    }
+    // public function status_confirmquotation($id){
+    //     // dd($id);
+    //     $confirm= ProductionPurchaseRequisitionItem::where('id',$id)->update(['status'=>'ConfirmQuotation']);
+    //     return redirect()->back()->withmsg('Successfully Add Quotation');
+    // }
 }

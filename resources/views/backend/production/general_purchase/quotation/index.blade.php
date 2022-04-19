@@ -69,6 +69,9 @@
                             </thead>
                             <tbody>
                                 @foreach($requisition as $key=> $data)
+                                {{-- @php
+                                    dd($data);
+                                @endphp --}}
                                 <tr id="row1">
                                     <td>{{++ $key }}</td>
                                     <td class="text-align: center;"> {{$data->departments->name}}</td>
@@ -103,23 +106,35 @@
                                             </thead>
                                             <tbody>
                                                  @foreach ($data->items as $key2 => $item) 
+                                                   
                                                     <tr>
                                                         <td>{{++$key2}}</td>
                                                         <td>{{$item->pivot->image}}</li><li>{{$item->pivot->item_name}}</li><li>{{$item->pivot->item_type_name}}</li><li>{{$item->pivot->item_unit_name}}</td>
                                                         <td>{{$item->pivot->demand_date}}</td>
                                                         <td>{{$item->pivot->quantity}}</td>
                                                         <td>{{$item->pivot->specification}}</td>
-                                                        <td>{{$item->pivot->remark}}</td>
-                                                        @if ($data->status == "AddQuotation")
+                                                        <td>{{$item->pivot->remark}}</td>  
+                                                        
                                                             <td>
+                                                                @if ($item->pivot->status === "AddQuotation")
                                                                 <a class="btn btn-success addquation" data-toggle="modal" href="#addquation" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Add Quationtion </a>
+                                                                @endif
                                                             </td>
-                                                        @endif
-                                                        @if ($data->status == "ShowQuotation")
+                                                       
+                                                        
                                                             <td>
-                                                                <a class="btn btn-success addquation" data-toggle="modal" href="#addquation" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Add Quationtion </a>
+                                                                @if ($item->pivot->status == "ShowQuotation")
+                                                                <a class="btn btn-success addquation" href="{{route('production-quotation-all-list.create')}}" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Show Quationtion </a>
+                                                                @endif
                                                             </td>
-                                                        @endif
+                                                        
+                                                        
+                                                            <td>
+                                                                @if ($item->pivot->status == "ConfirmQuotation")
+                                                                <a class="btn btn-success addquation" href="{{route('production-quotation-confirmquotation')}}" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Confirm Quationtion </a>
+                                                                @endif
+                                                            </td>
+                                                        
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -136,20 +151,17 @@
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                         <h2 class="modal-title">Add Supplier for Requisition</h2>
                                     </div>
-                                    <form class="form-horizontal" action="{{route('production-quotation-all-list.store')}}" method="POST">
-                                        {{csrf_field()}}
-                                        {{method_field('post')}}
+                                    
                                         <div class="row" style="margin: 3%" >
                                             <p ><b>Item name:</b> <span id="item_name"></span> </p>
                                             <p ><b>Department:</b> <span id="department"></span> </p>
                                             <p ><b>Request By:</b> <span id="request_by"></span></p>
                                             <p ><b>Demand Date:</b> <span id="demand_date"></span> </p>
                                         </div>
-                                        <input type="hidden" value="" id="provided_item" name="provided_item">
                                         <div class="form-group">
                                             <div class="col-md-3">
                                                 <label class="col-md-3 control-label"> Supplier</label>
-                                                <select class="form-control supplier_name" style="margin-left: 5%" name="supplier_id" id="supplier_id">
+                                                <select class="form-control supplier_name" style="margin-left: 5%" id="supplier_id" name="supplier_id">
                                                     <option selected>Select Supplier</option>
                                                     @foreach ($supplier as $item)
                                                         <option value="{{$item->id}}" data-supplier_name="{{$item->name}}">{{$item->name}}</option>
@@ -165,7 +177,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <label class="col-md-3 control-label">Speciality</label>
-                                                    <input type="text" class="form-control" placeholder="Speciality" id="speciality" name="speciality">
+                                                    <input type="text" class="form-control" placeholder="Speciality" id="speciality" name="speciality" >
                                             </div>
                                             <div class="col-md-1">
                                                 <label></label>
@@ -174,6 +186,7 @@
                                         </div>
                                         <br>
                                         <hr>
+                                    
                                         <div class="form-group">
                                             <label for="inputEmail1" class="col-md-2 control-label">Supllier Info</label>
                                             <div class="col-md-9">
@@ -190,8 +203,13 @@
                                                 </table>
                                             </div>
                                         </div>
+                                        <form class="form-horizontal" action="{{route('production-quotation-all-list.store')}}" method="POST">
+                                            {{csrf_field()}}
                                         <div class="form-group">
                                             <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
+                                            <input type="hidden" value="" id="requisition_item_id" name="requisition_item_id">
+                                            <input type="hidden" value="" id="requisition_id" name="requisition_id">
+                                            <input type="hidden" value="" id="provided_item" name="provided_item">
                                             <div class="col-md-9">
                                                 <textarea type="text" class="form-control"  name="remark"></textarea>
                                             </div>
@@ -211,12 +229,12 @@
     </div>
 @endsection
 @section('script')
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var pivot_item = null;
             var all_item = null;
+            var supplier_id,name,requisition_id,requisition_item_id,price,speciality = null;
             $('.addquation').click(function(){
                  console.log($(this).data('all')); 
                 // console.log($(this).data('pivot')); 
@@ -227,8 +245,10 @@
                 $('#department').html(all_item.departments.name);
                 $('#request_by').html(all_item.users.name);
                 $('#demand_date').html(pivot_item.demand_date);
+                $('#requisition_id').val(all_item.id)
+                $('#requisition_item_id').val(pivot_item.id)
             })
-           var supplier_id,name,price,speciality = null;
+          
         var items_array = [];
         function nullmaking(){
                 $("#supplier_id").val(null);
@@ -270,11 +290,11 @@
                 $("#provided_item").val(JSON.stringify(items_array));
                 $.each( items_array, function( key, item ) {
                     // console.log(item);
-                    if (item.status == "stay") {
+                    
                         if(items_array.length-1 == key){
                             $("table.itemsTable tr").last().before("<tr id='"+key+"'><td ><input name='supplier_id' type='hidden' value='"+item.supplier_id+"'> <span>"+item.name+"</span></td><td ><input name='price' type='hidden' value='"+item.price+"'> <span>"+item.price+"</span></td><td ><input name='speciality'type='hidden' value='"+item.speciality+"'> <span>"+item.speciality+"</span></td><td><button class='btn btn-danger delete_item' data-id='"+key+"'>Delete</button></td></tr>");
                         }
-                    }
+                    
                 });
                 $(".delete_item").click(function(){
                     items_array[$(this).data("id")].status="delete";
