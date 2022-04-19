@@ -521,14 +521,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     // })->name('production-purchase-quotation');
 
     //Quotation Show
-    Route::get('production/purchase/quotation/show', function () {
-        return view('backend.production.general_purchase.quotation.show_quotation');
-    })->name('production.purchase.quotation.show');
+    // Route::get('production/purchase/quotation/show', function () {
+    //     return view('backend.production.general_purchase.quotation.show_quotation');
+    // })->name('production.purchase.quotation.show');
 
     //Cs List
-    Route::get('production/purchase/cs/list', function () {
-        return view('backend.production.general_purchase.cs/cs_list');
-    })->name('production.purchase.cs.list');
+    // Route::get('production/purchase/cs/list', function () {
+    //     return view('backend.production.general_purchase.cs/cs_list');
+    // })->name('production.purchase.cs.list');
 
     //Cs List
     Route::get('production/purchase/cs/show', function () {
@@ -536,5 +536,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     })->name('production.purchase.cs.show');
 
     Route::resource('production-quotation-all-list',ProductionGeneralPurchaseQuotationController::class);
+    Route::get('production-quotation-confirmquotation',[ProductionGeneralPurchaseQuotationController::class,'confirmquotation'])->name('production-quotation-confirmquotation');
+    Route::post('production-purchase-quotation/status/add/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_addquotation'])->name('production-general_purchase.status_addquotation');
+    Route::post('production-purchase-quotation/status/show/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_showquotation'])->name('production-general_purchase.status_showquotation');
+    //Route::get('production-purchase-quotation/status/comfirm/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_confirmquotation'])->name('production-general_purchase.status_confirmquotation');
     
 });

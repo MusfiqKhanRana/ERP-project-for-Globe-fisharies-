@@ -9,4 +9,8 @@ class ProductionGeneralPurchaseQuotation extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function supplier()
+    {
+        return $this->belongsTo(ProductionSupplier::class);
+    }
 }

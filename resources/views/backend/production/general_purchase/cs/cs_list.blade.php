@@ -54,141 +54,176 @@
                     </div>
                 </div>
             </div>
-                <div class="portlet-body">
-                    <div class="table-scrollable">
-                        <table class="table table-striped table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>Serial</th>
-                                <th>Department</th>
-                                <th>Requested By</th>
-                                <th>Remark</th>
-                                <th>Items</th>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Serial</th>
+                            <th>Department</th>
+                            <th>Requested By</th>
+                            <th>Remark</th>
+                            <th>Items</th>
+                            {{-- <th style="text-align: center">Action</th> --}}
+                        </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($requisition as $key=> $data)
+                            {{-- @php
+                                dd($data);
+                            @endphp --}}
+                            <tr id="row1">
+                                <td>{{++ $key }}</td>
+                                <td class="text-align: center;"> {{$data->departments->name}}</td>
+                                <td class="text-align: center;"> {{$data->users->name}}</td>
+                                <td class="text-align: center;"> {{$data->remark}}</td>
+                                <td class="text-align: center;">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Sl.
+                                                </th>
+                                                <th>
+                                                    Item Details
+                                                </th>
+                                                <th>
+                                                    Demand Date
+                                                </th>
+                                                <th>
+                                                    Quantity
+                                                </th>
+                                                <th>
+                                                   Specification
+                                                </th>
+                                                <th>
+                                                    Remark
+                                                </th>
+                                                <th>
+                                                    Action
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                             @foreach ($data->items as $key2 => $item) 
+                                               
+                                                <tr>
+                                                    <td>{{++$key2}}</td>
+                                                    <td>{{$item->pivot->image}}</li><li>{{$item->pivot->item_name}}</li><li>{{$item->pivot->item_type_name}}</li><li>{{$item->pivot->item_unit_name}}</td>
+                                                    <td>{{$item->pivot->demand_date}}</td>
+                                                    <td>{{$item->pivot->quantity}}</td>
+                                                    <td>{{$item->pivot->specification}}</td>
+                                                    <td>{{$item->pivot->remark}}</td>  
+                                                    
+                                                        <td>
+                                                            @if ($item->pivot->status === "AddQuotation")
+                                                            <a class="btn btn-success addquation" data-toggle="modal" href="#addquation" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Add Quationtion </a>
+                                                            @endif
+                                                        </td>
+                                                   
+                                                    
+                                                        <td>
+                                                            @if ($item->pivot->status == "ShowQuotation")
+                                                            <a class="btn btn-success addquation" href="{{route('production-quotation-all-list.create')}}" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Show Quationtion </a>
+                                                            @endif
+                                                        </td>
+                                                    
+                                                    
+                                                        <td>
+                                                            @if ($item->pivot->status == "ConfirmQuotation")
+                                                            <a class="btn btn-success addquation" href="{{route('production-quotation-confirmquotation')}}" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Confirm Quationtion </a>
+                                                            @endif
+                                                        </td>
+                                                    
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </td>
                             </tr>
-                            </thead>
-                            <tbody>
-                                <tr id="row1">
-                                    <td>1</td>
-                                    <td>Laravel</td>
-                                    <td>Sohel</td>
-                                    <td>This is test </td>
-                                    <td>
-                                        <table class="table table-striped table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        Sl.
-                                                    </th>
-                                                    <th>
-                                                        Item Details
-                                                    </th>
-                                                    <th>
-                                                        Demand Date
-                                                    </th>
-                                                    <th>
-                                                        Quantity
-                                                    </th>
-                                                    <th>
-                                                       Specification
-                                                    </th>
-                                                    <th>
-                                                        Remark
-                                                    </th>
-                                                    <th>
-                                                        Action
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Pen</td>
-                                                    <td>20/04/2022</td>
-                                                    <td>100</td>
-                                                    <td>10 Days Return policy</td>
-                                                    <td> This is good</td>
-                                                    <td>
-                                                        <a  href="{{route('production.purchase.cs.show')}}" class="btn btn-success">Confirm Quotation</a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <div id="add_supply" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                        <h2 class="modal-title">Add Supplier for Requisition</h2>
-                                                    </div>
-                                                    <form class="form-horizontal" role="form" method="post" action="#">
-                                                        {{csrf_field()}}
-                                                        <div class="row" style="margin: 3%" >
-                                                            <p ><b>Item name:</b> Pen</p>
-                                                            <p ><b>Department:</b> Laravel</p>
-                                                            <p ><b>Request By:</b> Sohel</p>
-                                                            <p ><b>Demand Date:</b> 20/04/2022</p>
-                                                        </div>
-                                                        
-                                                        <hr>
-                                                        <table class="table table-striped table-bordered table-hover">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>
-                                                                        S.l
-                                                                    </th>
-                                                                    <th></th>
-                                                                    <th>Supplier Name</th>
-                                                                    <th>Price</th>
-                                                                    <th>Speciality</th>
-                                                                    <th>Negotiable Price</th>
-                                                                    <th>Remark</th>
-                                                                    <th>Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>
-                                                                        1
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="radiobox">
-                                                                    </td>
-                                                                    <td>Globe</td>
-                                                                    <td>100</td>
-                                                                    <td>6 Months Warranty</td>
-                                                                    <td>
-                                                                        <input type="text" placeholder="Price">
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text" placeholder="Remark">
-                                                                    </td>
-                                                                    
-                                                                    <td>
-                                                                        <button class="btn orange">Reject</button>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                        <div class="modal-footer">
-                                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                            <button type="submit" class="btn btn-info"><i class="fa fa-floppy-o"></i> Submit</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <div id="addquation" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                    <h2 class="modal-title">Add Supplier for Requisition</h2>
+                                </div>
+                                
+                                    <div class="row" style="margin: 3%" >
+                                        <p ><b>Item name:</b> <span id="item_name"></span> </p>
+                                        <p ><b>Department:</b> <span id="department"></span> </p>
+                                        <p ><b>Request By:</b> <span id="request_by"></span></p>
+                                        <p ><b>Demand Date:</b> <span id="demand_date"></span> </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <label class="col-md-3 control-label"> Supplier</label>
+                                            <select class="form-control supplier_name" style="margin-left: 5%" id="supplier_id" name="supplier_id">
+                                                <option selected>Select Supplier</option>
+                                                @foreach ($supplier as $item)
+                                                    <option value="{{$item->id}}" data-supplier_name="{{$item->name}}">{{$item->name}}</option>
+                                                @endforeach 
+                                            </select>
+                                            {{-- <div >
+                                                <button class="btn btn-info" style="margin-left: 7%">+ Add Supplier</button>
+                                            </div> --}}
                                         </div>
-                                    </td>
-                                    {{-- <td style="text-align: center">
-                                        <a class="btn btn-success"  data-toggle="modal" href="{{route('production-purchase-requisition.status_confirm',$data->id)}}"><i class="fa fa-edit"></i> Confirm</a> 
-                                        <a class="btn btn-success"  data-toggle="modal" href="#confirm{{$data->id}}"><i class="fa fa-edit"></i> Confirm</a>
-                                        <a class="btn btn-info"  data-toggle="modal" href="#edit_procution_purchase_units{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
-                                        <a class="btn red" data-toggle="modal" href="#delete_procution_purchase_units{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
-                                    </td> --}}
-                                </tr> 
-                            </tbody>
-                        </table>
+                                        <div class="col-md-3">
+                                            <label class="col-md-3 control-label">Price</label>
+                                            <input type="text" class="form-control" placeholder="Price" id="price" name="price">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="col-md-3 control-label">Speciality</label>
+                                                <input type="text" class="form-control" placeholder="Speciality" id="speciality" name="speciality" >
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label></label>
+                                            <button type="button" class="btn btn-success ItemAdd" style="margin-top: =10%">+  Add</button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <hr>
+                                
+                                    <div class="form-group">
+                                        <label for="inputEmail1" class="col-md-2 control-label">Supllier Info</label>
+                                        <div class="col-md-9">
+                                            <table  class="table table-striped table-bordered table-hover itemsTable">
+                                                <tr>
+                                                    <th>Supplier Name</th>
+                                                    <th>Price</th>
+                                                    <th>Speciality</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                <tr>
+        
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <form class="form-horizontal" action="{{route('production-quotation-all-list.store')}}" method="POST">
+                                        {{csrf_field()}}
+                                    <div class="form-group">
+                                        <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
+                                        <input type="hidden" value="" id="requisition_item_id" name="requisition_item_id">
+                                        <input type="hidden" value="" id="requisition_id" name="requisition_id">
+                                        <input type="hidden" value="" id="provided_item" name="provided_item">
+                                        <div class="col-md-9">
+                                            <textarea type="text" class="form-control"  name="remark"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                        <button type="submit" class="btn btn-info"><i class="fa fa-floppy-o"></i> Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </div>
