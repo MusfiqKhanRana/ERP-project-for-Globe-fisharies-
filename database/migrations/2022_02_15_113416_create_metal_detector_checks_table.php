@@ -15,6 +15,7 @@ class CreateMetalDetectorChecksTable extends Migration
     {
         Schema::create('metal_detector_checks', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('production_processing_unit_id')->nullable();
             $table->dateTime('date')->nullable();
             $table->string('section')->nullable();
             $table->string('metal_detector')->nullable();

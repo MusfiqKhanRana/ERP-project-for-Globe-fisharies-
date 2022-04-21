@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AbsentApplicationController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AttendanceShowCauseController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AwardController;
 use App\Http\Controllers\BankAccountController;
@@ -124,6 +126,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('attendance-approve/{id}', [AttendanceController::class,'attendanceApprove'])->name('approve.attend');
     Route::get('individual-attendance', [AttendanceController::class,'individualIndex'])->name('employee.individual');
     Route::post('individual-attendance-search', [AttendanceController::class,'individualAttend'])->name('attend.search');
+
+    Route::resource('absent-application', AbsentApplicationController::class);
+    Route::resource('show-cause-application', AttendanceShowCauseController::class);
 
     Route::get('payroll/advance-loan',[PayrollController::class,'advance_loan'])->name('payroll.advance-loan');
     Route::get('payroll/add-increment',[PayrollController::class,'addIncrement'])->name('payroll.add-increment');
