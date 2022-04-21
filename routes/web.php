@@ -522,27 +522,20 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('processing-grade',ProcessingGradeController::class);
     Route::resource('processing-block',ProcessingBlockController::class);
     Route::resource('processing-block-size',ProcessingBlockSizeController::class);
-    // //Quotation
-    // Route::get('production/purchase/quotation', function () {
-    //     return view('backend.production.general_purchase.quotation.index');
-    // })->name('production-purchase-quotation');
-
-    //Quotation Show
-    // Route::get('production/purchase/quotation/show', function () {
-    //     return view('backend.production.general_purchase.quotation.show_quotation');
-    // })->name('production.purchase.quotation.show');
-
-    //Cs List
-    // Route::get('production/purchase/cs/list', function () {
-    //     return view('backend.production.general_purchase.cs/cs_list');
-    // })->name('production.purchase.cs.list');
+    
 
     //Cs List
     Route::get('production/purchase/cs/show', function () {
         return view('backend.production.general_purchase.cs/cs_list_show');
     })->name('production.purchase.cs.show');
 
+    //Route::resource('production-quotation-confirm',ProductionRequisitionItemController::class);
+    Route::get('production-cs-show/{id}',[ProductionGeneralPurchaseQuotationController::class,'showcs'])->name('production-cs-show');
+    Route::post('production-quotation-confirm',[ProductionGeneralPurchaseQuotationController::class,'confirmqQuotation'])->name('production-quotation-confirm');
+    Route::get('production-quotation-list/{id}',[ProductionGeneralPurchaseQuotationController::class,'quotation_test'])->name('production-quotation-list');
 
+    //Inventory Management system
+    Route::get('inventory/store-in',[InventoryStoreInController::class,'store_in'])->name('inventory.store_in');
     Route::resource('production-quotation-all-list',ProductionGeneralPurchaseQuotationController::class);
     Route::get('production-quotation-confirmquotation',[ProductionGeneralPurchaseQuotationController::class,'confirmquotation'])->name('production-quotation-confirmquotation');
     Route::post('production-purchase-quotation/status/add/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_addquotation'])->name('production-general_purchase.status_addquotation');

@@ -17,7 +17,13 @@ class AbsentApplicationController extends Controller
      */
     public function index()
     {
-        //
+        $absent_application = AbsentApplication::with([
+            'attendances',
+            'user'=>function($q){
+                $q->select('id','name','email');
+            }
+            ])->paginate(10);
+        dd($absent_application);
     }
 
     /**
