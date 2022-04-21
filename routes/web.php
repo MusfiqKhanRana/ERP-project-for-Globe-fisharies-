@@ -35,6 +35,7 @@ use App\Http\Controllers\ChillStorageController;
 use App\Http\Controllers\ColdstorageController;
 use App\Http\Controllers\EmployeeAttendanceController;
 use App\Http\Controllers\FishGradeController;
+use App\Http\Controllers\Inventory\InventoryStoreInController;
 use App\Http\Controllers\MedicalReportController;
 use App\Http\Controllers\MetalDetectorCheckController;
 use App\Http\Controllers\MicrobiologicalTestController;
@@ -415,7 +416,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //Microbiological Test Report
     Route::get('report-details/{id}',[MicrobiologicalTestController::class,'report_details'])->name('microbiological.test.report.details');
-    Route::get('report-genarate',[MicrobiologicalTestController::class,'report_genarate'])->name('microbiological.test.report.genarate');
+    Route::get('report-genarate/{id}',[MicrobiologicalTestController::class,'report_genarate'])->name('microbiological.test.report.genarate');
     Route::resource('microbiological-test',MicrobiologicalTestController::class);
 
     //Tiffin Bill
@@ -542,11 +543,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     })->name('production.purchase.cs.show');
 
 
-
-    //Route::resource('production-quotation-confirm',ProductionRequisitionItemController::class);
-    Route::get('production-cs-show/{id}',[ProductionGeneralPurchaseQuotationController::class,'showcs'])->name('production-cs-show');
-    Route::post('production-quotation-confirm',[ProductionGeneralPurchaseQuotationController::class,'confirmqQuotation'])->name('production-quotation-confirm');
-    Route::get('production-quotation-list/{id}',[ProductionGeneralPurchaseQuotationController::class,'quotation_test'])->name('production-quotation-list');
     Route::resource('production-quotation-all-list',ProductionGeneralPurchaseQuotationController::class);
     Route::get('production-quotation-confirmquotation',[ProductionGeneralPurchaseQuotationController::class,'confirmquotation'])->name('production-quotation-confirmquotation');
     Route::post('production-purchase-quotation/status/add/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_addquotation'])->name('production-general_purchase.status_addquotation');
