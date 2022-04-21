@@ -15,7 +15,7 @@ class ProductionPurchaseRequisition extends Model
     }
     public function departments()
     {
-        return $this->belongsTo(Department::class, 'department');
+        return $this->belongsTo(Department::class, 'department_id');
     }
     public function users()
     {

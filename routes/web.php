@@ -74,6 +74,7 @@ use App\Http\Controllers\TempTherController;
 use App\Http\Controllers\TiffinBillController;
 use App\Http\Controllers\RoPlantController;
 use App\Models\ProductionProcessingGrade;
+use App\Models\ProductionPurchaseRequisitionItem;
 use App\Models\ProductionRequisition;
 use App\Models\ProductionRequisitionItem;
 use App\Models\ProductionSupplyList;
@@ -540,6 +541,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
         return view('backend.production.general_purchase.cs/cs_list_show');
     })->name('production.purchase.cs.show');
 
+
+
+    //Route::resource('production-quotation-confirm',ProductionRequisitionItemController::class);
+    Route::get('production-cs-show/{id}',[ProductionGeneralPurchaseQuotationController::class,'showcs'])->name('production-cs-show');
+    Route::post('production-quotation-confirm',[ProductionGeneralPurchaseQuotationController::class,'confirmqQuotation'])->name('production-quotation-confirm');
+    Route::get('production-quotation-list/{id}',[ProductionGeneralPurchaseQuotationController::class,'quotation_test'])->name('production-quotation-list');
     Route::resource('production-quotation-all-list',ProductionGeneralPurchaseQuotationController::class);
     Route::get('production-quotation-confirmquotation',[ProductionGeneralPurchaseQuotationController::class,'confirmquotation'])->name('production-quotation-confirmquotation');
     Route::post('production-purchase-quotation/status/add/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_addquotation'])->name('production-general_purchase.status_addquotation');

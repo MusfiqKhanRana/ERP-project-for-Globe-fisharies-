@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductionGeneralPurchaseQuotation;
 use App\Models\ProductionPurchaseRequisitionItem;
 use Illuminate\Http\Request;
 
@@ -81,6 +82,23 @@ class ProductionPurchaseRequisitionItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
+    {
+        ProductionPurchaseRequisitionItem::whereId($id)->delete();
+        return redirect()->back()->withMsg("Successfully Deleted");
+    }
+    // public function quotation_test($id){
+    //     // dd($id);
+    //     $purchase_item = ProductionPurchaseRequisitionItem::with([
+    //         'production_general_purchase_quotation'=>function($q){
+    //             $q->with('supplier');
+    //         }
+
+    //     ])->where('id',$id)->first();
+    //     //dd($purchase_item->toArray());
+    //     $general_purchase = ProductionGeneralPurchaseQuotation::get();
+    //     return view('backend.production.general_purchase.quotation.show_quotation',compact('purchase_item','general_purchase'));
+    // }
+    public function delete($id)
     {
         ProductionPurchaseRequisitionItem::whereId($id)->delete();
         return redirect()->back()->withMsg("Successfully Deleted");

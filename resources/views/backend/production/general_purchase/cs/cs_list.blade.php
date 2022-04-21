@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('site-title')
-    Add Requisition
+    CS List
 @endsection
 @section('style')
 
@@ -43,7 +43,7 @@
             <div class="portlet box blue-chambray">
                 <div class="portlet-title">
                 <div class="caption">
-                <i class="fa fa-briefcase"></i>Quotation List
+                <i class="fa fa-briefcase"></i>CS List
                 </div>
                     {{-- <div class="caption pull-right">
                         <a class="btn green-meadow pull-right" data-toggle="modal" href="#add_procution_purchase_units">
@@ -105,8 +105,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                             @foreach ($data->items as $key2 => $item) 
-                                               
+                                             @foreach ($data->items as $key2 => $item)
+                                             @if($item->pivot->status == "ConfirmQuotation") 
                                                 <tr>
                                                     <td>{{++$key2}}</td>
                                                     <td>{{$item->pivot->image}}</li><li>{{$item->pivot->item_name}}</li><li>{{$item->pivot->item_type_name}}</li><li>{{$item->pivot->item_unit_name}}</td>
@@ -114,29 +114,12 @@
                                                     <td>{{$item->pivot->quantity}}</td>
                                                     <td>{{$item->pivot->specification}}</td>
                                                     <td>{{$item->pivot->remark}}</td>  
-                                                    
-                                                        <td>
-                                                            @if ($item->pivot->status === "AddQuotation")
-                                                            <a class="btn btn-success addquation" data-toggle="modal" href="#addquation" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Add Quationtion </a>
-                                                            @endif
-                                                        </td>
-                                                   
-                                                    
-                                                        <td>
-                                                            @if ($item->pivot->status == "ShowQuotation")
-                                                            <a class="btn btn-success addquation" href="{{route('production-quotation-all-list.create')}}" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Show Quationtion </a>
-                                                            @endif
-                                                        </td>
-                                                    
-                                                    
-                                                        <td>
-                                                            @if ($item->pivot->status == "ConfirmQuotation")
-                                                            <a class="btn btn-success addquation" href="{{route('production-quotation-confirmquotation')}}" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Confirm Quationtion </a>
-                                                            @endif
-                                                        </td>
-                                                    
+                                                    <td>
+                                                        <a class="btn btn-success addquation" href="{{route('production-cs-show',$item->pivot->id)}}" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Confirm Quationtion </a>
+                                                    </td>
                                                 </tr>
-                                            @endforeach
+                                                @endif
+                                            @endforeach 
                                         </tbody>
                                     </table>
                                 </td>
@@ -144,84 +127,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <div id="addquation" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                    <h2 class="modal-title">Add Supplier for Requisition</h2>
-                                </div>
-                                
-                                    <div class="row" style="margin: 3%" >
-                                        <p ><b>Item name:</b> <span id="item_name"></span> </p>
-                                        <p ><b>Department:</b> <span id="department"></span> </p>
-                                        <p ><b>Request By:</b> <span id="request_by"></span></p>
-                                        <p ><b>Demand Date:</b> <span id="demand_date"></span> </p>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-md-3">
-                                            <label class="col-md-3 control-label"> Supplier</label>
-                                            <select class="form-control supplier_name" style="margin-left: 5%" id="supplier_id" name="supplier_id">
-                                                <option selected>Select Supplier</option>
-                                                @foreach ($supplier as $item)
-                                                    <option value="{{$item->id}}" data-supplier_name="{{$item->name}}">{{$item->name}}</option>
-                                                @endforeach 
-                                            </select>
-                                            {{-- <div >
-                                                <button class="btn btn-info" style="margin-left: 7%">+ Add Supplier</button>
-                                            </div> --}}
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label class="col-md-3 control-label">Price</label>
-                                            <input type="text" class="form-control" placeholder="Price" id="price" name="price">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label class="col-md-3 control-label">Speciality</label>
-                                                <input type="text" class="form-control" placeholder="Speciality" id="speciality" name="speciality" >
-                                        </div>
-                                        <div class="col-md-1">
-                                            <label></label>
-                                            <button type="button" class="btn btn-success ItemAdd" style="margin-top: =10%">+  Add</button>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <hr>
-                                
-                                    <div class="form-group">
-                                        <label for="inputEmail1" class="col-md-2 control-label">Supllier Info</label>
-                                        <div class="col-md-9">
-                                            <table  class="table table-striped table-bordered table-hover itemsTable">
-                                                <tr>
-                                                    <th>Supplier Name</th>
-                                                    <th>Price</th>
-                                                    <th>Speciality</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                                <tr>
-        
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <form class="form-horizontal" action="{{route('production-quotation-all-list.store')}}" method="POST">
-                                        {{csrf_field()}}
-                                    <div class="form-group">
-                                        <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
-                                        <input type="hidden" value="" id="requisition_item_id" name="requisition_item_id">
-                                        <input type="hidden" value="" id="requisition_id" name="requisition_id">
-                                        <input type="hidden" value="" id="provided_item" name="provided_item">
-                                        <div class="col-md-9">
-                                            <textarea type="text" class="form-control"  name="remark"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                        <button type="submit" class="btn btn-info"><i class="fa fa-floppy-o"></i> Submit</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
             </div>

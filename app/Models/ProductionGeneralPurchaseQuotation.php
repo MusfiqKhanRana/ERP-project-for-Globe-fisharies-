@@ -13,4 +13,18 @@ class ProductionGeneralPurchaseQuotation extends Model
     {
         return $this->belongsTo(ProductionSupplier::class);
     }
+    public function supplier_list()
+    {
+        return $this->hasMany(ProductionPurchaseRequisitionItem::class,'supplier_id','status');
+    }
+    public function departments()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
+    }
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'requested_by');
+    }
+    
+    
 }

@@ -15,7 +15,7 @@ class CreateProductionPurchaseRequisitionsTable extends Migration
     {
         Schema::create('production_purchase_requisitions', function (Blueprint $table) {
             $table->id();
-            $table->text('department')->nullable();
+            $table->unsignedInteger('department_id')->nullable();
             $table->integer('requested_by')->nullable();
             $table->enum('status', ['Pending','Confirm','Reject','Purchased'])->default('Pending');
             $table->dateTime('confirm_date')->nullable();
