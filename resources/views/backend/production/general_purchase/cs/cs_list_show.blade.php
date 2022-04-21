@@ -74,7 +74,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($general_purchase as $key=> $data)
+                                    @foreach($cs_item as $key=> $data)
                                     <tr>
                                         <td>
                                             {{++ $key}}
@@ -83,15 +83,15 @@
                                         <td>{{$data->price}}</td>
                                         <td>{{$data->speciality}}</td>
                                         <td>
-                                            <input type="text" class="price" placeholder="Price">
+                                            <input type="text" class="price" placeholder="Price" name="negotiable_price" id="negotiable_price">
                                         </td>
                                         <td>
-                                            <textarea type="text" class="remark" placeholder="Remark"></textarea>
+                                            <textarea type="text" class="remark" placeholder="Remark" name="cs_remark" id="cd_remark"></textarea>
                                         </td>
                                         
                                         <td>
-                                            <button class="btn btn-danger" data-toggle="modal" href="#rejectModal">Reject</button>
-                                            <button class="btn btn-info">Confirm</button>
+                                            <a class="btn btn-danger" data-toggle="modal" href="#rejectModal" >Reject</a>
+                                            <a class="btn btn-info" data-toggle="modal" href="#ConfirmModal">Confirm</a>
                                         </td>
                                     </tr>
 
@@ -119,6 +119,24 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div id="ConfirmModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h4 class="modal-title">Are You want to Confirm it?</h4>
+                                                </div>
+                                                <br>
+                                                <form class="form-horizontal" role="form" method="post" action="{{route('production-purchase-requisition.status_purchased')}}">
+                                                    {{csrf_field()}}
+                                                    <div class="modal-footer"><br>
+                                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                        <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -133,6 +151,85 @@
     </div>
 @endsection
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var pivot_item = null;
+            var all_item = null;
+            var supplier_id,name,requisition_id,requisition_item_id,price,speciality = null;
+            $('.addquation').click(function(){
+                 console.log($(this).data('all')); 
+                // console.log($(this).data('pivot')); 
+                //console.log($(this).data('pivot').users.name);
+                pivot_item = $(this).data('pivot');
+                all_item = $(this).data('all');
+                $('#item_name').html(pivot_item.item_name);
+                $('#department').html(all_item.departments.name);
+                $('#request_by').html(all_item.users.name);
+                $('#demand_date').html(pivot_item.demand_date);
+                $('#requisition_id').val(all_item.id)
+                $('#requisition_item_id').val(pivot_item.id)
+            })
+          
+        var items_array = [];
+        function nullmaking(){
+                $("#supplier_id").val(null);
+                $("#price").val(null);
+                $("#speciality").val(null);
+            }
+        $(".add_quotation").click(function() {
+            // console.log($(this).attr("data-requisition_id"));
+            var id = $(this).attr("data-requisition_id");
+            $.ajax({
+                    type:"POST",
+                    url:"{{route('production.purchase.quotation.data_pass')}}",
+                    data:{
+                        'id' : id,
+                        '_token' : $('input[name=_token]').val()
+                    },
+                    success:function(data){
+                        console.log(data);
+                    }
+                });
+
+        });
+        // $(".supplier_name").change(function(){
+        //    //console.log($(this).attr("name"));
+        //    name = $(this).attr("name");
+        
+        // });
+        $('.supplier_name').change(function(){
+            supplier_id = $(this).val();
+            // console.log($(this).find(':selected').data("name"));
+            name = $(this).find(':selected').data("supplier_name");
+            //console.log(name);
+                
+            });
+        $(".ItemAdd").click(function(){
+            console.log($(".supplier_name").val());
+                items_array.push({"supplier_id":supplier_id,"name":name,"price":$("#price").val(),"speciality":$("#speciality").val(),"status":"stay"});
+                $("#provided_item").val('');
+                $("#provided_item").val(JSON.stringify(items_array));
+                $.each( items_array, function( key, item ) {
+                    // console.log(item);
+                    
+                        if(items_array.length-1 == key){
+                            $("table.itemsTable tr").last().before("<tr id='"+key+"'><td ><input name='supplier_id' type='hidden' value='"+item.supplier_id+"'> <span>"+item.name+"</span></td><td ><input name='price' type='hidden' value='"+item.price+"'> <span>"+item.price+"</span></td><td ><input name='speciality'type='hidden' value='"+item.speciality+"'> <span>"+item.speciality+"</span></td><td><button class='btn btn-danger delete_item' data-id='"+key+"'>Delete</button></td></tr>");
+                        }
+                    
+                });
+                $(".delete_item").click(function(){
+                    items_array[$(this).data("id")].status="delete";
+                    // console.log(product_array,$(this).data("id"));
+                    $("#provided_item").val('');
+                    $("#provided_item").val(JSON.stringify(items_array));
+                    $("#"+$(this).data("id")).remove();
+                });
+                nullmaking();
+        });
+            
+        });
+    </script>
 <script>
     $(document).ready(function(){
         $('.submitButton').hide();

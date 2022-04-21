@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductionPurchaseRequisitionItem;
 use App\Models\ProductionRequisitionItem;
 use Illuminate\Http\Request;
 
@@ -33,9 +34,12 @@ class ProductionRequisitionItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+   
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        ProductionPurchaseRequisitionItem::where('id',$data['requisition_item_id'])->update(['status'=>"ConfirmQuotation"]);
+        return redirect()->back()->withMsg('Successfully Created');
     }
 
     /**

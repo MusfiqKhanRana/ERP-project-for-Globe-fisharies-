@@ -105,8 +105,8 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                 @foreach ($data->items as $key2 => $item) 
-                                                   
+                                                 @foreach ($data->items as $key2 => $item)
+                                                 @if($item->pivot->status == "AddQuotation" || $item->pivot->status == "ShowQuotation") 
                                                     <tr>
                                                         <td>{{++$key2}}</td>
                                                         <td>{{$item->pivot->image}}</li><li>{{$item->pivot->item_name}}</li><li>{{$item->pivot->item_type_name}}</li><li>{{$item->pivot->item_unit_name}}</td>
@@ -114,28 +114,19 @@
                                                         <td>{{$item->pivot->quantity}}</td>
                                                         <td>{{$item->pivot->specification}}</td>
                                                         <td>{{$item->pivot->remark}}</td>  
-                                                        
-                                                            <td>
-                                                                @if ($item->pivot->status === "AddQuotation")
+                                                        <td>
+                                                            @if ($item->pivot->status === "AddQuotation")
                                                                 <a class="btn btn-success addquation" data-toggle="modal" href="#addquation" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Add Quationtion </a>
-                                                                @endif
-                                                            </td>
-                                                       
-                                                        
-                                                            <td>
-                                                                @if ($item->pivot->status == "ShowQuotation")
-                                                                <a class="btn btn-success addquation" href="{{route('production-quotation-all-list.create')}}" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Show Quationtion </a>
-                                                                @endif
-                                                            </td>
-                                                        
-                                                        
-                                                            <td>
-                                                                @if ($item->pivot->status == "ConfirmQuotation")
-                                                                <a class="btn btn-success addquation" href="{{route('production-quotation-confirmquotation')}}" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Confirm Quationtion </a>
-                                                                @endif
-                                                            </td>
-                                                        
+                                                            @endif
+                                                            @if ($item->pivot->status == "ShowQuotation")
+                                                                <a class="btn btn-success addquation" href="{{route('production-quotation-list',$item->pivot->id)}}" > Show Quationtion </a>
+                                                            @endif
+                                                            @if ($item->pivot->status == "ConfirmQuotation")
+                                                                <a class="btn btn-success addquation" href="{{route('production-quotation-confirmquotation')}}"> Confirm Quationtion </a>
+                                                            @endif
+                                                        </td>  
                                                     </tr>
+                                                    @endif
                                                 @endforeach
                                             </tbody>
                                         </table>
@@ -151,7 +142,6 @@
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                         <h2 class="modal-title">Add Supplier for Requisition</h2>
                                     </div>
-                                    
                                         <div class="row" style="margin: 3%" >
                                             <p ><b>Item name:</b> <span id="item_name"></span> </p>
                                             <p ><b>Department:</b> <span id="department"></span> </p>
@@ -183,10 +173,9 @@
                                                 <label></label>
                                                 <button type="button" class="btn btn-success ItemAdd" style="margin-top: =10%">+  Add</button>
                                             </div>
+                                            <br>
                                         </div>
-                                        <br>
-                                        <hr>
-                                    
+                                        <br><br>
                                         <div class="form-group">
                                             <label for="inputEmail1" class="col-md-2 control-label">Supllier Info</label>
                                             <div class="col-md-9">

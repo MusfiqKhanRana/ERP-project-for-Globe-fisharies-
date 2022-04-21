@@ -75,6 +75,7 @@ use App\Http\Controllers\TempTherController;
 use App\Http\Controllers\TiffinBillController;
 use App\Http\Controllers\RoPlantController;
 use App\Models\ProductionProcessingGrade;
+use App\Models\ProductionPurchaseRequisitionItem;
 use App\Models\ProductionRequisition;
 use App\Models\ProductionRequisitionItem;
 use App\Models\ProductionSupplyList;
@@ -540,9 +541,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('production/purchase/cs/show', function () {
         return view('backend.production.general_purchase.cs/cs_list_show');
     })->name('production.purchase.cs.show');
-
-    //Inventory Management system
-    Route::get('inventory/store-in',[InventoryStoreInController::class,'store_in'])->name('inventory.store_in');
 
 
     Route::resource('production-quotation-all-list',ProductionGeneralPurchaseQuotationController::class);

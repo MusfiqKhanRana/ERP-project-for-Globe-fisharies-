@@ -175,7 +175,7 @@ class ProductionPurchaseRequisitionController extends Controller
     public function quotation(){
         $requisition=ProductionPurchaseRequisition::where('status','Quotation')->with('items','departments','users')->get();
         $supplier = ProductionSupplier::get();
-        //dd($supplier->toArray());
+        //dd($requisition->toArray());
         return view('backend.production.general_purchase.quotation.index',compact('supplier','requisition'));
     }
 
