@@ -611,7 +611,7 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item @if( request()->path() == 'admin/report-genarate' ) active open @endif">
-                                        <a href="{{route('microbiological.test.report.genarate')}}" class="nav-link ">
+                                        {{-- <a href="{{route('microbiological.test.report.genarate')}}" class="nav-link "> --}}
                                             <span class="title">Report Genarate</span>
                                         </a>
                                     </li>
@@ -819,12 +819,12 @@
                                 {{-- <a href="{{route('production.processing.iqf')}}" class="nav-link ">
                                     <span class="title">IQF</span>
                                 </a> --}}
-                                <a href="#" class="nav-link ">
+                                <a href="{{route('inventory.store_in')}}" class="nav-link ">
                                     <span class="title">Store In</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('production-unload-index')}}" class="nav-link ">
+                                <a href="{{route('inventory.store_in')}}" class="nav-link ">
                                     <span class="title">Store Out</span>
                                 </a>
                             </li>

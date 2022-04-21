@@ -13,4 +13,8 @@ class ProductionProcessingUnit extends Model
     {
         return $this->belongsTo(SupplyItem::class,'item_id');
     }
+    public function production_processing_grades()
+    {
+        return $this->hasMany(ProductionProcessingGrade::class, 'production_processing_unit_id','id');
+    }
 }

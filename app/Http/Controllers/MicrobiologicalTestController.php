@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ColdStorage;
 use App\Models\MicrobiologicalTest;
+use App\Models\ProductionProcessingUnit;
 use Illuminate\Http\Request;
 
 class MicrobiologicalTestController extends Controller
@@ -38,8 +39,12 @@ class MicrobiologicalTestController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        ProductionProcessingUnit::where('id',$request->production_processing_unit_id)
+        ->update(
+            ['store_in_status'=>'QC_checked']
+        );
         $create = MicrobiologicalTest::create($request->all());
-        return redirect()->route('microbiological-test.index');
+        return redirect()->route('inventory.store_in')->withmsg('Successfully QC Checked');
     }
 
     /**
@@ -94,10 +99,12 @@ class MicrobiologicalTestController extends Controller
         MicrobiologicalTest::find($id)->delete($id);
         return redirect()->back()->withMsg("Successfully Deleted");
     }
-    public function report_genarate()
+    public function report_genarate($id)
     {
+        $production_processing_unit_id = $id;
+        // dd($production_processing_unit_id);
         $coldstorage = ColdStorage::all();
-        return view('backend.microbiological_test_report.genarate_report',compact('coldstorage'));
+        return view('backend.microbiological_test_report.genarate_report',compact('coldstorage','production_processing_unit_id'));
     }
     public function report_details($id){
         $report = MicrobiologicalTest::with('coldstorage')->where('id',$id)->first();

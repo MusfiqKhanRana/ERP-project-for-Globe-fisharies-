@@ -33,6 +33,7 @@ class CreateProductionProcessingUnitsTable extends Migration
             $table->unsignedInteger('wastage_quantity')->nullable();
             $table->unsignedInteger('return_quantity')->nullable();
             $table->dateTime('RandW_datetime')->nullable();
+            $table->enum('store_in_status', ['Initial','QC_checked','MD_checked'])->default('Initial');
             $table->timestamps();
         });
     }

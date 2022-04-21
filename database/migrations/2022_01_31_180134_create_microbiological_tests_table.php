@@ -15,6 +15,7 @@ class CreateMicrobiologicalTestsTable extends Migration
     {
         Schema::create('microbiological_tests', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('production_processing_unit_id')->nullable();
             $table->unsignedInteger('coldstorage_id')->nullable();
             $table->string('spacies_type')->nullable();
             $table->string('size_count')->nullable();

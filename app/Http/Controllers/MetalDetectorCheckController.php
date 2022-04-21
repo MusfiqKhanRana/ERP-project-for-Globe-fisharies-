@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\MetalDetectorCheck;
+use App\Models\ProductionProcessingUnit;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,6 +45,10 @@ class MetalDetectorCheckController extends Controller
      */
     public function store(Request $request)
     {
+        ProductionProcessingUnit::where('id',$request->production_processing_unit_id)
+        ->update(
+            ['store_in_status'=>'MD_checked']
+        );
         $inputs = $request->except('_token');
         $this->validate($request,array(
             'section' => 'required',
@@ -52,9 +58,10 @@ class MetalDetectorCheckController extends Controller
             'remark' => 'max:256',
         ));
         $request->provided_item = json_decode($request->provided_item);
-        //$request->date=Carbon::createFromFormat('m/d/Y', $request->date)->format('Y-m-d');
+        $request->date=Carbon::createFromFormat('m/d/Y', $request->date)->format('Y-m-d');
         // dd($request->all());
         $metal = new MetalDetectorCheck();
+        $metal->production_processing_unit_id = $request->production_processing_unit_id;
         $metal->date = $request->date;
         $metal->section = $request->section;
         $metal->metal_detector = $request->metal_detector;
@@ -70,7 +77,7 @@ class MetalDetectorCheckController extends Controller
         $metal->remark = $request->remark;
         $metal->save();
 
-        return redirect()->route('metal-detector.index')->withMsg('Successfully Created');
+        return redirect()->route('inventory.store_in')->withmsg('Successfully MD Checked');
     }
 
     /**
@@ -79,9 +86,11 @@ class MetalDetectorCheckController extends Controller
      * @param  \App\Models\MetalDetectorCheck  $metalDetectorCheck
      * @return \Illuminate\Http\Response
      */
-    public function show(MetalDetectorCheck $metalDetectorCheck)
+    public function show($id)
     {
-        //
+        // dd($id);
+        $production_processing_unit_id = $id;
+        return view('backend.production.production-data.metal_detector.create',compact('production_processing_unit_id'));
     }
 
     /**
