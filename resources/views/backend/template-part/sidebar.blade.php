@@ -99,18 +99,23 @@
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li class="nav-item  @if( request()->path() == 'admin/payroll' ) active open @endif">
-                                    <a href="{{route('employee-attendance.index')}}" class="nav-link ">
-                                        <span class="title">My Attendance</span>
-                                    </a>
-                                </li>
+                                
     
                                 <li class="nav-item  @if( request()->path() == 'admin/payroll/chart' ) active open @endif">
                                     <a href="{{route('employee.attend')}}" class="nav-link ">
                                         <span class="title">Attendance List</span>
                                     </a>
                                 </li>
-    
+                                <li class="nav-item  @if( request()->path() == 'admin/payroll' ) active open @endif">
+                                    <a href="{{route('employee-attendance.index')}}" class="nav-link ">
+                                        <span class="title">My Attendance</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  @if( request()->path() == 'admin/payroll' ) active open @endif">
+                                    <a href="{{route('absent-application.index')}}" class="nav-link ">
+                                        <span class="title">Absent Application</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     {{-- <li class="nav-item  @if( request()->path() == 'admin/employee/attendance' ) active open @endif">
