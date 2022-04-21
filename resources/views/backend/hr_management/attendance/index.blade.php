@@ -27,7 +27,7 @@
                 {{-- <div class="form-group" style="margin-left: 10%">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </div> --}}
-                <a class="btn purple pull-right" data-toggle="modal" href="#basic">
+                <a class="btn purple pull-right leave_application" data-toggle="modal" href="#absentApplication">
                     Add Leave Application
                     <i class="fa fa-plus"></i>
                 </a>
@@ -94,13 +94,10 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($attendances as $attendance)
-                                        {{-- @php
-                                            dd($attendance->toArray());
-                                        @endphp --}}
                                         <tr>
                                             <td>
                                                 @if ($attendance->status == "Absent")
-                                                    <input type="checkbox" class="add_leave_check">
+                                                    <input type="checkbox" data-id="{{$attendance->id}}" class="add_leave_check">
                                                 @endif
                                             </td>
                                             <td>{{$attendance->employee->id}}</td>
@@ -124,14 +121,14 @@
                                             @endif
                                             <td style="text-align: center">
                                                 @if ($attendance->status=="Late" || $attendance->status=="Delay")
-                                                    <a class="btn btn-info"  data-toggle="modal" href="#editModal"><i class="fa fa-flus"></i> Add Show Casuse</a> 
+                                                    <a class="btn btn-info showcausebtn"  data-toggle="modal" href="#showCauseModal" data-id="{{$attendance->id}}"><i class="fa fa-flus"></i> Add Show Casuse</a> 
                                                 @endif
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div id="editModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                            <div id="showCauseModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -139,18 +136,19 @@
                                             <h4 class="modal-title">Add Show case Note</h4>
                                         </div>
                                         <br>
-                                        <form class="form-horizontal" role="form" method="post" action="{{route('tiffin-bill.store')}}">
+                                        <form class="form-horizontal" role="form" method="POST" action="{{route('show-cause-application.store')}}">
                                             {{csrf_field()}}
-                                            <div class="form-group">
+                                            {{-- <div class="form-group">
                                                 <label for="inputEmail1" class="col-md-2 control-label">Attachment</label>
                                                 <div class="col-md-8">
                                                     <input type="file" class="form-control"  name="attachment">
                                                 </div><br><br>
-                                            </div>
+                                            </div> --}}
                                             <div class="form-group">
-                                                <label for="inputEmail1" class="col-md-2 control-label"></label>
+                                                <label for="inputEmail1" class="col-md-2 control-label">Write Application</label>
                                                 <div class="col-md-8">
-                                                    <textarea type="text" class="form-control" id="" name=""></textarea>
+                                                    <input type="hidden" class="form-control" id="attendance_id"  name="attendance_id" value="">
+                                                    <textarea type="text" class="form-control" id="" name="application_note"></textarea>
                                                 </div><br><br><br><br><br><br><br><br><br><br>
                                             </div>
                                             <div class="modal-footer">
@@ -172,7 +170,7 @@
                     </div> --}}
                 </div>
             </div>
-            <div id="basic" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+            <div id="absentApplication" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -180,18 +178,32 @@
                             <h4 class="modal-title">Add Application</h4>
                         </div>
                         <br>
-                        <form class="form-horizontal" role="form" method="post" action="{{route('tiffin-bill.store')}}">
+                        <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{route('absent-application.store')}}">
                             {{csrf_field()}}
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Attachment</label>
+                                <label for="inputEmail1" class="col-md-2 control-label">Application For</label>
                                 <div class="col-md-8">
-                                    <input type="file" class="form-control"  name="attachment">
+                                    <select name="type" class="form-control" required>
+                                        <option value="">--Select--</option>
+                                        <option value="Medical">Medical Leave</option>
+                                        <option value="Casual">Casual Leave</option>
+                                        <option value="Special">Special Leave</option>
+                                        <option value="Earned">Earned Leave</option>
+                                        <option value="Office">Office Leave</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label"></label>
+                                <label for="inputEmail1" class="col-md-2 control-label">Attachment</label>
                                 <div class="col-md-8">
-                                    <textarea type="text" class="form-control" id="" name=""></textarea>
+                                    <input type="file" class="form-control attachment"  name="attachment">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Add Application</label>
+                                <div class="col-md-8">
+                                    <textarea type="text" class="form-control" id="" name="application_note"></textarea>
+                                    <input type="hidden" name="attendance_id" class="attendance_id" value="application_note" multiple>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -212,6 +224,38 @@
             tinymce.init({
                 selector: 'textarea',
             });
+            var attendance_ids=[];
+            $('.leave_application').hide();
+            $( ".add_leave_check" ).click(function() {
+                $('.attendance_id').val('');
+                if(this.checked){
+                    attendance_ids.push($(this).data('id'));
+                    // console.log(attendance_ids);
+                    if (attendance_ids.length>=1) {
+                        $('.attendance_id').val(attendance_ids);
+                        $('.leave_application').show();
+                    }else{
+                        $('.attendance_id').val('');
+                        $('.leave_application').hide();
+                    }
+                }
+                if(!this.checked){
+                    attendance_ids = removeItem(attendance_ids, $(this).data('id'));
+                    if (attendance_ids.length>=1) {
+                        $('.attendance_id').val(attendance_ids);
+                        $('.leave_application').show();
+                    }else{
+                        $('.attendance_id').val('');
+                        $('.leave_application').hide();
+                    }
+                }
+            });
+            $('.showcausebtn').click(function(){
+                $('#attendance_id').val($(this).data('id'));
+            })
+            function removeItem(arr, item){
+                return arr.filter(f => f !== item)
+            }
         });
         
       </script>
