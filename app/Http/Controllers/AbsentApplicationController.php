@@ -22,8 +22,8 @@ class AbsentApplicationController extends Controller
             'user'=>function($q){
                 $q->select('id','name','email');
             }
-            ])->paginate(10);
-        dd($absent_application);
+        ])->paginate(10);
+        // dd($absent_application);
     }
 
     /**
