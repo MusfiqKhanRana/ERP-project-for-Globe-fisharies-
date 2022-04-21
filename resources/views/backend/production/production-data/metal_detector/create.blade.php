@@ -47,6 +47,7 @@
                         <div class="portlet-body" style="height: auto;">
                             <form class="form-horizontal" role="form" method="post" action="{{route('metal-detector.store')}}">
                                 {{csrf_field()}}
+                                <input type="hidden" name="production_processing_unit_id" value="{{$production_processing_unit_id}}">
                                 <div class="form-group">
                                     <label for="inputEmail1" class="col-md-2 control-label">Date</label>
                                     <div class="col-md-9">
