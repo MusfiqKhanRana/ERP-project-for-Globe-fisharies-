@@ -35,6 +35,7 @@ use App\Http\Controllers\ChillStorageController;
 use App\Http\Controllers\ColdstorageController;
 use App\Http\Controllers\EmployeeAttendanceController;
 use App\Http\Controllers\FishGradeController;
+use App\Http\Controllers\Inventory\InventoryStoreInController;
 use App\Http\Controllers\MedicalReportController;
 use App\Http\Controllers\MetalDetectorCheckController;
 use App\Http\Controllers\MicrobiologicalTestController;
@@ -414,7 +415,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //Microbiological Test Report
     Route::get('report-details/{id}',[MicrobiologicalTestController::class,'report_details'])->name('microbiological.test.report.details');
-    Route::get('report-genarate',[MicrobiologicalTestController::class,'report_genarate'])->name('microbiological.test.report.genarate');
+    Route::get('report-genarate/{id}',[MicrobiologicalTestController::class,'report_genarate'])->name('microbiological.test.report.genarate');
     Route::resource('microbiological-test',MicrobiologicalTestController::class);
 
     //Tiffin Bill
@@ -539,6 +540,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('production/purchase/cs/show', function () {
         return view('backend.production.general_purchase.cs/cs_list_show');
     })->name('production.purchase.cs.show');
+
+    //Inventory Management system
+    Route::get('inventory/store-in',[InventoryStoreInController::class,'store_in'])->name('inventory.store_in');
+
 
     Route::resource('production-quotation-all-list',ProductionGeneralPurchaseQuotationController::class);
     Route::get('production-quotation-confirmquotation',[ProductionGeneralPurchaseQuotationController::class,'confirmquotation'])->name('production-quotation-confirmquotation');
