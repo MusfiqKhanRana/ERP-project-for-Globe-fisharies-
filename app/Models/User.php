@@ -69,6 +69,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Designation::class,'deg_id');
     }
+    public function department()
+    {
+        return $this->belongsTo(Department::class,'dept_id');
+    }
 
     /**
      * The attributes that should be cast.

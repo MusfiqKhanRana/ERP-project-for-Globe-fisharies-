@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
-use App\Models\Department;
-use App\Models\EmployeeAttendance;
-use Carbon\Carbon;
+use App\Models\AttendanceShowCause;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class EmployeeAttendanceController extends Controller
+class AttendanceShowCauseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,11 +16,7 @@ class EmployeeAttendanceController extends Controller
      */
     public function index()
     {
-        $start_date=Carbon::now()->format('Y-m-d 00:00:00');
-        $end_date=Carbon::now()->format('Y-m-d 11:59:59');
-        $attendances = Attendance::with('employee')->where('user_id',Auth::user()->id)->where('date','>=',$start_date)->where('date','<=',$end_date)->get();
-        // return $attendances;
-        return view('backend.hr_management.attendance.index',compact('attendances'));
+        //
     }
 
     /**
@@ -32,8 +26,7 @@ class EmployeeAttendanceController extends Controller
      */
     public function create()
     {
-        $departments = Department::all();
-        return view('backend.hr_management.attendance.create',compact('departments'));
+        //
     }
 
     /**
@@ -44,16 +37,19 @@ class EmployeeAttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        AttendanceShowCause::create(['user_id'=>Auth::user()->id,'attendance_id'=>$request->attendance_id,'showcase_note'=>$request->showcase_note]);
+        Attendance::find($request->attendance_id)->update(['status'=>'Application Applied']);
+        return back()->withMsg("Applied Successfully");
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\EmployeeAttendance  $employeeAttendance
+     * @param  \App\Models\AttendanceShowCause  $attendanceShowCause
      * @return \Illuminate\Http\Response
      */
-    public function show(EmployeeAttendance $employeeAttendance)
+    public function show(AttendanceShowCause $attendanceShowCause)
     {
         //
     }
@@ -61,10 +57,10 @@ class EmployeeAttendanceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\EmployeeAttendance  $employeeAttendance
+     * @param  \App\Models\AttendanceShowCause  $attendanceShowCause
      * @return \Illuminate\Http\Response
      */
-    public function edit(EmployeeAttendance $employeeAttendance)
+    public function edit(AttendanceShowCause $attendanceShowCause)
     {
         //
     }
@@ -73,10 +69,10 @@ class EmployeeAttendanceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\EmployeeAttendance  $employeeAttendance
+     * @param  \App\Models\AttendanceShowCause  $attendanceShowCause
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, EmployeeAttendance $employeeAttendance)
+    public function update(Request $request, AttendanceShowCause $attendanceShowCause)
     {
         //
     }
@@ -84,10 +80,10 @@ class EmployeeAttendanceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\EmployeeAttendance  $employeeAttendance
+     * @param  \App\Models\AttendanceShowCause  $attendanceShowCause
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EmployeeAttendance $employeeAttendance)
+    public function destroy(AttendanceShowCause $attendanceShowCause)
     {
         //
     }

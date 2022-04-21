@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AbsentApplicationController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AttendanceShowCauseController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AwardController;
 use App\Http\Controllers\BankAccountController;
@@ -124,6 +126,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('attendance-approve/{id}', [AttendanceController::class,'attendanceApprove'])->name('approve.attend');
     Route::get('individual-attendance', [AttendanceController::class,'individualIndex'])->name('employee.individual');
     Route::post('individual-attendance-search', [AttendanceController::class,'individualAttend'])->name('attend.search');
+
+    Route::resource('absent-application', AbsentApplicationController::class);
+    Route::resource('show-cause-application', AttendanceShowCauseController::class);
 
     Route::get('payroll/advance-loan',[PayrollController::class,'advance_loan'])->name('payroll.advance-loan');
     Route::get('payroll/add-increment',[PayrollController::class,'addIncrement'])->name('payroll.add-increment');
@@ -521,14 +526,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     // })->name('production-purchase-quotation');
 
     //Quotation Show
-    Route::get('production/purchase/quotation/show', function () {
-        return view('backend.production.general_purchase.quotation.show_quotation');
-    })->name('production.purchase.quotation.show');
+    // Route::get('production/purchase/quotation/show', function () {
+    //     return view('backend.production.general_purchase.quotation.show_quotation');
+    // })->name('production.purchase.quotation.show');
 
     //Cs List
-    Route::get('production/purchase/cs/list', function () {
-        return view('backend.production.general_purchase.cs/cs_list');
-    })->name('production.purchase.cs.list');
+    // Route::get('production/purchase/cs/list', function () {
+    //     return view('backend.production.general_purchase.cs/cs_list');
+    // })->name('production.purchase.cs.list');
 
     //Cs List
     Route::get('production/purchase/cs/show', function () {
@@ -536,5 +541,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     })->name('production.purchase.cs.show');
 
     Route::resource('production-quotation-all-list',ProductionGeneralPurchaseQuotationController::class);
+    Route::get('production-quotation-confirmquotation',[ProductionGeneralPurchaseQuotationController::class,'confirmquotation'])->name('production-quotation-confirmquotation');
+    Route::post('production-purchase-quotation/status/add/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_addquotation'])->name('production-general_purchase.status_addquotation');
+    Route::post('production-purchase-quotation/status/show/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_showquotation'])->name('production-general_purchase.status_showquotation');
+    //Route::get('production-purchase-quotation/status/comfirm/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_confirmquotation'])->name('production-general_purchase.status_confirmquotation');
     
 });

@@ -27,7 +27,7 @@
                 {{-- <div class="form-group" style="margin-left: 10%">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </div> --}}
-                <a class="btn purple pull-right" data-toggle="modal" href="#basic">
+                <a class="btn purple pull-right leave_application" data-toggle="modal" href="#absentApplication">
                     Add Leave Application
                     <i class="fa fa-plus"></i>
                 </a>
@@ -64,10 +64,13 @@
                                 <thead>
                                     <tr>
                                         <th>
-
+                                            #
                                         </th>
                                         <th>
                                             Id
+                                        </th>
+                                        <th>
+                                            Name
                                         </th>
                                         <th>
                                             Date
@@ -90,184 +93,84 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th>
-
-                                        </th>
-                                        <td>152520</td>
-                                        <td>23/02/2022</td>
-                                        <td>10.05 am</td>
-                                        <td>02.05<br>
-                                            02.15<br>
-                                            04.15<br>
-                                            04.25
-                                        </td>
-                                        <td>05.20 pm</td>
-                                        <td style="color:green;">Present</td>
-                                        <td style="text-align: center">
-                                            N/A
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            <input type="checkbox" >
-                                        </th>
-                                        <td>152521</td>
-                                        <td>23/02/2022</td>
-                                        <td>N/A</td>
-                                        <td>N/A</td>
-                                        <td>N/A</td>
-                                        <td style="color:red;">Absent</td>
-                                        <td style="text-align: center">
-                                            Requested
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-
-                                        </th>
-                                        <td>152522</td>
-                                        <td>23/02/2022</td>
-                                        <td>10.00 am</td>
-                                        <td>02.05<br>
-                                            02.15<br>
-                                            04.15<br>
-                                            04.25</td>
-                                        <td>05.15 pm</td>
-                                        <td style="color:blue;">Late</td>
-                                        <td style="text-align: center">
-                                            <a class="btn btn-info"  data-toggle="modal" href="#editModal{{--$item->id--}}"><i class="fa fa-flus"></i> Add Show Casuse</a>
-                                        </td>
-                                    </tr>
-                                    {{-- <div id="deleteModal{{$item->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                        {{csrf_field()}}
-                                        <input type="hidden" value="" id="delete_id">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h2 class="modal-title" style="color: red;">Are you sure?</h2>
-                                                </div>
-                                                <div class="modal-footer " >
-                                                    <div class="d-flex justify-content-between">
-                                                        <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
-                                                    </div>
-                                                    <div class="caption pull-right">
-                                                        <form action="{{route('tiffin-bill.destroy',[$item])}}" method="POST">
-                                                            @method('DELETE')
-                                                            @csrf
-                                                            <button class="btn red"><i class="fa fa-trash"></i>Delete</button>               
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="editModal{{$item->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h4 class="modal-title">Update Employee Tiffin Bill</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form class="form-horizontal" role="form" method="post" action="{{route('tiffin-bill.update', $item)}}">
-                                                        {{csrf_field()}}
-                                                        {{method_field('put')}}
-                                                        <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-2 control-label">Date</label>
-                                                            <div class="col-md-9">
-                                                                <div class="input-group input-5 date date-picker" id="datepicker" data-date-format="MM-yyyy">
-                                                                    <input  type="text" class="form-control" value="{{$item->date}}" readonly="readonly" name="date" >    
-                                                                    <span class="input-group-btn">
-                                                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                                                    </span>      
-                                                                </div> 
-                                                            </div><br><br>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="col-md-2 control-label"> Name</label>
-                                                            <div class="col-md-9">
-                                                                <select class="form-control " id="employee_id" name="employee_id">
-                                                                    <option value="{{$item->user->id}}">{{$item->user->name}}</option>
-                                                                    @foreach($users as $data)
-                                                                        <option value="{{$data->id}}">{{$data->name}}</option>
-                                                                    @endforeach
-                                                                    {{csrf_field()}}
-                                                                </select>
-                                                            </div><br><br>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-2 control-label">Days</label>
-                                                            <div class="col-md-9">
-                                                                <input type="number" class="form-control" value="{{$item->days}}"  name="days">
-                                                            </div><br><br>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-2 control-label">Rate</label>
-                                                            <div class="col-md-9">
-                                                                <input type="number" class="form-control" value="{{$item->rate}}"  name="rate">
-                                                            </div><br><br>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
-                                                            <div class="col-md-9">
-                                                                <input type="text" class="form-control" value="{{$item->remark}}" name="remark">
-                                                            </div><br><br>
-                                                        </div><br>
-                                                        <div class="modal-footer">
-                                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                    <div id="editModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h4 class="modal-title">Add New Tiffin Bill</h4>
-                                                </div>
-                                                <br>
-                                                <form class="form-horizontal" role="form" method="post" action="{{route('tiffin-bill.store')}}">
-                                                    {{csrf_field()}}
-                                                    <div class="form-group">
-                                                        <label for="inputEmail1" class="col-md-2 control-label">Attachment</label>
-                                                        <div class="col-md-8">
-                                                            <input type="file" class="form-control"  name="attachment">
-                                                        </div><br><br>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputEmail1" class="col-md-2 control-label"></label>
-                                                        <div class="col-md-8">
-                                                            <textarea type="text" class="form-control" id="" name=""></textarea>
-                                                        </div><br><br><br><br><br><br><br><br><br><br>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                        <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i>Submit Application</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @foreach ($attendances as $attendance)
+                                        <tr>
+                                            <td>
+                                                @if ($attendance->status == "Absent")
+                                                    <input type="checkbox" data-id="{{$attendance->id}}" class="add_leave_check">
+                                                @endif
+                                            </td>
+                                            <td>{{$attendance->employee->id}}</td>
+                                            <td>{{$attendance->employee->name}}</td>
+                                            <td>{{$attendance->date}}</td>
+                                            <td>{{$attendance->in_time}}</td>
+                                            <td>02.05<br>
+                                                02.15<br>
+                                                04.15<br>
+                                                04.25
+                                            </td>
+                                            <td>{{$attendance->out_time}}</td>
+                                            @if ($attendance->status=="Present")
+                                                <td style="color:green;">{{$attendance->status}}</td>
+                                            @elseif ($attendance->status=="Absent")
+                                                <td style="color:rgb(128, 0, 0);">{{$attendance->status}}</td>
+                                            @elseif ($attendance->status=="Late")
+                                                <td style="color:rgb(19, 12, 123);">{{$attendance->status}}</td>
+                                            @else
+                                                <td style="color:rgb(44, 55, 16);">{{$attendance->status}}</td>
+                                            @endif
+                                            <td style="text-align: center">
+                                                @if ($attendance->status=="Late" || $attendance->status=="Delay")
+                                                    <a class="btn btn-info showcausebtn"  data-toggle="modal" href="#showCauseModal" data-id="{{$attendance->id}}"><i class="fa fa-flus"></i> Add Show Casuse</a> 
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
+                            <div id="showCauseModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                            <h4 class="modal-title">Add Show case Note</h4>
+                                        </div>
+                                        <br>
+                                        <form class="form-horizontal" role="form" method="POST" action="{{route('show-cause-application.store')}}">
+                                            {{csrf_field()}}
+                                            {{-- <div class="form-group">
+                                                <label for="inputEmail1" class="col-md-2 control-label">Attachment</label>
+                                                <div class="col-md-8">
+                                                    <input type="file" class="form-control"  name="attachment">
+                                                </div><br><br>
+                                            </div> --}}
+                                            <div class="form-group">
+                                                <label for="inputEmail1" class="col-md-2 control-label">Write Application</label>
+                                                <div class="col-md-8">
+                                                    <input type="hidden" class="form-control" id="attendance_id"  name="attendance_id" value="">
+                                                    <textarea type="text" class="form-control" id="" name="application_note"></textarea>
+                                                </div><br><br><br><br><br><br><br><br><br><br>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i>Submit Application</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>
                     <!-- END EXAMPLE TABLE PORTLET-->
-                    <div>
+                    {{-- <div>
                         <p class="pull-right" style="color: red">
                             Note: Checkbox will only appear on Absent status and button will appear in late status.
                         </p>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
-            <div id="basic" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+            <div id="absentApplication" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -275,18 +178,32 @@
                             <h4 class="modal-title">Add Application</h4>
                         </div>
                         <br>
-                        <form class="form-horizontal" role="form" method="post" action="{{route('tiffin-bill.store')}}">
+                        <form class="form-horizontal" enctype="multipart/form-data" role="form" method="post" action="{{route('absent-application.store')}}">
                             {{csrf_field()}}
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Attachment</label>
+                                <label for="inputEmail1" class="col-md-2 control-label">Application For</label>
                                 <div class="col-md-8">
-                                    <input type="file" class="form-control"  name="attachment">
+                                    <select name="type" class="form-control" required>
+                                        <option value="">--Select--</option>
+                                        <option value="Medical">Medical Leave</option>
+                                        <option value="Casual">Casual Leave</option>
+                                        <option value="Special">Special Leave</option>
+                                        <option value="Earned">Earned Leave</option>
+                                        <option value="Office">Office Leave</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label"></label>
+                                <label for="inputEmail1" class="col-md-2 control-label">Attachment</label>
                                 <div class="col-md-8">
-                                    <textarea type="text" class="form-control" id="" name=""></textarea>
+                                    <input type="file" class="form-control attachment"  name="attachment">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Add Application</label>
+                                <div class="col-md-8">
+                                    <textarea type="text" class="form-control" id="" name="application_note"></textarea>
+                                    <input type="hidden" name="attendance_id" class="attendance_id" value="application_note" multiple>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -307,6 +224,38 @@
             tinymce.init({
                 selector: 'textarea',
             });
+            var attendance_ids=[];
+            $('.leave_application').hide();
+            $( ".add_leave_check" ).click(function() {
+                $('.attendance_id').val('');
+                if(this.checked){
+                    attendance_ids.push($(this).data('id'));
+                    // console.log(attendance_ids);
+                    if (attendance_ids.length>=1) {
+                        $('.attendance_id').val(attendance_ids);
+                        $('.leave_application').show();
+                    }else{
+                        $('.attendance_id').val('');
+                        $('.leave_application').hide();
+                    }
+                }
+                if(!this.checked){
+                    attendance_ids = removeItem(attendance_ids, $(this).data('id'));
+                    if (attendance_ids.length>=1) {
+                        $('.attendance_id').val(attendance_ids);
+                        $('.leave_application').show();
+                    }else{
+                        $('.attendance_id').val('');
+                        $('.leave_application').hide();
+                    }
+                }
+            });
+            $('.showcausebtn').click(function(){
+                $('#attendance_id').val($(this).data('id'));
+            })
+            function removeItem(arr, item){
+                return arr.filter(f => f !== item)
+            }
         });
         
       </script>

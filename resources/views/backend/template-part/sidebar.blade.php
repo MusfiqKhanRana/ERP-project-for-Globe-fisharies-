@@ -712,7 +712,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a href="{{route('production.purchase.cs.list')}}" class="nav-link ">
+                                        <a href="{{route('production-quotation-confirmquotation')}}" class="nav-link ">
                                             <span class="title">CS List</span>
                                         </a>
                                     </li>

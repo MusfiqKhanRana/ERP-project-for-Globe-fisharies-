@@ -183,43 +183,36 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>152520</td>
-                                        <td>Md. Sadman Bishal</td>
-                                        <td>Manager</td>
-                                        <td>23/02/2022</td>
-                                        <td>10.05 am</td>
-                                        <td>02.05<br>
-                                            02.15<br>
-                                            04.15<br>
-                                            04.25
-                                        </td>
-                                        <td>05.20 pm</td>
-                                        <td style="color:green;">Present</td>
-                                    </tr>
-                                    <tr>
-                                        <td>152521</td>
-                                        <td>S F Sohel </td>
-                                        <td>Execeutive</td>
-                                        <td>23/02/2022</td>
-                                        <td>N/A</td>
-                                        <td>N/A</td>
-                                        <td>N/A</td>
-                                        <td style="color:red;">Absent</td>
-                                    </tr>
-                                    <tr>
-                                        <td>152522</td>
-                                        <td>Md. Masud Rana</td>
-                                        <td>Accountant</td>
-                                        <td>23/02/2022</td>
-                                        <td>10.00 am</td>
-                                        <td>02.05<br>
-                                            02.15<br>
-                                            04.15<br>
-                                            04.25</td>
-                                        <td>05.15 pm</td>
-                                        <td style="color:blue;">Late</td>
-                                    </tr>
+                                    @foreach ($attendances as $attendance)
+                                        {{-- @php
+                                            dd($attendance->toArray());
+                                        @endphp --}}
+                                         <tr>
+                                            <td>{{$attendance->employee->employee_id}}</td>
+                                            <td>{{$attendance->employee->name}}</td>
+                                            <td>
+                                                Department:{{$attendance->employee->department->name}}<br>
+                                                Designamtion:{{$attendance->employee->designation->deg_name}}
+                                            </td>
+                                            <td>{{$attendance->date}}</td>
+                                            <td>{{$attendance->in_time}}</td>
+                                            <td>02.05<br>
+                                                02.15<br>
+                                                04.15<br>
+                                                04.25
+                                            </td>
+                                            <td>{{$attendance->out_time}}</td>
+                                            @if ($attendance->status=="Present")
+                                                <td style="color:green;">{{$attendance->status}}</td>
+                                            @elseif ($attendance->status=="Absent")
+                                                <td style="color:rgb(128, 0, 0);">{{$attendance->status}}</td>
+                                            @elseif ($attendance->status=="Late")
+                                                <td style="color:rgb(19, 12, 123);">{{$attendance->status}}</td>
+                                            @else
+                                                <td style="color:rgb(44, 55, 16);">{{$attendance->status}}</td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                             </div>

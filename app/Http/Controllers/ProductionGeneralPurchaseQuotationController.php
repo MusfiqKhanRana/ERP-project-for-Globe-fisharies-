@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductionGeneralPurchaseQuotation;
+use App\Models\ProductionPurchaseRequisition;
+use App\Models\ProductionPurchaseRequisitionItem;
+use App\Models\ProductionRequisition;
+use App\Models\ProductionSupplier;
 use Illuminate\Http\Request;
 
 class ProductionGeneralPurchaseQuotationController extends Controller
@@ -14,7 +18,12 @@ class ProductionGeneralPurchaseQuotationController extends Controller
      */
     public function index()
     {
-        //
+        $supplier = ProductionSupplier::all();
+        $addquotation = ProductionGeneralPurchaseQuotation::select('id','status')->where('status','AddQuotation');
+        $showquotation = ProductionGeneralPurchaseQuotation::select('id','status')->where('status','ShowQuotation');
+        $show_quotation = ProductionGeneralPurchaseQuotation::all();
+        $purchase_requisition = ProductionPurchaseRequisition::get();
+        return view('backend.production.general_purchase.quotation.show_quotation',compact('show_quotation','purchase_requisition','showquotation','addquotation','supplier'));
     }
 
     /**
@@ -24,7 +33,8 @@ class ProductionGeneralPurchaseQuotationController extends Controller
      */
     public function create()
     {
-        //
+        $general_purchase = ProductionGeneralPurchaseQuotation::get();
+        return view('backend.production.general_purchase.quotation.show_quotation',compact('general_purchase'));
     }
 
     /**
@@ -38,18 +48,15 @@ class ProductionGeneralPurchaseQuotationController extends Controller
         
        // dd($request);
 
-       $inputs = $request->except('_token');
-        
+       $data = $request->all();
+        //dd($data);
         $request->provided_item = json_decode($request->provided_item);
-        $quotation = ProductionGeneralPurchaseQuotation::create(['price'=>$request->peice,'speciality'=>$request->speciality,'remark'=>$request->remark]);
-        // foreach ($data['item_id'] as $key => $item) {
-            
-        //     $production_requisition_id = $production_supply->id;
-        // $production_item = ProductionPurchaseRequisitionItem::create(['production_purchase_requisition_item_id'=> $production_purchase_requisition_item_id);
-        //}
-        //dd($quotation->toArray());
-        //$quotation->save();
+        foreach ( $request->provided_item as $key => $value) {
+           // dd($value);
+            $quotation = ProductionGeneralPurchaseQuotation::create(['supplier_id'=>$value->supplier_id,'price'=>$value->price,'speciality'=>$value->speciality,'production_purchase_requisition_id'=>$data['requisition_id'],'production_purchase_requisition_item_id'=>$data['requisition_item_id'],'remark'=>$data['remark']]);
 
+        }
+        
         return redirect()->back()->withMsg('Successfully Created');
     }
 
@@ -97,4 +104,26 @@ class ProductionGeneralPurchaseQuotationController extends Controller
     {
         //
     }
+    public function quotation(){
+        return view('backend.production.general_purchase.quotation.add_quotation');
+    }
+    public function confirmquotation(){
+        $general_purchase = ProductionGeneralPurchaseQuotation::get();
+        return view('backend.production.general_purchase.cs.cs_list_show',compact('general_purchase'));
+    }
+    public function status_addquotation($id){
+        // dd($id);
+        $add= ProductionPurchaseRequisitionItem::where('id',$id)->update(['status'=>'AddQuotation']);
+        return redirect()->back()->withmsg('Successfully Add Quotation');
+    }
+    public function status_showquotation($id){
+        // dd($id);
+        $show= ProductionPurchaseRequisitionItem::where('id',$id)->update(['status'=>'ShowQuotation']);
+        return redirect()->back()->withmsg('Successfully Add Quotation');
+    }
+    // public function status_confirmquotation($id){
+    //     // dd($id);
+    //     $confirm= ProductionPurchaseRequisitionItem::where('id',$id)->update(['status'=>'ConfirmQuotation']);
+    //     return redirect()->back()->withmsg('Successfully Add Quotation');
+    // }
 }
