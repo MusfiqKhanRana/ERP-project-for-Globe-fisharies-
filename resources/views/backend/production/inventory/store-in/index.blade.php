@@ -81,71 +81,81 @@
                                                 <a class="btn btn-success"  data-toggle="modal" href="{{route('metal-detector.show',$data->id)}}"><i class="fa fa-edit"></i>MD Form</a>
                                             @endif
                                             @if ($data->store_in_status=='MD_checked')
-                                                <a class="btn green"  data-toggle="modal" href="#move_to_storeModal{{$data->id}}"><i class="fa fa-edit"></i>Move to Store</a>
+                                                <a class="btn green move_to_store"  data-toggle="modal" href="#move_to_storeModal" data-id="{{$data->id}}"><i class="fa fa-edit"></i>Move to Store</a>
                                             @endif
                                         </td>
-                                    </tr>  
-                                    <div id="move_to_storeModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                        {{csrf_field()}}
-                                        <input type="hidden" value="" id="delete_id">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Add Products</h2>
-                                                </div>
-                                                <br>
-                                                <div class="modal-body">
-                                                    <div class="m-5 row">
-                                                        <form action="{{route('requisition-product.store')}}" method="POST">
-                                                            @csrf
-                                                            <input type="hidden" name="requisition_id" value="{{$data->id}}">
-                                                            <input type="hidden" class="modalParty" value="{{$data->party->id}}">
-                                                            <div class="col-md-3">
-                                                                <label for="category">Party</label><br>
-                                                                    Party Code : <b>{{$data->party->party_code}}</b>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <label for="category">Product</label>
-                                                                <select class="form-control select2me productxx" name="product_id"  placeholder="Product" required>                
-                                                                </select>
-                                                            </div>
-                                                            {{-- <div class="col-md-3">
-                                                                <label for="">Packet</label>
-                                                                <input name="packet" class="form-control" type="number" required placeholder="Packet">
-                                                            </div> --}}
-                                                            <div class="col-md-3">
-                                                                <label for="">Packet</label>
-                                                                <input name="quantity" class="form-control qtyx" type="number" required placeholder="Quantity">
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <label for="">Weight</label>
-                                                                <input class="form-control weightx" type="number" required placeholder="Quantity">
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <label><span>&nbsp;</span></label><br>
-                                                                <button class="m-10 btn btn-success">Save</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <div class="modal-footer">
-                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                    {{-- <br>
-                                                    <form action="{{route('requisition.destroy',[$data])}}" method="POST">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
-                                                    </form> --}}
-                                                    {{-- <a type="submit" href="{{route('customer.delete', $data)}}" class="btn red" id="delete"><i class="fa fa-trash"></i> Delete</a> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>                     
+                                    </tr>                       
                                 @endforeach
                             </tbody>
                         </table>
+                        <div id="move_to_storeModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form class="form-horizontal" role="form" method="post" action="{{route('inventory.move_to_store')}}">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="inputs" class="inputs">
+                                        <input type="hidden" name="production_processing_unit_id" class="production_processing_unit_id">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                        <h2 class="modal-title" style="color: rgb(75, 65, 65);">Move To Store</h2>
+                                    </div>
+                                    <br>
+                                    <div class="modal-body">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <label>Select Grade</label>
+                                                <select type="text" class="form-control grade_select" >
+                                                    <option>--Select--</option>
+                                                    @foreach ($grades as $item)
+                                                    <option value="{{$item->id}}" data-grade_name="{{$item->name}}">{{$item->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-5" >
+                                                <label>Quantity (Kg) </label>
+                                                <input type="text" class="form-control grade_weight"  placeholder="weight">
+                                            </div>
+                                            <div class="col-md-2" style="margin-top: 3%">
+                                                <button type="button" class="btn btn-success add_btn">add</button>
+                                            </div>
+                                        </div><br><br>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <table class="table table-striped table-bordered table-hover fillet_grading_table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                Grade
+                                                            </th>
+                                                            <th>
+                                                                Quantity (Kg)
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                300-500gm
+                                                            </td>
+                                                            <td>
+                                                                5
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="m-10 btn btn-success">Confirm</button>
+                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             {{-- <div class="col-md-12 text-center">{{ $employee->links() }}</div> --}}
                             {{ $ppu->links('vendor.pagination.custom') }}
@@ -157,5 +167,36 @@
      </div>
 @endsection
 @section('script')
-
+<script>
+    $(document).ready(function()
+    {
+        $(".move_to_store").click(function () {
+            console.log($(this).data("id"));
+            var ppu_id = $(this).data("id");
+            $('.production_processing_unit_id').val(ppu_id);
+            $("table.fillet_grading_table tbody tr").empty();
+            var product_array = [];
+            var grade_id , grade_name ,grade_weight = null; 
+            $('.grade_select').change(function() {
+                grade_id=$('option:selected',this).val();
+                grade_name =$('option:selected',this).attr("data-grade_name");
+                console.log(grade_name);
+            });
+            $('.grade_weight').on("change keyup",function() {
+                grade_weight = $(this).val();
+            });
+            $('.add_btn').click(function () {
+                $("table.fillet_grading_table tbody tr").empty();
+                product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight});
+                $.each( product_array, function( key, product ) {
+                    $("table.fillet_grading_table tr").last().after("<tr><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td></tr>");
+                });
+                $(".inputs").val('');
+                $(".inputs").val(JSON.stringify(product_array));
+                $('.grade_weight').val(0);
+                $('.grade_select').val("--select--");
+            })
+        });
+    });
+</script>
 @endsection
