@@ -535,6 +535,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('production-quotation-list/{id}',[ProductionGeneralPurchaseQuotationController::class,'quotation_test'])->name('production-quotation-list');
 
     //Inventory Management system
+    Route::post('inventory/move_to_store',[InventoryStoreInController::class,'move_to_store'])->name('inventory.move_to_store');
     Route::get('inventory/store-in',[InventoryStoreInController::class,'store_in'])->name('inventory.store_in');
     Route::resource('production-quotation-all-list',ProductionGeneralPurchaseQuotationController::class);
     Route::get('production-quotation-confirmquotation',[ProductionGeneralPurchaseQuotationController::class,'confirmquotation'])->name('production-quotation-confirmquotation');
