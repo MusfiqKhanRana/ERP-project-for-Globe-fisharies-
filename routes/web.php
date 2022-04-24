@@ -128,7 +128,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('attendance-approve/{id}', [AttendanceController::class,'attendanceApprove'])->name('approve.attend');
     Route::get('individual-attendance', [AttendanceController::class,'individualIndex'])->name('employee.individual');
     Route::post('individual-attendance-search', [AttendanceController::class,'individualAttend'])->name('attend.search');
-
+    
+    Route::post('/absent-applications/change-status', [AbsentApplicationController::class, 'changeStatus'])->name('attendance.absent-application.change-status');
     Route::resource('absent-application', AbsentApplicationController::class);
     Route::resource('show-cause-application', AttendanceShowCauseController::class);
 
