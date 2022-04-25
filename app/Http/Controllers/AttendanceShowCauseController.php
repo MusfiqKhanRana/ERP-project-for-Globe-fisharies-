@@ -44,7 +44,7 @@ class AttendanceShowCauseController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        AttendanceShowCause::create(['user_id'=>Auth::user()->id,'attendance_id'=>$request->attendance_id,'showcase_note'=>$request->showcase_note]);
+        AttendanceShowCause::create(['user_id'=>Auth::user()->id,'attendance_id'=>$request->attendance_id,'showcase_note'=>$request->application_note,'type'=>$request->type]);
         Attendance::find($request->attendance_id)->update(['status'=>'Application Applied']);
         return back()->withMsg("Applied Successfully");
     }

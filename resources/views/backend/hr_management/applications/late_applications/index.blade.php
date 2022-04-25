@@ -41,7 +41,7 @@
                                 <tr>
                                     <th> Sl. </th>
                                     <th> Employee Name </th>
-                                    {{-- <th> Application For </th> --}}
+                                    <th> Application For </th>
                                     <th> Late/delay Time</th>
                                     <th> Applied Date </th>
                                     <th> Action </th>
@@ -52,12 +52,10 @@
                                 <tr >
                                     <td>{{ $attendanceShowCases->firstItem()+$loop->index }}</td>
                                     <td>{{$attendanceShowCase->employee->name}}</td>
-                                    {{-- <td>{{$absent_application->type}}</td> --}}
+                                    <td>{{$attendanceShowCase->type}}</td>
                                     <td>
                                         <ul>
-                                            {{-- @foreach ($absent_application->attendances as $attendance) --}}
-                                                <li>In Time:{{$attendanceShowCase->attendance->date}}</li>
-                                            {{-- @endforeach --}}
+                                            <li>In Time:{{$attendanceShowCase->attendance->date}}</li>
                                         </ul>
                                     </td>
                                     <td>
