@@ -54,8 +54,8 @@
                     {{ csrf_field() }}
                     <div class="row" style="margin: 3%" >
                         <p ><b>Item Name: </b>  {{$purchase_item->item_name}}</p>
-                        <p ><b>Department:</b>{{$purchase_item->production_purchase_requisition->department}} </p>
-                        <p ><b>Request By:</b></p>
+                        <p ><b>Department:</b>  {{$purchase_item->production_purchase_requisition->departments->name}} </p>
+                        <p ><b>Request By:</b>  {{$purchase_item->production_purchase_requisition->users->name}}</p>
                         <p ><b>Demand Date:</b>  {{$purchase_item->demand_date}}</p>
                     </div>
                     <div class="table-scrollable">

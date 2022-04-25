@@ -115,7 +115,7 @@
                                                     <td>{{$item->pivot->specification}}</td>
                                                     <td>{{$item->pivot->remark}}</td>  
                                                     <td>
-                                                        <a class="btn btn-success addquation" href="{{route('production-cs-show',$item->pivot->id)}}" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Confirm Quationtion </a>
+                                                        <a class="btn btn-success addquation" href="{{route('production-cs-show',$item->pivot->id)}}"> Confirm Quationtion </a>
                                                     </td>
                                                 </tr>
                                                 @endif

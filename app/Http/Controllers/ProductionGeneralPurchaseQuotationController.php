@@ -136,19 +136,18 @@ class ProductionGeneralPurchaseQuotationController extends Controller
     }
     
     public function quotation_test(Request $request, $id){
-        $requisition=ProductionPurchaseRequisition::with(['items','departments','users'])->where('status',$request->status)->latest()->paginate(10);
         $purchase_requisition = ProductionPurchaseRequisition::get();
         $purchase_item = ProductionPurchaseRequisitionItem::with([
             'production_general_purchase_quotation'=>function($q){
                 $q->with('supplier');
             },
             'production_purchase_requisition'=>function($q){
-                $q->with('departments','users');
+                $q->with('users','departments');
             }
 
         ])->where('id',$id)->first();
-        dd( $purchase_item->toArray());
-        return view('backend.production.general_purchase.quotation.show_quotation',compact('purchase_item','purchase_requisition','requisition'));
+        //dd( $purchase_item->toArray());
+        return view('backend.production.general_purchase.quotation.show_quotation',compact('purchase_item','purchase_requisition'));
     }
    
     public function confirmqQuotation(Request $request){
@@ -159,16 +158,18 @@ class ProductionGeneralPurchaseQuotationController extends Controller
         //dd($confirm);
         return redirect()->route('production-quotation-confirmquotation')->withmsg('Successfully Confirmed Quotation');
     }
-    public function showcs($id){
-        $purchase_requisition = ProductionPurchaseRequisition::get();
-        //$general_purchase = ProductionGeneralPurchaseQuotation::get();
+    public function showcs(Request $request, $id){
+        $purchase_requisition = ProductionGeneralPurchaseQuotation::get();
         $cs_item = ProductionPurchaseRequisitionItem::with([
             'production_general_purchase_quotation'=>function($q){
                 $q->with('supplier');
+            },
+            'production_purchase_requisition'=>function($q){
+                $q->with('users','departments');
             }
 
         ])->where('id',$id)->first();
-        //dd( $cs_item);
+       //dd($purchase_requisition->toArray());
         return view('backend.production.general_purchase.cs.cs_list_show',compact('cs_item','purchase_requisition'));
     }
     

@@ -121,9 +121,7 @@
                                                             @if ($item->pivot->status == "ShowQuotation")
                                                                 <a class="btn btn-success addquation" href="{{route('production-quotation-list',$item->pivot->id)}}" > Show Quationtion </a>
                                                             @endif
-                                                            @if ($item->pivot->status == "ConfirmQuotation")
-                                                                <a class="btn btn-success addquation" href="{{route('production-quotation-confirmquotation')}}"> Confirm Quationtion </a>
-                                                            @endif
+                                                           
                                                         </td>  
                                                     </tr>
                                                     @endif
