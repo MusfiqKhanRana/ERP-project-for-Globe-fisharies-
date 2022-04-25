@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\FishGrade;
 use App\Models\ProductionProcessingGrade;
 use App\Models\ProductionProcessingUnit;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class InventoryStoreInController extends Controller
@@ -20,7 +21,7 @@ class InventoryStoreInController extends Controller
         // dd($request);
         ProductionProcessingUnit::where('id',$request->production_processing_unit_id)
         ->update(
-            ['store_in_status'=>'Bulk_storage']
+            ['status'=>'Bulk_storage','store_in_status'=>'Bulk_storage']
         );
         foreach (json_decode($request->inputs) as $key => $input) {
             ProductionProcessingGrade::create([
@@ -31,6 +32,6 @@ class InventoryStoreInController extends Controller
                 'grading_date'=>Carbon::now(),
             ]); 
         }    
-        return redirect()->back()->withmsg('Successfully Moved To Soaking');
+        return redirect()->back()->withmsg('Successfully Moved To Store');
     }
 }
