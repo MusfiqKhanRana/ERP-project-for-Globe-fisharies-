@@ -18,6 +18,7 @@ class CreateAttendanceShowCausesTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('attendance_id')->nullable();
             $table->string('showcase_note')->nullable();
+            $table->enum('type',['Late','Delay'])->default('Late');
             $table->boolean('accepted')->nullable();
             $table->timestamps();
         });
