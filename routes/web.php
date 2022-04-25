@@ -131,6 +131,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     
     Route::post('/absent-applications/change-status', [AbsentApplicationController::class, 'changeStatus'])->name('attendance.absent-application.change-status');
     Route::resource('absent-application', AbsentApplicationController::class);
+    Route::post('/attendance-show-cause/change-status', [AttendanceShowCauseController::class, 'changeStatus'])->name('attendance.show-cause.change-status');
     Route::resource('show-cause-application', AttendanceShowCauseController::class);
 
     Route::get('payroll/advance-loan',[PayrollController::class,'advance_loan'])->name('payroll.advance-loan');

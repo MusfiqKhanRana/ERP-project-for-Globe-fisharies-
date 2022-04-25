@@ -22,7 +22,7 @@ class AbsentApplicationController extends Controller
             'user'=>function($q){
                 $q->select('id','name','email');
             }
-        ])->latest()->paginate(10);
+        ])->where('accepted',null)->latest()->paginate(10);
         // dd($absent_applications->toArray());
         return view('backend.hr_management.applications.absent_application.index',compact('absent_applications'));
     }
@@ -97,8 +97,8 @@ class AbsentApplicationController extends Controller
     }
     public function changeStatus(Request $request)
     {
-        $application = json_decode($request->application);
-        $status = $request->status;
+        $application = json_decode($request->application,true);
+        $status = json_decode($request->status,true);
         // dd($application,$status);
         if ($status) {
             AbsentApplication::find($application['id'])->update(['accepted'=>$status]);
@@ -115,7 +115,7 @@ class AbsentApplicationController extends Controller
                 }
             }
         }
-        return response(["status"=>"success"],200);
+        return back()->withMsg("Applied Successfully");
     }
     /**
      * Remove the specified resource from storage.

@@ -74,8 +74,6 @@
                             </table>
                         </div>
                         <div id="acceptApplicationModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                            {{csrf_field()}}
-                            <input type="hidden" value="" id="delete_id">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -102,27 +100,28 @@
                             </div>
                         </div>
                         <div id="rejectApplicationModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                            {{csrf_field()}}
-                            <input type="hidden" value="" id="delete_id">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                        <h2 class="modal-title" style="color: red;">Application</h2>
+                                        <h2 class="modal-title" style="color: red;">Do you want to Reject the Application</h2>
                                     </div>
                                     <div class="modal-body">
                                         <div class="portlet">
                                             <div class="portlet-body">
-                                                <div id="application_show">
-
-                                                </div>
+                                <form action="{{route('attendance.absent-application.change-status')}}" method="POST">
+                                    @csrf
+                                            <p>If yes,Please Choose the confirm Button</p>
+                                            <input type="hidden" name="status" class="status" value="">                
+                                            <input type="hidden" name="application" class="application" value="">                
                                             </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" data-dismiss="modal" class="btn default">Close</button>
-                                        {{-- <button class="btn red"><i class="fa fa-trash"></i>Delete</button>   --}}
+                                        <button type="submit" class="btn red"><i class="fa fa-trash"></i>Confirm</button>
                                     </div>
+                                </form>
                                 </div>
                             </div>
                         </div>
@@ -164,9 +163,15 @@
     <script type="text/javascript">
         $(function() {
             $('.view_application').click(function(){
+                console.log($(this).data('application'));
                 $('#application_show').html($(this).data('application'));
             })
             $('.accept_application').click(function(){
+                // console.log($(this).data('application'));
+                $('.status').val($(this).data('status'));
+                $('.application').val(JSON.stringify($(this).data('application')));
+            })
+            $('.reject_application').click(function(){
                 // console.log($(this).data('application'));
                 $('.status').val($(this).data('status'));
                 $('.application').val(JSON.stringify($(this).data('application')));

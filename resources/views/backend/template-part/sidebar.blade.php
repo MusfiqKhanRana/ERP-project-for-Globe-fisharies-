@@ -116,6 +116,11 @@
                                         <span class="title">Absent Application</span>
                                     </a>
                                 </li>
+                                <li class="nav-item  @if( request()->path() == 'admin/payroll' ) active open @endif">
+                                    <a href="{{route('show-cause-application.index')}}" class="nav-link ">
+                                        <span class="title">Late/Delay Application</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     {{-- <li class="nav-item  @if( request()->path() == 'admin/employee/attendance' ) active open @endif">

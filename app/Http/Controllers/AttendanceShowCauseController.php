@@ -16,7 +16,13 @@ class AttendanceShowCauseController extends Controller
      */
     public function index()
     {
-        //
+        $attendanceShowCases = AttendanceShowCause::with([
+            'employee'=>function($q){
+                $q->select('id','name');
+            },'attendance'
+            ])->where('accepted' ,'=', null)->latest()->paginate(10);
+        // dd($attendanceShowCases);
+        return view('backend.hr_management.applications.late_applications.index',compact('attendanceShowCases'));
     }
 
     /**
@@ -75,6 +81,25 @@ class AttendanceShowCauseController extends Controller
     public function update(Request $request, AttendanceShowCause $attendanceShowCause)
     {
         //
+    }
+
+    public function changeStatus(Request $request)
+    {
+        // return $request->all();
+        $application = json_decode($request->application,true);
+        $status = json_decode($request->status,true);
+        if ($status) {
+            AttendanceShowCause::find($application['id'])->update(['accepted'=>$status]);
+            if ($application['attendance']) {
+                Attendance::find($application['attendance']['id'])->update(['status'=>'Late Application Accepted']);
+            }
+        }else {
+            AttendanceShowCause::find($application['id'])->update(['accepted'=>$status]);
+            if ($application['attendance']) {
+                Attendance::find($application['attendance']['id'])->update(['status'=>"Late Application Denied"]);
+            }
+        }
+        return back()->withMsg("Applied Successfully");
     }
 
     /**
