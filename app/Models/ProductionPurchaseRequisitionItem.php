@@ -11,7 +11,7 @@ class ProductionPurchaseRequisitionItem extends Model
     use HasFactory;
     public function production_purchase_requisition()
     {
-        return $this->belongsTo(ProductionPurchaseRequisition::class,'production_purchase_requisition_id','department_id','requested_by');
+        return $this->belongsTo(ProductionPurchaseRequisition::class);
     }
     public function items()
     {
@@ -25,5 +25,7 @@ class ProductionPurchaseRequisitionItem extends Model
     {
         return $this->belongsTo(ProductionSupplier::class);
     }
+   
+    
     
 }

@@ -50,13 +50,13 @@
                 </div>
                 <div class="portlet-body">
                     <div class="table-scrollable">
-                        <form class="form-horizontal" role="form" method="post" action="#">
+                        <form class="form-horizontal" role="form" method="post" action="{{--route('production/purchase/quotation')--}}">
                             {{csrf_field()}}
                             <div class="row" style="margin: 3%" >
-                                <p ><b>Item name:</b> <span id="item_name"></span></p>
-                                <p ><b>Department:</b> <span id="department"></span></p>
-                                <p ><b>Request By:</b> <span id="request_by"></span></p>
-                                <p ><b>Demand Date:</b><span id="demand_date"></span></p>
+                                <p ><b>Item name:</b> {{$cs_item->item_name}}</p>
+                                <p ><b>Department:</b> {{$cs_item->production_purchase_requisition->departments->name}}</p>
+                                <p ><b>Request By:</b> {{$cs_item->production_purchase_requisition->users->name}}</p>
+                                <p ><b>Demand Date:</b> {{$cs_item->demand_date}}</p>
                             </div>
                             <hr>
                             <table class="table table-striped table-bordered table-hover">
@@ -74,7 +74,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($cs_item as $key=> $data)
+                                    @foreach($purchase_requisition as $key=> $data)
                                     <tr>
                                         <td>
                                             {{++ $key}}
@@ -94,7 +94,6 @@
                                             <a class="btn btn-info" data-toggle="modal" href="#ConfirmModal">Confirm</a>
                                         </td>
                                     </tr>
-
                                     <div id="rejectModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                         <div class="modal-dialog">
                                             <div class="modal-content">

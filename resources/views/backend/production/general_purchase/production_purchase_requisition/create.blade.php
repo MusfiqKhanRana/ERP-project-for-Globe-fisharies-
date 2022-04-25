@@ -59,7 +59,7 @@
                                 <div class="row" style="margin-bottom: 1%">
                                     <label class="col-md-2 control-label pull-left bold">Select Department: </label>
                                     <div class="col-md-6">
-                                        <select class="form-control" name="department" id="department">
+                                        <select class="form-control" name="department_id" id="department_id">
                                             <option value="">--select--</option>
                                             @foreach ($dept as $item)
                                                 <option value="{{$item->id}}">{{$item->name}}</option>

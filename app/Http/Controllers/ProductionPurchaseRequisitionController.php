@@ -61,14 +61,14 @@ class ProductionPurchaseRequisitionController extends Controller
         // dd($data);
         // unset($data['_token']);
         $requisition_code = random_int(100000, 999999);
-        $production_purchase_requisition = ProductionPurchaseRequisition::create(['department'=>$request->department,'requested_by'=>$request->requested_by,'remark'=>$request->remark,'requisition_code'=>$requisition_code]);
+        $production_purchase_requisition = ProductionPurchaseRequisition::create(['department_id'=>$request->department_id,'requested_by'=>$request->requested_by,'remark'=>$request->remark,'requisition_code'=>$requisition_code]);
         // $data = $request->all();
         foreach (json_decode($request->products) as $key => $value) {
             // dd($value);
             $production_purchase_requisition_id = $production_purchase_requisition->id;
             $item=ProductionPurchaseRequisitionItem::create(['production_purchase_requisition_id'=>$production_purchase_requisition_id,'item_id'=>$value->item_id,'item_name'=>$value->item_name,'item_type_id'=>$value->item_type_id,'item_type_name'=>$value->item_type_name,'item_unit_id'=>$value->item_unit_id,'item_unit_name'=>$value->item_unit_name,'demand_date'=>$value->demand_date,'image'=>$value->image,'quantity'=>$value->quantity,'specification'=>$value->specification,'remark'=>$value->remark]);
         }
-        return redirect()->route('production-purchase-requisition.index');
+        return redirect()->route('production-purchase-requisition.index',"status=Pending");
         // return redirect('backend.production.general_purchase.production_purchase_requisition.index')->withmsg('Successfully Created');
         // return view('backend.production.general_purchase.production_purchase_requisition.index');
     }
@@ -106,7 +106,7 @@ class ProductionPurchaseRequisitionController extends Controller
     public function update(Request $request, $id)
     {
         // dd($request);
-        $update= ProductionPurchaseRequisition::where('id',$id)->update(['department'=>$request->department,'remark'=>$request->remark]);
+        $update= ProductionPurchaseRequisition::where('id',$id)->update(['department_id'=>$request->department_id,'remark'=>$request->remark]);
         return redirect()->back()->withmsg('Successfully Updated');
     }
 
@@ -131,7 +131,7 @@ class ProductionPurchaseRequisitionController extends Controller
     public function status_confirm($id){
         // dd($id);
         $confirm= ProductionPurchaseRequisition::where('id',$id)->update(['status'=>'Confirm']);
-        return redirect('backend.production.general_purchase.quotation.index')->withmsg('Successfully Confirmed Quotation');
+        return redirect()->back()->withmsg('Successfully Confirmed Quotation');
     }
     public function status_quotation($id){
         // dd($id);
@@ -142,12 +142,12 @@ class ProductionPurchaseRequisitionController extends Controller
         // dd($request->all());
         $data = $request->except(['_token']);
         $confirm= ProductionPurchaseRequisition::where('id',$request->requisition_id)->update(['status'=>'Purchased']);
-        foreach ($data['supplier_info'] as $key => $value) {
-            // dd($value);
-            $supplier_info = $data['supplier_info'][$key];
-            $id = $data['id'][$key];
-            ProductionPurchaseRequisitionItem::where('id', $id)->update(['supplier_info'=>$supplier_info]);
-        }
+        // foreach ($data['supplier_info'] as $key => $value) {
+        //     // dd($value);
+        //     $supplier_info = $data['supplier_info'][$key];
+        //     $id = $data['id'][$key];
+        //     ProductionPurchaseRequisitionItem::where('id', $id)->update(['supplier_info'=>$supplier_info]);
+        // }
         return redirect()->back()->withmsg('Successfully Purchase Confirmed');
     }
     public function order(){
