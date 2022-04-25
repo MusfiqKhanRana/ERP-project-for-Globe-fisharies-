@@ -121,7 +121,7 @@
                                             @endif
                                             <td style="text-align: center">
                                                 @if ($attendance->status=="Late" || $attendance->status=="Delay")
-                                                    <a class="btn btn-info showcausebtn"  data-toggle="modal" href="#showCauseModal" data-id="{{$attendance->id}}"><i class="fa fa-flus"></i> Add Show Casuse</a> 
+                                                    <a class="btn btn-info showcausebtn"  data-toggle="modal" href="#showCauseModal" data-status="{{$attendance->status}}" data-id="{{$attendance->id}}"><i class="fa fa-flus"></i> Add Show Casuse</a> 
                                                 @endif
                                             </td>
                                         </tr>
@@ -148,6 +148,7 @@
                                                 <label for="inputEmail1" class="col-md-2 control-label">Write Application</label>
                                                 <div class="col-md-8">
                                                     <input type="hidden" class="form-control" id="attendance_id"  name="attendance_id" value="">
+                                                    <input type="hidden" class="form-control" id="status"  name="type" value="">
                                                     <textarea type="text" class="form-control" id="" name="application_note"></textarea>
                                                 </div><br><br><br><br><br><br><br><br><br><br>
                                             </div>
@@ -163,11 +164,6 @@
                         </div>
                     </div>
                     <!-- END EXAMPLE TABLE PORTLET-->
-                    {{-- <div>
-                        <p class="pull-right" style="color: red">
-                            Note: Checkbox will only appear on Absent status and button will appear in late status.
-                        </p>
-                    </div> --}}
                 </div>
             </div>
             <div id="absentApplication" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -218,12 +214,10 @@
     </div>
     @endsection
     @section('script')
-    <script src="https://cdn.tiny.cloud/1/uzb665mrkwi59olq2qu3cwqqyebsil4hznmwc45qu4exf7lt/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>	
+    <script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
     <script type="text/javascript">
         $(function() {
-            tinymce.init({
-                selector: 'textarea',
-            });
+            CKEDITOR.replace('application_note');
             var attendance_ids=[];
             $('.leave_application').hide();
             $( ".add_leave_check" ).click(function() {
@@ -252,6 +246,7 @@
             });
             $('.showcausebtn').click(function(){
                 $('#attendance_id').val($(this).data('id'));
+                $('#status').val($(this).data('status'));
             })
             function removeItem(arr, item){
                 return arr.filter(f => f !== item)
