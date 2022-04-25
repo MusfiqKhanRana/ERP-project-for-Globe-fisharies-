@@ -74,6 +74,7 @@ use App\Http\Controllers\TempMonitoringController;
 use App\Http\Controllers\TempTherController;
 use App\Http\Controllers\TiffinBillController;
 use App\Http\Controllers\RoPlantController;
+use App\Http\Controllers\UserShiftController;
 use App\Models\ProductionProcessingGrade;
 use App\Models\ProductionPurchaseRequisitionItem;
 use App\Models\ProductionRequisition;
@@ -544,5 +545,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('production-purchase-quotation/status/add/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_addquotation'])->name('production-general_purchase.status_addquotation');
     Route::post('production-purchase-quotation/status/show/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_showquotation'])->name('production-general_purchase.status_showquotation');
     //Route::get('production-purchase-quotation/status/comfirm/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_confirmquotation'])->name('production-general_purchase.status_confirmquotation');
+
+    
+    Route::resource('user-shift',UserShiftController::class);
     
 });

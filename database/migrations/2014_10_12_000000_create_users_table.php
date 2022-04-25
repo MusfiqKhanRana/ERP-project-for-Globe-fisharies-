@@ -50,6 +50,7 @@ class CreateUsersTable extends Migration
             $table->string('join_letter')->nullable();
             $table->string('con_letter')->nullable();
             $table->string('proof')->nullable();
+            $table->unsignedInteger('user_shift')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

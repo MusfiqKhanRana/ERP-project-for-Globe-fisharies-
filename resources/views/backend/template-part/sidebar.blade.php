@@ -29,6 +29,7 @@
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/add-employee' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/individual-attendance' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/user-shift' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance-count' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/edit-employee' ) active open @endif
                 @php echo "active",(request()->path() != 'admin/payroll')?:"";@endphp
@@ -63,6 +64,7 @@
                     @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/add-employee' ) active open @endif
                     @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance' ) active open @endif
                     @if( request()->path() == 'admin/employee' || request()->path() == 'admin/individual-attendance' ) active open @endif
+                    @if( request()->path() == 'admin/employee' || request()->path() == 'admin/user-shift' ) active open @endif
                     @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance-count' ) active open @endif
                     @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/edit-employee' ) active open @endif">
                         <a href="javascript:;" class="nav-link nav-toggle">
@@ -87,7 +89,13 @@
                                     <a href="{{route('tiffin-bill.index')}}" class="nav-link">
                                         <span class="title">Employee Tiffin Bill</span>
                                     </a>
-                                </li>
+                            </li>
+                            <li class="nav-item  @if( request()->path() == 'admin/user-shift') active open @endif
+                                @if( request()->path() == 'user-shift' ) active open @endif">
+                                    <a href="{{route('user-shift.index')}}" class="nav-link">
+                                        <span class="title">User Shift</span>
+                                    </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item start @php echo "active",(request()->path() != 'admin/payroll')?:"";@endphp
