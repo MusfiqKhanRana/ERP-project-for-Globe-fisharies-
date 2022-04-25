@@ -9,6 +9,7 @@ use App\Models\Employee;
 use App\Models\User;
 use App\Models\Timezone;
 use App\Models\UserSalary;
+use App\Models\UserShift;
 use Faker\Provider\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -29,8 +30,9 @@ class EmployeeController extends Controller
 
     public function create()
     {
-       $department = Department::all();
-        return view('backend.employee.employee-add', compact('department'));
+        $user_shift = UserShift::get();
+        $department = Department::all();
+        return view('backend.employee.employee-add', compact('department','user_shift'));
     }
 
     public function store(Request $request)
@@ -64,6 +66,7 @@ class EmployeeController extends Controller
             'ac_num'=> 'max:191',
             'bank_name'=> 'max:191',
             'branch'=> 'max:191'
+
         ));
         $employee = new User;
         $employee->name = $request->name;
@@ -91,6 +94,7 @@ class EmployeeController extends Controller
         $employee->c_leave = $request->c_leave;
         $employee->m_leave = $request->m_leave;
         $employee->s_leave = $request->s_leave;
+        $employee->user_shift = $request->user_shift;
 
         //        image Upload
         if ($request->hasFile('image')) {
