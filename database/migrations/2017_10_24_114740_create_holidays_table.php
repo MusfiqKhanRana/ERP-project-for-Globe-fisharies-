@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use phpDocumentor\Reflection\Types\Nullable;
 
 class CreateHolidaysTable extends Migration
 {
@@ -15,10 +16,10 @@ class CreateHolidaysTable extends Migration
     {
         Schema::create('holidays', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('start_date');
-            $table->string('end_date')->nullable();
-            $table->string('month');
-            $table->string('occasion');
+            $table->string('name')->nullable();
+            $table->date('start_date')->nullable();
+            $table->string('description')->nullable();
+            $table->string('remark')->nullable();
             $table->timestamps();
         });
     }
