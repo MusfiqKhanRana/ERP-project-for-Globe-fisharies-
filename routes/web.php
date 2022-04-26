@@ -168,8 +168,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     Route::get('/holidays', [HolidayController::class,'index'])->name('holiday.index');
     Route::post('/holidays-post', [HolidayController::class,'store'])->name('holiday.post');
-    Route::get('/holidays-delete/{id}', [HolidayController::class,'destroy'])->name('holiday.delete');
-    Route::post('/holidays-pass', [HolidayController::class,'dateAjax'])->name('holiday.pass');
+    Route::delete('/holidays-delete/{id}', [HolidayController::class,'destroy'])->name('holiday.delete');
+    Route::put('/holidays-update/{id}', [HolidayController::class,'update'])->name('holiday.update');
 
     Route::post('timezone', [TimezoneController::class,'changeTime'])->name('timezone.pass');
     Route::post('timezone-update/{id}', [TimezoneController::class,'update'])->name('timezone.update');

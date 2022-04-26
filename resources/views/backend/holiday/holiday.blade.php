@@ -18,7 +18,7 @@
         @endif
         <!-- BEGIN PAGE TITLE-->
             <h3 class="page-title bold">Holiday Management
-                <div class="col-md-3 pull-right"><a class="btn grey-mint" data-toggle="modal" href="#static">
+                <div class="pull-right"><a class="btn grey-mint" data-toggle="modal" href="#static">
                         Add Holidays
                         <i class="fa fa-plus"></i> </a>
                 </div>
@@ -37,15 +37,9 @@
                     </div>
                 </div>
         @endif
-
-            <div class="row">
-
-                <div class="col-md-offset-6 col-md-3 ">
-                </div>
-            </div>
             <hr>
             <div class="row">
-                <div class="col-md-3">
+                {{-- <div class="col-md-3">
                     <ul class="ver-inline-menu tabbable margin-bottom-10">
                         @foreach($months as $data)
                             <li  >
@@ -57,30 +51,110 @@
                             {{csrf_field()}}
                         @endforeach
                     </ul>
-                </div>
-                <div class="col-md-9">
-                            <div class="portlet box grey-mint">
-                                <div class="portlet-title">
-                                    <div class="caption">
-                                        <i class="fa fa-calendar"></i> <b id="mmm">Holidays</b>
-                                    </div>
-                                </div>
-                                <div class="portlet-body">
-                                    <div class="table-scrollable" >
-                                        <table class="table table-hover" id="holiday_date">
-                                            <thead>
-                                            <tr>
-                                                <th> Date </th>
-                                                <th> Occasion </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                </div> --}}
+                <div class="col-md-12">
+                    <div class="portlet box grey-mint">
+                        <div class="portlet-body">
+                            <div class="table-scrollable" >
+                                <table class="table table-striped table-bordered table-hover" >
+                                    <thead>
+                                    <tr>
+                                        <th>S.l</th>
+                                        <th> Name </th>
+                                        <th> Date </th>
+                                        <th> Description </th>
+                                        <th> Remark </th>
+                                        <th style="text-align: center"> Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($holidays as $key => $item)
+                                        <tr>
+                                            <td>{{++ $key}}</td>
+                                            <td>{{$item->name}}</td>
+                                            <td>{{$item->date}}</td>
+                                            <td>{{$item->description}}</td>
+                                            <td>{{$item->remark}}</td>
+                                            <td style="text-align: center">
+                                                <a class="btn btn-info" data-toggle="modal" href="#editModal{{$item->id}}">Edit</a>
+                                                <a class="btn btn-danger" data-toggle="modal" href="#deleteModal{{$item->id}}">Delete</a>
+                                            </td>
+                                        </tr>
+                                        <div id="deleteModal{{$item->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                            {{csrf_field()}}
+                                            <input type="hidden" value="" id="delete_id">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                        <h2 class="modal-title" style="color: red;">Are you sure?</h2>
+                                                    </div>
+                                                    <div class="modal-footer " >
+                                                        <div class="d-flex justify-content-between">
+                                                            <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
+                                                        </div>
+                                                        <div class="caption pull-right">
+                                                            <form action="{{route('holiday.delete',[$item->id])}}" method="POST">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="editModal{{$item->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                        <h4 class="modal-title">Update Pack</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form class="form-horizontal" role="form" method="post" action="{{route('holiday.update', $item->id)}}">
+                                                            {{csrf_field()}}
+                                                            {{method_field('put')}}
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Name</label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control" value="{{$item->name}}" required name="name">
+                                                                </div><br><br>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Date</label>
+                                                                <div class="col-md-8">
+                                                                    <input type="date" class="form-control" value="{{$item->date}}" required name="date">
+                                                                </div><br><br>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Description</label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control" value="{{$item->description}}" required name="description">
+                                                                </div><br><br>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control" value="{{$item->remark}}" required name="remark">
+                                                                </div><br><br>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                                <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                                                            </div>
+                                                        </form>
+                
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- END PAGE CONTENT-->
@@ -99,27 +173,28 @@
                                     <div class="form-body">
                                         <div class="form-group">
                                             <div class="col-md-12">
-                                                <h4>Start Date</h4>
+                                                
+                                                <h4> Date</h4>
                                                 <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
-                                                    <input type="text" class="form-control" readonly name="start_date" required>
+                                                    <input type="text" class="form-control" readonly name="date" required>
                                                     <span class="input-group-btn">
                                                      <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                                      </span>
                                                 </div>
-                                                <h4>End Date</h4>
-                                                    <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
-                                                        <input type="text" class="form-control" readonly name="end_date" required>
-                                                        <span class="input-group-btn">
-                                                         <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                                         </span>
-                                                    </div>
                                             </div>
                                             <div class="col-md-12">
-                                                <h4>Occasion</h4>
-                                                <input class="form-control form-control-inline"  type="text" name="occasion" required placeholder="Occasion"/>
+                                                <h4>Name</h4>
+                                                <input class="form-control form-control-inline"  type="text" name="name" required placeholder="Name"/>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <h4>Description</h4>
+                                                <input class="form-control form-control-inline"  type="text" name="description" required placeholder="Description"/>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <h4>Remark</h4>
+                                                <input class="form-control form-control-inline"  type="text" name="remark" required placeholder="Remark"/>
                                             </div>
                                         </div>
-
                                     </div>
                                     <div class="form-actions">
                                         <div class="row">
@@ -140,49 +215,7 @@
                 </div>
             </div>
         </div>
-        <div id="deleteModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                        <h4 class="modal-title">Confirmation</h4>
-                    </div>
-                    <div class="modal-body" id="info">
-                        <p>
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                        <button type="button" data-dismiss="modal" class="btn red" id="delete"><i class="fa fa-trash"></i> Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- END CONTENT -->
-@endsection
-@section('script')
-    <script>
-        $(document).ready(function(){
-            $(document).on('click','#holiday',function(){
-                var name = $(this).text();
-//                alert($(this).text());
-//                alert(name);
-                $("#mmm").html(name);
-                $.ajax({
-                    type:"POST",
-                    url:"{{route('holiday.pass')}}",
-                    data:{
-                        'name' : name,
-                        '_token' : $('input[name=_token]').val()
-                    },
-                    success:function(data){
-
-                        $('#holiday_date tbody').html(data);
-                    }
-                });
-            });
-        });
-    </script>
 @endsection
