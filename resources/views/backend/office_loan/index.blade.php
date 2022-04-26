@@ -15,9 +15,13 @@
                     });
                 </script>
         @endif <!-- BEGIN PAGE TITLE-->
-            <h3 class="page-title bold">Office Employee Loan Management
-            </h3>
+            <h3 class="page-title bold">Office Employee Advance/Loan Management
 
+                <a class="btn grey-salt pull-right" data-toggle="modal" href="{{route('add.office.loan')}}">
+                    Add New Advance/Loan
+                <i class="fa fa-plus"></i> </a>
+            </h3>
+                
             <hr>
             <div class="row">
                 <div class="col-md-12">
@@ -26,7 +30,6 @@
                             <div class="caption">
                                 <i class="fa fa-money"></i>Office Loan List
                             </div>
-
                         </div>
 
                         <div class="portlet-body">

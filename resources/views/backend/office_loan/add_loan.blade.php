@@ -72,7 +72,23 @@
                                            </select>
                                         </div>
                                     </div>
-
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Type: <span class="required">
+                                            * </span>
+                                        </label>
+                                        <div class="col-md-6">
+                                            <div class="col-md-3">
+                                                <label>
+                                                    <input type="radio" class="form-control" name="type" value="advance"> Advance Salary
+                                                </label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>
+                                                    <input type="radio" class="form-control" name="type" value="loan"> General Loan
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Amount: <span class="required">
                                             * </span>
@@ -88,8 +104,8 @@
                                             <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
                                                 <input type="text" class="form-control" name="date"  readonly >
                                                 <span class="input-group-btn">
-                                 <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                 </span>
+                                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
