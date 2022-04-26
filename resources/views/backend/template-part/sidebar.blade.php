@@ -165,7 +165,7 @@
 
                             <li class="nav-item  @if( request()->path() == 'admin/payroll/advance-loan' ) active open @endif">
                                 <a href="{{route('payroll.advance-loan')}}" class="nav-link ">
-                                    <span class="title">Advance Loan</span>
+                                    <span class="title">Advance/Loan</span>
                                 </a>
                             </li>
 
