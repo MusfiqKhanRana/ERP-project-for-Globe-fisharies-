@@ -158,7 +158,7 @@
                             </li>
 
                             <li class="nav-item  @if( request()->path() == 'admin/payroll/add-increment' ) active open @endif">
-                                <a href="{{route('payroll.add-increment')}}" class="nav-link ">
+                                <a href="{{route('increment.index')}}" class="nav-link ">
                                     <span class="title">Add Increment</span>
                                 </a>
                             </li>

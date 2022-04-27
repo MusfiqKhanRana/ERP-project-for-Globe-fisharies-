@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\payroll;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
+use App\Models\Increment;
 use Illuminate\Http\Request;
 
 class IncrementController extends Controller
@@ -14,7 +16,20 @@ class IncrementController extends Controller
      */
     public function index()
     {
-        //
+        $departments = Department::with(
+            [
+                'designation'=>function($q){
+                    $q->with([
+                        'employee'=>function($q){
+                            $q->select('id','name','deg_id');
+                        }
+                    ]);
+                }
+            ]
+        )->get();
+        $increments = Increment::get();
+        //dd($increments->toArray());
+        return view('backend.payroll.add_increment',compact('increments','departments'));
     }
 
     /**
@@ -35,7 +50,20 @@ class IncrementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inputs = $request->except('_token');
+        $this->validate($request,array(
+           'user_id' => 'required|max:191',
+        ));
+        $increments = new Increment();
+        $increments->department_id = $request->department_id;
+        $increments->designation_id = $request->designation_id;
+        $increments->user_id = $request->user_id;
+        $increments->date = $request->date;
+        $increments->type = $request->type;
+        $increments->increment_amount = $request->increment_amount;
+        $increments->save();
+
+        return redirect()->route('increment.index')->withMsg('Successfully Created');
     }
 
     /**
@@ -69,7 +97,15 @@ class IncrementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Increment::whereId($id)
+        ->update([
+            'user_id' => $request->user_id,
+            'department_id' => $request->department_id,
+            'designation_id' => $request->designation_id,
+            'type' => $request->type,
+            'increment_amount' => $request->increment_amount,
+        ]);
+        return redirect()->back()->withMsg("Successfully Updated");
     }
 
     /**
@@ -80,6 +116,7 @@ class IncrementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Increment::whereId($id)->delete();
+        return redirect()->back()->withMsg("Successfully Deleted");
     }
 }

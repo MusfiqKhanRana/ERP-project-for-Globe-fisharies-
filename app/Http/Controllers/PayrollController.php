@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Payment;
 use App\Models\User;
@@ -173,8 +174,19 @@ class PayrollController extends Controller
         return back()->withMsg("Payment Successful");
     }
     public function addIncrement(){
-        $employee = User::all();
-        return view('backend.payroll.add_increment',compact('employee'));
+        $departments = Department::with(
+            [
+                'designation'=>function($q){
+                    $q->with([
+                        'employee'=>function($q){
+                            $q->select('id','name','deg_id');
+                        }
+                    ]);
+                }
+            ]
+        )->get();
+        //dd( $departments->toArray());
+        return view('backend.payroll.add_increment',compact('departments'));
     }
     public function advance_loan(){
         $employee = User::all();
