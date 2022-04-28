@@ -40,6 +40,8 @@
                                     <th>  Phone </th>
                                     <th> Given Amount </th>
                                     <th> Date </th>
+                                    <th> Installment Dates </th>
+                                    <th> Type </th>
                                     <th> Detail </th>
                                     <th> Action </th>
                                 </tr>
@@ -51,7 +53,21 @@
                                     <td>{{$data->employee->name}}</td>
                                     <td>{{$data->employee->phone}}</td>
                                     <td>{{$data->amount}}</td>
-                                    <td>{{date('Y, M-j',strtotime($data->date))}}</td>
+                                    <td>{{date('Y, M-d',strtotime($data->date))}}</td>
+                                    <td>
+                                        @if ($data->instalment_dates)
+                                            <ul>
+                                                @foreach ($data->instalment_dates as $date)
+                                                    <li>
+                                                        {{date('Y, M-d',strtotime($date))}}
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                    <td>{{$data->type}}</td>
                                     <td>{!! $data->detail !!}</td>
 
                                     <td>
