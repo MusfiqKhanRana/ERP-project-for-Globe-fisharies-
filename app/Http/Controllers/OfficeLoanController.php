@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use App\Models\OfficeLoan;
 use App\Models\User;
+use Carbon\Carbon;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,8 @@ class OfficeLoanController extends Controller
 
     public function officeLoanIndex()
     {
-        $office_loan = OfficeLoan::orderBy('id', 'desc')->paginate(15);
+        $office_loan = OfficeLoan::with(['employee'])->latest()->paginate(15);
+        // dd($office_loan);
         return view('backend.office_loan.index', compact('office_loan'));
     }
 
@@ -41,7 +43,13 @@ class OfficeLoanController extends Controller
         $data = $request->all();
         // dd($data);
         if ($request->type == "loan") {
-            dd($request->all());
+            $instalment_dates=[];
+            $date = Carbon::createFromFormat('Y-m-d',$data['date']);
+            for ($i=0; $i < (int)$request->instalment; $i++) { 
+                array_push($instalment_dates,$date->addMonth(1)->format('Y-m-1'));
+            }
+            // dd($instalment_dates);
+            OfficeLoan::create(['user_id'=>(int) $data['employee_id'],'type'=>$data['type'],'instalment'=>$data['instalment'],'amount'=>$data['amount'],'date'=>$data['date'],'instalment_dates'=>serialize($instalment_dates),'detail'=>$data['detail']]);
         }elseif ($request->type == "advance") {
             if($request->hasfile('attachment'))
             {
@@ -49,8 +57,8 @@ class OfficeLoanController extends Controller
                 $request->attachment->move(base_path() . '/storage/app/public/loan-attachment', $name);
                 $data['attachment'] = $name;
             }
-            dd($data['employee_id']);
-            OfficeLoan::create(['user_id'=>$data['employee_id'],'amount'=>$data['amount'],'period'=>$data['period'],'date'=>$data['date'],'attachment'=>$data['attachment'],'detail'=>$data['detail']]);
+            // dd((int) $data['employee_id']);
+            OfficeLoan::create([ 'user_id'=>(int) $data['employee_id'],'amount'=>$data['amount'],'period'=>$data['period'],'date'=>$data['date'],'attachment'=>$data['attachment'],'detail'=>$data['detail']]);
         }
         return redirect()->back()->withMsg('Successfully Loan Added');
     }

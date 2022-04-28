@@ -6,15 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class OfficeLoan extends Model
 {
-    protected $fillable = [
-      'User_id',
-      'amount',
-      'date',
-      'detail',
-    ];
-
+    // protected $fillable = [
+    //   'User_id',
+    //   'amount',
+    //   'date',
+    //   'detail',
+    // ];
+    protected $guarded = [];
     public function employee()
     {
-        return $this->hasOne(Employee::class, 'User_id', 'User_id')->withDefault();
+        return $this->belongsTo(User::class,'user_id');
     }
+    public function getInstalmentDatesAttribute($value){
+      return  unserialize($value);
+  }
 }
