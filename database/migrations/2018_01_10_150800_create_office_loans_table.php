@@ -15,10 +15,14 @@ class CreateOfficeLoansTable extends Migration
     {
         Schema::create('office_loans', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->string('amount');
-            $table->date('date');
-            $table->text('detail');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->enum('type',['advance','loan'])->default('advance');
+            $table->double('amount')->nullable();
+            $table->integer('instalment')->nullable();
+            $table->date('period')->nullable();
+            $table->date('date')->nullable();
+            $table->text('attachment')->nullable();
+            $table->text('detail')->nullable();
             $table->timestamps();
         });
     }

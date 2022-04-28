@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('site-title')
-    Add Office Loan
+    Add Avance/General Loan
 @endsection
 @section('style')
     <!-- Latest compiled and minified CSS -->
@@ -24,20 +24,20 @@
                         swal("{{Session::get('msg')}}","", "success");
                     });
                 </script>
-             @endif
-                @if (count($errors) > 0)
-                    <div class="row">
-                        <div class="col-md-06">
-                            <div class="alert alert-danger alert-dismissible">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </div>
+            @endif
+            @if (count($errors) > 0)
+                <div class="row">
+                    <div class="col-md-06">
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
                         </div>
                     </div>
-                @endif
+                </div>
+            @endif
 
             <div class="row">
                 <div class="col-md-12">
@@ -48,7 +48,7 @@
                     <div class="portlet box yellow">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-edit"></i>Add Office Loan
+                                <i class="fa fa-plus"></i>Add Advance/General Loan
                             </div>
                             <div class="tools">
                             </div>
@@ -57,7 +57,7 @@
                         <div class="portlet-body form">
 
                             <!------------------------ BEGIN FORM---------------------->
-                            <form method="POST" action="{{route('office.loan.store')}}" accept-charset="UTF-8" class="form-horizontal form-bordered">
+                            <form method="POST" enctype="multipart/form-data" action="{{route('office.loan.store')}}" accept-charset="UTF-8" class="form-horizontal form-bordered">
                                 {{csrf_field()}}
                                 <div class="form-body">
                                     <div class="form-group">
@@ -73,13 +73,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Type: <span class="required">
+                                        <label class="col-md-2 control-label" id="type">Type: <span class="required">
                                             * </span>
                                         </label>
                                         <div class="col-md-6">
                                             <div class="col-md-3">
                                                 <label>
-                                                    <input type="radio" class="form-control" name="type" value="advance"> Advance Salary
+                                                    <input type="radio" class="form-control" name="type" value="advance" checked> Advance Salary
                                                 </label>
                                             </div>
                                             <div class="col-md-3">
@@ -89,17 +89,45 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" id="amount">
                                         <label class="col-md-2 control-label">Amount: <span class="required">
                                             * </span>
                                         </label>
                                         <div class="col-md-6">
-                                            <input type="number" class="form-control" required name="amount" placeholder="Amount"  >
+                                            <input type="number" id="amount_field" class="form-control" required name="amount" placeholder="Amount"  >
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">Date: </label>
+                                    <div class="form-group" id="installment">
+                                        <label class="col-md-2 control-label">No of Installment: <span class="required">
+                                            * </span>
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input type="number" class="form-control" required name="instalment" id="instalment_field" placeholder="Installment" value="10" >
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" id="monthly_deduction">
+                                        <label class="col-md-2 control-label">Monthly deduction:</label>
+                                        <div class="col-md-6">
+                                            <input type="number" class="form-control" id="monthly_deduction_field"  placeholder="Deduction (Monthly)" readonly >
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" id="period">
+                                        <label class="control-label col-md-2">Period: </label>
+                                        <div class="col-md-6">
+                                            <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                                <input type="text" class="form-control" name="period" id="period_field"  readonly >
+                                                <span class="input-group-btn">
+                                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" id="date">
+                                        <label class="control-label col-md-2">Disbursement Date: </label>
                                         <div class="col-md-6">
                                             <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
                                                 <input type="text" class="form-control" name="date"  readonly >
@@ -109,8 +137,15 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="form-group">
+                                    <div class="form-group" id="attachment">
+                                        <label class="col-md-2 control-label">Attachment: <span class="required">
+                                            * </span>
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input type="file" name="attachment" id="attachment_field" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="detail">
                                         <label class="col-md-2 control-label">Detail: <span class="required">
                                             * </span>
                                         </label>
@@ -118,7 +153,6 @@
                                             <textarea class="form-control" name="detail" rows="6"></textarea>
                                         </div>
                                     </div>
-
                                     </div>
                                     <div class="form-actions">
                                         <div class="row">
@@ -136,4 +170,33 @@
             </div>
             <!-- END PAGE CONTENT-->
     </div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function(){
+        $('#installment').hide();
+        $('#monthly_deduction').hide();
+        $('input[type=radio][name=type]').change(function() {
+            if (this.value == 'loan') {
+                $('#installment').show();
+                $('#monthly_deduction').show();
+                $('#period').hide();
+                $('#attachment').hide();
+                $('#period_field').val('');
+                $('#attachment_field').val('');
+            }
+            else if (this.value == 'advance') {
+                $('#installment').hide();
+                $('#monthly_deduction').hide();
+                $('#instalment_field').val(10);
+                $('#monthly_deduction_field').val('');
+                $('#period').show();
+                $('#attachment').show();
+            }
+        });
+        $('#amount_field,#instalment_field').keyup(function(){
+            $('#monthly_deduction_field').val($('#amount_field').val()/$('#instalment_field').val());
+        })
+    });
+</script>
 @endsection
