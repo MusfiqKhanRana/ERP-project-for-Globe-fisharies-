@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\payroll;
+namespace App\Http\Controllers\Payroll;
 
 use App\Http\Controllers\Controller;
-use App\Models\Department;
-use App\Models\Increment;
+use App\Models\ProvidentFund;
 use Illuminate\Http\Request;
 
-class IncrementController extends Controller
+class ProvidentFundController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,20 +15,8 @@ class IncrementController extends Controller
      */
     public function index()
     {
-        $departments = Department::with(
-            [
-                'designation'=>function($q){
-                    $q->with([
-                        'employee'=>function($q){
-                            $q->select('id','name','deg_id','salary');
-                        }
-                    ]);
-                }
-            ]
-        )->get();
-        $increments = Increment::get();
-        //dd($departments->toArray());
-        return view('backend.payroll.add_increment',compact('increments','departments'));
+        $provi_fund = ProvidentFund::all();
+        return view('backend.payroll.provident_fund',compact('provi_fund'));
     }
 
     /**
@@ -51,19 +38,17 @@ class IncrementController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->except('_token');
-        $this->validate($request,array(
-           'user_id' => 'required|max:191',
-        ));
-        $increments = new Increment();
-        $increments->department_id = $request->department_id;
-        $increments->designation_id = $request->designation_id;
-        $increments->user_id = $request->user_id;
-        $increments->date = $request->date;
-        $increments->type = $request->type;
-        $increments->increment_amount = $request->increment_amount;
-        $increments->save();
+       
+        $fund = new ProvidentFund();
+        $fund->package = $request->package;
+        $fund->amount = $request->amount;
+        $fund->fund_duration = $request->fund_duration;
+        $fund->fund_detention = $request->fund_detention;
+        $fund->detention_amount = $request->detention_amount;
+        $fund->completion_bonus = $request->completion_bonus;
+        $fund->save();
 
-        return redirect()->route('increment.index')->withMsg('Successfully Created');
+        return redirect()->route('provident-fund.index')->withMsg('Successfully Created');
     }
 
     /**
@@ -97,11 +82,14 @@ class IncrementController extends Controller
      */
     public function update(Request $request, $id)
     {
-       // dd($request->all());
-        Increment::whereId($id)
+        ProvidentFund::whereId($id)
         ->update([
-            'type' => $request->type,
-            'increment_amount' => $request->increment_amount,
+            'package' => $request->package,
+            'amount' => $request->amount,
+            'fund_duration' => $request->fund_duration,
+            'fund_detention' => $request->fund_detention,
+            'detention_amount' => $request->detention_amount,
+            'completion_bonus' => $request->completion_bonus,
         ]);
         return redirect()->back()->withMsg("Successfully Updated");
     }
@@ -114,7 +102,7 @@ class IncrementController extends Controller
      */
     public function destroy($id)
     {
-        Increment::whereId($id)->delete();
+        ProvidentFund::whereId($id)->delete();
         return redirect()->back()->withMsg("Successfully Deleted");
     }
 }

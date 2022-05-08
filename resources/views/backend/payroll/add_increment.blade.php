@@ -53,6 +53,9 @@ Add Increment
                             <tbody>
                                 @foreach ($increments as $key=> $item)
                                 <tr>
+                                    {{-- @php
+                                        dd($item);
+                                    @endphp --}}
                                     <td>{{++ $key}}</td>
                                     <td>{{$item->user->name}}</td>
                                     <td>{{$item->department->name}}</td>
@@ -64,7 +67,7 @@ Add Increment
                                         <a class="btn btn-danger" data-toggle="modal" href="DeleteModal{{$item->id}}">Delete</a>
                                     </td>
                                 </tr>
-                                <div id="deletepackModal{{$item->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                <div id="deleteModal{{$item->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                     {{csrf_field()}}
                                     <input type="hidden" value="" id="delete_id">
                                     <div class="modal-dialog">
@@ -99,7 +102,7 @@ Add Increment
                                                 <form class="form-horizontal" role="form" method="post" action="{{route('increment.update', $item->id)}}">
                                                     {{csrf_field()}}
                                                     {{method_field('put')}}
-                                                    <div class="form-group">
+                                                    {{-- <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-2 control-label">Name</label>
                                                         <div class="col-md-10">
                                                             <input type="text" class="form-control" value="{{$item->user->name}}" required name="user_id">
@@ -116,13 +119,20 @@ Add Increment
                                                         <div class="col-md-10">
                                                             <input type="text" class="form-control" value="{{$item->designation->deg_name}}" required name="designation_id">
                                                         </div><br><br>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="form-group">
-                                                        <label for="inputEmail1" class="col-md-2 control-label">Increment/<br>Decrement</label>
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Type</label>
                                                         <div class="col-md-10">
-                                                            <input type="text" class="form-control" value="{{$item->type}}" required name="type">
-                                                        </div><br><br>
-                                                    </div>
+                                                            <select name="type" id="" class="form-control">
+                                                                <option value="Increment" >Increment</option>
+                                                                <option value="Decrement">Decrement</option>
+                                                            </select>
+                                                            
+                                                            {{-- <label for="increnment">Incerment <input type="radio" name="type" value="increment"></label>
+                                                            
+                                                            <label for="decrement">Decrement <input type="radio" name="type" value="decrement"></label><br> --}}
+                                                        </div>
+                                                    </div><br><br>
                                                     <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-2 control-label">Amount</label>
                                                         <div class="col-md-10">
@@ -177,7 +187,7 @@ Add Increment
                                     </div>
                                     <div class="col-md-3">
                                         <label class="col-md-1 control-label">Name</label>
-                                        <select  class="form-control" name="user_id" id="name">
+                                        <select  class="form-control " name="user_id" id="user_id">
                                             <option value="null">--Select--</option>
                                             @foreach ($departments as $department)
                                                 @foreach ($department->designation as $designation)
@@ -200,9 +210,9 @@ Add Increment
                                     </div>
                                     <div class="col-md-3">
                                         <label for="">Type</label><br>
-                                        <input type="radio" name="type" value="increment">
+                                        <input type="radio" name="type" value="Increment" checked>
                                         <label for="incren=ment">Incerment</label><br>
-                                        <input type="radio" name="type" value="decrement">
+                                        <input type="radio" name="type" value="Decrement">
                                         <label for="decrement">Decrement</label><br>
                                     </div>
                                 </div><br>
@@ -248,8 +258,27 @@ Add Increment
     <script>
         $(function() {
             $("#designation").chained("#department");
-            $("#name").chained("#designation");
+            $("#user_id").chained("#designation");
         });
-        
       </script>
+      <script>
+          $(".user_salary").change(function() {
+            alert( this.value );
+                // var id = $(this).val();
+                // $.ajax({
+                //     type:"POST",
+                //     url:"{{route('order.addproduct.pass')}}",
+                //     data:{
+                //         'id' : id,
+                //         '_token' : $('input[name=_token]').val()
+                //     },
+                //     success:function(data){
+                //         // console.log(data);
+                //         $('.add_product').html("");
+                //         $('.add_product').append(data.output);
+                //     }
+                // });
+            });
+      </script>
+      
 @endsection

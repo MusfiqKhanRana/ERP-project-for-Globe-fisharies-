@@ -90,7 +90,7 @@ class EmployeeController extends Controller
         $employee->bank_name = $request->bank_name;
         $employee->branch = $request->branch;
         $employee->status = $request->status;
-        $employee->bill = $request->bill;
+        //$employee->bill = $request->bill;
         $employee->c_leave = $request->c_leave;
         $employee->m_leave = $request->m_leave;
         $employee->s_leave = $request->s_leave;
@@ -147,8 +147,8 @@ class EmployeeController extends Controller
         $user_salary->basic = $request->basic;
         $user_salary->medical_allowance = $request->medical_allowance;
         $user_salary->house_rent = $request->house_rent;
-        $user_salary->ta = $request->ta;
-        $user_salary->da = $request->da;
+        //$user_salary->ta = $request->ta;
+        //$user_salary->da = $request->da;
         $user_salary->save();
 
         return redirect('admin/employee')->withMsg('Employee Added Successfully');
