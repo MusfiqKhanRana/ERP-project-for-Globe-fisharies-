@@ -112,27 +112,27 @@ Provident Fund
                                                         </div>
                                                         <div class="col-md-5">
                                                             <label for="">Provident Fund Amount ( % )</label>
-                                                            <input class="form-control" type="text" name="amount" value="{{$item->amount}}">
+                                                            <input class="form-control" type="number" name="amount" value="{{$item->amount}}">
                                                         </div>
                                                     </div><br>
                                                     <div class="row" style="margin-left: 3%">
                                                         <div class="col-md-6">
                                                             <label for="">Provident Fund Duration</label>
-                                                            <input class="form-control" type="text" name="fund_duration" value="{{$item->fund_duration}}">
+                                                            <input class="form-control" type="number" name="fund_duration" value="{{$item->fund_duration}}">
                                                         </div>
                                                         <div class="col-md-5">
                                                             <label for="">Provident Fund Detention </label>
-                                                            <input class="form-control" type="text" name="fund_detention" value="{{$item->fund_detention}}">
+                                                            <input class="form-control" type="number" name="fund_detention" value="{{$item->fund_detention}}">
                                                         </div>
                                                     </div><br>
                                                     <div class="row" style="margin-left: 2%">
                                                         <div class="col-md-6">
                                                             <label for="">Detention Amount ( % )</label>
-                                                            <input class="form-control" type="text" name="detention_amount" value="{{$item->detention_amount}}">
+                                                            <input class="form-control" type="number" name="detention_amount" value="{{$item->detention_amount}}">
                                                         </div>
                                                         <div class="col-md-5">
                                                             <label for="">Fund Completion Bonus ( % )</label>
-                                                            <input class="form-control" type="text" name="completion_bonus" value="{{$item->completion_bonus}}">
+                                                            <input class="form-control" type="number" name="completion_bonus" value="{{$item->completion_bonus}}">
                                                         </div>
                                                     </div><br>
                                                     <div class="modal-footer">
@@ -167,27 +167,27 @@ Provident Fund
                                     </div>
                                     <div class="col-md-5">
                                         <label for="">Provident Fund Amount ( % )</label>
-                                        <input class="form-control" type="text" name="amount" placeholder="Type Provident Fund">
+                                        <input class="form-control" type="number" name="amount" placeholder="Type Provident Fund">
                                     </div>
                                 </div><br>
                                 <div class="row" style="margin-left: 3%">
                                     <div class="col-md-6">
                                         <label for="">Provident Fund Duration</label>
-                                        <input class="form-control" type="text" name="fund_duration" placeholder="Type number of months">
+                                        <input class="form-control" type="number" name="fund_duration" placeholder="Type number of months">
                                     </div>
                                     <div class="col-md-5">
                                         <label for="">Provident Fund Detention </label>
-                                        <input class="form-control" type="text" name="fund_detention" placeholder="Type Number of months">
+                                        <input class="form-control" type="number" name="fund_detention" placeholder="Type Number of months">
                                     </div>
                                 </div><br>
                                 <div class="row" style="margin-left: 2%">
                                     <div class="col-md-6">
                                         <label for="">Detention Amount ( % )</label>
-                                        <input class="form-control" type="text" name="detention_amount" placeholder="Type Provident Detention Amount">
+                                        <input class="form-control" type="number" name="detention_amount" placeholder="Type Provident Detention Amount">
                                     </div>
                                     <div class="col-md-5">
                                         <label for="">Fund Completion Bonus ( % )</label>
-                                        <input class="form-control" type="text" name="completion_bonus" placeholder="Type Provident Bonus Amount">
+                                        <input class="form-control" type="number" name="completion_bonus" placeholder="Type Provident Bonus Amount">
                                     </div>
                                 </div><br>
                                 <div class="modal-footer">
