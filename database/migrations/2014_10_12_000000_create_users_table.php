@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('image')->nullable();
             $table->string('f_name')->nullable();
+            $table->string('mother_name')->nullable();
             $table->string('b_date')->nullable();
             $table->string('gender')->nullable();
             $table->string('blood')->nullable();
@@ -46,10 +47,11 @@ class CreateUsersTable extends Migration
             $table->integer('s_leave')->nullable();
             $table->string('branch')->nullable();
             $table->string('resume')->nullable();
-            $table->string('offer_letter')->nullable();
+            $table->string('appointment_letter')->nullable();
             $table->string('join_letter')->nullable();
-            $table->string('con_letter')->nullable();
+            $table->string('academic_letter')->nullable();
             $table->string('proof')->nullable();
+            $table->string('experience_cirtificate')->nullable();
             $table->unsignedInteger('user_shift')->nullable();
             $table->rememberToken();
             $table->timestamps();

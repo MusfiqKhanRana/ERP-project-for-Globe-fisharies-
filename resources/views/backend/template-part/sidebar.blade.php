@@ -169,6 +169,12 @@
                                 </a>
                             </li>
 
+                            <li class="nav-item  @if( request()->path() == 'admin/payroll' ) active open @endif">
+                                <a href="{{route('provident-fund.index')}}" class="nav-link ">
+                                    <span class="title">Provident Fund</span>
+                                </a>
+                            </li>
+
                         </ul>
                     </li>
 
@@ -829,7 +835,7 @@
                     <li class="nav-item">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
-                            <span class="title">Inventory Management Store</span>
+                            <span class="title"><small> Inventory Management</small></span>
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">

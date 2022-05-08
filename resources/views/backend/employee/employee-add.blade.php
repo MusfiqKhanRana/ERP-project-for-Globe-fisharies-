@@ -72,6 +72,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-3 control-label">Mother's Name</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="mother_name" placeholder="Mother Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="control-label col-md-3">Date of Birth</label>
                                         <div class="col-md-3">
                                             <div class="input-group input-medium date date-picker"  data-date-format="dd-mm-yyyy" data-date-viewmode="years">
@@ -88,6 +94,7 @@
                                             <select class="form-control" name="gender">
                                                 <option value="male">Male</option>
                                                 <option value="female">Female</option>
+                                                <option value="others">Others</option>
                                             </select>
                                         </div>
                                     </div>
@@ -208,7 +215,7 @@
                                                 <input type="text" class="form-control" name="house_rent" id="house_rent" placeholder="House">
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        {{-- <div class="row">
                                             <div class="col-md-6">
                                                 <label for="product">TA</label>
                                                 <input type="text" class="form-control"  name="ta" id="ta" placeholder="TA Bill">
@@ -217,7 +224,8 @@
                                                 <label for="product">DA</label>
                                                 <input type="text" class="form-control" name="da" id="da" placeholder="DA Bill">
                                             </div>
-                                        </div><br>
+                                        </div><br> --}}
+                                        <br>
                                         <div class="row">
                                             <div class="col-md-12">
                                                <p id="total"> Total:</p>
@@ -374,18 +382,58 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label class="col-md-3 control-label">Tiffin Bill</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="bill" placeholder="Tiffin Bill" value="">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     {{-- <div class="form-group">
                                         <label class="col-md-3 control-label">Alocated Leave</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="leave" placeholder="Alocated Leave" value="">
                                         </div>
                                     </div> --}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet box dark">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-calendar"></i>Provident Fund
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"> Package :</label>
+                                        <div class="col-md-9">
+                                            {{-- <input type="text" class="form-control" name="provident" placeholder="Casual Leave" value=""> --}}
+                                            <select class="form-control" name="provident" id="">
+                                                <option value="">Test Package 1</option>
+                                                <option value="">Test Package 2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet box dark">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-calendar"></i>Income Tax
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"> Amount :</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="income_tax" placeholder="Tax Amount" value=""><br>
+                                            <input type="checkbox">Want to add in Percanntage<br>
+                                            It will be deduct monthly Form Salary
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -410,7 +458,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Special Leave</label>
+                                        <label class="col-md-3 control-label">Earned Leave</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" name="s_leave" placeholder="It will be decided by Authority" readonly>
                                         </div>
@@ -454,7 +502,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-2">Offer Letter</label>
+                                            <label class="control-label col-md-2">Appointment Letter</label>
                                             <div class="col-md-5">
                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
                                                     <div class="input-group input-large">
@@ -467,7 +515,7 @@
                                                            Select file </span>
                                                            <span class="fileinput-exists">
                                                            Change </span>
-                                                           <input type="file" name="offer_letter">
+                                                           <input type="file" name="appointment_letter">
                                                            </span>
                                                         <a href="#" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
                                                             Remove </a>
@@ -498,7 +546,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-2">Contract and Agreement</label>
+                                            <label class="control-label col-md-2">Academic Cirtificate</label>
                                             <div class="col-md-5">
                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
                                                     <div class="input-group input-large">
@@ -511,7 +559,7 @@
                                                            Select file </span>
                                                            <span class="fileinput-exists">
                                                            Change </span>
-                                                           <input type="file" name="con_letter">
+                                                           <input type="file" name="academic_letter">
                                                            </span>
                                                         <a href="#" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
                                                             Remove </a>
@@ -534,6 +582,28 @@
                                                            <span class="fileinput-exists">
                                                            Change </span>
                                                            <input type="file" name="proof">
+                                                           </span>
+                                                        <a href="#" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
+                                                            Remove </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-2">Experience Cirtificate</label>
+                                            <div class="col-md-5">
+                                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                    <div class="input-group input-large">
+                                                        <div class="form-control uneditable-input" data-trigger="fileinput">
+                                                            <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
+                                          </span>
+                                                        </div>
+                                                        <span class="input-group-addon btn default btn-file">
+                                                           <span class="fileinput-new">
+                                                           Select file </span>
+                                                           <span class="fileinput-exists">
+                                                           Change </span>
+                                                           <input type="file" name="experience_cirtificate">
                                                            </span>
                                                         <a href="#" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
                                                             Remove </a>

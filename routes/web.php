@@ -43,6 +43,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PackControler;
 use App\Http\Controllers\PartyController;
 use App\Http\Controllers\payroll\IncrementController;
+use App\Http\Controllers\Payroll\ProvidentFundController;
 use App\Http\Controllers\PersonalManagementController;
 use App\Http\Controllers\ProductOrderController;
 use App\Http\Controllers\RequisitionController;
@@ -554,5 +555,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //----------------------Increment-----------------//
     Route::resource('increment',IncrementController::class);
+
+    //------------------Provident Fund-----------------------//
+
+    Route::resource('provident-fund',ProvidentFundController::class);
+
+
     
 });
