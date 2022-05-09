@@ -26,6 +26,7 @@ use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\PayrollController;
+use App\Http\Controllers\payroll\DisburseSalaryController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\CateringManagement;
 use App\Http\Controllers\OfficeDetailController;
@@ -559,6 +560,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //------------------Provident Fund-----------------------//
 
     Route::resource('provident-fund',ProvidentFundController::class);
+
+    //---------------------Disburse Salary-------------------//
+    Route::resource('disburse-salary',DisburseSalaryController::class);
 
 
     

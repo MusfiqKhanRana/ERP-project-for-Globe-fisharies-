@@ -40,7 +40,7 @@ class CreateUsersTable extends Migration
             $table->string('bank_name')->nullable();
             //$table->string('code')->nullable();
             //$table->string('pan_num')->nullable();
-            $table->enum('status', ['Permanent', 'Probational','Retired', 'Terminated'])->default('Probational');
+            $table->enum('status', ['Probational','Permanent','Retired', 'Terminated'])->default('Probational');
             $table->integer('bill')->nullable();
             $table->integer('c_leave')->nullable();
             $table->integer('m_leave')->nullable();
@@ -53,6 +53,8 @@ class CreateUsersTable extends Migration
             $table->string('proof')->nullable();
             $table->string('experience_cirtificate')->nullable();
             $table->unsignedInteger('user_shift')->nullable();
+            $table->double('income_tax')->nullable();
+            $table->integer('provident_fund')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -38,7 +38,15 @@ class ProvidentFundController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->except('_token');
-       
+        $this->validate($request,array(
+           'package' => 'required',
+           'fund_duration' => 'required',
+           'fund_detention' => 'required',
+           'amount' => 'required',
+           'detention_amount' => 'required',
+           'completion_bonus' => 'required',
+        ));
+
         $fund = new ProvidentFund();
         $fund->package = $request->package;
         $fund->amount = $request->amount;

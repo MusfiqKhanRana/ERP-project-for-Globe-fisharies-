@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Department;
 use App\Models\Designation;
 use App\Models\Employee;
+use App\Models\ProvidentFund;
 use App\Models\User;
 use App\Models\Timezone;
 use App\Models\UserSalary;
@@ -30,9 +31,10 @@ class EmployeeController extends Controller
 
     public function create()
     {
+        $provident_fund = ProvidentFund::get();
         $user_shift = UserShift::get();
         $department = Department::all();
-        return view('backend.employee.employee-add', compact('department','user_shift'));
+        return view('backend.employee.employee-add', compact('department','user_shift','provident_fund'));
     }
 
     public function store(Request $request)
@@ -90,7 +92,8 @@ class EmployeeController extends Controller
         $employee->bank_name = $request->bank_name;
         $employee->branch = $request->branch;
         $employee->status = $request->status;
-        //$employee->bill = $request->bill;
+        $employee->provident_fund = $request->provident_fund;
+        $employee->income_tax = $request->income_tax;
         $employee->c_leave = $request->c_leave;
         $employee->m_leave = $request->m_leave;
         $employee->s_leave = $request->s_leave;
