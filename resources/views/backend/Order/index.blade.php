@@ -38,12 +38,14 @@
                                     {{-- <th> Date </th> --}}
                                     <th> Sl. </th>
                                     <th>Customer Name</th>
-                                    <th> Customer Type </th> 
+                                    <th> Customer Type </th>
+                                    <th> Customer Address </th>
+                                    <th> Customer Contact </th> 
                                     <th> Status </th>
                                     <th> Remark</th>
                                     <th> Delivery Charge</th>
                                     <th> Discount <small>(Order wise)</small></th>
-                                    <th style="text-align: center"> Product</th>
+                                    <th style="text-align: center"> Order Details</th>
                                     @if (request()->query('status')=="Confirm" || request()->query('status')=="Delivered")
                                         <th >Payment info </th>
                                     @endif
@@ -68,6 +70,8 @@
                                         <td>{{++$key}}</td>
                                         <td>{{$data->customer->full_name}}</td>
                                         <td>{{$data->customer->customer_type}}</td>
+                                        <td>{{$data->customer->address}}</td>
+                                        <td>{{$data->customer->phone}}</td>
                                         <td>{{$data->status }}</td>
                                         <td>{{$data->remark}}</td>
                                         <td>
