@@ -199,7 +199,7 @@
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-2">
-                                                <button type="submit" data-loading-text="Submitting..." class="demo-loading-btn btn grey-mint"><i class="fa fa-check"></i> Submit</button>
+                                                <button type="submit" data-loading-text="Submitting..." class="demo-loading-btn btn btn-info"><i class="fa fa-check"></i> Submit</button>
                                             </div>
                                             <div class="col-md-2">
                                                 <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>

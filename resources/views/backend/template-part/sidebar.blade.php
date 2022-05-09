@@ -150,6 +150,11 @@
                                     <span class="title">Employee Salary</span>
                                 </a>
                             </li>
+                            <li class="nav-item  @if( request()->path() == 'admin/payroll' ) active open @endif">
+                                <a href="{{route('disburse-salary.index')}}" class="nav-link ">
+                                    <span class="title">Disburse Salary</span>
+                                </a>
+                            </li>
 
                             <li class="nav-item  @if( request()->path() == 'admin/payroll/chart' ) active open @endif">
                                 <a href="{{route('payroll.chart')}}" class="nav-link ">

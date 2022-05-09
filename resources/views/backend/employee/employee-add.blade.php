@@ -102,7 +102,7 @@
                                         <label class="col-md-3 control-label">Blood Group</label>
                                         <div class="col-md-9">
                                             <select class="form-control" name="blood">
-                                                <option>--Select--</option>
+                                                <option>N/A</option>
                                                 <option value="a+">A +(ve)</option>
                                                 <option value="b+">B +(ve)</option>
                                                 <option value="ab+">AB +(ve)</option>
@@ -260,7 +260,7 @@
                                         <div class="col-md-9">
                                            
                                             <select class="form-control select2me" id="department" name="dept_id">
-                                                <option value="">--Select--</option>
+                                                <option value="">N/A</option>
                                                 @foreach($department as $dep)
                                                     <option value="{{$dep->id}}">{{$dep->name}}</option>
                                                 @endforeach
@@ -364,8 +364,8 @@
                                         <label class="col-md-3 control-label"> Status</label>
                                         <div class="col-md-9">
                                             <select class="form-control" id="status" name="status">
-                                                <option value="Permanent">Permanent</option>
                                                 <option value="Probational">Probational</option>
+                                                <option value="Permanent">Permanent</option>
                                                 <option value="Retired">Retired</option>
                                                 <option value="Terminated">Terminated</option>
                                             </select>
@@ -409,9 +409,11 @@
                                         <label class="col-md-3 control-label"> Package :</label>
                                         <div class="col-md-9">
                                             {{-- <input type="text" class="form-control" name="provident" placeholder="Casual Leave" value=""> --}}
-                                            <select class="form-control" name="provident" id="">
-                                                <option value="">Test Package 1</option>
-                                                <option value="">Test Package 2</option>
+                                            <select class="form-control" name="provident_fund" id="">
+                                                <option value="">N/A</option>
+                                                @foreach ($provident_fund as $item)
+                                                    <option value="{{$item->package}}">{{$item->package}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -429,8 +431,16 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label"> Amount :</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="income_tax" placeholder="Tax Amount" value=""><br>
-                                            <input type="checkbox">Want to add in Percanntage<br>
+                                            {{-- <input type="text" class="form-control" name="income_tax" placeholder="Tax Amount" value=""><br> --}}
+                                            <span class="discount_in_percentage">
+                                                <input type="text" class="form-control"  placeholder="discount in %" id="percentage_id"/>
+                                            </span>
+                                            <span class="discount_in_amount">
+                                                <input type="text" class="form-control" placeholder="discount in amount" id="amount_id"/>
+                                            </span>
+                                            <fieldset class="radio-inline question coupon_question2">
+                                                <input class="form-check-input want_in_amount" type="checkbox">Want in Amount ? 
+                                            </fieldset>
                                             It will be deduct monthly Form Salary
                                         </div>
                                     </div>
@@ -634,6 +644,10 @@
 @section('script')
     <script>
         $(document).ready(function(){
+            function nullmaking(){
+            $("#percentage_id").val(null);
+            $("#amount_id").val(null);
+            }
             $(document).on('change','#department',function(){
                 var id = $(this).val();
                 //alert(id)
@@ -649,6 +663,30 @@
                         $('#designation').append(data)
                     }
                 });
+            });
+            $(document).on('keyup','#percentage_id',function() {
+                let main_price = total_price - (total_price*$(this).val())/100;
+                $('#price').val(main_price);
+                discount_in_percentage = $(this).val()
+            });
+            $(document).on('keyup','#amount_id',function() {
+                let main_price = total_price - ($(this).val());
+                discount_in_amount = $(this).val();
+                $('#price').val(main_price);
+            });
+            $('.discount_in_amount').hide();
+            $(".want_in_amount").click(function() {
+                if($(this).is(":checked")) {
+                    $(".discount_in_amount").show();
+                    $(".discount_in_percentage").hide();
+                    $('#percentage_id').val('');
+                    discount_in_percentage = 0;
+                } else {
+                    $(".discount_in_amount").hide();
+                    $(".discount_in_percentage").show();
+                    discount_in_amount = 0;
+                    $('#amount_id').val('');
+                }
             });
         });
     </script>
