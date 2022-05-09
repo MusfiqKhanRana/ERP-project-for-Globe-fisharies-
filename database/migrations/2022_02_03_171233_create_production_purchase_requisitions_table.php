@@ -17,7 +17,7 @@ class CreateProductionPurchaseRequisitionsTable extends Migration
             $table->id();
             $table->unsignedInteger('department_id')->nullable();
             $table->integer('requested_by')->nullable();
-            $table->enum('status', ['Pending','Confirm','Reject','Purchased'])->default('Pending');
+            $table->enum('status', ['Pending','Confirm','Reject','Purchased','Quotation'])->default('Pending');
             $table->dateTime('confirm_date')->nullable();
             $table->dateTime('reject_date')->nullable();
             $table->dateTime('purchase_date')->nullable();

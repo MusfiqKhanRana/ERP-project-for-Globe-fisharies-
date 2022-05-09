@@ -16,6 +16,7 @@ class CreateProductionGeneralPurchaseQuotationsTable extends Migration
         Schema::create('production_general_purchase_quotations', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('supplier_id')->nullable();
+            $table->unsignedInteger('production_purchase_requisition_id')->nullable();
             $table->unsignedInteger('requisition_id')->nullable();
             $table->unsignedInteger('production_purchase_requisition_item_id')->nullable();
             $table->integer('price')->nullable();
@@ -24,7 +25,7 @@ class CreateProductionGeneralPurchaseQuotationsTable extends Migration
             $table->integer('negotiable_price')->nullable();
             $table->string('cs_remark')->nullable();
             $table->boolean('is_confirm')->nullable();
-            $table->enum('status', ['InQuotation','InCS'])->default('InQuotation');
+            $table->enum('status', ['InQuotation','InCS','InPurchase','Reject'])->default('InQuotation');
             $table->timestamps();
         });
     }
