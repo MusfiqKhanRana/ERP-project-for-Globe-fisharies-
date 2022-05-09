@@ -74,7 +74,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($purchase_requisition as $key=> $data)
+                                    @foreach($cs_item->production_general_purchase_quotation as $key=> $data)
                                     <tr>
                                         <td>
                                             {{++ $key}}
@@ -101,17 +101,14 @@
                                                     <h4 class="modal-title">Reject Note</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form class="form-horizontal" role="form" method="post" action="{{--route('supply-list-item.store')--}}">
+                                                    <form class="form-horizontal" role="form" method="post" action="{{route('production.quotation.reject',$data->id)}}">
                                                         {{csrf_field()}}
                                                         <div class="form-group">
-                                                            <label class="col-md-2 control-label" name="remark">Remark  :</label>
-                                                            <div class="col-md-9" >
-                                                                <textarea type="text"></textarea>
-                                                            </div>
+                                                            <p>Are You Sure You Want to Remove?</p>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Save</button>
+                                                            <a href="{{route('production.quotation.reject',$data->id)}}" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Confirm</a>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -123,16 +120,13 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h4 class="modal-title">Are You want to Confirm it?</h4>
+                                                    <h4 class="modal-title">Want to Confirm it?</h4>
                                                 </div>
                                                 <br>
-                                                <form class="form-horizontal" role="form" method="post" action="{{route('production-purchase-requisition.status_purchased')}}">
-                                                    {{csrf_field()}}
-                                                    <div class="modal-footer"><br>
-                                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                        <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
-                                                    </div>
-                                                </form>
+                                                <div class="modal-footer"><br>
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                    <a href="{{route('production.quotation.confirm',$data->id)}}" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Confirm</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

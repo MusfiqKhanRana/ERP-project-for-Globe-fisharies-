@@ -23,6 +23,6 @@ class ProductionPurchaseRequisition extends Model
     }
      public function production_requisition_item()
     {
-        return $this->belongsTo(ProductionPurchaseRequisitionItem::class,'item_id','status');
+        return $this->hasMany(ProductionPurchaseRequisitionItem::class,'production_purchase_requisition_id');
     }
 }

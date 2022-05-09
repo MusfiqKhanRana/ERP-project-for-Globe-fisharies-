@@ -536,6 +536,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     })->name('production.purchase.cs.show');
 
     //Route::resource('production-quotation-confirm',ProductionRequisitionItemController::class);
+    Route::get('production/quotation/confirm/{id}',[ProductionGeneralPurchaseQuotationController::class,'quotation_confirm'])->name('production.quotation.confirm');
+    Route::get('production-quotation-reject/{id}',[ProductionGeneralPurchaseQuotationController::class,'quotation_delete'])->name('production.quotation.reject');
     Route::get('production-cs-show/{id}',[ProductionGeneralPurchaseQuotationController::class,'showcs'])->name('production-cs-show');
     Route::post('production-quotation-confirm',[ProductionGeneralPurchaseQuotationController::class,'confirmqQuotation'])->name('production-quotation-confirm');
     Route::get('production-quotation-list/{id}',[ProductionGeneralPurchaseQuotationController::class,'quotation_test'])->name('production-quotation-list');

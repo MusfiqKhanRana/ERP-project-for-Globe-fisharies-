@@ -118,9 +118,11 @@ class ProductionGeneralPurchaseQuotationController extends Controller
         return view('backend.production.general_purchase.quotation.add_quotation');
     }
     public function confirmquotation(Request $request){
-        $requisition=ProductionPurchaseRequisition::with(['items','departments','users'])->latest()->paginate(10);
+        $requisition=ProductionPurchaseRequisition::with(['production_requisition_item'=>function($q){
+            $q->with('items');
+        },'departments','users'])->paginate(10);
         $dept = Department::all();
-        //dd($requisition);
+        // dd($requisition->toArray());
         //$general_purchase = ProductionGeneralPurchaseQuotation::get();
         return view('backend.production.general_purchase.cs.cs_list',compact('requisition','dept'));
     }
@@ -159,19 +161,30 @@ class ProductionGeneralPurchaseQuotationController extends Controller
         return redirect()->route('production-quotation-confirmquotation')->withmsg('Successfully Confirmed Quotation');
     }
     public function showcs(Request $request, $id){
+        // dd($id);
+        // return ProductionPurchaseRequisitionItem::with(['production_general_purchase_quotation'])->get();
         $purchase_requisition = ProductionGeneralPurchaseQuotation::get();
         $cs_item = ProductionPurchaseRequisitionItem::with([
             'production_general_purchase_quotation'=>function($q){
-                $q->with('supplier');
+                $q->where('status','InCS')->with('supplier');
             },
             'production_purchase_requisition'=>function($q){
                 $q->with('users','departments');
             }
 
         ])->where('id',$id)->first();
-       //dd($purchase_requisition->toArray());
-        return view('backend.production.general_purchase.cs.cs_list_show',compact('cs_item','purchase_requisition'));
+    //    dd($cs_item);
+        return view('backend.production.general_purchase.cs.cs_list_show',compact('cs_item'));
     }
-    
+    public function quotation_delete($id){
+        // dd($id);
+        ProductionGeneralPurchaseQuotation::where('id',$id)->update(['status'=>'Reject']);
+        return redirect()->back()->withmsg('Successfully Deleted Quotation');
+    }
+    public function quotation_confirm($id){
+        dd($id);
+        ProductionGeneralPurchaseQuotation::where('id',$id)->update(['status'=>'InPurchase']);
+        return redirect()->back()->withmsg('Successfully Confirmed');
+    }
 }
 
