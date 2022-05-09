@@ -210,10 +210,12 @@ Add Increment
                                     </div>
                                     <div class="col-md-3">
                                         <label for="">Type</label><br>
-                                        <input type="radio" name="type" value="Increment" checked>
-                                        <label for="incren=ment">Incerment</label><br>
-                                        <input type="radio" name="type" value="Decrement">
-                                        <label for="decrement">Decrement</label><br>
+                                        <label>
+                                            <input type="radio" class="form-control" name="type" value="Increment" checked> Incerment
+                                        </label>
+                                        <label>
+                                            <input type="radio" class="form-control" name="type" value="Decrement"> Decrement
+                                        </label>
                                     </div>
                                 </div><br>
                                 <div class="row" style="margin-left: 2%">
