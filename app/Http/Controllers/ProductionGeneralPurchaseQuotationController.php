@@ -141,7 +141,7 @@ class ProductionGeneralPurchaseQuotationController extends Controller
         $purchase_requisition = ProductionPurchaseRequisition::get();
         $purchase_item = ProductionPurchaseRequisitionItem::with([
             'production_general_purchase_quotation'=>function($q){
-                $q->with('supplier');
+                $q->where('status','InQuotation')->with('supplier');
             },
             'production_purchase_requisition'=>function($q){
                 $q->with('users','departments');
@@ -162,6 +162,7 @@ class ProductionGeneralPurchaseQuotationController extends Controller
     }
     public function showcs(Request $request, $id){
         // dd($id);
+        ProductionGeneralPurchaseQuotation::where('production_purchase_requisition_item_id',$id)->update(['status'=>'InCS']);
         // return ProductionPurchaseRequisitionItem::with(['production_general_purchase_quotation'])->get();
         $purchase_requisition = ProductionGeneralPurchaseQuotation::get();
         $cs_item = ProductionPurchaseRequisitionItem::with([
@@ -182,7 +183,7 @@ class ProductionGeneralPurchaseQuotationController extends Controller
         return redirect()->back()->withmsg('Successfully Deleted Quotation');
     }
     public function quotation_confirm($id){
-        dd($id);
+        // dd($id);
         ProductionGeneralPurchaseQuotation::where('id',$id)->update(['status'=>'InPurchase']);
         return redirect()->back()->withmsg('Successfully Confirmed');
     }
