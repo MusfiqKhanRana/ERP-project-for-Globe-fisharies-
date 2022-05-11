@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\ProductionGeneralPurchaseQuotation;
 use App\Models\ProductionPurchaseItem;
 use App\Models\ProductionPurchaseRequisition;
 use App\Models\ProductionPurchaseRequisitionItem;
@@ -189,6 +190,20 @@ class ProductionPurchaseRequisitionController extends Controller
         return $block_data;
         return response()->json($block_data);
     }
+
+    public function cs_data_pass(Request $request){
+        // dd($request);
+        $data = $request->all();
+        foreach ($data['quotation_id'] as $key => $value) {
+            $v = ProductionGeneralPurchaseQuotation::where('id',$value)->update([
+                'negotiable_price'=>$data['negotiable_price'][$key],
+                'cs_remark' =>$data['cs_remark'][$key],
+                'status' =>'InQuotation'
+            ]);
+        }
+        return redirect()->back()->withmsg('Successfully Send For Negotiation');
+    }
+
     public function block_data_pass(Request $request){
         $data = ProductionPurchaseRequisition::with(
             ['production_requisition_item' => function($q){

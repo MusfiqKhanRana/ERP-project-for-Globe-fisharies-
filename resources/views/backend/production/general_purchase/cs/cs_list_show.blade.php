@@ -50,7 +50,7 @@
                 </div>
                 <div class="portlet-body">
                     <div class="table-scrollable">
-                        <form class="form-horizontal" role="form" method="post" action="{{--route('production/purchase/quotation')--}}">
+                        <form class="form-horizontal" role="form" method="post" action="{{route('production.purchase.quotation.cs.data_pass')}}">
                             {{csrf_field()}}
                             <div class="row" style="margin: 3%" >
                                 <p ><b>Item name:</b> {{$cs_item->item_name}}</p>
@@ -83,10 +83,11 @@
                                         <td>{{$data->price}}</td>
                                         <td>{{$data->speciality}}</td>
                                         <td>
-                                            <input type="text" class="price" placeholder="Price" name="negotiable_price" id="negotiable_price">
+                                            <input type="hidden" name="quotation_id[]" value="{{$data->id}}">
+                                            <input type="number" class="price" placeholder="Price" name="negotiable_price[]" id="negotiable_price">
                                         </td>
                                         <td>
-                                            <textarea type="text" class="remark" placeholder="Remark" name="cs_remark" id="cd_remark"></textarea>
+                                            <textarea type="text" class="remark" placeholder="Remark" name="cs_remark[]" id="cd_remark"></textarea>
                                         </td>
                                         
                                         <td>
@@ -147,6 +148,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            $('.submitButton').hide();
+                $('.price').keyup(function()
+                {
+                    ($(this).is(':input')) 
+                        $('.submitButton').show();
+
+            });
             var pivot_item = null;
             var all_item = null;
             var supplier_id,name,requisition_id,requisition_item_id,price,speciality = null;
@@ -223,16 +231,4 @@
             
         });
     </script>
-<script>
-    $(document).ready(function(){
-        $('.submitButton').hide();
-        $('.price').keyup(function()
-        {
-            ($(this).is(':input')) 
-                $('.submitButton').show();
-
-        });
-        
-    });
-</script>
 @endsection

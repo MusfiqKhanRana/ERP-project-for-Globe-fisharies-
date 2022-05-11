@@ -439,6 +439,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('production-purchase-item', ProductionPurchaseItemController::class);
 
     //Production Purchase Requisition 
+    Route::post('production/purchase/quotation/cs/data-pass',[ProductionPurchaseRequisitionController::class,'cs_data_pass'])->name('production.purchase.quotation.cs.data_pass');
     Route::post('production/purchase/quotation/data-pass',[ProductionPurchaseRequisitionController::class,'add_quotation_data_pass'])->name('production.purchase.quotation.data_pass');
     Route::get('production/purchase/quotation',[ProductionPurchaseRequisitionController::class,'quotation'])->name('production-purchase-quotation');
     Route::get('production-purchase-requisition/Print/{id}',[ProductionPurchaseRequisitionController::class,'print'])->name('production-purchase-requisition.print');

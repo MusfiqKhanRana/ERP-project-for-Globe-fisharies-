@@ -139,14 +139,13 @@
                                         </div>
                                     </div>
                                 </div> --}}
+                                <div>
+                                    <input type="hidden" value="{{$data->id}}" id="requisition_item_id" name="requisition_item_id">
+                                </div>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-                    <div>
-                        <input type="hidden" value="{{$data->id}}" id="requisition_item_id" name="requisition_item_id">
-                    </div>
-                   
                     <div class="row">
                         <button type="submit" class="col-md-12 btn btn-info pull-right" >
                             Submit
