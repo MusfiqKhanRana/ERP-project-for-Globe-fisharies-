@@ -16,10 +16,9 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
-            $table->string('attend');
-            $table->string('salary');
-            $table->string('from_date');
-            $table->string('to_date');
+            $table->dateTime('disburse_date')->nullable();
+            $table->date('salary_month')->nullable();
+            $table->boolean('status')->nullable();
             $table->timestamps();
         });
     }

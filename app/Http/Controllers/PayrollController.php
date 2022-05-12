@@ -114,13 +114,26 @@ class PayrollController extends Controller
 
     public function show()
     {
-        $employe = User::all();
+        $employee = User::all();
+        $start_date = Carbon::now()->startOfMonth()->format('Y-m-d 00:00:00');
+        $end_date = Carbon::now()->endOfMonth()->format('Y-m-d 23:59:59');
         $payment = Payment::with([
-            'employee' => function($q){
-                $q->select('id','name');
+            'employee' => function($q) use($start_date, $end_date){
+                $q->with([
+                    'attendances' => function($q) use($start_date, $end_date){
+                        $q->whereBetween('date', [$start_date, $end_date])->select('id','user_id','date');
+                    },
+                    'department' => function($q){
+                        $q->select('id','name');
+                    },
+                    'designation' => function($q){
+                        $q->select('id','deg_name');
+                    },'increments','loans'
+                ])->select('id','name','dept_id','deg_id','salary');
             }
-        ])->orderBy('id', 'desc')->paginate(20);
-        return view('backend.payroll.payroll-chart',compact('payment', 'employe'));
+        ])->whereBetween('disburse_date', [$start_date, $end_date])->latest()->get();
+        return $payment;
+        return view('backend.payroll.payroll-chart',compact('payment', 'employee'));
     }
 
     public function destroy($id)

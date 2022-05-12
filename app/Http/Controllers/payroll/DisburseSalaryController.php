@@ -4,6 +4,8 @@ namespace App\Http\Controllers\payroll;
 
 use App\Http\Controllers\Controller;
 use App\Models\Designation;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DisburseSalaryController extends Controller
@@ -48,7 +50,20 @@ class DisburseSalaryController extends Controller
      */
     public function show($id)
     {
-        //
+        $start_date = Carbon::now()->startOfMonth()->format('Y-m-d 00:00:00');
+        $end_date = Carbon::now()->endOfMonth()->format('Y-m-d 23:59:59');
+        $user = User::with([
+            'attendances' => function($q) use($start_date, $end_date){
+                $q->whereBetween('date', [$start_date, $end_date])->select('id','user_id','date');
+            },
+            'department' => function($q){
+                $q->select('id','name');
+            },
+            'designation' => function($q){
+                $q->select('id','deg_name');
+            },'increments','loans'
+            ])->where('deg_id',$id)->select('id','name','dept_id','deg_id','salary')->get();
+        return $user;
     }
 
     /**

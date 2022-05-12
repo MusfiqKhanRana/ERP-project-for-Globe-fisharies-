@@ -65,6 +65,18 @@ class User extends Authenticatable
     {
         return $this->belongsTo(OfficeLoan::class)->withDefault();
     }
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
+    public function increments()
+    {
+        return $this->hasMany(Increment::class);
+    }
+    public function loans()
+    {
+        return $this->hasMany(OfficeLoan::class);
+    }
     public function designation()
     {
         return $this->belongsTo(Designation::class,'deg_id');
