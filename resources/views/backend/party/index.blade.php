@@ -72,7 +72,7 @@
                                                             @foreach($data->product_parties as $key2=> $item)
                                                                 <tr>
                                                                     <th>{{++$key2}}</th>
-                                                                    <th>{{$item->product_name}}</th>
+                                                                    <th>{{$item->supplyitem->name}}</th>
                                                                     {{-- <th>{{$item->buying_price}}</th> --}}
                                                                     <th>{{$item->pivot->price}}</th>  
                                                                     <th>

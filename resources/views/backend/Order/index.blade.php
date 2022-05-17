@@ -38,12 +38,14 @@
                                     {{-- <th> Date </th> --}}
                                     <th> Sl. </th>
                                     <th>Customer Name</th>
-                                    <th> Customer Type </th> 
+                                    <th> Customer Type </th>
+                                    <th> Customer Address </th>
+                                    <th> Customer Contact </th> 
                                     <th> Status </th>
                                     <th> Remark</th>
                                     <th> Delivery Charge</th>
                                     <th> Discount <small>(Order wise)</small></th>
-                                    <th style="text-align: center"> Product</th>
+                                    <th style="text-align: center"> Order Details</th>
                                     @if (request()->query('status')=="Confirm" || request()->query('status')=="Delivered")
                                         <th >Payment info </th>
                                     @endif
@@ -68,6 +70,8 @@
                                         <td>{{++$key}}</td>
                                         <td>{{$data->customer->full_name}}</td>
                                         <td>{{$data->customer->customer_type}}</td>
+                                        <td>{{$data->customer->address}}</td>
+                                        <td>{{$data->customer->phone}}</td>
                                         <td>{{$data->status }}</td>
                                         <td>{{$data->remark}}</td>
                                         <td>
@@ -108,7 +112,7 @@
                                                         <tr>
                                                             <th>{{++$key2}}</th>
                                                                 <th>{{$item->category->name}}</th>
-                                                                <th>{{$item->product_name}}</th>
+                                                                <th>{{$item->supplyitem->name}}</th>
                                                                 <th>{{$item->pivot->quantity}}</th>
                                                                 <th>
                                                                     @php
@@ -173,7 +177,7 @@
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
                                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                                        <h4 class="modal-title"> Update Ordered Product ({{$item->product_name}}) </h4>
+                                                                        <h4 class="modal-title"> Update Ordered Product ({{$item->supplyitem->name}}) </h4>
                                                                     </div>
                                                                     <div class="modal-body">
                                                                         <form class="form-horizontal" role="form" method="post" action="{{route('order.product.updated', $item->pivot->id)}}">
@@ -900,7 +904,7 @@
                             text : "--select--"
                         }));
                         $.each(data, function (i, item) {
-                            var name_quantity = item.product_name;
+                            var name_quantity = item.supplyitem.name;
                             $('.product_id').append($('<option>', { 
                                 value: item.id,
                                 text : name_quantity
@@ -925,10 +929,10 @@
                     }
                 });
             });
-            var category_id,category_name,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,product_name,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
+            var category_id,category_name,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,supply_item_id,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
             $('.add_product').change(function(){
                 product_id = $(this).val();
-                product_name = $(this).find(':selected').attr('data-product_name');
+                supply_item_id = $(this).find(':selected').attr('data-supply_item_id');
                 product_pack_id = $(this).find(':selected').attr('data-pack_id');
                 product_pack_name = $(this).find(':selected').attr('data-pack_name');
                 product_pack_weight = $(this).find(':selected').attr('data-pack_weight');

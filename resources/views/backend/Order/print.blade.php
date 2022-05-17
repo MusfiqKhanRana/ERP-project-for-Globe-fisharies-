@@ -163,7 +163,7 @@
                                                         {{$item->category->name}}
                                                     </td>
                                                     <td>
-                                                        {{$item->product_name}}
+                                                        {{$item->supplyitem->name}}
                                                     </td>
                                                     <td>
                                                         {{$item->pivot->quantity}}

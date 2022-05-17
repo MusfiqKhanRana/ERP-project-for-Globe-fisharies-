@@ -34,5 +34,9 @@ class Order extends Model
     {
         return $this->belongsToMany(Product::class,'product_orders','order_id','product_id')->withPivot('id','quantity','discount_in_amount','discount_in_percentage','rate','status','single_cancel_massage');
     }
+    public function supplyitem()
+    {
+        return $this->hasOne(SupplyItem::class,'id', 'supply_item_id');
+    }
     
 }

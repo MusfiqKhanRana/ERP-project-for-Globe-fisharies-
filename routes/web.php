@@ -148,7 +148,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('payroll/payment-delete/{id}', [PayrollController::class,'destroy'])->name('salary-chart.delete');
 
     Route::post('payroll/individual-salary', [PayrollController::class,'individualSalary'])->name('individual-salary.search');
-
+    //---------------------Disburse Salary-------------------//
+    Route::resource('disburse-salary',DisburseSalaryController::class);
+    
     Route::get('/award',[AwardController::class,"index"] )->name('award.index');
     Route::get('/award/create',[AwardController::class,"create"] )->name('award.create');
     Route::get('/award/edit/{id}',[AwardController::class,"edit"] )->name('award.edit');
@@ -563,10 +565,4 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //------------------Provident Fund-----------------------//
 
     Route::resource('provident-fund',ProvidentFundController::class);
-
-    //---------------------Disburse Salary-------------------//
-    Route::resource('disburse-salary',DisburseSalaryController::class);
-
-
-    
 });

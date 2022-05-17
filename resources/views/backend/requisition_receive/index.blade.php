@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('site-title')
-    Customer
+    Requisition
 @endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
@@ -187,7 +187,7 @@
                                                                             <tr>
                                                                                 <td>{{++$key2}}</td>
                                                                                 <td>{{$item->category->name}}</td>
-                                                                                <td>{{$item->product_name}}</td>
+                                                                                <td>{{$item->supplyitem->name}}</td>
                                                                                 <td>{{$item->pack->name}}</td>
                                                                                 <td>
                                                                                    @php
@@ -249,7 +249,7 @@
                                                                                                         <div class="m-5 row">
                                                                                                             <input type="hidden" name="requisition_product_id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
                                                                                                             <div class="col-md-4">
-                                                                                                                <b>Product Name: {{$value->product_name}}</b>
+                                                                                                                <b>Product Name: {{$value->supplyitem->name}}</b>
                                                                                                             </div>
                                                                                                             <div class="col-md-4">
                                                                                                                 <b>Requested Quantity: {{$value->pivot->quantity}}</b>

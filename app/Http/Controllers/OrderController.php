@@ -206,7 +206,7 @@ class OrderController extends Controller
 
         foreach($product as $value){
             // return $value->product->pack;
-            $output.= '<option data-product_name="'.$value->product_name.'" data-pack_id="'.$value->pack_id.'" data-pack_name="'.$value->pack->name.'" data-pack_weight="'.$value->pack->weight.'" data-online_selling_price="'.$value->online_selling_price.'" data-inhouse_selling_price="'.$value->inhouse_selling_price.'" value="'.$value->id.'">'.$value->product_name.'-'.$value->pack->name.'</option>';
+            $output.= '<option data-supply_item_id="'.$value->supply_item_id.'" data-pack_id="'.$value->pack_id.'" data-pack_name="'.$value->pack->name.'" data-pack_weight="'.$value->pack->weight.'" data-online_selling_price="'.$value->online_selling_price.'" data-inhouse_selling_price="'.$value->inhouse_selling_price.'" value="'.$value->id.'">'.$value->supplyitem->name.'-'.$value->pack->name.'</option>';
 
         }
         $data['output'] = $output;
@@ -220,7 +220,7 @@ class OrderController extends Controller
         foreach ($warehouse->products as $key => $product) {
             if (!in_array($product->pivot->product_id,$unique_ids)){
                 array_push($unique_ids,$product->pivot->product_id);
-                array_push($process_array,['id'=> $product->id,'product_name' => $product->product_name,'stock_quantity' => $product->pivot->quantity]);
+                array_push($process_array,['id'=> $product->id,'supply_item_id' => $product->supply_item_id,'stock_quantity' => $product->pivot->quantity]);
             }
         }
         return $process_array;

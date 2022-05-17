@@ -18,4 +18,8 @@ class PartyProduct extends Model
     {
         return $this->belongsTo(Product::class);
     }
+    public function supply_item()
+    {
+        return $this->belongsTo(SupplyItem::class);
+    }
 }
