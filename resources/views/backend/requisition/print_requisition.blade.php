@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('site-title')
-    Customer
+    Requisition
 @endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
@@ -136,7 +136,7 @@
                                                 <tr>
                                                     <td>{{++$key2}}</td>
                                                     <td>{{$item->category->name}}</td>
-                                                    <td>{{$item->product_name}}</td>
+                                                    <td>{{$item->supplyitem->name}}</td>
                                                     <td>
                                                         {{$item->pack->name}}
                                                     </td>

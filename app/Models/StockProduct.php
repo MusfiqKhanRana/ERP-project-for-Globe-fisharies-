@@ -16,4 +16,8 @@ class StockProduct extends Model
     {
         return $this->hasOne(Product::class,'id', 'product_id')->withDefault();
     }
+    public function supplyitem()
+    {
+        return $this->hasOne(SupplyItem::class,'id', 'name');
+    }
 }

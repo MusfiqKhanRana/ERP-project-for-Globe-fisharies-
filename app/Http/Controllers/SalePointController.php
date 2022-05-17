@@ -31,7 +31,7 @@ class SalePointController extends Controller
 
         foreach($product as $value){
             // return $value->product->pack;
-            $output.= '<option data-pack_weight="'.$value->product->pack->weight.'" data-product_price="'.$value->price.'" data-pack_name="'.$value->product->pack->name.'" data-category_name="'.$value->product->category->name.'" value="'.$value->product_id.'">'.$value->product->product_name.'-'.$value->product->pack->name.'</option>';
+            $output.= '<option data-pack_weight="'.$value->product->pack->weight.'" data-product_price="'.$value->price.'" data-pack_name="'.$value->product->pack->name.'" data-category_name="'.$value->product->category->name.'" value="'.$value->product_id.'">'.$value->product->supplyitem->name.'-'.$value->product->pack->name.'</option>';
 
         }
         $data['output'] = $output;

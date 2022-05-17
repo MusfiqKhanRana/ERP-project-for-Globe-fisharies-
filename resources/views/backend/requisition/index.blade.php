@@ -176,7 +176,7 @@
                                                                 <tr>
                                                                     <td>{{++$key2}}</td>
                                                                     <td>{{$item->category->name}}</td>
-                                                                    <td>{{$item->product_name}}</td>
+                                                                    <td>{{$item->supplyitem->name}}</td>
                                                                     <td>
                                                                         {{$item->pack->name}}
                                                                     </td>

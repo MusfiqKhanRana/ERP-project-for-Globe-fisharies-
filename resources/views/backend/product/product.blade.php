@@ -68,9 +68,9 @@
                                 <tr>
                                     <th> Image</th>
                                     <th> Name</th>
-                                    <th> Product ID </th>
+                                    <th> Product Code </th>
                                     <th> Category</th>
-                                    <th>Buying Price</th>
+                                    {{-- <th>Buying Price</th> --}}
                                     <th>Online Selling Price</th>
                                     <th>In House Selling Price</th>
                                     <th>Pack Size</th>
@@ -80,17 +80,16 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {{-- @foreach($product as $key => $data)
+                                 {{-- @foreach($product as $key => $data)
                                     <tr id="table_tr_{{$data->id}}">
                                         <td>{{$key+1}}</td>
+                                        <td>{{$data->image}}</td>
+                                        <td>{{$data->supplyitem->name}}</td>
                                         <td>{{$data->product_id}}</td>
-                                        <td><b>{{$data->product_name}}</b></td>
                                         <td>{{$data->category->name }}</td>
-                                        <td>{{$data->unit}}</td>
-                                        <td>{{$data->buying_price}} {{$general->currency}}</td>
                                         <td>{{$data->online_selling_price}} {{$general->currency}}</td>
                                         <td>{{$data->inhouse_selling_price}} {{$general->currency}}</td>
-                                        <td>{{$data->retail_selling_price}} {{$general->currency}}</td>
+                                        <td>{{$data->safety_stock}} </td>
                                         <td>
                                             <a class="btn blue-chambray" href="{{route('product.edit', $data->id)}}"><i class="fa fa-edit"></i>Edit</a>
                                             <a class="btn red" data-status="{{$data->id}}" data-toggle="modal" class="deleteModal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
@@ -147,26 +146,31 @@
                                 <div class="col-md-12">
                                     <div class="col-md-12">
                                         <label class="control-label">Product Name</label>
-                                        <input class="form-control text-capitalize" placeholder="Product Name" type="text" required name="product_name">
+                                        <select class="form-control" name="supply_item_id">
+                                            @foreach($product_items as $a)
+                                                <option value="{{$a->id}}" >{{$a->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="col-md-12">
                                         <label class="control-label">Buying Price </label>
                                         <input class="form-control text-capitalize" placeholder="Buying Price" type="number" required name="buying_price">
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="col-md-12">
-                                        <label class="control-label">Selling Price </label>
-                                        <input type="hidden" name="selling_price" value="0">
+                                        <label class="control-label">Online Selling Price </label>
+                                        <input type="hidden" name="online_selling_price" value="0">
                                         <input class="form-control text-capitalize" placeholder="Online Selling Price" type="number" required name="online_selling_price"><br>
+                                        <label class="control-label">In House Selling Price </label>
                                         <input class="form-control text-capitalize" placeholder="In House Selling Price" type="number" required name="inhouse_selling_price"><br>
                                     </div>
                                 </div>
@@ -260,6 +264,7 @@
                     dataType:'json',
                     success:function(data)
                     {
+                        console.log(data);
                         $('tbody').html(data.table_data);
                         $('#total_records').text(data.total_data);
                     }

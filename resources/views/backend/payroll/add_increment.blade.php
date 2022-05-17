@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('site-title')
-Add Increment
+Add Increment/Decrement
 @endsection
 @section('main-content')
 
@@ -14,9 +14,9 @@ Add Increment
             });
         </script>
         @endif
-        <h3 class="page-title">HR Management  <sub>  Add Increment</sub>
+        <h3 class="page-title">HR Management  <sub>  Add Increment/Decrement</sub>
             <div class="pull-right"><a class="btn grey-mint" data-toggle="modal" href="#addModal">
-                    Add Increment
+                    Add Increment/Decrement
                     <i class="fa fa-plus"></i> </a>
             </div>
         </h3>
@@ -160,7 +160,7 @@ Add Increment
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                <h4 class="modal-title">Add Increment</h4>
+                                <h4 class="modal-title">Add Increment/Decrement</h4>
                             </div><br>
                             <form class="form-horizontal" role="form" method="post" action="{{route('increment.store')}}">
                                 {{csrf_field()}}

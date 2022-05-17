@@ -86,7 +86,7 @@
                                         <div class="col-md-9">
                                             <select id="party_products" class="multiselect text-center" style="width: 100% !important" name="party_products[]" multiple="multiple">
                                                 @foreach ($products as $item)
-                                                <option class="text-right" style="padding-left: 5% !important" value="{{$item->id}}">{{$item->product_name}}({{$item->pack->name}})</option>
+                                                <option class="text-right" style="padding-left: 5% !important" value="{{$item->id}}">{{$item->supplyitem->name}}({{$item->pack->name}})</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -133,7 +133,7 @@
                             $(".user-div").remove();
                             var $productDiv = $('#product_field').append('<div class="user-div row" style="background-color:gray;color:white;padding:2%;"></div>')
                             $.each(data, function (i, item) {
-                                 $("<div class='col-md-6'>Name :"+item.product_name+"</div><div class='col-md-6'> <input type='text' style='color:black' name='party_price[]' placeholder='Set price for party'></div><br>").appendTo( ".user-div");
+                                 $("<div class='col-md-6'>Name :"+item.supplyitem.name+"</div><div class='col-md-6'> <input type='text' style='color:black' name='party_price[]' placeholder='Set price for party'></div><br>").appendTo( ".user-div");
                                
                         });
                         }

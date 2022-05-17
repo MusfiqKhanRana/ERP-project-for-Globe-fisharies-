@@ -127,7 +127,7 @@
                                    
                                 <div class="col-md-6">
                                     <input type="hidden" name="product_id" value="{{$product->id}}">
-                                    <p><b>{{$product->product_name}}</b></p>
+                                    <p><b>{{$product->supplyitem->name}}</b></p>
                                 </div>
                             </div>
                             <label class="col-md-2 control-label">Selling price: </label>

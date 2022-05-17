@@ -37,11 +37,13 @@ class ProductOrderController extends Controller
     public function create()
     {
         $category = Category::with(['product'=>function($q){
-            $q->with('pack')->select('id','category_id','product_name','pack_id','online_selling_price','inhouse_selling_price');
+            $q->with('pack')->select('id','category_id','supply_item_id','pack_id','online_selling_price','inhouse_selling_price');
         }])->get();
+        //dd($category);
         $customer = Cutomer::all();
         $warehouse = Warehouse::all();
         $product = Product::all();
+        //dd($product);
         $areas = Area::all();
         // return $category;
         return view('backend.Order.create_order', compact('category','customer','product','warehouse','areas'));
