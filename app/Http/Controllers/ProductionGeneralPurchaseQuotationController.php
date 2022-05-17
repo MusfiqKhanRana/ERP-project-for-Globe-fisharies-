@@ -153,10 +153,10 @@ class ProductionGeneralPurchaseQuotationController extends Controller
     }
    
     public function confirmqQuotation(Request $request){
-        //dd($request);
-        $data = $request->all();
+        // dd($request);
+        // $data = $request->all();
         //dd($data);
-        $confirm= ProductionPurchaseRequisitionItem::where('id',$data['requisition_item_id'])->update(['status'=>'ConfirmQuotation']);
+        $confirm= ProductionPurchaseRequisitionItem::where('id',$request->requisition_item_id)->update(['status'=>'ConfirmQuotation']);
         //dd($confirm);
         return redirect()->route('production-quotation-confirmquotation')->withmsg('Successfully Confirmed Quotation');
     }

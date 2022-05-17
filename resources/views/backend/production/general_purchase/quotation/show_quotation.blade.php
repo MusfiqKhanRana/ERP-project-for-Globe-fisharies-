@@ -140,7 +140,7 @@
                                     </div>
                                 </div> --}}
                                 <div>
-                                    <input type="hidden" value="{{$data->id}}" id="requisition_item_id" name="requisition_item_id">
+                                    <input type="hidden" value="{{$purchase_item->id}}" id="requisition_item_id" name="requisition_item_id">
                                 </div>
                                 @endforeach
                             </tbody>
