@@ -106,7 +106,7 @@
                                         </thead>
                                         <tbody>
                                              @foreach ($data->production_requisition_item as $key2 => $item)
-                                             @if($item->status == "ShowQuotation") 
+                                             @if($item->status == "ConfirmQuotation") 
                                                 <tr>
                                                     <td>{{++$key2}}</td>
                                                     <td>{{$item->image}}</li><li>{{$item->item_name}}</li><li>{{$item->item_type_name}}</li><li>{{$item->item_unit_name}}</td>
