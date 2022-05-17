@@ -196,7 +196,7 @@
                                                                             @if($item->pivot->resolve_quantity >0)
                                                                             <td>{{++$key2}}</td>
                                                                             <td>{{$item->category->name}}</td>
-                                                                            <td>{{$item->product_name}}</td>
+                                                                            <td>{{$item->supplyitem->name}}</td>
                                                                             <td>{{$item->pack->name}}</td>
                                                                             <td>{{$item->pivot->quantity}}</td>
                                                                             <td>
@@ -246,7 +246,7 @@
                                                                             <tr>
                                                                                 <td>{{++$key2}}</td>
                                                                                 <td>{{$item->category->name}}</td>
-                                                                                <td>{{$item->product_name}}</td>
+                                                                                <td>{{$item->supplyitem->name}}</td>
                                                                                 <td>{{$item->pack->name}}</td>
                                                                                 <td>{{$item->pivot->quantity}}</td>
                                                                                 <td>
@@ -293,7 +293,7 @@
                                                                             <tr>
                                                                                 <td>{{++$key2}}</td>
                                                                                 <td>{{$item->category->name}}</td>
-                                                                                <td>{{$item->product_name}}</td>
+                                                                                <td>{{$item->supplyitem->name}}</td>
                                                                                 <td>{{$item->pack->name}}</td>
                                                                                 <td>{{$item->pivot->quantity}}</td>
                                                                                 <td>
@@ -344,7 +344,7 @@
                                                                                                         <div class="m-5 row">
                                                                                                             <input type="hidden" name="requisition_product_id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
                                                                                                             <div class="col-md-4">
-                                                                                                                <b>Product Name: {{$value->product_name}}</b>
+                                                                                                                <b>Product Name: {{$value->supplyitem->name}}</b>
                                                                                                             </div>
                                                                                                             <div class="col-md-4">
                                                                                                                 <b>Provided Quantity: <span class="provided_quantity">{{$value->pivot->final_quantity}}</span></b>
@@ -392,7 +392,7 @@
                                                                                                         <div class="m-5 row">
                                                                                                             <input type="hidden" name="requisition_product_id[{{$keyupdated}}]" value="{{$value->pivot->id}}">
                                                                                                             <div class="col-md-5">
-                                                                                                                <b>Product Name: {{$value->product_name}}</b>
+                                                                                                                <b>Product Name: {{$value->supplyitem->name}}</b>
                                                                                                             </div>
                                                                                                             <div class="col-md-5">
                                                                                                                 <b>Provided Quantity: <span class="provided_quantity">{{$value->pivot->final_quantity}}</span></b>

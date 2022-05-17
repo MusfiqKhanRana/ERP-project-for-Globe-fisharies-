@@ -13,4 +13,8 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+    public function supplyitem()
+    {
+        return $this->hasOne(SupplyItem::class,'id', 'name');
+    }
 }

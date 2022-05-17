@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-      'product_name',
+      'supply_item_id',
       'product_id',
       'buying_price',
       'selling_price',
@@ -15,12 +15,17 @@ class Product extends Model
       'inhouse_selling_price',
       'category_id',
       'pack_id',
+      'safety_stock',
       'image'
     ];
 
     public function category()
     {
         return $this->hasOne(Category::class, 'id', 'category_id');
+    }
+    public function supplyitem()
+    {
+        return $this->hasOne(SupplyItem::class,'id', 'supply_item_id');
     }
 
     public function stock()

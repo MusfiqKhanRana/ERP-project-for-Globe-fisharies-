@@ -7,6 +7,7 @@ use App\Models\Cutomer;
 use App\Models\Pack;
 use App\Models\Product;
 use App\Models\StockProduct;
+use App\Models\SupplyItem;
 use App\Models\Warehouse;
 use Faker\Provider\ar_SA\Color;
 use Illuminate\Foundation\Console\Presets\React;
@@ -18,10 +19,11 @@ class ProductController extends Controller
 {
     public function productIndex()
     {
-        // $product = Product::with('stock')->get();
+        $product = Product::with('stock')->get();
+        $product_items = SupplyItem::get();
         $category = Category::all();
         $pack = Pack::all();
-        return view('backend.product.product', compact('pack','category'));
+        return view('backend.product.product', compact('pack','category','product_items','product'));
     }
 
     public function productStore(Request $request)
@@ -29,8 +31,8 @@ class ProductController extends Controller
              
         $this->validate($request,[
             'category_id' => 'required',
-            'product_name' => 'required',
-            'buying_price' => 'required',
+            'supply_item_id' => 'required',
+            //'buying_price' => 'required',
             'online_selling_price'=>'required',
             'inhouse_selling_price'=>'required', 
         ]);
@@ -80,7 +82,7 @@ class ProductController extends Controller
         $this->validate($request,[
             'product_id' => 'required',
             'category_id' => 'required',
-            'product_name' => 'required',
+            'supply_item_id' => 'required',
             'buying_price' => 'required',
             'online_selling_price'=>'required',
             'inhouse_selling_price'=>'required',
@@ -99,7 +101,7 @@ class ProductController extends Controller
             }
             $product->update([
                'product_id' => $request->product_id,
-               'product_name' => $request->product_name,
+               'supply_item_id' => $request->supply_item_id,
                'category_id' => $request->category_id,
                'buying_price' => $request->buying_price,
                'online_selling_price' => $request->online_selling_price,
@@ -113,9 +115,9 @@ class ProductController extends Controller
 
     public function productStock()
     {
-        $product = Product::all();
+        $product = Product::get();
         $warehouse = Warehouse::all();
-        $stock_product = StockProduct::orderBy('id','desc')->get(['warehouse_id']);
+        $stock_product = StockProduct::with('product')->orderBy('id','desc')->get(['warehouse_id']);
         return view('backend.product.stock', compact('product', 'warehouse', 'stock_product'));
     }
 
@@ -206,13 +208,11 @@ class ProductController extends Controller
                             // asset('assets/images/product/images/').$row->image
                             '<img style="weidth: 60px; height: 60px; border-radius: 15px;" src="'.asset('assets/images/product/images').'/'.$row->image.'"></img>'
                         .'</td><td>'.
-                        $row->product_name
+                        $row->supplyitem->name
                         .'</td><td>'.
                             $row->product_id
                         .'</td><td>'.
                             $row->category->name
-                        .'</td><td>'.
-                            $row->buying_price
                         .'</td><td>'.
                             $row->online_selling_price
                         .'</td><td>'.

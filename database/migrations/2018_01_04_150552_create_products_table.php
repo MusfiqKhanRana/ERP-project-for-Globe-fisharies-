@@ -15,15 +15,16 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('product_name')->nullable();
+            $table->unsignedInteger('category_id')->nullable();
+            $table->unsignedInteger('supply_item_id')->nullable();
             $table->unsignedInteger('product_id')->nullable();
-            $table->string('buying_price')->nullable();
-            $table->string('selling_price')->nullable();
+            //$table->string('buying_price')->nullable();
+            //$table->string('selling_price')->nullable();
             $table->string('online_selling_price')->nullable();
             $table->string('inhouse_selling_price')->nullable();
+            $table->unsignedInteger('pack_id')->nullable();
             $table->string('safety_stock')->nullable();
             $table->string('image')->nullable();
-            $table->unsignedInteger('pack_id')->nullable();
             $table->timestamps();
         });
     }

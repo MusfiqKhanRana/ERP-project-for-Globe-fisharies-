@@ -40,7 +40,7 @@
             @endif
             
             <!-- BEGIN PAGE TITLE-->
-            <h3 class="page-title bold">Supply Management
+            <h3 class="page-title bold">Purchase Requisition
             </h3>
             <!-- END PAGE TITLE-->
             

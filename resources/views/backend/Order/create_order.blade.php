@@ -94,7 +94,7 @@
                                                 <select class="form-control product_id" id="product">
                                                     @foreach ($category as $data)
                                                         @foreach ($data->product as $product)
-                                                            <option value="{{$product->id}}" class="{{$data->id}}" title="{{$product->pack->name}}" data-pack_name="{{$product->pack->name}}" data-online_selling_price="{{$product->online_selling_price}}" data-inhouse_selling_price="{{$product->inhouse_selling_price}}" data-pack_weight="{{$product->pack->weight}}" data-pack_id="{{$product->pack->id}}" data-id="{{$data->id}}" data-name="{{$product->product_name}}">{{$product->product_name}} - {{$product->pack->name}} </option>
+                                                            <option value="{{$product->id}}" class="{{$data->id}}" title="{{$product->pack->name}}" data-pack_name="{{$product->pack->name}}" data-online_selling_price="{{$product->online_selling_price}}" data-inhouse_selling_price="{{$product->inhouse_selling_price}}" data-pack_weight="{{$product->pack->weight}}" data-pack_id="{{$product->pack->id}}" data-id="{{$data->id}}" data-name="{{$product->id}}">{{$product->supplyitem->name}} - {{$product->pack->name}} </option>
                                                         @endforeach
                                                     @endforeach
                                                 </select>
@@ -478,11 +478,11 @@
                 $("#price").val(null);
             }
             $("#product").chained("#category");
-            var category_id,category_name,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,product_name,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
+            var category_id,category_name,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,supply_item_id,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
             var product_array = [];
             $('#product').change(function(){
                 product_id = $(this).val();
-                product_name = $(this).find(':selected').data("name");
+                supply_item_id = $(this).find(':selected').data("name");
                 product_pack_id = $(this).find(':selected').data("pack_id");
                 product_pack_name = $(this).find(':selected').data("pack_name");
                 product_pack_weight = $(this).find(':selected').data("pack_weight");
@@ -536,13 +536,13 @@
                 }
             });
             $("#addbtn").click(function() {
-                product_array.push({"category_id":category_id,"category_name":category_name,"product_id":product_id,"product_name":product_name,"pack_size":$('#pack_size').val(),"quantity_packet":$('#quantity_pkt').val(),"quantity_kg":$('#quantity_kg').val(),"rate":$('#rate').val(),"percentage_discount":$('#percentage_id').val(),"amount_discount":$('#amount_id').val(),'total_price':$('#price').val(),"status":"stay"})
+                product_array.push({"category_id":category_id,"category_name":category_name,"product_id":product_id,"supply_item_id":supply_item_id,"pack_size":$('#pack_size').val(),"quantity_packet":$('#quantity_pkt').val(),"quantity_kg":$('#quantity_kg').val(),"rate":$('#rate').val(),"percentage_discount":$('#percentage_id').val(),"amount_discount":$('#amount_id').val(),'total_price':$('#price').val(),"status":"stay"})
                 $("#products").val('');
                 $("#products").val(JSON.stringify(product_array));
                 $.each( product_array, function( key, product ) {
                     if (product.status == "stay") {
                         if(product_array.length-1 == key){
-                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+product.category_name+"</td><td>"+product.product_name+"</td><td>"+$('#pack_size').val()+"</td><td>"+$('#quantity_pkt').val()+"</td><td>"+$('#quantity_kg').val()+"</td><td>"+$('#rate').val()+"</td><td>"+$('#percentage_id').val()+"</td><td>"+$('#amount_id').val()+"</td><td>"+$('#price').val()+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+product.category_name+"</td><td>"+product.supply_item_id+"</td><td>"+$('#pack_size').val()+"</td><td>"+$('#quantity_pkt').val()+"</td><td>"+$('#quantity_kg').val()+"</td><td>"+$('#rate').val()+"</td><td>"+$('#percentage_id').val()+"</td><td>"+$('#amount_id').val()+"</td><td>"+$('#price').val()+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
                         }
                     }
                 });

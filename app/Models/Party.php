@@ -14,6 +14,10 @@ class Party extends Model
     {
         return $this->belongsToMany(Product::class, 'party_products','party_id','product_id')->withPivot('id','price');
     }
-    
+
+    public function supplyitem()
+    {
+        return $this->hasOne(SupplyItem::class,'id', 'name');
+    }
 }
 

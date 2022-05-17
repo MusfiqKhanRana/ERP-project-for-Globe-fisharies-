@@ -140,7 +140,7 @@ class PartyController extends Controller
     {
         $process_array = [];
         $id = $request->id;
-        $products = Product::with('pack')->find($id);
+        $products = Product::with('pack','supplyitem')->find($id);
         // array_push($process_array,['id'=> $prod->id,'product_name' => $prod->product_name,'buying_price' => $prod->buying_price ]);
         return $products;
     }

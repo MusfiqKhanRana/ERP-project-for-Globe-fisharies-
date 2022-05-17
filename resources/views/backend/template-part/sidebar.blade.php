@@ -164,7 +164,7 @@
 
                             <li class="nav-item  @if( request()->path() == 'admin/payroll/add-increment' ) active open @endif">
                                 <a href="{{route('increment.index')}}" class="nav-link ">
-                                    <span class="title">Add Increment</span>
+                                    <span class="title">Increment/Decrement</span>
                                 </a>
                             </li>
 
@@ -478,7 +478,7 @@
                         <li class="nav-item  @if( request()->path() == 'admin/sale' ) active open @endif
                         @if( request()->path() == '' ) active open @endif">
                             <a href="{{route('order.create')}}" class="nav-link ">
-                                <span class="title">Order</span>
+                                <span class="title">Create Order</span>
                             </a>
                         </li>
                         <li class="nav-item  @if( request()->path() == '' ) active open @endif
