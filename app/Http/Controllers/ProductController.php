@@ -213,6 +213,8 @@ class ProductController extends Controller
                             $row->product_id
                         .'</td><td>'.
                             $row->category->name
+                            .'</td><td>'.
+                            $row->variant
                         .'</td><td>'.
                             $row->online_selling_price
                         .'</td><td>'.

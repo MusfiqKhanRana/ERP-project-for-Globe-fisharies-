@@ -344,6 +344,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //Menu
 
+    Route::post('party/product',[PartyController::class,'singleProductStore'])->name('party.product.store');
     Route::resource('party', PartyController::class);
     Route::resource('party-product', PratyProductController::class);
     Route::post('party/product/delete/{id}',[PratyProductController::class,'party_product_delete'])->name('party.product.delete');
