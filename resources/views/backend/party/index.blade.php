@@ -155,6 +155,7 @@
                                                 <td style="text-align: center">
                                                     <a class="btn blue"  data-toggle="modal" href="{{route('party.edit',$data->id)}}"><i class="fa fa-edit"></i> Edit</a>
                                                     <a class="btn red" data-toggle="modal" href="#deletepartyModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                                    <a class="btn btn-success" data-toggle="modal" href="#AddProductModal{{$data->id}}"><i class="fa fa-plus"></i> Add Product</a>
                                                 </td>
                                             </tr>
                                             <div id="deletepartyModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -251,6 +252,48 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div id="AddProductModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                            <h4 class="modal-title">Add Party Product</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form class="form-horizontal" role="form" method="post" action="{{route('party.product.store')}}">
+                                                                {{csrf_field()}}
+                                                                {{method_field('post')}}
+
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="inputEmail1" class="col-md-2 control-label">Product Name</label>
+                                                                        <div class="col-md-8">
+                                                                            <select class="form-control" name="party_product" >
+                                                                                @foreach ($products as $item)
+                                                                                <option value="{{$item->supplyitem->id}}">{{$item->supplyitem->name}}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div><br><br>
+                                                                    <input type="hidden" class="form-control" value="{{$data->id}}" name="party_id">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="inputEmail1" class="col-md-2 control-label">Party Price</label>
+                                                                        <div class="col-md-8">
+                                                                            <input type="text" class="form-control" required name="party_price">
+                                                                        </div>
+                                                                    </div>
+                                                                </div><br><br><br>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                                    <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Submit</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -264,4 +307,5 @@
         </div>
     </div>
 @endsection
+
 

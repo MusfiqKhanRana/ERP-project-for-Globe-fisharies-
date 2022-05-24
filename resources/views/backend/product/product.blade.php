@@ -70,7 +70,7 @@
                                     <th> Name</th>
                                     <th> Product Code </th>
                                     <th> Category</th>
-                                    {{-- <th>Buying Price</th> --}}
+                                    <th>Variant</th> 
                                     <th>Online Selling Price</th>
                                     <th>In House Selling Price</th>
                                     <th>Pack Size</th>
@@ -135,9 +135,29 @@
                                     <div class="col-md-12">
                                         <label class="control-label">Select Category</label>
                                         <select class="form-control" name="category_id">
+                                            {{-- <option value="0">-- Select Category --</option>
+                                            <option value="Block" >Block</option>
+                                            <option value="IQF" >IQF</option> --}}
                                             @foreach($category as $a)
                                                 <option value="{{$a->id}}" >{{$a->name}}</option>
                                             @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <label class="control-label">Select Variant</label>
+                                        <select class="form-control" name="variant">
+                                            <option value="0">-- Select Variant --</option>
+                                            <option value="IQF" >IQF</option>
+                                            <option value="Block Frozen" >Block Frozen</option>
+                                            <option value="Raw BF">Raw BF (Shrimp)</option>
+                                            <option value="Raw IQF" >Raw IQF (Shrimp)</option>
+                                            <option value="Semi IQF" >Semi IQF (Shrimp)</option>
+                                            <option value="Coocked IQF">Coocked IQF (Shrimp)</option>
+                                            <option value="Blanched IQF" >Blanched IQF (Shrimp)</option>
                                         </select>
                                     </div>
                                 </div>

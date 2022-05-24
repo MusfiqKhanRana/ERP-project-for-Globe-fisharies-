@@ -16,10 +16,11 @@ class PartyController extends Controller
      */
     public function index()
     {
+        $products = Product::with(['pack'])->get();
         $parties = Party::all();
         $product_party = PartyProduct::all();
         //dd($party_products);
-        return view('backend.party.index', compact('parties','product_party'));
+        return view('backend.party.index', compact('parties','product_party','products'));
     }
 
     /**
@@ -143,5 +144,17 @@ class PartyController extends Controller
         $products = Product::with('pack','supplyitem')->find($id);
         // array_push($process_array,['id'=> $prod->id,'product_name' => $prod->product_name,'buying_price' => $prod->buying_price ]);
         return $products;
+    }
+    public function singleProductStore(Request $request){
+        //$data = $request->all();
+        //dd($request);
+       
+            $product_order = PartyProduct::create([
+                'party_id' => $request->party_id,
+                'product_id' => $request->party_product,
+                'price' => $request->party_price, 
+            ]);
+            
+        return redirect()->back()->withMsg("Successfully added Product to The List");
     }
 }
