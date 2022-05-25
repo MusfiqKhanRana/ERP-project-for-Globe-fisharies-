@@ -194,27 +194,37 @@ class ProductionPurchaseRequisitionController extends Controller
     public function cs_data_pass(Request $request){
         // dd($request->all());
         $data = $request->all();
-        for ($i=0; $i <count($data['quotation_id'])  ; $i++) { 
-            // $newPrice = array('negotiable_price'=>$data['negotiable_price'][$i]);
-            // $newRemark = array('cs_remark'=>$data['cs_remark'][$i]);
+        for ($i=0; $i <count($data['quotation_id']); $i++) { 
             $x = ProductionGeneralPurchaseQuotation::where('id',$data['quotation_id'][$i])->first();
-            $x->update([
-                'negotiable_price'=>serialize(array_push($data['negotiable_price'][$i])),
-                'cs_remark' =>serialize(array_push($data['cs_remark'][$i])),
-                "status"=>"InNegotiation",
-            ]);
+            $price_arr =array($data['negotiable_price'][$i]);
+            $remark_arr = array($data['cs_remark'][$i]);
+            $price_se =serialize($price_arr);
+            $remark_se = serialize($remark_arr);
+            if ($x->negotiable_price ==null && $x->cs_remark==null) {
+                // dd('empty');
+                $x->update([
+                    'negotiable_price'=>$price_se,
+                    'cs_remark' =>$remark_se,
+                    "status"=>"InNegotiation",
+                ]);
+            }else{
+                $price = unserialize($x->negotiable_price);
+                $remark = unserialize($x->cs_remark);
+                $price_a_p = array_push($price,$data['negotiable_price'][$i]);
+                $remark_a_p = array_push($remark,$data['cs_remark'][$i]);
+                $price_a_p_se = serialize($price_a_p);
+                $remark_a_p_se = serialize($remark_a_p);
+                // dd($price,$remark);
+                $x->update([
+                    'negotiable_price'=>$price_a_p_se,
+                    'cs_remark' =>$remark_a_p_se,
+                    "status"=>"InNegotiation",
+                ]);
+                $price = null;
+                $remark = null;
+            }
             $x = null;
         }
-        // foreach ($data['quotation_id'] as $key => $value) {
-        //     echo(serialize($data['cs_remark'][$key])).$key."<br>";
-        //     // $x = ProductionGeneralPurchaseQuotation::where('id',$value)->first();
-        //     // $x->update([
-        //     //     'negotiable_price'=>serialize($data['negotiable_price'][$key]),
-        //     //     'cs_remark' =>serialize($data['cs_remark'][$key]),
-        //     //     "status"=>"InNegotiation",
-        //     // ]);
-        // }
-        // dd('good');
         return redirect()->back()->withmsg('Successfully Send For Negotiation');
     }
 

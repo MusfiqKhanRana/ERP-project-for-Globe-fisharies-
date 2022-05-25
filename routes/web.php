@@ -344,7 +344,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //Menu
 
-    Route::post('party/product',[PartyController::class,'singleProductStore'])->name('party.product.store');
     Route::resource('party', PartyController::class);
     Route::resource('party-product', PratyProductController::class);
     Route::post('party/product/delete/{id}',[PratyProductController::class,'party_product_delete'])->name('party.product.delete');
@@ -535,9 +534,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     
 
     //Cs List
-    Route::get('production/purchase/cs/show', function () {
-        return view('backend.production.general_purchase.cs/cs_list_show');
-    })->name('production.purchase.cs.show');
+    // Route::get('production/purchase/cs/show', function () {
+    //     return view('backend.production.general_purchase.cs/cs_list_show');
+    // })->name('production.purchase.cs.show');
 
     //Route::resource('production-quotation-confirm',ProductionRequisitionItemController::class);
     Route::get('production/quotation/confirm/{id}',[ProductionGeneralPurchaseQuotationController::class,'quotation_confirm'])->name('production.quotation.confirm');
@@ -554,6 +553,21 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('production-purchase-quotation/status/add/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_addquotation'])->name('production-general_purchase.status_addquotation');
     Route::post('production-purchase-quotation/status/show/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_showquotation'])->name('production-general_purchase.status_showquotation');
     //Route::get('production-purchase-quotation/status/comfirm/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_confirmquotation'])->name('production-general_purchase.status_confirmquotation');
+    Route::get('inventory/manage-location/Locate_item', function () {
+        return view('backend.production.inventory.manage_location.locate_item');
+    })->name('inventory.location.locate_item');
+    Route::get('inventory/manage-location/located_item_list', function () {
+        return view('backend.production.inventory.manage_location.located_item_list');
+    })->name('inventory.location.located_item_list');
+    Route::get('inventory/cold_storage/bulk_storage', function () {
+        return view('backend.production.inventory.cold_storage.bulk_storage');
+    })->name('inventory.cold_storage.bulk_storage');
+    Route::get('inventory/cold_storage/export_storage_1', function () {
+        return view('backend.production.inventory.cold_storage.export_storage_1');
+    })->name('inventory.cold_storage.export_storage_1');
+    Route::get('inventory/cold_storage/export_storage_2', function () {
+        return view('backend.production.inventory.cold_storage.export_storage_2');
+    })->name('inventory.cold_storage.export_storage_2');
 
     
     Route::resource('user-shift',UserShiftController::class);
