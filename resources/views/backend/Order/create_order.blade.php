@@ -80,24 +80,20 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <label for="">Category</label>
-                                                <select class="form-control" id="category">
-                                                    <option selected>Select</option>
-                                                    @foreach($category as $data)
-                                                        <option value="{{$data->id}}" data-name="{{$data->name}}">{{$data->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            
                                             <div class="col-md-6">
                                                 <label for="product">Product</label>
                                                 <select class="form-control product_id" id="product">
-                                                    @foreach ($category as $data)
-                                                        @foreach ($data->product as $product)
-                                                            <option value="{{$product->id}}" class="{{$data->id}}" title="{{$product->pack->name}}" data-pack_name="{{$product->pack->name}}" data-online_selling_price="{{$product->online_selling_price}}" data-inhouse_selling_price="{{$product->inhouse_selling_price}}" data-pack_weight="{{$product->pack->weight}}" data-pack_id="{{$product->pack->id}}" data-id="{{$data->id}}" data-name="{{$product->id}}">{{$product->supplyitem->name}} - {{$product->pack->name}} </option>
-                                                        @endforeach
+                                                    
+                                                    @foreach ($products as $product)
+                                                        <option value="{{$product->id}}" data-category_type="{{$product->category_type}}" title="{{$product->pack->name}}" data-pack_name="{{$product->pack->name}}" data-online_selling_price="{{$product->online_selling_price}}" data-inhouse_selling_price="{{$product->inhouse_selling_price}}" data-pack_weight="{{$product->pack->weight}}" data-pack_id="{{$product->pack->id}}" data-id="{{$product->id}}" data-product_name="{{$product->supplyitem->name}}">{{$product->supplyitem->name}} - {{$product->category_type}} </option>
                                                     @endforeach
+                                                    
                                                 </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="product">Category</label>
+                                                <input type="text" class="form-control" id="category" readonly>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="product">Pack Size</label>
@@ -478,17 +474,19 @@
                 $("#price").val(null);
             }
             $("#product").chained("#category");
-            var category_id,category_name,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,supply_item_id,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
+            var category_type,category_name,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,product_name,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
             var product_array = [];
             $('#product').change(function(){
                 product_id = $(this).val();
-                supply_item_id = $(this).find(':selected').data("name");
+                product_name = $(this).find(':selected').data("product_name");
+                category_type = $(this).find(':selected').data("category_type");
                 product_pack_id = $(this).find(':selected').data("pack_id");
                 product_pack_name = $(this).find(':selected').data("pack_name");
                 product_pack_weight = $(this).find(':selected').data("pack_weight");
                 product_online_rate = $(this).find(':selected').data("online_selling_price");
                 product_inhouse_rate = $(this).find(':selected').data("inhouse_selling_price");
                 $('#pack_size').val(product_pack_name);
+                $('#category').val(category_type);
                 $("#rate").empty();
                 var customer_type = $('#customer_type').html();
                 var selling_price = null;
@@ -536,13 +534,14 @@
                 }
             });
             $("#addbtn").click(function() {
-                product_array.push({"category_id":category_id,"category_name":category_name,"product_id":product_id,"supply_item_id":supply_item_id,"pack_size":$('#pack_size').val(),"quantity_packet":$('#quantity_pkt').val(),"quantity_kg":$('#quantity_kg').val(),"rate":$('#rate').val(),"percentage_discount":$('#percentage_id').val(),"amount_discount":$('#amount_id').val(),'total_price':$('#price').val(),"status":"stay"})
+                product_array.push({"category_type":category_type,"product_id":product_id,"product_name":product_name,"pack_size":$('#pack_size').val(),"quantity_packet":$('#quantity_pkt').val(),"quantity_kg":$('#quantity_kg').val(),"rate":$('#rate').val(),"percentage_discount":$('#percentage_id').val(),"amount_discount":$('#amount_id').val(),'total_price':$('#price').val(),"status":"stay"})
                 $("#products").val('');
                 $("#products").val(JSON.stringify(product_array));
                 $.each( product_array, function( key, product ) {
+                    console.log(product);
                     if (product.status == "stay") {
                         if(product_array.length-1 == key){
-                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+product.category_name+"</td><td>"+product.supply_item_id+"</td><td>"+$('#pack_size').val()+"</td><td>"+$('#quantity_pkt').val()+"</td><td>"+$('#quantity_kg').val()+"</td><td>"+$('#rate').val()+"</td><td>"+$('#percentage_id').val()+"</td><td>"+$('#amount_id').val()+"</td><td>"+$('#price').val()+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+product.product_name+"</td><td>"+product.category_type+"</td><td>"+$('#pack_size').val()+"</td><td>"+$('#quantity_pkt').val()+"</td><td>"+$('#quantity_kg').val()+"</td><td>"+$('#rate').val()+"</td><td>"+$('#percentage_id').val()+"</td><td>"+$('#amount_id').val()+"</td><td>"+$('#price').val()+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
                         }
                     }
                 });
