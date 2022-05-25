@@ -181,8 +181,8 @@
                             </li>
 
                             <li class="nav-item  @if( request()->path() == 'admin/payroll' ) active open @endif">
-                                <a href="{{route('bonous.index')}}" class="nav-link ">
-                                    <span class="title">Bonous / Additions</span>
+                                <a href="{{route('bonus.index')}}" class="nav-link ">
+                                    <span class="title">Bonus / Additions</span>
                                 </a>
                             </li>
 

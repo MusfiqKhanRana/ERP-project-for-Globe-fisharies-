@@ -15,6 +15,12 @@ class CreateBonusesTable extends Migration
     {
         Schema::create('bonuses', function (Blueprint $table) {
             $table->id();
+            $table->integer('bonus_code')->nullable();
+            $table->date('date')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->integer('amount')->nullable();
+            $table->string('bonus_category')->nullable();
+            $table->string('remark')->nullable();
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@ class CreateIncrementsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('department_id')->nullable();
             $table->unsignedBigInteger('designation_id')->nullable();
-            $table->integer('user_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->date('date')->nullable();
             $table->string('type')->nullable();
             $table->integer('increment_amount')->nullable();

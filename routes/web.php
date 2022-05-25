@@ -43,6 +43,7 @@ use App\Http\Controllers\MicrobiologicalTestController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PackControler;
 use App\Http\Controllers\PartyController;
+use App\Http\Controllers\payroll\BonusController;
 use App\Http\Controllers\payroll\IncrementController;
 use App\Http\Controllers\Payroll\ProvidentFundController;
 use App\Http\Controllers\PersonalManagementController;
@@ -137,6 +138,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('absent-application', AbsentApplicationController::class);
     Route::post('/attendance-show-cause/change-status', [AttendanceShowCauseController::class, 'changeStatus'])->name('attendance.show-cause.change-status');
     Route::resource('show-cause-application', AttendanceShowCauseController::class);
+
+
+
+    Route::resource('bonus', BonusController::class);
 
     Route::get('payroll/advance-loan',[PayrollController::class,'advance_loan'])->name('payroll.advance-loan');
     Route::get('payroll/add-increment',[PayrollController::class,'addIncrement'])->name('payroll.add-increment');

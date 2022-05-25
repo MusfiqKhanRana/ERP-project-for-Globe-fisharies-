@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\payroll;
 
+use App\Http\Controllers\Controller;
 use App\Models\Bonus;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class BonusController extends Controller
      */
     public function index()
     {
-        //
+        $bonus = Bonus::all();
+        return view('backend.payroll.bonus_index',compact('bonus'));
     }
 
     /**
@@ -41,10 +43,10 @@ class BonusController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Bonus  $bonus
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Bonus $bonus)
+    public function show($id)
     {
         //
     }
@@ -52,10 +54,10 @@ class BonusController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Bonus  $bonus
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bonus $bonus)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +66,10 @@ class BonusController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Bonus  $bonus
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bonus $bonus)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +77,10 @@ class BonusController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Bonus  $bonus
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bonus $bonus)
+    public function destroy($id)
     {
         //
     }
