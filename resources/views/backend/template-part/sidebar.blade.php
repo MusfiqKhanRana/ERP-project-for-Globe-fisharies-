@@ -845,17 +845,66 @@
                         </a>
                         <ul class="sub-menu">
                             <li class="nav-item">
-                                {{-- <a href="{{route('production.processing.iqf')}}" class="nav-link ">
-                                    <span class="title">IQF</span>
-                                </a> --}}
-                                <a href="{{route('inventory.store_in')}}" class="nav-link ">
-                                    <span class="title">Store In</span>
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="fa fa-user"></i>
+                                    <span class="title">Store</span>
+                                    <span class="arrow"></span>
                                 </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item">
+                                        <a href="{{route('inventory.store_in')}}" class="nav-link ">
+                                            <span class="title">Store In</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{route('inventory.store_in')}}" class="nav-link ">
+                                            <span class="title">Store Out</span>
+                                        </a>
+                                    </li>  
+                                </ul>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('inventory.store_in')}}" class="nav-link ">
-                                    <span class="title">Store Out</span>
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="fa fa-user"></i>
+                                    <span class="title">Manage Location</span>
+                                    <span class="arrow"></span>
                                 </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item">
+                                        <a href="{{route('inventory.location.locate_item')}}" class="nav-link ">
+                                            <span class="title">Locate Item</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{route('inventory.location.located_item_list')}}" class="nav-link ">
+                                            <span class="title">Located Item List</span>
+                                        </a>
+                                    </li>  
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="fa fa-user"></i>
+                                    <span class="title">Cold Storage</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item">
+                                        <a href="{{route('inventory.cold_storage.bulk_storage')}}" class="nav-link ">
+                                            <span class="title">Bulk Storage</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{route('inventory.cold_storage.export_storage_1')}}" class="nav-link ">
+                                            <span class="title">Export Storage 1</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{route('inventory.cold_storage.export_storage_2')}}" class="nav-link ">
+                                            <span class="title">Export Storage 2</span>
+                                        </a>
+                                    </li>  
+                                </ul>
                             </li>
                         </ul>
                     </li>
