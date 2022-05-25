@@ -111,7 +111,7 @@
                                                      @if ($item->pivot->status == "Received" || $item->pivot->status == Null)
                                                         <tr>
                                                             <th>{{++$key2}}</th>
-                                                                <th>{{$item->category->name}}</th>
+                                                                <th>{{$item->category_type}}</th>
                                                                 <th>{{$item->supplyitem->name}}</th>
                                                                 <th>{{$item->pivot->quantity}}</th>
                                                                 <th>
@@ -624,9 +624,9 @@
                                                                                     <label for="">Category</label>
                                                                                     <select name="category_id" class="form-control category">
                                                                                         <option selected>Select</option>
-                                                                                        @foreach($category as $data)
+                                                                                        {{-- @foreach($category as $data)
                                                                                             <option value="{{$data->id}}" data-name="{{$data->name}}">{{$data->name}}</option>
-                                                                                        @endforeach
+                                                                                        @endforeach --}}
                                                                                     </select>
                                                                                 </div>
                                                                                 <div class="col-md-6">

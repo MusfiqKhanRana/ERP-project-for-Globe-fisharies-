@@ -134,13 +134,13 @@
                                 <div class="col-md-12">
                                     <div class="col-md-12">
                                         <label class="control-label">Select Category</label>
-                                        <select class="form-control" name="category_id">
-                                            {{-- <option value="0">-- Select Category --</option>
+                                        <select class="form-control" name="category_type">
+                                            <option value="0">-- Select Category --</option>
                                             <option value="Block" >Block</option>
-                                            <option value="IQF" >IQF</option> --}}
-                                            @foreach($category as $a)
+                                            <option value="IQF" >IQF</option>
+                                            {{-- @foreach($category as $a)
                                                 <option value="{{$a->id}}" >{{$a->name}}</option>
-                                            @endforeach
+                                            @endforeach --}}
                                         </select>
                                     </div>
                                 </div>

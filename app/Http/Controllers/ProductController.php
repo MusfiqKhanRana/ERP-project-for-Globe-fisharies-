@@ -30,7 +30,7 @@ class ProductController extends Controller
     {
              
         $this->validate($request,[
-            'category_id' => 'required',
+            'category_type' => 'required',
             'supply_item_id' => 'required',
             //'buying_price' => 'required',
             'online_selling_price'=>'required',
@@ -45,7 +45,7 @@ class ProductController extends Controller
             $filename = time() . '.' . 'jpg';
             $data['image'] =  $filename;
             $location = 'assets/images/product/images/'. $filename;
-            Image::make($image)->save($location);
+            Image::make($image)->resize(260,266)->save($location);
         }
         // dd($data);
         Product::create($data);
@@ -81,7 +81,7 @@ class ProductController extends Controller
              
         $this->validate($request,[
             'product_id' => 'required',
-            'category_id' => 'required',
+            'category_type' => 'required',
             'supply_item_id' => 'required',
             'buying_price' => 'required',
             'online_selling_price'=>'required',
@@ -96,13 +96,13 @@ class ProductController extends Controller
                 $image = $request->file('image');
                 $filename = time() . '.' . 'jpg';
                 $location = 'assets/images/product/images/'. $filename;
-                Image::make($image)->save($location);
+                Image::make($image)->resize(160,106)->save($location);
                 $product->image =  $filename;
             }
             $product->update([
                'product_id' => $request->product_id,
                'supply_item_id' => $request->supply_item_id,
-               'category_id' => $request->category_id,
+               'category_type' => $request->category_type,
                'buying_price' => $request->buying_price,
                'online_selling_price' => $request->online_selling_price,
                'inhouse_selling_price' => $request->inhouse_selling_price,
@@ -167,7 +167,7 @@ class ProductController extends Controller
             $query = $request->get('query');
             $data = null;
             if($query != null){
-                $data = Product::with(['pack','stock'])->where('category_id', 'like', '%'.$query.'%')
+                $data = Product::with(['pack','stock'])->where('category_type', 'like', '%'.$query.'%')
                         ->orWhere('product_name', 'like', '%'.$query.'%')
                         ->orWhere('product_id', 'like', '%'.$query.'%')
                         ->orWhere('buying_price', 'like', '%'.$query.'%')
@@ -212,7 +212,7 @@ class ProductController extends Controller
                         .'</td><td>'.
                             $row->product_id
                         .'</td><td>'.
-                            $row->category->name
+                            $row->category_type
                             .'</td><td>'.
                             $row->variant
                         .'</td><td>'.

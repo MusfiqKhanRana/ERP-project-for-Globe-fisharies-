@@ -42,11 +42,11 @@ class ProductOrderController extends Controller
         //dd($category);
         $customer = Cutomer::all();
         $warehouse = Warehouse::all();
-        $product = Product::all();
+        $products = Product::all();
         //dd($product);
         $areas = Area::all();
         // return $category;
-        return view('backend.Order.create_order', compact('category','customer','product','warehouse','areas'));
+        return view('backend.Order.create_order', compact('category','customer','products','warehouse','areas'));
     }
     /**
      * Store a newly created resource in storage.
@@ -78,7 +78,7 @@ class ProductOrderController extends Controller
                 $product_order = ProductOrder::create([
                     'order_id' => $order->id,
                     'product_id' => $product->product_id,
-                    'category_id' => $product->category_id,
+                    'category_type' => $product->category_type,
                     'quantity' => $product->quantity_packet,
                     'discount_in_amount' => floatval($product->amount_discount),
                     'discount_in_percentage' => floatval($product->percentage_discount),
