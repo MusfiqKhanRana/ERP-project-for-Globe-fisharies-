@@ -80,6 +80,7 @@ use App\Http\Controllers\TempTherController;
 use App\Http\Controllers\TiffinBillController;
 use App\Http\Controllers\RoPlantController;
 use App\Http\Controllers\UserShiftController;
+use App\Http\Controllers\Wastage\WastageController;
 use App\Models\ProductionProcessingGrade;
 use App\Models\ProductionPurchaseRequisitionItem;
 use App\Models\ProductionRequisition;
@@ -588,5 +589,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('provident-fund',ProvidentFundController::class);
 
     //---------------- Raw and Wastage-----------------------//
-    Route::resource('raw_wastage',RawAndWastageController::class);
+    Route::resource('raw_wastage',WastageController::class);
 });
