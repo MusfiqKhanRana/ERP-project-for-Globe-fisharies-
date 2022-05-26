@@ -73,6 +73,7 @@ use App\Http\Controllers\ProductionSupplyListController;
 use App\Http\Controllers\ProductionTestController;
 use App\Http\Controllers\ProductionUnloadController;
 use App\Http\Controllers\ProductionUserPerformanceController;
+use App\Http\Controllers\RawAndWastageController;
 use App\Http\Controllers\SupplyItemController;
 use App\Http\Controllers\TempMonitoringController;
 use App\Http\Controllers\TempTherController;
@@ -585,4 +586,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //------------------Provident Fund-----------------------//
 
     Route::resource('provident-fund',ProvidentFundController::class);
+
+    //---------------- Raw and Wastage-----------------------//
+    Route::resource('raw_wastage',RawAndWastageController::class);
 });

@@ -3,6 +3,17 @@
 @section('site-title')
 Bonus Records
 @endsection
+@section('css')
+    <style>
+        .searchbox {
+    border:1px solid #456879;
+    border-radius:6px;
+    height: 22px;
+    width: 200p;
+    margin-top: 5px;
+}
+    </style>
+@endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
@@ -57,17 +68,18 @@ Bonus Records
                                 @foreach($bonus as $key=> $data)
                                     <tr id="row1">
                                         <td>{{ $data->id }}</td>
-                                        <td class="text-align: center;"> {{--$data->date--}}</td>
-                                        <td class="text-align: center;"> {{--$data->replace_record--}}</td>
-                                        <td class="text-align: center;"> {{--$data->frozen--}}</td>
-                                        <td class="text-align: center;"> {{--$data->bayer--}}</td>
-                                        <td class="text-align: center;"> {{--$data->manager--}}</td>
+                                        <td class="text-align: center;"> {{$data->bonus_code}}</td>
+                                        <td class="text-align: center;"> {{$data->date}}</td>
+                                        <td class="text-align: center;"> {{$data->user->name}}</td>
+                                        <td class="text-align: center;"> {{$data->amount}}</td>
+                                        <td class="text-align: center;"> {{$data->bonus_category}}</td>
+                                        <td class="text-align: center;"> {{$data->remark}}</td>
                                         <td style="text-align: center">
-                                            <a class="btn btn-info"  data-toggle="modal" href="#editModal{{--$data->id--}}"><i class="fa fa-edit"></i> Edit</a>
-                                            <a class="btn red" data-toggle="modal" href="#deleteModal{{--$data->id--}}"><i class="fa fa-trash"></i> Delete</a>
+                                            <a class="btn btn-info"  data-toggle="modal" href="#editModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
+                                            <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
                                         </td>
                                     </tr>
-                                    {{-- <div id="deleteModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    <div id="deleteModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                         {{csrf_field()}}
                                         <input type="hidden" value="" id="delete_id">
                                         <div class="modal-dialog">
@@ -81,7 +93,7 @@ Bonus Records
                                                         <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
                                                     </div>
                                                     <div class="caption pull-right">
-                                                        <form action="{{route('production_test.destroy',[$data->id])}}" method="POST">
+                                                        <form action="{{route('bonus.destroy',[$data->id])}}" method="POST">
                                                             @method('DELETE')
                                                             @csrf
                                                             <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
@@ -99,53 +111,49 @@ Bonus Records
                                                     <h4 class="modal-title">Update Production Test</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form class="form-horizontal" role="form" method="post" action="{{route('production_test.update', $data->id)}}">
+                                                    <form class="form-horizontal" role="form" method="post" action="{{route('bonus.update', $data->id)}}">
                                                         {{csrf_field()}}
                                                         {{method_field('put')}}
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <label for="inputEmail1" class="col-md-2 control-label">Date</label>
-                                                                <input type="text" class="form-control" value="{{$data->date}}" required name="date">
-                                                            </div>
-                                                        </div>
-                                                      
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <label class="col-md-4 control-label">Replacement Record</label>
-                                                                <input type="text" class="form-control" value="{{$data->replace_record}}" name="replace_record" >
+                                                                <input type="date" class="form-control" value="{{$data->date}}" required name="date">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-12">
-                                                                <label for="inputEmail1" class="col-md-2 control-label">Frozen or Opent</label>
-                                                                <input type="text" class="form-control" value="{{$data->frozen}}" name="frozen" >
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Name</label>
+                                                                <select class="form-control" name="user_id" required>
+                                                                    @foreach($users as $user)
+                                                                        <option value="{{$user->id}}" {{ $data->user->id == $user->id ? 'selected' : '' }}>{{$user->name}}</option>
+                                                                    @endforeach
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-12">
-                                                                <label for="inputEmail1" class="col-md-2 control-label">Bayer</label>
-                                                                <input type="text" class="form-control" value="{{$data->bayer}}" name="bayer" >
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Amount</label>
+                                                                <input type="text" class="form-control" value="{{$data->amount}}" required name="amount" >
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-12">
-                                                                <label for="inputEmail1" class="col-md-2 control-label">Manager</label>
-                                                                <input type="text" class="form-control" value="{{$data->manager}}" name="manager" >
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Bonus Category</label>
+                                                                <select class="form-control" name="bonus_category" required>
+                                                                    <option value="{{$data->bonus_category}}">{{$data->bonus_category}}</option>
+                                                                    <option value="Festival" >Festival</option>
+                                                                    <option value="Performance" >Performance</option>
+                                                                    <option value="Donation">Donation</option>
+                                                                    <option value="Other" >Other</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
-                                                                <textarea type="text" class="form-control" value="{{$data->remark}}" required name="remark"></textarea>
+                                                                <input type="text" class="form-control" value="{{$data->remark}}" name="remark">
                                                             </div>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <label  for="inputEmail1" class="col-md-2 control-label">Description</label>
-                                                                <textarea type="text" class="form-control"  value="{{$data->description}}" name="description" ></textarea>
-                                                            </div>
-                                                        </div>
-                                                        
                                                         <div class="modal-footer">
                                                             <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                                             <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
@@ -154,7 +162,7 @@ Bonus Records
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> --}}
+                                    </div>
                                 @endforeach
                             </tbody>
                         </table>
@@ -165,7 +173,7 @@ Bonus Records
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                <h4 class="modal-title">Add New Test</h4>
+                                <h4 class="modal-title">Add New Bonus Record</h4>
                             </div><br>
                             <form class="form-horizontal" role="form" method="post" action="{{route('bonus.store')}}">
                                 {{csrf_field()}}
@@ -173,27 +181,45 @@ Bonus Records
                                 <div class="form-group">
                                     <label for="inputEmail1" class="col-md-2 control-label">Date</label>
                                     <div class="col-md-8">
-                                        <input type="date" class="form-control" name="date" >
+                                        <input type="date" class="form-control" name="date" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Name</label>
                                     <div class="col-md-8">
-                                        <textarea class="form-control" name="user_id" placeholder="Type Description" value=""></textarea>
+                                        <select class="form-control" name="user_id" id="listBox1" required>
+                                            <option value="" selected>--select--</option>
+                                            @foreach($users as $user)
+                                                <option value="{{$user->id}}" >{{$user->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputEmail1" class="col-md-2 control-label">Amount</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="amount" placeholder="Type Replacement Record"  >
+                                        <input type="number" class="form-control" name="amount" placeholder="" required  >
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputEmail1" class="col-md-2 control-label">Bonus Category</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="bonus_category" placeholder="Type Frozen or Opent" >
+                                        <select class="form-control" name="bonus_category" required>
+                                            <option value="" selected>-- Select Bonus Category --</option>
+                                            <option value="Festival" >Festival</option>
+                                            <option value="Performance" >Performance</option>
+                                            <option value="Donation">Donation</option>
+                                            <option value="Other" >Other</option>
+                                        </select>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" name="remark" placeholder="Type Remark" >
+                                    </div>
+                                </div>
+                                    <input type="hidden" class="form-control" name="bonus_code">
                                 <div class="modal-footer">
                                     <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                     <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
@@ -206,3 +232,161 @@ Bonus Records
         </div>
     </div>
 @endsection
+{{-- @section('script')
+<script type="text/javascript">
+$(document).ready(function ($) {
+
+    $.fn.searchit = function (options) {
+
+        return this.each(function () {
+
+            $.fn.searchit.globals = $.fn.searchit.globals || {
+                counter: 0
+            }
+            $.fn.searchit.globals.counter++;
+            var $counter = $.fn.searchit.globals.counter;
+
+            var $t = $(this);
+            var opts = $.extend({}, $.fn.searchit.defaults, options);
+
+            // Setup default text field and class
+            if (opts.textField == null) {
+                $t.before("<input type='textbox' id='__searchit" + $counter + "'><br>");
+                opts.textField = $('#__searchit' + $counter);
+            }
+            if (opts.textField.length > 1) opts.textField = $(opts.textField[0]);
+
+            if (opts.textFieldClass) opts.textField.addClass(opts.textFieldClass);
+            //MY CODE-------------------------------------------------------------------
+            if (opts.selected) opts.textField.val($(this).find(":selected").val());
+            //MY CODE ENDS HERE -------------------------------------------------------
+            if (opts.dropDown) {
+                $t.css("padding", "5px")
+                    .css("margin", "-5px -20px -5px -5px");
+
+                $t.wrap("<div id='__searchitWrapper" + $counter + "' />");
+                opts.wrp = $('#__searchitWrapper' + $counter);
+                opts.wrp.css("display", "inline-block")
+                    .css("vertical-align", "top")
+                    .css("overflow", "hidden")
+                    .css("border", "solid grey 1px")
+                    
+                    .hide();
+                if (opts.dropDownClass) opts.wrp.addClass(opts.dropDownClass);
+            }
+
+            opts.optionsFiltered = [];
+            opts.optionsCache = [];
+
+            // Save listbox current content
+            $t.find("option").each(function (index) {
+                opts.optionsCache.push(this);
+            });
+
+            // Save options 
+            $t.data('opts', opts);
+
+            // Hook listbox click
+            $t.click(function (event) {
+                _opts($t).textField.val($(this).find(":selected").text());
+                _opts($t).wrp.hide();
+                event.stopPropagation();
+            });
+
+            // Hook html page click to close dropdown
+            $("html").click(function () {
+                _opts($t).wrp.hide();
+            });
+
+            // Hook the keyboard and we're done
+            _opts($t).textField.keyup(function (event) {
+                if (event.keyCode == 13) {
+                    $(this).val($t.find(":selected").text());
+                    _opts($t).wrp.hide();
+                    return;
+                }
+                setTimeout(_findElementsInListBox($t, $(this)), 50);
+            })
+
+        })
+
+
+        function _findElementsInListBox(lb, txt) {
+
+            if (!lb.is(":visible")) {
+                _showlb(lb);
+            }
+
+            _opts(lb).optionsFiltered = [];
+            var count = _opts(lb).optionsCache.length;
+            var dropDown = _opts(lb).dropDown;
+            var searchText = txt.val().toLowerCase();
+
+            // find match (just the old classic loop, will make the regexp later)
+            $.each(_opts(lb).optionsCache, function (index, value) {
+                if ($(value).text().toLowerCase().indexOf(searchText) > -1) {
+                    // save matching items 
+                    _opts(lb).optionsFiltered.push(value);
+                }
+
+                // Trigger a listbox reload at the end of cycle    
+                if (!--count) {
+                    _filterListBox(lb);
+                }
+            });
+        }
+
+        function _opts(lb) {
+            return lb.data('opts');
+        }
+
+        function _showlb(lb) {
+            if (_opts(lb).dropDown) {
+                var tf = _opts(lb).textField;
+                lb.attr("size", _opts(lb).size);
+                _opts(lb).wrp.show().offset({
+                    top: tf.offset().top + tf.outerHeight(),
+                    left: tf.offset().left
+                });
+                _opts(lb).wrp.css("width", tf.outerWidth() + "px");
+                lb.css("width", (tf.outerWidth() + 25) + "px");
+            }
+        }
+
+        function _filterListBox(lb) {
+            lb.empty();
+
+            if (_opts(lb).optionsFiltered.length == 0) {
+                lb.append("<option>" + _opts(lb).noElementText + "</option>");
+            } else {
+                $.each(_opts(lb).optionsFiltered, function (index, value) {
+                    lb.append(value);
+                });
+                lb[0].selectedIndex = 0;
+            }
+        }
+    }
+
+    $.fn.searchit.defaults = {
+        textField: null,
+        textFieldClass: null,
+        dropDown: true,
+        dropDownClass: null,
+        size: 5,
+        filtered: true,
+        noElementText: "No elements found",
+        //MY CODE------------------------------------------
+        selected: false
+        //MY CODE ENDS ------------------------------------
+    }
+
+}(jQuery))
+
+ $("select").searchit({
+    textFieldClass: 'searchbox',
+    selected: true
+
+});
+$(".searchbox").val($("#listBox1 :selected").val())
+</script>
+@endsection --}}

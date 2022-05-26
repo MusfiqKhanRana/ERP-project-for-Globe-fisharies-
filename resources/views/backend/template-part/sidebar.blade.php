@@ -918,7 +918,7 @@
             </li>
             
             <li class="nav-item">
-                <a href="" class="nav-link nav-toggle" >
+                <a href="{{route('raw_wastage.index')}}" class="nav-link nav-toggle" >
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     <span class="title">Raw Product & Wastage</span>
                     <span class="selected"></span>
