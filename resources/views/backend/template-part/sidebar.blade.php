@@ -918,10 +918,17 @@
             </li>
             
             <li class="nav-item">
-                <a href="{{route('raw_wastage.index')}}" class="nav-link nav-toggle" >
+                <a href="" class="nav-link nav-toggle" >
                     <i class="fa fa-trash" aria-hidden="true"></i>
-                    <span class="title">Raw Product & Wastage</span>
+                    <span class="title">Wastage Management</span>
                     <span class="selected"></span>
+                    <ul class="sub-menu">
+                        <li class="nav-item">
+                            <a href="{{route('raw_wastage.index')}}" class="nav-link ">
+                                <span class="title">Wastage Release</span>
+                            </a>
+                        </li>
+                    </ul>
                 </a>
             </li>
             {{-- <li class="nav-item  @if( request()->path() == 'admin/office' || request()->path() == 'admin/office' ) active open @endif

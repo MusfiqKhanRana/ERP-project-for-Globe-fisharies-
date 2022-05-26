@@ -28,18 +28,27 @@ Raw Product & Wastage Records
             @endif
             <div class="portlet box blue-chambray">
                 <div class="portlet-title">
-                <div class="caption">
-                <i class="fa fa-briefcase"></i>Raw Product & Wastage List
-                </div>
-                    <div class="caption pull-right">
-                        <a class="btn green-meadow pull-right" data-toggle="modal" href="#addModal">
-                            Add New Records
-                        <i class="fa fa-plus"></i> </a>
-                    </div>
-                    <div class="tools">
+                    <div class="caption">
+                        <i class="fa fa-briefcase"></i>Raw Product & Wastage List
                     </div>
                 </div>
                 <div class="portlet-body">
+                    <div class="row">
+                        
+                        <label for="inputEmail1" class="col-md-1 control-label"><b>Form Date</b></label>
+                            <div class="col-md-5">
+                                
+                                <input type="date" class="form-control" name="form_date">
+                            </div>
+                    
+                        
+                            <label for="inputEmail1" class="col-md-1 control-label" ><b>To Date</b></label>
+                            <div class="col-md-5">
+                                <input type="date" class="form-control" name="to_date">
+                            </div>
+                        
+                    </div>
+                    <br><br>
                     <div class="table-scrollable">
                         <table class="table table-bordered">
                             <thead>
@@ -60,7 +69,7 @@ Raw Product & Wastage Records
                                     <td class="text-align: center;"></td>
                                     <td class="text-align: center;"></td>
                                     <td style="text-align: center">
-                                        <a class="btn btn-info"  data-toggle="modal" href="#sale"><i class="fa fa-edit"></i> Sale</a>
+                                        <a class="btn btn-info"  data-toggle="modal" href="#sale"><i class="fa fa-shopping-cart"></i> Sale</a>
                                         <a class="btn btn-success" data-toggle="modal" href="#transfer"><i class="fa fa-exchange"></i> Transfer to fish feed</a>
                                     </td>
                                 </tr>
@@ -101,7 +110,7 @@ Raw Product & Wastage Records
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <label for="inputEmail1" class="col-md-2 control-label">Bayer Name</label>
-                                                            <input type="date" class="form-control" required name="name">
+                                                            <input type="text" class="form-control" required name="name">
                                                         </div>
                                                     </div>
                                                     <div class="row">

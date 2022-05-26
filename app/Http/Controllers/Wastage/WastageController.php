@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Wastage;
 
-use App\Models\RawAndWastage;
+use App\Http\Controllers\Controller;
+use App\Models\ProductionProcessingUnit;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class RawAndWastageController extends Controller
+class WastageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +17,14 @@ class RawAndWastageController extends Controller
      */
     public function index()
     {
-        return view('backend.raw_product_wastage.index');
+        $start_date = Carbon::now()->startOfWeek()->format('Y-m-d 00:00:00');
+        $end_date = Carbon::now()->endOfWeek()->format('Y-m-d 23:59:59');
+        $wasted = ProductionProcessingUnit::whereBetween('RandW_datetime',[$start_date,$end_date])->select('id','wastage_quantity','RandW_datetime')->get()->groupBy(function($item){
+            return Carbon::createFromFormat('Y-m-d H:i:s', $item->RandW_datetime)->format('Y-m-d');
+        });
+        dd( $wasted->toArray());
+        return view('backend.raw_product_wastage.index',compact('wasted'));
+       
     }
 
     /**
@@ -41,10 +51,10 @@ class RawAndWastageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\RawAndWastage  $rawAndWastage
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(RawAndWastage $rawAndWastage)
+    public function show($id)
     {
         //
     }
@@ -52,10 +62,10 @@ class RawAndWastageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\RawAndWastage  $rawAndWastage
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(RawAndWastage $rawAndWastage)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +74,10 @@ class RawAndWastageController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\RawAndWastage  $rawAndWastage
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RawAndWastage $rawAndWastage)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +85,10 @@ class RawAndWastageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\RawAndWastage  $rawAndWastage
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(RawAndWastage $rawAndWastage)
+    public function destroy($id)
     {
         //
     }
