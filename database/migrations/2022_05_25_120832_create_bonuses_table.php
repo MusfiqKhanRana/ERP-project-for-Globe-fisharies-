@@ -19,7 +19,7 @@ class CreateBonusesTable extends Migration
             $table->date('date')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->integer('amount')->nullable();
-            $table->string('bonus_category')->nullable();
+            $table->enum('bonus_category',['Festival','Performance','Donation','Other'])->nullable();
             $table->string('remark')->nullable();
             $table->timestamps();
         });
