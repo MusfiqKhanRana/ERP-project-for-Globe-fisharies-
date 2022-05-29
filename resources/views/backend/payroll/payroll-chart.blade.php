@@ -57,7 +57,7 @@ Payroll Chart
                     <form method="post" action="{{route('individual-salary.search')}}">
                         {{csrf_field()}}
                         <select style="color: blue" name="employee_select" >
-                            @foreach($employe as $data)
+                            @foreach($employee as $data)
                             <option value="{{$data->employee_id}}">{{$data->name}}</option>
                             @endforeach
                         </select>
@@ -109,11 +109,11 @@ Payroll Chart
 
                         </tbody>
                     </table>
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-md-12 text-center">
                             {{$payment->links()}}
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
