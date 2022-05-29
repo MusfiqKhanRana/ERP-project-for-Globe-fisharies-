@@ -50,18 +50,25 @@ class DisburseSalaryController extends Controller
      */
     public function show($id)
     {
-        $start_date = Carbon::now()->startOfMonth()->format('Y-m-d 00:00:00');
-        $end_date = Carbon::now()->endOfMonth()->format('Y-m-d 23:59:59');
+        $start_date = Carbon::now()->startOfMonth()->subMonth()->format('Y-m-d 00:00:00');
+        $end_date = Carbon::now()->endOfMonth()->subMonth()->format('Y-m-d 23:59:59');
         $user = User::with([
             'attendances' => function($q) use($start_date, $end_date){
-                $q->whereBetween('date', [$start_date, $end_date])->select('id','user_id','date');
+                $q->whereBetween('date', [$start_date, $end_date])->select('id','user_id','date','status');
             },
             'department' => function($q){
                 $q->select('id','name');
             },
             'designation' => function($q){
                 $q->select('id','deg_name');
-            },'increments','loans'
+            },
+            'bonus' => function($q){
+                $q->select('id','amount','user_id');
+            },
+            'increments'=>function($q){
+                // $q->sum('increment_amount');
+            }
+            ,'loans'
             ])->where('deg_id',$id)->select('id','name','dept_id','deg_id','salary')->get();
         return $user;
     }

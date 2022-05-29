@@ -43,14 +43,14 @@
             @endforeach
             <div class="portlet-body">
                 <div class="table-scrollable">
-                    <table class="table table-striped table-bordered table-hover">
+                    <table class="table table-striped table-bordered table-hover" id="tblEmployee">
                         <thead>
                             <tr>
-                                <th></th>
+                                <th>#</th>
                                 <th>Id</th>
                                 <th>Employee Info.</th>
                                 <th>Gross Salary</th>
-                                <th>Addition</th>
+                                {{-- <th>Addition</th> --}}
                                 <th>Deduction.</th>
                                 <th>Net Paybele</th>
                                 <th>Attendance Info.</th>
@@ -87,12 +87,61 @@
                     url: "disburse-salary/"+id,
                     type: 'GET',
                     success: function(data) {
-                        // console.log(data);
                         var employeeTable = $('#tblEmployee tbody');
                         employeeTable.empty();
                         $('#tblEmployee').show();
+                        $.each( data, function( key, value ) {
+                            var amount = 0;
+                            var attendance_count = getAttendanceCount(value.attendances);
+                            $.each(value.increments,function(key,increment){
+                                amount+=increment.amount;
+                            });
+                            var deduction = calcutaleDeduction(value,amount);
+                            employeeTable.append('<tr>'+
+                                    '<td><input type="checkbox" class="vehicle1" name="vehicle1" value="'+ value.id+'"></td>'+
+                                    '<td>'+value.id+'</td>'+
+                                    '<td><ul>'+
+                                        '<li> Name: '+value.name+'</li>'+
+                                        '<li> Department: '+value.department.name+'</li>'+
+                                        '<li> Designation: '+value.designation.deg_name+'</li>'+
+                                        '</ul></td>'+
+                                    '<td>'+(parseInt(value.salary)+amount)+'</td>'+
+                                    '<td>'+0+'</td>'+
+                                    '<td>'+(parseInt(value.salary)+amount)+'</td>'+
+                                    '<td><ul>'+
+                                        '<li> Present: '+attendance_count.present_count+'</li>'+
+                                        '<li> Absent: '+attendance_count.absent_count+'</li>'+
+                                        '<li> Late: '+attendance_count.late_count+'</li>'+
+                                        '<li> Leave: '+attendance_count.leave_count+'</li>'+
+                                        '</ul></td>'+
+                                '</tr>');
+                        });
                     }
                 });
+            }
+            function getAttendanceCount(attendances){
+                var present_count = 0;
+                var absent_count = 0;
+                var late_count = 0;
+                var leave_count = 0;
+                $.each(attendances,function( key, attendance ) {
+                    if (attendance.status == "Present") {
+                        present_count+=1;
+                    }else if(attendance.status == "Absent"){
+                        absent_count+=1;
+                    }else if(attendance.status == "Late"){
+                        late_count+=1;
+                    }else if(attendance.status == "Medical" || attendance.status == "Casual"|| attendance.status == "Special" || attendance.status == "Earned"|| attendance.status == "Office"){
+                        leave_count+=1;
+                    }
+                })
+                // console.log(present_count,absent_count,late_count,leave_count);
+                return {'present_count':present_count,'absent_count':absent_count,'late_count':late_count,'leave_count':leave_count};
+            }
+            function calcutaleDeduction(user,increments){
+              var loan_amount = null;
+              var total_salary = parseInt(increments)+parseInt(user.salary);   
+              console.log(user);
             }
         });
     </script>

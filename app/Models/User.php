@@ -77,6 +77,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(OfficeLoan::class);
     }
+    public function bonus()
+    {
+        return $this->hasMany(Bonus::class);
+    }
     public function designation()
     {
         return $this->belongsTo(Designation::class,'deg_id');
