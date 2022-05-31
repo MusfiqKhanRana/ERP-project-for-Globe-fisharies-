@@ -117,7 +117,7 @@
                                     <div class="form-group" id="period">
                                         <label class="control-label col-md-2">Period: </label>
                                         <div class="col-md-6">
-                                            <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                            <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm" data-date-viewmode="years">
                                                 <input type="text" class="form-control" name="period" id="period_field"  readonly >
                                                 <span class="input-group-btn">
                                                     <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
@@ -131,6 +131,17 @@
                                         <div class="col-md-6">
                                             <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
                                                 <input type="text" class="form-control" name="date"  readonly >
+                                                <span class="input-group-btn">
+                                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="applicable_month">
+                                        <label class="control-label col-md-2">Applicable Month:</label>
+                                        <div class="col-md-6">
+                                            <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm" data-date-viewmode="years">
+                                                <input type="text" class="form-control" name="applicable_month" value="{{ Carbon\Carbon::now()->format('Y-m') }}"  readonly >
                                                 <span class="input-group-btn">
                                                     <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                                 </span>
@@ -176,10 +187,12 @@
     $(document).ready(function(){
         $('#installment').hide();
         $('#monthly_deduction').hide();
+        $('#applicable_month').hide();
         $('input[type=radio][name=type]').change(function() {
             if (this.value == 'loan') {
                 $('#installment').show();
                 $('#monthly_deduction').show();
+                $('#applicable_month').show();
                 $('#period').hide();
                 $('#attachment').hide();
                 $('#period_field').val('');
@@ -188,6 +201,7 @@
             else if (this.value == 'advance') {
                 $('#installment').hide();
                 $('#monthly_deduction').hide();
+                $('#applicable_month').hide();
                 $('#instalment_field').val(10);
                 $('#monthly_deduction_field').val('');
                 $('#period').show();
