@@ -298,6 +298,7 @@
                                                         <a class="btn btn-success" data-toggle="modal" href="#deliveryConfirm{{$data->id}}"><i class="fa fa-check" aria-hidden="true"></i> Success</a>
                                                         <a class="btn btn-primary" data-toggle="modal" href="#deliveryReturn{{$data->id}}"><i class="fa fa-repeat" aria-hidden="true"></i> Return</a>
                                                         <a class="btn btn-danger" data-toggle="modal" href="#deliveryCancel{{$data->id}}"><i class="fa fa-ban" aria-hidden="true"></i> Cancel</a>
+                                                        
 
                                                         {{-- @if ($data->payment_method)
                                                             <a class="btn btn-success" data-toggle="modal" href="#confirmdelevery{{$data->id}}"><i class="fa fa-cart-plus"></i> Confirm Delivery</a>  
