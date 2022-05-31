@@ -21,6 +21,7 @@ class CreateOfficeLoansTable extends Migration
             $table->integer('instalment')->nullable();
             $table->date('period')->nullable();
             $table->date('date')->nullable();
+            $table->date('applicable_date')->nullable();
             $table->text('instalment_dates')->nullable();
             $table->text('attachment')->nullable();
             $table->text('detail')->nullable();

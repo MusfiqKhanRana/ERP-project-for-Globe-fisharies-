@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use  App\Models\Designation;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -76,6 +77,10 @@ class User extends Authenticatable
     public function loans()
     {
         return $this->hasMany(OfficeLoan::class);
+    }
+    public function loan_installments()
+    {
+        return $this->hasMany(OfficeLoanInstallment::class);
     }
     public function bonus()
     {
