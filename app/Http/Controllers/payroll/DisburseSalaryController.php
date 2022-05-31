@@ -68,7 +68,11 @@ class DisburseSalaryController extends Controller
             'increments'=>function($q){
                 // $q->sum('increment_amount');
             }
-            ,'loans'
+            ,'loans'=>function($q){
+                $q->where('type','advance')->where('period',Carbon::now()->startOfMonth()->format('Y-m-d'));
+            },'loan_installments'=>function($q){
+                $q->with(['office_loan'])->where('isPaid',false)->where('date',Carbon::now()->startOfMonth()->format('Y-m-d'));
+            }
             ])->where('deg_id',$id)->select('id','name','dept_id','deg_id','salary')->get();
         return $user;
     }

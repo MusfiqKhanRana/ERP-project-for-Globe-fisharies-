@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\OfficeLoan;
+use App\Models\OfficeLoanInstallment;
 use App\Models\User;
 use Carbon\Carbon;
 use Dflydev\DotAccessData\Data;
@@ -32,8 +33,7 @@ class OfficeLoanController extends Controller
     }
 
     public function officeLoanStore(Request $request)
-    {
-            
+    {   
         // $this->validate($request,[
         //     'employee_id' => 'required',
         //     'amount' => 'required|numeric|min:1',
@@ -41,15 +41,19 @@ class OfficeLoanController extends Controller
         //     'detail' => 'required',
         // ]);
         $data = $request->all();
-        // dd($data);
+        $data['applicable_month'] = Carbon::parse($data['applicable_month'])->format('Y-m-d');
+        $data['period'] = Carbon::parse($data['period'])->format('Y-m-d');
         if ($request->type == "loan") {
             $instalment_dates=[];
-            $date = Carbon::createFromFormat('Y-m-d',$data['date']);
-            for ($i=0; $i < (int)$request->instalment; $i++) { 
+            $date = Carbon::createFromFormat('Y-m-d',$data['applicable_month']);
+            array_push($instalment_dates,$data['applicable_month']);
+            for ($i=0; $i < (int)$request->instalment-1; $i++) { 
                 array_push($instalment_dates,$date->addMonth(1)->format('Y-m-1'));
             }
-            // dd($instalment_dates);
-            OfficeLoan::create(['user_id'=>(int) $data['employee_id'],'type'=>$data['type'],'instalment'=>$data['instalment'],'amount'=>$data['amount'],'date'=>$data['date'],'instalment_dates'=>serialize($instalment_dates),'detail'=>$data['detail']]);
+            $office_loan = OfficeLoan::create(['user_id'=>(int) $data['employee_id'],'type'=>$data['type'],'instalment'=>$data['instalment'],'amount'=>$data['amount'],'date'=>$data['date'],'applicable_date'=>$data['applicable_month'],'instalment_dates'=>serialize($instalment_dates),'detail'=>$data['detail']]);
+            foreach ($instalment_dates as $key => $installment_date){
+                OfficeLoanInstallment::create(['user_id'=> $office_loan->user_id,'office_loan_id'=>$office_loan->id,'installment_no'=>$key+1,'date'=>$installment_date]);
+            }
         }elseif ($request->type == "advance") {
             if($request->hasfile('attachment'))
             {
@@ -57,10 +61,9 @@ class OfficeLoanController extends Controller
                 $request->attachment->move(base_path() . '/storage/app/public/loan-attachment', $name);
                 $data['attachment'] = $name;
             }
-            // dd((int) $data['employee_id']);
-            OfficeLoan::create([ 'user_id'=>(int) $data['employee_id'],'amount'=>$data['amount'],'period'=>$data['period'],'date'=>$data['date'],'attachment'=>$data['attachment'],'detail'=>$data['detail']]);
+            OfficeLoan::create(['user_id'=>(int)$data['employee_id'],'amount'=>$data['amount'],'period'=>$data['period'],'date'=>$data['date'],'attachment'=>$data['attachment'],'detail'=>$data['detail']]);
         }
-        return redirect()->back()->withMsg('Successfully Loan Added');
+        return redirect('admin/office/loan')->withMsg('Successfully Added');
     }
 
     public function officeLoanUpdate(Request $request, $id)
