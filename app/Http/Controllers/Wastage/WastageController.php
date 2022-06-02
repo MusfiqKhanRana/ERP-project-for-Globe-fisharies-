@@ -19,11 +19,11 @@ class WastageController extends Controller
     {
         $start_date = Carbon::now()->startOfWeek()->format('Y-m-d 00:00:00');
         $end_date = Carbon::now()->endOfWeek()->format('Y-m-d 23:59:59');
-        $wasted = ProductionProcessingUnit::whereBetween('RandW_datetime',[$start_date,$end_date])->select('id','wastage_quantity','RandW_datetime')->get()->groupBy(function($item){
+        $wastages = ProductionProcessingUnit::whereBetween('RandW_datetime',[$start_date,$end_date])->select('id','wastage_quantity','RandW_datetime')->get()->groupBy(function($item){
             return Carbon::createFromFormat('Y-m-d H:i:s', $item->RandW_datetime)->format('Y-m-d');
         });
-        dd( $wasted->toArray());
-        return view('backend.raw_product_wastage.index',compact('wasted'));
+       //dd( $wastages->toArray());
+        return view('backend.raw_product_wastage.index',compact('wastages'));
        
     }
 
@@ -34,7 +34,8 @@ class WastageController extends Controller
      */
     public function create()
     {
-        //
+       
+        return view('backend.raw_product_wastage.release');
     }
 
     /**

@@ -13,59 +13,41 @@
                         <input type="hidden" class="randw_ppu_id" name="randw_ppu_id">
                         <p><b>Invoice no:</b> <span class="fillet_invoice"></span></p>
                         <p><b>Item Name:</b> <span class="fillet_item"></span></p>
-                        <p><b>Quantity:</b> <span class="fillet_qty"></span></p>
+                        <p><b>Quantity(kg):</b> <span class="fillet_qty"></span></p>
                     </div>
-                    <div class="col-md-12">
-                        <table class="table table-striped table-bordered table-hover fillet_randw_table">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Grading 
-                                    </th>
-                                    <th>
-                                        Quantity (Kg)
-                                    </th>
-                                    <th>
-                                        Soaking Weight (Kg)
-                                    </th>
-                                    <th>
-                                        Return Weight (Kg)
-                                    </th>
-                                    <th>
-                                        Glazing Weight (Kg)
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        300-500gm
-                                    </td>
-                                    <td>
-                                        5
-                                    </td>
-                                    <td>
-                                        15
-                                    </td>
-                                    <td>
-                                        4
-                                    </td>
-                                    <td>
-                                        5
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><b>Filleting Weight:</b> <span class="filleting_weight"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><b>Filleting Date & Time:</b> <span class="filleting_date_time"></span></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><b>Fillet Soaking Weight:</b> <span class="fillet_soaking_weight"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><b>Fillet Soaking Date & Time:</b> <span class="fillet_soaking_date_time"></span></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><b>Fillet Glazing Weight:</b> <span class="fillet_glazing_weight"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><b>Fillet Glazing Date & Time:</b> <span class="fillet_glazing_weight_datetime"></span></p>
+                        </div>
                     </div>
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Wastage (Kg)</label>
-                                <input type="text" class="form-control" name="wastage_quantity" placeholder=" Type Wastage Volume">
+                                <input type="number" step="0.01" class="form-control" name="wastage_quantity" required placeholder=" Type Wastage Volume">
                             </div>
                             <div class="col-md-6">
                                 <label>Return (Kg)</label>
-                                <input type="text" class="form-control" name="return_quantity" placeholder=" Type Return Volume">
+                                <input type="number" step="0.01" class="form-control" name="return_quantity" required placeholder=" Type Return Volume">
                             </div>
                         </div><br>
                     </div>

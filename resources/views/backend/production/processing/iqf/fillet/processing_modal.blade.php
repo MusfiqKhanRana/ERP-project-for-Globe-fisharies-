@@ -4,27 +4,27 @@
         <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Initial Data</h2>
+                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Raw Filleting Data</h2>
                 </div>
                 <br>
-                <form class="form-horizontal" role="form" method="post" action="{{route('production.processing-unit.processing')}}">
+                <form class="form-horizontal" role="form" method="post" action="{{route('production.processing-unit.fillet_processing')}}">
                     {{csrf_field()}}
                 <div class="modal-body">
                     <input type="hidden" class="ppu_id" name="ppu_id">
                     <p><b>Invoice no:</b> <span class="fillet_invoice"></span></p>
                     <p><b>Item Name:</b> <span class="fillet_item"></span></p>
-                    <p><b>Quantity:</b> <span class="fillet_qty"></span></p>
+                    <p><b>Quantity(kg):</b> <span class="fillet_qty"></span></p>
                     <div class="row">
                         <div class="col-md-3">
-                            <b>Initial Weight:</b>
+                            <b>Filleting Weight*:</b>
                         </div>
                         <div class="col-md-6">
-                            <input type="number" class="form-control initial_weight" name="initial_weight" placeholder="Type Initial Weight">
+                            <input type="number" step="0.01" class="form-control initial_weight" name="initial_weight" required placeholder="Type Initial Weight">
                         </div>
                         <div class="col-md-3">
                             <p><b>Parcentage:</b> <span class="parcentage"></span></p>
                         </div>
-                        </div>
+                    </div>
                 </div>
                 <br>
                 <div class="modal-footer">

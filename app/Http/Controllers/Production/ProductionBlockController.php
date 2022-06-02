@@ -81,7 +81,7 @@ class ProductionBlockController extends Controller
                 }
             ]
             )
-        ->select('id','invoice_code','item_id','status','alive_quantity','dead_quantity','requisition_code','processing_name','processing_variant')
+        ->select('id','invoice_code','item_id','status','alive_quantity','dead_quantity','requisition_code','processing_name','processing_variant','block_quantity','excess_volume','block_weight','soaking_weight','glazing_weight')
         ->where(function ($q) use($request)
         {
             if ($request->type) {
@@ -125,58 +125,102 @@ class ProductionBlockController extends Controller
     }
     public function block_counter(Request $request){
         // dd($request->toArray());
-        ProductionProcessingUnit::where('id',$request->ppu_id)
-        ->update(
-            ['status'=>'ExcessVolume']
-        );
+        $count = 0;
         foreach ($request->item_id as $key => $value) {
             ProductionProcessingGrade::where('id',$value)
             ->update(
                 ['block_quantity'=>$request->block_quantity [$key]]
             );
         }   
+        $data_checks = ProductionProcessingGrade::whereIn('id',$request->item_id)->select('id','block_quantity')->get();
+        // dd($glazing_data_checks->toArray());
+        foreach ($data_checks as $key => $value) {
+            if ($value->block_quantity == Null) {
+                $count+=1;
+            }
+        }
+        // dd($count);
+        if ($count==0) {
+            ProductionProcessingUnit::where('id',$request->ppu_id)
+            ->update(
+                ['status'=>'ExcessVolume']
+            );
+        }
         return redirect()->back()->withmsg('Successfully Send For Excess Volume');
     }
     public function block_counter_to_soaking(Request $request){
         // dd($request->toArray());
-        ProductionProcessingUnit::where('id',$request->ppu_id)
-        ->update(
-            ['status'=>'Soaking']
-        );
+        $count=0;
         foreach ($request->item_id as $key => $value) {
             ProductionProcessingGrade::where('id',$value)
             ->update(
                 ['block_quantity'=>$request->block_quantity [$key]]
             );
         }   
+        $data_checks = ProductionProcessingGrade::whereIn('id',$request->item_id)->select('id','block_quantity')->get();
+        // dd($glazing_data_checks->toArray());
+        foreach ($data_checks as $key => $value) {
+            if ($value->block_quantity == Null) {
+                $count+=1;
+            }
+        }
+        // dd($count);
+        if ($count==0) {
+            ProductionProcessingUnit::where('id',$request->ppu_id)
+            ->update(
+                ['status'=>'Soaking']
+            );
+        }
         return redirect()->back()->withmsg('Successfully Send For Soaking');
     }
     public function soaking_to_excess_volume(Request $request){
         // dd($request->toArray());
-        ProductionProcessingUnit::where('id',$request->ppu_id)
-        ->update(
-            ['status'=>'ExcessVolume']
-        );
+        $count=0;
         foreach ($request->item_id as $key => $value) {
             ProductionProcessingGrade::where('id',$value)
             ->update(
                 ['soaking_weight'=>$request->soaking_weight [$key],'soaking_weight_datetime'=>Carbon::now(),'soaking_return'=>$request->soaking_return [$key]]
             );
         }   
+        $data_checks = ProductionProcessingGrade::whereIn('id',$request->item_id)->select('id','soaking_weight')->get();
+        // dd($glazing_data_checks->toArray());
+        foreach ($data_checks as $key => $value) {
+            if ($value->soaking_weight == Null) {
+                $count+=1;
+            }
+        }
+        // dd($count);
+        if ($count==0) {
+            ProductionProcessingUnit::where('id',$request->ppu_id)
+            ->update(
+                ['status'=>'ExcessVolume']
+            );
+        }
         return redirect()->back()->withmsg('Successfully Send For Excess Volume');
     }
     public function ex_volume_to_return(Request $request){
         // dd($request->toArray());
-        ProductionProcessingUnit::where('id',$request->ppu_id)
-        ->update(
-            ['status'=>'RandW']
-        );
+        $count=0;
         foreach ($request->item_id as $key => $value) {
             ProductionProcessingGrade::where('id',$value)
             ->update(
                 ['excess_volume'=>$request->excess_volume [$key]]
             );
         }   
+        $data_checks = ProductionProcessingGrade::whereIn('id',$request->item_id)->select('id','excess_volume')->get();
+        // dd($glazing_data_checks->toArray());
+        foreach ($data_checks as $key => $value) {
+            if ($value->excess_volume == Null) {
+                $count+=1;
+            }
+        }
+        // dd($count);
+        if ($count==0) {
+            ProductionProcessingUnit::where('id',$request->ppu_id)
+            ->update(
+                ['status'=>'RandW']
+            );
+        }
         return redirect()->back()->withmsg('Successfully Send For Return and Wastage');
     }
     public function block_randw(Request $request){

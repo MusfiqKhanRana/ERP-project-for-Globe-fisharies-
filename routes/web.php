@@ -498,6 +498,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('production/processing-unit/blanched_iqf_shrimp', [ProductionIqfController::class,'blanched_iqf_shrimp_index'])->name('production.processing.blanched_iqf_shrimp');
     Route::post('production/processing-unit/iqf/data_pass',[ProductionIqfController::class,'data_pass'])->name('production.processing-unit.iqf.data_pass');
     Route::post('production/processing-unit/processing',[ProductionIqfController::class,'processing'])->name('production.processing-unit.processing');
+    Route::post('production/processing-unit/fillet_processing',[ProductionIqfController::class,'fillet_processing'])->name('production.processing-unit.fillet_processing');
+    Route::post('production/processing-unit/fillet_soaking',[ProductionIqfController::class,'fillet_soaking'])->name('production.processing-unit.fillet_soaking');
+    Route::post('production/processing-unit/fillet_glazing',[ProductionIqfController::class,'fillet_glazing'])->name('production.processing-unit.fillet_glazing');
     Route::post('production/processing-unit/processing_to_clean',[ProductionIqfController::class,'processing_to_clean'])->name('production.processing-unit.processing_to_clean');
     Route::post('production/processing-unit/cleaning_to_grading',[ProductionIqfController::class,'cleaning_to_grading'])->name('production.processing-unit.cleaning_to_grading');
     Route::post('production/processing-unit/grading',[ProductionIqfController::class,'grading'])->name('production.processing-unit.grading');
