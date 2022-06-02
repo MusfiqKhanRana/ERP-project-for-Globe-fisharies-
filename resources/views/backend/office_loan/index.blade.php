@@ -17,7 +17,7 @@
         @endif <!-- BEGIN PAGE TITLE-->
             <h3 class="page-title bold">Office Employee Advance/Loan Management
 
-                <a class="btn grey-salt pull-right" data-toggle="modal" href="{{route('add.office.loan')}}">
+                <a class="btn grey pull-right" data-toggle="modal" href="{{route('add.office.loan')}}">
                     Add New Advance/Loan
                 <i class="fa fa-plus"></i> </a>
             </h3>
@@ -40,32 +40,58 @@
                                     <th>  Phone </th>
                                     <th> Given Amount </th>
                                     <th> Date </th>
-                                    <th> Installment Dates </th>
+                                    <th style="text-align: center"> Installment Dates </th>
                                     <th> Type </th>
                                     <th> Detail </th>
-                                    <th> Action </th>
+                                    <th style="text-align: center"> Action </th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach( $office_loan as $key=>$data)
-                                <tr>
-
-                                    <td>{{$data->employee->name}}</td>
-                                    <td>{{$data->employee->phone}}</td>
-                                    <td>{{$data->amount}}</td>
-                                    <td>{{date('Y, M-d',strtotime($data->date))}}</td>
+                                    <td style="text-align: center">{{$data->employee->name}}</td>
+                                    <td style="text-align: center">{{$data->employee->phone}}</td>
+                                    <td style="text-align: center">{{$data->amount}}</td>
+                                    <td style="text-align: center">{{date('Y, M-d',strtotime($data->date))}}</td>
                                     <td>
-                                        @if ($data->instalment_dates)
-                                            <ul>
-                                                @foreach ($data->instalment_dates as $date)
-                                                    <li>
-                                                        {{date('Y, M-d',strtotime($date))}}
-                                                    </li>
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>S.l</th>
+                                                    <th>Date</th>
+                                                    <th>Installment No.</th>
+                                                    <th>Status</th>
+                                                    <th>Paid Amount</th>
+                                                    <th>Paid Date</th>
+                                                    <th style="text-align: center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($data->loan_instalment as $item)
+                                                    <tr>
+                                                        <td>{{$loop->iteration}}</td>
+                                                        <td>{{date('Y, M',strtotime($item->date))}}</td>
+                                                        <td style="text-align: center">{{$item->installment_no}}</td>
+                                                        <td>
+                                                            {{ $item->isPaid == 0 ? 'Unpaid' : 'Paid' }}
+                                                        </td>
+                                                        <td> 
+                                                            {{ $item->paid_amount == NULL ? 'N/A' : $item->paid_amount }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $item->paid_date == NULL ? 'N/A' : date('Y, M-d',strtotime($item->paid_date)) }}
+                                                        </td>
+                                                        <td style="text-align: center">
+                                                            @if($item->paid_amount >= ($data->amount / $data->instalment))
+                                                               
+                                                                N/A
+                                                            @else
+                                                                <a class="btn btn-primary addPayment" data-toggle="modal" data-instalment_id="{{$item->id}}" data-per_instalment="{{($data->amount / $data->instalment)}}" href="#addPayment">Make Payment</a>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
                                                 @endforeach
-                                            </ul>
-                                        @else
-                                            N/A
-                                        @endif
+                                            </tbody>
+                                        </table>
                                     </td>
                                     <td>{{$data->type}}</td>
                                     <td>{!! $data->detail !!}</td>
@@ -77,6 +103,38 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            <div id="addPayment" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                            <h4 class="modal-title">Add Payment</h4>
+                                        </div><br>
+                                        <form class="form-horizontal" role="form" method="post" action="{{route('office.loan.payment')}}">
+                                            {{csrf_field()}}
+                                            <input type="hidden" name=""  value="">
+                                            <input type="hidden" id="per_instalment" name="per_instalment"  value="">
+                                            <input type="hidden" name="paid_date" value="">
+                                            <input type="hidden" id="instalment_id" name="instalment_id" value="">
+                                            <div class="form-group">
+                                                <label for="inputEmail1" class="col-md-2 control-label">Amount</label>
+                                                <div class="col-md-8">
+                                                    <input type="number" class="form-control paid_amount" name="paid_amount" placeholder="Paid Amount">
+                                                </div>
+                                            </div>
+                                            <div class="row warning" style="margin-top:3%">
+                                                <div class="col-md-12" style="text-align: center">
+                                                    <p style="color: red"><b>**Please Paid amount {{($data->amount / $data->instalment)}} Or Less than {{($data->amount / $data->instalment)}}**</b></p>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                <button type="submit" class="btn blue-ebonyclay confirm_btn"><i class="fa fa-floppy-o"></i> Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-12 text-center">
                                     {{$office_loan->links()}}
@@ -91,4 +149,33 @@
             <!-- END PAGE CONTENT-->
         </div>
     </div>
+@endsection
+@section('script')
+<script type="text/javascript">
+$(document).ready(function () {
+      
+    var instalment_amount=0;
+    $(".addPayment").click(function(){
+        //console.log(addPayment);
+       $("#instalment_id").val($(this).data('instalment_id'));
+
+        instalment_amount= parseInt($(this).attr("data-per_instalment"));
+        $("#per_instalment").val(instalment_amount);
+    });
+    $('.warning').hide();
+    $('.paid_amount').on("keyup",function() {
+            var paid_amount = parseInt($(this).val());
+            
+            if (paid_amount > instalment_amount) {
+                $('.warning').show();
+                $('.confirm_btn').prop('disabled', true);
+            }
+            if (paid_amount < instalment_amount) {
+                $('.warning').hide();
+                $('.confirm_btn').prop('disabled', false);
+            }
+           
+        });
+});
+</script>
 @endsection

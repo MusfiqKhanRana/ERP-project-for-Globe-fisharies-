@@ -20,8 +20,8 @@ class OfficeLoanController extends Controller
 
     public function officeLoanIndex()
     {
-        $office_loan = OfficeLoan::with(['employee'])->latest()->paginate(15);
-        // dd($office_loan);
+        $office_loan = OfficeLoan::with(['employee','loan_instalment'])->latest()->paginate(5);
+       // dd($office_loan->toArray());
         return view('backend.office_loan.index', compact('office_loan'));
     }
 
@@ -85,4 +85,16 @@ class OfficeLoanController extends Controller
         ]);
         return redirect('admin/office/loan')->withMsg('Successfully Loan Added');
     }
+    public function officeLoanPayment(Request $request){
+        $data = $request->all();
+        //dd($data);
+        $isPaid = false;
+        if ($data['paid_amount']==$data['per_instalment']) {
+           $isPaid = true;
+        }
+        $office_loan_payment = OfficeLoanInstallment::where('id',$data['instalment_id'])->update(['paid_amount'=>$data['paid_amount'],'isPaid'=>$isPaid,'paid_date'=> Carbon::now()->toDateTimeString()]);
+        return redirect()->back()->withMsg('Successfully Added Payment');
+
+    }
+
 }

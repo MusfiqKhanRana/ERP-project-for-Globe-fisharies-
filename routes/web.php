@@ -235,6 +235,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('office/loan/', [OfficeLoanController::class,'officeLoanIndex'])->name('office.loan.manange');
     Route::get('office/loan/{id}', [OfficeLoanController::class,'officeLoanEdit'])->name('office.loan.edit');
     Route::put('office/loan/update/{id}', [OfficeLoanController::class,'officeLoanUpdate'])->name('update.office.loan');
+    Route::post('payment/office/loan', [OfficeLoanController::class,'officeLoanPayment'])->name('office.loan.payment');
 
     Route::get('add/purchase',[PurchaseController::class,'addPurchase'])->name('add.purchase');
     Route::post('purchase/store', [PurchaseController::class,'storePurchase'])->name('purchase.store');
