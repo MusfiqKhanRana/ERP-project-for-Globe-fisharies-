@@ -160,7 +160,7 @@
                                                 <tr>
                                                     <td>{{++$key2}}</td>
                                                     <td>
-                                                        {{$item->category->name}}
+                                                        {{$item->category_type}}
                                                     </td>
                                                     <td>
                                                         {{$item->supplyitem->name}}
