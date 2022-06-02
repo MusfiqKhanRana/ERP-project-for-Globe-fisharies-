@@ -384,16 +384,16 @@ class EmployeeController extends Controller
     public function ajaxlist(Request $request){
         // return $request->id;
         if($request->id==1){
-            return User::where('status',"Probational")->orderBy('id', 'DESC')->get();
+            return User::with('department','designation')->where('status',"Probational")->orderBy('id', 'DESC')->get();
         }
         if($request->id==2){
-            return User::where('status',"Permanent")->orderBy('id', 'DESC')->get();
+            return User::with('department','designation')->where('status',"Permanent")->orderBy('id', 'DESC')->get();
         }
         if($request->id==3){
-            return User::where('status',"Retired")->orderBy('id', 'DESC')->get();
+            return User::with('department','designation')->where('status',"Retired")->orderBy('id', 'DESC')->get();
         }
         if($request->id==4){
-            return User::where('status',"Terminated")->orderBy('id', 'DESC')->get();
+            return User::with('department','designation')->where('status',"Terminated")->orderBy('id', 'DESC')->get();
         }
     }
 }
