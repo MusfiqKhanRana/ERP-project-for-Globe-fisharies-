@@ -327,7 +327,7 @@
                                                                     <label for="">Alive Quantity</label>
                                                                     <input type="number" placeholder="alive qty" class="form-control alive_quantity" name="alive_quantity">
                                                                 </div>
-                                                                <div class="col-md-3">
+                                                                <div class="col-md-3 dead_input">
                                                                     <label for="">Dead Quantity</label>
                                                                     <input type="number" placeholder="dead qty" class="form-control dead_quantity" name="dead_quantity">
                                                                 </div>
@@ -381,6 +381,18 @@
     {
         var id,item_id,pivot_id = 0;
         $(".varient").chained(".type");
+        $('.type').on("change",function(){
+            var typex = $(this).val();
+            $('.varient').on("change",function(){
+                var varientx = $(this).val();
+                if (typex == "iqf" && varientx == "fillet") {
+                    $('.dead_input').hide();
+                }
+                if (typex == "iqf" && varientx != "fillet") {
+                    $('.dead_input').show();
+                }
+             });
+        });
         $('.process_modal').click(function(){
              id = $(this).attr("data-id");
              item_id = $(this).attr("data-item_id");

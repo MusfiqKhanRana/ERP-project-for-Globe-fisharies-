@@ -13,7 +13,7 @@
                         <input type="hidden" name="inputs" class="inputs">
                         <p><b>Invoice no:</b> <span class="whole_invoice"></span></p>
                         <p><b>Item Name:</b> <span class="whole_item"></span></p>
-                        <p><b>Quantity:</b> <span class="whole_qty"></span></p>
+                        <p><b>Quantity(kg):</b> <span class="whole_qty"></span></p>
                     <div class="row">
                         <div class="col-md-5">
                             <label>Select Grade</label>
@@ -26,7 +26,7 @@
                         </div>
                         <div class="col-md-5" >
                             <label>Quantity (Kg) </label>
-                            <input type="text" class="form-control grade_weight"  placeholder="weight">
+                            <input type="number" step="0.01" class="form-control grade_weight"  placeholder="weight">
                         </div>
                         <div class="col-md-2" style="margin-top: 3%">
                             <button type="button" class="btn btn-success add_btn">add</button>

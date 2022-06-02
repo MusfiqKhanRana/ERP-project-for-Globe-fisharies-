@@ -1,7 +1,7 @@
 <div id="filletGlazingModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="form-horizontal" role="form" method="post" action="{{route('production.processing-unit.glazing')}}">
+            <form class="form-horizontal" role="form" method="post" action="{{route('production.processing-unit.fillet_glazing')}}">
                 {{csrf_field()}}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -13,52 +13,36 @@
                         <input type="hidden" name="glazing_ppu_id" class="glazing_ppu_id">
                         <p><b>Invoice no:</b> <span class="fillet_invoice"></span></p>
                         <p><b>Item Name:</b> <span class="fillet_item"></span></p>
-                        <p><b>Quantity:</b> <span class="fillet_qty"></span></p>
+                        <p><b>Quantity(kg):</b> <span class="fillet_qty"></span></p>
                     {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
                     <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-striped table-bordered table-hover fillet_glazing_table">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Grade
-                                        </th>
-                                        <th>
-                                            Quantity (Kg)
-                                        </th>
-                                        <th>
-                                            Soaking Weight (Kg)
-                                        </th>
-                                        <th>
-                                            Return Weight (Kg)
-                                        </th>
-                                        <th>
-                                            Glazing Weight (Kg)
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            300-500gm
-                                        </td>
-                                        <td>
-                                            5
-                                        </td>
-                                        <td>
-                                            30
-                                        </td>
-                                        <td>
-                                            5
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" placeholder="Type Glazing Weight">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="col-md-6">
+                            <p><b>Filleting Weight:</b> <span class="filleting_weight"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><b>Filleting Date & Time:</b> <span class="filleting_date_time"></span></p>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><b>Fillet Soaking Weight:</b> <span class="fillet_soaking_weight"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><b>Fillet Soaking Date & Time:</b> <span class="fillet_soaking_date_time"></span></p>
+                        </div>
+                    </div>
+                {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
+                <div class="row">
+                    <div class="col-md-2">
+                        <b>Glazing Weight*:</b>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" class="form-control fillet_glazing_weight" step="0.01" name="fillet_glazing_weight" required placeholder="Type Glazing Weight">
+                    </div>
+                    <div class="col-md-4">
+                        <p><b>Increasing Parcentage:</b> <span class="glazing_parcentage"></span></p>
+                    </div>
+                </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="m-10 btn btn-success">Confirm</button>
