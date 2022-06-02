@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Designation;
 use App\Models\User;
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
 
 class DisburseSalaryController extends Controller
@@ -18,9 +19,24 @@ class DisburseSalaryController extends Controller
     public function index()
     {
         $designation = Designation::all();
-        return view('backend.payroll.disburse_salary',compact('designation'));
+        $total_days = Carbon::now()->daysInMonth;
+        $holiday_count = 0;
+        foreach ($this->getMondays() as $holiday)
+        {
+            $holiday_count+=1;
+        }
+        // dd($total_days-$holiday_count);
+        $working_days = $total_days-$holiday_count;
+        return view('backend.payroll.disburse_salary',compact('designation','working_days'));
     }
-
+    public function getMondays()
+    {
+        return new \DatePeriod(
+            Carbon::parse("first friday of this month"),
+            CarbonInterval::week(),
+            Carbon::parse("first friday of next month")
+        );
+    }
     /**
      * Show the form for creating a new resource.
      *
