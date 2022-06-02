@@ -68,8 +68,11 @@ Bonus Records
                                         <td class="text-align: center;"> {{$data->bonus_category}}</td>
                                         <td class="text-align: center;"> {{$data->remark}}</td>
                                         <td style="text-align: center">
+                                            <a class="btn btn-success"  data-toggle="modal" href="#"><i class="fa fa-check"></i> Approve</a>
+                                            <a class="btn btn-primary" data-toggle="modal" href="#"><i class="fa fa-ban"></i> Reject</a>
                                             <a class="btn btn-info"  data-toggle="modal" href="#editModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
                                             <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
+
                                         </td>
                                     </tr>
                                     <div id="deleteModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -172,7 +175,7 @@ Bonus Records
                                 {{csrf_field()}}
             
                                 <div class="form-group">
-                                    <label for="inputEmail1" class="col-md-2 control-label">Date</label>
+                                    <label for="inputEmail1" class="col-md-2 control-label">Disburse Date</label>
                                     <div class="col-md-8">
                                         <input type="date" class="form-control" name="date" required>
                                     </div>

@@ -19,5 +19,9 @@ class OfficeLoan extends Model
     }
     public function getInstalmentDatesAttribute($value){
       return  unserialize($value);
-  }
+    }
+    public function loan_instalment()
+    {
+        return $this->hasMany(OfficeLoanInstallment::class,'office_loan_id');
+    }
 }
