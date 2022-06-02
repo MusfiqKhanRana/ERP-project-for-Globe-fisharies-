@@ -50,7 +50,7 @@
                                 <th>Id</th>
                                 <th>Employee Info.</th>
                                 <th>Gross Salary</th>
-                                {{-- <th>Addition</th> --}}
+                                <th>Addition</th>
                                 <th>Deduction.</th>
                                 <th>Net Paybele</th>
                                 <th>Attendance Info.</th>
@@ -78,6 +78,7 @@
     <script>
         $(document).ready(function() {
             var designations = @json($designation)[0];
+            var working_days = @json($working_days);
             getdata(designations.id)
             $('.degsignation').click(function() {
                 getdata($(this).data("id"));
@@ -96,7 +97,8 @@
                             $.each(value.increments,function(key,increment){
                                 amount+=increment.amount;
                             });
-                            var deduction = calcutaleDeduction(value,amount);
+                            var deduction = calcutaleDeduction(value,amount,attendance_count.late_count,attendance_count.absent_count);
+                            // console.log(deduction);
                             employeeTable.append('<tr>'+
                                     '<td><input type="checkbox" class="vehicle1" name="vehicle1" value="'+ value.id+'"></td>'+
                                     '<td>'+value.id+'</td>'+
@@ -107,7 +109,14 @@
                                         '</ul></td>'+
                                     '<td>'+(parseInt(value.salary)+amount)+'</td>'+
                                     '<td>'+0+'</td>'+
-                                    '<td>'+(parseInt(value.salary)+amount)+'</td>'+
+                                    '<td><ul>'+
+                                        '<li> Absent Fine: '+deduction.absent_fine.toFixed(2) +'</li>'+
+                                        '<li> Late Fine: '+deduction.late_fine.toFixed(2) +'</li>'+
+                                        '<li> Advance Salary: '+deduction.advance_salary.toFixed(2) +'</li>'+
+                                        '<li> Loan installment: '+deduction.loan_installment_amount.toFixed(2) +'</li>'+
+                                        '<li> Total Deduction: '+deduction.total_deduction.toFixed(2) +'</li>'+
+                                        '</ul></td>'+
+                                    '<td>'+((parseInt(value.salary)+amount)-deduction.total_deduction).toFixed(2)+'</td>'+
                                     '<td><ul>'+
                                         '<li> Present: '+attendance_count.present_count+'</li>'+
                                         '<li> Absent: '+attendance_count.absent_count+'</li>'+
@@ -138,10 +147,21 @@
                 // console.log(present_count,absent_count,late_count,leave_count);
                 return {'present_count':present_count,'absent_count':absent_count,'late_count':late_count,'leave_count':leave_count};
             }
-            function calcutaleDeduction(user,increments){
-              var loan_amount = null;
-              var total_salary = parseInt(increments)+parseInt(user.salary);   
-              console.log(user);
+            function calcutaleDeduction(user,increments,late,absent){
+                var advance_salary = 0;
+                var loan_installment_amount = 0;
+                var total_salary = parseInt(increments)+parseInt(user.salary);
+                var per_day_salary = total_salary/working_days;
+                var absent_fine = absent*per_day_salary;
+                var late_fine = Math.round(late/3)*per_day_salary;
+                $.each( user.loans , function( key, loan ){
+                    advance_salary+=loan.amount;
+                });   
+                $.each( user.loan_installments , function( key, loan ){
+                    loan_installment_amount+=loan.office_loan.amount/loan.office_loan.instalment;
+                });
+                var total_deduction = advance_salary+loan_installment_amount+absent_fine+late_fine;
+                return {'advance_salary':advance_salary,'loan_installment_amount':loan_installment_amount,'absent_fine':absent_fine,'late_fine':late_fine,'total_deduction':total_deduction};
             }
         });
     </script>
