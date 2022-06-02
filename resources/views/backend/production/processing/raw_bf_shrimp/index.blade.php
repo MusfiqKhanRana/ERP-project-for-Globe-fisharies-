@@ -477,7 +477,7 @@
                                         console.log(data);
                                         $("table.block_counter_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.block_counter_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td><input type='number' class='form-control' name='block_quantity[]' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            $("table.block_counter_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td><input type='number' step='0.01' class='form-control' name='block_quantity[]' value='"+product.block_quantity+"' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
                                         });
                                     }
                                 });
@@ -507,7 +507,7 @@
                                         console.log(data);
                                         $("table.hlso_soaking_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.hlso_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' class='form-control' name='soaking_weight[]' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' class='form-control' name='soaking_return[]' placeholder='soaking return'></td></tr>");
+                                            $("table.hlso_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='soaking_weight[]' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td></tr>");
                                         });
                                     }
                                 });
@@ -537,7 +537,7 @@
                                         console.log(data);
                                         $("table.excess_volume_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.excess_volume_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' class='form-control' name='excess_volume[]' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            $("table.excess_volume_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control' name='excess_volume[]' value='"+product.excess_volume+"' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
                                         });
                                     }
                                 });
@@ -679,7 +679,7 @@
                                         console.log(data);
                                         $("table.block_counter_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.block_counter_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td><input type='number' class='form-control' name='block_quantity[]' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            $("table.block_counter_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td><input type='number' step='0.01' class='form-control' name='block_quantity[]' value='"+product.block_quantity+"' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
                                         });
                                     }
                                 });
@@ -709,7 +709,7 @@
                                         console.log(data);
                                         $("table.hlso_soaking_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.hlso_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' class='form-control' name='soaking_weight[]' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' class='form-control' name='soaking_return[]' placeholder='soaking return'></td></tr>");
+                                            $("table.hlso_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='soaking_weight[]' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td></tr>");
                                         });
                                     }
                                 });
@@ -739,7 +739,7 @@
                                         console.log(data);
                                         $("table.excess_volume_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.excess_volume_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' class='form-control' name='excess_volume[]' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            $("table.excess_volume_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control' name='excess_volume[]' value='"+product.excess_volume+"' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
                                         });
                                     }
                                 });
@@ -881,7 +881,7 @@
                                             console.log(data);
                                             $("table.pud_block_counter_table tbody tr").empty();
                                             $.each( data, function( key, product ) {
-                                                $("table.pud_block_counter_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td><input type='number' class='form-control' name='block_quantity[]' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                                $("table.pud_block_counter_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td><input type='number' step='0.01' class='form-control' name='block_quantity[]' value='"+product.block_quantity+"' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
                                             });
                                         }
                                     });
@@ -911,7 +911,7 @@
                                             console.log(data);
                                             $("table.pud_soaking_table tbody tr").empty();
                                             $.each( data, function( key, product ) {
-                                                $("table.pud_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' class='form-control' name='soaking_weight[]' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' class='form-control' name='soaking_return[]' placeholder='soaking return'></td></tr>");
+                                                $("table.pud_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='soaking_weight[]' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td></tr>");
                                             });
                                         }
                                     });
@@ -941,7 +941,7 @@
                                             console.log(data);
                                             $("table.pud_excess_volume_table tbody tr").empty();
                                             $.each( data, function( key, product ) {
-                                                $("table.pud_excess_volume_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' class='form-control' name='excess_volume[]' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                                $("table.pud_excess_volume_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control' name='excess_volume[]' value='"+product.excess_volume+"' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
                                             });
                                         }
                                     });
@@ -1083,7 +1083,7 @@
                                             console.log(data);
                                             $("table.p_n_d_block_counter_table tbody tr").empty();
                                             $.each( data, function( key, product ) {
-                                                $("table.p_n_d_block_counter_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td><input type='number' class='form-control' name='block_quantity[]' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                                $("table.p_n_d_block_counter_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td><input type='number' step='0.01' class='form-control' name='block_quantity[]' value='"+product.block_quantity+"' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
                                             });
                                         }
                                     });
@@ -1113,7 +1113,7 @@
                                             console.log(data);
                                             $("table.p_n_d_soaking_table tbody tr").empty();
                                             $.each( data, function( key, product ) {
-                                                $("table.p_n_d_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' class='form-control' name='soaking_weight[]' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' class='form-control' name='soaking_return[]' placeholder='soaking return'></td></tr>");
+                                                $("table.p_n_d_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='soaking_weight[]' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td></tr>");
                                             });
                                         }
                                     });
@@ -1143,7 +1143,7 @@
                                             console.log(data);
                                             $("table.p_n_d_excess_volume_table tbody tr").empty();
                                             $.each( data, function( key, product ) {
-                                                $("table.p_n_d_excess_volume_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' class='form-control' name='excess_volume[]' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                                $("table.p_n_d_excess_volume_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control' name='excess_volume[]' value='"+product.excess_volume+"' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
                                             });
                                         }
                                     });
@@ -1285,7 +1285,7 @@
                                             console.log(data);
                                             $("table.pdto_block_counter_table tbody tr").empty();
                                             $.each( data, function( key, product ) {
-                                                $("table.pdto_block_counter_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td><input type='number' class='form-control' name='block_quantity[]' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                                $("table.pdto_block_counter_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td><input type='number' step='0.01' class='form-control' name='block_quantity[]' value='"+product.block_quantity+"' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
                                             });
                                         }
                                     });
@@ -1315,7 +1315,7 @@
                                             console.log(data);
                                             $("table.pdto_soaking_table tbody tr").empty();
                                             $.each( data, function( key, product ) {
-                                                $("table.pdto_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' class='form-control' name='soaking_weight[]' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' class='form-control' name='soaking_return[]' placeholder='soaking return'></td></tr>");
+                                                $("table.pdto_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='soaking_weight[]' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td></tr>");
                                             });
                                         }
                                     });
@@ -1345,7 +1345,7 @@
                                             console.log(data);
                                             $("table.pdto_excess_volume_table tbody tr").empty();
                                             $.each( data, function( key, product ) {
-                                                $("table.pdto_excess_volume_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' class='form-control' name='excess_volume[]' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                                $("table.pdto_excess_volume_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control' name='excess_volume[]' value='"+product.excess_volume+"' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
                                             });
                                         }
                                     });
@@ -1487,7 +1487,7 @@
                                             console.log(data);
                                             $("table.pto_block_counter_table tbody tr").empty();
                                             $.each( data, function( key, product ) {
-                                                $("table.pto_block_counter_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td><input type='number' class='form-control' name='block_quantity[]' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                                $("table.pto_block_counter_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td><input type='number' step='0.01' class='form-control' name='block_quantity[]' value='"+product.block_quantity+"' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
                                             });
                                         }
                                     });
@@ -1517,7 +1517,7 @@
                                             console.log(data);
                                             $("table.pto_soaking_table tbody tr").empty();
                                             $.each( data, function( key, product ) {
-                                                $("table.pto_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' class='form-control' name='soaking_weight[]' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' class='form-control' name='soaking_return[]' placeholder='soaking return'></td></tr>");
+                                                $("table.pto_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='soaking_weight[]' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td></tr>");
                                             });
                                         }
                                     });
@@ -1547,7 +1547,7 @@
                                             console.log(data);
                                             $("table.pto_excess_volume_table tbody tr").empty();
                                             $.each( data, function( key, product ) {
-                                                $("table.pto_excess_volume_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' class='form-control' name='excess_volume[]' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                                $("table.pto_excess_volume_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control' name='excess_volume[]' value='"+product.excess_volume+"' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
                                             });
                                         }
                                     });

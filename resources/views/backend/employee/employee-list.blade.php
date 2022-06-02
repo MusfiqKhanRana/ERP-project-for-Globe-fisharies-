@@ -41,7 +41,7 @@
 
                         </div>
                         <div class="portlet-body tab-pane" id="probational">
-                            <table class="table table-striped table-bordered table-hover yajra-datatable" id="mytable">
+                            <table class="table table-striped table-bordered table-hover mytable">
                                 <thead>
                                 <tr>
                                     <th class="text-center">
@@ -67,7 +67,10 @@
                                     </th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="tbody_empty">
+                                    <tr>
+
+                                    </tr>
                                 </tbody>
                             </table>
                             <div class="row">
@@ -81,14 +84,43 @@
                     <!-- END EXAMPLE TABLE PORTLET-->
                 </div>
             </div>
-
+            @php
+                $url = url('\assets\images\employee\images');
+                // echo $url;
+            @endphp
+            {{-- <img src="{{$url}}" alt=""> --}}
+            <input type="hidden" value="{{$url}}" class="image_path">
         </div>
     </div>
 @endsection
 @section('script')
     <script>
-        var id =0;
             $(document).ready(function(){
+                var id =0;
+                var img_url = $('.image_path').val();
+                // console.log($('.image_path').val());
+                id = 1;
+                $.ajax({
+                    type:"POST",
+                        url:"{{route('employee.ajaxlist')}}",
+                        data:{
+                            'id' : id,
+                            '_token' : $('input[name=_token]').val(),
+                        },
+                    success:function(data){
+                        // $('.tbody_empty').empty();
+                        $("table.mytable tbody tr").empty();
+                        employee = null;
+                        // console.log(data);
+                        $.each( data, function( key, employee ) {
+                            console.log(employee);
+                            var img1 = '<a href="#"><img src="'+img_url+'/'+employee.image+'"/ width="120px" height="90px"></a>';
+                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img1+"</td><td>"+employee.name+"</td><td>"+employee.dept_id+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                        });
+                    }
+                })
+                $(document).on('click',"#Probational",function(){
+                // $("table#mytable tbody").empty();
                 id = 1;
                 $.ajax({
                     type:"POST",
@@ -97,21 +129,23 @@
                             'id' : id,
                             '_token' : $('input[name=_token]').val(),
                             page :1,
-                            pageLimit : 
+                            pageLimit : 1
                         },
                     success:function(data){
+                        // $('.tbody_empty').empty();
+                        $("table.mytable tbody tr").empty();
                         employee = null;
-                        console.log(data);
+                        // console.log(data);
                         $.each( data, function( key, employee ) {
                             console.log(employee);
-                            var img1 = '<a href="#"><img src="' + employee.image + '"/></a>';
-                            $("table#mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img1+"</td><td>"+employee.name+"</td><td>"+employee.dept_id+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                            var img2 = '<a href="#"><img src="'+img_url+'/'+employee.image+'"/ width="120px" height="90px"></a>';
+                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img2+"</td><td>"+employee.name+"</td><td>"+employee.dept_id+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
                         });
                     }
                 })
             });
             $(document).on('click',"#Permanent",function(){
-                $("table#mytable tbody").empty();
+                // $("table#mytable tbody").empty();
                 id = 2;
                 $.ajax({
                     type:"POST",
@@ -123,18 +157,20 @@
                             pageLimit : 1
                         },
                     success:function(data){
+                        // $('.tbody_empty').empty();
+                        $("table.mytable tbody tr").empty();
                         employee = null;
-                        console.log(data);
+                        // console.log(data);
                         $.each( data, function( key, employee ) {
                             console.log(employee);
-                            var img1 = '<a href="#"><img src="' + employee.image + '"/></a>';
-                            $("table#mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img1+"</td><td>"+employee.name+"</td><td>"+employee.dept_id+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                            var img3 = '<a href="#"><img src="'+img_url+'/'+employee.image+'"/ width="120px" height="90px"></a>';
+                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img3+"</td><td>"+employee.name+"</td><td>"+employee.dept_id+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
                         });
                     }
                 })
             });
             $(document).on('click',"#Retired",function(){
-                $("table#mytable tbody").empty();
+                // $("table#mytable tbody").empty();
                 id = 3;
                 $.ajax({
                     type:"POST",
@@ -144,18 +180,20 @@
                             '_token' : $('input[name=_token]').val()
                         },
                     success:function(data){
+                        // $('.tbody_empty').empty();
+                        $("table.mytable tbody tr").empty();
                         employee = null;
-                        console.log(data);
+                        // console.log(data);
                         $.each( data, function( key, employee ) {
                             console.log(employee);
-                            var img1 = '<a href="#"><img src="' + employee.image + '"/></a>';
-                            $("table#mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img1+"</td><td>"+employee.name+"</td><td>"+employee.dept_id+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                            var img4 = '<a href="#"><img src="'+img_url+'/'+employee.image+'"/ width="120px" height="90px"></a>';
+                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img4+"</td><td>"+employee.name+"</td><td>"+employee.dept_id+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
                         });
                     }
                 })
             });
             $(document).on('click',"#Terminated",function(){
-                $("table#mytable tbody").empty();
+                // $("table#mytable tbody").empty();
                 id = 4;
                 $.ajax({
                     type:"POST",
@@ -165,15 +203,18 @@
                             '_token' : $('input[name=_token]').val()
                         },
                     success:function(data){
+                        // $('.tbody_empty').empty();
+                        $("table.mytable tbody tr").empty();
                         employee = null;
                         console.log(data);
                         $.each( data, function( key, employee ) {
                             console.log(employee);
-                            var img1 = '<a href="#"><img src="' + employee.image + '"/></a>';
-                            $("table#mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img1+"</td><td>"+employee.name+"</td><td>"+employee.dept_id+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                            var img5 = '<a href="#"><img src="'+img_url+'/'+employee.image+'"/ width="120px" height="90px"></a>';
+                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img5+"</td><td>"+employee.name+"</td><td>"+employee.dept_id+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
                         });
                     }
                 })
+            });
             });
     </script>
 @endsection

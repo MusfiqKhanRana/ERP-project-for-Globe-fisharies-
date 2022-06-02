@@ -13,13 +13,13 @@
                         <input type="hidden" class="ppu_id" name="ppu_id">
                         <p><b>Invoice no:</b> <span class="whole_invoice"></span></p>
                         <p><b>Item Name:</b> <span class="whole_item"></span></p>
-                        <p><b>Quantity:</b> <span class="whole_qty"></span></p>
+                        <p><b>Quantity(kg):</b> <span class="whole_qty"></span></p>
                     <div class="row">
                         <div class="col-md-3">
                             <b>Initial Weight:</b>
                         </div>
                         <div class="col-md-6">
-                            <input type="text" class="form-control initial_weight" name="initial_weight" placeholder="Type Initial Weight">
+                            <input type="number" step="0.01" class="form-control initial_weight" name="initial_weight" required placeholder="Type Initial Weight">
                         </div>
                         <div class="col-md-3">
                             <b>Parcentage:</b> <span class="parcentage"></span></p>

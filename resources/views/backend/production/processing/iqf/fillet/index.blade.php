@@ -42,8 +42,8 @@
                     60kg
                 </td>
                 <td>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#filletProcessingDataModal" class="btn btn-success fillet_processing"><i class="fa fa-refresh" aria-hidden="true"></i> Processing Data</button>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#filletGradingModal" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Grading</button>
+                    <button style="margin-bottom:3px" data-toggle="modal" href="#filletProcessingDataModal" class="btn btn-success fillet_processing"><i class="fa fa-refresh" aria-hidden="true"></i> Raw Filleting</button>
+                    {{-- <button style="margin-bottom:3px" data-toggle="modal" href="#filletGradingModal" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Grading</button> --}}
                     <button style="margin-bottom:3px" data-toggle="modal" href="#filletSoakingModal" class="btn btn-warning"><i class="fa fa-refresh" aria-hidden="true"></i> Soaking</button>
                     <button style="margin-bottom:3px" data-toggle="modal" href="#filletGlazingModal" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Glazing</button>
                     <button style="margin-bottom:3px" data-toggle="modal" href="#filletReturnModal" class="btn btn-danger"><i class="fa fa-repeat" aria-hidden="true"></i> Return & Wastage</button>

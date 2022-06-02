@@ -12,7 +12,7 @@
                         <input type="hidden" name="glazing_ppu_id" class="glazing_ppu_id">
                         <p><b>Invoice no:</b> <span class="whole_invoice"></span></p>
                         <p><b>Item Name:</b> <span class="whole_item"></span></p>
-                        <p><b>Quantity:</b> <span class="whole_qty"></span></p>
+                        <p><b>Quantity(kg):</b> <span class="whole_qty"></span></p>
                     {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
                     <div class="row">
                         <div class="col-md-12">
@@ -40,7 +40,7 @@
                                             5
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" placeholder="Type Glazing Weight ">
+                                            <input type="number" step="0.01" class="form-control" required placeholder="Type Glazing Weight ">
                                         </td>
                                     </tr>
                                 </tbody>
