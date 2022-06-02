@@ -115,7 +115,7 @@
                         $.each( data, function( key, employee ) {
                             console.log(employee);
                             var img1 = '<a href="#"><img src="'+img_url+'/'+employee.image+'"/ width="120px" height="90px"></a>';
-                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img1+"</td><td>"+employee.name+"</td><td>"+employee.dept_id+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img1+"</td><td>"+employee.name+"</td><td>Department:"+employee.department.name+"<br>Designation : "+employee.designation.deg_name+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
                         });
                     }
                 })
@@ -139,7 +139,7 @@
                         $.each( data, function( key, employee ) {
                             console.log(employee);
                             var img2 = '<a href="#"><img src="'+img_url+'/'+employee.image+'"/ width="120px" height="90px"></a>';
-                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img2+"</td><td>"+employee.name+"</td><td>"+employee.dept_id+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img2+"</td><td>"+employee.name+"</td><td>Department:"+employee.department.name+"<br>Designation : "+employee.designation.deg_name+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
                         });
                     }
                 })
@@ -164,7 +164,7 @@
                         $.each( data, function( key, employee ) {
                             console.log(employee);
                             var img3 = '<a href="#"><img src="'+img_url+'/'+employee.image+'"/ width="120px" height="90px"></a>';
-                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img3+"</td><td>"+employee.name+"</td><td>"+employee.dept_id+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img3+"</td><td>"+employee.name+"</td><td>Department:"+employee.department.name+"<br>Designation : "+employee.designation.deg_name+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
                         });
                     }
                 })
@@ -187,7 +187,7 @@
                         $.each( data, function( key, employee ) {
                             console.log(employee);
                             var img4 = '<a href="#"><img src="'+img_url+'/'+employee.image+'"/ width="120px" height="90px"></a>';
-                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img4+"</td><td>"+employee.name+"</td><td>"+employee.dept_id+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img4+"</td><td>"+employee.name+"</td><td>Department:"+employee.department.name+"<br>Designation : "+employee.designation.deg_name+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
                         });
                     }
                 })
@@ -210,7 +210,7 @@
                         $.each( data, function( key, employee ) {
                             console.log(employee);
                             var img5 = '<a href="#"><img src="'+img_url+'/'+employee.image+'"/ width="120px" height="90px"></a>';
-                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img5+"</td><td>"+employee.name+"</td><td>"+employee.dept_id+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img5+"</td><td>"+employee.name+"</td><td>Department:"+employee.department.name+"<br>Designation : "+employee.designation.deg_name+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
                         });
                     }
                 })
