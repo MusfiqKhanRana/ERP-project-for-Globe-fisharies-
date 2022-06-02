@@ -13,7 +13,7 @@
                         <input type="hidden" class="randw_ppu_id" name="randw_ppu_id">
                         <p><b>Invoice no:</b> <span class="whole_invoice"></span></p>
                         <p><b>Item Name:</b> <span class="whole_item"></span></p>
-                        <p><b>Quantity:</b> <span class="whole_qty"></span></p>
+                        <p><b>Quantity(kg):</b> <span class="whole_qty"></span></p>
                     </div>
                     <div class="col-md-12">
                         <table class="table table-striped table-bordered table-hover whole_randw_table">
@@ -50,11 +50,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Wastage (Kg)</label>
-                                <input type="text" class="form-control" name="wastage_quantity" placeholder=" Type Wastage Volume">
+                                <input type="number" step="0.01" class="form-control" name="wastage_quantity" required placeholder=" Type Wastage Volume">
                             </div>
                             <div class="col-md-6">
                                 <label>Return (Kg)</label>
-                                <input type="text" class="form-control" name="return_quantity" placeholder=" Type Return Volume">
+                                <input type="number" step="0.01" class="form-control" name="return_quantity" required placeholder=" Type Return Volume">
                             </div>
                         </div><br>
                     </div>
