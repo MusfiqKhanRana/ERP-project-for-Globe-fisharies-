@@ -9,6 +9,14 @@ class ProductionGeneralPurchaseQuotation extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function getNegotiablePriceAttribute($value)
+    {
+        return unserialize($value);
+    }
+    public function getCsRemarkAttribute($value)
+    {
+        return unserialize($value);
+    }
     public function supplier()
     {
         return $this->belongsTo(ProductionSupplier::class);

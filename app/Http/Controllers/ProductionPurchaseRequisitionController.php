@@ -13,6 +13,7 @@ use App\Models\ProductionRequisitionItem;
 use App\Models\ProductionSupplier;
 use App\Models\ProductionSupplyList;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductionPurchaseRequisitionController extends Controller
 {
@@ -192,38 +193,36 @@ class ProductionPurchaseRequisitionController extends Controller
     }
 
     public function cs_data_pass(Request $request){
-        // dd($request->all());
         $data = $request->all();
-        for ($i=0; $i <count($data['quotation_id']); $i++) { 
-            $x = ProductionGeneralPurchaseQuotation::where('id',$data['quotation_id'][$i])->first();
-            $price_arr =array($data['negotiable_price'][$i]);
-            $remark_arr = array($data['cs_remark'][$i]);
-            $price_se =serialize($price_arr);
-            $remark_se = serialize($remark_arr);
-            if ($x->negotiable_price ==null && $x->cs_remark==null) {
-                // dd('empty');
-                $x->update([
-                    'negotiable_price'=>$price_se,
-                    'cs_remark' =>$remark_se,
-                    "status"=>"InNegotiation",
+        for ($i=0; $i <count($data['quotation_id']) ; $i++) { 
+            $production_quotation = ProductionGeneralPurchaseQuotation::where('id',$data['quotation_id'][$i])->first();
+            if ($production_quotation->negotiable_price) {
+                $price=$production_quotation->negotiable_price;
+                $remark=$production_quotation->cs_remark;
+                array_push($price,$data['negotiable_price'][$i]);
+                array_push($remark,$data['cs_remark'][$i]);
+                $price = serialize($price);
+                $remark = serialize($remark);
+                $affected = DB::table('production_general_purchase_quotations')
+                ->where('id',$data['quotation_id'][$i])
+                ->update([
+                    'negotiable_price'=>$price,
+                    'cs_remark' =>$remark,
+                    "status"=>"InCS",
                 ]);
             }else{
-                $price = unserialize($x->negotiable_price);
-                $remark = unserialize($x->cs_remark);
-                $price_a_p = array_push($price,$data['negotiable_price'][$i]);
-                $remark_a_p = array_push($remark,$data['cs_remark'][$i]);
-                $price_a_p_se = serialize($price_a_p);
-                $remark_a_p_se = serialize($remark_a_p);
-                // dd($price,$remark);
-                $x->update([
-                    'negotiable_price'=>$price_a_p_se,
-                    'cs_remark' =>$remark_a_p_se,
+                $price_arr =array($data['negotiable_price'][$i]);
+                $price_arr =serialize($price_arr);
+                $remark_arr = array($data['cs_remark'][$i]);
+                $remark_arr = serialize($remark_arr);
+                $affected = DB::table('production_general_purchase_quotations')
+                ->where('id',$data['quotation_id'][$i])
+                ->update([
+                    'negotiable_price'=>$price_arr,
+                    'cs_remark' =>$remark_arr,
                     "status"=>"InNegotiation",
                 ]);
-                $price = null;
-                $remark = null;
             }
-            $x = null;
         }
         return redirect()->back()->withmsg('Successfully Send For Negotiation');
     }
@@ -250,7 +249,7 @@ class ProductionPurchaseRequisitionController extends Controller
         ->latest()
         ->get();
         return response()->json($data);
-}
+    }
     // public function quotation_list(){
     //     $requisition=ProductionPurchaseRequisition::where('status','Confirm')->Orwhere('status','Purchased')->with('items','departments','users')->get();
     //     dd($requisition->toArray());
