@@ -22,8 +22,8 @@ class CreateProductionGeneralPurchaseQuotationsTable extends Migration
             $table->integer('price')->nullable();
             $table->string('speciality')->nullable();
             $table->string('remark')->nullable();
-            $table->string('negotiable_price')->nullable();
-            $table->string('cs_remark')->nullable();
+            $table->text('negotiable_price')->nullable();
+            $table->text('cs_remark')->nullable();
             $table->boolean('is_confirm')->nullable();
             $table->enum('status', ['InQuotation','InCS','InPurchase','Reject','InNegotiation'])->default('InQuotation');
             $table->timestamps();
