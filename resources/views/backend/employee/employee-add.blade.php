@@ -235,6 +235,40 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="portlet box dark">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-calendar"></i>OverTime
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="form-body">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <input type="checkbox" name="isOvertime" class="overtime" value="checked">Allow Overtime
+                                            </div><br><br>
+                                            <div class=" col-md-12 overtime_type">
+                                                <div class="col-md-12">
+                                                    
+                                                    <label>
+                                                        <input type="radio" class="form-control" name="overtime_type" value="Regular" checked> Regular
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" class="form-control" name="overtime_type" id="bonus_amount" value="Fixed" > Fixed
+                                                    </label>
+                                                </div><br><br>
+                                                <div class="row">
+                                                    <div class="col-md-12  fixed_amount">
+                                                        <input class="form-control" type="number" name="overtime_amount" placeholder="Type Amount">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-6 col-sm-6">
                         <div class="portlet box dark">
@@ -412,7 +446,7 @@
                                             <select class="form-control" name="provident_fund" id="">
                                                 <option value="">N/A</option>
                                                 @foreach ($provident_fund as $item)
-                                                    <option value="{{$item->package}}">{{$item->package}}</option>
+                                                    <option value="{{$item->id}}">{{$item->package}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -644,6 +678,20 @@
 @section('script')
     <script>
         $(document).ready(function(){
+            $('.overtime_type').hide();
+            $('.overtime').click(function()
+            {
+            if ($(this).is(':checked')) {
+                $('.overtime_type').show();
+                }
+            });
+            $('.fixed_amount').hide();
+            $('#bonus_amount').click(function()
+            {
+            if ($(this).is(':checked')) {
+                $('.fixed_amount').show();
+                }
+            });
             function nullmaking(){
             $("#percentage_id").val(null);
             $("#amount_id").val(null);

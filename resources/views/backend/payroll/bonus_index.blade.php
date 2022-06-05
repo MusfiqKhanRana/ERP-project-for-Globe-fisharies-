@@ -53,6 +53,7 @@ Bonus Records
                                 <th>Name</th>
                                 <th>Amount</th>
                                 <th>Bonus Category</th>
+                                <th>Status</th>
                                 <th>Remark</th>
                                 <th style="text-align: center">Action</th>
                             </tr>
@@ -60,20 +61,24 @@ Bonus Records
                             <tbody>
                                 @foreach($bonus as $key=> $data)
                                     <tr id="row1">
-                                        <td>{{ $data->id }}</td>
-                                        <td class="text-align: center;"> {{$data->bonus_code}}</td>
-                                        <td class="text-align: center;"> {{$data->date}}</td>
-                                        <td class="text-align: center;"> {{$data->user->name}}</td>
-                                        <td class="text-align: center;"> {{$data->amount}}</td>
-                                        <td class="text-align: center;"> {{$data->bonus_category}}</td>
-                                        <td class="text-align: center;"> {{$data->remark}}</td>
-                                        <td style="text-align: center">
-                                            <a class="btn btn-success"  data-toggle="modal" href="#"><i class="fa fa-check"></i> Approve</a>
-                                            <a class="btn btn-primary" data-toggle="modal" href="#"><i class="fa fa-ban"></i> Reject</a>
-                                            <a class="btn btn-info"  data-toggle="modal" href="#editModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
-                                            <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
-
-                                        </td>
+                                        @if ($data->status == "Approve" || $data->status == "Initial")
+                                            <td>{{$loop->iteration}}</td>
+                                            <td class="text-align: center;"> {{$data->bonus_code}}</td>
+                                            <td class="text-align: center;"> {{$data->date}}</td>
+                                            <td class="text-align: center;"> {{$data->user->name}}</td>
+                                            <td class="text-align: center;"> {{$data->amount}}</td>
+                                            <td class="text-align: center;"> {{$data->bonus_category}}</td>
+                                            <td class="text-align: center;"> {{$data->status}}</td>
+                                            <td class="text-align: center;"> {{$data->remark}}</td>
+                                            <td style="text-align: center">
+                                                @if ($data->status == "Initial")
+                                                    <a class="btn btn-info"  data-toggle="modal" href="#editModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
+                                                    <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                                    <a class="btn btn-success"  data-toggle="modal" href="#approve{{$data->id}}"><i class="fa fa-check"></i> Approve</a>
+                                                    <a class="btn yellow" data-toggle="modal" href="#reject{{$data->id}}"><i class="fa fa-ban"></i> Reject</a>
+                                                @endif
+                                            </td>
+                                        @endif
                                     </tr>
                                     <div id="deleteModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                         {{csrf_field()}}
@@ -153,6 +158,54 @@ Bonus Records
                                                         <div class="modal-footer">
                                                             <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                                             <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="reject{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h4 class="modal-title" style="color: red"><b>Do you want to reject it?</b></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="form-horizontal" role="form" method="post" action="{{route('bonus.reject', $data->id)}}">
+                                                        {{csrf_field()}}
+                                                        {{method_field('get')}}
+                                                        <input type="hidden" value="" name="reject">
+                                                        {{-- <div class="form-group">
+                                                            <textarea style="margin-left: 10%" name="reject_message" id="" cols="40" rows="5" placeholder="Give a Reject Massage(Optional)"></textarea>
+                                                        </div> --}}
+                                                        <div class="modal-footer">
+                                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-check" aria-hidden="true"></i> Confirm</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="approve{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h4 class="modal-title" style="color: red"><b>Do you want to Approve it?</b></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="form-horizontal" role="form" method="post" action="{{route('bonus.approve', $data->id)}}">
+                                                        {{csrf_field()}}
+                                                        {{method_field('get')}}
+                                                        <input type="hidden" value="" name="approve">
+                                                        {{-- <div class="form-group">
+                                                            <textarea style="margin-left: 10%" name="single_cancel_massage" id="" cols="40" rows="5" placeholder="give a cancel Massage(Optional)"></textarea>
+                                                        </div> --}}
+                                                        <div class="modal-footer">
+                                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-check" aria-hidden="true"></i> Confirm</button>
                                                         </div>
                                                     </form>
                                                 </div>
