@@ -27,6 +27,17 @@
                 @if( request()->path() == '' || request()->path() == '' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/tiffin-bill' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/show-cause-application' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/absent-application' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee-attendance' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/bonus' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/office/loan' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/increment' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/payroll.chart' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/disburse-salarye' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/payroll' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/provident-fund' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/add-employee' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/individual-attendance' ) active open @endif
@@ -41,6 +52,18 @@
                 @php echo "active",(request()->path() != 'admin/award/edit/{$url}')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/employee/task')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/employee/tiffin-bill')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/employee/employee/attendance')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/employee/employee-attendance')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/employee/provident-fund')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/employee/bonus')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/employee/office/loan')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/employee/increment')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/employee/payroll.chart')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/employee/disburse-salarye')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/employee/payroll')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/employee/absent-application')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/employee/show-cause-application')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/attendance')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/employee/task-add')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/notice')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/notice/create')?:"";@endphp
@@ -64,8 +87,8 @@
 
                     <li class="nav-item @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee' ) active open @endif
                     @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/add-employee' ) active open @endif
-                    @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance' ) active open @endif
-                    @if( request()->path() == 'admin/employee' || request()->path() == 'admin/individual-attendance' ) active open @endif
+                    {{-- @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance' ) active open @endif --}}
+                    {{-- @if( request()->path() == 'admin/employee' || request()->path() == 'admin/individual-attendance' ) active open @endif --}}
                     @if( request()->path() == 'admin/employee' || request()->path() == 'admin/user-shift' ) active open @endif
                     @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance-count' ) active open @endif
                     @if( request()->path() == 'admin/employee' || request()->path() == 'admin/tiffin-bill' ) active open @endif
@@ -102,9 +125,16 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item start @php echo "active",(request()->path() != 'admin/payroll')?:"";@endphp
-                        @php echo "active",(request()->path() != 'admin/payroll/chart')?:"";@endphp
-                        @php echo "active",(request()->path() != 'admin/payroll/salary/sheet')?:"";@endphp">
+                    <li class="nav-item start @php echo "active",(request()->path() != 'admin/attendt')?:"";@endphp
+                        @php echo "active",(request()->path() != 'admin/employee/attendance')?:"";@endphp
+                        @php echo "active",(request()->path() != 'admin/employee-attendance')?:"";@endphp 
+                        @php echo "active",(request()->path() != 'admin/absent-application')?:"";@endphp
+                        @php echo "active",(request()->path() != 'admin/show-cause-application')?:"";@endphp"
+                        @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance' ) active open @endif
+                        @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee-attendance' ) active open @endif
+                        @if( request()->path() == 'admin/employee' || request()->path() == 'admin/absent-application' ) active open @endif
+                        @if( request()->path() == 'admin/employee' || request()->path() == 'admin/show-cause-application' ) active open @endif>
+                       
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-clock-o" aria-hidden="true"></i>
                                 <span class="title">Attendance </span>
@@ -113,22 +143,25 @@
                             <ul class="sub-menu">
                                 
     
-                                <li class="nav-item  @if( request()->path() == 'admin/payroll/chart' ) active open @endif">
+                                <li class="nav-item @if( request()->path() == 'admin/employee/attendance') active open @endif
+                                    @if( request()->path() == 'employee.attend' ) active open @endif">
                                     <a href="{{route('employee.attend')}}" class="nav-link ">
                                         <span class="title">Attendance List</span>
                                     </a>
                                 </li>
-                                <li class="nav-item  @if( request()->path() == 'admin/payroll' ) active open @endif">
+                                <li class="nav-item  @if( request()->path() == 'admin/employee-attendance') active open @endif
+                                    @if( request()->path() == 'employee-attendance' ) active open @endif">
                                     <a href="{{route('employee-attendance.index')}}" class="nav-link ">
                                         <span class="title">My Attendance</span>
                                     </a>
                                 </li>
-                                <li class="nav-item  @if( request()->path() == 'admin/payroll' ) active open @endif">
+                                <li class="nav-item  @if( request()->path() == 'admin/absent-application' ) active open @endif">
                                     <a href="{{route('absent-application.index')}}" class="nav-link ">
                                         <span class="title">Absent Application</span>
                                     </a>
                                 </li>
-                                <li class="nav-item  @if( request()->path() == 'admin/payroll' ) active open @endif">
+                                <li class="nav-item  @if( request()->path() == 'admin/show-cause-application') active open @endif
+                                    @if( request()->path() == 'show-cause-application' ) active open @endif">
                                     <a href="{{route('show-cause-application.index')}}" class="nav-link ">
                                         <span class="title">Late/Delay Application</span>
                                     </a>
@@ -141,50 +174,70 @@
                         </a>
                     </li> --}}
                     <li class="nav-item start @php echo "active",(request()->path() != 'admin/payroll')?:"";@endphp
-                    @php echo "active",(request()->path() != 'admin/payroll/chart')?:"";@endphp
-                    @php echo "active",(request()->path() != 'admin/payroll/salary/sheet')?:"";@endphp">
+                        @php echo "active",(request()->path() != 'admin/payroll')?:"";@endphp
+                        @php echo "active",(request()->path() != 'admin/disburse-salary')?:"";@endphp 
+                        @php echo "active",(request()->path() != 'admin/payroll.chart')?:"";@endphp
+                        @php echo "active",(request()->path() != 'admin/increment')?:"";@endphp
+                        @php echo "active",(request()->path() != 'admin/office/loan')?:"";@endphp 
+                        @php echo "active",(request()->path() != 'admin/bonus')?:"";@endphp
+                        @php echo "active",(request()->path() != 'admin/provident-fund')?:"";@endphp"
+                        @if( request()->path() == 'admin/employee' || request()->path() == 'admin/payroll' ) active open @endif
+                        @if( request()->path() == 'admin/employee' || request()->path() == 'admin/disburse-salarye' ) active open @endif
+                        @if( request()->path() == 'admin/employee' || request()->path() == 'admin/payroll.chart' ) active open @endif
+                        @if( request()->path() == 'admin/employee' || request()->path() == 'admin/increment' ) active open @endif
+                        @if( request()->path() == 'admin/employee' || request()->path() == 'admin/office/loan' ) active open @endif
+                        @if( request()->path() == 'admin/employee' || request()->path() == 'admin/bonus' ) active open @endif
+                        @if( request()->path() == 'admin/employee' || request()->path() == 'admin/provident-fund' ) active open @endif>
+                    
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-money"></i>
                             <span class="title">Employee Payroll</span>
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item  @if( request()->path() == 'admin/payroll' ) active open @endif">
+                            <li class="nav-item  @if( request()->path() == 'admin/payroll') active open @endif
+                                @if( request()->path() == 'payroll' ) active open @endif">
                                 <a href="{{route('payroll.index')}}" class="nav-link ">
                                     <span class="title">Employee Salary</span>
                                 </a>
                             </li>
-                            <li class="nav-item  @if( request()->path() == 'admin/payroll' ) active open @endif">
+                            <li class="nav-item  @if( request()->path() == 'admin/disburse-salary') active open @endif
+                                @if( request()->path() == 'disburse-salary' ) active open @endif">
                                 <a href="{{route('disburse-salary.index')}}" class="nav-link ">
                                     <span class="title">Disburse Salary</span>
                                 </a>
                             </li>
 
-                            <li class="nav-item  @if( request()->path() == 'admin/payroll/chart' ) active open @endif">
+                            <li class="nav-item  @if( request()->path() == 'admin/payroll.chart') active open @endif
+                                @if( request()->path() == 'payroll.chart' ) active open @endif">
                                 <a href="{{route('payroll.chart')}}" class="nav-link ">
                                     <span class="title">Salary Chart</span>
                                 </a>
                             </li>
 
-                            <li class="nav-item  @if( request()->path() == 'admin/payroll/add-increment' ) active open @endif">
+                            <li class="nav-item  @if( request()->path() == 'admin/increment') active open @endif
+                                @if( request()->path() == 'increment' ) active open @endif">
                                 <a href="{{route('increment.index')}}" class="nav-link ">
                                     <span class="title">Increment/Decrement</span>
                                 </a>
                             </li>
 
-                            <li class="nav-item  @if( request()->path() == 'admin/payroll/advance-loan' ) active open @endif">
+                            <li class="nav-item  @if( request()->path() == 'admin/office/loan') active open @endif
+                                @if( request()->path() == 'office/loan' ) active open @endif">
                                 <a href="{{route('office.loan.manange')}}" class="nav-link ">
                                     <span class="title">Advance/Loan</span>
                                 </a>
                             </li>
 
-                            <li class="nav-item  @if( request()->path() == 'admin/payroll' ) active open @endif">
+                            <li class="nav-item  @if( request()->path() == 'admin/provident-fund') active open @endif
+                                @if( request()->path() == 'provident-fund' ) active open @endif">
                                 <a href="{{route('provident-fund.index')}}" class="nav-link ">
                                     <span class="title">Provident Fund</span>
                                 </a>
                             </li>
 
-                            <li class="nav-item  @if( request()->path() == 'admin/payroll' ) active open @endif">
+                            <li class="nav-item  @if( request()->path() == 'admin/bonus') active open @endif
+                                @if( request()->path() == 'bonus' ) active open @endif">
                                 <a href="{{route('bonus.index')}}" class="nav-link ">
                                     <span class="title">Bonus / Additions</span>
                                 </a>
@@ -431,15 +484,16 @@
             </li>
 
             <li class="nav-item @if( request()->path() == 'admin/sale' || request()->path() == 'admin/sale' ) active open @endif
-                @if( request()->path() == 'admin/party-management' || request()->path() == 'admin/party-management' ) active open @endif">
+                @if( request()->path() == 'admin/party-management' || request()->path() == 'admin/party-management' ) active open @endif
+                @if( request()->path() == 'admin/party/caeate' || request()->path() == 'admin/party/caeate' ) active open @endif">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-print" aria-hidden="true"></i>
                     <span class="title">Party Management</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item  @if( request()->path() == 'admin/party' ) active open @endif
-                    @if( request()->path() == '' ) active open @endif">
+                    <li class="nav-item  @if( request()->path() == 'admin/party/create' ) active open @endif
+                    @if( request()->path() == 'party/create' ) active open @endif">
                         <a href="{{route('party.create')}}" class="nav-link ">
                             <span class="title">Create Party</span>
                         </a>
@@ -650,7 +704,7 @@
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item @if( request()->path() == 'admin/report-genarate' ) active open @endif">
-                                        {{-- <a href="{{route('microbiological.test.report.genarate')}}" class="nav-link "> --}}
+                                        <a href="{{route('microbiological.test.report.genarate')}}" class="nav-link ">
                                             <span class="title">Report Genarate</span>
                                         </a>
                                     </li>
