@@ -433,7 +433,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //Microbiological Test Report
     Route::get('report-details/{id}',[MicrobiologicalTestController::class,'report_details'])->name('microbiological.test.report.details');
-    Route::get('report-genarate/{id}',[MicrobiologicalTestController::class,'report_genarate'])->name('microbiological.test.report.genarate');
+    Route::get('report-genarate',[MicrobiologicalTestController::class,'report_genarate'])->name('microbiological.test.report.genarate');
     Route::resource('microbiological-test',MicrobiologicalTestController::class);
 
     //Tiffin Bill

@@ -54,7 +54,6 @@ Microbiological Test Report
                 </div> --}}
                 <form role="form" method="post" action="{{route('microbiological-test.store')}}">
                     {{csrf_field()}}
-                    <input type="hidden" name="production_processing_unit_id" value="{{$production_processing_unit_id}}">
                     <div class="portlet-body">
                         <div class="col-6">
                             <label for=""> 1. Sample</label>
