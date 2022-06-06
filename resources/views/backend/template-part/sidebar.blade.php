@@ -26,6 +26,7 @@
             <li class="nav-item @if( request()->path() == 'admin/department' || request()->path() == 'admin/department' ) active open @endif
                 @if( request()->path() == '' || request()->path() == '' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/tiffin-bill' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/add-employee' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/individual-attendance' ) active open @endif
@@ -39,6 +40,7 @@
                 @php echo "active",(request()->path() != 'admin/award/create')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/award/edit/{$url}')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/employee/task')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/employee/tiffin-bill')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/employee/task-add')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/notice')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/notice/create')?:"";@endphp
@@ -66,7 +68,9 @@
                     @if( request()->path() == 'admin/employee' || request()->path() == 'admin/individual-attendance' ) active open @endif
                     @if( request()->path() == 'admin/employee' || request()->path() == 'admin/user-shift' ) active open @endif
                     @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance-count' ) active open @endif
+                    @if( request()->path() == 'admin/employee' || request()->path() == 'admin/tiffin-bill' ) active open @endif
                     @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/edit-employee' ) active open @endif">
+                    
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
                             <span class="title">Employee</span>
