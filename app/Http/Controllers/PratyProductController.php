@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Party;
+use App\Models\PartyProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -36,7 +38,16 @@ class PratyProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+      
+        $party_product = new PartyProduct;
+        $party_product->party_id = $request->party_id;
+        $party_product->product_id = $request->party_product;
+        $party_product->price = $request->party_price;
+        //dd( $party_product);
+        $party_product->save();
+        
+        return redirect()->back()->withMsg("Successfully Product Created");
     }
 
     /**

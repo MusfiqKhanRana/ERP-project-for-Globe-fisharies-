@@ -72,7 +72,7 @@ Bonus Records
                                             <td class="text-align: center;"> {{$data->remark}}</td>
                                             <td style="text-align: center">
                                                 @if ($data->status == "Initial")
-                                                    <a class="btn btn-info"  data-toggle="modal" href="#editModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
+                                                    <a class="btn btn-info editModal"  data-toggle="modal" data-id="{{$data->id}}" data-bonus_code="{{$data->bonus_code}}" data-date="{{$data->date}}" data-user_name="{{$data->user->name}}" data-amount="{{$data->amount}}" data-category="{{$data->bonus_category}}" data-remark="{{$data->remark}}" href="#editModal"><i class="fa fa-edit"></i> Edit</a>
                                                     <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
                                                     <a class="btn btn-success"  data-toggle="modal" href="#approve{{$data->id}}"><i class="fa fa-check"></i> Approve</a>
                                                     <a class="btn yellow" data-toggle="modal" href="#reject{{$data->id}}"><i class="fa fa-ban"></i> Reject</a>
@@ -104,66 +104,7 @@ Bonus Records
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="editModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                    <h4 class="modal-title">Update Production Test</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form class="form-horizontal" role="form" method="post" action="{{route('bonus.update', $data->id)}}">
-                                                        {{csrf_field()}}
-                                                        {{method_field('put')}}
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <label for="inputEmail1" class="col-md-2 control-label">Date</label>
-                                                                <input type="date" class="form-control" value="{{$data->date}}" required name="date">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <label for="inputEmail1" class="col-md-2 control-label">Name</label>
-                                                                <select class="form-control" name="user_id" required>
-                                                                    @foreach($users as $user)
-                                                                        <option value="{{$user->id}}" {{ $data->user->id == $user->id ? 'selected' : '' }}>{{$user->name}}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <label for="inputEmail1" class="col-md-2 control-label">Amount</label>
-                                                                <input type="text" class="form-control" value="{{$data->amount}}" required name="amount" >
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <label for="inputEmail1" class="col-md-2 control-label">Bonus Category</label>
-                                                                <select class="form-control" name="bonus_category" required>
-                                                                    <option value="{{$data->bonus_category}}">{{$data->bonus_category}}</option>
-                                                                    <option value="Festival" >Festival</option>
-                                                                    <option value="Performance" >Performance</option>
-                                                                    <option value="Donation">Donation</option>
-                                                                    <option value="Other" >Other</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
-                                                                <input type="text" class="form-control" value="{{$data->remark}}" name="remark">
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                     <div id="reject{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -215,6 +156,68 @@ Bonus Records
                                 @endforeach
                             </tbody>
                         </table>
+                        <div id="editModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                        <h4 class="modal-title">Update Bonus</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form-horizontal" role="form" method="post" action="{{route('bonus.update', $data->id)}}">
+                                            {{csrf_field()}}
+                                            {{method_field('put')}}
+                                            <input type="hidden" id="edit" name="" value="">
+                                            <div class="row">
+                                                
+                                                <div class="col-md-12">
+                                                    <label for="inputEmail1" class="col-md-2 control-label">Date</label>
+                                                    <input type="date" class="form-control" value="{{$data->date}}" required name="date">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="inputEmail1" class="col-md-2 control-label">Name</label>
+                                                    <select class="form-control" name="user_id" required>
+                                                        @foreach($users as $user)
+                                                            <option value="{{$user->id}}" {{ $data->user->id == $user->id ? 'selected' : '' }}>{{$user->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="inputEmail1" class="col-md-2 control-label">Amount</label>
+                                                    <input type="text" class="form-control" value="{{$data->amount}}" required name="amount" >
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="inputEmail1" class="col-md-2 control-label">Bonus Category</label>
+                                                    <select class="form-control" name="bonus_category" required>
+                                                        <option value="{{$data->bonus_category}}">{{$data->bonus_category}}</option>
+                                                        <option value="Festival" >Festival</option>
+                                                        <option value="Performance" >Performance</option>
+                                                        <option value="Donation">Donation</option>
+                                                        <option value="Other" >Other</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
+                                                    <input type="text" class="form-control" value="{{$data->remark}}" name="remark">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div id="addModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -287,4 +290,21 @@ Bonus Records
 
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    var category,bonus_code,date,user_name,amount,remark;
+    $(".editModal").click(function(){
+        
+       $("#edit").val($(this).data('id'));
+       category = $(this).val();
+       bonus_code = $(this).val();
+       date = $(this).val();
+       user_name = $(this).val();
+       remark = $(this).val();
+       console.log($(this).data('user_name'));
+    });
+});
+</script>
+
 @endsection
