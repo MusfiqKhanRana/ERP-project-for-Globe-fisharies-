@@ -38,18 +38,18 @@ class RequisitionController extends Controller
     }
     public function status()
     {
-        $category = Category::select('id','name')->get();
+        // $category = Category::select('id','name')->get();
         $warehouse = Warehouse::select('id','name')->get();
         $party = Party::select('id','party_name')->get();
         $requisition = Requisition::with(['warehouse','party',
             'products'=>function($q){
-                $q->with(['category','pack']);
+                $q->with(['pack']);
             }
         ])
         ->where('confirmed',true)
         ->whereIn('status',['Deliverd','Processing','Solved','OnHold'])
         ->latest()->paginate(10);
-        return view('backend.requisition.report',compact('requisition','category','warehouse','party'));
+        return view('backend.requisition.report',compact('requisition','warehouse','party'));
     }
     public function deliveryConfirm(Request $request)
     {

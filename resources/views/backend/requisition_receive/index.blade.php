@@ -186,7 +186,7 @@
                                                                         @foreach ($data->products as $key2 => $item)
                                                                             <tr>
                                                                                 <td>{{++$key2}}</td>
-                                                                                <td>{{$item->category->name}}</td>
+                                                                                <td>{{$item->category_type}}</td>
                                                                                 <td>{{$item->supplyitem->name}}</td>
                                                                                 <td>{{$item->pack->name}}</td>
                                                                                 <td>

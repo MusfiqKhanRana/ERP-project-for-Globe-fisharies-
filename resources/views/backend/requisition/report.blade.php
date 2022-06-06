@@ -195,7 +195,7 @@
                                                                         <tr>
                                                                             @if($item->pivot->resolve_quantity >0)
                                                                             <td>{{++$key2}}</td>
-                                                                            <td>{{$item->category->name}}</td>
+                                                                            <td>{{$item->category_type}}</td>
                                                                             <td>{{$item->supplyitem->name}}</td>
                                                                             <td>{{$item->pack->name}}</td>
                                                                             <td>{{$item->pivot->quantity}}</td>
@@ -245,7 +245,7 @@
                                                                          @elseif($data->status == "OnHold")
                                                                             <tr>
                                                                                 <td>{{++$key2}}</td>
-                                                                                <td>{{$item->category->name}}</td>
+                                                                                <td>{{$item->category_type}}</td>
                                                                                 <td>{{$item->supplyitem->name}}</td>
                                                                                 <td>{{$item->pack->name}}</td>
                                                                                 <td>{{$item->pivot->quantity}}</td>
@@ -292,7 +292,7 @@
                                                                             @else
                                                                             <tr>
                                                                                 <td>{{++$key2}}</td>
-                                                                                <td>{{$item->category->name}}</td>
+                                                                                <td>{{$item->category_type}}</td>
                                                                                 <td>{{$item->supplyitem->name}}</td>
                                                                                 <td>{{$item->pack->name}}</td>
                                                                                 <td>{{$item->pivot->quantity}}</td>
@@ -649,9 +649,9 @@
                                                         <label for="category">Category</label>
                                                         <select class="form-control select2me category1" id="department" name="category_id[1]" required>
                                                             <option value="">--select--</option>
-                                                            @foreach($category as $data)
+                                                            {{-- @foreach($category as $data)
                                                                 <option value="{{$data->id}}">{{$data->name}}</option>
-                                                            @endforeach
+                                                            @endforeach --}}
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
