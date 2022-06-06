@@ -54,7 +54,13 @@ class CreateUsersTable extends Migration
             $table->string('experience_cirtificate')->nullable();
             $table->unsignedInteger('user_shift')->nullable();
             $table->double('income_tax')->nullable();
-            $table->integer('provident_fund')->nullable();
+            $table->unsignedInteger('provident_fund')->nullable();
+            $table->boolean('isOvertime')->nullable();
+            $table->string('overtime_type')->nullable();
+            $table->integer('overtime_amount')->nullable();
+            $table->integer('basic')->nullable();
+            $table->integer('medical_allowance')->nullable();
+            $table->integer('house_rent')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

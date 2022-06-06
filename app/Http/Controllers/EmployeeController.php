@@ -39,7 +39,8 @@ class EmployeeController extends Controller
 
     public function store(Request $request)
     {
-                
+            
+        //dd($request);
         $this->validate($request, array(
             'image' => 'required|mimes:jpeg,bmp,png,jpg',
             'resume'=> 'nullable|mimes:pdf,doc',
@@ -70,6 +71,11 @@ class EmployeeController extends Controller
             'branch'=> 'max:191'
 
         ));
+        $isOvertime = false;
+        if ($request->isOvertime == "checked") {
+           $isOvertime = true;
+        }
+       // dd($isOvertime);
         $employee = new User;
         $employee->name = $request->name;
         $employee->f_name = $request->f_name;
@@ -98,6 +104,12 @@ class EmployeeController extends Controller
         $employee->m_leave = $request->m_leave;
         $employee->s_leave = $request->s_leave;
         $employee->user_shift = $request->user_shift;
+        $employee->isOvertime = $isOvertime;
+        $employee->overtime_type = $request->overtime_type;
+        $employee->overtime_amount = $request->overtime_amount;
+        $employee->basic = $request->basic;
+        $employee->medical_allowance = $request->medical_allowance;
+        $employee->house_rent = $request->house_rent;
 
         //        image Upload
         if ($request->hasFile('image')) {
@@ -145,14 +157,14 @@ class EmployeeController extends Controller
         }
         $employee->save();
 
-        $user_salary = new UserSalary;
-        $user_salary->user_id = $employee->id;
-        $user_salary->basic = $request->basic;
-        $user_salary->medical_allowance = $request->medical_allowance;
-        $user_salary->house_rent = $request->house_rent;
-        //$user_salary->ta = $request->ta;
-        //$user_salary->da = $request->da;
-        $user_salary->save();
+        // $user_salary = new UserSalary;
+        // $user_salary->user_id = $employee->id;
+        // $user_salary->basic = $request->basic;
+        // $user_salary->medical_allowance = $request->medical_allowance;
+        // $user_salary->house_rent = $request->house_rent;
+        // //$user_salary->ta = $request->ta;
+        // //$user_salary->da = $request->da;
+        // $user_salary->save();
 
         return redirect('admin/employee')->withMsg('Employee Added Successfully');
 

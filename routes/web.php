@@ -142,7 +142,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('show-cause-application', AttendanceShowCauseController::class);
 
 
-
+    Route::get('bonus/approve/{id}', [BonusController::class,'approve'])->name('bonus.approve');
+    Route::get('bonus/reject/{id}', [BonusController::class,'reject'])->name('bonus.reject');
     Route::resource('bonus', BonusController::class);
 
     Route::get('payroll/advance-loan',[PayrollController::class,'advance_loan'])->name('payroll.advance-loan');

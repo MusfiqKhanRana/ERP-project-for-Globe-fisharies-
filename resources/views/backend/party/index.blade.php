@@ -260,7 +260,7 @@
                                                             <h4 class="modal-title">Add Party Product</h4>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form class="form-horizontal" role="form" method="post" action="{{route('party.product.store')}}">
+                                                            <form class="form-horizontal" role="form" method="post" action="{{route('party-product.store')}}">
                                                                 {{csrf_field()}}
                                                                 {{method_field('post')}}
 
@@ -270,7 +270,7 @@
                                                                         <div class="col-md-8">
                                                                             <select class="form-control" name="party_product" >
                                                                                 @foreach ($products as $item)
-                                                                                <option value="{{$item->supplyitem->id}}">{{$item->supplyitem->name}}</option>
+                                                                                <option value="{{$item->id}}">{{$item->supplyitem->name}}</option>
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>

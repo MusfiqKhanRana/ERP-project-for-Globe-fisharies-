@@ -107,4 +107,16 @@ class BonusController extends Controller
         Bonus::whereId($id)->delete();
         return redirect()->back()->withMsg("Successfully Deleted");
     }
+
+    public function approve(Request $request, $id)
+    {
+        $order_status = Bonus::where('id',$request->id)->update(['status'=>'Approve']);
+        return redirect()->back()->withMsg('Successfully Approved');
+    }
+
+    public function reject(Request $request, $id)
+    {
+        $order_status = Bonus::where('id',$request->id)->update(['status'=>'Reject']);
+        return redirect()->back()->withMsg('Successfully Rejected');
+    }
 }
