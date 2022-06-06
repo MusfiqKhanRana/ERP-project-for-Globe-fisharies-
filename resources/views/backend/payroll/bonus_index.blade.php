@@ -72,7 +72,7 @@ Bonus Records
                                             <td class="text-align: center;"> {{$data->remark}}</td>
                                             <td style="text-align: center">
                                                 @if ($data->status == "Initial")
-                                                    <a class="btn btn-info editModal"  data-toggle="modal" data-id="{{$data->id}}" data-bonus_code="{{$data->bonus_code}}" data-date="{{$data->date}}" data-user_name="{{$data->user->name}}" data-amount="{{$data->amount}}" data-category="{{$data->bonus_category}}" data-remark="{{$data->remark}}" href="#editModal"><i class="fa fa-edit"></i> Edit</a>
+                                                    {{-- <a class="btn btn-info editModal"  data-toggle="modal" data-id="{{$data->id}}" data-bonus_code="{{$data->bonus_code}}" data-date="{{$data->date}}" data-user_name="{{$data->user->name}}" data-amount="{{$data->amount}}" data-category="{{$data->bonus_category}}" data-remark="{{$data->remark}}" href="#editModal"><i class="fa fa-edit"></i> Edit</a> --}}
                                                     <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
                                                     <a class="btn btn-success"  data-toggle="modal" href="#approve{{$data->id}}"><i class="fa fa-check"></i> Approve</a>
                                                     <a class="btn yellow" data-toggle="modal" href="#reject{{$data->id}}"><i class="fa fa-ban"></i> Reject</a>
@@ -156,7 +156,7 @@ Bonus Records
                                 @endforeach
                             </tbody>
                         </table>
-                        <div id="editModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                        {{-- <div id="editModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -217,7 +217,7 @@ Bonus Records
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div id="addModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">

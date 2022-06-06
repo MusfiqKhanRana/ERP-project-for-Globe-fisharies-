@@ -43,7 +43,7 @@
                                     <th style="text-align: center"> Installment Dates </th>
                                     <th> Type </th>
                                     <th> Detail </th>
-                                    <th style="text-align: center"> Action </th>
+                                    {{-- <th style="text-align: center"> Action </th> --}}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -96,9 +96,9 @@
                                     <td>{{$data->type}}</td>
                                     <td>{!! $data->detail !!}</td>
 
-                                    <td>
+                                    {{-- <td>
                                         <a class="btn yellow-gold" href="{{route('office.loan.edit', $data->id)}}">Edit/View</a>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                                 @endforeach
                                 </tbody>
@@ -124,7 +124,7 @@
                                             </div>
                                             <div class="row warning" style="margin-top:3%">
                                                 <div class="col-md-12" style="text-align: center">
-                                                    <p style="color: red"><b>**Please Paid amount {{($data->amount / $data->instalment)}} Or Less than {{($data->amount / $data->instalment)}}**</b></p>
+                                                    <p style="color: red"><b>**Please pay <span class="PaidAmount"></span> or pay bellow <span class="PaidAmount"></span>**</b></p>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -162,15 +162,18 @@ $(document).ready(function () {
         instalment_amount= parseInt($(this).attr("data-per_instalment"));
         $("#per_instalment").val(instalment_amount);
     });
+    
     $('.warning').hide();
     $('.paid_amount').on("keyup",function() {
             var paid_amount = parseInt($(this).val());
             
             if (paid_amount > instalment_amount) {
+                $(".PaidAmount").html(instalment_amount);
                 $('.warning').show();
                 $('.confirm_btn').prop('disabled', true);
             }
             if (paid_amount < instalment_amount) {
+                $(".PaidAmount").html(instalment_amount);
                 $('.warning').hide();
                 $('.confirm_btn').prop('disabled', false);
             }
