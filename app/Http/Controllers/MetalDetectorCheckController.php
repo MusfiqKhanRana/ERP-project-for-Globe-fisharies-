@@ -45,10 +45,10 @@ class MetalDetectorCheckController extends Controller
      */
     public function store(Request $request)
     {
-        ProductionProcessingUnit::where('id',$request->production_processing_unit_id)
-        ->update(
-            ['store_in_status'=>'MD_checked']
-        );
+        // ProductionProcessingUnit::where('id',$request->production_processing_unit_id)
+        // ->update(
+        //     ['store_in_status'=>'MD_checked']
+        // );
         $inputs = $request->except('_token');
         $this->validate($request,array(
             'section' => 'required',
@@ -77,7 +77,7 @@ class MetalDetectorCheckController extends Controller
         $metal->remark = $request->remark;
         $metal->save();
 
-        return redirect()->route('inventory.store_in')->withmsg('Successfully MD Checked');
+        return redirect()->back()->withmsg('Successfully MD Checked');
     }
 
     /**
