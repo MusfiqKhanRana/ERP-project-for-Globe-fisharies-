@@ -19,7 +19,7 @@ class RequisitionReceiveController extends Controller
         $party = Party::select('id','party_name')->get();
         $requisition = Requisition::with(['warehouse','party',
             'products'=>function($q){
-                $q->with(['category','pack']);
+                $q->with(['pack']);
             }
         ])
         ->where('confirmed',true)

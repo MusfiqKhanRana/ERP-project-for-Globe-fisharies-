@@ -175,7 +175,7 @@
                                                             @foreach ($data->products as $key2 => $item)
                                                                 <tr>
                                                                     <td>{{++$key2}}</td>
-                                                                    <td>{{$item->category->name}}</td>
+                                                                    <td>{{$item->category_type}}</td>
                                                                     <td>{{$item->supplyitem->name}}</td>
                                                                     <td>
                                                                         {{$item->pack->name}}
@@ -270,11 +270,11 @@
                                                                     </div> --}}
                                                                     <div class="col-md-3">
                                                                         <label for="">Packet</label>
-                                                                        <input name="quantity" class="form-control qtyx" type="number" required placeholder="Quantity">
+                                                                        <input name="quantity" step="0.01" class="form-control qtyx" type="number" required placeholder="Quantity">
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <label for="">Weight</label>
-                                                                        <input class="form-control weightx" type="number" required placeholder="Quantity">
+                                                                        <input class="form-control weightx" step="0.01" type="number" required placeholder="Quantity">
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <label><span>&nbsp;</span></label><br>

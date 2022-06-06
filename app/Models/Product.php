@@ -20,10 +20,10 @@ class Product extends Model
       'image'
     ];
 
-    // public function category()
-    // {
-    //     return $this->hasOne(Category::class, 'id', 'category_id');
-    // }
+    public function category()
+    {
+        return $this->hasOne(Category::class, 'id', 'category_id');
+    }
     public function supplyitem()
     {
         return $this->hasOne(SupplyItem::class,'id', 'supply_item_id');
