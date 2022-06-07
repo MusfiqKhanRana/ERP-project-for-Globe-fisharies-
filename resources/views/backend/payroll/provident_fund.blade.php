@@ -44,10 +44,10 @@ Provident Fund
                                 <th>S.l</th>
                                 <th scope="col"> Package Name </th>
                                 <th scope="col"> Amount (%) </th>
-                                <th scope="col"> Duration</th>
-                                <th scope="col"> Detention Duration</th>
-                                <th scope="col"> Detention Amount </th>
-                                <th scope="col"> Fund Bonus </th>
+                                <th scope="col"> Duration (Months)</th>
+                                <th scope="col"> Detention Duration (Months)</th>
+                                <th scope="col"> Detention Amount (%)</th>
+                                <th scope="col"> Fund Bonus (%) </th>
                                 <th scope="col" style="text-align: center"> Action </th>
                             </tr>
                             </thead>
@@ -58,13 +58,13 @@ Provident Fund
                                         dd($item);
                                     @endphp --}}
                                     <td>{{++ $key}}</td>
-                                    <td>{{$item->package}}</td>
-                                    <td>{{$item->amount}}</td>
-                                    <td>{{$item->fund_duration}}</td>
-                                    <td>{{$item->fund_detention}}</td>
-                                    <td>{{$item->detention_amount}}</td>
-                                    <td>{{$item->completion_bonus}}</td>
-                                    <td>
+                                    <td style="text-align: center">{{$item->package}}</td>
+                                    <td style="text-align: center">{{$item->amount}}</td>
+                                    <td style="text-align: center">{{$item->fund_duration}}</td>
+                                    <td style="text-align: center">{{$item->fund_detention}}</td>
+                                    <td style="text-align: center">{{$item->detention_amount}}</td>
+                                    <td style="text-align: center">{{$item->completion_bonus}}</td>
+                                    <td style="text-align: center">
                                         <a class="btn btn-info" data-toggle="modal" href="#EditModal{{$item->id}}">Edit</a>
                                         <a class="btn btn-danger" data-toggle="modal" href="#DeleteModal{{$item->id}}">Delete</a>
                                     </td>
@@ -107,21 +107,21 @@ Provident Fund
                                                     
                                                     <div class="row" style="margin-left: 2%">
                                                         <div class="col-md-6">
-                                                            <label for="">Provident Fund Package</label>
+                                                            <label for="">Package Name</label>
                                                             <input class="form-control" type="text" name="package" value="{{$item->package}}">
                                                         </div>
                                                         <div class="col-md-5">
-                                                            <label for="">Provident Fund Amount ( % )</label>
+                                                            <label for="">Fund Amount ( % )</label>
                                                             <input class="form-control" type="number" step="any" name="amount" value="{{$item->amount}}">
                                                         </div>
                                                     </div><br>
                                                     <div class="row" style="margin-left: 3%">
                                                         <div class="col-md-6">
-                                                            <label for="">Provident Fund Duration</label>
+                                                            <label for="">Fund Duration (Months)</label>
                                                             <input class="form-control" type="number" step="any" name="fund_duration" value="{{$item->fund_duration}}">
                                                         </div>
                                                         <div class="col-md-5">
-                                                            <label for="">Provident Fund Detention </label>
+                                                            <label for="">Fund Detention (Months)</label>
                                                             <input class="form-control" type="number" step="any" name="fund_detention" value="{{$item->fund_detention}}">
                                                         </div>
                                                     </div><br>
@@ -162,21 +162,21 @@ Provident Fund
                                 {{csrf_field()}}
                                 <div class="row" style="margin-left: 2%">
                                     <div class="col-md-6">
-                                        <label for="">Provident Fund Package</label>
+                                        <label for="">Package Name</label>
                                         <input class="form-control" type="text" name="package" placeholder="Type Name of your package" required>
                                     </div>
                                     <div class="col-md-5">
-                                        <label for="">Provident Fund Amount ( % )</label>
+                                        <label for="">Fund Amount ( % )</label>
                                         <input class="form-control" type="number"  step="any" name="amount" placeholder="Type Provident Fund" required>
                                     </div>
                                 </div><br>
                                 <div class="row" style="margin-left: 3%">
                                     <div class="col-md-6">
-                                        <label for="">Provident Fund Duration</label>
+                                        <label for="">Fund Duration (Months)</label>
                                         <input class="form-control" type="number" step="any" name="fund_duration" placeholder="Type number of months" required>
                                     </div>
                                     <div class="col-md-5">
-                                        <label for="">Provident Fund Detention </label>
+                                        <label for="">Fund Detention (Months)</label>
                                         <input class="form-control" type="number" step="any" name="fund_detention" placeholder="Type Number of months" required>
                                     </div>
                                 </div><br>
