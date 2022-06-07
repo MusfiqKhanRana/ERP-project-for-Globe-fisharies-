@@ -33,6 +33,7 @@
                         </div>
 
                         <div class="portlet-body">
+                            
                             <table class="table table-striped table-bordered table-hover" id="awards">
                                 <thead>
                                 <tr>
@@ -52,7 +53,10 @@
                                     <td style="text-align: center">{{$data->employee->phone}}</td>
                                     <td style="text-align: center">{{$data->amount}}</td>
                                     <td style="text-align: center">{{date('Y, M-d',strtotime($data->date))}}</td>
-                                    <td>
+                                    <td style="text-align: center">
+                                        @if (count($data->loan_instalment) == 0 )
+                                            N/A
+                                       @else
                                         <table class="table table-striped table-bordered table-hover">
                                             <thead>
                                                 <tr>
@@ -60,6 +64,7 @@
                                                     <th>Date</th>
                                                     <th>Installment No.</th>
                                                     <th>Status</th>
+                                                    <th>Instalment Amount</th>
                                                     <th>Paid Amount</th>
                                                     <th>Paid Date</th>
                                                     <th style="text-align: center">Action</th>
@@ -74,6 +79,9 @@
                                                         <td>
                                                             {{ $item->isPaid == 0 ? 'Unpaid' : 'Paid' }}
                                                         </td>
+                                                        <td>
+                                                            {{($data->amount / $data->instalment)}}
+                                                        </td>
                                                         <td> 
                                                             {{ $item->paid_amount == NULL ? 'N/A' : $item->paid_amount }}
                                                         </td>
@@ -82,7 +90,6 @@
                                                         </td>
                                                         <td style="text-align: center">
                                                             @if($item->paid_amount >= ($data->amount / $data->instalment))
-                                                               
                                                                 N/A
                                                             @else
                                                                 <a class="btn btn-primary addPayment" data-toggle="modal" data-instalment_id="{{$item->id}}" data-per_instalment="{{($data->amount / $data->instalment)}}" href="#addPayment">Make Payment</a>
@@ -92,6 +99,7 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
+                                        @endif
                                     </td>
                                     <td>{{$data->type}}</td>
                                     <td>{!! $data->detail !!}</td>
@@ -103,6 +111,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                           
                             <div id="addPayment" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                 <div class="modal-dialog">
                                     <div class="modal-content">

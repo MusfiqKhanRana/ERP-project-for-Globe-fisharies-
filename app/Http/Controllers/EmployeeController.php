@@ -55,9 +55,8 @@ class EmployeeController extends Controller
             'gender'=> 'max:191',
             'phone'=> 'max:11|min:11',
             'e_mail' => 'required|email',
-            'local_add'=> 'required',
-            'per_add' => 'required',
-            'email'=> 'max:191',
+            
+            'email'=> 'required|email',
             'password'=> 'max:191',
             //'employee_id'=> 'required',
             'dept_id'=> 'required',
