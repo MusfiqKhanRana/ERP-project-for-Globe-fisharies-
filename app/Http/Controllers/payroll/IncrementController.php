@@ -21,14 +21,13 @@ class IncrementController extends Controller
                 'designation'=>function($q){
                     $q->with([
                         'employee'=>function($q){
-                            $q->select('id','name','deg_id','salary');
+                            $q->select('id','name','deg_id','basic','medical_allowance','house_rent');
                         }
                     ]);
                 }
             ]
         )->get();
         $increments = Increment::get();
-        //dd($departments->toArray());
         return view('backend.payroll.add_increment',compact('increments','departments'));
     }
 
