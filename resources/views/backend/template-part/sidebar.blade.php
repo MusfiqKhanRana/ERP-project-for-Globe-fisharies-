@@ -34,7 +34,7 @@
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/office/loan' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/increment' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/payroll.chart' ) active open @endif
-                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/disburse-salarye' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/disburse-salary' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/payroll' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/provident-fund' ) active open @endif
@@ -59,7 +59,7 @@
                 @php echo "active",(request()->path() != 'admin/employee/office/loan')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/employee/increment')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/employee/payroll.chart')?:"";@endphp
-                @php echo "active",(request()->path() != 'admin/employee/disburse-salarye')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/employee/disburse-salary')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/employee/payroll')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/employee/absent-application')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/employee/show-cause-application')?:"";@endphp
@@ -182,7 +182,7 @@
                         @php echo "active",(request()->path() != 'admin/bonus')?:"";@endphp
                         @php echo "active",(request()->path() != 'admin/provident-fund')?:"";@endphp"
                         @if( request()->path() == 'admin/employee' || request()->path() == 'admin/payroll' ) active open @endif
-                        @if( request()->path() == 'admin/employee' || request()->path() == 'admin/disburse-salarye' ) active open @endif
+                        @if( request()->path() == 'admin/employee' || request()->path() == 'admin/disburse-salary' ) active open @endif
                         @if( request()->path() == 'admin/employee' || request()->path() == 'admin/payroll.chart' ) active open @endif
                         @if( request()->path() == 'admin/employee' || request()->path() == 'admin/increment' ) active open @endif
                         @if( request()->path() == 'admin/employee' || request()->path() == 'admin/office/loan' ) active open @endif
@@ -485,7 +485,7 @@
 
             <li class="nav-item @if( request()->path() == 'admin/sale' || request()->path() == 'admin/sale' ) active open @endif
                 @if( request()->path() == 'admin/party-management' || request()->path() == 'admin/party-management' ) active open @endif
-                @if( request()->path() == 'admin/party/caeate' || request()->path() == 'admin/party/caeate' ) active open @endif">
+                @if( request()->path() == 'admin/party/create' || request()->path() == 'admin/party/create' ) active open @endif">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-print" aria-hidden="true"></i>
                     <span class="title">Party Management</span>
@@ -493,12 +493,12 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item  @if( request()->path() == 'admin/party/create' ) active open @endif
-                    @if( request()->path() == 'party/create' ) active open @endif">
+                    @if( request()->path() == 'admin/party/create' ) active open @endif">
                         <a href="{{route('party.create')}}" class="nav-link ">
                             <span class="title">Create Party</span>
                         </a>
                     </li>
-                    <li class="nav-item  @if( request()->path() == '' ) active open @endif
+                    <li class="nav-item  @if( request()->path() == 'admin/party-management' ) active open @endif
                     @if( request()->path() == 'admin/party-management' ) active open @endif">
                         <a href="{{route('party-management.index')}}" class="nav-link ">
                             <span class="title">Party List</span>
@@ -532,15 +532,16 @@
                 </ul>
             </li> --}}
             <li class="nav-item @if( request()->path() == 'admin/sale' || request()->path() == 'admin/sale' ) active open @endif
-                @if( request()->path() == 'admin/order-history' || request()->path() == 'admin/order-history' ) active open @endif">
+                @if( request()->path() == 'admin/order-history' || request()->path() == 'admin/order-history' ) active open @endif
+                @if( request()->path() == 'admin/order/create' || request()->path() == 'admin/order/create' ) active open @endif">
                     <a href="javascript:;" class="nav-link nav-toggle">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         <span class="title">Order Management</span>
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li class="nav-item  @if( request()->path() == 'admin/sale' ) active open @endif
-                        @if( request()->path() == '' ) active open @endif">
+                        <li class="nav-item  @if( request()->path() == 'admin/order/create' ) active open @endif
+                        @if( request()->path() == 'admin/order/create' ) active open @endif">
                             <a href="{{route('order.create')}}" class="nav-link ">
                                 <span class="title">Create Order</span>
                             </a>
@@ -622,21 +623,68 @@
 
                 </ul>
             </li>            --}}
-            <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/microbiological-test' ||  request()->path() == 'admin/temp_monitoring') active open @endif">
+            <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/microbiological-test') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/medical_report') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/temp_monitoring') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production_test') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/metal-detector/create') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/metal-detector') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/temp-thermocouple') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/ro-plant') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/ro-plant/create') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/user-performance') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/chill-room') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/processing-grade') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production_test') active open @endif
+                
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production-requisition/create') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production-supply') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production-requisition') active open @endif
+                
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/supply-item') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production-supplier') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production-purchase-item') active open @endif
+
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production-purchase-requisition/Order') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production-purchase-requisition/create') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production-purchase-requisition') active open @endif
+                
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/purchase/quotation') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production-quotation-confirmquotation') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/processing-unit/iqf') active open @endif 
+
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/processing-unit/iqf') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/processing-unit/block_frozen') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/processing-unit/raw_bf_shrimp') active open @endif
+                
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/processing-unit/raw_iqf_shrimp') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/processing-unit/semi_iqf') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/processing-unit/cooked_iqf_shrimp') active open @endif 
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/processing-unit/blanched_iqf_shrimp') active open @endif
+                
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production-unload') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/unload/gate_man/raw_item') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/unload/gate_man/general_item') active open @endif 
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/inventory/cold_storage/bulk_storage') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/inventory/cold_storage/export_storage_1') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/inventory/cold_storage/export_storage_2') active open @endif 
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/inventory/store_in') active open @endif 
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/inventory/manage-location/Locate_item') active open @endif 
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/medical_report') active open @endif">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-archive" aria-hidden="true"></i>
                     <span class="title">Production Management</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/microbiological-test' ||  request()->path() == 'admin/temp_monitoring') active open @endif">
+                    <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/microbiological-test' ||  request()->path() == 'admin/temp_monitoring' ||  request()->path() == 'admin/production_test' ||  request()->path() == 'admin/user-performance' ||  request()->path() == 'admin/temp-thermocouple' ||  request()->path() == 'admin/metal-detector' ||  request()->path() == 'admin/metal-detector/create' ||  request()->path() == 'admin/medical_report' ||  request()->path() == 'admin/ro-plant/create' ||  request()->path() == 'admin/ro-plant') active open @endif">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
                             <span class="title">Production Data</span>
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item  @if( request()->path() == 'admin/production' ) active open @endif">
+                            <li class="nav-item  @if( request()->path() == 'admin/medical_report' ) active open @endif">
                                 <a href="{{route('medical_report.index')}}" class="nav-link ">
                                     <span class="title">Medical Report</span>
                                 </a>
@@ -661,36 +709,36 @@
                                     <span class="title">Temperature Thermocouple</span>
                                 </a>
                             </li>
-                            <li class="nav-item @if( request()->path() == 'admin/production/metal-detector' || request()->path() == 'admin/microbiological-test' ) active open @endif">
+                            <li class="nav-item @if( request()->path() == 'admin/production/metal-detector' || request()->path() == 'admin/metal-detector/create' || request()->path() == 'admin/metal-detector' ) active open @endif">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <span class="title">Metal Detector Check</span>
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li class="nav-item @if( request()->path() == 'admin/production/metal-detector' ) active open @endif">
+                                    <li class="nav-item @if( request()->path() == 'admin/metal-detector/create' ) active open @endif">
                                         <a href="{{route('metal-detector.create')}}" class="nav-link ">
                                             <span class="title">Create</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item @if( request()->path() == 'admin/production/metal-detector' ) active open @endif">
+                                    <li class="nav-item @if( request()->path() == 'admin/metal-detector' ) active open @endif">
                                         <a href="{{route('metal-detector.index')}}" class="nav-link ">
                                             <span class="title">Check List</span>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item @if( request()->path() == 'admin/ro-plant') active open @endif">
+                            <li class="nav-item @if( request()->path() == 'admin/ro-plant'|| request()->path() == 'admin/ro-plant' || request()->path() == 'admin/ro-plant/create') active open @endif">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <span class="title">Ro Plant</span>
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li class="nav-item @if( request()->path() == 'admin/ro-plant' ) active open @endif">
+                                    <li class="nav-item @if( request()->path() == 'admin/ro-plant/create' ) active open @endif">
                                         <a href="{{route('ro-plant.create')}}" class="nav-link ">
                                             <span class="title">Create Report</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item @if( request()->path() == 'admin/production/metal-detector' ) active open @endif">
+                                    <li class="nav-item @if( request()->path() == 'admin/ro-plant' ) active open @endif">
                                         <a href="{{route('ro-plant.index')}}" class="nav-link ">
                                             <span class="title">Report List</span>
                                         </a>
@@ -717,52 +765,52 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @if( request()->path() == 'admin/production/chill-room' ) active open @endif">
                         <a href="{{route('production.chill_room.index')}}" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
                             <span class="title">Chill Room</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @if( request()->path() == 'admin/processing-grade' ) active open @endif">
                         <a href="{{route('processing-grade.index')}}" class="nav-link nav-toggle">
                             <i class="fa fa-cog" aria-hidden="true"></i>
                             <span class="title">Configuration</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/supply-item' ||  request()->path() == 'admin/production-supplier'  ||  request()->path() == 'admin/production-requisition'  ||  request()->path() == 'admin/production-supply'  ||  request()->path() == 'admin/production-requisition/create') active open @endif">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
                             <span class="title">Supply </span>
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item">
+                            <li class="nav-item  @if( request()->path() == 'admin/supply-item' ) active open @endif">
                                 <a href="{{route('supply-item.index')}}" class="nav-link ">
                                     <span class="title">Items</span>
                                 </a>
                             </li>
-                            <li class="nav-item ">
+                            <li class="nav-item  @if( request()->path() == 'admin/production-supplier' ) active open @endif">
                                 <a href="{{route('production-supplier.index')}}" class="nav-link ">
                                     <span class="title">Manage Suplyer</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production-requisition/create' ||  request()->path() == 'admin/production-supply' ||  request()->path() == 'admin/production-requisition') active open @endif">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <span class="title">Requisition</span>
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li class="nav-item ">
+                                    <li class="nav-item @if( request()->path() == 'admin/production-requisition/create' ) active open @endif">
                                         <a href="{{route('production-requisition.create')}}" class="nav-link ">
                                             <span class="title">Add Requisition</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item ">
+                                    <li class="nav-item @if( request()->path() == 'admin/production-supply' ) active open @endif">
                                         <a href="{{route('production-supply.index')}}" class="nav-link ">
                                             <span class="title">Production Supply List</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item ">
+                                    <li class="nav-item @if( request()->path() == 'admin/production-requisition' ) active open @endif">
                                         <a href="{{route('production-requisition.index',['status'=>'Pending','page'=>1])}}" class="nav-link ">
                                             <span class="title">Requisition List</span>
                                         </a>
@@ -771,45 +819,45 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/purchase/item'||  request()->path() == 'admin/production-purchase-item' ||  request()->path() == 'admin/production-purchase-requisition/create'  ||  request()->path() == 'admin/production-purchase-requisition'  ||  request()->path() == 'admin/production/purchase/quotation'  ||  request()->path() == 'admin/production-quotation-confirmquotation' ||  request()->path() == 'admin/production-purchase-requisition/Order') active open @endif">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
                             <span class="title">General Purchase </span>
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item">
+                            <li class="nav-item  @if( request()->path() == 'admin/production-purchase-item') active open @endif">
                                 <a href="{{route('production-purchase-item.index')}}" class="nav-link ">
                                     <span class="title">Items</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item   @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production-purchase-requisition/create' || request()->path() == 'admin/production-purchase-requisition' || request()->path() == 'admin/production/purchase/quotation' || request()->path() == 'admin/production-quotation-confirmquotation' || request()->path() == 'admin/production-purchase-requisition/Order') active open @endif">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <span class="title">Requisition</span>
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li class="nav-item ">
+                                    <li class="nav-item @if( request()->path() == 'admin/production-purchase-requisition/create' ) active open @endif">
                                         <a href="{{route('production-purchase-requisition.create')}}" class="nav-link ">
                                             <span class="title">Add Requisition</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item ">
+                                    <li class="nav-item @if( request()->path() == 'admin/production-purchase-requisition' ) active open @endif">
                                         <a href="{{route('production-purchase-requisition.index',"status=Pending")}}" class="nav-link ">
                                             <span class="title">Requisition List</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item ">
+                                    <li class="nav-item @if( request()->path() == 'admin/production/purchase/quotation' ) active open @endif">
                                         <a href="{{route('production-purchase-quotation')}}" class="nav-link ">
-                                            <span class="title">Qoutation List</span>
+                                            <span class="title">Quotation List</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item ">
+                                    <li class="nav-item  @if( request()->path() == 'admin/production-quotation-confirmquotation' ) active open @endif">
                                         <a href="{{route('production-quotation-confirmquotation')}}" class="nav-link ">
                                             <span class="title">CS List</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item ">
+                                    <li class="nav-item  @if( request()->path() == 'admin/production-purchase-requisition/Order' ) active open @endif">
                                         <a href="{{route('production-purchase-requisition.order')}}" class="nav-link ">
                                             <span class="title">Purchase Order</span>
                                         </a>
@@ -818,14 +866,14 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/unload/gate_man/general_item'||  request()->path() == 'admin/production/unload/gate_man/raw_item' ||  request()->path() == 'admin/production-unload') active open @endif">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
                             <span class="title">Unload Unit</span>
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item">
+                            <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/unload/gate_man/general_item'||  request()->path() == 'admin/production/unload/gate_man/raw_item') active open @endif">
                                 {{-- <a href="{{route('production.processing.iqf')}}" class="nav-link ">
                                     <span class="title">IQF</span>
                                 </a> --}}
@@ -835,7 +883,7 @@
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li class="nav-item">
+                                    <li class="nav-item @if( request()->path() == 'admin/production/unload/gate_man/general_item') active open @endif">
                                         {{-- <a href="{{route('production.processing.iqf')}}" class="nav-link ">
                                             <span class="title">IQF</span>
                                         </a> --}}
@@ -843,127 +891,128 @@
                                             <span class="title">General Item Check In</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    <li class="nav-item @if( request()->path() == 'admin/production/unload/gate_man/raw_item') active open @endif">
                                         <a href="{{route('production.unload.gateman.raw_item')}}" class="nav-link ">
                                             <span class="title">Raw Item Check In</span>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item  @if( request()->path() == 'admin/production-unload') active open @endif">
                                 <a href="{{route('production-unload-index')}}" class="nav-link ">
+                                    <i class="fa fa-remove"></i>
                                     <span class="title">Raw Item Unload</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/processing-unit/iqf'||  request()->path() == 'admin/production/processing-unit/block_frozen' ||  request()->path() == 'admin/production/processing-unit/raw_bf_shrimp'  ||  request()->path() == 'admin/production/processing-unit/raw_iqf_shrimp'  ||  request()->path() == 'admin/production/processing-unit/semi_iqf'  ||  request()->path() == 'admin/production/processing-unit/cooked_iqf_shrimp' ||  request()->path() == 'admin/production/processing-unit/blanched_iqf_shrimp') active open @endif">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
                             <span class="title">Processing Unit</span>
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item">
+                            <li class="nav-item @if( request()->path() == 'admin/production/processing-unit/iqf') active open @endif">
                                 <a href="{{route('production.processing.iqf')}}" class="nav-link ">
                                     <span class="title">IQF</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item @if( request()->path() == 'admin/production/processing-unit/block_frozen') active open @endif">
                                 <a href="{{route('production.processing.block_frozen')}}" class="nav-link ">
                                     <span class="title">Block Frozen</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item @if( request()->path() == 'admin/production/processing-unit/raw_bf_shrimp') active open @endif">
                                 <a href="{{route('production.processing.raw_bf_shrimp')}}" class="nav-link ">
                                     <span class="title">RAW BF(Shrimp)</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item @if( request()->path() == 'admin/production/processing-unit/raw_iqf_shrimp') active open @endif">
                                 <a href="{{route('production.processing.raw_iqf_shrimp')}}" class="nav-link ">
                                     <span class="title">RAW IQF(Shrimp)</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item @if( request()->path() == 'admin/production/processing-unit/semi_iqf') active open @endif">
                                 <a href="{{route('production.processing.semi_iqf')}}" class="nav-link ">
                                     <span class="title">Semi IQF</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item @if( request()->path() == 'admin/production/processing-unit/cooked_iqf_shrimp') active open @endif">
                                 <a href="{{route('production.processing.cooked_iqf_shrimp')}}" class="nav-link ">
                                     <span class="title">Cooked IQF(Shrimp)</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item @if( request()->path() == 'admin/production/processing-unit/blanched_iqf_shrimp') active open @endif">
                                 <a href="{{route('production.processing.blanched_iqf_shrimp')}}" class="nav-link ">
                                     <span class="title">Blanched IQF(Shrimp)</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/unload/gate_man/general_item'||  request()->path() == 'admin/production/unload/gate_man/raw_item' ||  request()->path() == 'admin/inventory/cold_storage/export_storage_2' ||  request()->path() == 'admin/inventory/cold_storage/export_storage_1' ||  request()->path() == 'admin/inventory/cold_storage/bulk_storage'  ||  request()->path() == 'admin/inventory/store_in' ||  request()->path() == 'admin/inventory/manage-location/Locate_item') active open @endif">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
                             <span class="title"><small> Inventory Management</small></span>
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item">
+                            <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/inventory/store_in') active open @endif">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <i class="fa fa-user"></i>
                                     <span class="title">Store</span>
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li class="nav-item">
+                                    <li class="nav-item @if( request()->path() == 'admin/inventory/store_in') active open @endif">
                                         <a href="{{route('inventory.store_in')}}" class="nav-link ">
                                             <span class="title">Store In</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    <li class="nav-item @if( request()->path() == '') active open @endif">
                                         <a href="{{route('inventory.store_in')}}" class="nav-link ">
                                             <span class="title">Store Out</span>
                                         </a>
                                     </li>  
                                 </ul>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/inventory/manage-location/Locate_item'||  request()->path() == 'admin/production/unload/gate_man/raw_item') active open @endif">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <i class="fa fa-user"></i>
                                     <span class="title">Manage Location</span>
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li class="nav-item">
+                                    <li class="nav-item @if( request()->path() == 'admin/inventory/manage-location/Locate_item') active open @endif">
                                         <a href="{{route('inventory.location.locate_item')}}" class="nav-link ">
                                             <span class="title">Locate Item</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    <li class="nav-item @if( request()->path() == '') active open @endif">
                                         <a href="{{route('inventory.location.located_item_list')}}" class="nav-link ">
                                             <span class="title">Located Item List</span>
                                         </a>
                                     </li>  
                                 </ul>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/inventory/cold_storage/bulk_storage'||  request()->path() == 'admin/inventory/cold_storage/export_storage_1' ||  request()->path() == 'admin/inventory/cold_storage/export_storage_2') active open @endif">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <i class="fa fa-user"></i>
                                     <span class="title">Cold Storage</span>
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li class="nav-item">
+                                    <li class="nav-item @if( request()->path() == 'admin/inventory/cold_storage/bulk_storage') active open @endif">
                                         <a href="{{route('inventory.cold_storage.bulk_storage')}}" class="nav-link ">
                                             <span class="title">Bulk Storage</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    <li class="nav-item @if( request()->path() == 'admin/inventory/cold_storage/export_storage_1') active open @endif">
                                         <a href="{{route('inventory.cold_storage.export_storage_1')}}" class="nav-link ">
                                             <span class="title">Export Storage 1</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    <li class="nav-item @if( request()->path() == 'admin/inventory/cold_storage/export_storage_2') active open @endif">
                                         <a href="{{route('inventory.cold_storage.export_storage_2')}}" class="nav-link ">
                                             <span class="title">Export Storage 2</span>
                                         </a>
@@ -1051,12 +1100,8 @@
                 </ul>
             </li> --}}
             
-            <li class="nav-item  @if( request()->path() == 'admin/office' || request()->path() == 'admin/office' ) active open @endif
-                @if( request()->path() == 'admin/food/mill' || request()->path() == 'admin/food/mill' ) active open @endif
-                @if( request()->path() == 'admin/catering/system' || request()->path() == 'admin/catering/system' ) active open @endif
-                @if( request()->path() == 'admin/catering/add' || request()->path() == 'admin/catering/add' ) active open @endif
-                @php echo "active",(request()->path() != 'admin/account/catering')?:"";@endphp
-                @php echo "active",(request()->path() != '')?:"";@endphp
+            <li class="nav-item  @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/user-type') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/general') active open @endif
                 ">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-cog" aria-hidden="true"></i>
@@ -1064,8 +1109,7 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item start @php echo "active",(request()->path() != 'admin/office')?:"";@endphp
-                    @php echo "active",(request()->path() != '')?:"";@endphp">
+                    <li class="nav-item start @if( request()->path() == 'admin/user-type') active open @endif">
                         <a href="{{route('user-type.index')}}" class="nav-link nav-toggle">
                             <i class="fa fa-building-o" aria-hidden="true"></i>
                             <span class="title">Menu</span>
@@ -1073,7 +1117,7 @@
                         </a>
                     </li>
 
-                    <li class="nav-item start @php echo "active",(request()->path() != 'admin/general')?:"";@endphp">
+                    <li class="nav-item start @if( request()->path() == 'admin/general') active open @endif">
                         <a href="{{route('general.index')}}" class="nav-link nav-toggle">
                             <i class="fa fa-cog"></i>
                             <span class="title">General Management</span>
