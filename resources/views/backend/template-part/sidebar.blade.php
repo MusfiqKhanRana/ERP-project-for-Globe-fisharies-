@@ -900,6 +900,7 @@
                             </li>
                             <li class="nav-item  @if( request()->path() == 'admin/production-unload') active open @endif">
                                 <a href="{{route('production-unload-index')}}" class="nav-link ">
+                                    <i class="fa fa-remove"></i>
                                     <span class="title">Raw Item Unload</span>
                                 </a>
                             </li>
