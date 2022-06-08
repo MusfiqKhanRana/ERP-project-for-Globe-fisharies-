@@ -86,7 +86,13 @@
                                                 <select class="form-control product_id" id="product">
                                                     <option value="">--Select--</option>
                                                     @foreach ($products as $product)
-                                                        <option value="{{$product->id}}" data-category_type="{{$product->category_type}}" title="{{$product->pack->name}}" data-pack_name="{{$product->pack->name}}" data-online_selling_price="{{$product->online_selling_price}}" data-inhouse_selling_price="{{$product->inhouse_selling_price}}" data-pack_weight="{{$product->pack->weight}}" data-pack_id="{{$product->pack->id}}" data-id="{{$product->id}}" data-product_name="{{$product->supplyitem->name}}">{{$product->supplyitem->name}} - {{$product->category_type}} </option>
+                                                        <option value="{{$product->id}}" data-category_type="{{$product->category_type}}" title="{{$product->pack->name}}" data-pack_name="{{$product->pack->name}}" data-online_selling_price="{{$product->online_selling_price}}" data-inhouse_selling_price="{{$product->inhouse_selling_price}}" data-pack_weight="{{$product->pack->weight}}" data-pack_id="{{$product->pack->id}}" data-id="{{$product->id}}" data-product_name="{{$product->supplyitem->name}}"><span> @if($product->supplyitem->market_name)
+                                                            <td>
+                                                                {{$product->supplyitem->market_name}}
+                                                            </td>
+                                                        @else
+                                                            <td>{{$product->supplyitem->name}}</td>        
+                                                        @endif</span> - {{$product->category_type}} </option>
                                                     @endforeach
                                                     
                                                 </select>

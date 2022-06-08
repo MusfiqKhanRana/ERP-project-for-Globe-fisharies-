@@ -40,11 +40,14 @@ class SalePointController extends Controller
         )->where('party_id',$id)->get();
         // return $product;
         $output ="<option value=''>--Select--</option>";
-
         foreach($product as $value){
             // return $value->product->pack;
-            $output.= '<option data-pack_weight="'.$value->product->pack->weight.'" data-product_price="'.$value->price.'" data-category_name="'.$value->product->category_type.'" data-pack_name="'.$value->product->pack->name.'" value="'.$value->product_id.'">'.$value->product->supplyitem->name.'-'.$value->product->pack->name.'</option>';
-
+            if ($value->product->supplyitem->market_name == null) {
+                $output.= '<option data-pack_weight="'.$value->product->pack->weight.'" data-product_price="'.$value->price.'" data-category_name="'.$value->product->category_type.'" data-pack_name="'.$value->product->pack->name.'" value="'.$value->product_id.'">'.$value->product->supplyitem->name.'-'.$value->product->pack->name.'</option>';
+            }
+            if ($value->product->supplyitem->market_name != null) {
+                $output.= '<option data-pack_weight="'.$value->product->pack->weight.'" data-product_price="'.$value->price.'" data-category_name="'.$value->product->category_type.'" data-pack_name="'.$value->product->pack->name.'" value="'.$value->product_id.'">'.$value->product->supplyitem->market_name.'-'.$value->product->pack->name.'</option>';
+            }
         }
         $data['output'] = $output;
         return response()->json($data);

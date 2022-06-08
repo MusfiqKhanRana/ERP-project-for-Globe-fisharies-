@@ -72,7 +72,14 @@
                                                             @foreach($data->product_parties as $key2=> $item)
                                                                 <tr>
                                                                     <th>{{++$key2}}</th>
-                                                                    <th>{{$item->supplyitem->name}}</th>
+
+                                                                    @if($item->supplyitem->market_name)
+                                                                        <td>
+                                                                            {{$item->supplyitem->market_name}}
+                                                                        </td>
+                                                                    @else
+                                                                        <td>{{$item->supplyitem->name}}</td>        
+                                                                    @endif
                                                                     {{-- <th>{{$item->buying_price}}</th> --}}
                                                                     <th>{{$item->pivot->price}}</th>  
                                                                     <th>
@@ -270,7 +277,14 @@
                                                                         <div class="col-md-8">
                                                                             <select class="form-control" name="party_product" >
                                                                                 @foreach ($products as $item)
-                                                                                <option value="{{$item->id}}">{{$item->supplyitem->name}}</option>
+                                                                                    @if ($item->supplyitem->market_name == null) {
+                                                                                        <option value="{{$item->id}}">{{$item->supplyitem->name}}</option>
+                                                                                    }
+                                                                                    @else
+                                                                                    {
+                                                                                        <option value="{{$item->id}}">{{$item->supplyitem->market_name}}</option>
+                                                                                    }
+                                                                                    @endif
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>

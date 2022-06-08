@@ -116,10 +116,10 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Category :</label>
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <input type="hidden" value="{{$product->category->id}}">
                                      <p><b>{{$product->category->name}}</b></p>
-                                </div>
+                                </div> --}}
                             </div> 
 
                             <div class="form-group">

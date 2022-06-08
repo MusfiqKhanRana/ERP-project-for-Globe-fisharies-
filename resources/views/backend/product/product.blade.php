@@ -168,7 +168,14 @@
                                         <label class="control-label">Product Name</label>
                                         <select class="form-control" name="supply_item_id">
                                             @foreach($product_items as $a)
-                                                <option value="{{$a->id}}" >{{$a->name}}</option>
+                                                @if ($a->market_name == null) {
+                                                    <option value="{{$a->id}}" >{{$a->name}}</option>
+                                                    }
+                                                @else
+                                                    {
+                                                    <option value="{{$a->id}}" >{{$a->market_name}}</option>
+                                                    }
+                                                @endif
                                             @endforeach
                                         </select>
                                     </div>

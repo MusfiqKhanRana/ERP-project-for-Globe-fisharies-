@@ -202,13 +202,20 @@ class ProductController extends Controller
                         $txtColor="white";
 
                     }
+                    $market_name = null;
+                        if ($row->supplyitem->market_name) {
+                        $market_name = $row->supplyitem->market_name;
+                        }
+                        else {
+                            $market_name = $row->supplyitem->name;
+                        }
                     $output .= 
                         '<tr style="color:'.$txtColor.'; background:'.$color.'"><td>'.
                             // $row->image
                             // asset('assets/images/product/images/').$row->image
                             '<img style="weidth: 60px; height: 60px; border-radius: 15px;" src="'.asset('assets/images/product/images').'/'.$row->image.'"></img>'
                         .'</td><td>'.
-                        $row->supplyitem->name
+                            $market_name
                         .'</td><td>'.
                             $row->product_id
                         .'</td><td>'.
