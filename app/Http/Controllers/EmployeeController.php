@@ -104,7 +104,7 @@ class EmployeeController extends Controller
         $employee->e_mail = $request->e_mail;
         $employee->m_leave = $request->m_leave;
         $employee->s_leave = $request->s_leave;
-        $employee->user_shift = $request->user_shift;
+        $employee->user_shift_id = $request->user_shift_id;
         $employee->isOvertime = $isOvertime;
         $employee->overtime_type = $request->overtime_type;
         $employee->overtime_amount = $request->overtime_amount;

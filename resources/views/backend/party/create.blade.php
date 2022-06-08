@@ -86,7 +86,13 @@
                                         <div class="col-md-9">
                                             <select id="party_products" class="multiselect text-center" style="width: 100% !important" name="party_products[]" multiple="multiple">
                                                 @foreach ($products as $item)
-                                                <option class="text-right" style="padding-left: 5% !important" value="{{$item->id}}">{{$item->supplyitem->name}}({{$item->pack->name}})</option>
+                                                    @if ($item->supplyitem->market_name == null) {
+                                                        <option class="text-right" style="padding-left: 5% !important" value="{{$item->id}}">{{$item->supplyitem->name}}({{$item->pack->name}})</option>
+                                                    }
+                                                    @else {
+                                                        <option class="text-right" style="padding-left: 5% !important" value="{{$item->id}}">{{$item->supplyitem->market_name}}({{$item->pack->name}})</option>
+                                                    }
+                                                    @endif
                                                 @endforeach
                                             </select>
                                         </div>

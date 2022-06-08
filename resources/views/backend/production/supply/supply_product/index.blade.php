@@ -70,6 +70,9 @@
                                             Item Name
                                         </th>
                                         <th>
+                                            Market Name
+                                        </th>
+                                        <th>
                                             Grade Name
                                         </th>
                                         <th>
@@ -85,6 +88,7 @@
                                         <tr>
                                             <td>{{++$key}}</td>
                                             <td>{{$item->name}}</td>
+                                            <td>{{$item->market_name}}</td>
                                             <td>{{$item->grade->name}}</td>
                                             <td>{{$item->details}}</td>
                                             <td style="text-align: center">
@@ -130,14 +134,21 @@
                                                             <div class="form-group">
                                                                 <label for="inputEmail1" class="col-md-2 control-label">Item Name</label>
                                                                 <div class="col-md-8">
-                                                                    <input type="text" class="form-control" value="{{$item->name}}" required name="name">
+                                                                    <input type="text" class="form-control" value="{{$item->name}}"  name="name">
+                                                                </div>
+                                                                <br><br>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Market Name</label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control" value="{{$item->market_name}}"  name="market_name">
                                                                 </div>
                                                                 <br><br>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
                                                                 <div class="col-md-8">
-                                                                    <input type="text" class="form-control" value="{{$item->details}}" required name="details">
+                                                                    <input type="text" class="form-control" value="{{$item->details}}"  name="details">
                                                                 </div>
                                                                 <br><br>
                                                             </div>
@@ -175,6 +186,12 @@
                                 <label for="inputEmail1" class="col-md-2 control-label">Item Name</label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" placeholder="Item Name" required name="name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Market Name</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" placeholder="Market Name" required name="market_name">
                                 </div>
                             </div>
                             <div class="form-group">

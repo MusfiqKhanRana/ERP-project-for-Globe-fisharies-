@@ -39,6 +39,7 @@ class SupplyItemController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         $create = SupplyItem::create($request->all());
         return redirect()->back()->withMsg("Successfully Created");
     }

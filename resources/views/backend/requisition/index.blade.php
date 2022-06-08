@@ -176,7 +176,13 @@
                                                                 <tr>
                                                                     <td>{{++$key2}}</td>
                                                                     <td>{{$item->category_type}}</td>
-                                                                    <td>{{$item->supplyitem->name}}</td>
+                                                                    @if($item->supplyitem->market_name)
+                                                                        <td>
+                                                                            {{$item->supplyitem->market_name}}
+                                                                        </td>
+                                                                    @else
+                                                                        <td>{{$item->supplyitem->name}}</td>        
+                                                                    @endif
                                                                     <td>
                                                                         {{$item->pack->name}}
                                                                     </td>
@@ -580,6 +586,7 @@
                         '_token' : $('input[name=_token]').val()
                     },
                     success:function(data){
+                        console.log(data);
                         $('.product'+max).html("");
                         $('.product'+max).append(data.output);
                     }

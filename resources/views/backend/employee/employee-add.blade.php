@@ -407,7 +407,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label"> User Shift</label>
                                         <div class="col-md-9">
-                                            <select class="form-control" id="user_shift" name="user_shift">
+                                            <select class="form-control" id="user_shift" name="user_shift_id">
                                                 @foreach ($user_shift as $item)
                                                 <option value="{{$item->id}}">{{$item->name}}</option>
                                                 @endforeach

@@ -112,7 +112,13 @@
                                                         <tr>
                                                             <th>{{++$key2}}</th>
                                                                 <th>{{$item->category_type}}</th>
-                                                                <th>{{$item->supplyitem->name}}</th>
+                                                                @if($item->supplyitem->market_name)
+                                                                    <td>
+                                                                        {{$item->supplyitem->market_name}}
+                                                                    </td>
+                                                                @else
+                                                                    <td>{{$item->supplyitem->name}}</td>        
+                                                                @endif
                                                                 <th>{{$item->pivot->quantity}}</th>
                                                                 <th>
                                                                     @php
@@ -622,6 +628,12 @@
                                                                         <div class="card-body">
                                                                             <div class="row">
                                                                                 <div class="col-md-6">
+                                                                                    <label for="product">Product</label>
+                                                                                        <select class="form-control add_product" name="product_id"  id="product" placeholder="Product" required>
+                                                                                            {{-- <option selected>Select</option> --}}
+                                                                                        </select>
+                                                                                </div>
+                                                                                <div class="col-md-6">
                                                                                     <label for="">Category</label>
                                                                                     <select name="category_id" class="form-control category">
                                                                                         <option selected>Select</option>
@@ -629,12 +641,6 @@
                                                                                             <option value="{{$data->id}}" data-name="{{$data->name}}">{{$data->name}}</option>
                                                                                         @endforeach --}}
                                                                                     </select>
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <label for="product">Product</label>
-                                                                                        <select class="form-control add_product" name="product_id"  id="product" placeholder="Product" required>
-                                                                                            {{-- <option selected>Select</option> --}}
-                                                                                        </select>
                                                                                 </div>
                                                                                 <div class="col-md-6">
                                                                                     <label for="product">Pack Size</label>
