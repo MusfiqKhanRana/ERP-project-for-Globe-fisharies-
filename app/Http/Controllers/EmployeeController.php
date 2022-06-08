@@ -78,6 +78,7 @@ class EmployeeController extends Controller
         $employee = new User;
         $employee->name = $request->name;
         $employee->f_name = $request->f_name;
+        $employee->mother_name = $request->mother_name;
         $employee->b_date = $request->b_date;
         $employee->gender = $request->gender;
         $employee->blood = $request->blood;
@@ -100,6 +101,7 @@ class EmployeeController extends Controller
         $employee->provident_fund = $request->provident_fund;
         $employee->income_tax = $request->income_tax;
         $employee->c_leave = $request->c_leave;
+        $employee->e_mail = $request->e_mail;
         $employee->m_leave = $request->m_leave;
         $employee->s_leave = $request->s_leave;
         $employee->user_shift = $request->user_shift;

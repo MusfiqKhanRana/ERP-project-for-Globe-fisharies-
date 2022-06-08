@@ -167,32 +167,32 @@ Add Increment/Decrement
                                 <div class="row" style="margin-left: 2%">
                                     <div class="col-md-4" >
                                         <label>Department</label>
-                                                <select class="form-control " id="department" name="department_id">
-                                                    <option value="">--Select--</option>
-                                                    @foreach ($departments as $item)
-                                                        <option value="{{$item->id}}">{{$item->name}}</option>
-                                                    @endforeach
-                                                </select>
+                                        <select class="form-control " id="department" name="department_id">
+                                            <option value="">--Select--</option>
+                                            @foreach ($departments as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col-md-4">
                                         <label>Designation</label>
-                                            <select  class="form-control" name="designation_id" id="designation">
-                                                <option value="">--Select--</option>
-                                                @foreach ($departments as $department)
-                                                    @foreach ($department->designation as $designation)
-                                                        <option value="{{$designation->id}}" class="{{$department->id}}">{{$designation->deg_name}}</option>
-                                                    @endforeach    
-                                                @endforeach
-                                            </select>
+                                        <select  class="form-control" name="designation_id" id="designation">
+                                            <option value="">--Select--</option>
+                                            @foreach ($departments as $department)
+                                                @foreach ($department->designation as $designation)
+                                                    <option value="{{$designation->id}}" class="{{$department->id}}">{{$designation->deg_name}}</option>
+                                                @endforeach    
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col-md-3">
                                         <label class="col-md-1 control-label">Name</label>
-                                        <select  class="form-control " name="user_id" id="user_id">
+                                        <select  class="form-control user_salary" name="user_id" id="user_id">
                                             <option value="null">--Select--</option>
                                             @foreach ($departments as $department)
                                                 @foreach ($department->designation as $designation)
                                                     @foreach ($designation->employee as $employee)
-                                                        <option value="{{$employee->id}}" class="{{$designation->id}}">{{$employee->name}}</option>
+                                                        <option value="{{$employee->id}}" class="{{$designation->id}}" data-salary="{{$employee->basic + $employee->medical_allowance + $employee->house_rent}}">{{$employee->name}}</option>
                                                     @endforeach
                                                 @endforeach    
                                             @endforeach
@@ -204,26 +204,27 @@ Add Increment/Decrement
                                         <label for="">Applied From</label>
                                         <input class="form-control" type="date" name="date">
                                     </div>
-                                    <div class="col-md-4">
-                                        <label for="">Increment Amount</label>
-                                        <input class="form-control" type="number" name="increment_amount">
-                                    </div>
                                     <div class="col-md-3">
                                         <label for="">Type</label><br>
                                         <label>
-                                            <input type="radio" class="form-control" name="type" value="Increment" checked> Incerment
+                                            <input type="radio" class="form-control increment" name="type" value="Increment" checked > Incerment
                                         </label>
                                         <label>
-                                            <input type="radio" class="form-control" name="type" value="Decrement"> Decrement
+                                            <input type="radio" class="form-control decrement" name="type" value="Decrement" > Decrement
                                         </label>
                                     </div>
+                                    <div class="col-md-4">
+                                        <label for=""> Amount</label>
+                                        <input class="form-control amount" type="number" value="" name="increment_amount">
+                                    </div>
+                                    
                                 </div><br>
                                 <div class="row" style="margin-left: 2%">
                                     <div class="col-md-4">
-                                        <label for=""><b>Previous Salary:</b></label>
+                                        <label for=""><b>Previous Salary: <span id="salary"></span> </b></label>
                                     </div>
                                     <div class="col-md-4">
-                                        <label for=""><b>Total Salary:</b></label>
+                                        <label for=""><b>Total Salary: <span id="total_amount" value=></span></b></label>
                                     </div>
                                     {{-- <div class="col-md-4">
                                         <Button class="btn btn-success">Submit</Button>
@@ -244,43 +245,62 @@ Add Increment/Decrement
 @endsection
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script>
-    function myFunction() {
-      var coffee = document.forms[0];
-      var txt = "";
-      var i;
-      for (i = 0; i < coffee.length; i++) {
-        if (coffee[i].checked) {
-          txt = txt + coffee[i].value + " ";
+    $(function() {
+        $("#designation").chained("#department");
+        $("#user_id").chained("#designation");
+    });
+    var salary = 0;
+    var type = $('.increment').val();
+    $(".user_salary").change(function() {
+        salary= parseInt($(this).find(':selected').attr('data-salary'));
+        $("#salary").html(salary);
+            
+    });
+    $('input[type=radio][name=type]').change(function() {
+        if (this.value == 'Increment') {
+            type = "Increment"
+            total = parseInt(salary) + parseInt($(".amount").val());
+            $("#total_amount").html(total);  
         }
-      }
-      document.getElementById("order").value = "You ordered a coffee with: " + txt;
-    }
-    </script>
-    <script>
-        $(function() {
-            $("#designation").chained("#department");
-            $("#user_id").chained("#designation");
-        });
-      </script>
-      <script>
-          $(".user_salary").change(function() {
-            alert( this.value );
-                // var id = $(this).val();
-                // $.ajax({
-                //     type:"POST",
-                //     url:"{{route('order.addproduct.pass')}}",
-                //     data:{
-                //         'id' : id,
-                //         '_token' : $('input[name=_token]').val()
-                //     },
-                //     success:function(data){
-                //         // console.log(data);
-                //         $('.add_product').html("");
-                //         $('.add_product').append(data.output);
-                //     }
-                // });
-            });
-      </script>
+        else if (this.value == 'Decrement') {
+            type = "Decrement"
+            total = parseInt(salary) - parseInt($(".amount").val());
+            $("#total_amount").html(total);
+        }
+    });
+   
+    $('.amount').on("keyup , change",function() {
+        //var amount = parseInt($(this).val());
+        var amount = $(this).val();
+        var total = '';
+        if (type=="Increment") {
+            total = parseInt(salary) + parseInt(amount);
+        }else{
+            total = parseInt(salary) - parseInt(amount);
+        }
+        $("#total_amount").html(total);
+    });
+
+    // if ($('input[name=type]:checked', '.decrement'))
+    // $('.amount').on("keyup , change",function() {
+    //     //var amount = parseInt($(this).val());
+    //     var amount = $(this).val();
+    //     var total = parseInt(salary) - parseInt(amount);
+    //     console.log(total);
+    //     $("#total_amount").html(total);
+    // });
+    // $('#amount').on("keyup",function() {
+    //         var amount = parseInt($(this).val());
+    //         if (type == increment) {
+               
+    //         }
+    //         if (type == decrement) {
+            
+    //         }
+           
+    //     });
+</script>
       
 @endsection
