@@ -55,7 +55,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('user_shift')->nullable();
             $table->double('income_tax')->nullable();
             $table->unsignedInteger('provident_fund')->nullable();
-            $table->boolean('isOvertime')->nullable();
+            $table->boolean('isOvertime')->default(0) ;
             $table->string('overtime_type')->nullable();
             $table->integer('overtime_amount')->nullable();
             $table->integer('basic')->nullable();
