@@ -69,8 +69,9 @@ class DisburseSalaryController extends Controller
         $start_date = Carbon::now()->startOfMonth()->subMonth()->format('Y-m-d 00:00:00');
         $end_date = Carbon::now()->endOfMonth()->subMonth()->format('Y-m-d 23:59:59');
         $user = User::with([
+            'user_shift',
             'attendances' => function($q) use($start_date, $end_date){
-                $q->whereBetween('date', [$start_date, $end_date])->select('id','user_id','date','status');
+                $q->whereBetween('date', [$start_date, $end_date])->select('id','user_id','date','in_time','out_time','status');
             },
             'department' => function($q){
                 $q->select('id','name');
@@ -89,7 +90,7 @@ class DisburseSalaryController extends Controller
             },'loan_installments'=>function($q){
                 $q->with(['office_loan'])->where('isPaid',false)->where('date',Carbon::now()->startOfMonth()->format('Y-m-d'));
             }
-            ])->where('deg_id',$id)->select('id','name','dept_id','deg_id','salary')->get();
+            ])->where('deg_id',$id)->select('id','name','dept_id','deg_id','basic','medical_allowance','house_rent','isOvertime','overtime_type','overtime_amount','user_shift_id')->get();
         return $user;
     }
 

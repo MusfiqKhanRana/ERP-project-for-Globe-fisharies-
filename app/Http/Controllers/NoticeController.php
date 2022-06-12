@@ -45,7 +45,7 @@ class NoticeController extends Controller
         $notice->title = $request->title;
         $notice->description = $request->description;
         $notice->save();
-        return redirect('notice')->withMsg('Notice Created');
+        return redirect('admin/notice')->withMsg('Notice Created');
     }
 
     /**

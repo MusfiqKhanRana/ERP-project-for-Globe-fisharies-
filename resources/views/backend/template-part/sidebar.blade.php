@@ -105,12 +105,12 @@
                                     <span class="title">Employee List</span>
                                 </a>
                             </li>
-                            <li class="nav-item  @if( request()->path() == 'admin/individual-attendance' ) active open @endif
+                            {{-- <li class="nav-item  @if( request()->path() == 'admin/individual-attendance' ) active open @endif
                             @if( request()->path() == 'individual-attendance' ) active open @endif">
                                 <a href="{{route('employee.individual')}}" class="nav-link">
                                     <span class="title">Individual Attendance</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item  @if( request()->path() == 'admin/tiffin-bill') active open @endif
                                 @if( request()->path() == 'tiffin-bill' ) active open @endif">
                                     <a href="{{route('tiffin-bill.index')}}" class="nav-link">
@@ -195,12 +195,12 @@
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item  @if( request()->path() == 'admin/payroll') active open @endif
+                            {{-- <li class="nav-item  @if( request()->path() == 'admin/payroll') active open @endif
                                 @if( request()->path() == 'payroll' ) active open @endif">
                                 <a href="{{route('payroll.index')}}" class="nav-link ">
                                     <span class="title">Employee Salary</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item  @if( request()->path() == 'admin/disburse-salary') active open @endif
                                 @if( request()->path() == 'disburse-salary' ) active open @endif">
                                 <a href="{{route('disburse-salary.index')}}" class="nav-link ">
@@ -461,12 +461,12 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item  @if( request()->path() == '' ) active open @endif
+                    {{-- <li class="nav-item  @if( request()->path() == '' ) active open @endif
                     @if( request()->path() == 'admin/category' ) active open @endif">
                         <a href="{{route('product.catagory.index')}}" class="nav-link ">
                             <span class="title">Product Category</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item  @if( request()->path() == '' ) active open @endif
                     @if( request()->path() == 'admin/products' ) active open @endif">
                         <a href="{{route('product.index')}}" class="nav-link ">
@@ -1037,7 +1037,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{--route('raw_wastage.index')--}}" class="nav-link ">
+                            <a href="" class="nav-link ">
                                 <span class="title">Release List</span>
                             </a>
                         </li>

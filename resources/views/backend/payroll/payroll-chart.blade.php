@@ -35,14 +35,14 @@ Payroll Chart
             @endif
 
 
-            <div class="col-md-8">
+            {{-- <div class="col-md-8">
                 <form method="post" class="form-inline" action="{{route('salary.sheet')}}">
                     {{csrf_field()}}
                     <input style="color: blue" class="input-small date date-picker form-control"  data-date-format="yyyy-mm-dd" type="text" name="from_date" id="from_date" placeholder="From Date" readonly >
                     <input style="color: blue"  class="input-small date date-picker form-control"  data-date-format="yyyy-mm-dd" name="to_date" id="to_date" class="form-control" placeholder="To Date" readonly>
                     <button class="btn purple" name="filter">Search</button>
                 </form>
-            </div>
+            </div> --}}
 
 
 
@@ -54,11 +54,11 @@ Payroll Chart
                 <div class="caption col-md-4">
                     <i class="fa fa-th"></i>Paid Payment Chart</div>
                 <div class="tools">
-                    <form method="post" action="{{route('individual-salary.search')}}">
+                    <form method="post" action="">
                         {{csrf_field()}}
                         <select style="color: blue" name="employee_select" >
                             @foreach($employee as $data)
-                            <option value="{{$data->employee_id}}">{{$data->name}}</option>
+                                <option value="{{$data->employee_id}}">{{$data->name}}</option>
                             @endforeach
                         </select>
                         <input style="color: blue" class="input-small date date-picker"  data-date-format="yyyy-mm-dd" type="text" name="from_date" id="from_date" placeholder="From Date" readonly >
@@ -82,30 +82,84 @@ Payroll Chart
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($payment as $data)
+                        {{-- @foreach($payment as $data) --}}
                             <tr>
-                                <td>{{$data->user_id}}</td>
-                                @if($data->employee)
+                                <td>
+                                    {{-- {{$data->user_id}} --}}
+                                    1011430
+                                </td>
+                                <td>
+                                    Usuf Ali
+                                </td>
+                                {{-- @if($data->employee)
                                     <td>{{$data->employee->name}}</td>
                                 @else
                                     <td>N/A</td>
-                                @endif
-                                <td>{{$data->attend}}</td>
-                                <td>{{$data->salary}}</td>
-                                <td>{{date('jS M Y',strtotime($data->from_date))}} - {{date('jS M Y', strtotime($data->to_date))}}</td>
+                                @endif --}}
                                 <td>
-
-                                    @if($data->status == 0)
+                                    {{-- {{$data->attend}} --}}
+                                    23 (Days)
+                                </td>
+                                <td>
+                                    {{-- {{$data->salary}} --}}
+                                    23500/- Tk
+                                </td>
+                                <td>
+                                    {{-- {{date('jS M Y',strtotime($data->from_date))}} - {{date('jS M Y', strtotime($data->to_date))}} --}}
+                                    02-jun-2022
+                                </td>
+                                <td>
+                                    Paid
+                                    {{-- @if($data->status == 0)
                                        <p class="label label-sm label-info">Pending</p>
                                     @else
                                         <span class="label label-sm label-success">Paid</span>
-                                    @endif
+                                    @endif --}}
                                 </td>
                                 <td>
-                                    <a href="{{route('salary-chart.delete', $data->id)}}" class="btn btn-danger">Delete</a>
+                                    N/A
+                                    {{-- <a href="{{route('salary-chart.delete', $data->id)}}" class="btn btn-danger">Delete</a> --}}
                                 </td>
                             </tr>
-                        @endforeach
+                            <tr>
+                                <td>
+                                    {{-- {{$data->user_id}} --}}
+                                    1822523
+                                </td>
+                                <td>
+                                    Ahmed Ali
+                                </td>
+                                {{-- @if($data->employee)
+                                    <td>{{$data->employee->name}}</td>
+                                @else
+                                    <td>N/A</td>
+                                @endif --}}
+                                <td>
+                                    {{-- {{$data->attend}} --}}
+                                    22 (Days)
+                                </td>
+                                <td>
+                                    {{-- {{$data->salary}} --}}
+                                    28500/- Tk
+                                </td>
+                                <td>
+                                    {{-- {{date('jS M Y',strtotime($data->from_date))}} - {{date('jS M Y', strtotime($data->to_date))}} --}}
+                                    01-jun-2022
+                                </td>
+                                <td>
+                                    Unpaid
+                                    {{-- @if($data->status == 0)
+                                       <p class="label label-sm label-info">Pending</p>
+                                    @else
+                                        <span class="label label-sm label-success">Paid</span>
+                                    @endif --}}
+                                </td>
+                                <td>
+                                    {{-- N/A --}}
+                                    <a href="" class="btn btn-primary">Make Paid</a>
+                                </td>
+                            </tr>
+                        {{-- @endforeach --}}
 
                         </tbody>
                     </table>

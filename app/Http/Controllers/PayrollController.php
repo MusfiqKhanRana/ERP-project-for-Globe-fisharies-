@@ -132,7 +132,7 @@ class PayrollController extends Controller
                 ])->select('id','name','dept_id','deg_id','salary');
             }
         ])->whereBetween('disburse_date', [$start_date, $end_date])->latest()->get();
-        return $payment;
+        // return $payment;
         return view('backend.payroll.payroll-chart',compact('payment', 'employee'));
     }
 
