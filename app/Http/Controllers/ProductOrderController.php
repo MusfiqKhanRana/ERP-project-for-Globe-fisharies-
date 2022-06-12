@@ -206,7 +206,7 @@ class ProductOrderController extends Controller
         $product_order = ProductOrder::create([
             'order_id' => $request->order_id,
             'product_id' => $request->product_id,
-            'category_id' => $request->category_id,
+            'category_type' => $request->category_type,
             'quantity' => $request->quantity,
             'discount_in_amount' => floatval($request->discount_in_amount),
             'discount_in_percentage' => floatval($request->discount_in_percentage),

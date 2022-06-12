@@ -29,11 +29,11 @@ class OrderController extends Controller
         $warehouse = Warehouse::all();
         $area  = Area::all();
         $products = Product::all();
-        $category = Category::all();
+        //$category = Category::all();
         $confirmcount = Order::select('id','status')->where('status','Confirm')->count();
         $pendingcount = Order::select('id','status')->where('status','Pending')->count();
         $delivery_count = Order::select('id','status')->where('status','Delivered')->count();
-        return view('backend.Order.index', compact('order','customer', 'warehouse','area','products','category','confirmcount','pendingcount','delivery_count'));
+        return view('backend.Order.index', compact('order','customer', 'warehouse','area','products','confirmcount','pendingcount','delivery_count'));
     }
     public function confirm($id)
     {
