@@ -40,6 +40,7 @@ class User extends Authenticatable
         'ac_name',
         'ac_num',
         'bank_name',
+        'user_shift_id',
         'code',
         'basic',
         'medical_allowance',
@@ -88,6 +89,10 @@ class User extends Authenticatable
     public function bonus()
     {
         return $this->hasMany(Bonus::class);
+    }
+    public function user_shift()
+    {
+        return $this->belongsTo(UserShift::class);
     }
     public function designation()
     {
