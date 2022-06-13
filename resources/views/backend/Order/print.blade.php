@@ -162,9 +162,13 @@
                                                     <td>
                                                         {{$item->category_type}}
                                                     </td>
-                                                    <td>
-                                                        {{$item->supplyitem->name}}
-                                                    </td>
+                                                    <span> @if($item->supplyitem->market_name)
+                                                        <td>
+                                                            {{$item->supplyitem->market_name}}
+                                                        </td>
+                                                    @else
+                                                        <td>{{$item->supplyitem->name}}</td>        
+                                                    @endif</span>
                                                     <td>
                                                         {{$item->pivot->quantity}}
                                                     </td>
