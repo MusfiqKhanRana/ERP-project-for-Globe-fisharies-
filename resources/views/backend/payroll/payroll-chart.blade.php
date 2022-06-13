@@ -76,91 +76,75 @@ Payroll Chart
                                 <th scope="col"> Employee Name </th>
                                 <th scope="col"> Total Attended Days</th>
                                 <th scope="col"> Payment </th>
-                                <th scope="col"> Date </th>
+                                <th scope="col">Disburse Date </th>
                                 <th scope="col"> Status </th>
                                 <th scope="col"> Action </th>
                             </tr>
                         </thead>
                         <tbody>
-                        {{-- @foreach($payment as $data) --}}
+                        @foreach($payment as $data)
                             <tr>
                                 <td>
-                                    {{-- {{$data->user_id}} --}}
-                                    1011430
+                                    {{$data->employee->employee_id}}
                                 </td>
                                 <td>
-                                    Usuf Ali
+                                    {{$data->employee->name}}
                                 </td>
-                                {{-- @if($data->employee)
-                                    <td>{{$data->employee->name}}</td>
-                                @else
-                                    <td>N/A</td>
-                                @endif --}}
                                 <td>
                                     {{-- {{$data->attend}} --}}
                                     23 (Days)
                                 </td>
                                 <td>
-                                    {{-- {{$data->salary}} --}}
-                                    23500/- Tk
+                                    {{$data->net_payment}}/- TK
                                 </td>
                                 <td>
-                                    {{-- {{date('jS M Y',strtotime($data->from_date))}} - {{date('jS M Y', strtotime($data->to_date))}} --}}
-                                    02-jun-2022
+                                    {{date('jS M Y',strtotime($data->disburse_date))}}
                                 </td>
                                 <td>
-                                    Paid
-                                    {{-- @if($data->status == 0)
+                                    @if($data->is_paid == 0)
                                        <p class="label label-sm label-info">Pending</p>
                                     @else
                                         <span class="label label-sm label-success">Paid</span>
-                                    @endif --}}
+                                    @endif
                                 </td>
                                 <td>
-                                    N/A
+                                    @if($data->is_paid == 1)
+                                       <p class="label label-sm label-info">N/A</p>
+                                    @else
+                                        <a href="" class="btn btn-primary">Make Paid</a>
+                                    @endif
                                     {{-- <a href="{{route('salary-chart.delete', $data->id)}}" class="btn btn-danger">Delete</a> --}}
                                 </td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <td>
-                                    {{-- {{$data->user_id}} --}}
+                                    
                                     1822523
                                 </td>
                                 <td>
                                     Ahmed Ali
                                 </td>
-                                {{-- @if($data->employee)
-                                    <td>{{$data->employee->name}}</td>
-                                @else
-                                    <td>N/A</td>
-                                @endif --}}
+                               
                                 <td>
-                                    {{-- {{$data->attend}} --}}
+                                   
                                     22 (Days)
                                 </td>
                                 <td>
-                                    {{-- {{$data->salary}} --}}
+                                    
                                     28500/- Tk
                                 </td>
                                 <td>
-                                    {{-- {{date('jS M Y',strtotime($data->from_date))}} - {{date('jS M Y', strtotime($data->to_date))}} --}}
                                     01-jun-2022
                                 </td>
                                 <td>
                                     Unpaid
-                                    {{-- @if($data->status == 0)
-                                       <p class="label label-sm label-info">Pending</p>
-                                    @else
-                                        <span class="label label-sm label-success">Paid</span>
-                                    @endif --}}
+                                    
                                 </td>
                                 <td>
-                                    {{-- N/A --}}
                                     <a href="" class="btn btn-primary">Make Paid</a>
                                 </td>
-                            </tr>
-                        {{-- @endforeach --}}
-
+                            </tr> --}}
+                        @endforeach
                         </tbody>
                     </table>
                     {{-- <div class="row">

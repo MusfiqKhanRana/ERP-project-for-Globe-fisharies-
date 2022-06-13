@@ -4,6 +4,7 @@ namespace App\Http\Controllers\payroll;
 
 use App\Http\Controllers\Controller;
 use App\Models\Designation;
+use App\Models\Payment;
 use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
@@ -55,7 +56,18 @@ class DisburseSalaryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $users = json_decode($request->users);
+        $data = $request->all();
+        $is_paid = ($data['status'] == "paid") ? 1 : 0;
+        foreach ($users as $key => $user) {
+            // dd($user,$data,$user->id);
+            Payment::create(['user_id'=>$user->id,'gross_salary'=>$user->gross_salary,'overtime_payment'=>$user->overtime,
+                            'absent_fine'=>$user->absent_fine,'late_fine'=>$user->late_fine,'advance_salary_payment'=>$user->advance_salary,
+                            'loan_installment_payment'=>$user->installment_amount,'net_payment'=>$user->net_payment,
+                            'disburse_date'=>$data['disbursement_date'],'salary_month'=>Carbon::now()->subMonth()->format('Y-m-d'),
+                            'is_paid'=>$is_paid]);
+        }
+        return back()->withMsg("Payment Successful");
     }
 
     /**
