@@ -19,10 +19,22 @@ class InventoryStoreInController extends Controller
     }
     public function bulk_storage(){
         $grades = FishGrade::all();
-        $ppu = ProductionProcessingUnit::where('status','Bulk_storage')->with('production_processing_grades','production_processing_item')
+        $production_unit = ProductionProcessingUnit::where('status','Bulk_storage')->with('production_processing_grades','production_processing_item')
         ->get();
-        // dd($ppu->toArray());
-        return view('backend.production.inventory.cold_storage.bulk_storage',compact('ppu','grades'));
+        $process_production_unit = $this->getBulkStorage($production_unit);
+        return $process_production_unit;
+        // return view('backend.production.inventory.cold_storage.bulk_storage',compact('ppu','grades'));
+    }
+    public function getBulkStorage($data)
+    {
+        // processing_type_array = ['']
+        foreach ($data as $key => $process) {
+            // if (condition) {
+            //     # code...
+            // }
+            return $process;
+        }
+        return $data;
     }
     public function move_to_store(Request $request){
         // dd($request);
