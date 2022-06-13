@@ -61,9 +61,9 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-    public function payment()
+    public function payments()
     {
-        return $this->belongsTo(Payment::class)->withDefault();
+        return $this->hasMany(Payment::class);
     }
 
     public function office_loan()
