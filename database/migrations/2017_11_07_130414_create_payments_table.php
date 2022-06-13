@@ -16,9 +16,16 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('gross_salary')->nullable();
+            $table->unsignedInteger('overtime_payment')->nullable();
+            $table->unsignedInteger('absent_fine')->nullable();
+            $table->unsignedInteger('late_fine')->nullable();
+            $table->unsignedInteger('advance_salary_payment')->nullable();
+            $table->unsignedInteger('loan_installment_payment')->nullable();
+            $table->unsignedInteger('net_payment')->nullable();
             $table->dateTime('disburse_date')->nullable();
             $table->date('salary_month')->nullable();
-            $table->boolean('status')->nullable();
+            $table->boolean('is_paid')->nullable();
             $table->timestamps();
         });
     }
