@@ -103,14 +103,14 @@
                                         <div class="col-md-9">
                                             <select class="form-control" name="blood">
                                                 <option>N/A</option>
-                                                <option value="a+">A +(ve)</option>
-                                                <option value="b+">B +(ve)</option>
-                                                <option value="ab+">AB +(ve)</option>
-                                                <option value="o+">O +(ve)</option>
-                                                <option value="o-">O -(ve)</option>
-                                                <option value="a-">A -(ve)</option>
-                                                <option value="b-">B -(ve)</option>
-                                                <option value="ab-">AB -(ve)</option>
+                                                <option value="A+">A +(ve)</option>
+                                                <option value="B+">B +(ve)</option>
+                                                <option value="AB+">AB +(ve)</option>
+                                                <option value="O+">O +(ve)</option>
+                                                <option value="O-">O -(ve)</option>
+                                                <option value="A-">A -(ve)</option>
+                                                <option value="B-">B -(ve)</option>
+                                                <option value="AB-">AB -(ve)</option>
                                             </select>
                                         </div>
                                     </div>
@@ -466,14 +466,14 @@
                                         <div class="col-md-9">
                                             {{-- <input type="text" class="form-control" name="income_tax" placeholder="Tax Amount" value=""><br> --}}
                                             <span class="discount_in_percentage">
-                                                <input type="text" class="form-control"  placeholder="discount in %" id="percentage_id"/>
+                                                <input type="text" class="form-control" name="discount_in_percentage"  placeholder="discount in %" id="percentage_id"/>
                                             </span>
                                             <span class="discount_in_amount">
-                                                <input type="text" class="form-control" placeholder="discount in amount" id="amount_id"/>
+                                                <input type="text" class="form-control" name="discount_in_amount" placeholder="discount in amount" id="amount_id"/>
                                             </span>
                                             <fieldset class="radio-inline question coupon_question2">
                                                 <input class="form-check-input want_in_amount" type="checkbox">Want in Amount ? 
-                                            </fieldset>
+                                            </fieldset><br>
                                             It will be deduct monthly Form Salary
                                         </div>
                                     </div>
@@ -529,7 +529,7 @@
                                                     <div class="input-group input-large">
                                                         <div class="form-control uneditable-input" data-trigger="fileinput">
                                                             <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
-                                          </span>
+                                                            </span>
                                                         </div>
                                                         <span class="input-group-addon btn default btn-file">
                                                            <span class="fileinput-new">
@@ -551,7 +551,7 @@
                                                     <div class="input-group input-large">
                                                         <div class="form-control uneditable-input" data-trigger="fileinput">
                                                             <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
-                                          </span>
+                                                            </span>
                                                         </div>
                                                         <span class="input-group-addon btn default btn-file">
                                                            <span class="fileinput-new">
@@ -573,7 +573,7 @@
                                                     <div class="input-group input-large">
                                                         <div class="form-control uneditable-input" data-trigger="fileinput">
                                                             <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
-                                          </span>
+                                                            </span>
                                                         </div>
                                                         <span class="input-group-addon btn default btn-file">
                                                            <span class="fileinput-new">
@@ -595,7 +595,7 @@
                                                     <div class="input-group input-large">
                                                         <div class="form-control uneditable-input" data-trigger="fileinput">
                                                             <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
-                                          </span>
+                                                            </span>
                                                         </div>
                                                         <span class="input-group-addon btn default btn-file">
                                                            <span class="fileinput-new">
@@ -617,7 +617,7 @@
                                                     <div class="input-group input-large">
                                                         <div class="form-control uneditable-input" data-trigger="fileinput">
                                                             <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
-                                          </span>
+                                                            </span>
                                                         </div>
                                                         <span class="input-group-addon btn default btn-file">
                                                            <span class="fileinput-new">
@@ -639,7 +639,7 @@
                                                     <div class="input-group input-large">
                                                         <div class="form-control uneditable-input" data-trigger="fileinput">
                                                             <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
-                                          </span>
+                                                            </span>
                                                         </div>
                                                         <span class="input-group-addon btn default btn-file">
                                                            <span class="fileinput-new">

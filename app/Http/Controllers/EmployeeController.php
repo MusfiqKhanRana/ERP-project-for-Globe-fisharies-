@@ -99,7 +99,8 @@ class EmployeeController extends Controller
         $employee->branch = $request->branch;
         $employee->status = $request->status;
         $employee->provident_fund = $request->provident_fund;
-        $employee->income_tax = $request->income_tax;
+        $employee->discount_in_amount = $request->discount_in_amount;
+        $employee->discount_in_percentage = $request->discount_in_percentage;
         $employee->c_leave = $request->c_leave;
         $employee->e_mail = $request->e_mail;
         $employee->m_leave = $request->m_leave;
@@ -370,7 +371,7 @@ class EmployeeController extends Controller
         $employee->s_leave = $request->input('s_leave');
         //dd($employee);
         $employee->save();
-        return redirect('admin/employee')->withMsg('Employee Income Tax Updated');
+        return redirect('admin/employee')->withMsg('Employee Updated');
     }
 
     public function documentUpdate(Request $request, $id)
