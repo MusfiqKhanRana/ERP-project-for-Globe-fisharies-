@@ -144,8 +144,9 @@
                             });
                             var deduction = calcutaleDeduction(value,amount,attendance_count.late_count,attendance_count.absent_count);
                             var get_overtime = getOverTime(value,attendance_count.total_overtime,deduction.per_day_salary);
-                            console.log(get_overtime);
-                            employeeTable.append('<tr>'+
+                            // console.log();
+                            if (value.payments.length == 0) {
+                                employeeTable.append('<tr>'+
                                     '<td><input type="checkbox" class="salary_check"'+
                                     'data-overtime="'+ get_overtime +'"'+
                                     'data-absent_fine="'+ deduction.absent_fine.toFixed(2) +'"'+
@@ -177,6 +178,7 @@
                                         '<li> Leave: '+attendance_count.leave_count+'</li>'+
                                         '</ul></td>'+
                                 '</tr>');
+                            }
                         });
                         showSalaryButton();
                     }

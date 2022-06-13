@@ -64,7 +64,7 @@ class DisburseSalaryController extends Controller
             Payment::create(['user_id'=>$user->id,'gross_salary'=>$user->gross_salary,'overtime_payment'=>$user->overtime,
                             'absent_fine'=>$user->absent_fine,'late_fine'=>$user->late_fine,'advance_salary_payment'=>$user->advance_salary,
                             'loan_installment_payment'=>$user->installment_amount,'net_payment'=>$user->net_payment,
-                            'disburse_date'=>$data['disbursement_date'],'salary_month'=>Carbon::now()->subMonth()->format('Y-m-d'),
+                            'disburse_date'=>$data['disbursement_date'],'salary_month'=>Carbon::now()->subMonth()->format('Y-m-01'),
                             'is_paid'=>$is_paid]);
         }
         return back()->withMsg("Payment Successful");
@@ -79,9 +79,13 @@ class DisburseSalaryController extends Controller
     public function show($id)
     {
         $start_date = Carbon::now()->startOfMonth()->subMonth()->format('Y-m-d 00:00:00');
+        $salary_date = Carbon::now()->startOfMonth()->subMonth()->format('Y-m-01');
         $end_date = Carbon::now()->endOfMonth()->subMonth()->format('Y-m-d 23:59:59');
         $user = User::with([
             'user_shift',
+            'payments' => function($q) use($salary_date) {
+                $q->where('salary_month',$salary_date)->select('id','user_id','salary_month');
+            },
             'attendances' => function($q) use($start_date, $end_date){
                 $q->whereBetween('date', [$start_date, $end_date])->select('id','user_id','date','in_time','out_time','status');
             },
