@@ -52,12 +52,12 @@
                             <h4 class="modal-title">Add New Area</h4>
                         </div>
                         <br>
-                        <form class="form-horizontal" role="form" method="post" action="">
+                        <form class="form-horizontal" role="form" method="post" action="{{route('disburse-salary.store')}}">
                             {{csrf_field()}}
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Status</label>
                                 <div class="col-md-8">
-                                    <select  class="form-control" name="status" id="status">
+                                    <select  class="form-control" name="status" id="status" required>
                                         <option value="">--select--</option>
                                         <option value="paid">Paid</option>
                                         <option value="unpaid">Unpaid</option>
@@ -125,6 +125,7 @@
             $('.disburse_salary').hide();
             getdata(designations.id)
             $('.degsignation').click(function() {
+                $('.users_array').val('');
                 getdata($(this).data("id"));
             });
             function getdata(id) {
@@ -145,7 +146,14 @@
                             var get_overtime = getOverTime(value,attendance_count.total_overtime,deduction.per_day_salary);
                             console.log(get_overtime);
                             employeeTable.append('<tr>'+
-                                    '<td><input type="checkbox" class="salary_check" value="'+ value.id+'"></td>'+
+                                    '<td><input type="checkbox" class="salary_check"'+
+                                    'data-overtime="'+ get_overtime +'"'+
+                                    'data-absent_fine="'+ deduction.absent_fine.toFixed(2) +'"'+
+                                    'data-late_fine="'+ deduction.late_fine.toFixed(2) +'"'+
+                                    'data-advance_salary="'+ deduction.advance_salary.toFixed(2) +'"'+
+                                    'data-installment_amount="'+ deduction.loan_installment_amount.toFixed(2) +'"'+
+                                    'data-net_payment="'+ ((value.basic+value.medical_allowance+value.house_rent+amount)-deduction.total_deduction).toFixed(2) +'"'+
+                                    ' data-gross_salary="'+ (value.basic+value.medical_allowance+value.house_rent+amount) +'" value="'+ value.id+'"></td>'+
                                     '<td>'+value.id+'</td>'+
                                     '<td><ul>'+
                                         '<li> Name: '+value.name+'</li>'+
@@ -232,12 +240,13 @@
                 $('.salary_check').click(function(){
                     if($(this).prop("checked") == true){
                         $('.disburse_salary').show();
-                        selected_user_ids.push($(this).val());
-                        selected_user_ids = [...new Set(selected_user_ids)];
+                        let user_salary = {id:$(this).val(),gross_salary:$(this).data('gross_salary'), overtime:$(this).data('overtime'), absent_fine:$(this).data('absent_fine'), late_fine:$(this).data('late_fine'), advance_salary:$(this).data('advance_salary'), installment_amount:$(this).data('installment_amount') , net_payment:$(this).data('net_payment')};
+                        selected_user_ids.push(user_salary);
+                        selected_user_ids = [...new Map(selected_user_ids.map(item => [item['id'], item])).values()];
                         $('.users_array').val(JSON.stringify(selected_user_ids));
                     }
                     else if($(this).prop("checked") == false){
-                        selected_user_ids = selected_user_ids.filter((value)=>value!=$(this).val());
+                        selected_user_ids.splice(selected_user_ids.findIndex(item => item.id === $(this).val()), 1)
                         $('.users_array').val(JSON.stringify(selected_user_ids));
                         if (selected_user_ids.length==0) {
                             $('.disburse_salary').hide();
