@@ -629,26 +629,32 @@
                                                                             <div class="row">
                                                                                 <div class="col-md-6">
                                                                                     <label for="product">Product</label>
-                                                                                        <select class="form-control add_product" name="product_id"  id="product" placeholder="Product" required>
-                                                                                            {{-- <option selected>Select</option> --}}
-                                                                                        </select>
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <label for="">Category</label>
-                                                                                    <select name="category_id" class="form-control category">
-                                                                                        <option selected>Select</option>
-                                                                                        {{-- @foreach($category as $data)
-                                                                                            <option value="{{$data->id}}" data-name="{{$data->name}}">{{$data->name}}</option>
-                                                                                        @endforeach --}}
+                                                                                    <select class="form-control product_id" id="product" name="product_id">
+                                                                                        <option value="">--Select--</option>
+                                                                                        @foreach ($products as $product)
+                                                                                            <option value="{{$product->id}}" data-customer_type="{{$data->customer->customer_type}}" data-category_type="{{$product->category_type}}" title="{{$product->pack->name}}" data-pack_name="{{$product->pack->name}}" data-online_selling_price="{{$product->online_selling_price}}" data-inhouse_selling_price="{{$product->inhouse_selling_price}}" data-pack_weight="{{$product->pack->weight}}" data-pack_id="{{$product->pack->id}}" data-id="{{$product->id}}" data-product_name="{{$product->supplyitem->name}}">
+                                                                                                <span>
+                                                                                                    @if($product->supplyitem->market_name)
+                                                                                                    {{$product->supplyitem->market_name}}
+                                                                                                    @else
+                                                                                                        {{$product->supplyitem->name}}        
+                                                                                                    @endif
+                                                                                                </span> - {{$product->category_type}} </option>
+                                                                                        @endforeach
+                                                                                        
                                                                                     </select>
                                                                                 </div>
                                                                                 <div class="col-md-6">
+                                                                                    <label for="product">Category</label>
+                                                                                    <input type="text" class="form-control category" name="category_type"  readonly>
+                                                                                </div>
+                                                                                <div class="col-md-6">
                                                                                     <label for="product">Pack Size</label>
-                                                                                    <input type="text" class="form-control pack_size" readonly>
+                                                                                    <input type="text" class="form-control pack_size"  readonly>
                                                                                 </div>
                                                                                 <div class="col-md-6">
                                                                                     <label for="product">Rate (TK)</label>
-                                                                                    <input  type="text" class="form-control rate" id="rate" readonly>
+                                                                                    <input  type="text" class="form-control rate" readonly>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -659,6 +665,7 @@
                                                                         <div class="card-header">
                                                                             <h4><b>Quantity & Price</b></h4>
                                                                         </div>
+                                                                        <input type="hidden" id="customer_type" value="">
                                                                         <div class="card-body">
                                                                             <div class="row">
                                                                                 <div class="col-md-6">
@@ -883,9 +890,37 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
     <script>
-        $(document).ready(function() {
-            // console.log("this is good");
+        jQuery(document).ready(function() {
+            var category_type,category_name,customer_type,rate,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,product_name,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
+            $('.product_id').change(function(){
+                product_id = $(this).val();
+                product_name = $(this).find(':selected').data("product_name");
+                category_type = $(this).find(':selected').data("category_type");
+                customer_type = $(this).find(':selected').data("customer_type");
+                product_pack_id = $(this).find(':selected').data("pack_id");
+                product_pack_name = $(this).find(':selected').data("pack_name");
+                product_pack_weight = $(this).find(':selected').data("pack_weight");
+                product_online_rate = $(this).find(':selected').data("online_selling_price");
+                product_inhouse_rate = $(this).find(':selected').data("inhouse_selling_price");
+                $('.pack_size').val(product_pack_name);
+                $('.category').val(category_type);
+                //$("#rate").empty();
+                //var customer_type = $('#customer_type').val();
+                
+                var selling_price = null;
+                console.log(customer_type);
+                if(customer_type=="inhouse"){
+                    selling_price = product_inhouse_rate;
+                    console.log(selling_price);
+                }
+                else if(customer_type == "online"){
+                    selling_price = product_online_rate;
+                    console.log(selling_price);
+                }
+                $(".rate").val(selling_price);
+            })
             $(".transaction_number").hide();
             $('.payment_method').change(function(){
                 var input = $(this).val();
@@ -895,71 +930,26 @@
                     $(".transaction_number").hide();
                 }
             })
-            $("#warehouse").change(function(){
-                var id = $(this).val();
-                $.ajax({
-                    type:"POST",
-                    url:"{{route('order.product.pass')}}",
-                    data:{
-                        'id' : id,
-                        '_token' : $('input[name=_token]').val()
-                    },
-                    success:function(data){
-                        $('.product_id').empty();
-                        $('.product_id').append($('<option>', { 
-                            value: '',
-                            text : "--select--"
-                        }));
-                        $.each(data, function (i, item) {
-                            var name_quantity = item.supplyitem.name;
-                            $('.product_id').append($('<option>', { 
-                                value: item.id,
-                                text : name_quantity
-                            }));
-                        });
-                    }
-                });
-            });
-            $(".category").change(function() {
-                var id = $(this).val();
-                $.ajax({
-                    type:"POST",
-                    url:"{{route('order.addproduct.pass')}}",
-                    data:{
-                        'id' : id,
-                        '_token' : $('input[name=_token]').val()
-                    },
-                    success:function(data){
-                        // console.log(data);
-                        $('.add_product').html("");
-                        $('.add_product').append(data.output);
-                    }
-                });
-            });
-            var category_id,category_name,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,supply_item_id,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
-            $('.add_product').change(function(){
-                product_id = $(this).val();
-                supply_item_id = $(this).find(':selected').attr('data-supply_item_id');
-                product_pack_id = $(this).find(':selected').attr('data-pack_id');
-                product_pack_name = $(this).find(':selected').attr('data-pack_name');
-                product_pack_weight = $(this).find(':selected').attr('data-pack_weight');
-                product_online_rate = $(this).find(':selected').attr('data-online_selling_price');
-                product_inhouse_rate = $(this).find(':selected').attr('data-inhouse_selling_price');
-                $('.pack_size').val(product_pack_name);
-                $(".rate").empty();
-                var customer_type = $('.customer_typexx').val();
-                var selling_price = null;
-                if(customer_type=="inhouse"){
-                    selling_price = product_inhouse_rate;
-                }
-                else if(customer_type == "online"){
-                    selling_price = product_online_rate;
-                }
-                $(".rate").val(selling_price);
-                // console.log(product_online_rate,product_inhouse_rate,product_id,product_name,product_pack_id,product_pack_name,product_pack_weight);
+            $('#grand_discount').keyup(function(){
+                let grand_total = parseInt($("#intotal_amount").html())-$(this).val();
+                $("#grand_total").val(grand_total);
             })
+            $('#paid_amount').keyup(function(){
+                let grand_total = $("#grand_total").val()-$(this).val();
+                $("#grand_due_amount").val(grand_total);
+            })
+            $('.add_delivery_charge').hide();
+
+            $(".want_delivery_charge").click(function() {
+                if($(this).is(":checked")) {
+                    $(".add_delivery_charge").show();
+                } else {
+                    $(".add_delivery_charge").hide();
+                    $("#delivery_charge").val('');
+                }
+            });
             $('.quantity_pkt').keyup(function(){
-                console.log("good");
+                //console.log("good");
                 packet_quantity = $(this).val();
                 $(".quantity_kg").val(packet_quantity*product_pack_weight);
                 $(".pricex").val(packet_quantity * $(".rate").val());
@@ -975,6 +965,7 @@
                 discount_in_amount = $(this).val();
                 $('#price').val(main_price);
             });
+           
             $('.discount_in_amount').hide();
             $(".want_in_amount").click(function() {
                 if($(this).is(":checked")) {
@@ -989,81 +980,8 @@
                     $('#amount_id').val('');
                 }
             });
-            // $(document).on('change',".category",(function(){
-            //     console.log("changed");
-            //     var id = $(this).val();
-            //     $.ajax({
-            //         type:"POST",
-            //         url:"{{route('order.addproduct.pass')}}",
-            //         data:{
-            //             'id' : id,
-            //             '_token' : $('input[name=_token]').val()
-            //         },
-            //         success:function(data){
-            //             $('.add_product').html("");
-            //             $('.add_product').append(data.output);
-            //         }
-            //     });
-            // });
+           
         });
-        // $("#addService").click(function(){
-        //     max++;
-        //     appendPlanDescField($("#orderBox"));
-        //     $('.discount_in_amount').hide();
-        //     $(".want_in_amount").click(function() {
-        //         if($(this).is(":checked")) {
-        //             $(".discount_in_amount").show();
-        //             $(".discount_in_percentage").hide();
-        //             $('#percentage_id').val('');
-        //         } else {
-        //             $(".discount_in_amount").hide();
-        //             $(".discount_in_percentage").show();
-        //             $('#amount_id').val('');
-        //         }
-        // });
-        // $(document).on('change',product_id,function(){
-        //     var id = $(this).val();
-        //     $.ajax({
-        //         type:"POST",
-        //         url:"{{route('warehouse.product.price')}}",
-        //         data:{
-        //             'id' : id,
-        //             '_token' : $('input[name=_token]').val()
-        //         },
-        //         success:function(data){
-        //             var $results = $('.product_price');
-        //             var $userDiv = $results.append('<div class="user-div'"></div>')
-        //             $("<input type='radio' class='selling_price' name='selling_price' id='a' value='"+data.inhouse_selling_price+"'> <span>Inhouse:"+data.inhouse_selling_price+"</span>").appendTo( ".user-div" );
-        //         $("<input type='radio' class='selling_price' name='selling_price' id='b' value='"+data.online_selling_price+"'> <span>Online:"+data.online_selling_price+"</span>").appendTo( ".user-div" );
-        //         $("<input type='radio' class='selling_price' name='selling_price' id='c' value='"+data.retail_selling_price+"'> <span>Retail:"+data.retail_selling_price+"</span>").appendTo( ".user-div" );
-        //             // $('.product_price'+ max).append(
-        //             //     $('<input>').prop({
-        //             //         type: 'radio',
-        //             //         id: 'price',
-        //             //         name: 'selling_price',
-        //             //         value: data.inhouse_selling_price
-        //             //     })
-        //             // ).append(
-        //             //     $('<label>').prop({
-        //             //         for: 'Price'
-        //             //     }).html('inhouse_selling_price'+ "(" + data.inhouse_selling_price +")" )
-        //             // ).append(
-        //             //     $('<br>')
-        //             // );
-        //         }
-        //     });
-        // });
-        // $(".amount1").hide();
-        // $(".amountxx").click(function() {
-        //     if($(this).is(":checked")) {
-        //         $(".amount1").show();
-        //         $(".disper").hide();
-        //         $('#coupon_1').val('');
-        //     } else {
-        //         $(".amount1").hide();
-        //         $(".disper").show();
-        //         $('#coupon_2').val('');
-        //     }
-        // });
+        
     </script>
 @endsection
