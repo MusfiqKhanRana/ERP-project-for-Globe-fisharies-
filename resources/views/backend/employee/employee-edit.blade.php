@@ -110,6 +110,21 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-3 control-label"> Blood Group</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control" name="blood">
+                                                <option value="A+" @if($employee->blood == 'A+') selected  @endif>A +(ve)</option>
+                                                <option value="B+" @if($employee->blood == 'B+') selected  @endif>B +(ve)</option>
+                                                <option value="AB+" @if($employee->blood == 'AB+') selected  @endif>AB +(ve)</option>
+                                                <option value="O+" @if($employee->blood == 'O+') selected  @endif>O +(ve)</option>
+                                                <option value="O-" @if($employee->blood == 'O-') selected  @endif>O -(ve)</option>
+                                                <option value="A-" @if($employee->blood == 'A-') selected  @endif>A -(ve)</option>
+                                                <option value="B-" @if($employee->blood == 'B-') selected  @endif>B -(ve)</option>
+                                                <option value="AB-" @if($employee->blood == 'AB-') selected  @endif>AB -(ve)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-md-3 control-label">Phone</label>
                                         <div class="col-md-9">
                                             <input type="text" name="phone" class="form-control" value="{{$employee->phone}}">
@@ -208,7 +223,6 @@
                                             <input type="text" name="overtime_amount" class="form-control" value="{{$employee->overtime_amount}}">
                                         </div>
                                     </div>
-                                    
                                 </div>
                                 <div class="row">
                                     <div class="actions col-md-12">
@@ -220,7 +234,6 @@
                         </div>
                     </div>
                 </div>
-                
                 <div class="col-md-6 col-sm-6">
                     <div class="portlet box blue-chambray">
                         <div class="portlet-title">
@@ -274,7 +287,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label class="control-label col-md-3">Exit Date</label>
                                         <div class="col-md-3">
                                             <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
@@ -284,8 +297,8 @@
                                                 </span>
                                             </div>
                                         </div>
-                                    </div>
-                                    <hr>
+                                    </div> --}}
+                                    
                                     {{-- <h4><strong>Salary  ( <i class="fa fa-money"></i> )</strong>  {{-- $general->currency -}}</h4>
                                     <div class="form-body">
                                         <div class="form-group">
@@ -299,7 +312,7 @@
                                             <label class="control-label col-md-3">Branch</label>
                                             <div class="col-md-9">
 
-                                                <input class="form-control form-control-inline"  type="text" name="branch_name" value="{{$employee->branch_name}}" placeholder="Branch Name"/>
+                                                <input class="form-control form-control-inline"  type="text" name="branch_address" value="{{$employee->branch_address}}" placeholder="Branch Name"/>
                                             </div>
                                         </div>
                                     </div>
@@ -375,11 +388,10 @@
                                     <label class="col-md-3 control-label"> Status</label>
                                     <div class="col-md-9">
                                         <select class="form-control" id="status" name="status">
-                                                <option value="{{ $employee->status}}">{{ $employee->status}}</option>
-                                                <option value="Probational">Probational</option>
-                                                <option value="Permanent">Permanent</option>
-                                                <option value="Retired">Retired</option>
-                                                <option value="Terminated">Terminated</option>
+                                                <option value="Probational"  @if($employee->status == 'Probational') selected  @endif>Probational</option>
+                                                <option value="Permanent"  @if($employee->status == 'Permanent') selected  @endif>Permanent</option>
+                                                <option value="Retired"  @if($employee->status == 'Retired') selected  @endif>Retired</option>
+                                                <option value="Terminated"  @if($employee->status == 'Terminated') selected  @endif>Terminated</option>
                                            
                                         </select>
                                     </div>
@@ -421,9 +433,9 @@
                                         <div class="col-md-9">
                                             {{-- <input type="text" class="form-control" name="provident" placeholder="Casual Leave" value=""> --}}
                                             <select class="form-control" name="provident_fund" id="">
-                                                <option value="">N/A</option>
+                                                
                                                 @foreach ($provident_fund as $item)
-                                                    <option value="{{$item->id}}">{{$item->package}}</option>
+                                                    <option value="{{$item->id}}" {{ $item->id == $item->id ? 'selected' : '' }}>{{$item->package}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -518,9 +530,7 @@
                     </div>
                     
                 </div>
-                
             </div>
-            
             <div class="clearfix">
                 <div class="row ">
                     <div class="col-md-12 col-sm-12">

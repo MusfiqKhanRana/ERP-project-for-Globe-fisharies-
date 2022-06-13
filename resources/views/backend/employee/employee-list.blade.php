@@ -115,7 +115,7 @@
                         $.each( data, function( key, employee ) {
                             console.log(employee);
                             var img1 = '<a href="#"><img src="'+img_url+'/'+employee.image+'"/ width="120px" height="90px"></a>';
-                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img1+"</td><td>"+employee.name+"</td><td>Department:"+employee.department.name+"<br>Designation : "+employee.designation.deg_name+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button><a class='btn btn-info'  href='{{route('employee.edit','"+employee.id+"')}}' data-id='"+employee.id+"'>Edit</a></td>/tr>");
+                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img1+"</td><td>"+employee.name+"</td><td>Department:"+employee.department.name+"<br>Designation : "+employee.designation.deg_name+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button><a class='btn btn-info'  href='employee/edit-employee/"+ employee.id +"' data-id='"+employee.id+"'>Edit</a></td>/tr>");
                         });
                     }
                 })
@@ -139,7 +139,7 @@
                         $.each( data, function( key, employee ) {
                             console.log(employee);
                             var img2 = '<a href="#"><img src="'+img_url+'/'+employee.image+'"/ width="120px" height="90px"></a>';
-                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img2+"</td><td>"+employee.name+"</td><td>Department:"+employee.department.name+"<br>Designation : "+employee.designation.deg_name+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button><a class='btn btn-info edit' href='{{route('employee.edit','"+employee.id+"')}}' data-id='"+employee.id+"'>Edit</a></td></tr>");
+                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img2+"</td><td>"+employee.name+"</td><td>Department:"+employee.department.name+"<br>Designation : "+employee.designation.deg_name+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button><a class='btn btn-info edit' href='employee/edit-employee/"+ employee.id +"' data-id='"+employee.id+"'>Edit</a></td></tr>");
                         });
                     }
                 })
@@ -164,7 +164,7 @@
                         $.each( data, function( key, employee ) {
                             console.log(employee);
                             var img3 = '<a href="#"><img src="'+img_url+'/'+employee.image+'"/ width="120px" height="90px"></a>';
-                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img3+"</td><td>"+employee.name+"</td><td>Department:"+employee.department.name+"<br>Designation : "+employee.designation.deg_name+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button><a class='btn btn-info edit' href='{{route('employee.edit','"+employee.id+"')}}' data-id='"+employee.id+"'>Edit</a></td></tr>");
+                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img3+"</td><td>"+employee.name+"</td><td>Department:"+employee.department.name+"<br>Designation : "+employee.designation.deg_name+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button><a class='btn btn-info edit' href='employee/edit-employee/"+ employee.id +"' data-id='"+employee.id+"'>Edit</a></td></tr>");
                         });
                     }
                 })
@@ -187,7 +187,7 @@
                         $.each( data, function( key, employee ) {
                             console.log(employee);
                             var img4 = '<a href="#"><img src="'+img_url+'/'+employee.image+'"/ width="120px" height="90px"></a>';
-                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img4+"</td><td>"+employee.name+"</td><td>Department:"+employee.department.name+"<br>Designation : "+employee.designation.deg_name+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button><a class='btn btn-info edit' href='{{route('employee.edit','"+employee.id+"')}}' data-id='"+employee.id+"'>Edit</a></td></tr>");
+                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img4+"</td><td>"+employee.name+"</td><td>Department:"+employee.department.name+"<br>Designation : "+employee.designation.deg_name+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button><a class='btn btn-info edit' href='employee/edit-employee/"+ employee.id +"' data-id='"+employee.id+"'>Edit</a></td></tr>");
                         });
                     }
                 })
@@ -210,7 +210,7 @@
                         $.each( data, function( key, employee ) {
                             console.log(employee);
                             var img5 = '<a href="#"><img src="'+img_url+'/'+employee.image+'"/ width="120px" height="90px"></a>';
-                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img5+"</td><td>"+employee.name+"</td><td>Department:"+employee.department.name+"<br>Designation : "+employee.designation.deg_name+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+employee.id+"'>Delete</button><a class='btn btn-info edit' href='{{route('employee.edit','"+employee.id+"')}}' data-id='"+employee.id+"'>Edit</a></td></tr>");
+                            $("table.mytable tr").last().after("<tr id='"+key+"'><td>"+employee.employee_id+"</td><td>"+img5+"</td><td>"+employee.name+"</td><td>Department:"+employee.department.name+"<br>Designation : "+employee.designation.deg_name+"</td><td>"+employee.date+"</td><td>"+employee.phone+"</td><td><button class='btn btn-danger delete' data-id='"+employee.id+"'>Delete</button><a class='btn btn-info edit' href='employee/edit-employee/"+ employee.id +"' data-id='"+employee.id+"'>Edit</a></td></tr>");
                         });
                     }
                 })
