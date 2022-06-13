@@ -17,21 +17,36 @@ class InventoryStoreInController extends Controller
         // dd($ppu->toArray());
         return view('backend.production.inventory.store-in.index',compact('ppu','grades'));
     }
+    public function bulk_storage(){
+        $grades = FishGrade::all();
+        $ppu = ProductionProcessingUnit::where('status','Bulk_storage')->with('production_processing_grades','production_processing_item')
+        ->get();
+        // dd($ppu->toArray());
+        return view('backend.production.inventory.cold_storage.bulk_storage',compact('ppu','grades'));
+    }
     public function move_to_store(Request $request){
         // dd($request);
-        ProductionProcessingUnit::where('id',$request->production_processing_unit_id)
-        ->update(
-            ['status'=>'Bulk_storage','store_in_status'=>'Bulk_storage']
-        );
-        foreach (json_decode($request->inputs) as $key => $input) {
-            ProductionProcessingGrade::create([
-                'grade_id' => $input->grade_id,
-                'grade_name' => $input->grade_name,
-                'grade_quantity' => $input->grade_weight,
-                'production_processing_unit_id' => $request->grade_ppu_id,
-                'grading_date'=>Carbon::now(),
-            ]); 
-        }    
-        return redirect()->back()->withmsg('Successfully Moved To Store');
+        if ($request->inputs==null) {
+            ProductionProcessingUnit::where('id',$request->production_processing_unit_id)
+            ->update(
+                ['status'=>'Bulk_storage','store_in_status'=>'Bulk_storage']
+            );
+        }
+        if ($request->inputs!=null) {
+            ProductionProcessingUnit::where('id',$request->production_processing_unit_id)
+            ->update(
+                ['status'=>'Bulk_storage','store_in_status'=>'Bulk_storage']
+            );
+            foreach (json_decode($request->inputs) as $key => $input) {
+                ProductionProcessingGrade::create([
+                    'grade_id' => $input->grade_id,
+                    'grade_name' => $input->grade_name,
+                    'grade_quantity' => $input->grade_weight,
+                    'production_processing_unit_id' => $request->grade_ppu_id,
+                    'grading_date'=>Carbon::now(),
+                ]); 
+            }  
+        }  
+        return redirect()->back()->withmsg('Successfully Moved To Bulk Storage');
     }
 }

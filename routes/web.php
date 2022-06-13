@@ -571,9 +571,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('inventory/manage-location/located_item_list', function () {
         return view('backend.production.inventory.manage_location.located_item_list');
     })->name('inventory.location.located_item_list');
-    Route::get('inventory/cold_storage/bulk_storage', function () {
-        return view('backend.production.inventory.cold_storage.bulk_storage');
-    })->name('inventory.cold_storage.bulk_storage');
+    Route::get('inventory/cold_storage/bulk_storage',[InventoryStoreInController::class,'bulk_storage'])->name('inventory.cold_storage.bulk_storage');
     Route::get('inventory/cold_storage/export_storage_1', function () {
         return view('backend.production.inventory.cold_storage.export_storage_1');
     })->name('inventory.cold_storage.export_storage_1');

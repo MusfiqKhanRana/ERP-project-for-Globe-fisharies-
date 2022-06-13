@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('site-title')
-    inventory store-in
+    inventory bulk-storage
 @endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
@@ -57,68 +57,48 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr id="row1">
-                                    <td class="text-align: center;">Pangas</td>
-                                    <td class="text-align: center;">300-500gm/3pcs</td>
-                                    <td class="text-align: center;">IQF</td>
-                                    <td class="text-align: center;">Whole</td>
-                                    <td class="text-align: center;">40</td>
-                                    <td class="text-align: center;">
-                                        <table class="table table-striped table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <td class="text-align: center;">In</td>
-                                                    <td class="text-align: center;">Out</td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-align: center;">10</td>
-                                                    <td class="text-align: center;">10</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                    <td class="text-align: center;">40</td>
-                                    <td class="text-align: center;">40</td>
-                                    <td class="text-align: center;">40</td>
-                                    <td style="text-align: center">
-                                        <a class="btn btn-success"  data-toggle="modal" href="#transfer_Modal"><i class="fa fa-edit"></i>Transfer</a>
-                                        <a class="btn btn-danger"  data-toggle="modal" href="#damaged_Modal"><i class="fa fa-edit"></i>Damaged</a>
-                                        <a class="btn btn-info"  data-toggle="modal" href="#reprocessed_Modal"><i class="fa fa-edit"></i>Reprocessed</a>
-                                    </td>
-                                </tr> 
-                                <tr id="row1">
-                                    <td class="text-align: center;">Pangas</td>
-                                    <td class="text-align: center;">300-500gm/3pcs</td>
-                                    <td class="text-align: center;">IQF</td>
-                                    <td class="text-align: center;">Whole</td>
-                                    <td class="text-align: center;">40</td>
-                                    <td class="text-align: center;">
-                                        <table class="table table-striped table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <td class="text-align: center;">In</td>
-                                                    <td class="text-align: center;">Out</td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-align: center;">10</td>
-                                                    <td class="text-align: center;">10</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                    <td class="text-align: center;">40</td>
-                                    <td class="text-align: center;">40</td>
-                                    <td class="text-align: center;">40</td>
-                                    <td style="text-align: center">
-                                        <a class="btn btn-success"  data-toggle="modal" href="#transfer_Modal"><i class="fa fa-edit"></i>Transfer</a>
-                                        <a class="btn btn-danger"  data-toggle="modal" href="#damaged_Modal"><i class="fa fa-edit"></i>Damaged</a>
-                                        <a class="btn btn-info"  data-toggle="modal" href="#reprocessed_Modal"><i class="fa fa-edit"></i>Reprocessed</a>
-                                    </td>
-                                </tr> 
+                                @foreach ($ppu as $item)
+                                    <tr id="row1">
+                                        <td class="text-align: center;">{{$item->production_processing_item->name}}</td>
+                                        <td class="text-align: center;">
+                                            @foreach ($item->production_processing_grades as $value)
+                                                @if ($value->block_id == null)
+                                                    <li>Grade Name: {{$value->grade_name}}</li>
+                                                @endif
+                                                @if ($value->grade_id == null)
+                                                    <li>Block Name : {{$value->block_name}}</li>
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td class="text-align: center;">{{$item->processing_name}}</td>
+                                        <td class="text-align: center;">{{$item->processing_variant}}</td>
+                                        <td class="text-align: center;">40</td>
+                                        <td class="text-align: center;">
+                                            <table class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <td class="text-align: center;">In</td>
+                                                        <td class="text-align: center;">Out</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-align: center;">10</td>
+                                                        <td class="text-align: center;">10</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td class="text-align: center;">40</td>
+                                        <td class="text-align: center;">40</td>
+                                        <td class="text-align: center;">40</td>
+                                        <td style="text-align: center">
+                                            <a class="btn btn-success"  data-toggle="modal" href="#transfer_Modal"><i class="fa fa-edit"></i>Transfer</a>
+                                            <a class="btn btn-danger"  data-toggle="modal" href="#damaged_Modal"><i class="fa fa-edit"></i>Damaged</a>
+                                            <a class="btn btn-info"  data-toggle="modal" href="#reprocessed_Modal"><i class="fa fa-edit"></i>Reprocessed</a>
+                                        </td>
+                                    </tr> 
+                                @endforeach
                                 {{-- @foreach($ppu as $key=> $data)
                                     <tr id="row1">
                                         <td class="text-align: center;"> {{$data->production_processing_item->name}}</td>
