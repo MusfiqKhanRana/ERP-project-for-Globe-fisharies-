@@ -86,11 +86,11 @@ class MetalDetectorCheckController extends Controller
      * @param  \App\Models\MetalDetectorCheck  $metalDetectorCheck
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
         // dd($id);
-        $production_processing_unit_id = $id;
-        return view('backend.production.production-data.metal_detector.create',compact('production_processing_unit_id'));
+        // $production_processing_unit_id = $id;
+        return view('backend.production.production-data.metal_detector.create');
     }
 
     /**

@@ -75,14 +75,14 @@
                                         <td class="text-align: center;"> {{$data->alive_quantity+$data->dead_quantity}}</td>
                                         <td style="text-align: center">
                                             @if ($data->store_in_status=='Initial')
-                                                <a class="btn btn-info"  data-toggle="modal" href="{{route('microbiological.test.report.genarate',$data->id)}}"><i class="fa fa-edit"></i>QC Form</a>
+                                            <a class="btn green move_to_store"  data-toggle="modal" data-quantity="{{$data->alive_quantity+$data->dead_quantity}}" data-processing_variant="{{$data->processing_variant}}" data-processing_name="{{$data->processing_name}}" data-item_name="{{$data->production_processing_item->name}}" data-production_processing_grades="{{$data->production_processing_grades}}" href="#move_to_storeModal" data-id="{{$data->id}}"><i class="fa fa-edit"></i>Move to Store</a>
                                             @endif
-                                            @if ($data->store_in_status=='QC_checked')
+                                            {{-- @if ($data->store_in_status=='QC_checked')
                                                 <a class="btn btn-success"  data-toggle="modal" href="{{route('metal-detector.show',$data->id)}}"><i class="fa fa-edit"></i>MD Form</a>
                                             @endif
                                             @if ($data->store_in_status=='MD_checked')
                                                 <a class="btn green move_to_store"  data-toggle="modal" href="#move_to_storeModal" data-id="{{$data->id}}"><i class="fa fa-edit"></i>Move to Store</a>
-                                            @endif
+                                            @endif --}}
                                         </td>
                                     </tr>                       
                                 @endforeach
@@ -102,7 +102,21 @@
                                     <br>
                                     <div class="modal-body">
                                         @csrf
-                                        <div class="row">
+                                        <div class="row" style="margin-bottom:6%">
+                                            <div class="col-md-6">
+                                                <p>Item Name : <b><span class="item_name"></span></b></p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Item Quantity : <b><span class="item_quantity"></span></b></p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Item Type : <b><span class="item_type"></span></b></p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Item Varient : <b><span class="item_varient"></span></b></p>
+                                            </div>
+                                        </div><hr>
+                                        <div class="row select_option" style="margin-bottom:5%">
                                             <div class="col-md-5">
                                                 <label>Select Grade</label>
                                                 <select type="text" class="form-control grade_select" >
@@ -119,7 +133,7 @@
                                             <div class="col-md-2" style="margin-top: 3%">
                                                 <button type="button" class="btn btn-success add_btn">add</button>
                                             </div>
-                                        </div><br><br>
+                                        </div>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <table class="table table-striped table-bordered table-hover fillet_grading_table">
@@ -172,30 +186,54 @@
     {
         $(".move_to_store").click(function () {
             console.log($(this).data("id"));
+            
+            var grade = $(this).data("production_processing_grades");
+            $(".item_name").html($(this).data("item_name"));
+            $(".item_quantity").html($(this).data("quantity"));
+            $(".item_type").html($(this).data("processing_name"));
+            $(".item_varient").html($(this).data("processing_variant"));
             var ppu_id = $(this).data("id");
-            $('.production_processing_unit_id').val(ppu_id);
-            $("table.fillet_grading_table tbody tr").empty();
-            var product_array = [];
-            var grade_id , grade_name ,grade_weight = null; 
-            $('.grade_select').change(function() {
-                grade_id=$('option:selected',this).val();
-                grade_name =$('option:selected',this).attr("data-grade_name");
-                console.log(grade_name);
-            });
-            $('.grade_weight').on("change keyup",function() {
-                grade_weight = $(this).val();
-            });
-            $('.add_btn').click(function () {
+            console.log(grade.length); 
+            if (grade.length==0) {
+                $(".select_option").show();
+                $('.production_processing_unit_id').val(ppu_id);
                 $("table.fillet_grading_table tbody tr").empty();
-                product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight});
-                $.each( product_array, function( key, product ) {
-                    $("table.fillet_grading_table tr").last().after("<tr><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td></tr>");
+                var product_array = [];
+                var grade_id , grade_name ,grade_weight = null; 
+                $('.grade_select').change(function() {
+                    grade_id=$('option:selected',this).val();
+                    grade_name =$('option:selected',this).attr("data-grade_name");
+                    console.log(grade_name);
                 });
-                $(".inputs").val('');
-                $(".inputs").val(JSON.stringify(product_array));
-                $('.grade_weight').val(0);
-                $('.grade_select').val("--select--");
-            })
+                $('.grade_weight').on("change keyup",function() {
+                    grade_weight = $(this).val();
+                });
+                $('.add_btn').click(function () {
+                    $("table.fillet_grading_table tbody tr").empty();
+                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight});
+                    $.each( product_array, function( key, product ) {
+                        $("table.fillet_grading_table tr").last().after("<tr><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td></tr>");
+                    });
+                    $(".inputs").val('');
+                    $(".inputs").val(JSON.stringify(product_array));
+                    $('.grade_weight').val(0);
+                    $('.grade_select').val("--select--");
+                })
+            }
+            if (grade.length!=0) {
+                $('.production_processing_unit_id').val(ppu_id);
+                $(".select_option").hide();
+                console.log(grade);
+                $("table.fillet_grading_table tbody tr").empty();
+                $.each( grade, function( key, product ) {
+                        if (product.block_id==null) {
+                            $("table.fillet_grading_table tr").last().after("<tr><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td></tr>");   
+                        }
+                        if (product.grade_id==null) {
+                            $("table.fillet_grading_table tr").last().after("<tr><td>"+product.block_name+"</td><td>"+product.block_quantity+"</td></tr>");   
+                        }
+                    });
+            }
         });
     });
 </script>
