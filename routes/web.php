@@ -128,6 +128,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::put('/employee-update/{id}',[EmployeeController::class,'personalDataUpdate'])->name('employee.update');
     Route::put('/employee-company-update/{id}',[EmployeeController::class,'companyditailUpdate'])->name('employee.company.update');
     Route::put('/employee-bank-update/{id}',[EmployeeController::class,'bankDetailUpdate'])->name('employee.bank.update');
+    Route::put('/employee-salary-update/{id}',[EmployeeController::class,'salaryUpdate'])->name('employee.salary.update');
+    Route::put('/employee-overtime-update/{id}',[EmployeeController::class,'overtimeUpdate'])->name('employee.overtime.update');
+    Route::put('/employee-description-update/{id}',[EmployeeController::class,'descriptionUpdate'])->name('employee.description.update');
+    Route::put('/employee-provident-update/{id}',[EmployeeController::class,'provident_fundUpdate'])->name('employee.provident_fund.update');
+    Route::put('/employee-income-tax-update/{id}',[EmployeeController::class,'income_taxUpdate'])->name('employee.income_tax.update');
+    Route::put('/employee-leave-update/{id}',[EmployeeController::class,'leaveUpdate'])->name('employee.leave.update');
     Route::put('/employee-document-update/{id}',[EmployeeController::class,'documentUpdate'])->name('employee.document.update');
     Route::get('employee/attendance', [AttendanceController::class,'index'])->name('employee.attend');
 
@@ -152,6 +158,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('payroll-count', [PayrollController::class,'count'])->name('payroll.count');
     Route::get('payroll/chart', [PayrollController::class,'show'])->name('payroll.chart');
     Route::post('payroll/salary/sheet', [PayrollController::class,'salarySheet'])->name('salary.sheet');
+    Route::put('payroll/salary/makePaid', [PayrollController::class,'makePaid'])->name('salary.makePaid');
     Route::post('payroll/payment-save', [PayrollController::class,'store'])->name('payment.save');
     Route::get('payroll/payment-delete/{id}', [PayrollController::class,'destroy'])->name('salary-chart.delete');
 
@@ -571,7 +578,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('inventory/manage-location/located_item_list', function () {
         return view('backend.production.inventory.manage_location.located_item_list');
     })->name('inventory.location.located_item_list');
-    Route::get('inventory/cold_storage/bulk_storage',[InventoryStoreInController::class,'bulk_storage'])->name('inventory.cold_storage.bulk_storage');
+    Route::get('inventory/cold_storage/bulk_storage', function () {
+        return view('backend.production.inventory.cold_storage.bulk_storage');
+    })->name('inventory.cold_storage.bulk_storage');
     Route::get('inventory/cold_storage/export_storage_1', function () {
         return view('backend.production.inventory.cold_storage.export_storage_1');
     })->name('inventory.cold_storage.export_storage_1');
