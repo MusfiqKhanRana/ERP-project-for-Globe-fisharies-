@@ -49,7 +49,9 @@ class User extends Authenticatable
         'offer_letter',
         'join_letter',
         'con_letter',
-        'proof'
+        'proof',
+        'discount_in_amount',
+        'discount_in_percentage'
     ];
 
     /**

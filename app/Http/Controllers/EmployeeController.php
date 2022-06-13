@@ -173,9 +173,11 @@ class EmployeeController extends Controller
 
     public function edit($id)
     {
+        $provident_fund = ProvidentFund::all();
+        $user_shift = UserShift::all();
         $employee = User::find($id);
         $dep = Department::all();
-        return view('backend.employee.employee-edit',compact('employee', 'dep'));
+        return view('backend.employee.employee-edit',compact('employee', 'dep','user_shift','provident_fund'));
     }
 
     public function destroy($id)
@@ -272,8 +274,7 @@ class EmployeeController extends Controller
             'ac_num'=> 'max:191|required',
             'bank_name'=> 'max:191|required',
             'code'=> 'max:191',
-            'pan_num'=> 'max:191',
-            'branch'=> 'max:191|required'
+            
         ));
         $employee->ac_name = $request->input('ac_name');
         $employee->ac_num = $request->input('ac_num');
@@ -283,6 +284,93 @@ class EmployeeController extends Controller
         $employee->branch = $request->input('branch');
         $employee->save();
         return redirect('admin/employee')->withMsg('Employee Details Updated');
+    }
+    public function salaryUpdate(Request $request, $id){
+                
+        $employee = User::find($id);
+        $this->validate($request,array(
+
+            'basic'=> 'max:191 | required',
+            'medical_allowance'=> 'max:191|required',
+            'house_rent'=> 'max:191',
+        ));
+        $employee->basic = $request->input('basic');
+        $employee->medical_allowance = $request->input('medical_allowance');
+        $employee->house_rent = $request->input('house_rent');
+        $employee->save();
+        return redirect('admin/employee')->withMsg('Employee Salary Updated');
+    }
+
+    public function overtimeUpdate(Request $request, $id){
+                
+        $employee = User::find($id);
+        $this->validate($request,array(
+
+            'overtime_amount'=> 'max:191 | required',
+           
+        ));
+        $employee->overtime_amount = $request->input('overtime_amount');
+        $employee->save();
+        return redirect('admin/employee')->withMsg('Employee Overtime Updated');
+    }
+
+    public function descriptionUpdate(Request $request, $id){
+                
+        $employee = User::find($id);
+        $this->validate($request,array(
+
+            'user_shift_id'=> 'max:191 | required',
+            'status'=> 'max:191 | required',
+           
+        ));
+        $employee->user_shift_id = $request->input('overtime_amount');
+        $employee->status = $request->input('status');
+        $employee->save();
+        return redirect('admin/employee')->withMsg('Employee Description Updated');
+    }
+
+    public function provident_fundUpdate(Request $request, $id){
+                
+        $employee = User::find($id);
+        $this->validate($request,array(
+
+            'provident_fund'=> 'max:191 | required',
+           
+        ));
+        $employee->provident_fund = $request->input('provident_fund');
+        $employee->save();
+        return redirect('admin/employee')->withMsg('Employee Provident Fund Updated');
+    }
+
+    public function income_taxUpdate(Request $request, $id){
+                
+        $employee = User::find($id);
+        $this->validate($request,array(
+
+            
+           
+        ));
+        $employee->discount_in_percentage = $request->input('discount_in_percentage');
+        $employee->discount_in_amount = $request->input('discount_in_amount');
+        //dd($employee);
+        $employee->save();
+        return redirect('admin/employee')->withMsg('Employee Income Tax Updated');
+    }
+
+    public function leaveUpdate(Request $request, $id){
+                
+        $employee = User::find($id);
+        $this->validate($request,array(
+
+            
+           
+        ));
+        $employee->c_leave = $request->input('c_leave');
+        $employee->m_leave = $request->input('m_leave');
+        $employee->s_leave = $request->input('s_leave');
+        //dd($employee);
+        $employee->save();
+        return redirect('admin/employee')->withMsg('Employee Income Tax Updated');
     }
 
     public function documentUpdate(Request $request, $id)

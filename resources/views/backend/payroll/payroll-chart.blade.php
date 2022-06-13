@@ -111,11 +111,12 @@ Payroll Chart
                                     @if($data->is_paid == 1)
                                        <p class="label label-sm label-info">N/A</p>
                                     @else
-                                        <a href="" class="btn btn-primary">Make Paid</a>
+                                        <a data-toggle="modal" href="#makePaid" class="btn btn-primary paid_make" data-id="{{$data->id}}">Make Paid</a>
                                     @endif
                                     {{-- <a href="{{route('salary-chart.delete', $data->id)}}" class="btn btn-danger">Delete</a> --}}
                                 </td>
                             </tr>
+                            
                             {{-- <tr>
                                 <td>
                                     
@@ -147,6 +148,32 @@ Payroll Chart
                         @endforeach
                         </tbody>
                     </table>
+                    <div id="makePaid" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                    <h4 class="modal-title">Make Paid</h4>
+                                </div><br>
+                                <form class="form-horizontal" role="form" method="post" action="{{route('salary.makePaid')}}">
+                                    {{csrf_field()}}
+                                    {{method_field('put')}}
+                                    <input type="hidden" id="paid" name="id" value="">
+                                    {{-- <input type="hidden" name="is_paid" value=""> --}}
+                                    <div class="form-group">
+                                        <label for="inputEmail1" class="col-md-2 control-label">Date</label>
+                                        <div class="col-md-8">
+                                            <input type="date" class="form-control date" name="disburse_date">
+                                        </div>
+                                    </div><br><br>
+                                    <div class="modal-footer">
+                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                        <button type="submit" class="btn blue-ebonyclay confirm_btn"><i class="fa fa-floppy-o"></i> Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     {{-- <div class="row">
                         <div class="col-md-12 text-center">
                             {{$payment->links()}}
@@ -157,4 +184,15 @@ Payroll Chart
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+        $(".paid_make").click(function(){
+            $("#paid").val($(this).data('id'));
+           console.log($(this).data('id'));
+        });
+    });
+</script>
 @endsection

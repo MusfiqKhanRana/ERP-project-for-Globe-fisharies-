@@ -38,6 +38,7 @@
             </div>
             <div class="row ">
                 <div class="col-md-6 col-sm-6">
+                    
                     <div class="portlet box blue-chambray">
                         <div class="portlet-title">
                             <div class="caption">
@@ -70,8 +71,9 @@
                                                 </div>
                                             </div>
                                             <div class="clearfix margin-top-10">
-                                 <span class="label label-danger">
-                                 NOTE! </span> Image Size must be (872px by 724px)
+                                            <span class="label label-danger">
+                                                NOTE! 
+                                            </span> Image Size must be (872px by 724px)
                                             </div>
                                         </div>
                                     </div>
@@ -93,8 +95,8 @@
                                             <div class="input-group input-medium date date-picker"  data-date-format="dd-mm-yyyy" data-date-viewmode="years">
                                                 <input type="text" class="form-control" name="b_date" readonly value="{{$employee->b_date}}" >
                                                 <span class="input-group-btn">
-                                 <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                 </span>
+                                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -116,13 +118,13 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Address</label>
                                         <div class="col-md-9">
-                              <textarea name="local_add" class="form-control" rows="3">{{$employee->local_add}}</textarea>
+                                            <textarea name="local_add" class="form-control" rows="3">{{$employee->local_add}}</textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Permanent Address</label>
                                         <div class="col-md-9">
-                              <textarea name="per_add" class="form-control" rows="3">{{$employee->per_add}}</textarea>
+                                            <textarea name="per_add" class="form-control" rows="3">{{$employee->per_add}}</textarea>
                                         </div>
                                     </div>
                                     <h4><strong>Account Login</strong></h4>
@@ -140,16 +142,85 @@
                                     </div>
                                     <div class="row">
                                         <div class="actions col-md-12">
-                                            <button  data-loading-text="Updating..."  class="demo-loading-btn btn btn-sm dark col-md-12">
+                                            <button  data-loading-text="Updating..."  class="demo-loading-btn btn btn-sm blue col-md-12">
                                                 <i class="fa fa-save" ></i> Update </button>
                                         </div>
                                     </div>
                                 </div>
-
+                            </form>
+                        </div>
+                    </div>
+                    <div class="portlet box blue-chambray">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-calendar"></i>Salary Description
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <form method="POST" action="{{route('employee.salary.update', $employee->id)}}" class="form-horizontal" id="bank_details_form">
+                                {{csrf_field()}}
+                                {{method_field('put')}}
+                                <div id="alert_salary"></div>
+                                <div class="form-body">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="product">Basic</label>
+                                                <input type="text" class="form-control" name="basic" value="{{$employee->basic}}" id="basic" placeholder="Basic">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="product">Medical </label>
+                                                <input type="text" class="form-control" name="medical_allowance" value="{{$employee->medical_allowance}}" id="medical_allowance" placeholder="Medical">
+                                            </div>
+                                        
+                                            <div class="col-md-4">
+                                                <label for="product">House Rent</label>
+                                                <input type="text" class="form-control" name="house_rent" value="{{$employee->house_rent}}" id="house_rent" placeholder="House">
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="actions col-md-12">
+                                        <button  data-loading-text="Updating..."  class="demo-loading-btn btn btn-sm blue col-md-12">
+                                            <i class="fa fa-save" ></i> Update </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="portlet box blue-chambray">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-calendar"></i>Overttime
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <form method="POST" action="{{route('employee.overtime.update', $employee->id)}}" class="form-horizontal" id="bank_details_form">
+                                {{csrf_field()}}
+                                {{method_field('put')}}
+                                <div id="alert_bank"></div>
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Amount</label>
+                                        <div class="col-md-9">
+                                            <input type="text" name="overtime_amount" class="form-control" value="{{$employee->overtime_amount}}">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="actions col-md-12">
+                                        <button  data-loading-text="Updating..."  class="demo-loading-btn btn btn-sm blue col-md-12">
+                                            <i class="fa fa-save" ></i> Update </button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-md-6 col-sm-6">
                     <div class="portlet box blue-chambray">
                         <div class="portlet-title">
@@ -178,7 +249,7 @@
                                         <div class="col-md-9">
                                             <select class="form-control select2me" id="department" name="dept_id">
                                                 @foreach($dep as $val)
-                                                <option value="{{$val->id}}">{{$val->name}}</option>
+                                                    <option value="{{$val->id}}" {{ $val->id == $val->id ? 'selected' : '' }}>{{$val->name}}</option>
                                                 @endforeach
                                                 {{csrf_field()}}
                                             </select>
@@ -198,8 +269,8 @@
                                             <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
                                                 <input type="text" class="form-control" name="date" readonly value="{{$employee->date}}">
                                                 <span class="input-group-btn">
-                                 <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                 </span>
+                                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -209,8 +280,8 @@
                                             <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-viewmode="years">
                                                 <input type="text" class="form-control" name="exit_date" disabled="disabled" readonly value=" ">
                                                 <span class="input-group-btn">
-                                 <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                 </span>
+                                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -235,12 +306,13 @@
                                 </div>
                                 <div class="row">
                                     <div class="actions col-md-12">
-                                        <button  data-loading-text="Updating..."  class="demo-loading-btn btn btn-sm dark col-md-12">
+                                        <button  data-loading-text="Updating..."  class="demo-loading-btn btn btn-sm blue col-md-12">
                                             <i class="fa fa-save" ></i> Update </button>
                                     </div>
                                 </div>
                             </form>
                         </div>
+                        
                     </div>
                     <div class="portlet box blue-chambray">
                         <div class="portlet-title">
@@ -272,18 +344,6 @@
                                             <input type="text" name="bank_name" class="form-control" value="{{$employee->bank_name}}">
                                         </div>
                                     </div>
-                                    {{-- <div class="form-group">
-                                        <label class="col-md-3 control-label">IFSC Code(Optional)</label>
-                                        <div class="col-md-9">
-                                            <input type="text" name="code" class="form-control" value="{{$employee->code}}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">PAN Number(Optional)</label>
-                                        <div class="col-md-9">
-                                            <input type="text" name="pan_num" class="form-control" value="{{$employee->pan_num}}">
-                                        </div>
-                                    </div> --}}
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Branch</label>
                                         <div class="col-md-9">
@@ -293,15 +353,174 @@
                                 </div>
                                 <div class="row">
                                     <div class="actions col-md-12">
-                                        <button  data-loading-text="Updating..."  class="demo-loading-btn btn btn-sm dark col-md-12">
+                                        <button  data-loading-text="Updating..."  class="demo-loading-btn btn btn-sm blue col-md-12">
                                             <i class="fa fa-save" ></i> Update </button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
+                    <div class="portlet box blue-chambray">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-calendar"></i>Employee Description
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <form method="POST" action="{{route('employee.description.update', $employee->id)}}" class="form-horizontal" id="bank_details_form">
+                                {{csrf_field()}}
+                                {{method_field('put')}}
+                                <div id="alert_bank"></div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"> Status</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id="status" name="status">
+                                                <option value="{{ $employee->status}}">{{ $employee->status}}</option>
+                                                <option value="Probational">Probational</option>
+                                                <option value="Permanent">Permanent</option>
+                                                <option value="Retired">Retired</option>
+                                                <option value="Terminated">Terminated</option>
+                                           
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"> User Shift</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id="user_shift" name="user_shift_id">
+                                            @foreach ($user_shift as $item)
+                                            <option value="{{$item->id}}" {{ $item->id == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
+                                            @endforeach
+                                            {{csrf_field()}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="actions col-md-12">
+                                        <button  data-loading-text="Updating..."  class="demo-loading-btn btn btn-sm blue col-md-12">
+                                            <i class="fa fa-save" ></i> Update </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="portlet box blue-chambray">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-calendar"></i>Provident Fund
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <form method="POST" action="{{route('employee.provident_fund.update', $employee->id)}}" class="form-horizontal" id="bank_details_form">
+                                {{csrf_field()}}
+                                {{method_field('put')}}
+                                <div id="alert_bank"></div>
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"> Package :</label>
+                                        <div class="col-md-9">
+                                            {{-- <input type="text" class="form-control" name="provident" placeholder="Casual Leave" value=""> --}}
+                                            <select class="form-control" name="provident_fund" id="">
+                                                <option value="">N/A</option>
+                                                @foreach ($provident_fund as $item)
+                                                    <option value="{{$item->id}}">{{$item->package}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="actions col-md-12">
+                                        <button  data-loading-text="Updating..."  class="demo-loading-btn btn btn-sm blue col-md-12">
+                                            <i class="fa fa-save" ></i> Update </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="portlet box blue-chambray">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-calendar"></i>Income Tax
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <form method="POST" action="{{route('employee.income_tax.update', $employee->id)}}" class="form-horizontal" id="bank_details_form">
+                                {{csrf_field()}}
+                                {{method_field('put')}}
+                                <div id="alert_bank"></div>
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"> Amount :</label>
+                                        <div class="col-md-9">
+                                            {{-- <input type="text" class="form-control" name="income_tax" placeholder="Tax Amount" value=""><br> --}}
+                                            <span class="discount_in_percentage">
+                                                <input type="text" class="form-control" value="{{$employee->discount_in_percentage}}" name="discount_in_percentage" placeholder="discount in %" id="percentage_id"/>
+                                            </span>
+                                            <span class="discount_in_amount">
+                                                <input type="text" class="form-control" placeholder="discount in amount" name="discount_in_amount" id="amount_id"/>
+                                            </span>
+                                            <fieldset class="radio-inline question coupon_question2">
+                                                <input class="form-check-input want_in_amount" value="{{$employee->discount_in_amount}}" type="checkbox">Want in Amount ? 
+                                            </fieldset>
+                                            It will be deduct monthly Form Salary
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="actions col-md-12">
+                                        <button  data-loading-text="Updating..."  class="demo-loading-btn btn btn-sm blue col-md-12">
+                                            <i class="fa fa-save" ></i> Update </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="portlet box blue-chambray">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-calendar"></i>Leave Descrtiption
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <form method="POST" action="{{route('employee.leave.update', $employee->id)}}" class="form-horizontal" id="bank_details_form">
+                                {{csrf_field()}}
+                                {{method_field('put')}}
+                                <div id="alert_bank"></div>
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Casual Leave</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="c_leave" value="{{$employee->c_leave}}" placeholder="Casual Leave" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Medical Leave</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="m_leave" value="{{$employee->m_leave}}" placeholder="Medical Leave" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Earned Leave</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="s_leave" value="{{$employee->s_leave}}" placeholder="It will be decided by Authority" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="actions col-md-12">
+                                        <button  data-loading-text="Updating..."  class="demo-loading-btn btn btn-sm blue col-md-12">
+                                            <i class="fa fa-save" ></i> Update </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
                 </div>
+                
             </div>
+            
             <div class="clearfix">
                 <div class="row ">
                     <div class="col-md-12 col-sm-12">
@@ -448,7 +667,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="actions col-md-12">
-                                                <button  data-loading-text="Updating..."  class="demo-loading-btn btn btn-sm dark col-md-12">
+                                                <button  data-loading-text="Updating..."  class="demo-loading-btn btn btn-sm blue col-md-12">
                                                     <i class="fa fa-save" ></i> Update </button>
                                             </div>
                                         </div>
@@ -532,6 +751,30 @@
                     }
                 })
             })
+            $(document).on('keyup','#percentage_id',function() {
+                let main_price = total_price - (total_price*$(this).val())/100;
+                $('#price').val(main_price);
+                discount_in_percentage = $(this).val()
+            });
+            $(document).on('keyup','#amount_id',function() {
+                let main_price = total_price - ($(this).val());
+                discount_in_amount = $(this).val();
+                $('#price').val(main_price);
+            });
+            $('.discount_in_amount').hide();
+            $(".want_in_amount").click(function() {
+                if($(this).is(":checked")) {
+                    $(".discount_in_amount").show();
+                    $(".discount_in_percentage").hide();
+                    $('#percentage_id').val('');
+                    discount_in_percentage = 0;
+                } else {
+                    $(".discount_in_amount").hide();
+                    $(".discount_in_percentage").show();
+                    discount_in_amount = 0;
+                    $('#amount_id').val('');
+                }
+            });
         })
     </script>
 @endsection
