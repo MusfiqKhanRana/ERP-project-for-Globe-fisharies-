@@ -56,10 +56,13 @@ Payroll Chart
                 <div class="tools">
                     <form method="post" action="">
                         {{csrf_field()}}
-                        <select style="color: blue" name="employee_select" >
-                            @foreach($employee as $data)
-                                <option value="{{$data->employee_id}}">{{$data->name}}</option>
+                        <select style="color: blue" class="dep_change">
+                            @foreach($department as $dep)
+                                <option value="{{$dep->id}}">{{$dep->name}}</option>
                             @endforeach
+                        </select>
+                        <select style="color: blue" name="employee_select" class="employee_select" >
+                            <option value="">--Select Employee--</option>
                         </select>
                         <input style="color: blue" class="input-small date date-picker"  data-date-format="yyyy-mm-dd" type="text" name="from_date" id="from_date" placeholder="From Date" readonly >
                         <input style="color: blue"  class="input-small date date-picker"  data-date-format="yyyy-mm-dd" name="to_date" id="to_date" class="form-control" placeholder="To Date" readonly>

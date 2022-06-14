@@ -16,14 +16,17 @@ class ProductionBlockController extends Controller
         $whole_count = ProductionProcessingUnit::select('id')->where('processing_name','block_frozen')
         ->where('processing_variant','whole')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $clean_count = ProductionProcessingUnit::select('id')->where('processing_name','block_frozen')
         ->where('processing_variant','clean')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $slice_count = ProductionProcessingUnit::select('id')->where('processing_name','block_frozen')
         ->where('processing_variant','slice')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
 
         $blocks = ProcessingBlock::all();
