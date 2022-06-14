@@ -142,6 +142,13 @@ class PayrollController extends Controller
         return $data;
     }
 
+    public function makePaid(Request $request)
+    {
+        //dd($request->toArray());
+        $update= Payment::where('id',$request->id)->update(['is_paid'=>true,'disburse_date'=>$request->disburse_date]);
+    //    dd($update);
+        return redirect()->back()->withMsg("Successfully  Updated ");
+    }
     public function destroy($id)
     {
         $payment = Payment::find($id);

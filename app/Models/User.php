@@ -49,7 +49,9 @@ class User extends Authenticatable
         'offer_letter',
         'join_letter',
         'con_letter',
-        'proof'
+        'proof',
+        'discount_in_amount',
+        'discount_in_percentage'
     ];
 
     /**
@@ -61,9 +63,9 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-    public function payment()
+    public function payments()
     {
-        return $this->belongsTo(Payment::class)->withDefault();
+        return $this->hasMany(Payment::class);
     }
 
     public function office_loan()
