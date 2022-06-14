@@ -192,6 +192,49 @@ Payroll Chart
 <script type="text/javascript">
     $(document).ready(function () {
         
+        var dep_id = $(this).find(':selected').val();
+        console.log(dep_id);
+        $.ajax({
+                type:"POST",
+                url:"{{route('payroll.employee_data_pass')}}",
+                data:{
+                    'id' : dep_id,
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    console.log(data);
+                    $(".employee_select").empty();
+                    $.each( data, function( key, product ) {
+                        $('.employee_select').append($('<option>', {
+                            value: product.id,
+                            text: product.name
+                        }));
+                    });
+                }
+        });            
+        $('.dep_change').on("change load",function () {
+            dep_id = $(this).find(':selected').val();
+            console.log(dep_id);
+            $.ajax({
+                type:"POST",
+                url:"{{route('payroll.employee_data_pass')}}",
+                data:{
+                    'id' : dep_id,
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    console.log(data);
+                    $(".employee_select").empty();
+                    $.each( data, function( key, product ) {
+                        $('.employee_select').append($('<option>', {
+                            value: product.id,
+                            text: product.name
+                        }));
+                    });
+                    }
+            }); 
+        }); 
+
         $(".paid_make").click(function(){
             $("#paid").val($(this).data('id'));
            console.log($(this).data('id'));
