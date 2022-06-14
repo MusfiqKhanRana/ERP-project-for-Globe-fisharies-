@@ -15,34 +15,42 @@ class ProductionIqfController extends Controller
         $fillet_count = ProductionProcessingUnit::select('id')->where('processing_name','iqf')
         ->where('processing_variant','fillet')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $whole_count = ProductionProcessingUnit::select('id')->where('processing_name','iqf')
         ->where('processing_variant','whole')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $whole_gutted_count = ProductionProcessingUnit::select('id')->where('processing_name','iqf')
         ->where('processing_variant','whole_gutted')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $cleaned_count = ProductionProcessingUnit::select('id')->where('processing_name','iqf')
         ->where('processing_variant','cleaned')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $sliced_fmly_cut_count = ProductionProcessingUnit::select('id')->where('processing_name','iqf')
         ->where('processing_variant','sliced_fmly_cut')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $sliced_chinese_cut_count = ProductionProcessingUnit::select('id')->where('processing_name','iqf')
         ->where('processing_variant','sliced_chinese_cut')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $butter_fly_count = ProductionProcessingUnit::select('id')->where('processing_name','iqf')
         ->where('processing_variant','butter_fly')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $hgto_count = ProductionProcessingUnit::select('id')->where('processing_name','iqf')
         ->where('processing_variant','hgto')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $grades = FishGrade::all();
         $production_processing_grade = ProductionProcessingGrade::all();

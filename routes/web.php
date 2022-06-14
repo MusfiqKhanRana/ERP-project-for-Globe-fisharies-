@@ -151,6 +151,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('payroll', [PayrollController::class,'index'])->name('payroll.index');
     Route::post('payroll-count', [PayrollController::class,'count'])->name('payroll.count');
     Route::get('payroll/chart', [PayrollController::class,'show'])->name('payroll.chart');
+    Route::post('payroll/employee_data_pass',[PayrollController::class,'employee_data_pass'])->name('payroll.employee_data_pass');
     Route::post('payroll/salary/sheet', [PayrollController::class,'salarySheet'])->name('salary.sheet');
     Route::post('payroll/payment-save', [PayrollController::class,'store'])->name('payment.save');
     Route::get('payroll/payment-delete/{id}', [PayrollController::class,'destroy'])->name('salary-chart.delete');

@@ -115,6 +115,7 @@ class PayrollController extends Controller
     public function show()
     {
         $employee = User::all();
+        $department=Department::all();
         $start_date = Carbon::now()->startOfMonth()->format('Y-m-d 00:00:00');
         $end_date = Carbon::now()->endOfMonth()->format('Y-m-d 23:59:59');
         $payment = Payment::with(['employee'])->get();
@@ -134,7 +135,11 @@ class PayrollController extends Controller
         //     }
         // ])->whereBetween('disburse_date', [$start_date, $end_date])->latest()->get();
         // return $payment;
-        return view('backend.payroll.payroll-chart',compact('payment', 'employee'));
+        return view('backend.payroll.payroll-chart',compact('payment', 'employee','department'));
+    }
+    public function employee_data_pass(Request $request){
+        $data = Employee::where('dept_id',$request->id)->get();
+        return $data;
     }
 
     public function destroy($id)

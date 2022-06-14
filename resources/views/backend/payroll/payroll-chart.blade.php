@@ -56,10 +56,13 @@ Payroll Chart
                 <div class="tools">
                     <form method="post" action="">
                         {{csrf_field()}}
-                        <select style="color: blue" name="employee_select" >
-                            @foreach($employee as $data)
-                                <option value="{{$data->employee_id}}">{{$data->name}}</option>
+                        <select style="color: blue" class="dep_change">
+                            @foreach($department as $dep)
+                                <option value="{{$dep->id}}">{{$dep->name}}</option>
                             @endforeach
+                        </select>
+                        <select style="color: blue" name="employee_select" class="employee_select" >
+                            <option value="">--Select Employee--</option>
                         </select>
                         <input style="color: blue" class="input-small date date-picker"  data-date-format="yyyy-mm-dd" type="text" name="from_date" id="from_date" placeholder="From Date" readonly >
                         <input style="color: blue"  class="input-small date date-picker"  data-date-format="yyyy-mm-dd" name="to_date" id="to_date" class="form-control" placeholder="To Date" readonly>
@@ -157,4 +160,53 @@ Payroll Chart
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function()
+    {
+        var dep_id = $(this).find(':selected').val();
+        console.log(dep_id);
+        $.ajax({
+                type:"POST",
+                url:"{{route('payroll.employee_data_pass')}}",
+                data:{
+                    'id' : dep_id,
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    console.log(data);
+                    $(".employee_select").empty();
+                    $.each( data, function( key, product ) {
+                        $('.employee_select').append($('<option>', {
+                            value: product.id,
+                            text: product.name
+                        }));
+                    });
+                }
+        });            
+        $('.dep_change').on("change load",function () {
+            dep_id = $(this).find(':selected').val();
+            console.log(dep_id);
+            $.ajax({
+                type:"POST",
+                url:"{{route('payroll.employee_data_pass')}}",
+                data:{
+                    'id' : dep_id,
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    console.log(data);
+                    $(".employee_select").empty();
+                    $.each( data, function( key, product ) {
+                        $('.employee_select').append($('<option>', {
+                            value: product.id,
+                            text: product.name
+                        }));
+                    });
+                }
+        });  
+        })
+    });
+</script>
 @endsection
