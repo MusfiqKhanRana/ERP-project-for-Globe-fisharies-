@@ -54,8 +54,9 @@ Payroll Chart
                 <div class="caption col-md-4">
                     <i class="fa fa-th"></i>Paid Payment Chart</div>
                 <div class="tools">
-                    <form method="post" action="">
+                    <form method="get" action="{{route('payroll.chart')}}">
                         {{csrf_field()}}
+                       
                         <select style="color: blue" class="dep_change">
                             @foreach($department as $dep)
                                 <option value="{{$dep->id}}">{{$dep->name}}</option>
@@ -64,8 +65,13 @@ Payroll Chart
                         <select style="color: blue" name="employee_select" class="employee_select" >
                             <option value="">--Select Employee--</option>
                         </select>
-                        <input style="color: blue" class="input-small date date-picker"  data-date-format="yyyy-mm-dd" type="text" name="from_date" id="from_date" placeholder="From Date" readonly >
-                        <input style="color: blue"  class="input-small date date-picker"  data-date-format="yyyy-mm-dd" name="to_date" id="to_date" class="form-control" placeholder="To Date" readonly>
+                        <label for="">Salary Month: </label>
+                        <input style="color: blue" class="input-small date date-picker"  data-date-format="yyyy-mm-dd" type="text" name="from_date" id="from_date" placeholder="" value="@php
+                        use Carbon\Carbon;
+                        $salary_month = Carbon::now()->startOfMonth()->subMonth()->toDateString();
+                        echo $salary_month = Carbon::now()->startOfMonth()->subMonth()->toDateString();
+                        @endphp" readonly >
+                        {{-- <input style="color: blue"  class="input-small date date-picker"  data-date-format="yyyy-mm-dd" name="to_date" id="to_date" class="form-control" placeholder="To Date" readonly> --}}
                         <button class="button btn-success" name="filter" id="filter" value="Filter">Find</button>
                     </form>
                 </div>
@@ -100,8 +106,8 @@ Payroll Chart
                                 <td>
                                     {{$data->net_payment}}/- TK
                                 </td>
-                                <td>
-                                    {{date('jS M Y',strtotime($data->disburse_date))}}
+                                <td style="text-align: center">
+                                    {{ $data->disburse_date == NULL ? 'N/A' : $data->disburse_date }}
                                 </td>
                                 <td>
                                     @if($data->is_paid == 0)
@@ -177,11 +183,10 @@ Payroll Chart
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="row">
-                        <div class="col-md-12 text-center">
-                            {{$payment->links()}}
-                        </div>
-                    </div> --}}
+                    <div class="row">
+                        {{-- <div class="col-md-12 text-center">{{ $employee->links() }}</div> --}}
+                        {{ $payment->links('vendor.pagination.custom') }}
+                    </div>
                 </div>
             </div>
         </div>

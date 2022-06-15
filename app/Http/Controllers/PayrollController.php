@@ -112,13 +112,29 @@ class PayrollController extends Controller
         return redirect('admin/payroll/chart')->withMsg("Salary Sheet Saved");
     }
 
-    public function show()
+    public function show(Request $request)
     {
+        // dd($request->all());
         $employee = User::all();
         $department=Department::all();
-        $start_date = Carbon::now()->startOfMonth()->format('Y-m-d 00:00:00');
-        $end_date = Carbon::now()->endOfMonth()->format('Y-m-d 23:59:59');
-        $payment = Payment::with(['employee'])->get();
+        $start_date =  Carbon::now()->startOfMonth()->subMonth()->format('Y-m-1');
+        $user_id = null;
+        if (isset($request->employee_select)) {
+            $user_id = $request->employee_select;
+            //dd($user_id);
+        }
+        if (isset($request->from_date)) {
+            $start_date =  Carbon::parse($request->from_date)->format('Y-m-1');
+        }
+        $payment = Payment::where('salary_month','>=',$start_date)
+        ->Where(function($q) use($user_id){
+            if ($user_id) {
+                $q->where('user_id',$user_id);
+            }
+        })
+        ->with(['employee'])
+        ->paginate(5);
+        //dd($payment->toArray());
         // $payment = Payment::with([
         //     'employee' => function($q) use($start_date, $end_date){
         //         $q->with([
@@ -138,7 +154,7 @@ class PayrollController extends Controller
         return view('backend.payroll.payroll-chart',compact('payment', 'employee','department'));
     }
     public function employee_data_pass(Request $request){
-        $data = Employee::where('dept_id',$request->id)->get();
+        $data = User::where('dept_id',$request->id)->get();
         return $data;
     }
 
