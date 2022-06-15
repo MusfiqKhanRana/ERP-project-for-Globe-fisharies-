@@ -19,11 +19,29 @@ class InventoryStoreInController extends Controller
     }
     public function bulk_storage(){
         $grades = FishGrade::all();
-        $production_unit = ProductionProcessingUnit::where('status','Bulk_storage')->with('production_processing_grades','production_processing_item')
-        ->get();
-        $process_production_unit = $this->getBulkStorage($production_unit);
-        return $process_production_unit;
-        // return view('backend.production.inventory.cold_storage.bulk_storage',compact('ppu','grades'));
+        $production_processing_unit = ProductionProcessingUnit::where('status','Bulk_storage')->with('production_processing_grades','production_processing_item')->get();
+        // dd($production_processing_unit);
+        // $process_production_unit = $this->getBulkStorage($production_unit);
+        // return $process_production_unit;
+        return view('backend.production.inventory.cold_storage.bulk_storage',compact('production_processing_unit','grades'));
+    }
+    public function bulk_storage_datapass(Request $request){
+        if ($request->id==1) {
+            $production_processing_unit = ProductionProcessingUnit::where('status','Bulk_storage')
+            ->orWhere('processing_name','iqf')
+            ->orWhere('processing_name','raw_iqf_shrimp')
+            ->orWhere('processing_name','blanched_iqf_shrimp')
+            ->with('production_processing_grades','production_processing_item')->get();
+            return $production_processing_unit;
+        }
+        if ($request->id==2) {
+            $production_processing_unit = ProductionProcessingUnit::where('status','Bulk_storage')
+            ->orWhere('processing_name','block_frozen')
+            ->orWhere('processing_name','raw_bf_shrimp')
+            ->orWhere('processing_name','semi_iqf')
+            ->with('production_processing_grades','production_processing_item')->get();
+            return $production_processing_unit;
+        }
     }
     public function getBulkStorage($data)
     {

@@ -568,6 +568,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Inventory Management system
     Route::post('inventory/move_to_store',[InventoryStoreInController::class,'move_to_store'])->name('inventory.move_to_store');
     Route::get('inventory/store-in',[InventoryStoreInController::class,'store_in'])->name('inventory.store_in');
+    Route::post('inventory/cold_storage/bulk_storage_datapass',[InventoryStoreInController::class,'bulk_storage_datapass'])->name('inventory.cold_storage.bulk_storage_datapass');
+    Route::get('inventory/cold_storage/bulk_storage',[InventoryStoreInController::class,'bulk_storage'])->name('inventory.cold_storage.bulk_storage');
     Route::resource('production-quotation-all-list',ProductionGeneralPurchaseQuotationController::class);
     Route::get('production-quotation-confirmquotation',[ProductionGeneralPurchaseQuotationController::class,'confirmquotation'])->name('production-quotation-confirmquotation');
     Route::post('production-purchase-quotation/status/add/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_addquotation'])->name('production-general_purchase.status_addquotation');
@@ -579,9 +581,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('inventory/manage-location/located_item_list', function () {
         return view('backend.production.inventory.manage_location.located_item_list');
     })->name('inventory.location.located_item_list');
-    Route::get('inventory/cold_storage/bulk_storage', function () {
-        return view('backend.production.inventory.cold_storage.bulk_storage');
-    })->name('inventory.cold_storage.bulk_storage');
     Route::get('inventory/cold_storage/export_storage_1', function () {
         return view('backend.production.inventory.cold_storage.export_storage_1');
     })->name('inventory.cold_storage.export_storage_1');
