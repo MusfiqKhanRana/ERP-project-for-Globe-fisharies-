@@ -40,6 +40,44 @@
                 </div>
                 </div>
                 <div class="portlet-body">
+                    <div>
+                        <div class="row" style="margin-left: 2%;margin-bottom: 2%;">
+                            <button class="btn green btn-lg iqf_btn">IQF</button>
+                            <button class="btn blue btn-lg block_btn">BLOCK</button>
+                        </div>
+                    </div> <hr>
+                    <div>
+                        <div class="row" style="margin-bottom: 2%">
+                            <div class="col-md-2">
+                                Item Name :
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" placeholder="Type Item name">
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 2%">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        Date From :
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" placeholder="system will auto select">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        Date To :
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" placeholder="system will auto select">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <hr>
                     <div class="table-scrollable">
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
@@ -57,7 +95,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach ($ppu as $item)
+                                @foreach ($production_processing_unit as $item)
                                     <tr id="row1">
                                         <td class="text-align: center;">{{$item->production_processing_item->name}}</td>
                                         <td class="text-align: center;">
@@ -99,39 +137,6 @@
                                         </td>
                                     </tr> 
                                 @endforeach
-                                {{-- @foreach($ppu as $key=> $data)
-                                    <tr id="row1">
-                                        <td class="text-align: center;"> {{$data->production_processing_item->name}}</td>
-                                        <td class="text-align: center;"> {{$data->processing_name}}</td>
-                                        <td class="text-align: center;"> {{$data->processing_variant}}</td>
-                                        <td class="text-align: center;"> 
-                                            @foreach ($data->production_processing_grades as $item)
-                                                @if ($item->block_name != null)
-                                                    <li>Block : {{$item->block_name}} KG</li>
-                                                    <li>Block Size: {{$item->block_size}}</li>
-                                                @endif
-                                                @if ($item->grade_id != null)
-                                                    <li>Grade Name : {{$item->grade_name}}</li>
-                                                @endif
-                                                @if ($item->grade_id == null && $item->block_id == null)
-                                                    <p style="color: red">Not Selected</p>
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                        <td class="text-align: center;"> {{$data->alive_quantity+$data->dead_quantity}}</td>
-                                        <td style="text-align: center">
-                                            @if ($data->store_in_status=='Initial')
-                                                <a class="btn btn-info"  data-toggle="modal" href="{{route('microbiological.test.report.genarate',$data->id)}}"><i class="fa fa-edit"></i>QC Form</a>
-                                            @endif
-                                            @if ($data->store_in_status=='QC_checked')
-                                                <a class="btn btn-success"  data-toggle="modal" href="{{route('metal-detector.show',$data->id)}}"><i class="fa fa-edit"></i>MD Form</a>
-                                            @endif
-                                            @if ($data->store_in_status=='MD_checked')
-                                                <a class="btn green move_to_store"  data-toggle="modal" href="#move_to_storeModal" data-id="{{$data->id}}"><i class="fa fa-edit"></i>Move to Store</a>
-                                            @endif
-                                        </td>
-                                    </tr>                       
-                                @endforeach --}}
                             </tbody>
                         </table>
                         <div id="transfer_Modal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -367,36 +372,50 @@
      </div>
 @endsection
 @section('script')
-{{-- <script>
-    $(document).ready(function()
-    {
-        $(".move_to_store").click(function () {
-            console.log($(this).data("id"));
-            var ppu_id = $(this).data("id");
-            $('.production_processing_unit_id').val(ppu_id);
-            $("table.fillet_grading_table tbody tr").empty();
-            var product_array = [];
-            var grade_id , grade_name ,grade_weight = null; 
-            $('.grade_select').change(function() {
-                grade_id=$('option:selected',this).val();
-                grade_name =$('option:selected',this).attr("data-grade_name");
-                console.log(grade_name);
-            });
-            $('.grade_weight').on("change keyup",function() {
-                grade_weight = $(this).val();
-            });
-            $('.add_btn').click(function () {
-                $("table.fillet_grading_table tbody tr").empty();
-                product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight});
-                $.each( product_array, function( key, product ) {
-                    $("table.fillet_grading_table tr").last().after("<tr><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td></tr>");
-                });
-                $(".inputs").val('');
-                $(".inputs").val(JSON.stringify(product_array));
-                $('.grade_weight').val(0);
-                $('.grade_select').val("--select--");
-            })
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+        var id = 1;
+        $.ajax({
+                type:"POST",
+                url:"{{route('inventory.cold_storage.bulk_storage_datapass')}}",
+                data:{
+                    'id' : id,
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    console.log(data);
+
+                }
+        });            
+        $('.iqf_btn').on("click",function () {
+            var id = 1;
+            $.ajax({
+                type:"POST",
+                url:"{{route('inventory.cold_storage.bulk_storage_datapass')}}",
+                data:{
+                    'id' : id,
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    console.log(data);
+                }
+            }); 
+        }); 
+        $('.block_btn').on("click",function () {
+            var id = 2;
+            $.ajax({
+                type:"POST",
+                url:"{{route('inventory.cold_storage.bulk_storage_datapass')}}",
+                data:{
+                    'id' : id,
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    console.log(data);
+                }
+            }); 
         });
     });
-</script> --}}
+</script>
 @endsection
