@@ -27,10 +27,10 @@
                 {{-- <div class="form-group" style="margin-left: 10%">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </div> --}}
-                <a class="btn purple pull-right leave_application" data-toggle="modal" href="#absentApplication">
+                {{-- <a class="btn purple pull-right leave_application" data-toggle="modal" href="#absentApplication">
                     Add Leave Application
                     <i class="fa fa-plus"></i>
-                </a>
+                </a> --}}
             </h3>
             <hr>
             @if (count($errors) > 0)
@@ -66,12 +66,12 @@
                                         <th>
                                             #
                                         </th>
-                                        <th>
+                                        {{-- <th>
                                             Id
                                         </th>
                                         <th>
                                             Name
-                                        </th>
+                                        </th> --}}
                                         <th>
                                             Date
                                         </th>
@@ -83,6 +83,9 @@
                                         </th>
                                         <th>
                                             Out
+                                        </th>
+                                        <th>
+                                            Shift
                                         </th>
                                         <th>
                                             Status
@@ -100,8 +103,8 @@
                                                     <input type="checkbox" data-id="{{$attendance->id}}" class="add_leave_check">
                                                 @endif
                                             </td>
-                                            <td>{{$attendance->employee->id}}</td>
-                                            <td>{{$attendance->employee->name}}</td>
+                                            {{-- <td>{{$attendance->employee->id}}</td>
+                                            <td>{{$attendance->employee->name}}</td> --}}
                                             <td>{{$attendance->date}}</td>
                                             <td>{{$attendance->in_time}}</td>
                                             <td>02.05<br>
@@ -110,6 +113,7 @@
                                                 04.25
                                             </td>
                                             <td>{{$attendance->out_time}}</td>
+                                            <td>{{$attendance->employee->user_Shift->name}}</td>
                                             @if ($attendance->status=="Present")
                                                 <td style="color:green;">{{$attendance->status}}</td>
                                             @elseif ($attendance->status=="Absent")

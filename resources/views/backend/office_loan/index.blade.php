@@ -17,7 +17,7 @@
         @endif <!-- BEGIN PAGE TITLE-->
             <h3 class="page-title bold">Office Employee Advance/Loan Management
 
-                <a class="btn grey pull-right" data-toggle="modal" href="{{route('add.office.loan')}}">
+                <a class="btn purple pull-right" data-toggle="modal" href="{{route('add.office.loan')}}">
                     Add New Advance/Loan
                 <i class="fa fa-plus"></i> </a>
             </h3>

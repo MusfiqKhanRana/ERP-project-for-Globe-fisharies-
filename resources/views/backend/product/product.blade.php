@@ -133,9 +133,9 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="col-md-12">
-                                        <label class="control-label">Select Category</label>
-                                        <select class="form-control" name="category_type">
-                                            <option value="0">-- Select Category --</option>
+                                        <label class="control-label">Select Category<span class="required">* </span></label>
+                                        <select class="form-control" name="category_type" required>
+                                            <option value="">-- Select Category --</option>
                                             <option value="Block" >Block</option>
                                             <option value="IQF" >IQF</option>
                                             {{-- @foreach($category as $a)
@@ -148,9 +148,9 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="col-md-12">
-                                        <label class="control-label">Select Variant</label>
-                                        <select class="form-control" name="variant">
-                                            <option value="0">-- Select Variant --</option>
+                                        <label class="control-label">Select Variant<span class="required">* </span></label>
+                                        <select class="form-control" name="variant" required>
+                                            <option value="">-- Select Variant --</option>
                                             <option value="IQF" >IQF</option>
                                             <option value="Block Frozen" >Block Frozen</option>
                                             <option value="Raw BF">Raw BF (Shrimp)</option>
@@ -165,8 +165,9 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="col-md-12">
-                                        <label class="control-label">Product Name</label>
-                                        <select class="form-control" name="supply_item_id">
+                                        <label class="control-label">Product Name<span class="required">* </span></label>
+                                        <select class="form-control" name="supply_item_id" required>
+                                            <option value="">--Select--</option>
                                             @foreach($product_items as $a)
                                                 @if ($a->market_name == null) {
                                                     <option value="{{$a->id}}" >{{$a->name}}</option>
@@ -194,10 +195,10 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="col-md-12">
-                                        <label class="control-label">Online Selling Price </label>
+                                        <label class="control-label">Online Selling Price <span class="required">* </span></label>
                                         <input type="hidden" name="online_selling_price" value="0">
                                         <input class="form-control text-capitalize" placeholder="Online Selling Price" type="number" required name="online_selling_price"><br>
-                                        <label class="control-label">In House Selling Price </label>
+                                        <label class="control-label">In House Selling Price <span class="required">* </span></label>
                                         <input class="form-control text-capitalize" placeholder="In House Selling Price" type="number" required name="inhouse_selling_price"><br>
                                     </div>
                                 </div>
@@ -217,8 +218,8 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="col-md-12">
-                                        <label class="control-label">Pack Size</label>
-                                        <select name="pack_id" id="subCategory" class="form-control">
+                                        <label class="control-label">Pack Size<span class="required">* </span></label>
+                                        <select name="pack_id" id="subCategory" class="form-control" required>
                                             <option value="0">-- Select Pack Size --</option>
                                         </select>
                                     </div>
@@ -228,7 +229,7 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="col-md-12">
-                                        <label class="control-label">Safety Stock</label>
+                                        <label class="control-label">Safety Stock<span class="required">* </span></label>
                                         <input class="form-control text-capitalize" placeholder="safety_stock" type="text" required name="safety_stock">
                                     </div>
                                 </div>
@@ -236,7 +237,7 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="col-md-12">
-                                        <label class="control-label">Product Image</label>
+                                        <label class="control-label">Product Image<span class="required">* </span></label>
                                         <input class="form-control text-capitalize" placeholder="" type="file" required name="image">
                                     </div>
                                 </div>

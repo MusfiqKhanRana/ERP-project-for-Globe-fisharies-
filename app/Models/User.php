@@ -94,7 +94,7 @@ class User extends Authenticatable
     }
     public function user_shift()
     {
-        return $this->belongsTo(UserShift::class);
+        return $this->belongsTo(UserShift::class,'user_shift_id');
     }
     public function designation()
     {

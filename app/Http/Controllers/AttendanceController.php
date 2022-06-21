@@ -66,6 +66,7 @@ class AttendanceController extends Controller
                 }
             })
             ->orderBy('id', 'DESC')->get();
+            //dd($attendances);
         return view('backend.hr_management.attendance.create', compact('departments','attendances'));
     }
 
@@ -93,6 +94,7 @@ class AttendanceController extends Controller
         $attendance->employee_id = $request->employee_id;
         $attendance->status = $request->status;
         $attendance->ip = $request->ip;
+        $attendance->shift = $request->shift;
         $attendance->device = $request->device;
         $attendance->save();
         return redirect()->back()->withMsg("Attendance Successful");

@@ -61,9 +61,9 @@
                                     New Customer
                                     <i class="fa fa-plus"></i>
                                 </a>
-                                <label class="col-md-2 control-label pull-left bold">Customer Select: </label>
+                                <label class="col-md-2 control-label pull-left bold">Customer Select:<span class="required">* </span> </label>
                                 <div class="col-md-6">
-                                    <select class="select2Ajax form-control" name="customer_id" id="customer_id"></select>
+                                    <select class="select2Ajax form-control" name="customer_id" id="customer_id" required></select>
                                 </div>
                             </div><br><br>
                         </div>
@@ -82,7 +82,7 @@
                                         <div class="row">
                                             
                                             <div class="col-md-6">
-                                                <label for="product">Product</label>
+                                                <label class="control-label" for="product">Product<span class="required">* </span></label>
                                                 <select class="form-control product_id" id="product">
                                                     <option value="">--Select--</option>
                                                     @foreach ($products as $product)
@@ -98,7 +98,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="product">Category</label>
+                                                <label class="control-label" for="product">Category</label>
                                                 <input type="text" class="form-control" id="category" readonly>
                                             </div>
                                             <div class="col-md-6">
@@ -106,7 +106,7 @@
                                                 <input type="text" class="form-control" id="pack_size" readonly>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="product">Rate (BDT)</label>
+                                                <label class="control-label" for="product">Rate (BDT)</label>
                                                 <input type="text" class="form-control" id="rate" readonly>
                                             </div>
                                         </div>
@@ -121,11 +121,11 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="">Quantity (In Packet)</label>
+                                                <label  for="">Quantity (In Packet)<span class="required">* </span></label>
                                                 <input type="number" id="quantity_pkt" class="form-control">
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="">Quantity (In KG)</label>
+                                                <label  for="">Quantity (In KG)</label>
                                                 <input type="number" id="quantity_kg" class="form-control" readonly>
                                             </div>
                                             <div class="col-md-6">

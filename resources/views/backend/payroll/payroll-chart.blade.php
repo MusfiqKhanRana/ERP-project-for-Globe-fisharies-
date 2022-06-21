@@ -84,6 +84,7 @@ Payroll Chart
                                 <th scope="col"> Employee ID </th>
                                 <th scope="col"> Employee Name </th>
                                 <th scope="col"> Total Attended Days</th>
+                                <th scope="col"> Salary Month </th>
                                 <th scope="col"> Payment </th>
                                 <th scope="col">Disburse Date </th>
                                 <th scope="col"> Status </th>
@@ -100,12 +101,19 @@ Payroll Chart
                                     {{$data->employee->name}}
                                 </td>
                                 <td>
-                                    {{-- {{$data->attend}} --}}
-                                    23 (Days)
+                                    @php
+                                    if ($data->employee->attendances) {
+                                        echo count($data->employee->attendances);
+                                    }
+                                     
+                                           // echo count($attendance);
+                                    @endphp
                                 </td>
+                                <td>{{$data->salary_month}}</td>
                                 <td>
                                     {{$data->net_payment}}/- TK
                                 </td>
+                                
                                 <td style="text-align: center">
                                     {{ $data->disburse_date == NULL ? 'N/A' : $data->disburse_date }}
                                 </td>
@@ -172,7 +180,7 @@ Payroll Chart
                                     <div class="form-group">
                                         <label for="inputEmail1" class="col-md-2 control-label">Date</label>
                                         <div class="col-md-8">
-                                            <input type="date" class="form-control date" name="disburse_date">
+                                            <input type="date" class="form-control date" name="disburse_date" required>
                                         </div>
                                     </div><br><br>
                                     <div class="modal-footer">

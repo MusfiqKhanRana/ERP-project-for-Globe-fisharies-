@@ -123,7 +123,7 @@ Department List
                                                         <div class="description" style="width: 100%;border: 1px solid #ddd;padding: 10px;border-radius: 5px" >
                                                             <div class="row">
                                                         <div class="col-md-12">
-                                                            <input class="form-control form-control-inline " name="name" type="text" value="" placeholder="Department Name"/>
+                                                            <input class="form-control form-control-inline " name="name" type="text" value="" placeholder="Department Name" required/>
                                                         </div>
                                                             </div>
                                                         </div>

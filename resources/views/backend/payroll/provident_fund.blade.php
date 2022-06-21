@@ -162,31 +162,37 @@ Provident Fund
                                 {{csrf_field()}}
                                 <div class="row" style="margin-left: 2%">
                                     <div class="col-md-6">
-                                        <label for="">Package Name</label>
+                                        <label class="control-label" for="">Package Name<span class="required">
+                                            * </span></label>
                                         <input class="form-control" type="text" name="package" placeholder="Type Name of your package" required>
                                     </div>
                                     <div class="col-md-5">
-                                        <label for="">Fund Amount ( % )</label>
+                                        <label class="control-label" for="">Fund Amount ( % )<span class="required">
+                                            * </span></label>
                                         <input class="form-control" type="number"  step="any" name="amount" placeholder="Type Provident Fund" required>
                                     </div>
                                 </div><br>
                                 <div class="row" style="margin-left: 3%">
                                     <div class="col-md-6">
-                                        <label for="">Fund Duration (Months)</label>
+                                        <label class="control-label" for="">Fund Duration (Months)<span class="required">
+                                            * </span></label>
                                         <input class="form-control" type="number" step="any" name="fund_duration" placeholder="Type number of months" required>
                                     </div>
                                     <div class="col-md-5">
-                                        <label for="">Fund Detention (Months)</label>
+                                        <label class="control-label" for="">Fund Detention (Months)<span class="required">
+                                            * </span></label>
                                         <input class="form-control" type="number" step="any" name="fund_detention" placeholder="Type Number of months" required>
                                     </div>
                                 </div><br>
                                 <div class="row" style="margin-left: 2%">
                                     <div class="col-md-6">
-                                        <label for="">Detention Amount ( % )</label>
+                                        <label class="control-label" for="">Detention Amount ( % )<span class="required">
+                                            * </span></label>
                                         <input class="form-control" type="number" step="any" name="detention_amount" placeholder="Type Provident Detention Amount" required>
                                     </div>
                                     <div class="col-md-5">
-                                        <label for="">Fund Completion Bonus ( % )</label>
+                                        <label class="control-label" for="">Fund Completion Bonus ( % )<span class="required">
+                                            * </span></label>
                                         <input class="form-control" type="number" step="any" name="completion_bonus" placeholder="Type Provident Bonus Amount" required>
                                     </div>
                                 </div><br>

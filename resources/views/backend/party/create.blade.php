@@ -35,27 +35,27 @@
                             <div class="portlet-body">
                                 <div class="form-body">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Party Code</label>
+                                        <label class="col-md-3 control-label">Party Code<span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="party_code" placeholder="Type Party Code" value="">
+                                            <input type="text" class="form-control" name="party_code" placeholder="Type Party Code" value="" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Party Name</span></label>
+                                        <label class="col-md-3 control-label">Party Name<span class="required">* </span></span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="party_name" placeholder="Type Party Name" value="">
+                                            <input type="text" class="form-control" name="party_name" placeholder="Type Party Name" value="" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Party Phone</label>
+                                        <label class="col-md-3 control-label">Party Phone<span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="phone" placeholder="Type Phone Number" value="">
+                                            <input type="text" class="form-control" name="phone" placeholder="Type Phone Number" value="" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Party Address</label>
+                                        <label class="col-md-3 control-label">Party Address<span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <textarea class="form-control" name="address" placeholder="Type Party Address" rows="3"></textarea>
+                                            <textarea class="form-control" name="address" placeholder="Type Party Address" rows="3" required></textarea>
                                         </div>
                                     </div>
                                     {{-- <div class="form-group">
@@ -82,9 +82,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label"> Select Products</label>
+                                        <label class="col-md-3 control-label"> Select Products<span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <select id="party_products" class="multiselect text-center" style="width: 100% !important" name="party_products[]" multiple="multiple">
+                                            <select id="party_products" class="multiselect text-center" style="width: 100% !important" name="party_products[]" multiple="multiple" required>
                                                 @foreach ($products as $item)
                                                     @if ($item->supplyitem->market_name == null) {
                                                         <option class="text-right" style="padding-left: 5% !important" value="{{$item->id}}">{{$item->supplyitem->name}}({{$item->pack->name}})</option>

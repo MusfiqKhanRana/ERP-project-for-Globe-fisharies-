@@ -178,7 +178,8 @@ class EmployeeController extends Controller
         $user_shift = UserShift::all();
         $employee = User::find($id);
         $dep = Department::all();
-        return view('backend.employee.employee-edit',compact('employee', 'dep','user_shift','provident_fund'));
+        $deg = Designation::all();
+        return view('backend.employee.employee-edit',compact('employee', 'dep','user_shift','provident_fund','deg'));
     }
 
     public function destroy($id)
@@ -324,7 +325,7 @@ class EmployeeController extends Controller
             'status'=> 'max:191 | required',
            
         ));
-        $employee->user_shift_id = $request->input('overtime_amount');
+        $employee->user_shift_id = $request->input('user_shift_id');
         $employee->status = $request->input('status');
         $employee->save();
         return redirect('admin/employee')->withMsg('Employee Description Updated');

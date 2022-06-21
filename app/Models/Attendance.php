@@ -13,10 +13,12 @@ class Attendance extends Model
         'user_id',
         'status',
         'ip',
-        'device'
+        'device',
+        'shift'
     ];
     public function employee()
     {
         return $this->belongsTo(User::class,'user_id');
     }
+   
 }

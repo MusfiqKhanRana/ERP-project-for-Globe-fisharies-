@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
+use App\Models\Designation;
 use App\Models\TiffinBill;
 use App\Models\User;
 use Carbon\Carbon;
@@ -16,10 +18,12 @@ class TiffinBillController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $departments = Department::all();
+        $designation = Designation::all();
+        $employee = User::all();
         $items = TiffinBill::with('user')->get();
         //dd($items->toArray());
-        return view('backend.employee.tiffin.index',compact('items','users'));
+        return view('backend.employee.tiffin.index',compact('items','designation','employee','departments'));
     }
 
     /**
@@ -41,21 +45,33 @@ class TiffinBillController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->except('_token');
-        $this->validate($request,array(
-           'date' => 'required',
-           'days' => 'required',
-           'rate' => 'required',
-        ));
+        // $this->validate($request,array(
+        //    'date' => 'required',
+        //    'days' => 'required',
+        //    'rate' => 'required',
+        // ));
         $request->date=Carbon::createFromFormat('M-Y', $request->date)->format('Y-m-d');
         $tiffin_bill = new TiffinBill();
         $tiffin_bill->date = $request->date;
         $tiffin_bill->employee_id = $request->employee_id;
         $tiffin_bill->days = $request->days;
         $tiffin_bill->rate = $request->rate;
+        $tiffin_bill->department_id = $request->department_id;
+        $tiffin_bill->designation_id = $request->designation_id;
+        $tiffin_bill->category = $request->category;
+        $tiffin_bill->total = $request->total;
         $tiffin_bill->remark = $request->remark;
         $tiffin_bill->save();
 
         return redirect()->route('tiffin-bill.index')->withMsg('Successfully Created');
+    }
+
+    public function BillPaid(Request $request)
+    {
+        //dd($request->toArray());
+        $update= TiffinBill::where('id',$request->id)->update(['is_paid'=>true,'paid_date'=>$request->paid_date]);
+    //    dd($update);
+        return redirect()->back()->withMsg("Successfully  Updated ");
     }
 
     /**
@@ -77,7 +93,12 @@ class TiffinBillController extends Controller
      */
     public function edit(TiffinBill $tiffinBill)
     {
-        //
+        
+    }
+    public function editBill($id)
+    {
+        $bill_edit = TiffinBill::all();
+        return view('backend.employee.tiffin.edit',compact('bill_edit'));
     }
 
     /**
@@ -95,6 +116,8 @@ class TiffinBillController extends Controller
             'employee_id' => $request->employee_id,
             'days' => $request->days,
             'rate' => $request->rate,
+            'total' => $request->total,
+            'category' => $request->category,
             'remark' => $request->remark,
         ]);
         return redirect()->back()->withMsg("Successfully Updated");
