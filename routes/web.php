@@ -239,6 +239,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('/personal/loan/{id}', [PersonalManagementController::class,'personalEdit'])->name('personal.loan.edit');
     Route::put('/personal/update/{id}', [PersonalManagementController::class,'personalUpdate'])->name('update.personal.loan');
 
+    Route::post('/advance/info',[OfficeLoanController::class,'advanceInfo'])->name('advance.info');
     Route::get('add/office/loan', [OfficeLoanController::class,'officeLoanAdd'])->name('add.office.loan');
     Route::post('office/loan/store', [OfficeLoanController::class,'officeLoanStore'])->name('office.loan.store');
     Route::get('office/loan/', [OfficeLoanController::class,'officeLoanIndex'])->name('office.loan.manange');
@@ -445,6 +446,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('microbiological-test',MicrobiologicalTestController::class);
 
     //Tiffin Bill
+    Route::get('bill/edit/{id}', [TiffinBillController::class,'editBill'])->name('bill.edit');
+    Route::put('payroll/bill/paid', [TiffinBillController::class,'BillPaid'])->name('bill.paid');
     Route::resource('tiffin-bill', TiffinBillController::class);
 
     

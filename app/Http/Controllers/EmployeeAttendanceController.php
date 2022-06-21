@@ -20,8 +20,12 @@ class EmployeeAttendanceController extends Controller
     {
         $start_date=Carbon::now()->format('Y-m-d');
         $end_date=Carbon::now()->format('Y-m-d');
-        $attendances = Attendance::with('employee')->where('user_id',Auth::user()->id)->whereBetween('date', [$start_date, $end_date])->get();
-        // return $attendances;
+        $attendances = Attendance::with(['employee' => function($q){
+            $q->with([
+                'user_shift'
+                ]);
+            }])->where('user_id',Auth::user()->id)->whereBetween('date', [$start_date, $end_date])->get();
+        //return $attendances;
         return view('backend.hr_management.attendance.index',compact('attendances'));
     }
 

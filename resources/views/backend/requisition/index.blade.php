@@ -354,7 +354,7 @@
                             {{csrf_field()}}
                             <br>
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Warehouse</label>
+                                <label for="inputEmail1" class="col-md-2 control-label">Warehouse<span class="required">* </span></label>
                                 <div class="col-md-8">
                                     <select class="form-control select2me" id="warehouse" name="warehouse_id" required>
                                         <option value="">--select warehouse--</option>
@@ -366,7 +366,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Party</label>
+                                <label for="inputEmail1" class="col-md-2 control-label">Party<span class="required">* </span></label>
                                 <div class="col-md-8">
                                     <select class="form-control select2me party_select" id="party" name="party_id" required>
                                         <option value="">--select Party(code)--</option>
@@ -402,10 +402,10 @@
                             </div> --}}
 
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Expedted Receive Date</label>
+                                <label for="inputEmail1" class="col-md-2 control-label">Expedted Receive Date<span class="required">* </span></label>
                                 <div class="col-md-8">
                                     <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
-                                        <input type="text" class="form-control" name="clearance_date" id="clearance_date" readonly >
+                                        <input type="text" class="form-control" name="clearance_date" id="clearance_date" required >
                                         <span class="input-group-btn">
                                             <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                         </span>
@@ -415,7 +415,7 @@
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
                                 <div class="col-md-8">
-                                    <textarea name="remark" id="" cols="40" rows="5"></textarea>
+                                    <textarea name="remark" id="" cols="50" rows="5"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -425,7 +425,7 @@
                                             <div class="col-md-12" id="planDescriptionContainer">
                                                 <div class="input-group">
                                                     <div class="col-md-3">
-                                                        <label for="category">Product</label>
+                                                        <label class="control-label" for="category">Product<span class="required">* </span></label>
                                                         <select class="form-control select2me product1" name="product_id[1]" id="product" placeholder="Product" required>
 
                                                         </select>
@@ -435,7 +435,7 @@
                                                         <input class="form-control catagory1" id="catagory1" type="text" value="" readonly>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <label for="">Packet</label>
+                                                        <label class="control-label" for="">Packet<span class="required">* </span></label>
                                                         <input name="quantity[1]" class="form-control qty1" id="qty1" type="number" required placeholder="Quantity">
                                                     </div>
                                                     <div class="col-md-2">

@@ -96,5 +96,11 @@ class OfficeLoanController extends Controller
         return redirect()->back()->withMsg('Successfully Added Payment');
 
     }
+    public function advanceInfo(Request $request)
+    {
+        $advance_loans = OfficeLoan::where('period',$request->period)->get();
+        return $advance_loans;
+        return response(OfficeLoan::find($request->id));
+    }
 
 }

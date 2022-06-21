@@ -41,37 +41,37 @@
                             <form class="form-horizontal" role="form" method="post" action="{{route('user-shift.store')}}">
                                 {{csrf_field()}}
                                 <div class="form-group">
-                                    <label for="inputEmail1" class="col-md-2 control-label">Name</label>
+                                    <label for="inputEmail1" class="col-md-2 control-label">Name<span class="required">* </span></label>
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control" placeholder="User Name" id="name" name="name">
+                                        <input type="text" class="form-control" placeholder="Type Shift Name" id="name" name="name"> 
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputEmail1" class="col-md-2 control-label">Entry Time</label>
+                                    <label for="inputEmail1" class="col-md-2 control-label">Entry Time<span class="required">* </span></label>
                                     <div class="col-md-10">
                                         <input type="time" class="form-control" id="entry_time" name="entry_time">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputEmail1" class="col-md-2 control-label">Delay Time</label>
+                                    <label for="inputEmail1" class="col-md-2 control-label">Delay Time<span class="required">* </span></label>
                                     <div class="col-md-10">
                                         <input type="time" class="form-control" id="delay_time" name="delay_time">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputEmail1" class="col-md-2 control-label">Late Time</label>
+                                    <label for="inputEmail1" class="col-md-2 control-label">Late Time<span class="required">* </span></label>
                                     <div class="col-md-10">
                                         <input type="time" class="form-control"id="late_time" name="late_time">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputEmail1" class="col-md-2 control-label">Out Time</label>
+                                    <label for="inputEmail1" class="col-md-2 control-label">Out Time<span class="required">* </span></label>
                                     <div class="col-md-10">
                                         <input type="time" class="form-control" id="out_time" name="out_time">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputEmail1" class="col-md-2 control-label">Over Time</label>
+                                    <label for="inputEmail1" class="col-md-2 control-label">Over Time<span class="required">* </span></label>
                                     <div class="col-md-10">
                                         <input type="time" class="form-control" id="over_time" name="over_time">
                                     </div>
@@ -94,6 +94,17 @@
             </div>
         </div>
     </div>
+@endsection
+@section('style')
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script>
+
 @endsection
 
 

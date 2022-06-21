@@ -251,18 +251,11 @@
                                 </div>
                                 <div class="form-body">
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Employee ID<span class="required">* </span></label>
-                                        <div class="col-md-9">
-                                            <input type="text" name="employee_id" class="form-control" value="{{$employee->employee_id}}">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
                                         <label class="col-md-3 control-label">Department<span class="required">* </span></label>
                                         <div class="col-md-9">
                                             <select class="form-control select2me" id="department" name="dept_id">
                                                 @foreach($dep as $val)
-                                                    <option value="{{$val->id}}" {{ $val->id == $val->id ? 'selected' : '' }}>{{$val->name}}</option>
+                                                    <option value="{{$val->id}}" {{ $employee->dept_id == $val->id ? 'selected' : '' }}>{{$val->name}}</option>
                                                 @endforeach
                                                 {{csrf_field()}}
                                             </select>
@@ -272,8 +265,16 @@
                                         <label class="col-md-3 control-label">Designation<span class="required">* </span></label>
                                         <div class="col-md-9">
                                             <select  class="select2me form-control" name="deg_id" id="designation" >
-
+                                                @foreach($deg as $val)
+                                                    <option value="{{$val->id}}" {{ $employee->deg_id == $val->id ? 'selected' : '' }}>{{$val->deg_name}}</option>
+                                                @endforeach
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Employee ID<span class="required">* </span></label>
+                                        <div class="col-md-9">
+                                            <input type="text" name="employee_id" class="form-control" value="{{$employee->employee_id}}">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -401,7 +402,7 @@
                                     <div class="col-md-9">
                                         <select class="form-control" id="user_shift" name="user_shift_id">
                                             @foreach ($user_shift as $item)
-                                            <option value="{{$item->id}}" {{ $item->id == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
+                                                <option value="{{$item->id}}" {{ $employee->user_shift_id == $item->id ? 'selected' : '' }}>{{$item->name}}</option>
                                             @endforeach
                                             {{csrf_field()}}
                                         </select>
@@ -435,7 +436,7 @@
                                             <select class="form-control" name="provident_fund" id="">
                                                 
                                                 @foreach ($provident_fund as $item)
-                                                    <option value="{{$item->id}}" {{ $item->id == $item->id ? 'selected' : '' }}>{{$item->package}}</option>
+                                                    <option value="{{$item->id}}" {{ $employee->provident_fund == $item->id ? 'selected' : '' }}>{{$item->package}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

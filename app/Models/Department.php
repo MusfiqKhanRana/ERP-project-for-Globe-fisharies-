@@ -12,4 +12,8 @@ class Department extends Model
     {
         return $this->hasMany(Designation::class, 'dept_id', 'id');
     }
+    public function employee()
+    {
+        return $this->hasMany(User::class, 'id','dept_id');
+    }
 }

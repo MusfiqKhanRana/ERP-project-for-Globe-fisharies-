@@ -174,24 +174,24 @@
                                         <div class="form-group">
                                             <div class="col-md-12">
                                                 
-                                                <h4> Date</h4>
+                                                <label class="control-label"> Date<span class="required">* </span></label>
                                                 <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm-dd" data-date-viewmode="years">
-                                                    <input type="text" class="form-control" readonly name="date" required>
+                                                    <input type="text" class="form-control"  name="date" required>
                                                     <span class="input-group-btn">
                                                      <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                                      </span>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
-                                                <h4>Name</h4>
-                                                <input class="form-control form-control-inline"  type="text" name="name" required placeholder="Name"/>
+                                                <label class="control-label">Name<span class="required">* </span></label>
+                                                <input class="form-control form-control-inline"  type="text" name="name" required placeholder="Name" required/>
                                             </div>
                                             <div class="col-md-12">
-                                                <h4>Description</h4>
-                                                <input class="form-control form-control-inline"  type="text" name="description" required placeholder="Description"/>
+                                                <label class="control-label">Description<span class="required">* </span></label>
+                                                <input class="form-control form-control-inline"  type="text" name="description" required placeholder="Description" required/>
                                             </div>
                                             <div class="col-md-12">
-                                                <h4>Remark</h4>
+                                                <label>Remark</label>
                                                 <input class="form-control form-control-inline"  type="text" name="remark" required placeholder="Remark"/>
                                             </div>
                                         </div>

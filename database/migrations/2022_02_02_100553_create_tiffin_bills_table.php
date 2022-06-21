@@ -17,8 +17,14 @@ class CreateTiffinBillsTable extends Migration
             $table->id();
             $table->date('date')->nullable();
             $table->unsignedInteger('employee_id')->nullable();
-            $table->integer('days')->nullable();
+            $table->unsignedInteger('department_id')->nullable();
+            $table->unsignedInteger('designation_id')->nullable();
+            $table->string('category')->nullable();
+            $table->boolean('is_paid')->nullable();
             $table->integer('rate')->nullable();
+            $table->integer('days')->nullable();
+            $table->integer('total')->nullable();
+            $table->date('paid_date')->nullable();
             $table->text('remark')->nullable();
             $table->timestamps();
         });

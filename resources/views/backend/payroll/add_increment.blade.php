@@ -166,8 +166,8 @@ Add Increment/Decrement
                                 {{csrf_field()}}
                                 <div class="row" style="margin-left: 2%">
                                     <div class="col-md-4" >
-                                        <label>Department</label>
-                                        <select class="form-control " id="department" name="department_id">
+                                        <label class="col-md-1 control-label">Department<span class="required">* </span></label>
+                                        <select class="form-control " id="department" name="department_id" required>
                                             <option value="">--Select--</option>
                                             @foreach ($departments as $item)
                                                 <option value="{{$item->id}}">{{$item->name}}</option>
@@ -175,8 +175,8 @@ Add Increment/Decrement
                                         </select>
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Designation</label>
-                                        <select  class="form-control" name="designation_id" id="designation">
+                                        <label class="col-md-1 control-label">Designation<span class="required">* </span></label>
+                                        <select  class="form-control" name="designation_id" id="designation" required>
                                             <option value="">--Select--</option>
                                             @foreach ($departments as $department)
                                                 @foreach ($department->designation as $designation)
@@ -186,9 +186,10 @@ Add Increment/Decrement
                                         </select>
                                     </div>
                                     <div class="col-md-3">
-                                        <label class="col-md-1 control-label">Name</label>
-                                        <select  class="form-control user_salary" name="user_id" id="user_id">
-                                            <option value="null">--Select--</option>
+                                        <label class="col-md-1 control-label">Name<span class="required">* </span></label>
+                                        <select  class="form-control user_salary" name="user_id" id="user_id" required>
+                                            <option value="">--Select--</option>
+                                            
                                             @foreach ($departments as $department)
                                                 @foreach ($department->designation as $designation)
                                                     @foreach ($designation->employee as $employee)
@@ -201,11 +202,11 @@ Add Increment/Decrement
                                 </div><br>
                                 <div class="row" style="margin-left: 3%">
                                     <div class="col-md-4">
-                                        <label for="">Applied From</label>
-                                        <input class="form-control" type="date" name="date">
+                                        <label class="col-md-10 control-label" for="">Applied From<span class="required">* </span></label>
+                                        <input class="form-control" type="date" name="date" required>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="">Type</label><br>
+                                        <label class="col-md-1 control-label" for="">Type<span class="required">* </span></label><br>
                                         <label>
                                             <input type="radio" class="form-control increment" name="type" value="Increment" checked > Incerment
                                         </label>
@@ -214,8 +215,8 @@ Add Increment/Decrement
                                         </label>
                                     </div>
                                     <div class="col-md-4">
-                                        <label for=""> Amount</label>
-                                        <input class="form-control amount" type="number" value="" name="increment_amount">
+                                        <label class="col-md-1 control-label" for=""> Amount<span class="required">* </span></label>
+                                        <input class="form-control amount" type="number" value="" name="increment_amount" required>
                                     </div>
                                     
                                 </div><br>

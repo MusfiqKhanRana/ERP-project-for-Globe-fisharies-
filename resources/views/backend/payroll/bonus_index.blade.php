@@ -231,13 +231,13 @@ Bonus Records
                                 {{csrf_field()}}
             
                                 <div class="form-group">
-                                    <label for="inputEmail1" class="col-md-2 control-label">Disburse Date</label>
+                                    <label for="inputEmail1" class="col-md-3 control-label">Disburse Date<span class="required">* </span></label>
                                     <div class="col-md-8">
                                         <input type="date" class="form-control" name="date" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Name</label>
+                                    <label class="col-md-3 control-label">Name<span class="required">* </span></label>
                                     <div class="col-md-8">
                                         <select class="form-control selectpicker" data-live-search="true" name="user_id" required>
                                             <option value="" selected>--select--</option>
@@ -248,13 +248,13 @@ Bonus Records
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputEmail1" class="col-md-2 control-label">Amount</label>
+                                    <label for="inputEmail1" class="col-md-3 control-label">Amount<span class="required">* </span></label>
                                     <div class="col-md-8">
                                         <input type="number" class="form-control" name="amount" placeholder="" required  >
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputEmail1" class="col-md-2 control-label">Bonus Category</label>
+                                    <label for="inputEmail1" class="col-md-3 control-label">Bonus Category<span class="required">* </span></label>
                                     <div class="col-md-8">
                                         <select class="form-control" name="bonus_category" required>
                                             <option value="" selected>-- Select Bonus Category --</option>
@@ -266,9 +266,9 @@ Bonus Records
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
+                                    <label for="inputEmail1" class="col-md-3 control-label">Remark</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="remark" placeholder="Type Remark" >
+                                        <textarea type="text" class="form-control" name="remark" placeholder="Type Remark" ></textarea>
                                     </div>
                                 </div>
                                     <input type="hidden" class="form-control" name="bonus_code">

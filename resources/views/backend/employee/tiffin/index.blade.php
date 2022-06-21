@@ -79,6 +79,9 @@
                                           Designation
                                         </th>
                                         <th>
+                                            Category
+                                        </th>
+                                        <th>
                                             Days
                                         </th>
                                         <th>
@@ -86,6 +89,12 @@
                                         </th>
                                         <th>
                                             Taka
+                                        </th>
+                                        <th>
+                                            Status
+                                        </th>
+                                        <th>
+                                            Paid Date
                                         </th>
                                         <th>Remark</th>
                                         <th style="text-align: center">
@@ -101,19 +110,52 @@
                                             <td>{{$item->user->name}}</td>
                                             <td>{{$item->user->employee_id}}</td>
                                             <td>{{$item->user->designation->deg_name}}</td>
-                                            <td>{{$item->days}}</td>
-                                            <td>{{$item->rate}}</td>
+                                            <td>{{$item->category}}</td>
                                             <td>
-                                            @php
+                                                @if($item->days == 0)
+                                                    <p class="label label-sm label-info">N/A</p>
+                                                @else
+                                                    <span class="label label-sm label-success">{{$item->days}}</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($item->rate == 0)
+                                                    <p class="label label-sm label-info">N/A</p>
+                                                @else
+                                                    <span class="label label-sm label-success">{{$item->rate}}</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                            {{-- @php
                                                 $x = $item->days; 
                                                 $y = $item->rate; 
                                                 $z=$x*$y; 
                                                 echo $z,"  Tk";
-                                            @endphp
+                                            @endphp --}}
+                                            {{$item->total}} TK
                                             </td>
+                                            <td>
+                                                @if($item->is_paid == 0)
+                                                    <p class="label label-sm label-danger">Pending</p>
+                                                @else
+                                                    <span class="label label-sm label-success">Paid</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($item->paid_date == 0)
+                                                    <p class="label label-sm label-primary">N/A</p>
+                                                @else
+                                                    <span class="label label-sm label-success">{{$item->paid_date}}</span>
+                                                @endif</td>
                                             <td>{{$item->remark}}</td>
                                             <td style="text-align: center">
-                                                <a class="btn btn-info"  data-toggle="modal" href="#editModal{{$item->id}}"><i class="fa fa-edit"></i> Edit</a>
+                                                @if($item->is_paid == 1)
+                                                <p class="label label-sm label-info" disable></p>
+                                                @else
+                                                <a class="btn btn-success paid" data-id="{{$item->id}}"  data-toggle="modal" href="#paidModal"><i class="fa fa-trash"></i> Paid</a>
+                                                @endif
+                                                
+                                                <a class="btn btn-info editbill" data-id="{{$item->id}}" data-category_edit="{{$item->category}}" data-remark="{{$item->remark}}" data-toggle="modal" href="{{route('bill.edit',$item->id)}}"><i class="fa fa-edit"></i> Edit</a>
                                                 <a class="btn red" data-toggle="modal" href="#deleteModal{{$item->id}}"><i class="fa fa-trash"></i> Delete</a>
                                             </td>
                                         </tr>
@@ -141,70 +183,90 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="editModal{{$item->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                        <h4 class="modal-title">Update Employee Tiffin Bill</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form class="form-horizontal" role="form" method="post" action="{{route('tiffin-bill.update', $item)}}">
-                                                            {{csrf_field()}}
-                                                            {{method_field('put')}}
-                                                            <div class="form-group">
-                                                                <label for="inputEmail1" class="col-md-2 control-label">Date</label>
-                                                                <div class="col-md-9">
-                                                                    <div class="input-group input-5 date date-picker" id="datepicker" data-date-format="MM-yyyy">
-                                                                        <input  type="text" class="form-control" value="{{$item->date}}" readonly="readonly" name="date" >    
-                                                                        <span class="input-group-btn">
-                                                                            <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                                                        </span>      
-                                                                    </div> 
-                                                                </div><br><br>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label class="col-md-2 control-label"> Name</label>
-                                                                <div class="col-md-9">
-                                                                    <select class="form-control " id="employee_id" name="employee_id">
-                                                                        <option value="{{$item->user->id}}">{{$item->user->name}}</option>
-                                                                        @foreach($users as $data)
-                                                                            <option value="{{$data->id}}">{{$data->name}}</option>
-                                                                        @endforeach
-                                                                        {{csrf_field()}}
-                                                                    </select>
-                                                                </div><br><br>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="inputEmail1" class="col-md-2 control-label">Days</label>
-                                                                <div class="col-md-9">
-                                                                    <input type="number" class="form-control" value="{{$item->days}}"  name="days">
-                                                                </div><br><br>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="inputEmail1" class="col-md-2 control-label">Rate</label>
-                                                                <div class="col-md-9">
-                                                                    <input type="number" class="form-control" value="{{$item->rate}}"  name="rate">
-                                                                </div><br><br>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
-                                                                <div class="col-md-9">
-                                                                    <input type="text" class="form-control" value="{{$item->remark}}" name="remark">
-                                                                </div><br><br>
-                                                            </div><br>
-                                                            <div class="modal-footer">
-                                                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                                <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div id="editModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                            <h4 class="modal-title">Update Employee Tiffin Bill</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="form-horizontal" role="form" method="post" action="{{route('tiffin-bill.update', $item)}}">
+                                                {{csrf_field()}}
+                                                {{method_field('put')}}
+                                                <input type="hidden" id="id" name="id" value="">
+                                                <input type="hidden" id="category_edit" name="category" value="">
+                                                <input type="hidden" id="remark" name="remark" value="">
+                                                <div class="form-group">
+                                                    <label for="inputEmail1" class="col-md-2 control-label">Date</label>
+                                                    <div class="col-md-9">
+                                                        <div class="input-group input-5 date date-picker" id="datepicker" data-date-format="MM-yyyy">
+                                                            <input  type="text" class="form-control" value="{{$item->date}}" readonly="readonly" name="date" >    
+                                                            <span class="input-group-btn">
+                                                                <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                                            </span>      
+                                                        </div> 
+                                                    </div><br><br>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-2 control-label"> Name</label>
+                                                    <div class="col-md-9">
+                                                        <select class="form-control " id="employee_id" name="employee_id">
+                                                            <option value="{{$item->user->id}}">{{$item->user->name}}</option>
+                                                            @foreach($employee as $data)
+                                                                <option value="{{$data->id}}">{{$data->name}}</option>
+                                                            @endforeach
+                                                            {{csrf_field()}}
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputEmail1" class="col-md-2 control-label">Category</label>
+                                                    <div class="col-md-9">
+                                                        <select class="form-control" name="category" id="category_edit" value=""><option value="">--Select--</option>
+                                                            <option value="Tiffin Bill"  @if($item->category == 'Tiffin Bill') selected  @endif>Tiffin Bill</option>
+                                                            <option value="Mobile Bill" @if($item->category == 'Mobile Bill') selected  @endif>Mobile Bill</option>
+                                                            <option value="Transport Bill" @if($item->category == 'Transport Bill') selected  @endif>Transport Bill</option>
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+                                                <div class="form-group day">
+                                                    <label for="inputEmail1" class="col-md-2 control-label">Days</label>
+                                                    <div class="col-md-9">
+                                                        <input type="number" class="form-control" value="{{$item->days}}"  name="days">
+                                                    </div><br><br>
+                                                </div>
+                                                <div class="form-group price">
+                                                    <label for="inputEmail1" class="col-md-2 control-label">Rate</label>
+                                                    <div class="col-md-9">
+                                                        <input type="number" class="form-control" value="{{$item->rate}}"  name="rate">
+                                                    </div><br><br>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputEmail1" class="col-md-2 control-label">Taka</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control" value="{{$item->total}}" name="total" id="total">
+                                                    </div><br><br>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputEmail1" class="col-md-2 control-label">Remark</label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control" value="{{--$item->remark--}}" name="remark"><span  id="remark"></span>
+                                                    </div><br><br>
+                                                </div><br>
+                                                <div class="modal-footer">
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                    <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -223,7 +285,7 @@
                         <form class="form-horizontal" role="form" method="post" action="{{route('tiffin-bill.store')}}">
                             {{csrf_field()}}
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Date</label>
+                                <label for="inputEmail1" class="col-md-2 control-label">Date<span class="required">* </span></label>
                                 <div class="col-md-9">
                                     <div class="input-group input-5 date date-picker" id="datepicker" data-date-format="MM-yyyy">
                                         <input  type="text" class="form-control" readonly="readonly" name="date" >    
@@ -234,33 +296,71 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-2 control-label"> Name</label>
+                                <label class="col-md-2 control-label"> Department<span class="required">* </span></label>
                                 <div class="col-md-9">
-                                    <select class="form-control"  name="employee_id">
+                                    <select class="form-control " id="department" name="department_id">
                                         <option value="">--Select--</option>
-                                        @foreach($users as $data)
-                                            <option value="{{$data->id}}">{{$data->name}}</option>
+                                        @foreach ($departments as $item)
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
                                         @endforeach
-                                        {{csrf_field()}}
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-md-2 control-label"> Designation<span class="required">* </span></label>
+                                <div class="col-md-9">
+                                    <select  class="form-control" name="designation_id" id="designation">
+                                        <option value="">--Select--</option>
+                                        @foreach ($departments as $department)
+                                            @foreach ($department->designation as $designation)
+                                                <option value="{{$designation->id}}" class="{{$department->id}}">{{$designation->deg_name}}</option>
+                                            @endforeach    
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label"> Name<span class="required">* </span></label>
+                                <div class="col-md-9">
+                                    <select  class="form-control" name="employee_id" id="name">
+                                        <option value="null">--Select--</option>
+                                        @foreach ($departments as $department)
+                                            @foreach ($department->designation as $designation)
+                                                @foreach ($designation->employee as $employee)
+                                                    <option value="{{$employee->id}}" class="{{$designation->id}}">{{$employee->name}}</option>
+                                                @endforeach
+                                            @endforeach    
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Category<span class="required">* </span></label>
+                                <div class="col-md-9">
+                                    <select class="form-control" id="categorychange" name="category">
+                                        <option value="">--Select--</option>
+                                        <option value="Tiffin">Tiffin Bill</option>
+                                        <option value="Mobile">Mobile Bill</option>
+                                        <option value="Transport">Transport Bill</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group day">
                                 <label for="inputEmail1" class="col-md-2 control-label">Days</label>
                                 <div class="col-md-9">
-                                    <input type="number" class="form-control"  name="days" id="days">
+                                    <input type="number" class="form-control" id="tdays" name="days">
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group price">
                                 <label for="inputEmail1" class="col-md-2 control-label">Rate</label>
                                 <div class="col-md-9">
-                                    <input type="number" class="form-control"  name="rate" id="rate">
+                                    <input type="number" class="form-control" id="ratetk" name="rate">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Taka</label>
+                                <label for="inputEmail1" class="col-md-2 control-label">Taka<span class="required">* </span></label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control"  name="total" id="total" disabled>
+                                    <input type="text" class="form-control"  name="total" id="totaltk">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -277,14 +377,74 @@
                     </div>
                 </div>
             </div>
-           
+            <div id="paidModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">Make Paid</h4>
+                        </div><br>
+                        <form class="form-horizontal" role="form" method="post" action="{{route('bill.paid')}}">
+                            {{csrf_field()}}
+                            {{method_field('put')}}
+                            <input type="hidden" id="paid" name="id" value="">
+                            {{-- <input type="hidden" name="is_paid" value=""> --}}
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Date</label>
+                                <div class="col-md-8">
+                                    <input type="date" class="form-control date" name="paid_date" required>
+                                </div>
+                            </div><br><br>
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                <button type="submit" class="btn blue-ebonyclay confirm_btn"><i class="fa fa-floppy-o"></i> Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     @endsection
     @section('script')
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script type="text/javascript">
             $(document).ready(function() {
+                $(".editbill").click(function(){
+                $("#id").val($(this).data('id'));
+                $("#category_edit").val($(this).data('category_edit'));
+               
+                    console.log($(this).data('id'));
+                    $("#remark").val($(this).data('remark'));
+                    $("#remark").html(remark);
+                });
+               
+                $("#categorychange").change(function()
+                    {
+                        //console.log('category');
+                    if($(this).val() == "Tiffin")
+                    {
+                    $(".price").show();
+                    $(".day").show();
+                    }
+                    else
+                    {
+                    $(".price").hide();
+                    $(".day").hide();
+                    }
+                    });
+
+                $(".price").hide();
+                $(".day").hide();
+
+                    
+                $(".paid").click(function(){
+                $("#paid").val($(this).data('id'));
+                    //console.log($(this).data('id'));
+                });
+                $("#designation").chained("#department");
+                $("#name").chained("#designation");
                 // var date = new Date();
                 // var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
                 // var end = new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -302,9 +462,9 @@
                     viewMode: 'years',
                     format: 'MM-yyyy'
                 });
-                $("#rate").keyup(function() {
+                $("#ratetk").keyup(function() {
                     // console.log();
-                    $('#total').val($(this).val()*$('#days').val());
+                    $('#totaltk').val($(this).val()*$('#tdays').val());
                 });
                 console.log("this is ready");
             });

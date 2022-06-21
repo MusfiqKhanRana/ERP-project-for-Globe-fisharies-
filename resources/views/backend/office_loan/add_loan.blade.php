@@ -65,24 +65,26 @@
                                         * </span>
                                         </label>
                                         <div class="col-md-6">
-                                           <select class="form-control selectpicker" data-live-search="true" name="employee_id" >
+                                           <select class="form-control selectpicker" id="employee_id" data-live-search="true" name="employee_id" >
+                                            <option value="">--Select--</option>
                                                @foreach($employee as $data)
-                                                   <option value="{{$data->id }}">{{$data->name}}</option>
+                                                   <option value="{{$data->id }}">{{$data->department->name}}  |  {{$data->designation->deg_name}}  |  {{$data->name}}</option>
                                                @endforeach
                                            </select>
                                         </div>
                                     </div>
+                                    
                                     <div class="form-group">
                                         <label class="col-md-2 control-label" id="type">Type: <span class="required">
                                             * </span>
                                         </label>
                                         <div class="col-md-6">
-                                            <div class="col-md-3">
+                                            <div class="col-md-6">
                                                 <label>
                                                     <input type="radio" class="form-control" name="type" value="advance" checked> Advance Salary
                                                 </label>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-6">
                                                 <label>
                                                     <input type="radio" class="form-control" name="type" value="loan"> General Loan
                                                 </label>
@@ -113,7 +115,9 @@
                                             <input type="number" class="form-control" id="monthly_deduction_field"  placeholder="Deduction (Monthly)" readonly >
                                         </div>
                                     </div>
-
+                                    <div id="advance_info">
+                                       
+                                    </div>
                                     <div class="form-group" id="period">
                                         <label class="control-label col-md-2">Period: </label>
                                         <div class="col-md-6">
@@ -211,6 +215,28 @@
         $('#amount_field,#instalment_field').keyup(function(){
             $('#monthly_deduction_field').val($('#amount_field').val()/$('#instalment_field').val());
         })
+        $("#period_field").change(function() {
+            $.ajax({
+                type:"POST",
+                url:"{{route('advance.info')}}",
+                data:{
+                    'date' : $(this).val(),
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    console.log(data);
+                    // $("#advance_info").empty();
+                    // $("#advance_info").text(data);
+                    // console.log(advance_info);
+                    // var $results = $('#advance_info');
+                    // var $userDiv = $results.append('<div class="user-div"></div>')
+                    // $( '<div class="row">'+
+                    //     '<div class="col-md-9 text-center"><span> <b>Advance Salary: </b></span>'+data.amount+'</div>'
+                    // +'</div>').appendTo( ".user-div" );
+                }
+            });
+        });
+            
     });
 </script>
 @endsection

@@ -118,6 +118,7 @@ class PayrollController extends Controller
         $employee = User::all();
         $department=Department::all();
         $start_date =  Carbon::now()->startOfMonth()->subMonth()->format('Y-m-1');
+        $end_date = Carbon::now()->endOfMonth()->subMonth()->format('Y-m-d');
         $user_id = null;
         if (isset($request->employee_select)) {
             $user_id = $request->employee_select;
@@ -125,6 +126,8 @@ class PayrollController extends Controller
         }
         if (isset($request->from_date)) {
             $start_date =  Carbon::parse($request->from_date)->format('Y-m-1');
+            $end_date = Carbon::parse($request->from_date)->endOfMonth()->format('Y-m-d');
+            //dd($end_date);
         }
         $payment = Payment::where('salary_month','>=',$start_date)
         ->Where(function($q) use($user_id){
@@ -132,14 +135,20 @@ class PayrollController extends Controller
                 $q->where('user_id',$user_id);
             }
         })
-        ->with(['employee'])
-        ->paginate(5);
+        ->with([ 'employee' => function($q) use($start_date, $end_date){
+                    $q->with([
+                        'attendances' => function($q) use($start_date, $end_date){
+                            $q->whereBetween('date', [$start_date, $end_date])->whereIn('status',['Present','Late','Delay'])->select('id','user_id','date');
+                        }]);
+                    }])
+        ->paginate(10);
+        //return $payment;
         //dd($payment->toArray());
         // $payment = Payment::with([
         //     'employee' => function($q) use($start_date, $end_date){
         //         $q->with([
         //             'attendances' => function($q) use($start_date, $end_date){
-        //                 $q->whereBetween('date', [$start_date, $end_date])->select('id','user_id','date');
+        //                 $q->whereBetween('date', [$start_date, $end_date])->whereIn('status',["Present","Late","Delay"])->select('id','user_id','date');
         //             },
         //             'department' => function($q){
         //                 $q->select('id','name');

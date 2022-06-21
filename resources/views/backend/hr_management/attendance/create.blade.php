@@ -27,10 +27,10 @@
                 {{-- <div class="form-group" style="margin-left: 10%">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </div> --}}
-                <a class="btn purple pull-right" data-toggle="modal" href="#basic">
+                {{-- <a class="btn purple pull-right" data-toggle="modal" href="#basic">
                     Add Leave Application
                     <i class="fa fa-plus"></i>
-                </a>
+                </a> --}}
             </h3>
             <hr>
             @if (count($errors) > 0)
