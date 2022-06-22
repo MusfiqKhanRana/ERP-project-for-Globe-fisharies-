@@ -43,14 +43,14 @@
             <div class="portlet box blue-chambray">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fa fa-briefcase"></i>CS List
+                        <i class="fa fa-briefcase"></i>Negotiation List
                     </div>
                     <div class="tools">
                     </div>
                 </div>
                 <div class="portlet-body">
                     <div class="table-scrollable">
-                        <form class="form-horizontal" role="form" method="post" action="{{route('production.purchase.quotation.cs.data_pass')}}">
+                        <form class="form-horizontal" role="form" method="post" action="{{route('production.purchase.quotation.negotiation_data_pass')}}">
                             {{csrf_field()}}
                             <div class="row" style="margin: 3%" >
                                 <p ><b>Item name:</b> {{$cs_item->item_name}}</p>
@@ -71,70 +71,68 @@
                                         <th>Negotiable Price</th>
                                         <th>add new Negotiable Price</th>
                                         <th>Remark</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <input type="hidden" name="item_id" value="{{$cs_item->id}}">
-                                    @php
-                                        $ifBtn=false;
-                                    @endphp
                                     @foreach($cs_item->production_general_purchase_quotation as $key=> $data)
-                                        <tr>
-                                            <td>
-                                                {{++ $key}}
-                                            </td>
-                                            <td>{{$data->supplier->name}}</td>
-                                            <td>{{$data->price}}</td>
-                                            <td>{{$data->speciality}}</td>
-                                            <td>
-                                                @if ($data->negotiable_price)
-                                                    @php
-                                                        $ifBtn=true;
-                                                    @endphp
-                                                    @foreach ($data->negotiable_price as $key2=> $nego_price)
-                                                        <label class="btn btn-default"><input type="checkbox" data-key="{{$key}}" class="nego_price" name="final_rate{{$key}}" value="{{$nego_price}}"/> No - {{++ $key2}} : {{$nego_price}}</label> 
-                                                    @endforeach
-                                                @else
-                                                <p>N/A</p>
-                                                @endif                                             
-                                            </td>
-                                            <td>
-                                                <input type="hidden" name="quotation_id[]" value="{{$data->id}}">
-                                                <input type="number" class="price" placeholder="Price" name="negotiable_price[]" id="negotiable_price">
-                                            </td>
-                                            <td>
-                                                <textarea type="text" class="remark" placeholder="Remark" name="cs_remark[]" id="cd_remark"></textarea>
-                                            </td>
-                                            
-                                            <td>
-                                                <a class="btn btn-danger" data-toggle="modal" href="#rejectModal" >Reject</a>
-                                                {{-- @if($ifBtn == false) --}}
-                                                    <a class="btn btn-info nego_confirm" data-quotation_id="{{$data->id}}" data-supplier_info="{{$data->supplier->id}}" data-item_id="{{$cs_item->id}}" id="nego_confirm{{$key}}" data-toggle="modal" href="#ConfirmModal" {!!$data->negotiable_price != null ? "style='display:none'" : "style='display:block'" !!} >Confirm</a>
-                                                {{-- @endif --}}
-                                            </td>
-                                        </tr>
-                                        <div id="rejectModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Reject Note</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form class="form-horizontal" role="form" method="post" action="{{route('production.quotation.reject',$data->id)}}">
-                                                            {{csrf_field()}}
-                                                            <div class="form-group">
-                                                                <p>Are You Sure You Want to Remove?</p>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                                <a href="{{route('production.quotation.reject',$data->id)}}" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Confirm</a>
-                                                            </div>
-                                                        </form>
-                                                    </div>
+                                    <tr>
+                                        <td>
+                                            {{++ $key}}
+                                        </td>
+                                        <td>{{$data->supplier->name}}</td>
+                                        <td>{{$data->price}}</td>
+                                        <td>{{$data->speciality}}</td>
+                                        <td>
+                                            @foreach ($data->negotiable_price as $key2=> $nego_price)
+                                                <li>No - {{++$key2}} : {{$nego_price}} </li>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            <input type="hidden" name="quotation_id[]" value="{{$data->id}}">
+                                            <input type="number" class="price" placeholder="Price" required name="negotiable_price[]" id="negotiable_price">
+                                        </td>
+                                        <td>
+                                            <textarea type="text" class="remark" placeholder="Remark" name="cs_remark[]" id="cd_remark"></textarea>
+                                        </td>
+                                        
+                                    </tr>
+                                    <div id="rejectModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Reject Note</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="form-horizontal" role="form" method="post" action="{{route('production.quotation.reject',$data->id)}}">
+                                                        {{csrf_field()}}
+                                                        <div class="form-group">
+                                                            <p>Are You Sure You Want to Remove?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                            <a href="{{route('production.quotation.reject',$data->id)}}" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Confirm</a>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div id="ConfirmModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                    <h4 class="modal-title">Want to Confirm it?</h4>
+                                                </div>
+                                                <br>
+                                                <div class="modal-footer"><br>
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                    <a href="{{route('production.quotation.confirm',$data->id)}}" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Confirm</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -146,60 +144,12 @@
                 </div>
             </div>
         </div>
-        <div id="ConfirmModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-            <form class="form-horizontal" role="form" method="post" action="{{route('production.quotation.confirm')}}">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                        <h4 class="modal-title">Want to Confirm it?</h4>
-                    </div>
-                    <div class="modal-body">
-                            {{csrf_field()}}
-                            <input type="hidden" class="item_id" name="item_id" value="">
-                            <input type="hidden" class="quotation_id" name="quotation_id" value="">
-                            <input type="hidden" class="nego_input" name="nego_price" value="">
-                            <input type="hidden" class="supplier_info" name="supplier_info" value="">
-                            <p>The Price you are confirming is : <b><span class="nego_span"></span></b></p>
-                    </div>
-                    <div class="modal-footer"><br>
-                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                        <button type="submit"  class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Confirm</button>
-                    </div>
-            </form>
-                </div>
-            </div>
-        </div>
     </div>
 @endsection
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            var nego_price =0;
-            $('input[type="checkbox"]').on('change click',function() {
-                var key = 0;
-                console.log('good');
-                key = $(this).attr("data-key");
-                if($(this).is(":checked")){
-                    nego_price = $(this).val();
-                    console.log(nego_price);
-                    $('#nego_confirm'+key).attr('style', 'display : block !important');
-                }
-                else
-                    $('#nego_confirm'+key).attr('style', 'display : none !important');
-            });
-            $('.nego_confirm').on('change click',function() { 
-                console.log(nego_price);
-               var item_id = $(this).attr("data-item_id");
-               var quotation_id = $(this).attr("data-quotation_id");
-               var supplier_info = $(this).attr("data-supplier_info");
-                $(".nego_input").val(nego_price);
-                $(".quotation_id").val(quotation_id);
-                $(".item_id").val(item_id);
-                $(".supplier_info").val(supplier_info);
-                $(".nego_span").html(nego_price);
-            });
             $('.submitButton').hide();
                 $('.price').keyup(function()
                 {

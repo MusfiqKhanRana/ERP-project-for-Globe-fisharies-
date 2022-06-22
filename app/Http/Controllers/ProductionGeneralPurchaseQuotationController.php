@@ -216,7 +216,7 @@ class ProductionGeneralPurchaseQuotationController extends Controller
             'supplier_info' => $request->supplier_info,
             'status'=>'InPurchase'
        ]);
-        return redirect()->back()->withmsg('Successfully Confirmed');
+       return redirect()->route('production-quotation-confirmquotation');
     }
 }
 

@@ -180,6 +180,20 @@ class ProductionPurchaseRequisitionController extends Controller
         //dd($requisition->toArray());
         return view('backend.production.general_purchase.quotation.index',compact('supplier','requisition'));
     }
+    public function negotiation(){
+        $requisition=ProductionPurchaseRequisition::where('status','Quotation')->with(
+        ['items' => function($q){
+            $q->where([
+                'status'=>'QuotationNegotiation'
+                ]);
+            }
+        ],
+        'departments','users')->get();
+        // dd($requisition->toArray());
+        $supplier = ProductionSupplier::get();
+        //dd($requisition->toArray());
+        return view('backend.production.general_purchase.production_purchase_negotiation.index',compact('supplier','requisition'));
+    }
 
     // public function add_quotation_data_pass(Request $request){
     // //return $request->id;
@@ -194,6 +208,7 @@ class ProductionPurchaseRequisitionController extends Controller
 
     public function cs_data_pass(Request $request){
         $data = $request->all();
+        // dd($data);
         for ($i=0; $i <count($data['quotation_id']) ; $i++) { 
             $production_quotation = ProductionGeneralPurchaseQuotation::where('id',$data['quotation_id'][$i])->first();
             if ($production_quotation->negotiable_price) {
@@ -223,8 +238,56 @@ class ProductionPurchaseRequisitionController extends Controller
                     "status"=>"InNegotiation",
                 ]);
             }
+            // dd($affected);
+            ProductionPurchaseRequisitionItem::where('id',$request->item_id)->update([
+                'status'=>'QuotationNegotiation'
+            ]);
         }
-        return redirect()->back()->withmsg('Successfully Send For Negotiation');
+
+        // return redirect()->back();
+        return redirect()->route('production-quotation-confirmquotation');
+    }
+    public function negotiation_data_pass(Request $request){
+        $data = $request->all();
+        // dd($data);
+        for ($i=0; $i <count($data['quotation_id']) ; $i++) { 
+            $production_quotation = ProductionGeneralPurchaseQuotation::where('id',$data['quotation_id'][$i])->first();
+            if ($production_quotation->negotiable_price) {
+                $price=$production_quotation->negotiable_price;
+                $remark=$production_quotation->cs_remark;
+                array_push($price,$data['negotiable_price'][$i]);
+                array_push($remark,$data['cs_remark'][$i]);
+                $price = serialize($price);
+                $remark = serialize($remark);
+                $affected = DB::table('production_general_purchase_quotations')
+                ->where('id',$data['quotation_id'][$i])
+                ->update([
+                    'negotiable_price'=>$price,
+                    'cs_remark' =>$remark,
+                    "status"=>"InCS",
+                ]);
+            }
+            // else{
+            //     $price_arr =array($data['negotiable_price'][$i]);
+            //     $price_arr =serialize($price_arr);
+            //     $remark_arr = array($data['cs_remark'][$i]);
+            //     $remark_arr = serialize($remark_arr);
+            //     $affected = DB::table('production_general_purchase_quotations')
+            //     ->where('id',$data['quotation_id'][$i])
+            //     ->update([
+            //         'negotiable_price'=>$price_arr,
+            //         'cs_remark' =>$remark_arr,
+            //         "status"=>"InNegotiation",
+            //     ]);
+            // }
+            // dd($affected);
+            ProductionPurchaseRequisitionItem::where('id',$request->item_id)->update([
+                'status'=>'ConfirmQuotation'
+            ]);
+        }
+
+        // return redirect()->back();
+        return redirect()->route('production-quotation-confirmquotation');
     }
 
     public function block_data_pass(Request $request){
