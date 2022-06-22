@@ -25,7 +25,7 @@
                 <br><br>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="portlet box grey-salt">
+                    <div class="portlet box grey-salt" style="overflow: auto">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-clipboard "></i>History List

@@ -97,7 +97,8 @@ class TiffinBillController extends Controller
     }
     public function editBill($id)
     {
-        $bill_edit = TiffinBill::all();
+        $bill_edit = TiffinBill::find($id);
+        //dd($bill_edit->toArray());
         return view('backend.employee.tiffin.edit',compact('bill_edit'));
     }
 
@@ -120,7 +121,7 @@ class TiffinBillController extends Controller
             'category' => $request->category,
             'remark' => $request->remark,
         ]);
-        return redirect()->back()->withMsg("Successfully Updated");
+        return redirect('admin/tiffin-bill')->withMsg('Successfully Updated');
     }
 
     /**

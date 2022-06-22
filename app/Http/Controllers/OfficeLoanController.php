@@ -98,9 +98,11 @@ class OfficeLoanController extends Controller
     }
     public function advanceInfo(Request $request)
     {
-        $advance_loans = OfficeLoan::where('period',$request->period)->get();
+        // return $request->all();
+        $date =  Carbon::parse($request->date)->format('Y-m-d');
+        $advance_loans = OfficeLoan::where('user_id',$request->id)->where('period',$date)->get();
+        
         return $advance_loans;
-        return response(OfficeLoan::find($request->id));
     }
 
 }

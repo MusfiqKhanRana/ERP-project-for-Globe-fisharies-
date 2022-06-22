@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('site-title')
-   Tiffin Bill
+   Employee Bill
 @endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
@@ -23,12 +23,12 @@
                 </script>
             @endif
             <h3 class="page-title bold form-inline">HR Management
-                <small> Employee Tiffin Bill </small>
+                <small> Employee Bill </small>
                 {{-- <div class="form-group" style="margin-left: 10%">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </div> --}}
                 <a class="btn blue-ebonyclay pull-right" data-toggle="modal" href="#basic">
-                    Add New Tiffin Bill
+                    Add New Bill
                     <i class="fa fa-plus"></i>
                 </a>
             </h3>
@@ -53,7 +53,7 @@
                     <div class="portlet box blue-chambray">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-briefcase"></i>Items List
+                                <i class="fa fa-briefcase"></i>Employee Bill
                             </div>
                             <div class="tools">
                             </div>
