@@ -62,26 +62,26 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Name <span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="name" placeholder="Employee Name" value="">
+                                            <input type="text" class="form-control" name="name" placeholder="Employee Name" value="" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Father's Name <span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="f_name" placeholder="Father Name">
+                                            <input type="text" class="form-control" name="f_name" placeholder="Father Name" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Mother's Name <span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="mother_name" placeholder="Mother Name">
+                                            <input type="text" class="form-control" name="mother_name" placeholder="Mother Name" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Date of Birth <span class="required">* </span></label>
                                         <div class="col-md-3">
                                             <div class="input-group input-medium date date-picker"  data-date-format="dd-mm-yyyy" data-date-viewmode="years">
-                                                <input type="text" class="form-control" name="b_date" readonly value="">
+                                                <input type="text" class="form-control" name="b_date" readonly value="" required>
                                                 <span class="input-group-btn">
                                                     <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                                 </span>
@@ -91,7 +91,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Gender <span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <select class="form-control" name="gender">
+                                            <select class="form-control" name="gender" required>
                                                 <option value="male">Male</option>
                                                 <option value="female">Female</option>
                                                 <option value="others">Others</option>
@@ -101,7 +101,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Blood Group <span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <select class="form-control" name="blood">
+                                            <select class="form-control" name="blood" required>
                                                 <option>N/A</option>
                                                 <option value="A+">A +(ve)</option>
                                                 <option value="B+">B +(ve)</option>
@@ -117,39 +117,39 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Phone <span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="phone" placeholder="Contact Number" value="">
+                                            <input type="text" class="form-control" name="phone" placeholder="Contact Number" value="" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">E-mail</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="e_mail" placeholder="Enter your E-mail" value="">
+                                            <input type="text" class="form-control" name="e_mail" placeholder="Enter your E-mail" value="" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Present Address <span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <textarea class="form-control" name="local_add" rows="3"></textarea>
+                                            <textarea class="form-control" name="local_add" rows="3" required></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Permanent Address <span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <textarea class="form-control" name="per_add" rows="3"></textarea>
+                                            <textarea class="form-control" name="per_add" rows="3" required></textarea>
                                         </div>
                                     </div>
                                     <h4><strong>Account Login</strong></h4>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Email<span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <input type="text" name="email" class="form-control" value="">
+                                            <input type="text" name="email" class="form-control" value="" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Password<span class="required">* </span></label>
                                         <div class="col-md-9">
                                             <input type="hidden" name="oldpassword">
-                                            <input type="password" name="password" class="form-control" value="">
+                                            <input type="password" name="password" class="form-control" value="" required>
                                         </div>
                                     </div>
                                 </div>
@@ -203,16 +203,16 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label for="product">Basic <span class="required">* </span></label>
-                                                <input type="text" class="form-control" name="basic" id="basic" placeholder="Basic">
+                                                <input type="text" class="form-control" name="basic" id="basic" placeholder="Basic" required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="product">Medical <span class="required">* </span></label>
-                                                <input type="text" class="form-control" name="medical_allowance" id="medical_allowance" placeholder="Medical">
+                                                <input type="text" class="form-control" name="medical_allowance" id="medical_allowance" placeholder="Medical" required>
                                             </div>
                                         
                                             <div class="col-md-4">
                                                 <label for="product">House Rent <span class="required">* </span></label>
-                                                <input type="text" class="form-control" name="house_rent" id="house_rent" placeholder="House">
+                                                <input type="text" class="form-control" name="house_rent" id="house_rent" placeholder="House" required>
                                             </div>
                                         </div>
                                         {{-- <div class="row">
@@ -283,7 +283,7 @@
                                         <label class="col-md-3 control-label">Department <span class="required">* </span></label>
                                         <div class="col-md-9">
                                            
-                                            <select class="form-control select2me" id="department" name="dept_id">
+                                            <select class="form-control select2me" id="department" name="dept_id" required>
                                                 <option value="">--Select--</option>
                                                 @foreach($department as $dep)
                                                     <option value="{{$dep->id}}">{{$dep->name}}</option>
@@ -295,7 +295,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Designation <span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <select  class="select2me form-control" name="deg_id" id="designation" >
+                                            <select  class="select2me form-control" name="deg_id" id="designation" required>
 
                                             </select>
                                         </div>
@@ -306,7 +306,7 @@
                                             @php
                                                 $employee_code =  random_int(100000, 999999);
                                             @endphp
-                                            <input type="text" class="form-control" name="employee_id" placeholder="Employee ID" value="{{$employee_code}}" readonly>
+                                            <input type="text" class="form-control" name="employee_id" placeholder="Employee ID" value="{{$employee_code}}" readonly >
                                         </div>
                                     </div> 
                                     <div class="form-group">
@@ -329,7 +329,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Branch Address<span class="required">*</span></label>
                                         <div class="col-md-9">
-                                            <textarea class="form-control" name="branch_address" rows="3"></textarea>
+                                            <textarea class="form-control" name="branch_address" rows="3" required></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -346,19 +346,19 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Account Holder Name</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="ac_name" placeholder="Account Holder Name" value="">
+                                            <input type="text" class="form-control" name="ac_name" placeholder="Account Holder Name" value="" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Account Number</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="ac_num" placeholder="Account Number" value="">
+                                            <input type="text" class="form-control" name="ac_num" placeholder="Account Number" value="" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Bank Name</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="bank_name" placeholder="BANK Name" value="">
+                                            <input type="text" class="form-control" name="bank_name" placeholder="BANK Name" value="" required>
                                         </div>
                                     </div>
                                     {{-- <div class="form-group">
@@ -376,7 +376,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Branch</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="branch" placeholder="BRANCH" value="">
+                                            <input type="text" class="form-control" name="branch" placeholder="BRANCH" value="" required>
                                         </div>
                                     </div>
                                 </div>
@@ -393,7 +393,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label"> Status <span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <select class="form-control" id="status" name="status">
+                                            <select class="form-control" id="status" name="status" required>
                                                 <option value="Probational">Probational</option>
                                                 <option value="Permanent">Permanent</option>
                                                 <option value="Retired">Retired</option>
@@ -404,7 +404,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label"> User Shift<span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <select class="form-control" id="user_shift" name="user_shift_id">
+                                            <select class="form-control" id="user_shift" name="user_shift_id" required>
                                                 <option value="">--Select--</option>
                                                 @foreach ($user_shift as $item)
                                                     <option value="{{$item->id}}">{{$item->name}}</option>
@@ -489,13 +489,13 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Casual Leave<span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="c_leave" placeholder="Casual Leave" value="">
+                                            <input type="text" class="form-control" name="c_leave" placeholder="Casual Leave" value="" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Medical Leave<span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" name="m_leave" placeholder="Medical Leave" value="">
+                                            <input type="text" class="form-control" name="m_leave" placeholder="Medical Leave" value="" required>
                                         </div>
                                     </div>
                                     <div class="form-group">

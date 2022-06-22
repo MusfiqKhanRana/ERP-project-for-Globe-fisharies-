@@ -235,7 +235,8 @@
                 success:function(data){
                     // console.log(data);
                     var total_amount = 0;
-                    $.each( data, function( key, product ) { 
+                    $.each( data, function( key, product ) {
+                        if (product.type == "advance") 
                         total_amount += product.amount;
                     });
                     console.log(total_amount);
