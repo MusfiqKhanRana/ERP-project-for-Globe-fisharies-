@@ -177,14 +177,45 @@ class ProductionGeneralPurchaseQuotationController extends Controller
     //    dd($cs_item);
         return view('backend.production.general_purchase.cs.cs_list_show',compact('cs_item'));
     }
+    public function shownegotiation(Request $request, $id){
+        // dd($id);
+        // return ProductionPurchaseRequisitionItem::with(['production_general_purchase_quotation'])->get();
+        $purchase_requisition = ProductionGeneralPurchaseQuotation::get();
+        $cs_item = ProductionPurchaseRequisitionItem::with([
+            'production_general_purchase_quotation'=>function($q){
+                $q->where('status','InNegotiation')->with('supplier');
+            },
+            'production_purchase_requisition'=>function($q){
+                $q->with('users','departments');
+            }
+
+        ])->where('id',$id)->first();
+    //    dd($cs_item->toArray());
+        return view('backend.production.general_purchase.production_purchase_negotiation.show',compact('cs_item'));
+    }
     public function quotation_delete($id){
         // dd($id);
         ProductionGeneralPurchaseQuotation::where('id',$id)->update(['status'=>'Reject']);
         return redirect()->back()->withmsg('Successfully Deleted Quotation');
     }
-    public function quotation_confirm($id){
-        // dd($id);
-        ProductionGeneralPurchaseQuotation::where('id',$id)->update(['status'=>'InPurchase']);
+    public function quotation_confirm(Request $request){
+        // dd($request->all());
+        // $variable=ProductionGeneralPurchaseQuotation::where('production_purchase_requisition_item_id',$request->item_id)->get();
+        // // dd($variable->toArray());
+        // $itemTypes = [];
+        // foreach ($variable as $key => $value) {
+        //     // dd($value);
+        //     array_push($itemTypes,$value->id); 
+        // }
+        // dd($itemTypes);
+
+        // ProductionGeneralPurchaseQuotation::whereIn('production_purchase_requisition_item_id',$itemTypes)->update(['status'=>'Reject']);
+        ProductionGeneralPurchaseQuotation::where('id',$request->quotation_id)->update(['status'=>'InPurchase']);
+        ProductionPurchaseRequisitionItem::where('id',$request->item_id)->update([
+            'confirm_rate'=>$request->nego_price,
+            'supplier_info' => $request->supplier_info,
+            'status'=>'InPurchase'
+       ]);
         return redirect()->back()->withmsg('Successfully Confirmed');
     }
 }
