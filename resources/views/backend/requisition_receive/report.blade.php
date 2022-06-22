@@ -172,7 +172,7 @@
                                                             @if($item->pivot->received_quantity != $item->pivot->final_quantity)
                                                                 <tr>
                                                                     <td>{{++$key2}}</td>
-                                                                    <td>{{$item->category_type}}</td>
+                                                                    <td>{{$item->processing_name}}</td>
                                                                     <td>{{$item->supplyitem->name}}</td>
                                                                     <td>{{$item->pack->name}}</td>
                                                                     <td>

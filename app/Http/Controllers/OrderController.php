@@ -189,7 +189,7 @@ class OrderController extends Controller
     
     public function product_pass(Request $request){
         $id = $request->id;
-        $warehouse = Product::where('category_type',$id)->get();
+        $warehouse = Product::where('processing_name',$id)->get();
         $process_product = $this->processWarehouseProduct($warehouse);
         // $output ="";
         // foreach($process_product as $value){
@@ -201,7 +201,7 @@ class OrderController extends Controller
     }
     public function addproduct_pass(Request $request){
         $id = $request->id;
-        $product = Product::where('category_type',$id)->get();
+        $product = Product::where('processing_name',$id)->get();
         $output ="";
 
         foreach($product as $value){

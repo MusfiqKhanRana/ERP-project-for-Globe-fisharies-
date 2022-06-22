@@ -134,30 +134,63 @@
                                 <div class="col-md-12">
                                     <div class="col-md-12">
                                         <label class="control-label">Select Category<span class="required">* </span></label>
-                                        <select class="form-control" name="category_type" required>
-                                            <option value="">-- Select Category --</option>
-                                            <option value="Block" >Block</option>
-                                            <option value="IQF" >IQF</option>
-                                            {{-- @foreach($category as $a)
-                                                <option value="{{$a->id}}" >{{$a->name}}</option>
-                                            @endforeach --}}
+                                        <select class="form-control type" name="processing_name" required>
+                                            
+                                                    <option value="">--Select--</option>
+                                                    <option value="iqf">IQF</option>
+                                                    <option value="block_frozen">Block Frozen</option>
+                                                    <option value="raw_bf_shrimp">Raw BF(Shrimp)</option>
+                                                    <option value="raw_iqf_shrimp">Raw IQF(Shrimp)</option>
+                                                    <option value="semi_iqf">Semi IQF</option>
+                                                    <option value="cooked_iqf_shrimp">Cooked IQF(Shrimp)</option>
+                                                    <option value="blanched_iqf_shrimp">Balanched IQF(Shrimp)</option>
+                                               
                                         </select>
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" id="dead_input">
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="col-md-12">
                                         <label class="control-label">Select Variant<span class="required">* </span></label>
-                                        <select class="form-control" name="variant" required>
-                                            <option value="">-- Select Variant --</option>
-                                            <option value="IQF" >IQF</option>
-                                            <option value="Block Frozen" >Block Frozen</option>
-                                            <option value="Raw BF">Raw BF (Shrimp)</option>
-                                            <option value="Raw IQF" >Raw IQF (Shrimp)</option>
-                                            <option value="Semi IQF" >Semi IQF (Shrimp)</option>
-                                            <option value="Coocked IQF">Coocked IQF (Shrimp)</option>
-                                            <option value="Blanched IQF" >Blanched IQF (Shrimp)</option>
+                                        <select class="form-control varient" name="variant" required>
+                                            
+                                                    <option class="iqf" value="fillet">Fillet</option>
+                                                    <option class="iqf" value="whole">Whole</option>
+                                                    <option class="iqf" value="whole_gutted">Whole Gutted</option>
+                                                    <option class="iqf" value="cleaned">Cleaned</option>
+                                                    <option class="iqf" value="sliced_fmly_cut">Sliced(Family Cut)</option>
+                                                    <option class="iqf" value="sliced_chinese_cut">Sliced(Chinese Cut)</option>
+                                                    <option class="iqf" value="butter_fly">Butter Fly</option>
+                                                    <option class="iqf" value="hgto">HGTO</option>
+                                                    <option class="block_frozen" value="whole">Whole</option>
+                                                    <option class="block_frozen" value="clean">Clean</option>
+                                                    <option class="block_frozen" value="slice">Slice</option>
+                                                    <option class="raw_bf_shrimp" value="hlso">HLSO</option>
+                                                    <option class="raw_bf_shrimp" value="pud">PUD</option>
+                                                    <option class="raw_bf_shrimp" value="p_n_d">P & D</option>
+                                                    <option class="raw_bf_shrimp" value="pdto">PDTO</option>
+                                                    <option class="raw_bf_shrimp" value="pto">PTO</option>
+                                                    <option class="raw_iqf_shrimp" value="hlso">HLSO</option>
+                                                    <option class="raw_iqf_shrimp" value="pud">PUD</option>
+                                                    <option class="raw_iqf_shrimp" value="p_n_d_tail_on">P&D Tail On</option>
+                                                    <option class="raw_iqf_shrimp" value="p_n_d_tail_off">P&D Tail Off</option>
+                                                    <option class="raw_iqf_shrimp" value="special_cut_p_n_d">Special Cut P&D</option>
+                                                    <option class="raw_iqf_shrimp" value="hlso_easy_pell">HLSO Easy Pell</option>
+                                                    <option class="raw_iqf_shrimp" value="butterfly_pud_skewer">Butterfly/PUD Skewer</option>
+                                                    <option class="raw_iqf_shrimp" value="pud_pull_vein">PUD Pull Vein</option>
+                                                    <option class="semi_iqf" value="hoso">HOSO</option>
+                                                    <option class="semi_iqf" value="hoto">HOTO</option>
+                                                    <option class="cooked_iqf_shrimp" value="hoso">HOSO</option>
+                                                    <option class="cooked_iqf_shrimp" value="pud">PUD</option>
+                                                    <option class="cooked_iqf_shrimp" value="p_n_d_tail_on">P&D Tail On</option>
+                                                    <option class="cooked_iqf_shrimp" value="p_n_d_tail_off">P&D Tail Off</option>
+                                                    <option class="blanched_iqf_shrimp" value="hoso">HOSO</option>
+                                                    <option class="blanched_iqf_shrimp" value="pud">PUD</option>
+                                                    <option class="blanched_iqf_shrimp" value="p_n_d_tail_on">P&D Tail On</option>
+                                                    <option class="blanched_iqf_shrimp" value="p_n_d_tail_off">P&D Tail Off</option>
+                                                
                                         </select>
                                     </div>
                                 </div>
@@ -254,9 +287,12 @@
     </div>
     @endsection
     @section('script')
+    <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            $(".varient").chained(".type");
+           
             $('#subCategory').find('option').not(':first').remove();
         
             $.ajax({

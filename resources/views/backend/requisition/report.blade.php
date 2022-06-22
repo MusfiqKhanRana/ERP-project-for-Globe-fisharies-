@@ -195,7 +195,7 @@
                                                                         <tr>
                                                                             @if($item->pivot->resolve_quantity >0)
                                                                             <td>{{++$key2}}</td>
-                                                                            <td>{{$item->category_type}}</td>
+                                                                            <td>{{$item->processing_name}}</td>
                                                                             <td>{{$item->supplyitem->name}}</td>
                                                                             <td>{{$item->pack->name}}</td>
                                                                             <td>{{$item->pivot->quantity}}</td>
@@ -245,7 +245,7 @@
                                                                          @elseif($data->status == "OnHold")
                                                                             <tr>
                                                                                 <td>{{++$key2}}</td>
-                                                                                <td>{{$item->category_type}}</td>
+                                                                                <td>{{$item->processing_name}}</td>
                                                                                 <td>{{$item->supplyitem->name}}</td>
                                                                                 <td>{{$item->pack->name}}</td>
                                                                                 <td>{{$item->pivot->quantity}}</td>
@@ -292,7 +292,7 @@
                                                                             @else
                                                                             <tr>
                                                                                 <td>{{++$key2}}</td>
-                                                                                <td>{{$item->category_type}}</td>
+                                                                                <td>{{$item->processing_name}}</td>
                                                                                 <td>{{$item->supplyitem->name}}</td>
                                                                                 <td>{{$item->pack->name}}</td>
                                                                                 <td>{{$item->pivot->quantity}}</td>

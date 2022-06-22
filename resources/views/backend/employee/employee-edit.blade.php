@@ -575,7 +575,7 @@
 
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-2">Offer Letter</label>
+                                                <label class="control-label col-md-2">Appointment Letter</label>
                                                 <div class="col-md-5">
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <div class="input-group input-large">
@@ -588,12 +588,12 @@
                                                               Select file </span>
                                                               <span class="fileinput-exists">
                                                               Change </span>
-                                                              <input type="file" name="offer_letter">
+                                                              <input type="file" name="appointment_letter">
                                                               </span>
                                                             <a href="#" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
                                                                 Remove </a>
                                                             <div class="col-md-3">
-                                                                <a href="{{asset('assets/images/employee/offeringLetter/'.$employee->offer_letter)}}" target="_blank" class="btn dark">Offer Letter</a>
+                                                                <a href="{{asset('assets/images/employee/appointmentLetter/'.$employee->appointment_letter)}}" target="_blank" class="btn dark">View Appointment Letter</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -625,7 +625,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-2">Contract and Agreement</label>
+                                                <label class="control-label col-md-2">Academic Certificate</label>
                                                 <div class="col-md-5">
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <div class="input-group input-large">
@@ -638,13 +638,13 @@
                                                               Select file </span>
                                                               <span class="fileinput-exists">
                                                               Change </span>
-                                                              <input type="file" name="con_letter">
+                                                              <input type="file" name="academic_certificate">
                                                               </span>
                                                             <a href="#" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
                                                                 Remove </a>
 
                                                             <div class="col-md-3">
-                                                                <a href="{{asset('assets/images/employee/contractLetter/'. $employee->con_letter)}}" target="_blank"  class="btn dark">View Contract</a>
+                                                                <a href="{{asset('assets/images/employee/academicCertificate/'. $employee->academic_certificate)}}" target="_blank"  class="btn dark">View Academic Certificate</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -670,6 +670,31 @@
                                                                 Remove </a>
                                                             <div class="col-md-3">
                                                                 <a href="{{asset('assets/images/employee/idProof/'. $employee->proof)}}" target="_blank"  class="btn dark">View ID Proof</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">Experience Certificate</label>
+                                                <div class="col-md-5">
+                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                        <div class="input-group input-large">
+                                                            <div class="form-control uneditable-input" data-trigger="fileinput">
+                                                                <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
+                                                             </span>
+                                                            </div>
+                                                            <span class="input-group-addon btn default btn-file">
+                                                              <span class="fileinput-new">
+                                                              Select file </span>
+                                                              <span class="fileinput-exists">
+                                                              Change </span>
+                                                              <input type="file" name="experience_certificate">
+                                                              </span>
+                                                            <a href="#" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
+                                                                Remove </a>
+                                                            <div class="col-md-3">
+                                                                <a href="{{asset('assets/images/employee/experienceCertificate/'. $employee->experience_certificate)}}" target="_blank"  class="btn dark">View Experience Certificate</a>
                                                             </div>
                                                         </div>
                                                     </div>

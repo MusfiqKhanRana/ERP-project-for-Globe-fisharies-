@@ -130,11 +130,11 @@ class EmployeeController extends Controller
             $employee->resume = $filename;
         }
         //                file Upload
-        if ($request->hasFile('offer_letter')) {
-            $file = $request->file('offer_letter');
+        if ($request->hasFile('appointment_letter')) {
+            $file = $request->file('appointment_letter');
             $filename = time() . '.' . 'pdf';
-            $file->move('assets/images/employee/offeringLetter/', $filename);
-            $employee->offer_letter = $filename;
+            $file->move('assets/images/employee/appointmentLetter/', $filename);
+            $employee->appointment_letter = $filename;
         }
         //                file Upload
         if ($request->hasFile('join_letter')) {
@@ -144,11 +144,18 @@ class EmployeeController extends Controller
             $employee->join_letter = $filename;
         }
         //                file Upload
-        if ($request->hasFile('con_letter')) {
-            $file = $request->file('con_letter');
+        if ($request->hasFile('academic_certificate')) {
+            $file = $request->file('academic_certificate');
             $filename = time() . '.' . 'pdf';
-            $file->move('assets/images/employee/contractLetter/', $filename);
-            $employee->con_letter = $filename;
+            $file->move('assets/images/employee/academicCertificate/', $filename);
+            $employee->academic_certificate = $filename;
+        }
+        //                file Upload
+        if ($request->hasFile('experience_certificate')) {
+            $file = $request->file('experience_certificate');
+            $filename = time() . '.' . 'pdf';
+            $file->move('assets/images/employee/experienceCertificate/', $filename);
+            $employee->experience_certificate = $filename;
         }
         //                file Upload
         if ($request->hasFile('proof')) {
@@ -381,10 +388,11 @@ class EmployeeController extends Controller
         $employee = User::find($id);
         $this->validate($request,array(
             'resume'=> 'nullable|mimes:pdf,doc',
-            'offer_letter'=> 'nullable|mimes:pdf,doc',
+            'appointment_letter'=> 'nullable|mimes:pdf,doc',
             'join_letter'=> 'nullable|mimes:pdf,doc',
-            'con_letter'=> 'nullable|mimes:pdf,doc',
+            'academic_certificate'=> 'nullable|mimes:pdf,doc',
             'proof'=> 'nullable|mimes:pdf,doc',
+            'experience_certificate'=> 'nullable|mimes:pdf,doc',
 
         ));
 
@@ -397,12 +405,12 @@ class EmployeeController extends Controller
             $employee->resume = $filename;
         }
         //                file Upload
-        if ($request->hasFile('offer_letter')) {
+        if ($request->hasFile('appointment_letter')) {
 
-            $file = $request->file('offer_letter');
+            $file = $request->file('appointment_letter');
             $filename = time() . '.' . 'pdf';
-            $file->move('assets/images/employee/offeringLetter/', $filename);
-            $employee->offer_letter = $filename;
+            $file->move('assets/images/employee/appointmentLetter/', $filename);
+            $employee->appointment_letter = $filename;
         }
         //                file Upload
         if ($request->hasFile('join_letter')) {
@@ -413,14 +421,22 @@ class EmployeeController extends Controller
             $employee->join_letter = $filename;
         }
         //                file Upload
-        if ($request->hasFile('con_letter')) {
+        if ($request->hasFile('academic_certificate')) {
 //
-            $file = $request->file('con_letter');
+            $file = $request->file('academic_certificate');
             $filename = time() . '.' . 'pdf';
-            $file->move('assets/images/employee/contractLetter/', $filename);
-            $employee->con_letter = $filename;
+            $file->move('assets/images/employee/academicCertificate/', $filename);
+            $employee->academic_certificate = $filename;
         }
-        //                file Upload
+        //  
+        if ($request->hasFile('experience_certificate')) {
+        //
+        $file = $request->file('experience_certificate');
+        $filename = time() . '.' . 'pdf';
+        $file->move('assets/images/employee/academicCertificate/', $filename);
+        $employee->experience_certificate = $filename;
+    }
+//                   file Upload
         if ($request->hasFile('proof')) {
 //
             $file = $request->file('proof');

@@ -43,10 +43,10 @@ class SalePointController extends Controller
         foreach($product as $value){
             // return $value->product->pack;
             if ($value->product->supplyitem->market_name == null) {
-                $output.= '<option data-pack_weight="'.$value->product->pack->weight.'" data-product_price="'.$value->price.'" data-category_name="'.$value->product->category_type.'" data-pack_name="'.$value->product->pack->name.'" value="'.$value->product_id.'">'.$value->product->supplyitem->name.'-'.$value->product->pack->name.'</option>';
+                $output.= '<option data-pack_weight="'.$value->product->pack->weight.'" data-product_price="'.$value->price.'" data-category_name="'.$value->product->processing_name.'" data-pack_name="'.$value->product->pack->name.'" value="'.$value->product_id.'">'.$value->product->supplyitem->name.'-'.$value->product->pack->name.'</option>';
             }
             if ($value->product->supplyitem->market_name != null) {
-                $output.= '<option data-pack_weight="'.$value->product->pack->weight.'" data-product_price="'.$value->price.'" data-category_name="'.$value->product->category_type.'" data-pack_name="'.$value->product->pack->name.'" value="'.$value->product_id.'">'.$value->product->supplyitem->market_name.'-'.$value->product->pack->name.'</option>';
+                $output.= '<option data-pack_weight="'.$value->product->pack->weight.'" data-product_price="'.$value->price.'" data-category_name="'.$value->product->processing_name.'" data-pack_name="'.$value->product->pack->name.'" value="'.$value->product_id.'">'.$value->product->supplyitem->market_name.'-'.$value->product->pack->name.'</option>';
             }
         }
         $data['output'] = $output;
