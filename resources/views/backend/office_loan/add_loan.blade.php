@@ -81,12 +81,12 @@
                                         <div class="col-md-6">
                                             <div class="col-md-6">
                                                 <label>
-                                                    <input type="radio" class="form-control" name="type" value="advance" checked> Advance Salary
+                                                    <input type="radio" id="type_adbance" class="form-control" name="type" value="advance" checked> Advance Salary
                                                 </label>
                                             </div>
                                             <div class="col-md-6">
                                                 <label>
-                                                    <input type="radio" class="form-control" name="type" value="loan"> General Loan
+                                                    <input type="radio" id="type_loan" class="form-control" name="type" value="loan"> General Loan
                                                 </label>
                                             </div>
                                         </div>
@@ -115,12 +115,11 @@
                                             <input type="number" class="form-control" id="monthly_deduction_field"  placeholder="Deduction (Monthly)" readonly >
                                         </div>
                                     </div>
-                                    <div id="advance_info">
-                                       
-                                    </div>
                                     <div class="form-group" id="period">
                                         <label class="control-label col-md-2">Period: </label>
                                         <div class="col-md-6">
+                                            <p type="text" id="advance_info"></p>
+                                            <input type="hidden" id="advance_loan">
                                             <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm" data-date-viewmode="years">
                                                 <input type="text" class="form-control" name="period" id="period_field"  readonly >
                                                 <span class="input-group-btn">
@@ -128,9 +127,6 @@
                                                 </span>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div id="advance_loan">
-                                       
                                     </div>
                                     <div class="form-group" id="date">
                                         <label class="control-label col-md-2">Disbursement Date: </label>
@@ -244,7 +240,7 @@
                     var $results = $('#advance_info');
                     var $userDiv = $results.append('<div class="user-div"></div>')
                     $( '<div class="row">'+
-                        '<div class="col-md-9 text-center"><span> <b>Advance Salary: </b></span>'+total_amount+'</div>'
+                        '<span class="col-md-9 text-center"><span> <b>Advance Salary: </b></span>'+total_amount+'</div>'
                     +'</div>').appendTo( ".user-div" );
                 }
             });
