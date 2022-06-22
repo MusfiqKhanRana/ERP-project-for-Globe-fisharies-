@@ -74,6 +74,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <input type="hidden" name="requisition_id" value="{{$cs_item->production_purchase_requisition_id}}">
                                     <input type="hidden" name="item_id" value="{{$cs_item->id}}">
                                     @foreach($cs_item->production_general_purchase_quotation as $key=> $data)
                                     <tr>

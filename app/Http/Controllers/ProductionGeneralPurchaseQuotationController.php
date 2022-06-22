@@ -118,7 +118,7 @@ class ProductionGeneralPurchaseQuotationController extends Controller
         return view('backend.production.general_purchase.quotation.add_quotation');
     }
     public function confirmquotation(Request $request){
-        $requisition=ProductionPurchaseRequisition::with(['production_requisition_item'=>function($q){
+        $requisition=ProductionPurchaseRequisition::where('status','ConfirmQuotation')->with(['production_requisition_item'=>function($q){
             $q->with('items');
         },'departments','users'])->paginate(10);
         $dept = Department::all();
@@ -156,9 +156,12 @@ class ProductionGeneralPurchaseQuotationController extends Controller
         // dd($request);
         // $data = $request->all();
         //dd($data);
+        ProductionPurchaseRequisition::where('id',$request->requisition_id)->update([
+            'status' => 'ConfirmQuotation'
+        ]);
         $confirm= ProductionPurchaseRequisitionItem::where('id',$request->requisition_item_id)->update(['status'=>'ConfirmQuotation']);
         //dd($confirm);
-        return redirect()->route('production-quotation-confirmquotation')->withmsg('Successfully Confirmed Quotation');
+        return redirect()->route('production-purchase-quotation')->withmsg('Successfully Confirmed Quotation');
     }
     public function showcs(Request $request, $id){
         // dd($id);
