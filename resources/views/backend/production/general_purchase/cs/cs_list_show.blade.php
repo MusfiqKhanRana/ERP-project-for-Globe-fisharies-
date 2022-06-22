@@ -76,6 +76,7 @@
                                 </thead>
                                 <tbody>
                                     <input type="hidden" name="item_id" value="{{$cs_item->id}}">
+                                    <input type="hidden" name="requisition_id" value="{{$cs_item->production_purchase_requisition_id}}">
                                     @php
                                         $ifBtn=false;
                                     @endphp
