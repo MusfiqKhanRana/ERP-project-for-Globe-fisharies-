@@ -181,7 +181,7 @@ class ProductionPurchaseRequisitionController extends Controller
         return view('backend.production.general_purchase.quotation.index',compact('supplier','requisition'));
     }
     public function negotiation(){
-        $requisition=ProductionPurchaseRequisition::where('status','Quotation')->with(
+        $requisition=ProductionPurchaseRequisition::where('status','QuotationNegotiation')->with(
         ['items' => function($q){
             $q->where([
                 'status'=>'QuotationNegotiation'
@@ -223,7 +223,7 @@ class ProductionPurchaseRequisitionController extends Controller
                 ->update([
                     'negotiable_price'=>$price,
                     'cs_remark' =>$remark,
-                    "status"=>"InCS",
+                    "status"=>"InNegotiation",
                 ]);
             }else{
                 $price_arr =array($data['negotiable_price'][$i]);
@@ -241,6 +241,9 @@ class ProductionPurchaseRequisitionController extends Controller
             // dd($affected);
             ProductionPurchaseRequisitionItem::where('id',$request->item_id)->update([
                 'status'=>'QuotationNegotiation'
+            ]);
+            ProductionPurchaseRequisition::where('id',$request->requisition_id)->update([
+                'status' => 'QuotationNegotiation'
             ]);
         }
 
@@ -284,10 +287,13 @@ class ProductionPurchaseRequisitionController extends Controller
             ProductionPurchaseRequisitionItem::where('id',$request->item_id)->update([
                 'status'=>'ConfirmQuotation'
             ]);
+            ProductionPurchaseRequisition::where('id',$request->requisition_id)->update([
+                'status' => 'ConfirmQuotation'
+            ]);
         }
 
         // return redirect()->back();
-        return redirect()->route('production-quotation-confirmquotation');
+        return redirect()->route('production.purchase.negotiation');
     }
 
     public function block_data_pass(Request $request){

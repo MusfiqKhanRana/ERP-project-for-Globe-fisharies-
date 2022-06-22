@@ -43,7 +43,7 @@
             <div class="portlet box blue-chambray">
                 <div class="portlet-title">
                 <div class="caption">
-                <i class="fa fa-briefcase"></i>CS List
+                <i class="fa fa-briefcase"></i>Negotiation List
                 </div>
                     {{-- <div class="caption pull-right">
                         <a class="btn green-meadow pull-right" data-toggle="modal" href="#add_procution_purchase_units">
