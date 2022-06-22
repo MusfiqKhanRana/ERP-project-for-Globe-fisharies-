@@ -27,7 +27,7 @@ class CreateProductionPurchaseRequisitionItemsTable extends Migration
             $table->integer('quantity')->nullable();
             $table->string('supplier_info')->nullable();
             $table->longText('specification')->nullable();
-            $table->enum('status', ['AddQuotation','ShowQuotation','ConfirmQuotation'])->default('AddQuotation');
+            $table->enum('status', ['AddQuotation','ShowQuotation','ConfirmQuotation','QuotationNegotiation'])->default('AddQuotation');
             $table->longText('remark')->nullable();
             $table->integer('requisition_code')->nullable();
             $table->timestamps();

@@ -460,7 +460,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Procution Purchase Item
     Route::resource('production-purchase-item', ProductionPurchaseItemController::class);
 
-    //Production Purchase Requisition 
+    Route::post('production/purchase/quotation/negotiation_data_pass',[ProductionPurchaseRequisitionController::class,'negotiation_data_pass'])->name('production.purchase.quotation.negotiation_data_pass');
+    Route::get('production/purchase/negotiation',[ProductionPurchaseRequisitionController::class,'negotiation'])->name('production.purchase.negotiation'); //Production Purchase Requisition 
     Route::post('production/purchase/quotation/cs/data-pass',[ProductionPurchaseRequisitionController::class,'cs_data_pass'])->name('production.purchase.quotation.cs.data_pass');
     Route::post('production/purchase/quotation/data-pass',[ProductionPurchaseRequisitionController::class,'add_quotation_data_pass'])->name('production.purchase.quotation.data_pass');
     Route::get('production/purchase/quotation',[ProductionPurchaseRequisitionController::class,'quotation'])->name('production-purchase-quotation');
@@ -562,7 +563,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     // })->name('production.purchase.cs.show');
 
     //Route::resource('production-quotation-confirm',ProductionRequisitionItemController::class);
-    Route::get('production/quotation/confirm/{id}',[ProductionGeneralPurchaseQuotationController::class,'quotation_confirm'])->name('production.quotation.confirm');
+    Route::get('production-negotiation-show/{id}',[ProductionGeneralPurchaseQuotationController::class,'shownegotiation'])->name('production-negotiation-show');
+    Route::post('production/quotation/confirm',[ProductionGeneralPurchaseQuotationController::class,'quotation_confirm'])->name('production.quotation.confirm');
     Route::get('production-quotation-reject/{id}',[ProductionGeneralPurchaseQuotationController::class,'quotation_delete'])->name('production.quotation.reject');
     Route::get('production-cs-show/{id}',[ProductionGeneralPurchaseQuotationController::class,'showcs'])->name('production-cs-show');
     Route::post('production-quotation-confirm',[ProductionGeneralPurchaseQuotationController::class,'confirmqQuotation'])->name('production-quotation-confirm');

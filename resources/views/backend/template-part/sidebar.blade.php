@@ -852,6 +852,11 @@
                                             <span class="title">Quotation List</span>
                                         </a>
                                     </li>
+                                    <li class="nav-item  @if( request()->path() == 'admin/production/purchase/negotiation' ) active open @endif">
+                                        <a href="{{route('production.purchase.negotiation')}}" class="nav-link ">
+                                            <span class="title">Negotiation List</span>
+                                        </a>
+                                    </li>
                                     <li class="nav-item  @if( request()->path() == 'admin/production-quotation-confirmquotation' ) active open @endif">
                                         <a href="{{route('production-quotation-confirmquotation')}}" class="nav-link ">
                                             <span class="title">CS List</span>
