@@ -129,7 +129,9 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    <div id="advance_loan">
+                                       
+                                    </div>
                                     <div class="form-group" id="date">
                                         <label class="control-label col-md-2">Disbursement Date: </label>
                                         <div class="col-md-6">
@@ -215,24 +217,35 @@
         $('#amount_field,#instalment_field').keyup(function(){
             $('#monthly_deduction_field').val($('#amount_field').val()/$('#instalment_field').val());
         })
+        // $('#employee_id').change(function(){
+        //     console.log($(this).val());
+        // })
+       
         $("#period_field").change(function() {
+            //console.log($('#amount').val());
             $.ajax({
                 type:"POST",
                 url:"{{route('advance.info')}}",
                 data:{
+                    'id' : $('#employee_id').val(),
+                    'amount' : $('#amount').val(),
                     'date' : $(this).val(),
                     '_token' : $('input[name=_token]').val()
                 },
                 success:function(data){
-                    console.log(data);
-                    // $("#advance_info").empty();
-                    // $("#advance_info").text(data);
-                    // console.log(advance_info);
-                    // var $results = $('#advance_info');
-                    // var $userDiv = $results.append('<div class="user-div"></div>')
-                    // $( '<div class="row">'+
-                    //     '<div class="col-md-9 text-center"><span> <b>Advance Salary: </b></span>'+data.amount+'</div>'
-                    // +'</div>').appendTo( ".user-div" );
+                    // console.log(data);
+                    var total_amount = 0;
+                    $.each( data, function( key, product ) {
+                        if (product.type == "advance") 
+                        total_amount += product.amount;
+                    });
+                    console.log(total_amount);
+                    $("#advance_info").empty();               
+                    var $results = $('#advance_info');
+                    var $userDiv = $results.append('<div class="user-div"></div>')
+                    $( '<div class="row">'+
+                        '<div class="col-md-9 text-center"><span> <b>Advance Salary: </b></span>'+total_amount+'</div>'
+                    +'</div>').appendTo( ".user-div" );
                 }
             });
         });

@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('site-title')
-   Tiffin Bill
+   Employee Bill
 @endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
@@ -23,14 +23,14 @@
                 </script>
             @endif
             <h3 class="page-title bold form-inline">HR Management
-                <small> Employee Tiffin Bill </small>
+                <small> Employee Bill </small>
                 {{-- <div class="form-group" style="margin-left: 10%">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </div> --}}
-                <a class="btn blue-ebonyclay pull-right" data-toggle="modal" href="#basic">
+                {{-- <a class="btn blue-ebonyclay pull-right" data-toggle="modal" href="#basic">
                     Add New Tiffin Bill
                     <i class="fa fa-plus"></i>
-                </a>
+                </a> --}}
             </h3>
             <hr>
             @if (count($errors) > 0)
@@ -53,13 +53,13 @@
                     <div class="portlet box blue-chambray">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-briefcase"></i>Items List
+                                <i class="fa fa-briefcase"></i>Employee Bill Edit
                             </div>
                             <div class="tools">
                             </div>
                         </div>
                         <div class="portlet-body">
-                            <form class="form-horizontal" role="form" method="post" action="{{--route('tiffin-bill.update', $item->id)--}}">
+                            <form class="form-horizontal" role="form" method="post" action="{{route('tiffin-bill.update', $bill_edit->id)}}">
                                 {{csrf_field()}}
                                 {{method_field('put')}}
                                 {{-- <input type="hidden" id="id" name="id" value="">
@@ -69,7 +69,7 @@
                                     <label for="inputEmail1" class="col-md-2 control-label">Date</label>
                                     <div class="col-md-9">
                                         <div class="input-group input-5 date date-picker" id="datepicker" data-date-format="MM-yyyy">
-                                            <input  type="text" class="form-control" value="{{--$item->date--}}" readonly="readonly" name="date" >    
+                                            <input  type="text" class="form-control" value="{{$bill_edit->date}}" readonly="readonly" name="date" >    
                                             <span class="input-group-btn">
                                                 <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                             </span>      
@@ -80,7 +80,7 @@
                                     <label class="col-md-2 control-label"> Name</label>
                                     <div class="col-md-9">
                                         <select class="form-control " id="employee_id" name="employee_id">
-                                            <option value="{{--$item->user->id--}}">{{--$item->user->name--}}</option>
+                                            <option value="{{$bill_edit->user->id--}}">{{$bill_edit->user->name}}</option>
                                             
                                         </select>
                                     </div><br><br>
@@ -88,29 +88,29 @@
                                 <div class="form-group">
                                     <label for="inputEmail1" class="col-md-2 control-label">Category</label>
                                     <div class="col-md-9">
-                                        <select class="form-control" name="category" id="category_edit" value=""><option value="">--Select--</option>
-                                            <option value="Tiffin Bill"  >Tiffin Bill</option>
-                                            <option value="Mobile Bill" >Mobile Bill</option>
-                                            <option value="Transport Bill">Transport Bill</option>
+                                        <select class="form-control" name="category" id="categorychange" value="">
+                                            <option value="Tiffin Bill" @if($bill_edit->category == 'Tiffin Bill') selected  @endif >Tiffin Bill</option>
+                                            <option value="Mobile Bill" @if($bill_edit->category == 'Mobile Bill') selected  @endif>Mobile Bill</option>
+                                            <option value="Transport Bill" @if($bill_edit->category == 'Transport Bill') selected  @endif>Transport Bill</option>
                                         </select>
                                     </div><br><br>
                                 </div>
                                 <div class="form-group day">
                                     <label for="inputEmail1" class="col-md-2 control-label">Days</label>
                                     <div class="col-md-9">
-                                        <input type="number" class="form-control" value="{{--$item->days--}}"  name="days">
+                                        <input type="number" class="form-control" value="{{$bill_edit->days}}"  name="days">
                                     </div><br><br>
                                 </div>
                                 <div class="form-group price">
                                     <label for="inputEmail1" class="col-md-2 control-label">Rate</label>
                                     <div class="col-md-9">
-                                        <input type="number" class="form-control" value="{{--$item->rate--}}"  name="rate">
+                                        <input type="number" class="form-control" value="{{$bill_edit->rate}}"  name="rate">
                                     </div><br><br>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputEmail1" class="col-md-2 control-label">Taka</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{--$item->total--}}" name="total" id="total">
+                                        <input type="text" class="form-control" value="{{$bill_edit->total}}" name="total" id="total">
                                     </div><br><br>
                                 </div>
                                 <div class="form-group">
@@ -151,7 +151,7 @@
                 $("#categorychange").change(function()
                     {
                         //console.log('category');
-                    if($(this).val() == "Tiffin")
+                    if($(this).val() == "Tiffin Bill")
                     {
                     $(".price").show();
                     $(".day").show();
