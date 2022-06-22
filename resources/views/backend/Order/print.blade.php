@@ -160,7 +160,7 @@
                                                 <tr>
                                                     <td>{{++$key2}}</td>
                                                     <td>
-                                                        {{$item->category_type}}
+                                                        {{$item->processing_name}}
                                                     </td>
                                                     <span> @if($item->supplyitem->market_name)
                                                         <td>

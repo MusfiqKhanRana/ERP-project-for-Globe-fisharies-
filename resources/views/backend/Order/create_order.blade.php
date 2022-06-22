@@ -86,13 +86,13 @@
                                                 <select class="form-control product_id" id="product">
                                                     <option value="">--Select--</option>
                                                     @foreach ($products as $product)
-                                                        <option value="{{$product->id}}" data-category_type="{{$product->category_type}}" title="{{$product->pack->name}}" data-pack_name="{{$product->pack->name}}" data-online_selling_price="{{$product->online_selling_price}}" data-inhouse_selling_price="{{$product->inhouse_selling_price}}" data-pack_weight="{{$product->pack->weight}}" data-pack_id="{{$product->pack->id}}" data-id="{{$product->id}}" data-product_name="{{$product->supplyitem->name}}"><span> @if($product->supplyitem->market_name)
+                                                        <option value="{{$product->id}}" data-processing_name="{{$product->processing_name}}" title="{{$product->pack->name}}" data-pack_name="{{$product->pack->name}}" data-online_selling_price="{{$product->online_selling_price}}" data-inhouse_selling_price="{{$product->inhouse_selling_price}}" data-pack_weight="{{$product->pack->weight}}" data-pack_id="{{$product->pack->id}}" data-id="{{$product->id}}" data-product_name="{{$product->supplyitem->name}}"><span> @if($product->supplyitem->market_name)
                                                             <td>
                                                                 {{$product->supplyitem->market_name}}
                                                             </td>
                                                         @else
                                                             <td>{{$product->supplyitem->name}}</td>        
-                                                        @endif</span> - {{$product->category_type}} </option>
+                                                        @endif</span> - {{$product->processing_name}} </option>
                                                     @endforeach
                                                     
                                                 </select>
@@ -480,19 +480,19 @@
                 $("#price").val(null);
             }
             $("#product").chained("#category");
-            var category_type,category_name,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,product_name,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
+            var processing_name,category_name,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,product_name,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
             var product_array = [];
             $('#product').change(function(){
                 product_id = $(this).val();
                 product_name = $(this).find(':selected').data("product_name");
-                category_type = $(this).find(':selected').data("category_type");
+                processing_name = $(this).find(':selected').data("processing_name");
                 product_pack_id = $(this).find(':selected').data("pack_id");
                 product_pack_name = $(this).find(':selected').data("pack_name");
                 product_pack_weight = $(this).find(':selected').data("pack_weight");
                 product_online_rate = $(this).find(':selected').data("online_selling_price");
                 product_inhouse_rate = $(this).find(':selected').data("inhouse_selling_price");
                 $('#pack_size').val(product_pack_name);
-                $('#category').val(category_type);
+                $('#category').val(processing_name);
                 $("#rate").empty();
                 var customer_type = $('#customer_type').html();
                 var selling_price = null;
@@ -540,14 +540,14 @@
                 }
             });
             $("#addbtn").click(function() {
-                product_array.push({"category_type":category_type,"product_id":product_id,"product_name":product_name,"pack_size":$('#pack_size').val(),"quantity_packet":$('#quantity_pkt').val(),"quantity_kg":$('#quantity_kg').val(),"rate":$('#rate').val(),"percentage_discount":$('#percentage_id').val(),"amount_discount":$('#amount_id').val(),'total_price':$('#price').val(),"status":"stay"})
+                product_array.push({"processing_name":processing_name,"product_id":product_id,"product_name":product_name,"pack_size":$('#pack_size').val(),"quantity_packet":$('#quantity_pkt').val(),"quantity_kg":$('#quantity_kg').val(),"rate":$('#rate').val(),"percentage_discount":$('#percentage_id').val(),"amount_discount":$('#amount_id').val(),'total_price':$('#price').val(),"status":"stay"})
                 $("#products").val('');
                 $("#products").val(JSON.stringify(product_array));
                 $.each( product_array, function( key, product ) {
                     console.log(product);
                     if (product.status == "stay") {
                         if(product_array.length-1 == key){
-                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+product.product_name+"</td><td>"+product.category_type+"</td><td>"+$('#pack_size').val()+"</td><td>"+$('#quantity_pkt').val()+"</td><td>"+$('#quantity_kg').val()+"</td><td>"+$('#rate').val()+"</td><td>"+$('#percentage_id').val()+"</td><td>"+$('#amount_id').val()+"</td><td>"+$('#price').val()+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+product.product_name+"</td><td>"+product.processing_name+"</td><td>"+$('#pack_size').val()+"</td><td>"+$('#quantity_pkt').val()+"</td><td>"+$('#quantity_kg').val()+"</td><td>"+$('#rate').val()+"</td><td>"+$('#percentage_id').val()+"</td><td>"+$('#amount_id').val()+"</td><td>"+$('#price').val()+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
                         }
                     }
                 });

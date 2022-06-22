@@ -111,7 +111,7 @@
                                                      @if ($item->pivot->status == "Received" || $item->pivot->status == Null)
                                                         <tr>
                                                             <th>{{++$key2}}</th>
-                                                                <th>{{$item->category_type}}</th>
+                                                                <th>{{$item->processing_name}}</th>
                                                                 @if($item->supplyitem->market_name)
                                                                     <td>
                                                                         {{$item->supplyitem->market_name}}
@@ -632,21 +632,21 @@
                                                                                     <select class="form-control product_id" id="product" name="product_id">
                                                                                         <option value="">--Select--</option>
                                                                                         @foreach ($products as $product)
-                                                                                            <option value="{{$product->id}}" data-customer_type="{{$data->customer->customer_type}}" data-category_type="{{$product->category_type}}" title="{{$product->pack->name}}" data-pack_name="{{$product->pack->name}}" data-online_selling_price="{{$product->online_selling_price}}" data-inhouse_selling_price="{{$product->inhouse_selling_price}}" data-pack_weight="{{$product->pack->weight}}" data-pack_id="{{$product->pack->id}}" data-id="{{$product->id}}" data-product_name="{{$product->supplyitem->name}}">
+                                                                                            <option value="{{$product->id}}" data-customer_type="{{$data->customer->customer_type}}" data-processing_name="{{$product->processing_name}}" title="{{$product->pack->name}}" data-pack_name="{{$product->pack->name}}" data-online_selling_price="{{$product->online_selling_price}}" data-inhouse_selling_price="{{$product->inhouse_selling_price}}" data-pack_weight="{{$product->pack->weight}}" data-pack_id="{{$product->pack->id}}" data-id="{{$product->id}}" data-product_name="{{$product->supplyitem->name}}">
                                                                                                 <span>
                                                                                                     @if($product->supplyitem->market_name)
                                                                                                     {{$product->supplyitem->market_name}}
                                                                                                     @else
                                                                                                         {{$product->supplyitem->name}}        
                                                                                                     @endif
-                                                                                                </span> - {{$product->category_type}} </option>
+                                                                                                </span> - {{$product->processing_name}} </option>
                                                                                         @endforeach
                                                                                         
                                                                                     </select>
                                                                                 </div>
                                                                                 <div class="col-md-6">
                                                                                     <label for="product">Category</label>
-                                                                                    <input type="text" class="form-control category" name="category_type"  readonly>
+                                                                                    <input type="text" class="form-control category" name="processing_name"  readonly>
                                                                                 </div>
                                                                                 <div class="col-md-6">
                                                                                     <label for="product">Pack Size</label>
@@ -893,11 +893,11 @@
     
     <script>
         jQuery(document).ready(function() {
-            var category_type,category_name,customer_type,rate,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,product_name,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
+            var processing_name,category_name,customer_type,rate,discount_in_amount,discount_in_percentage,product_id,total_price,packet_quantity,product_name,product_online_rate,product_inhouse_rate,product_pack_name,product_pack_weight,product_pack_id,inhouse_rate,online_rate = null;
             $('.product_id').change(function(){
                 product_id = $(this).val();
                 product_name = $(this).find(':selected').data("product_name");
-                category_type = $(this).find(':selected').data("category_type");
+                processing_name = $(this).find(':selected').data("processing_name");
                 customer_type = $(this).find(':selected').data("customer_type");
                 product_pack_id = $(this).find(':selected').data("pack_id");
                 product_pack_name = $(this).find(':selected').data("pack_name");
@@ -905,7 +905,7 @@
                 product_online_rate = $(this).find(':selected').data("online_selling_price");
                 product_inhouse_rate = $(this).find(':selected').data("inhouse_selling_price");
                 $('.pack_size').val(product_pack_name);
-                $('.category').val(category_type);
+                $('.category').val(processing_name);
                 //$("#rate").empty();
                 //var customer_type = $('#customer_type').val();
                 

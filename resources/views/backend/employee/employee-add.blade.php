@@ -587,7 +587,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-2">Academic Cirtificate</label>
+                                            <label class="control-label col-md-2">Academic Certificate</label>
                                             <div class="col-md-5">
                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
                                                     <div class="input-group input-large">
@@ -600,7 +600,7 @@
                                                            Select file </span>
                                                            <span class="fileinput-exists">
                                                            Change </span>
-                                                           <input type="file" name="academic_letter">
+                                                           <input type="file" name="academic_certificate">
                                                            </span>
                                                         <a href="#" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
                                                             Remove </a>
@@ -631,7 +631,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-2">Experience Cirtificate</label>
+                                            <label class="control-label col-md-2">Experience Certificate</label>
                                             <div class="col-md-5">
                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
                                                     <div class="input-group input-large">
@@ -644,7 +644,7 @@
                                                            Select file </span>
                                                            <span class="fileinput-exists">
                                                            Change </span>
-                                                           <input type="file" name="experience_cirtificate">
+                                                           <input type="file" name="experience_certificate">
                                                            </span>
                                                         <a href="#" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
                                                             Remove </a>

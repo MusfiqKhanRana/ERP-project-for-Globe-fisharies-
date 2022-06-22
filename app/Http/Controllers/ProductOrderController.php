@@ -78,7 +78,7 @@ class ProductOrderController extends Controller
                 $product_order = ProductOrder::create([
                     'order_id' => $order->id,
                     'product_id' => $product->product_id,
-                    'category_type' => $product->category_type,
+                    'processing_name' => $product->processing_name,
                     'quantity' => $product->quantity_packet,
                     'discount_in_amount' => floatval($product->amount_discount),
                     'discount_in_percentage' => floatval($product->percentage_discount),
@@ -206,7 +206,7 @@ class ProductOrderController extends Controller
         $product_order = ProductOrder::create([
             'order_id' => $request->order_id,
             'product_id' => $request->product_id,
-            'category_type' => $request->category_type,
+            'processing_name' => $request->processing_name,
             'quantity' => $request->quantity,
             'discount_in_amount' => floatval($request->discount_in_amount),
             'discount_in_percentage' => floatval($request->discount_in_percentage),

@@ -17,7 +17,7 @@ class CreateProductOrdersTable extends Migration
             $table->id();
             $table->unsignedInteger('order_id')->nullable();
             $table->unsignedInteger('product_id')->nullable();
-            $table->string('category_type')->nullable();
+            $table->string('processing_name')->nullable();
             $table->string('quantity')->nullable();
             $table->string('discount_in_amount')->nullable();
             $table->string('discount_in_percentage')->nullable();

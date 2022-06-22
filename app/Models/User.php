@@ -46,10 +46,11 @@ class User extends Authenticatable
         'medical_allowance',
         'house_rent',
         'resume',
-        'offer_letter',
+        'appointment_letter',
         'join_letter',
-        'con_letter',
+        'experience_certificate',
         'proof',
+        'academic_certificate',
         'discount_in_amount',
         'discount_in_percentage'
     ];

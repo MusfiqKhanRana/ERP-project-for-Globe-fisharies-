@@ -14,7 +14,7 @@ class Product extends Model
       'selling_price',
       'online_selling_price',
       'inhouse_selling_price',
-      'category_type',
+      'processing_name',
       'pack_id',
       'safety_stock',
       'image'
