@@ -11,6 +11,7 @@ use App\Models\ProductionPurchaseType;
 use App\Models\ProductionPurchaseUnit;
 use App\Models\ProductionRequisition;
 use App\Models\ProductionSupplier;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class ProductionGeneralPurchaseQuotationController extends Controller
@@ -118,9 +119,16 @@ class ProductionGeneralPurchaseQuotationController extends Controller
         return view('backend.production.general_purchase.quotation.add_quotation');
     }
     public function confirmquotation(Request $request){
-        $requisition=ProductionPurchaseRequisition::where('status','ConfirmQuotation')->with(['production_requisition_item'=>function($q){
-            $q->with('items');
-        },'departments','users'])->paginate(10);
+        $requisition=ProductionPurchaseRequisition::with([
+            // 'production_requisition_item'=>function($q){
+            //     $q->where('status','ConfirmQuotation');
+            // }
+            'departments','users','production_requisition_item'])
+        ->whereHas('production_requisition_item',function($q){
+            $q->where('status','ConfirmQuotation');
+        })
+        ->get();
+        // dd($requisition->toArray());
         $dept = Department::all();
         // dd($requisition->toArray());
         //$general_purchase = ProductionGeneralPurchaseQuotation::get();
@@ -156,11 +164,20 @@ class ProductionGeneralPurchaseQuotationController extends Controller
         // dd($request);
         // $data = $request->all();
         //dd($data);
-        ProductionPurchaseRequisition::where('id',$request->requisition_id)->update([
-            'status' => 'ConfirmQuotation'
-        ]);
         $confirm= ProductionPurchaseRequisitionItem::where('id',$request->requisition_item_id)->update(['status'=>'ConfirmQuotation']);
         //dd($confirm);
+        $check = ProductionPurchaseRequisitionItem::where('production_purchase_requisition_id',$request->requisition_id)->get();
+        $count = 0;
+        foreach ($check as $key => $value) {
+            if ($value->status != 'ConfirmQuotation') {
+                $count+=1;
+            }
+        }
+        if ($count==0) {
+            ProductionPurchaseRequisition::where('id',$request->requisition_id)->update([
+                'status' => 'ConfirmQuotation'
+            ]);
+        }
         return redirect()->route('production-purchase-quotation')->withmsg('Successfully Confirmed Quotation');
     }
     public function showcs(Request $request, $id){

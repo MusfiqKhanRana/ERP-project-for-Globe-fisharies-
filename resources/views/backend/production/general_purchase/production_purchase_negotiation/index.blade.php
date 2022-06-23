@@ -105,18 +105,20 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                             @foreach ($data->items as $key2 => $item)
+                                             @foreach ($data->production_requisition_item as $key2 => $item)
+                                             @if($item->status == "QuotationNegotiation") 
                                                 <tr>
                                                     <td>{{++$key2}}</td>
-                                                    <td>{{$item->pivot->image}}</li><li>{{$item->pivot->item_name}}</li><li>{{$item->pivot->item_type_name}}</li><li>{{$item->pivot->item_unit_name}}</td>
-                                                    <td>{{$item->pivot->demand_date}}</td>
-                                                    <td>{{$item->pivot->quantity}}</td>
-                                                    <td>{{$item->pivot->specification}}</td>
-                                                    <td>{{$item->pivot->remark}}</td>  
+                                                    <td>{{$item->image}}</li><li>{{$item->item_name}}</li><li>{{$item->item_type_name}}</li><li>{{$item->item_unit_name}}</td>
+                                                    <td>{{$item->demand_date}}</td>
+                                                    <td>{{$item->quantity}}</td>
+                                                    <td>{{$item->specification}}</td>
+                                                    <td>{{$item->remark}}</td>  
                                                     <td>
-                                                        <a class="btn btn-success addquation" href="{{route('production-negotiation-show',$item->pivot->id)}}"> Confirm Negotiation </a>
+                                                        <a class="btn btn-success addquation" href="{{route('production-negotiation-show',$item->id)}}"> Confirm Negotiation </a>
                                                     </td>
                                                 </tr>
+                                             @endif
                                             @endforeach 
                                         </tbody>
                                     </table>
