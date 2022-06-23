@@ -429,7 +429,7 @@
                                                         <div class="form-group">
                                                             <label for="inputEmail1" class="col-md-4 control-label">Order #Code : </label>
                                                             <div class="col-md-8">
-                                                                <b>111212</b>
+                                                                <b>{{$data->invoice_code}}</b>
                                                                 {{-- <input type="text" class="form-control" value="{{$data->product_name}}" name="name" required> --}}
                                                             </div><br><br>
                                                         </div>
@@ -487,7 +487,7 @@
                                                         {{csrf_field()}}
                                                         <input type="hidden" value="{{$data->id}}" name="order_id">
                                                         <div class="form-group">
-                                                            <label for="inputEmail1" class="col-md-4 control-label"><b> Order #Code :  <b>111212</b></b></label>
+                                                            <label for="inputEmail1" class="col-md-4 control-label"><b> Order #Code :  <b>{{$data->invoice_code}}</b></b></label>
                                                         </div><br><br>
                                                         <div class="from-group">
                                                             <label for="col-md-4 control-label"><b>Remark : </b></label><br>
