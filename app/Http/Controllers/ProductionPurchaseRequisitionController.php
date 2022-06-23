@@ -181,14 +181,23 @@ class ProductionPurchaseRequisitionController extends Controller
         return view('backend.production.general_purchase.quotation.index',compact('supplier','requisition'));
     }
     public function negotiation(){
-        $requisition=ProductionPurchaseRequisition::where('status','QuotationNegotiation')->with(
-        ['items' => function($q){
-            $q->where([
-                'status'=>'QuotationNegotiation'
-                ]);
-            }
-        ],
-        'departments','users')->get();
+        // $requisition=ProductionPurchaseRequisition::where('status','QuotationNegotiation')->with(
+        // ['items' => function($q){
+        //     $q->where([
+        //         'status'=>'QuotationNegotiation'
+        //         ]);
+        //     }
+        // ],
+        // 'departments','users')->get();
+        $requisition=ProductionPurchaseRequisition::with([
+            // 'production_requisition_item'=>function($q){
+            //     $q->where('status','ConfirmQuotation');
+            // }
+            'departments','users','production_requisition_item'])
+        ->whereHas('production_requisition_item',function($q){
+            $q->where('status','QuotationNegotiation');
+        })
+        ->get();
         // dd($requisition->toArray());
         $supplier = ProductionSupplier::get();
         //dd($requisition->toArray());
@@ -242,9 +251,18 @@ class ProductionPurchaseRequisitionController extends Controller
             ProductionPurchaseRequisitionItem::where('id',$request->item_id)->update([
                 'status'=>'QuotationNegotiation'
             ]);
-            ProductionPurchaseRequisition::where('id',$request->requisition_id)->update([
-                'status' => 'QuotationNegotiation'
-            ]);
+            $check = ProductionPurchaseRequisitionItem::where('production_purchase_requisition_id',$request->requisition_id)->get();
+            $count = 0;
+            foreach ($check as $key => $value) {
+                if ($value->status != 'QuotationNegotiation') {
+                    $count+=1;
+                }
+            }
+            if ($count==0) {
+                ProductionPurchaseRequisition::where('id',$request->requisition_id)->update([
+                    'status' => 'QuotationNegotiation'
+                ]);
+            }
         }
 
         // return redirect()->back();
@@ -287,9 +305,18 @@ class ProductionPurchaseRequisitionController extends Controller
             ProductionPurchaseRequisitionItem::where('id',$request->item_id)->update([
                 'status'=>'ConfirmQuotation'
             ]);
-            ProductionPurchaseRequisition::where('id',$request->requisition_id)->update([
-                'status' => 'ConfirmQuotation'
-            ]);
+            $check = ProductionPurchaseRequisitionItem::where('production_purchase_requisition_id',$request->requisition_id)->get();
+            $count = 0;
+            foreach ($check as $key => $value) {
+                if ($value->status != 'ConfirmQuotation') {
+                    $count+=1;
+                }
+            }
+            if ($count==0) {
+                ProductionPurchaseRequisition::where('id',$request->requisition_id)->update([
+                    'status' => 'ConfirmQuotation'
+                ]);
+            }
         }
 
         // return redirect()->back();
