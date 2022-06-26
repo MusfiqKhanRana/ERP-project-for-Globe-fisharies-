@@ -116,13 +116,13 @@
                             <li class="nav-item  @if( request()->path() == 'admin/tiffin-bill') active open @endif
                                 @if( request()->path() == 'tiffin-bill' ) active open @endif">
                                     <a href="{{route('tiffin-bill.index')}}" class="nav-link">
-                                        <span class="title">Employee Tiffin Bill</span>
+                                        <span class="title">Employee Bill</span>
                                     </a>
                             </li>
                             <li class="nav-item  @if( request()->path() == 'admin/user-shift') active open @endif
                                 @if( request()->path() == 'user-shift' ) active open @endif">
                                     <a href="{{route('user-shift.index')}}" class="nav-link">
-                                        <span class="title">User Shift</span>
+                                        <span class="title">Employee Shift</span>
                                     </a>
                             </li>
                         </ul>

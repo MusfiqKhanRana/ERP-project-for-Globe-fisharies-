@@ -16,7 +16,7 @@ class ProductionSupplyListController extends Controller
      */
     public function index()
     {
-        $supply_lists = ProductionSupplyList::with("production_supply_list_items")->get();
+        $supply_lists = ProductionSupplyList::with("production_supply_list_items")->latest()->get();
         $production_supply_list_items = ProductionSupplyListItem::get();
         // dd($supply_lists);
         return view('backend.production.supply.requisition.production_supply_list',compact('supply_lists','production_supply_list_items'));
