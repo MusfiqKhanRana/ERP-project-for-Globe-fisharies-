@@ -42,8 +42,8 @@
                 <div class="portlet-body">
                     <div>
                         <div class="row" style="margin-left: 2%;margin-bottom: 2%;">
-                            <button class="btn green btn-lg iqf_btn">IQF</button>
-                            <button class="btn blue btn-lg block_btn">BLOCK</button>
+                            <button class="btn green btn-lg processing_type_btn" data-type="IQF">IQF</button>
+                            <button class="btn blue btn-lg processing_type_btn" data-type="BLOCK">BLOCK</button>
                         </div>
                     </div> <hr>
                     <div>
@@ -374,48 +374,23 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function () {
-        
-        var id = 1;
-        $.ajax({
-                type:"POST",
-                url:"{{route('inventory.cold_storage.bulk_storage_datapass')}}",
-                data:{
-                    'id' : id,
-                    '_token' : $('input[name=_token]').val()
-                },
-                success:function(data){
-                    console.log(data);
-
-                }
-        });            
-        $('.iqf_btn').on("click",function () {
-            var id = 1;
-            $.ajax({
-                type:"POST",
-                url:"{{route('inventory.cold_storage.bulk_storage_datapass')}}",
-                data:{
-                    'id' : id,
-                    '_token' : $('input[name=_token]').val()
-                },
-                success:function(data){
-                    console.log(data);
-                }
-            }); 
-        }); 
-        $('.block_btn').on("click",function () {
-            var id = 2;
-            $.ajax({
-                type:"POST",
-                url:"{{route('inventory.cold_storage.bulk_storage_datapass')}}",
-                data:{
-                    'id' : id,
-                    '_token' : $('input[name=_token]').val()
-                },
-                success:function(data){
-                    console.log(data);
-                }
-            }); 
+        get_processing('IQF')   
+        $('.processing_type_btn').click(function(){
+            get_processing($(this).data('type'))  
         });
+        function get_processing(processing_type) {
+            $.ajax({
+                type:"POST",
+                url:"{{route('inventory.cold_storage.bulk_storage_datapass')}}",
+                data:{
+                    'processing_type' : processing_type,
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    console.log(data);
+                }
+            });
+        }
     });
 </script>
 @endsection
