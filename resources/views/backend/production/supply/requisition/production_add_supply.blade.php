@@ -125,7 +125,7 @@
                                                                             <th>Name</th>
                                                                             <th>Grade Name</th>
                                                                             <th>Quantity(kg)</th>
-                                                                            <th>Rate</th>
+                                                                            <th>Rate (Per KG)</th>
                                                                         </tr>
                                                                     </table>
                                                                 </div>
