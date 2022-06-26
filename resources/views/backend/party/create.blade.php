@@ -8,10 +8,6 @@
     <div class="page-content-wrapper">
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
-            <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title" class="portlet box dark">Create Party
-            </h3>
-            <hr>
             @if (count($errors) > 0)
                 <div class="row">
                     <div class="col-md-06">
@@ -24,96 +20,116 @@
                         </div>
                     </div>
                 </div>
-        @endif
+            @endif
+            @if(Session::has('msg'))
+                <script>
+                    $(document).ready(function(){
+                        swal("{{Session::get('msg')}}","", "success");
+                    });
+                </script>
+            @endif
+            
+            <!-- BEGIN PAGE TITLE-->
+            <h3 class="page-title bold">Party Management   <small>Create Party</small>
+            </h3>
             <!-- END PAGE TITLE-->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="portlet-body" style="height: auto;">
-                    <form method="post" action="{{route('party.store')}}" class="form-horizontal">
-                        {{csrf_field()}}
-                        <div class="col-md-12 ">
-                            <div class="portlet-body">
-                                <div class="form-body">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Party Code<span class="required">* </span></label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="party_code" placeholder="Type Party Code" value="" required>
-                                        </div>
+            
+            <!--category table start-->
+            <div class="portlet box green">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-globe"></i>Create Party</div>
+                    <div class="tools"> </div>
+                </div>
+                <form method="post" action="{{route('party.store')}}" class="form-horizontal">
+                    {{csrf_field()}}
+                    <div class="col-md-12 ">
+                        <div class="portlet-body">
+                            <div class="form-body"><br>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Party Code<span class="required">* </span></label>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" name="party_code" placeholder="Type Party Code" value="" required>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Party Name<span class="required">* </span></span></label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="party_name" placeholder="Type Party Name" value="" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Party Phone<span class="required">* </span></label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="phone" placeholder="Type Phone Number" value="" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Party Address<span class="required">* </span></label>
-                                        <div class="col-md-9">
-                                            <textarea class="form-control" name="address" placeholder="Type Party Address" rows="3" required></textarea>
-                                        </div>
-                                    </div>
-                                    {{-- <div class="form-group">
-                                        <label class="col-md-3 control-label"> Type</label>
-                                        <div class="col-md-9">
-                                            <select class="form-control select2me" id="party_type" name="party_type">
-                                                <option value="">--Select--</option>
-                                                <option value="Online & Inhouse">Online & Inhouse</option>
-                                                <option value="Inhouse">Inhouse</option>
-                                                <option value="Modern Trade">Modern Trade</option>
-                                            </select>
-                                        </div>
-                                    </div> --}}
-                                    {{-- <div class="form-group">
-                                        <label class="col-md-3 control-label">Party Short Name</label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="party_short_name" placeholder="Type Party Short Name" value="">
-                                        </div>
-                                    </div> --}}
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label"></label>
-                                        <div class="col-md-9" id="product_field">
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label"> Select Products<span class="required">* </span></label>
-                                        <div class="col-md-9">
-                                            <select id="party_products" class="multiselect text-center" style="width: 100% !important" name="party_products[]" multiple="multiple" required>
-                                                @foreach ($products as $item)
-                                                    @if ($item->supplyitem->market_name == null) {
-                                                        <option class="text-right" style="padding-left: 5% !important" value="{{$item->id}}">{{$item->supplyitem->name}}({{$item->pack->name}})</option>
-                                                    }
-                                                    @else {
-                                                        <option class="text-right" style="padding-left: 5% !important" value="{{$item->id}}">{{$item->supplyitem->market_name}}({{$item->pack->name}})</option>
-                                                    }
-                                                    @endif
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    
                                 </div>
-                            </div>
-                        <div class="form-actions">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button type="submit" data-loading-text="Submitting..." class="col-md-12 btn btn btn-info">
-                                        <i class="fa fa-plus"></i>	Create Party </button>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Party Name<span class="required">* </span></span></label>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" name="party_name" placeholder="Type Party Name" value="" required>
+                                    </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Party Phone<span class="required">* </span></label>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" name="phone" placeholder="Type Phone Number" value="" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Party Address<span class="required">* </span></label>
+                                    <div class="col-md-10">
+                                        <textarea class="form-control" name="address" placeholder="Type Party Address" rows="3" required></textarea>
+                                    </div>
+                                </div>
+                                {{-- <div class="form-group">
+                                    <label class="col-md-3 control-label"> Type</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control select2me" id="party_type" name="party_type">
+                                            <option value="">--Select--</option>
+                                            <option value="Online & Inhouse">Online & Inhouse</option>
+                                            <option value="Inhouse">Inhouse</option>
+                                            <option value="Modern Trade">Modern Trade</option>
+                                        </select>
+                                    </div>
+                                </div> --}}
+                                {{-- <div class="form-group">
+                                    <label class="col-md-3 control-label">Party Short Name</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="party_short_name" placeholder="Type Party Short Name" value="">
+                                    </div>
+                                </div> --}}
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label"></label>
+                                    <div class="col-md-10" id="product_field">
+                                        
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"> Select Products<span class="required">* </span></label>
+                                    <div class="col-md-9">
+                                        <select id="party_products" class="multiselect text-center" style="width: 100% !important" name="party_products[]" multiple="multiple" required>
+                                            @foreach ($products as $item)
+                                                @if ($item->supplyitem->market_name == null) {
+                                                    <option class="text-right" style="padding-left: 5% !important" value="{{$item->id}}">{{$item->supplyitem->name}}({{$item->pack->name}})</option>
+                                                }
+                                                @else {
+                                                    <option class="text-right" style="padding-left: 5% !important" value="{{$item->id}}">{{$item->supplyitem->market_name}}({{$item->pack->name}})</option>
+                                                }
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
-                    </form>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" data-loading-text="Submitting..." class="col-md-12 btn btn btn-info">
+                                    <i class="fa fa-plus"></i>	Create Party </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
+                   
+
+            
+            <!--category table end-->
         </div>
+        <!-- END CONTENT BODY -->
     </div>
+    
 @endsection
 @section('script')
 <script src="{{asset('assets/backend/js/parsley.min.js')}}"></script>

@@ -95,6 +95,7 @@
                                                         <th>Sl.</th>
                                                         <th>Category</th>
                                                         <th>Name</th>
+                                                        <th>Pack Size</th>
                                                         <th>Quantity</th>
                                                         <th>Discount <small>(Product Wise)</small></th>
                                                         <th>Selling Price</th>
@@ -119,6 +120,7 @@
                                                                 @else
                                                                     <td>{{$item->supplyitem->name}}</td>        
                                                                 @endif
+                                                                <td><span class="pack_size"></span></td>
                                                                 <th>{{$item->pivot->quantity}}</th>
                                                                 <th>
                                                                     @php
@@ -905,6 +907,7 @@
                 product_online_rate = $(this).find(':selected').data("online_selling_price");
                 product_inhouse_rate = $(this).find(':selected').data("inhouse_selling_price");
                 $('.pack_size').val(product_pack_name);
+                console.log(pack_size);
                 $('.category').val(processing_name);
                 //$("#rate").empty();
                 //var customer_type = $('#customer_type').val();
