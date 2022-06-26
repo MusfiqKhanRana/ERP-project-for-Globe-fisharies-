@@ -26,22 +26,16 @@ class InventoryStoreInController extends Controller
         return view('backend.production.inventory.cold_storage.bulk_storage',compact('production_processing_unit','grades'));
     }
     public function bulk_storage_datapass(Request $request){
-        if ($request->id==1) {
             $production_processing_unit = ProductionProcessingUnit::where('status','Bulk_storage')
-            ->orWhere('processing_name','iqf')
-            ->orWhere('processing_name','raw_iqf_shrimp')
-            ->orWhere('processing_name','blanched_iqf_shrimp')
+            ->where(function($q) use($request){
+                if ($request->processing_type == "IQF") {
+                    $q->whereIn('processing_name',['iqf','raw_iqf_shrimp','blanched_iqf_shrimp']);
+                }elseif ($request->processing_type == "BLOCK") {
+                    $q->whereIn('processing_name',['block_frozen','raw_bf_shrimp','semi_iqf']);
+                }
+            })
             ->with('production_processing_grades','production_processing_item')->get();
             return $production_processing_unit;
-        }
-        if ($request->id==2) {
-            $production_processing_unit = ProductionProcessingUnit::where('status','Bulk_storage')
-            ->orWhere('processing_name','block_frozen')
-            ->orWhere('processing_name','raw_bf_shrimp')
-            ->orWhere('processing_name','semi_iqf')
-            ->with('production_processing_grades','production_processing_item')->get();
-            return $production_processing_unit;
-        }
     }
     public function getBulkStorage($data)
     {
