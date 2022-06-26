@@ -140,37 +140,38 @@
                             var amount = 0;
                             var attendance_count = getAttendanceCount(value.attendances,value.user_shift);
                             $.each(value.increments,function(key,increment){
-                                amount+=increment.amount;
+                                amount+= parseInt(increment.amount);
                             });
-                            var deduction = calcutaleDeduction(value,amount,attendance_count.late_count,attendance_count.absent_count);
+                            var combained_salary = amount + (parseInt(value.basic)+parseInt(value.medical_allowance)+parseInt(value.house_rent));
+                            var deduction = calcutaleDeduction(value,combained_salary,attendance_count.late_count,attendance_count.absent_count);
                             var get_overtime = getOverTime(value,attendance_count.total_overtime,deduction.per_day_salary);
                             // console.log();
                             if (value.payments.length == 0) {
                                 employeeTable.append('<tr>'+
                                     '<td><input type="checkbox" class="salary_check"'+
                                     'data-overtime="'+ get_overtime +'"'+
-                                    'data-absent_fine="'+ deduction.absent_fine.toFixed(2) +'"'+
-                                    'data-late_fine="'+ deduction.late_fine.toFixed(2) +'"'+
-                                    'data-advance_salary="'+ deduction.advance_salary.toFixed(2) +'"'+
-                                    'data-installment_amount="'+ deduction.loan_installment_amount.toFixed(2) +'"'+
-                                    'data-net_payment="'+ ((value.basic+value.medical_allowance+value.house_rent+amount)-deduction.total_deduction).toFixed(2) +'"'+
-                                    ' data-gross_salary="'+ (value.basic+value.medical_allowance+value.house_rent+amount) +'" value="'+ value.id+'"></td>'+
+                                    'data-absent_fine="'+ decimalePlace(deduction.absent_fine)+'"'+
+                                    'data-late_fine="'+ decimalePlace(deduction.late_fine) +'"'+
+                                    'data-advance_salary="'+ decimalePlace(deduction.advance_salary) +'"'+
+                                    'data-installment_amount="'+ decimalePlace(deduction.loan_installment_amount) +'"'+
+                                    'data-net_payment="'+ (combained_salary-deduction.total_deduction).toFixed(2) +'"'+
+                                    ' data-gross_salary="'+ combained_salary +'" value="'+ value.id+'"></td>'+
                                     '<td>'+value.id+'</td>'+
                                     '<td><ul>'+
                                         '<li> Name: '+value.name+'</li>'+
                                         '<li> Department: '+value.department.name+'</li>'+
                                         '<li> Designation: '+value.designation.deg_name+'</li>'+
                                         '</ul></td>'+
-                                    '<td>'+(value.basic+value.medical_allowance+value.house_rent+amount)+'</td>'+
+                                    '<td>'+combained_salary+'</td>'+
                                     '<td>'+'Overtime: '+get_overtime+'</td>'+
                                     '<td><ul>'+
-                                        '<li> Absent Fine: '+deduction.absent_fine.toFixed(2) +'</li>'+
-                                        '<li> Late Fine: '+deduction.late_fine.toFixed(2) +'</li>'+
-                                        '<li> Advance Salary: '+deduction.advance_salary.toFixed(2) +'</li>'+
-                                        '<li> Loan installment: '+deduction.loan_installment_amount.toFixed(2) +'</li>'+
-                                        '<li> Total Deduction: '+deduction.total_deduction.toFixed(2) +'</li>'+
+                                        '<li> Absent Fine: '+ decimalePlace(deduction.absent_fine) +'</li>'+
+                                        '<li> Late Fine: '+decimalePlace(deduction.late_fine) +'</li>'+
+                                        '<li> Advance Salary: '+decimalePlace(deduction.advance_salary) +'</li>'+
+                                        '<li> Loan installment: '+ decimalePlace(deduction.loan_installment_amount) +'</li>'+
+                                        '<li> Total Deduction: '+decimalePlace(deduction.total_deduction) +'</li>'+
                                         '</ul></td>'+
-                                    '<td>'+((value.basic+value.medical_allowance+value.house_rent+amount)-deduction.total_deduction).toFixed(2)+'</td>'+
+                                    '<td>'+decimalePlace(combained_salary-deduction.total_deduction)+'</td>'+
                                     '<td><ul>'+
                                         '<li> Present: '+attendance_count.present_count+'</li>'+
                                         '<li> Absent: '+attendance_count.absent_count+'</li>'+
@@ -183,6 +184,10 @@
                         showSalaryButton();
                     }
                 });
+            }
+            // console.log(decimalePlace(0),"decimal place");
+            function decimalePlace(number) {
+                return Number(Math.round(number +'e'+ 2) +'e-'+ 2).toFixed(2);
             }
             function getAttendanceCount(attendances,shift){
                 var present_count = 0;
@@ -221,10 +226,10 @@
                     return 0;
                 }
             }
-            function calcutaleDeduction(user,increments,late,absent){
+            function calcutaleDeduction(user,combained_salary,late,absent){
                 var advance_salary = 0;
                 var loan_installment_amount = 0;
-                var total_salary = parseInt(increments)+user.basic+user.medical_allowance+user.house_rent;
+                var total_salary = combained_salary;
                 var per_day_salary = total_salary/working_days;
                 var absent_fine = absent*per_day_salary;
                 var late_fine = Math.round(late/3)*per_day_salary;
@@ -234,8 +239,8 @@
                 $.each( user.loan_installments , function( key, loan ){
                     loan_installment_amount+=loan.office_loan.amount/loan.office_loan.instalment;
                 });
-                var total_deduction = advance_salary+loan_installment_amount+absent_fine+late_fine;
-                return {'per_day_salary':per_day_salary,'advance_salary':advance_salary,'loan_installment_amount':loan_installment_amount,'absent_fine':absent_fine,'late_fine':late_fine,'total_deduction':total_deduction};
+                var total_deduction = parseFloat(advance_salary)+parseFloat(loan_installment_amount)+parseFloat(absent_fine)+parseFloat(late_fine);
+                return {'per_day_salary':per_day_salary,'advance_salary':advance_salary,'loan_installment_amount':loan_installment_amount,'absent_fine':absent_fine,'late_fine':late_fine,'total_deduction': parseFloat(total_deduction)};
             }
             function showSalaryButton() {
                 var selected_user_ids = [];
