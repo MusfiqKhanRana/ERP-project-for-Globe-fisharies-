@@ -141,12 +141,12 @@
                                 $('.block_select').change(function() {
                                     block_id=$('option:selected',this).val();
                                     block_name =$('option:selected',this).attr("data-block_size");
-                                    console.log(grade_name);
+                                    console.log(block_name);
                                 });
                                 $('.size_select').change(function() {
                                     block_size_id=$('option:selected',this).val();
                                     block_size_name =$('option:selected',this).attr("data-size");
-                                    console.log(grade_name);
+                                    console.log(block_size_name);
                                 });
                                 $('.add_btn').click(function () {
                                     $("table.block_table tbody tr").empty();
