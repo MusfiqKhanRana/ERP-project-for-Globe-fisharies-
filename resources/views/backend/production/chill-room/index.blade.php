@@ -155,12 +155,6 @@
                                                                             {{$item->pivot->dead_quantity}}
                                                                         </td> 
                                                                         <td>
-                                                                            {{$item->pivot->alive_quantity}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{$item->pivot->dead_quantity}}
-                                                                        </td>
-                                                                        <td>
                                                                             {{$item->pivot->received_remark}}
                                                                         </td>
                                                                         <td>
