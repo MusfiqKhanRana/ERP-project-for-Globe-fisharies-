@@ -99,8 +99,8 @@ class EmployeeController extends Controller
         $employee->branch = $request->branch;
         $employee->status = $request->status;
         $employee->provident_fund = $request->provident_fund;
-        $employee->discount_in_amount = $request->discount_in_amount;
-        $employee->discount_in_percentage = $request->discount_in_percentage;
+        $employee->in_amount = $request->in_amount;
+        $employee->in_percentage = $request->in_percentage;
         $employee->c_leave = $request->c_leave;
         $employee->e_mail = $request->e_mail;
         $employee->m_leave = $request->m_leave;
@@ -201,10 +201,10 @@ class EmployeeController extends Controller
         $id = $request->id;
         $designatoin = Designation::where('dept_id',$id)->get();
 
-        $output ="";
+        $output ="<option value=''>--Select--</option></option>";
 
        foreach($designatoin as $value){
-          $output .= '<option value="'.$value->id.'">'.$value->deg_name.'</option>';
+          $output .='<option value="'.$value->id.'">'.$value->deg_name.'</option>';
        }
         echo $output;
     }
@@ -258,7 +258,6 @@ class EmployeeController extends Controller
             'dept_id'=> 'required',
             'deg_id'=> 'required',
             'date'=> 'max:191',
-            'salary'=> 'max:191',
             'branch_address' => 'max:191',
 
         ));
@@ -266,7 +265,6 @@ class EmployeeController extends Controller
         $employee->dept_id = $request->input('dept_id');
         $employee->deg_id = $request->input('deg_id');
         $employee->date = $request->input('date');
-        $employee->salary = $request->input('salary');
         $employee->branch_address = $request->input('branch_address');
         $employee->save();
         return redirect('admin/employee')->withMsg('Employee Details Updated');
@@ -282,14 +280,12 @@ class EmployeeController extends Controller
             'ac_name'=> 'max:191 | required',
             'ac_num'=> 'max:191|required',
             'bank_name'=> 'max:191|required',
-            'code'=> 'max:191',
+            
             
         ));
         $employee->ac_name = $request->input('ac_name');
         $employee->ac_num = $request->input('ac_num');
         $employee->bank_name = $request->input('bank_name');
-        $employee->code = $request->input('code');
-        $employee->pan_num = $request->input('pan_num');
         $employee->branch = $request->input('branch');
         $employee->save();
         return redirect('admin/employee')->withMsg('Employee Details Updated');
@@ -359,8 +355,8 @@ class EmployeeController extends Controller
             
            
         ));
-        $employee->discount_in_percentage = $request->input('discount_in_percentage');
-        $employee->discount_in_amount = $request->input('discount_in_amount');
+        $employee->in_percentage = $request->input('in_percentage');
+        $employee->in_amount = $request->input('in_amount');
         //dd($employee);
         $employee->save();
         return redirect('admin/employee')->withMsg('Employee Income Tax Updated');

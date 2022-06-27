@@ -212,7 +212,7 @@
                                         
                                             <div class="col-md-4">
                                                 <label for="product">House Rent <span class="required">* </span></label>
-                                                <input type="text" class="form-control" name="house_rent" id="house_rent" placeholder="House" required>
+                                                <input type="text" autocomplete="off" class="form-control" name="house_rent" id="house_rent" placeholder="House" required>
                                             </div>
                                         </div>
                                         {{-- <div class="row">
@@ -296,6 +296,7 @@
                                         <label class="col-md-3 control-label">Designation <span class="required">* </span></label>
                                         <div class="col-md-9">
                                             <select  class="select2me form-control" name="deg_id" id="designation" required>
+                                                <option value="">--Select--</option>
 
                                             </select>
                                         </div>
@@ -463,11 +464,11 @@
                                         <label class="col-md-3 control-label"> Amount :</label>
                                         <div class="col-md-9">
                                             {{-- <input type="text" class="form-control" name="income_tax" placeholder="Tax Amount" value=""><br> --}}
-                                            <span class="discount_in_percentage">
-                                                <input type="text" class="form-control" name="discount_in_percentage"  placeholder="discount in %" id="percentage_id"/>
+                                            <span class="in_percentage">
+                                                <input type="text" class="form-control" name="in_percentage"  placeholder="In %" id="percentage_id"/>
                                             </span>
-                                            <span class="discount_in_amount">
-                                                <input type="text" class="form-control" name="discount_in_amount" placeholder="discount in amount" id="amount_id"/>
+                                            <span class="in_amount">
+                                                <input type="text" class="form-control" name="in_amount" placeholder="In amount" id="amount_id"/>
                                             </span>
                                             <fieldset class="radio-inline question coupon_question2">
                                                 <input class="form-check-input want_in_amount" type="checkbox">Want in Amount ? 
@@ -716,24 +717,24 @@
             $(document).on('keyup','#percentage_id',function() {
                 let main_price = total_price - (total_price*$(this).val())/100;
                 $('#price').val(main_price);
-                discount_in_percentage = $(this).val()
+                in_percentage = $(this).val()
             });
             $(document).on('keyup','#amount_id',function() {
                 let main_price = total_price - ($(this).val());
-                discount_in_amount = $(this).val();
+                in_amount = $(this).val();
                 $('#price').val(main_price);
             });
-            $('.discount_in_amount').hide();
+            $('.in_amount').hide();
             $(".want_in_amount").click(function() {
                 if($(this).is(":checked")) {
-                    $(".discount_in_amount").show();
-                    $(".discount_in_percentage").hide();
+                    $(".in_amount").show();
+                    $(".in_percentage").hide();
                     $('#percentage_id').val('');
-                    discount_in_percentage = 0;
+                    in_percentage = 0;
                 } else {
-                    $(".discount_in_amount").hide();
-                    $(".discount_in_percentage").show();
-                    discount_in_amount = 0;
+                    $(".in_amount").hide();
+                    $(".in_percentage").show();
+                    in_amount = 0;
                     $('#amount_id').val('');
                 }
             });

@@ -51,8 +51,8 @@ class User extends Authenticatable
         'experience_certificate',
         'proof',
         'academic_certificate',
-        'discount_in_amount',
-        'discount_in_percentage'
+        'in_amount',
+        'in_percentage'
     ];
 
     /**
