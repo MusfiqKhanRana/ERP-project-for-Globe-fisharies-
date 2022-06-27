@@ -215,12 +215,13 @@
                     }
                 })
                 $(".delete").click(function(){
-                    employee[$(this).data("id")].status="delete";
-                        //console.log(employee,$(this).data("id"));
-                        $("#Terminated").val('');
-                        $("#4").val(JSON.stringify(items_array));
-                        $("#"+$(this).data("id")).remove();
-                    });
+                    console.log(employee,$(this).data("id"));
+                employee[$(this).data("id")].status="delete";
+                    
+                    $("#Terminated").val('');
+                    $("#4").val(JSON.stringify(items_array));
+                    $("#"+$(this).data("id")).remove();
+                });
             });
             });
     </script>
