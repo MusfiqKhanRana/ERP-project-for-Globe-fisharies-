@@ -274,7 +274,7 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                {{-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button> --}}
                                                 <h4 class="modal-title">Are You want to print it?</h4>
                                             </div>
                                             <br>
@@ -282,7 +282,7 @@
                                                 {{csrf_field()}}
                                                 <div class="modal-footer"><br>
                                                     <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                    <button type="button"  class="btn red">Print</button>
+                                                    <a type="button" href="{{route('purchase-requisition-print')}}" class="btn red">Print</a>
                                                     <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
                                                 </div>
                                             </form>

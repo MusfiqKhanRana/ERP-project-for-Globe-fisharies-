@@ -59,6 +59,24 @@
                             </div>
                         </div>
                         <div class="portlet-body">
+                            <form method="get" action="{{route('employee-attendance.index')}}">
+                                {{csrf_field()}}
+                                <div class="row" >
+                                    <label class="col-md-1 control-label"><b>From Date</b></label>
+                                    <div class="col-md-3">
+                                        <input type="date" class="form-control" name="date_from"  value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
+                                    </div>
+                                    <label class="col-md-1 control-label"><b>To Date</b></label>
+                                    <div class="col-md-3">
+                                        <input type="date" class="form-control" name="date_to" value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
+                                    </div>
+                                    <div class="col-md-2 pull-right">
+                                        <button type="submit" data-loading-text="Submitting..." class="col-md-12 btn btn btn-info">
+                                        <i class="fa fa-search"></i>  Find</button>
+                                    </div>
+                                </div>
+                            </form>
+                            
                             <div class="table-scrollable">
                             <table class="table table-striped table-bordered table-hover">
                                 <thead>

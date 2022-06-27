@@ -87,6 +87,11 @@ class ProductionPurchaseRequisitionController extends Controller
         return($item);
     }
 
+
+    public function requisitionPrint()
+    {
+        return view('backend.production.general_purchase.production_purchase_requisition.print');
+    }
     /**
      * Show the form for editing the specified resource.
      *

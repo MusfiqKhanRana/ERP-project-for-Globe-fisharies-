@@ -460,6 +460,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Procution Purchase Item
     Route::resource('production-purchase-item', ProductionPurchaseItemController::class);
 
+    Route::get('production/purchase/requisition',[ProductionPurchaseRequisitionController::class,'requisitionPrint'])->name('purchase-requisition-print');
     Route::post('production/purchase/quotation/negotiation_data_pass',[ProductionPurchaseRequisitionController::class,'negotiation_data_pass'])->name('production.purchase.quotation.negotiation_data_pass');
     Route::get('production/purchase/negotiation',[ProductionPurchaseRequisitionController::class,'negotiation'])->name('production.purchase.negotiation'); //Production Purchase Requisition 
     Route::post('production/purchase/quotation/cs/data-pass',[ProductionPurchaseRequisitionController::class,'cs_data_pass'])->name('production.purchase.quotation.cs.data_pass');
