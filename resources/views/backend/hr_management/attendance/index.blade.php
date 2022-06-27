@@ -27,10 +27,10 @@
                 {{-- <div class="form-group" style="margin-left: 10%">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </div> --}}
-                {{-- <a class="btn purple pull-right leave_application" data-toggle="modal" href="#absentApplication">
+                <a class="btn purple pull-right leave_application" data-toggle="modal" href="#absentApplication">
                     Add Leave Application
                     <i class="fa fa-plus"></i>
-                </a> --}}
+                </a>
             </h3>
             <hr>
             @if (count($errors) > 0)
@@ -142,18 +142,12 @@
                                         <br>
                                         <form class="form-horizontal" role="form" method="POST" action="{{route('show-cause-application.store')}}">
                                             {{csrf_field()}}
-                                            {{-- <div class="form-group">
-                                                <label for="inputEmail1" class="col-md-2 control-label">Attachment</label>
-                                                <div class="col-md-8">
-                                                    <input type="file" class="form-control"  name="attachment">
-                                                </div><br><br>
-                                            </div> --}}
                                             <div class="form-group">
                                                 <label for="inputEmail1" class="col-md-2 control-label">Write Application</label>
                                                 <div class="col-md-8">
                                                     <input type="hidden" class="form-control" id="attendance_id"  name="attendance_id" value="">
                                                     <input type="hidden" class="form-control" id="status"  name="type" value="">
-                                                    <textarea type="text" class="form-control" id="" name="application_note"></textarea>
+                                                    <textarea type="text" class="form-control" id="show_cause_application_note" name="application_note"></textarea>
                                                 </div><br><br><br><br><br><br><br><br><br><br>
                                             </div>
                                             <div class="modal-footer">
@@ -202,7 +196,7 @@
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Add Application</label>
                                 <div class="col-md-8">
-                                    <textarea type="text" class="form-control" id="" name="application_note"></textarea>
+                                    <textarea type="text" class="form-control" id="absent_application_note" name="application_note"></textarea>
                                     <input type="hidden" name="attendance_id" class="attendance_id" value="application_note" multiple>
                                 </div>
                             </div>
