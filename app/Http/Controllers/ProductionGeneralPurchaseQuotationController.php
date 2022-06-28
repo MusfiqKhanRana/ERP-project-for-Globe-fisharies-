@@ -112,6 +112,7 @@ class ProductionGeneralPurchaseQuotationController extends Controller
      */
     public function destroy($id)
     {
+        //dd($id);
         ProductionGeneralPurchaseQuotation::whereId($id)->delete();
         return redirect()->back()->withMsg("Successfully Deleted");
     }

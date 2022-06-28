@@ -189,7 +189,7 @@ class ProductionPurchaseRequisitionController extends Controller
         return view('backend.production.general_purchase.ch.ch_item_list',compact('requisition','types','requisition_item','requisition_unit','dept'));
     }
     public function quotation(){
-        $requisition=ProductionPurchaseRequisition::where('status','Quotation')->with('items','departments','users')->get();
+        $requisition=ProductionPurchaseRequisition::where('status','Quotation')->with('items','departments','users')->latest()->get();
         $supplier = ProductionSupplier::get();
         //dd($requisition->toArray());
         return view('backend.production.general_purchase.quotation.index',compact('supplier','requisition'));
