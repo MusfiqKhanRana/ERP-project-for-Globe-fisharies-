@@ -83,10 +83,24 @@ class ProductionPurchaseRequisitionController extends Controller
      */
     public function show($id)
     {
-        $item= ProductionPurchaseItem::with('productionpurchaseunit')->where('procution_purchase_type_id',$id)->get();
+        $item = ProductionPurchaseItem::with('productionpurchaseunit')->where('procution_purchase_type_id',$id)->get();
         return($item);
     }
 
+
+    public function requisitionPrint($id)
+    {
+        $requisition = ProductionPurchaseRequisition::where('id',$id)->with(['items','departments','users'])->where('status','Pending')->first();
+        //return $requisition;
+        return view('backend.production.general_purchase.production_purchase_requisition.print',compact('requisition'));
+    }
+
+    public function requisitionConfirmPrint($id)
+    {
+        $requisition = ProductionPurchaseRequisition::where('id',$id)->with(['items','departments','users'])->where('status','Confirm')->first();
+        //return $requisition;
+        return view('backend.production.general_purchase.production_purchase_requisition.print',compact('requisition'));
+    }
     /**
      * Show the form for editing the specified resource.
      *

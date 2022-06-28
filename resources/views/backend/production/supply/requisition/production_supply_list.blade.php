@@ -17,32 +17,39 @@
     <div class="page-content-wrapper">
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
-            <!-- BEGIN PAGE HEADER-->
-            <hr>
-                @if(Session::has('msg'))
-                    <script>
-                        $(document).ready(function(){
-                            swal("{{Session::get('msg')}}","", "success");
-                        });
-                    </script>
-                @endif
-                @if (count($errors) > 0)
-                    <div class="row">
-                        <div class="col-md-06">
-                            <div class="alert alert-danger alert-dismissible">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </div>
+            @if (count($errors) > 0)
+                <div class="row">
+                    <div class="col-md-06">
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
                         </div>
                     </div>
-                @endif
+                </div>
+            @endif
+            @if(Session::has('msg'))
+                <script>
+                    $(document).ready(function(){
+                        swal("{{Session::get('msg')}}","", "success");
+                    });
+                </script>
+            @endif
+            
+            <!-- BEGIN PAGE TITLE-->
+            <h3 class="page-title bold">Supply Management
+            </h3>
             <!-- END PAGE TITLE-->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="portlet-body" style="height: auto;">
+            
+            <!--category table start-->
+            <div class="portlet box green">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-globe"></i>Production Supply List</div>
+                    <div class="tools"> </div>
+                </div>
                         <div class="portlet-body">
                             <div class="table-scrollable">
                                 <table class="table table-striped table-bordered table-hover">
@@ -78,12 +85,12 @@
                                                                     <th>{{$item->grade->name}}</th>
                                                                     <th>{{$item->pivot->quantity}}</th>  
                                                                     <th>
-                                                                        <a class="btn red" data-toggle="modal" href="#deletModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                                                        <a class="btn red" data-toggle="modal" href="#deletModal{{$item->id}}"><i class="fa fa-trash"></i> Delete</a>
                                                                         
                                                                         {{-- <a class="btn blue"  data-toggle="modal" href="#deletproductModal{{$item->pivot->id}}"><i class="fa fa-edit"></i> Delete</a> --}}
                                                                     </th>
                                                                 </tr>
-                                                                {{-- <div id="deletModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                                                <div id="deletModal{{$item->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                                                     {{csrf_field()}}
                                                                     <input type="hidden" value="" id="delete_id">
                                                                     <div class="modal-dialog">
@@ -97,7 +104,7 @@
                                                                                     <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
                                                                                 </div>
                                                                                 <div class="caption pull-right">
-                                                                                    <form action="{{route('supply-list-item',[$data->id])}}" method="POST">
+                                                                                    <form action="{{route('supply-list-item.destroy',[$item->id])}}" method="POST">
                                                                                         @method('DELETE')
                                                                                         @csrf
                                                                                         <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
@@ -108,7 +115,7 @@
                                                                             
                                                                         </div>
                                                                     </div>
-                                                                </div> --}}
+                                                                </div>
                                                             @endforeach
                                                         </tbody>
                                                     </table>

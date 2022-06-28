@@ -9,20 +9,6 @@
     <div class="page-content-wrapper">
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
-            @if(Session::has('msg'))
-                    <script>
-                        $(document).ready(function(){
-                            swal("{{Session::get('msg')}}","", "success");
-                        });
-                    </script>
-                @endif
-            <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title" class="portlet box dark">Production Management
-                <small>Add Supplier</small>
-            </h3>
-            
-            <hr>
-            <br><br>
             @if (count($errors) > 0)
                 <div class="row">
                     <div class="col-md-06">
@@ -36,124 +22,130 @@
                     </div>
                 </div>
             @endif
+            @if(Session::has('msg'))
+                <script>
+                    $(document).ready(function(){
+                        swal("{{Session::get('msg')}}","", "success");
+                    });
+                </script>
+            @endif
+            
+            <!-- BEGIN PAGE TITLE-->
+            <h3 class="page-title bold">Supply Management
+            </h3>
             <!-- END PAGE TITLE-->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="portlet-body" style="height: auto;">
-                        <div class="col-md-12 ">
-                            <div class="portlet-body">
-                                <div class="form-body">
-                                    <div class="form-group">
+            
+            <!--category table start-->
+            <div class="portlet box green">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-globe"></i>Production Supply List Show</div>
+                    <div class="tools"> </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="form-body">
+                        <div class="form-group">
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                            <label class="col-md-1 control-label"><b>Date :</b></label>
+
+                                <div class="col-md-9"  name="expected_date">
+                                    {{$lists->expected_date}}
+                                </div>
+                            </div>
+                            <br>
+                            <div class="caption pull-right">
+                                <a class="btn green-meadow pull-right" id="sb1" data-toggle="modal" href="#addModal" style="margin-top: 8%">
+                                    Add New Records
+                                <i class="fa fa-plus"></i> </a>
+                            </div><br>
+                            <label class="col-md-1 control-label"><h4><b>Items</b></h4></label>
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center">Check To Add Supply</th>
+                                        <th>Item Name</th>
+                                        <th>Grade Name</th>
+                                        <th>Quantity(kg)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($lists->production_supply_list_items as $key2=> $item)
+                                    @if($item->pivot->status == 'NotDone')
+
+                                        <tr>
+                                            <th style="text-align: center">
+                                                <input type="checkbox" class="supply_item" data-item_id={{$item->id}} data-id={{$item->pivot->id}} data-name={{$item->name}} data-grade_name={{$item->grade->name}} data-qty={{$item->pivot->quantity}} name="supply_item_ids[]" multiple="multiple">
+                                            </th>
+                                            <th>{{$item->name}}</th>
+                                            <th>{{$item->grade->name}}</th>
+                                            <th>{{$item->pivot->quantity}}</th>  
+                                        </tr>
+                                    @endif
+                                    
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <label class="col-md-1 control-label"><b>Remark:</b></label>
+
+                                    <div class="col-md-9" name="remark">
+                                        {{$lists->remark}}
                                     </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                        <label class="col-md-1 control-label"><b>Date :</b></label>
-
-                                            <div class="col-md-9"  name="expected_date">
-                                                {{$lists->expected_date}}
-                                            </div>
+                                </div>
+                            <div id="addModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Add Supplier</h4>
                                         </div>
-                                        <br>
-                                        <div class="caption pull-right">
-                                            <a class="btn green-meadow pull-right" id="sb1" data-toggle="modal" href="#addModal" style="margin-top: 8%">
-                                                Add New Records
-                                            <i class="fa fa-plus"></i> </a>
-                                        </div><br>
-                                        <label class="col-md-1 control-label"><h4><b>Items</b></h4></label>
-                                        <table class="table table-striped table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th style="text-align: center">Check To Add Supply</th>
-                                                    <th>Item Name</th>
-                                                    <th>Grade Name</th>
-                                                    <th>Quantity(kg)</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($lists->production_supply_list_items as $key2=> $item)
-                                                @if($item->pivot->status == 'NotDone')
-
-                                                    <tr>
-                                                        <th style="text-align: center">
-                                                            <input type="checkbox" class="supply_item" data-item_id={{$item->id}} data-id={{$item->pivot->id}} data-name={{$item->name}} data-grade_name={{$item->grade->name}} data-qty={{$item->pivot->quantity}} name="supply_item_ids[]" multiple="multiple">
-                                                        </th>
-                                                        <th>{{$item->name}}</th>
-                                                        <th>{{$item->grade->name}}</th>
-                                                        <th>{{$item->pivot->quantity}}</th>  
-                                                    </tr>
-                                                @endif
-                                                
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                        <div class="row">
-                                            <label class="col-md-1 control-label"><b>Remark:</b></label>
-
-                                                <div class="col-md-9" name="remark">
-                                                    {{$lists->remark}}
-                                                </div>
-                                            </div>
-                                        <div id="addModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Add Supplier</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form class="form-horizontal" role="form" method="post" action="{{route('supply-list-item.store')}}">
-                                                            {{csrf_field()}}
-                                                            <div class="form-group">
-                                                                <label class="col-md-2 control-label" name="expected_date">Date  :</label>
-                                                                <div class="col-md-9" >
-                                                                    <input type="hidden" name="expected_date" value="{{$lists->expected_date}}">{{$lists->expected_date}}
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label class="col-md-2 control-label"> Supplier</label>
-                                                                <div class="col-md-9">
-                                                                    <select class="form-control" name="production_supplier_id">
-                                                                        @foreach ($supplier as $item)
-                                                                        <option value="{{$item->id}}">{{$item->name}}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div><br><br>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div class="col-md-12">
-                                                                    <table class="table table-striped table-bordered table-hover" id="supplyTable">
-                                                                        <tr>
-                                                                            <th>Name</th>
-                                                                            <th>Grade Name</th>
-                                                                            <th>Quantity(kg)</th>
-                                                                            <th>Rate (Per KG)</th>
-                                                                        </tr>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label class="col-md-2 control-label"><b>Remark :</b></label>
-                                                                <div class="col-md-9" style="margin-top: 1%" name="remark" >
-                                                                        <input type="hidden" name="remark" value="{{$lists->remark}}">{{$lists->remark}}
-                                                                </div><br><br>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                                <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Save</button>
-                                                            </div>
-                                                        </form>
+                                        <div class="modal-body">
+                                            <form class="form-horizontal" role="form" method="post" action="{{route('supply-list-item.store')}}">
+                                                {{csrf_field()}}
+                                                <div class="form-group">
+                                                    <label class="col-md-2 control-label" name="expected_date">Date  :</label>
+                                                    <div class="col-md-9" >
+                                                        <input type="hidden" name="expected_date" value="{{$lists->expected_date}}">{{$lists->expected_date}}
                                                     </div>
                                                 </div>
-                                            </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-2 control-label"> Supplier</label>
+                                                    <div class="col-md-9">
+                                                        <select class="form-control" name="production_supplier_id">
+                                                            @foreach ($supplier as $item)
+                                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div><br><br>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <table class="table table-striped table-bordered table-hover" id="supplyTable">
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Grade Name</th>
+                                                                <th>Quantity(kg)</th>
+                                                                <th>Rate (Per KG)</th>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-2 control-label"><b>Remark :</b></label>
+                                                    <div class="col-md-9" style="margin-top: 1%" name="remark" >
+                                                            <input type="hidden" name="remark" value="{{$lists->remark}}">{{$lists->remark}}
+                                                    </div><br><br>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                    <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Save</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="form-actions">
-                                <div class="col-md-2 pull-right">
-                                    <button type="submit" data-loading-text="Submitting..." class="col-md-12 btn btn btn-info">
-                                    <i class="fa fa-plus"></i>  Submit</button>
-                                </div>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
