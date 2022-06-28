@@ -116,10 +116,10 @@
                                                         <td>{{$item->pivot->remark}}</td>  
                                                         <td>
                                                             @if ($item->pivot->status === "AddQuotation")
-                                                                <a class="btn btn-success addquation" data-toggle="modal" href="#addquation" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Add Quationtion </a>
+                                                                <a class="btn btn-success addquation" data-toggle="modal" href="#addquation" data-pivot="{{$item->pivot}}" data-all="{{$data}}"> Add Quotation </a>
                                                             @endif
                                                             @if ($item->pivot->status == "ShowQuotation")
-                                                                <a class="btn btn-success addquation" href="{{route('production-quotation-list',$item->pivot->id)}}" > Show Quationtion </a>
+                                                                <a class="btn btn-success addquation" href="{{route('production-quotation-list',$item->pivot->id)}}" > Show Quotation </a>
                                                             @endif
                                                            
                                                         </td>  

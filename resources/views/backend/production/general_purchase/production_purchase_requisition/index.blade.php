@@ -282,7 +282,7 @@
                                                 {{csrf_field()}}
                                                 <div class="modal-footer"><br>
                                                     <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                    <a type="button" href="{{route('purchase-requisition-print')}}" class="btn red">Print</a>
+                                                    <a type="button" href="{{route('purchase-requisition-print',[$data->id])}}" class="btn red">Print</a>
                                                     <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
                                                 </div>
                                             </form>
@@ -368,7 +368,7 @@
                                                 {{csrf_field()}}
                                                 <div class="modal-footer"><br>
                                                     <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                    <button type="button"  class="btn red">Print</button>
+                                                    <a type="button" href="{{route('purchase_requisition_confirm_print',[$data->id])}}" class="btn red">Print</a>
                                                     <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Submit</button>
                                                 </div>
                                             </form>

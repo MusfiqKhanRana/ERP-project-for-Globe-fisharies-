@@ -78,10 +78,10 @@
                                     <td>{{$data->speciality}}</td>
                                     <td style="text-align: center">
                                         <a class="btn btn-info"  data-toggle="modal" href="#edit{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
-                                        <a class="btn red" data-toggle="modal" href="#delete{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                        <a class="btn red" data-toggle="modal" href="#deleteModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
                                     </td> 
                                 </tr> 
-                                {{-- <div id="delete{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                <div id="deleteModal{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                     {{csrf_field()}}
                                     <input type="hidden" value="" id="delete_id">
                                     <div class="modal-dialog">
@@ -102,7 +102,6 @@
                                                     </form>
                                                 </div>
                                             </div>
-                                            
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +137,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> --}}
+                                </div>
                                 <div>
                                     <input type="hidden" value="{{$purchase_item->id}}" id="requisition_item_id" name="requisition_item_id">
                                     <input type="hidden" value="{{$purchase_item->production_purchase_requisition_id}}" name="requisition_id">
