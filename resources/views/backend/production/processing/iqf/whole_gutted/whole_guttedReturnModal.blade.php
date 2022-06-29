@@ -17,6 +17,23 @@
                         <p><b>Item Name:</b> <span class="whole_gutted_item"></span></p>
                         <p><b>Quantity:</b> <span class="whole_gutted_qty"></span></p>
                     </div>
+                    <div class="row" style="border:1px solid black">
+                        <div class="col-md-6">
+                            <p><b>Initial Weight:</b> <span class="initial_weight"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><b>Initial Date & Time:</b> <span class="initial_weight_datetime"></span></p>
+                        </div>
+                    </div>
+                    <div class="row" style="border:1px solid black">
+                        <div class="col-md-6">
+                            <p><b>Cleaning Weight:</b> <span class="cleaning_weight"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><b>Cleaning Date & Time:</b> <span class="cleaning_weight_datetime"></span></p>
+                        </div>
+                    </div>
+                    <hr>
                     <div class="col-md-12">
                         <table class="table table-striped table-bordered table-hover whole_gutted_randw_table">
                             <thead>
@@ -28,9 +45,6 @@
                                         Quantity (Kg)
                                     </th>
                                     <th>
-                                        Gutted Weight (Kg)
-                                    </th>
-                                    <th>
                                         Glazing Weight (Kg)
                                     </th>
                                 </tr>
@@ -39,9 +53,6 @@
                                 <tr>
                                     <td>
                                         300-500gm
-                                    </td>
-                                    <td>
-                                        5
                                     </td>
                                     <td>
                                         5
@@ -58,11 +69,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Wastage (Kg)</label>
-                                <input type="text" class="form-control" name="wastage_quantity" placeholder=" Type Wastage Volume">
+                                <input type="number" step="0.01" class="form-control" name="wastage_quantity" placeholder=" Type Wastage Volume">
                             </div>
                             <div class="col-md-6">
                                 <label>Return (Kg)</label>
-                                <input type="text" class="form-control" name="return_quantity" placeholder=" Type Return Volume">
+                                <input type="number" step="0.01" class="form-control" name="return_quantity" placeholder=" Type Return Volume">
                             </div>
                         </div><br>
                     </div>

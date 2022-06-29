@@ -60,34 +60,42 @@ class ProductionIqfController extends Controller
         $hlso = ProductionProcessingUnit::select('id')->where('processing_name','raw_iqf_shrimp')
         ->where('processing_variant','hlso')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $pud = ProductionProcessingUnit::select('id')->where('processing_name','raw_iqf_shrimp')
         ->where('processing_variant','pud')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $p_n_d_tail_on = ProductionProcessingUnit::select('id')->where('processing_name','raw_iqf_shrimp')
         ->where('processing_variant','p_n_d_tail_on')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $p_n_d_tail_off = ProductionProcessingUnit::select('id')->where('processing_name','raw_iqf_shrimp')
         ->where('processing_variant','p_n_d_tail_off')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $special_cut_p_n_d = ProductionProcessingUnit::select('id')->where('processing_name','raw_iqf_shrimp')
         ->where('processing_variant','special_cut_p_n_d')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $hlso_easy_pell = ProductionProcessingUnit::select('id')->where('processing_name','raw_iqf_shrimp')
         ->where('processing_variant','hlso_easy_pell')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $butterfly_pud_skewer = ProductionProcessingUnit::select('id')->where('processing_name','raw_iqf_shrimp')
         ->where('processing_variant','butterfly_pud_skewer')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $pud_pull_vein = ProductionProcessingUnit::select('id')->where('processing_name','raw_iqf_shrimp')
         ->where('processing_variant','pud_pull_vein')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $grades = FishGrade::all();
         $production_processing_grade = ProductionProcessingGrade::all();
@@ -97,18 +105,22 @@ class ProductionIqfController extends Controller
         $hoso_count = ProductionProcessingUnit::select('id')->where('processing_name','cooked_iqf_shrimp')
         ->where('processing_variant','hoso')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $pud_count = ProductionProcessingUnit::select('id')->where('processing_name','cooked_iqf_shrimp')
         ->where('processing_variant','pud')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $p_n_d_tail_on_count = ProductionProcessingUnit::select('id')->where('processing_name','cooked_iqf_shrimp')
         ->where('processing_variant','p_n_d_tail_on')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $p_n_d_tail_off_count = ProductionProcessingUnit::select('id')->where('processing_name','cooked_iqf_shrimp')
         ->where('processing_variant','p_n_d_tail_off')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $grades = FishGrade::all();
         $production_processing_grade = ProductionProcessingGrade::all();
@@ -119,18 +131,22 @@ class ProductionIqfController extends Controller
         $hoso_count = ProductionProcessingUnit::select('id')->where('processing_name','blanched_iqf_shrimp')
         ->where('processing_variant','hoso')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $pud_count = ProductionProcessingUnit::select('id')->where('processing_name','blanched_iqf_shrimp')
         ->where('processing_variant','pud')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $p_n_d_tail_on_count = ProductionProcessingUnit::select('id')->where('processing_name','blanched_iqf_shrimp')
         ->where('processing_variant','p_n_d_tail_on')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $p_n_d_tail_off_count = ProductionProcessingUnit::select('id')->where('processing_name','blanched_iqf_shrimp')
         ->where('processing_variant','p_n_d_tail_off')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $grades = FishGrade::all();
         $production_processing_grade = ProductionProcessingGrade::all();
@@ -159,7 +175,7 @@ class ProductionIqfController extends Controller
                         }
                     ]
                     )
-                ->select('id','invoice_code','item_id','Initial_weight','initial_weight_datetime','fillet_soaking_weight','fillet_soaking_weight_datetime','fillet_glazing_weight','fillet_glazing_weight_datetime','status','alive_quantity','dead_quantity','requisition_code','processing_name','processing_variant')
+                ->select('id','invoice_code','item_id','Initial_weight','initial_weight_datetime','cleaning_weight','cleaning_weight_datetime','fillet_soaking_weight','fillet_soaking_weight_datetime','fillet_glazing_weight','fillet_glazing_weight_datetime','status','alive_quantity','dead_quantity','requisition_code','processing_name','processing_variant')
                 ->where(function ($q) use($request)
                 {
                     if ($request->type) {
@@ -207,7 +223,7 @@ class ProductionIqfController extends Controller
         // dd($request);
         ProductionProcessingUnit::where('id',$request->ppu_id)
         ->update(
-            ['Initial_weight'=>$request->initial_weight,'status'=>'Clean']
+            ['Initial_weight'=>$request->initial_weight,'initial_weight_datetime'=>Carbon::now(), 'status'=>'Clean']
         );
         return redirect()->back()->withmsg('Successfully Send For Cleaning');
     }
@@ -215,7 +231,7 @@ class ProductionIqfController extends Controller
         // dd($request);
         ProductionProcessingUnit::where('id',$request->ppu_id)
         ->update(
-            ['cleaning_weight'=>$request->cleaning_weight,'status'=>'Grading']
+            ['cleaning_weight'=>$request->cleaning_weight,'cleaning_weight_datetime'=>Carbon::now(),'status'=>'Grading']
         );
         return redirect()->back()->withmsg('Successfully Send For Grading');
     }
@@ -223,7 +239,7 @@ class ProductionIqfController extends Controller
         // dd($request->toArray());
         ProductionProcessingUnit::where('id',$request->grade_ppu_id)
         ->update(
-            ['Initial_weight'=>$request->initial_weight,'status'=>'Soaking']
+            ['status'=>'Soaking']
         );
         foreach (json_decode($request->inputs) as $key => $input) {
             ProductionProcessingGrade::create([
@@ -241,8 +257,9 @@ class ProductionIqfController extends Controller
         $count =0;
         ProductionProcessingUnit::where('id',$request->grade_ppu_id)
         ->update(
-            ['Initial_weight'=>$request->initial_weight,'status'=>'Glazing']
+            ['status'=>'Glazing']
         );
+        // dd(json_decode($request->inputs));
         foreach (json_decode($request->inputs) as $key => $input) {
             ProductionProcessingGrade::create([
                 'grade_id' => $input->grade_id,
@@ -252,7 +269,7 @@ class ProductionIqfController extends Controller
                 'grading_date'=>Carbon::now(),
             ]); 
         }    
-        $data_checks = ProductionProcessingGrade::whereIn('id',$request->item_id)->select('id','grade_name','grade_quantity','soaking_weight','soaking_return','glazing_weight')->get();
+        $data_checks = ProductionProcessingGrade::where('id',$request->item_id)->select('id','grade_name','grade_quantity','soaking_weight','soaking_return','glazing_weight')->get();
         // dd($glazing_data_checks->toArray());
         foreach ($data_checks as $key => $value) {
             if ($value->glazing_weight == Null) {
@@ -278,7 +295,7 @@ class ProductionIqfController extends Controller
                 ['soaking_weight'=>$request->soaking_weight [$key],'soaking_weight_datetime'=>Carbon::now(),'soaking_return'=>$request->return_weight [$key]]
             );
         }
-        $data_checks = ProductionProcessingGrade::whereIn('id',$request->item_id)->select('id','grade_name','grade_quantity','soaking_weight','soaking_return')->get();
+        $data_checks = ProductionProcessingGrade::where('id',$request->item_id)->select('id','grade_name','grade_quantity','soaking_weight','soaking_return')->get();
         // dd($glazing_data_checks->toArray());
         foreach ($data_checks as $key => $value) {
             if ($value->soaking_weight == Null) {
@@ -303,7 +320,7 @@ class ProductionIqfController extends Controller
                 ['glazing_weight'=>$request->glazing_weight [$key],'glazing_weight_datetime'=>Carbon::now()]
             );
         }   
-        $data_checks = ProductionProcessingGrade::whereIn('id',$request->item_id)->select('id','grade_name','grade_quantity','soaking_weight','soaking_return','glazing_weight')->get();
+        $data_checks = ProductionProcessingGrade::where('id',$request->item_id)->select('id','grade_name','grade_quantity','soaking_weight','soaking_return','glazing_weight')->get();
         // dd($glazing_data_checks->toArray());
         foreach ($data_checks as $key => $value) {
             if ($value->glazing_weight == Null) {

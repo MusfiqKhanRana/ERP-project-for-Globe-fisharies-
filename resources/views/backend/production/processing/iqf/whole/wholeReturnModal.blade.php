@@ -15,6 +15,15 @@
                         <p><b>Item Name:</b> <span class="whole_item"></span></p>
                         <p><b>Quantity(kg):</b> <span class="whole_qty"></span></p>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><b>Initial Weight:</b> <span class="initial_weight"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><b>Filleting Date & Time:</b> <span class="initial_weight_datetime"></span></p>
+                        </div>
+                    </div>
+                    <hr>
                     <div class="col-md-12">
                         <table class="table table-striped table-bordered table-hover whole_randw_table">
                             <thead>

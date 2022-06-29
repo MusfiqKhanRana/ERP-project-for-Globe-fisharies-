@@ -15,6 +15,15 @@
                         <p><b>Quantity(kg):</b> <span class="whole_qty"></span></p>
                     {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
                     <div class="row">
+                        <div class="col-md-6">
+                            <p><b>Initial Weight:</b> <span class="initial_weight"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><b>Filleting Date & Time:</b> <span class="initial_weight_datetime"></span></p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
                         <div class="col-md-12">
                             <table class="table table-striped table-bordered table-hover whole_glazing_table">
                                 <thead>

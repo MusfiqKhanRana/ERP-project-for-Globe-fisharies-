@@ -17,7 +17,7 @@
                         {{-- <p><b>Initial Weight (Kg):</b> 50kg</p> --}}
                     </div>
                     <div class="col-md-12">
-                        <table class="table table-striped table-bordered table-hover block_randw_table_hoso">
+                        <table class="table table-striped table-bordered table-hover block_randw_table_hoto">
                             <thead>
                                 <tr>
                                     <th>
