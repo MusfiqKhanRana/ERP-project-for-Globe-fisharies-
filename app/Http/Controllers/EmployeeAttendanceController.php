@@ -20,6 +20,10 @@ class EmployeeAttendanceController extends Controller
     {
         $start_date=Carbon::now()->format('Y-m-d');
         $end_date=Carbon::now()->format('Y-m-d');
+        if (\request('date_from') && \request('date_to')){
+            $start_date=Carbon::parse(\request('date_from'))->format('Y-m-d');
+            $end_date=Carbon::parse(\request('date_to'))->format('Y-m-d');
+        }
         $attendances = Attendance::with(['employee' => function($q){
             $q->with([
                 'user_shift'
@@ -28,7 +32,7 @@ class EmployeeAttendanceController extends Controller
         //return $attendances;
         return view('backend.hr_management.attendance.index',compact('attendances'));
     }
-
+   
     /**
      * Show the form for creating a new resource.
      *

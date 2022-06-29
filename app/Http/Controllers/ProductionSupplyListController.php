@@ -16,10 +16,14 @@ class ProductionSupplyListController extends Controller
      */
     public function index()
     {
-        $supply_lists = ProductionSupplyList::with("production_supply_list_items")->latest()->get();
-        $production_supply_list_items = ProductionSupplyListItem::get();
-        // dd($supply_lists);
-        return view('backend.production.supply.requisition.production_supply_list',compact('supply_lists','production_supply_list_items'));
+        $supply_lists = ProductionSupplyList::with('production_supply_list_items')
+        ->whereHas('production_supply_list_items',function($q){
+            $q->where('status','NotDone');
+            }
+            )->latest()->get();
+        
+        //  dd($supply_lists->toArray());
+        return view('backend.production.supply.requisition.production_supply_list',compact('supply_lists'));
     }
 
     /**

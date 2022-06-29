@@ -52,6 +52,7 @@
                 <div class="portlet-body">
                     <form action="{{route('production-quotation-confirm')}}" class="form-horizontal" method="POST">
                     {{ csrf_field() }}
+                    @method('PUT')
                     <div class="row" style="margin: 3%" >
                         <p ><b>Item Name: </b>  {{$purchase_item->item_name}}</p>
                         <p ><b>Department:</b>  {{$purchase_item->production_purchase_requisition->departments->name}} </p>
@@ -77,68 +78,10 @@
                                     <td> {{$data->price}}</td>
                                     <td>{{$data->speciality}}</td>
                                     <td style="text-align: center">
-                                        <a class="btn btn-info"  data-toggle="modal" href="#edit{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
-                                        <a class="btn red" data-toggle="modal" href="#delete{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
+                                        <a class="btn btn-info edit" data-edit_price={{$data->price}} data-edit_speciality="{{$data->speciality}}" data-id="{{$data->id}}"  data-toggle="modal" data-route="{{route('production-quotation-all-list.update', $data->id)}}" href="#edit"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="btn red delete" data-toggle="modal" data-route="{{route('production-quotation-all-list.destroy',$data->id)}}" data-id="{{$data->id}}" href="#deleteModal"><i class="fa fa-trash"></i> Delete</a>
                                     </td> 
-                                </tr> 
-                                {{-- <div id="delete{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                    {{csrf_field()}}
-                                    <input type="hidden" value="" id="delete_id">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                <h2 class="modal-title" style="color: red;">Are you sure?</h2>
-                                            </div>
-                                            <div class="modal-footer " >
-                                                <div class="d-flex justify-content-between">
-                                                    <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
-                                                </div>
-                                                <div class="caption pull-right">
-                                                    <form action="{{route('production-quotation-all-list.destroy',[$data->id])}}" method="POST">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="edit{{$data->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                                <h4 class="modal-title">Update (<b>{{$data->supplier->name}}</b>) Data</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form class="form-horizontal" role="form" method="post" action="{{route('production-quotation-all-list.update', $data->id)}}">
-                                                    {{csrf_field()}}
-                                                    {{method_field('put')}}
-                                                    <div class="form-group">
-                                                        <label for="inputEmail1" class="col-md-2 control-label">Price</label>
-                                                        <div class="col-md-8">
-                                                            <input type="text" class="form-control" value="{{$data->price}}" required name="price">
-                                                        </div><br><br>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputEmail1" class="col-md-2 control-label">Speciality</label>
-                                                        <div class="col-md-8">
-                                                            <input type="text" class="form-control" value="{{$data->speciality}}" required name="speciality">
-                                                        </div><br><br>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                        <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
-                                                    </div>
-                                                </form>
-        
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
+                                </tr>
                                 <div>
                                     <input type="hidden" value="{{$purchase_item->id}}" id="requisition_item_id" name="requisition_item_id">
                                     <input type="hidden" value="{{$purchase_item->production_purchase_requisition_id}}" name="requisition_id">
@@ -149,15 +92,90 @@
                     </div>
                     <div class="row">
                         <button type="submit" class="col-md-12 btn btn-info pull-right" >
-                            Submit
+                            Confirm
                         </button>
                     </div>
                     </form>
+                    <div id="deleteModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                        {{csrf_field()}}
+                        <input type="hidden" value="" id="id">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                    <h2 class="modal-title" style="color: red;">Are you sure?</h2>
+                                </div>
+                                <div class="modal-footer " >
+                                    <div class="d-flex justify-content-between">
+                                        <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
+                                    </div>
+                                    <div class="caption pull-right">
+                                        <form action="" id="delete_quotation" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="edit" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                    <h4 class="modal-title">Update (<b>{{$data->supplier->name}}</b>) Data</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-horizontal" id="edit_quotation" role="form" method="post" action="">
+                                        {{csrf_field()}}
+                                        {{method_field('put')}}
+                                        <div class="form-group">
+                                            <label for="inputEmail1" class="col-md-2 control-label">Price</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control edit_price" value="" required name="price">
+                                            </div><br><br>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputEmail1" class="col-md-2 control-label">Speciality</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control edit_speciality" value="" required name="speciality">
+                                            </div><br><br>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                            <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-               
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function () {
+        
+        $(".delete").click(function(){
+            $("#id").val($(this).data('id'));
+            $('#delete_quotation').attr('action', $(this).data('route'));
+           
+            console.log($(this).data('route'));
+           //console.log($(this).data('id'));
+        });
+        $(".edit").click(function(){
+            console.log('good');
+            $('#edit_quotation').attr('action', $(this).data('route'));
+            $('.edit_price').val($(this).attr('data-edit_price'));
+            $('.edit_speciality').val($(this).attr('data-edit_speciality'));
+        })
+    })
+</script>
 @endsection
 
 

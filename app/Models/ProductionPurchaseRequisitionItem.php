@@ -25,6 +25,10 @@ class ProductionPurchaseRequisitionItem extends Model
     {
         return $this->belongsTo(ProductionSupplier::class);
     }
+    public function production_purchase_requisitions()
+    {
+        return $this->belongsTo(ProductionPurchaseRequisition::class);
+    }
    
     
     

@@ -83,10 +83,24 @@ class ProductionPurchaseRequisitionController extends Controller
      */
     public function show($id)
     {
-        $item= ProductionPurchaseItem::with('productionpurchaseunit')->where('procution_purchase_type_id',$id)->get();
+        $item = ProductionPurchaseItem::with('productionpurchaseunit')->where('procution_purchase_type_id',$id)->get();
         return($item);
     }
 
+
+    public function requisitionPrint($id)
+    {
+        $requisition = ProductionPurchaseRequisition::where('id',$id)->with(['items','departments','users'])->where('status','Pending')->first();
+        //return $requisition;
+        return view('backend.production.general_purchase.production_purchase_requisition.print',compact('requisition'));
+    }
+
+    public function requisitionConfirmPrint($id)
+    {
+        $requisition = ProductionPurchaseRequisition::where('id',$id)->with(['items','departments','users'])->where('status','Confirm')->first();
+        //return $requisition;
+        return view('backend.production.general_purchase.production_purchase_requisition.print',compact('requisition'));
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -175,7 +189,7 @@ class ProductionPurchaseRequisitionController extends Controller
         return view('backend.production.general_purchase.ch.ch_item_list',compact('requisition','types','requisition_item','requisition_unit','dept'));
     }
     public function quotation(){
-        $requisition=ProductionPurchaseRequisition::where('status','Quotation')->with('items','departments','users')->get();
+        $requisition=ProductionPurchaseRequisition::where('status','Quotation')->with('items','departments','users')->latest()->get();
         $supplier = ProductionSupplier::get();
         //dd($requisition->toArray());
         return view('backend.production.general_purchase.quotation.index',compact('supplier','requisition'));
