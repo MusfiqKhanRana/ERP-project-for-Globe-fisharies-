@@ -120,7 +120,7 @@
                                                                 @else
                                                                     <td>{{$item->supplyitem->name}}</td>        
                                                                 @endif
-                                                                <td><span class="pack_size"></span></td>
+                                                                <td>{{$item->pack->name}}</td>
                                                                 <th>{{$item->pivot->quantity}}</th>
                                                                 <th>
                                                                     @php
