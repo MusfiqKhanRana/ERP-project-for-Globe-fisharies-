@@ -14,6 +14,15 @@
                         <p><b>Invoice no:</b> <span class="whole_invoice"></span></p>
                         <p><b>Item Name:</b> <span class="whole_item"></span></p>
                         <p><b>Quantity(kg):</b> <span class="whole_qty"></span></p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><b>Initial Weight:</b> <span class="initial_weight"></span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><b>Filleting Date & Time:</b> <span class="initial_weight_datetime"></span></p>
+                            </div>
+                        </div>
+                        <hr>
                     <div class="row">
                         <div class="col-md-5">
                             <label>Select Grade</label>

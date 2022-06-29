@@ -14,7 +14,24 @@
                         <p><b>Invoice no:</b> <span class="whole_gutted_invoice"></span></p>
                         <p><b>Item Name:</b> <span class="whole_gutted_item"></span></p>
                         <p><b>Quantity:</b> <span class="whole_gutted_qty"></span></p>
-                    <div class="row">
+                        <div class="row" style="border:1px solid black">
+                            <div class="col-md-6">
+                                <p><b>Initial Weight:</b> <span class="initial_weight"></span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><b>Initial Date & Time:</b> <span class="initial_weight_datetime"></span></p>
+                            </div>
+                        </div>
+                        <div class="row" style="border:1px solid black">
+                            <div class="col-md-6">
+                                <p><b>Cleaning Weight:</b> <span class="cleaning_weight"></span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><b>Cleaning Date & Time:</b> <span class="cleaning_weight_datetime"></span></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
                         <div class="col-md-5">
                             <label>Select Grade</label>
                             <select type="text" class="form-control grade_select" >

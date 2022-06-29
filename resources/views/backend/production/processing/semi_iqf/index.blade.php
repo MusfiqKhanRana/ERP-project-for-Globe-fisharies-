@@ -191,6 +191,7 @@
                     console.log(data);
                     $("table#hoso_table tbody tr").empty();
                     $.each( data, function( key, product ) {
+                        console.log(product);
                         if (product.status == "Initial") {
                             $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"' data-toggle='modal' href='#processData_hoso' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                             // $('.fillet_invoice').html(product.requisition_code);

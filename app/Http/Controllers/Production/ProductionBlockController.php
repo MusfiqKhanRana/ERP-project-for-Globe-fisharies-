@@ -37,22 +37,27 @@ class ProductionBlockController extends Controller
         $hlso_count = ProductionProcessingUnit::select('id')->where('processing_name','raw_bf_shrimp')
         ->where('processing_variant','hlso')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $pud_count = ProductionProcessingUnit::select('id')->where('processing_name','raw_bf_shrimp')
         ->where('processing_variant','pud')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $p_n_d_count = ProductionProcessingUnit::select('id')->where('processing_name','raw_bf_shrimp')
         ->where('processing_variant','p_n_d')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $pdto_count = ProductionProcessingUnit::select('id')->where('processing_name','raw_bf_shrimp')
         ->where('processing_variant','pdto')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $pto_count = ProductionProcessingUnit::select('id')->where('processing_name','raw_bf_shrimp')
         ->where('processing_variant','pto')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
 
         $blocks = ProcessingBlock::all();
@@ -63,10 +68,12 @@ class ProductionBlockController extends Controller
         $hoso_count = ProductionProcessingUnit::select('id')->where('processing_name','semi_iqf')
         ->where('processing_variant','hoso')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
         $hoto_count = ProductionProcessingUnit::select('id')->where('processing_name','semi_iqf')
         ->where('processing_variant','hoto')
         ->where('status','!=','StoreIn')
+        ->where('status','!=','Bulk_storage')
         ->get()->count();
 
         $blocks = ProcessingBlock::all();
@@ -135,7 +142,7 @@ class ProductionBlockController extends Controller
                 ['block_quantity'=>$request->block_quantity [$key]]
             );
         }   
-        $data_checks = ProductionProcessingGrade::whereIn('id',$request->item_id)->select('id','block_quantity')->get();
+        $data_checks = ProductionProcessingGrade::where('id',$request->item_id)->select('id','block_quantity')->get();
         // dd($glazing_data_checks->toArray());
         foreach ($data_checks as $key => $value) {
             if ($value->block_quantity == Null) {
@@ -185,7 +192,7 @@ class ProductionBlockController extends Controller
                 ['soaking_weight'=>$request->soaking_weight [$key],'soaking_weight_datetime'=>Carbon::now(),'soaking_return'=>$request->soaking_return [$key]]
             );
         }   
-        $data_checks = ProductionProcessingGrade::whereIn('id',$request->item_id)->select('id','soaking_weight')->get();
+        $data_checks = ProductionProcessingGrade::where('id',$request->item_id)->select('id','soaking_weight')->get();
         // dd($glazing_data_checks->toArray());
         foreach ($data_checks as $key => $value) {
             if ($value->soaking_weight == Null) {
@@ -210,7 +217,7 @@ class ProductionBlockController extends Controller
                 ['excess_volume'=>$request->excess_volume [$key]]
             );
         }   
-        $data_checks = ProductionProcessingGrade::whereIn('id',$request->item_id)->select('id','excess_volume')->get();
+        $data_checks = ProductionProcessingGrade::where('id',$request->item_id)->select('id','excess_volume')->get();
         // dd($glazing_data_checks->toArray());
         foreach ($data_checks as $key => $value) {
             if ($value->excess_volume == Null) {
