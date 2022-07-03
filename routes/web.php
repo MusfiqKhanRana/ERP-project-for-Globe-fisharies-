@@ -609,4 +609,39 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     //---------------- Raw and Wastage-----------------------//
     Route::resource('raw_wastage',WastageController::class);
+
+    //--------------------Export Management--------------------//
+    Route::get('export/buyer/management',function(){
+        return view('backend.export_management.manage_buyer.index');
+    })->name('manage_buyer');
+
+    Route::get('export/buyer/create',function(){
+        return view('backend.export_management.manage_buyer.create_buyer');
+    })->name('create_buyer');
+
+    Route::get('export/sale/contract/create',function(){
+        return view('backend.export_management.sale_contract.create_sale_contract');
+    })->name('create_sale_contract');
+
+    Route::get('export/sale/contract/list',function(){
+        return view('backend.export_management.sale_contract.sale_contract_list');
+    })->name('sale_contract_list');
+
+    Route::get('export/sale/contract/print',function(){
+        return view('backend.export_management.sale_contract.print_sale_contract');
+    })->name('print_sale_contract');
+
+    Route::get('export/commercial/list',function(){
+        return view('backend.export_management.commercial_list');
+    })->name('commercial_list');
+
+    Route::get('export/packing/list',function(){
+        return view('backend.export_management.packing_list');
+    })->name('packing_list');
+
+    Route::get('export/print/commercial/list',function(){
+        return view('backend.export_management.print_commercial_list');
+    })->name('print_commercial_list');
+
+    
 });

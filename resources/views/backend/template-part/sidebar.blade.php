@@ -1035,7 +1035,41 @@
                     </li>
                 </ul>
             </li>
-            
+            <li class="nav-item">
+                <a href="" class="nav-link nav-toggle" >
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    <span class="title">Export Management</span>
+                    <span class="arrow"></span>
+                    <span class="selected"></span>
+                    <ul class="sub-menu">
+                        <li class="nav-item">
+                            <a href="{{route('manage_buyer')}}" class="nav-link ">
+                                <span class="title">Manage Buyer</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('create_sale_contract')}}" class="nav-link ">
+                                <span class="title">Create Sales Contract</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('sale_contract_list')}}" class="nav-link ">
+                                <span class="title">Sales Contract List</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('commercial_list')}}" class="nav-link ">
+                                <span class="title">Commercial List</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('packing_list')}}" class="nav-link ">
+                                <span class="title">Packing List</span>
+                            </a>
+                        </li>
+                    </ul>
+                </a>
+            </li>
             <li class="nav-item">
                 <a href="" class="nav-link nav-toggle" >
                     <i class="fa fa-trash" aria-hidden="true"></i>
