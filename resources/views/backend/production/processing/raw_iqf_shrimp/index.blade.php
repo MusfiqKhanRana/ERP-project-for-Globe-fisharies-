@@ -601,10 +601,10 @@
                     $("table#hlso_table tbody tr").empty();
                     $.each( data, function( key, product ) {
                         if (product.status == "Initial") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"' data-toggle='modal' href='#hlso_processData' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' data-toggle='modal' href='#hlso_processData' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                             // $('.fillet_invoice').html(product.requisition_code);
                             // $('.fillet_item').html(product.production_processing_item.name);
-                            // $('.fillet_qty').html((product.alive_quantity+product.dead_quantity));
+                            // $('.fillet_qty').html((parseFloat(product.alive_quantity+product.dead_quantity)));
                             $('.processing').click(function () {
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
@@ -617,7 +617,7 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').on("change keyup",function() {
                                     var a = $(this).val();
-                                    var p = ((((product.alive_quantity+product.dead_quantity) - a)/(product.alive_quantity+product.dead_quantity))*100);
+                                    var p = ((((parseFloat(product.alive_quantity+product.dead_quantity)) - a)/(parseFloat(product.alive_quantity+product.dead_quantity)))*100);
                                     p = p.toFixed(2);
                                     $('.parcentage').html(p+'%');
                                 });
@@ -625,7 +625,7 @@
                             
                         }
                         if (product.status == "Grading") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_grade' class='btn btn-primary grading'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_grade' class='btn btn-primary grading'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
                             $('.grading').click(function () {
                                 $("table.hlso_grading_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -662,7 +662,7 @@
 
                         }
                         if (product.status == "Soaking") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_soaking' class='btn btn-warning soaking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_soaking' class='btn btn-warning soaking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
                             $('.soaking').click(function () {
                                 $("table.hlso_soaking_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -692,7 +692,7 @@
                             });
                         }
                         if (product.status == "Glazing") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_glazing' class='btn btn-info glazing' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_glazing' class='btn btn-info glazing' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
                             $('.glazing').click(function () {
                                 $("table.hlso_glazing_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -722,7 +722,7 @@
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_WastageReturn' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_WastageReturn' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.hlso_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -771,10 +771,10 @@
                     $("table#hlso_table tbody tr").empty();
                     $.each( data, function( key, product ) {
                         if (product.status == "Initial") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"' data-toggle='modal' href='#hlso_processData' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' data-toggle='modal' href='#hlso_processData' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                             // $('.fillet_invoice').html(product.requisition_code);
                             // $('.fillet_item').html(product.production_processing_item.name);
-                            // $('.fillet_qty').html((product.alive_quantity+product.dead_quantity));
+                            // $('.fillet_qty').html((parseFloat(product.alive_quantity+product.dead_quantity)));
                             $('.processing').click(function () {
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
@@ -787,7 +787,7 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').on("change keyup",function() {
                                     var a = $(this).val();
-                                    var p = ((((product.alive_quantity+product.dead_quantity) - a)/(product.alive_quantity+product.dead_quantity))*100);
+                                    var p = ((((parseFloat(product.alive_quantity+product.dead_quantity)) - a)/(parseFloat(product.alive_quantity+product.dead_quantity)))*100);
                                     p = p.toFixed(2);
                                     $('.parcentage').html(p+'%');
                                 });
@@ -795,7 +795,7 @@
                             
                         }
                         if (product.status == "Grading") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_grade' class='btn btn-primary grading'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_grade' class='btn btn-primary grading'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
                             $('.grading').click(function () {
                                 $("table.hlso_grading_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -832,7 +832,7 @@
 
                         }
                         if (product.status == "Soaking") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_soaking' class='btn btn-warning soaking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_soaking' class='btn btn-warning soaking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
                             $('.soaking').click(function () {
                                 $("table.hlso_soaking_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -862,7 +862,7 @@
                             });
                         }
                         if (product.status == "Glazing") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_glazing' class='btn btn-info glazing' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_glazing' class='btn btn-info glazing' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
                             $('.glazing').click(function () {
                                 $("table.hlso_glazing_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -892,7 +892,7 @@
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_WastageReturn' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_WastageReturn' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.hlso_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -943,10 +943,10 @@
                     $("table#pud_table tbody tr").empty();
                     $.each( data, function( key, product ) {
                         if (product.status == "Initial") {
-                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"' data-toggle='modal' href='#processData_pud' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' data-toggle='modal' href='#processData_pud' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                             // $('.fillet_invoice').html(product.requisition_code);
                             // $('.fillet_item').html(product.production_processing_item.name);
-                            // $('.fillet_qty').html((product.alive_quantity+product.dead_quantity));
+                            // $('.fillet_qty').html((parseFloat(product.alive_quantity+product.dead_quantity)));
                             $('.processing').click(function () {
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
@@ -959,7 +959,7 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').on("change keyup",function() {
                                     var a = $(this).val();
-                                    var p = ((((product.alive_quantity+product.dead_quantity) - a)/(product.alive_quantity+product.dead_quantity))*100);
+                                    var p = ((((parseFloat(product.alive_quantity+product.dead_quantity)) - a)/(parseFloat(product.alive_quantity+product.dead_quantity)))*100);
                                     p = p.toFixed(2);
                                     $('.parcentage').html(p+'%');
                                 });
@@ -967,7 +967,7 @@
                             
                         }
                         if (product.status == "Grading") {
-                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#grade_pud' class='btn btn-primary grading'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
+                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#grade_pud' class='btn btn-primary grading'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
                             $('.grading').click(function () {
                                 $("table.pud_grading_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1004,7 +1004,7 @@
 
                         }
                         if (product.status == "Soaking") {
-                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#soaking_pud' class='btn btn-warning soaking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#soaking_pud' class='btn btn-warning soaking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
                             $('.soaking').click(function () {
                                 $("table.pud_soaking_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1034,7 +1034,7 @@
                             });
                         }
                         if (product.status == "Glazing") {
-                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#glazing_pud' class='btn btn-info glazing' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
+                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#glazing_pud' class='btn btn-info glazing' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
                             $('.glazing').click(function () {
                                 $("table.pud_glazing_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1064,7 +1064,7 @@
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_pud' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_pud' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.pud_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1115,10 +1115,10 @@
                     $("table#pd_tail_on_table tbody tr").empty();
                     $.each( data, function( key, product ) {
                         if (product.status == "Initial") {
-                            $("table#pd_tail_on_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"' data-toggle='modal' href='#tail_on_processData' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                            $("table#pd_tail_on_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' data-toggle='modal' href='#tail_on_processData' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                             // $('.fillet_invoice').html(product.requisition_code);
                             // $('.fillet_item').html(product.production_processing_item.name);
-                            // $('.fillet_qty').html((product.alive_quantity+product.dead_quantity));
+                            // $('.fillet_qty').html((parseFloat(product.alive_quantity+product.dead_quantity)));
                             $('.processing').click(function () {
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
@@ -1131,7 +1131,7 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').on("change keyup",function() {
                                     var a = $(this).val();
-                                    var p = ((((product.alive_quantity+product.dead_quantity) - a)/(product.alive_quantity+product.dead_quantity))*100);
+                                    var p = ((((parseFloat(product.alive_quantity+product.dead_quantity)) - a)/(parseFloat(product.alive_quantity+product.dead_quantity)))*100);
                                     p = p.toFixed(2);
                                     $('.parcentage').html(p+'%');
                                 });
@@ -1139,7 +1139,7 @@
                             
                         }
                         if (product.status == "Grading") {
-                            $("table#pd_tail_on_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#tail_on_grade' class='btn btn-primary grading'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
+                            $("table#pd_tail_on_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#tail_on_grade' class='btn btn-primary grading'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
                             $('.grading').click(function () {
                                 $("table.pd_tail_on_grading_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1176,7 +1176,7 @@
 
                         }
                         if (product.status == "Soaking") {
-                            $("table#pd_tail_on_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#tail_on_soaking' class='btn btn-warning soaking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $("table#pd_tail_on_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#tail_on_soaking' class='btn btn-warning soaking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
                             $('.soaking').click(function () {
                                 $("table.pd_tail_on_soaking_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1206,7 +1206,7 @@
                             });
                         }
                         if (product.status == "Glazing") {
-                            $("table#pd_tail_on_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#tail_on_glazing' class='btn btn-info glazing' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
+                            $("table#pd_tail_on_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#tail_on_glazing' class='btn btn-info glazing' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
                             $('.glazing').click(function () {
                                 $("table.pd_tail_on_glazing_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1236,7 +1236,7 @@
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#pd_tail_on_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#tail_on_WastageReturn' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#pd_tail_on_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#tail_on_WastageReturn' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.pd_tail_on_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1287,10 +1287,10 @@
                     $("table#pd_tail_off_table tbody tr").empty();
                     $.each( data, function( key, product ) {
                         if (product.status == "Initial") {
-                            $("table#pd_tail_off_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"' data-toggle='modal' href='#processData_tail_off' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                            $("table#pd_tail_off_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' data-toggle='modal' href='#processData_tail_off' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                             // $('.fillet_invoice').html(product.requisition_code);
                             // $('.fillet_item').html(product.production_processing_item.name);
-                            // $('.fillet_qty').html((product.alive_quantity+product.dead_quantity));
+                            // $('.fillet_qty').html((parseFloat(product.alive_quantity+product.dead_quantity)));
                             $('.processing').click(function () {
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
@@ -1303,7 +1303,7 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').on("change keyup",function() {
                                     var a = $(this).val();
-                                    var p = ((((product.alive_quantity+product.dead_quantity) - a)/(product.alive_quantity+product.dead_quantity))*100);
+                                    var p = ((((parseFloat(product.alive_quantity+product.dead_quantity)) - a)/(parseFloat(product.alive_quantity+product.dead_quantity)))*100);
                                     p = p.toFixed(2);
                                     $('.parcentage').html(p+'%');
                                 });
@@ -1311,7 +1311,7 @@
                             
                         }
                         if (product.status == "Grading") {
-                            $("table#pd_tail_off_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#grade_tail_off' class='btn btn-primary grading'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
+                            $("table#pd_tail_off_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#grade_tail_off' class='btn btn-primary grading'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
                             $('.grading').click(function () {
                                 $("table.pd_tail_off_grading_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1348,7 +1348,7 @@
 
                         }
                         if (product.status == "Soaking") {
-                            $("table#pd_tail_off_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#soaking_tail_off' class='btn btn-warning soaking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $("table#pd_tail_off_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#soaking_tail_off' class='btn btn-warning soaking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
                             $('.soaking').click(function () {
                                 $("table.pd_tail_off_soaking_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1378,7 +1378,7 @@
                             });
                         }
                         if (product.status == "Glazing") {
-                            $("table#pd_tail_off_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#glazing_tail_off' class='btn btn-info glazing' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
+                            $("table#pd_tail_off_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#glazing_tail_off' class='btn btn-info glazing' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
                             $('.glazing').click(function () {
                                 $("table.pd_tail_off_glazing_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1408,7 +1408,7 @@
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#pd_tail_off_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_tail_off' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#pd_tail_off_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_tail_off' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.pd_tail_off_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1459,10 +1459,10 @@
                     $("table#special_cut_table tbody tr").empty();
                     $.each( data, function( key, product ) {
                         if (product.status == "Initial") {
-                            $("table#special_cut_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"' data-toggle='modal' href='#special_cut_processData' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                            $("table#special_cut_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' data-toggle='modal' href='#special_cut_processData' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                             // $('.fillet_invoice').html(product.requisition_code);
                             // $('.fillet_item').html(product.production_processing_item.name);
-                            // $('.fillet_qty').html((product.alive_quantity+product.dead_quantity));
+                            // $('.fillet_qty').html((parseFloat(product.alive_quantity+product.dead_quantity)));
                             $('.processing').click(function () {
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
@@ -1475,7 +1475,7 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').on("change keyup",function() {
                                     var a = $(this).val();
-                                    var p = ((((product.alive_quantity+product.dead_quantity) - a)/(product.alive_quantity+product.dead_quantity))*100);
+                                    var p = ((((parseFloat(product.alive_quantity+product.dead_quantity)) - a)/(parseFloat(product.alive_quantity+product.dead_quantity)))*100);
                                     p = p.toFixed(2);
                                     $('.parcentage').html(p+'%');
                                 });
@@ -1483,7 +1483,7 @@
                             
                         }
                         if (product.status == "Grading") {
-                            $("table#special_cut_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#special_cut_grade' class='btn btn-primary grading'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
+                            $("table#special_cut_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#special_cut_grade' class='btn btn-primary grading'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
                             $('.grading').click(function () {
                                 $("table.special_cut_grading_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1520,7 +1520,7 @@
 
                         }
                         if (product.status == "Soaking") {
-                            $("table#special_cut_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#special_cut_soaking' class='btn btn-warning soaking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $("table#special_cut_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#special_cut_soaking' class='btn btn-warning soaking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
                             $('.soaking').click(function () {
                                 $("table.special_cut_soaking_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1550,7 +1550,7 @@
                             });
                         }
                         if (product.status == "Glazing") {
-                            $("table#special_cut_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#special_cut_glazing' class='btn btn-info glazing' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
+                            $("table#special_cut_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#special_cut_glazing' class='btn btn-info glazing' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
                             $('.glazing').click(function () {
                                 $("table.special_cut_glazing_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1580,7 +1580,7 @@
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#special_cut_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#special_cut_WastageReturn' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#special_cut_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#special_cut_WastageReturn' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.special_cut_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1631,10 +1631,10 @@
                     $("table#hlso_easy_peel_table tbody tr").empty();
                     $.each( data, function( key, product ) {
                         if (product.status == "Initial") {
-                            $("table#hlso_easy_peel_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"' data-toggle='modal' href='#hlso_easy_processData' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                            $("table#hlso_easy_peel_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' data-toggle='modal' href='#hlso_easy_processData' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                             // $('.fillet_invoice').html(product.requisition_code);
                             // $('.fillet_item').html(product.production_processing_item.name);
-                            // $('.fillet_qty').html((product.alive_quantity+product.dead_quantity));
+                            // $('.fillet_qty').html((parseFloat(product.alive_quantity+product.dead_quantity)));
                             $('.processing').click(function () {
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
@@ -1647,7 +1647,7 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').on("change keyup",function() {
                                     var a = $(this).val();
-                                    var p = ((((product.alive_quantity+product.dead_quantity) - a)/(product.alive_quantity+product.dead_quantity))*100);
+                                    var p = ((((parseFloat(product.alive_quantity+product.dead_quantity)) - a)/(parseFloat(product.alive_quantity+product.dead_quantity)))*100);
                                     p = p.toFixed(2);
                                     $('.parcentage').html(p+'%');
                                 });
@@ -1655,7 +1655,7 @@
                             
                         }
                         if (product.status == "Grading") {
-                            $("table#hlso_easy_peel_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_easy_grade' class='btn btn-primary grading'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
+                            $("table#hlso_easy_peel_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_easy_grade' class='btn btn-primary grading'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
                             $('.grading').click(function () {
                                 $("table.hlso_easy_peel_grading_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1692,7 +1692,7 @@
 
                         }
                         if (product.status == "Soaking") {
-                            $("table#hlso_easy_peel_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_easy_soaking' class='btn btn-warning soaking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $("table#hlso_easy_peel_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_easy_soaking' class='btn btn-warning soaking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
                             $('.soaking').click(function () {
                                 $("table.hlso_easy_peel_soaking_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1722,7 +1722,7 @@
                             });
                         }
                         if (product.status == "Glazing") {
-                            $("table#hlso_easy_peel_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_easy_glazing' class='btn btn-info glazing' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
+                            $("table#hlso_easy_peel_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_easy_glazing' class='btn btn-info glazing' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
                             $('.glazing').click(function () {
                                 $("table.hlso_easy_peel_glazing_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1752,7 +1752,7 @@
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#hlso_easy_peel_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_easy_WastageReturn' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#hlso_easy_peel_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlso_easy_WastageReturn' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.hlso_easy_peel_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1803,10 +1803,10 @@
                     $("table#butterfly_table tbody tr").empty();
                     $.each( data, function( key, product ) {
                         if (product.status == "Initial") {
-                            $("table#butterfly_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"' data-toggle='modal' href='#butterfly_processData' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                            $("table#butterfly_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' data-toggle='modal' href='#butterfly_processData' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                             // $('.fillet_invoice').html(product.requisition_code);
                             // $('.fillet_item').html(product.production_processing_item.name);
-                            // $('.fillet_qty').html((product.alive_quantity+product.dead_quantity));
+                            // $('.fillet_qty').html((parseFloat(product.alive_quantity+product.dead_quantity)));
                             $('.processing').click(function () {
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
@@ -1819,7 +1819,7 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').on("change keyup",function() {
                                     var a = $(this).val();
-                                    var p = ((((product.alive_quantity+product.dead_quantity) - a)/(product.alive_quantity+product.dead_quantity))*100);
+                                    var p = ((((parseFloat(product.alive_quantity+product.dead_quantity)) - a)/(parseFloat(product.alive_quantity+product.dead_quantity)))*100);
                                     p = p.toFixed(2);
                                     $('.parcentage').html(p+'%');
                                 });
@@ -1827,7 +1827,7 @@
                             
                         }
                         if (product.status == "Grading") {
-                            $("table#butterfly_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#butterfly_grade' class='btn btn-primary grading'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
+                            $("table#butterfly_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#butterfly_grade' class='btn btn-primary grading'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
                             $('.grading').click(function () {
                                 $("table.butterfly_grading_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1864,7 +1864,7 @@
 
                         }
                         if (product.status == "Soaking") {
-                            $("table#butterfly_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#butterfly_soaking' class='btn btn-warning soaking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $("table#butterfly_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#butterfly_soaking' class='btn btn-warning soaking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
                             $('.soaking').click(function () {
                                 $("table.butterfly_soaking_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1894,7 +1894,7 @@
                             });
                         }
                         if (product.status == "Glazing") {
-                            $("table#butterfly_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#butterfly_glazing' class='btn btn-info glazing' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
+                            $("table#butterfly_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#butterfly_glazing' class='btn btn-info glazing' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
                             $('.glazing').click(function () {
                                 $("table.butterfly_glazing_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1924,7 +1924,7 @@
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#butterfly_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#butterfly_WastageReturn' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#butterfly_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#butterfly_WastageReturn' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.butterfly_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1975,10 +1975,10 @@
                     $("table#pud_pull_vein_table tbody tr").empty();
                     $.each( data, function( key, product ) {
                         if (product.status == "Initial") {
-                            $("table#pud_pull_vein_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"' data-toggle='modal' href='#pud_pull_vein_processData' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                            $("table#pud_pull_vein_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' data-toggle='modal' href='#pud_pull_vein_processData' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                             // $('.fillet_invoice').html(product.requisition_code);
                             // $('.fillet_item').html(product.production_processing_item.name);
-                            // $('.fillet_qty').html((product.alive_quantity+product.dead_quantity));
+                            // $('.fillet_qty').html((parseFloat(product.alive_quantity+product.dead_quantity)));
                             $('.processing').click(function () {
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
@@ -1991,7 +1991,7 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').on("change keyup",function() {
                                     var a = $(this).val();
-                                    var p = ((((product.alive_quantity+product.dead_quantity) - a)/(product.alive_quantity+product.dead_quantity))*100);
+                                    var p = ((((parseFloat(product.alive_quantity+product.dead_quantity)) - a)/(parseFloat(product.alive_quantity+product.dead_quantity)))*100);
                                     p = p.toFixed(2);
                                     $('.parcentage').html(p+'%');
                                 });
@@ -1999,7 +1999,7 @@
                             
                         }
                         if (product.status == "Grading") {
-                            $("table#pud_pull_vein_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pud_pull_vein_grade' class='btn btn-primary grading'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
+                            $("table#pud_pull_vein_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pud_pull_vein_grade' class='btn btn-primary grading'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Grading</button></td></tr>");
                             $('.grading').click(function () {
                                 $("table.pud_pull_vein_grading_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -2036,7 +2036,7 @@
 
                         }
                         if (product.status == "Soaking") {
-                            $("table#pud_pull_vein_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pud_pull_vein_soaking' class='btn btn-warning soaking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $("table#pud_pull_vein_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pud_pull_vein_soaking' class='btn btn-warning soaking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
                             $('.soaking').click(function () {
                                 $("table.pud_pull_vein_soaking_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -2066,7 +2066,7 @@
                             });
                         }
                         if (product.status == "Glazing") {
-                            $("table#pud_pull_vein_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pud_pull_vein_glazing' class='btn btn-info glazing' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
+                            $("table#pud_pull_vein_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pud_pull_vein_glazing' class='btn btn-info glazing' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
                             $('.glazing').click(function () {
                                 $("table.pud_pull_vein_glazing_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -2096,7 +2096,7 @@
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#pud_pull_vein_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pud_pull_vein_WastageReturn' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(product.alive_quantity+product.dead_quantity)+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#pud_pull_vein_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pud_pull_vein_WastageReturn' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.pud_pull_vein_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
