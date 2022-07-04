@@ -8,7 +8,7 @@
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title bold form-inline" class="portlet box dark">Export Management
+            <h3 class="page-title bold form-inline" class="portlet box dark">Export Management  <small>Sale Contract List</small>
             {{-- <button type="button" class="btn dark pull-right " >Create Report <i class= 'fa fa-plus'> </i> </button> --}}
            
         </h3>
@@ -86,8 +86,8 @@
                                                             <td>190</td>
                                                             <td>390</td>
                                                             <td>
-                                                                <button class="btn btn-info">Edit</button>
-                                                                <button class="btn btn-danger">Delete</button>
+                                                                <button class="btn btn-info"  data-toggle="modal" href="#editkModal">Edit</button>
+                                                                <button class="btn btn-danger"  data-toggle="modal" href="#deleteModal">Delete</button>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -95,14 +95,224 @@
                                             </td>
                                             <td>Lorem ipsum dolor sit amet <br>consectetur adipisicing elit. Delectus, et.</td>
                                             <td>
-                                                <button class="btn btn-success">Approve</button>
-                                                <button class="btn btn-info">Edit</button>
+                                                <button class="btn btn-success" data-toggle="modal" href="#ApproveModal">Approve</button>
+                                                <button class="btn btn-info" data-toggle="modal" href="#editSaleContractModal">Edit</button>
                                                 <a class="btn btn-danger" href="{{route('print_sale_contract')}}">print</a>
-                                                <button class="btn blue">+  Add Item</button>
+                                                <button class="btn blue" data-toggle="modal" href="#AddItemModal">+  Add Item</button>
                                             </td>
                                        </tr>
                                     </tbody>
                                 </table>
+                                <div id="deleteModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="delete_id">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h2 class="modal-title" style="color: red;">Are you sure?</h2>
+                                            </div>
+                                            <div class="modal-footer " >
+                                                <div class="d-flex justify-content-between">
+                                                    <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
+                                                </div>
+                                                <div class="caption pull-right">
+                                                    <form action="{{--route('',[$data->id])--}}" method="POST">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="editkModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h4 class="modal-title">Update Order Details</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="form-horizontal" role="form" method="post" action="">
+                                                    {{csrf_field()}}
+                                                    {{method_field('put')}}
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">HS Code</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" value="" required name="name">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Description of Good</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" value="" required name="test">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Scientific Name</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" value="" required name="name">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Quantity/Master Carton</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" value="" required name="test">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Rate Per KG CRF(USD $)</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" value="" required name="name">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Rate per Master Carton CRF(USD $)</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" value="" required name="test">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Total Amount(USD $)</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" value="" required name="name">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                        <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="ApproveModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h2 class="modal-title" style="color: rgb(15, 17, 17);">Are you Want to Approve it?</h2>
+                                            </div>
+                                            <div class="modal-footer " >
+                                                <div class="d-flex justify-content-between">
+                                                    <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
+                                                </div>
+                                                <div class="caption pull-right">
+                                                    <form action="{{--route('',[$data->id])--}}" method="POST">
+                                                        @method('PUT')
+                                                        @csrf
+                                                        <button class="btn btn-success" id="approve"><i class="fa fa-check"></i>Approve</button>               
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="AddItemModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h4 class="modal-title">Update Order Details</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="form-horizontal" role="form" method="post" action="">
+                                                    {{csrf_field()}}
+                                                    {{method_field('put')}}
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">HS Code</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" value="" required name="name">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Description of Good</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" value="" required name="test">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Scientific Name</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" value="" required name="name">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Quantity/Master Carton</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" value="" required name="test">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Rate Per KG CRF(USD $)</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" value="" required name="name">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Rate per Master Carton CRF(USD $)</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" value="" required name="test">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Total Amount(USD $)</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" value="" required name="name">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                        <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="editSaleContractModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h4 class="modal-title">Update Sale Contract List</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="form-horizontal" role="form" method="post" action="">
+                                                    {{csrf_field()}}
+                                                    {{method_field('put')}}
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Buyer Details	</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" value="" required name="name">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Shipment Details	</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" value="" required name="test">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Payment Details</label>
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control" value="" required name="name">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                        <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -45,12 +45,12 @@
                             </div>
                         </div>
                         <div class="portlet-body" style="height: auto;">
-                            <form class="form-horizontal" role="form" method="post" action="">
-                                {{csrf_field()}}
-                                {{-- <input type="hidden" name="production_processing_unit_id" value="{{$production_processing_unit_id}}"> --}}
-                                <div class="row" style="margin-top:2%">
-                                    <div class="col-md-12">
-                                        <div class="card">
+                            {{-- <input type="hidden" name="production_processing_unit_id" value="{{$production_processing_unit_id}}"> --}}
+                            <div class="row" style="margin-top:2%">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <form class="form-horizontal" role="form" method="post" action="">
+                                            {{csrf_field()}}
                                             <div class="card-header">
                                                 <h4 style="text-align: center"><b>Buyer Info</b></h4>
                                             </div>
@@ -72,7 +72,7 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label class="control-label">Contact Number <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="buyer_contact_number">
+                                                        <input type="text" class="form-control" name="buyer_contact_number" required>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label">Email <span class="required">* </span></label>
@@ -80,15 +80,24 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label" >Buyer Country <span class="required">* </span></label>
-                                                        <select class="form-control country" name="buyer_country" id="country">
+                                                        <select class="form-control country" name="buyer_country" id="country" required>
                                                         </select>
                                                     </div>
                                                 </div>
+                                            </div><br>
+                                            <div class="row">
+                                                <div class="actions col-md-12">
+                                                    <button  data-loading-text="Updating..."  class="demo-loading-btn btn red-flamingo col-md-12">
+                                                        <i class="fa fa-save" ></i> Update Buyer Info</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div><hr>
-                                    <div class="col-md-12">
-                                        <div class="card">
+                                        </form>
+                                    </div><br><br>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <form class="form-horizontal" role="form" method="post" action="">
+                                            {{csrf_field()}}
                                             <div class="card-header">
                                                 <h4 style="text-align: center"><b>Consignee Info</b></h4>
                                             </div>
@@ -114,15 +123,24 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label" >Country <span class="required">* </span></label>
-                                                        <select class="select2Ajax form-control country" name="consignee_country" id="country">
+                                                        <select class="form-control country" name="consignee_country" id="country">
                                                         </select>
                                                     </div>
                                                 </div>
+                                            </div><br><br>
+                                            <div class="row">
+                                                <div class="actions col-md-12">
+                                                    <button  data-loading-text="Updating..."  class="demo-loading-btn btn red-flamingo col-md-12">
+                                                        <i class="fa fa-save" ></i> Update Consignee Info</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="card">
+                                        </form>
+                                    </div><br><br>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <form class="form-horizontal" role="form" method="post" action="">
+                                            {{csrf_field()}}
                                             <div class="card-header">
                                                 <h4 style="text-align: center"><b>Notify Party Info</b></h4>
                                             </div>
@@ -149,38 +167,47 @@
                                                     <div class="col-md-4">
                                                         <label class="control-label">Country <span class="required">* </span></label>
                                                         {{-- <input type="text" class="form-control" name="" placeholder="Country" required> --}}
-                                                        <select class="select2Ajax form-control country" name="notify_country" id="country">
+                                                        <select class="form-control country" name="notify_country" id="country">
                                                         </select>
                                                     </div>
                                                 </div>
+                                            </div><br>
+                                            <div class="row">
+                                                <div class="actions col-md-12">
+                                                    <button  data-loading-text="Updating..."  class="demo-loading-btn btn red-flamingo col-md-12">
+                                                        <i class="fa fa-save" ></i> Update Notify Party Info</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-header">
-                                        <h4 style="text-align: center"><b>Bank Details</b></h4>
-                                    </div>
+                                        </form>
+                                    </div><br><br>
+                                </div>
+                                <div class="card-header">
+                                    <h4 style="text-align: center"><b>Bank Details</b></h4>
+                                </div>
+                                <form class="form-horizontal" role="form" method="post" action="">
+                                    {{csrf_field()}}
                                     <input type="hidden" value="" id="provided_item" name="provided_item">
                                     <div class="form-group" style="padding:2%">
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <label class="control-label" for="bank_name">Bank Name <span class="required">* </span></label>
-                                                <input type="text" class="form-control" placeholder="Bank Name" id="bank_name" name="bank_name">
+                                                <input type="text" class="form-control" placeholder="Bank Name" id="bank_name" name="bank_name" required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label class="control-label" for="a_c_name">A/C Name <span class="required">* </span></label>
-                                                <input type="text" class="form-control" placeholder="A/C Name" id="a_c_name" name="a_c_name">
+                                                <input type="text" class="form-control" placeholder="A/C Name" id="a_c_name" name="a_c_name" required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label class="control-label" for="a_C_no">A/C No. <span class="required">* </span></label>
-                                                <input type="number" class="form-control" placeholder="A/C No." id="a_C_no" name="a_C_no">
+                                                <input type="number" class="form-control" placeholder="A/C No." id="a_C_no" name="a_C_no" required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label class="control-label" for="branch">Branch <span class="required">* </span></label>
-                                                <input type="text" class="form-control" placeholder="Branch" id="branch" name="branch">
+                                                <input type="text" class="form-control" placeholder="Branch" id="branch" name="branch" required>
                                             </div>
                                             <div class="col-md-2">
                                                 <label class="control-label"for="country">Country <span class="required">* </span></label>
-                                                <select class="form-control select2Ajax country" name="bank_country" id="bank_country">
+                                                <select class="form-control country" name="bank_country" id="bank_country" required>
                                                 </select>
                                             </div> 
                                             <div class="col-md-1">
@@ -206,12 +233,14 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 ">
-                                        <button type="submit" data-loading-text="Submitting..." class="col-md-12 btn btn btn-success">
-                                        <i class="fa fa-plus"></i>  Submit</button>
-                                    </div>   
-                                </div>
-                            </form>
+                                    <div class="row">
+                                        <div class="actions col-md-12">
+                                            <button  data-loading-text="Updating..."  class="demo-loading-btn btn red-flamingo col-md-12">
+                                                <i class="fa fa-save" ></i> Update Bank Details</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -269,26 +298,6 @@
             });
             nullmaking();
     });
-    $('.select2Ajax').select2({
-            placeholder: 'Select an item',
-            ajax: {
-                url: "https://restcountries.com/v3.1/all",
-                dataType: 'json',
-                delay: 250,
-                processResults: function (data) {
-                    return {
-                        results:  $.map(data, function (item) {
-                            return {
-                                text: item.name.common,
-                               
-                                id: item.id
-                            }
-                        })
-                    };
-                },
-                cache: true
-            }
-        });
         
     });
 </script>

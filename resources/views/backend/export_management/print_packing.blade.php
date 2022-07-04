@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('site-title')
-     Commercial List Print
+     Packing List Print
 @endsection
 @section('css')
 <style>
@@ -23,7 +23,7 @@
                 </script>
             @endif
             <!-- BEGIN PAGE TITLE-->
-            <h3 class="page-title bold">Commercial List
+            <h3 class="page-title bold">Packing List
                 <small> Invoice</small>
             </h3>
             <hr>
@@ -46,9 +46,9 @@
                 <div class="col-md-12">
                     <div class="" style="margin-left: 2%; margin-right: 2%;" >
                         <div class="portlet-body" style="height: auto;">
-                            <div class="row"><br><br><br><br>
+                            <div class="row">
                                 <div class="col-md-12" style="text-align: center">
-                                    <h2><b>Commercial Invoice</b></h2>
+                                    <h2><b>Packing List</b></h2>
                                 </div>
                             </div>
                             <div class="row">

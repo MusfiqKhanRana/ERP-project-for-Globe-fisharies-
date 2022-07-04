@@ -71,69 +71,88 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <label class="control-label" for="product">Part Of Loading <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="" placeholder="Part Of Loading" required>
+                                                        <label class="control-label" for="product">Port Of Loading <span class="required">* </span></label>
+                                                        <input type="text" class="form-control" name="port_of_loading" placeholder="Part Of Loading" required>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label" for="product">Pre-Carring By<span class="required">* </span></label>
-                                                        <select class="form-control" name="" id="">
-                                                            <option value=""></option>
+                                                        <select class="form-control" name="pre_carring_by" >
+                                                            <option value="">--Select--</option>
+                                                            <option value="By Air">By Air</option>
+                                                            <option value="By Sea">By Sea</option>
+                                                            <option value="By Road">By Road</option>
+                                                            <option value="By Rail">By Rail</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label for="product">Part Of Discharge<span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="" placeholder="Part Of Discharge" required>
+                                                        <label for="product">Port Of Discharge<span class="required">* </span></label>
+                                                        <input type="text" class="form-control" name="port_of_discharge" placeholder="Part Of Discharge" required>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label class="control-label" for="product">Final Destination<span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="" placeholder="Final Destination" required>
+                                                        <input type="text" class="form-control" name="final_destination" placeholder="Final Destination" required>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label for="product">Shipment Date <span class="required">* </span></label>
-                                                        <input type="date" class="form-control" name="" placeholder="Shipment Date" required>
+                                                        <input type="date" class="form-control" name="shipment_date" placeholder="Shipment Date" required>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label" for="product">HS Code <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="" placeholder="HS Code" required>
+                                                        <input type="text" class="form-control" name="hs_code" placeholder="HS Code" required>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label class="control-label" for="product">Packaging Responsibility<span class="required">* </span></label>
-                                                        <select class="form-control" name="" id="">
-                                                            <option value="">test</option>
+                                                        <select class="form-control" name="packaging_responsibility">
+                                                            <option value="">--Select--</option>
+                                                            <option value="Globe Fisheries Ltd">Globe Fisheries Ltd</option>
+                                                            <option value="Buyer">Buyer</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label for="product">Partial Shipment<span class="required">* </span></label>
-                                                        <select class="form-control" name="" id="">
-                                                            <option value=""></option>
+                                                        <select class="form-control" name="partial_shipment">
+                                                            <option value="">--Select--</option>
+                                                            <option value="Allowed">Allowed</option>
+                                                            <option value="Not Allowed">Not Allowed</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="control-label" for="product">Tarns Shipment <span class="required">* </span></label>
-                                                        <select class="form-control" name="" placeholder="Tarns Shipment">
+                                                        <label class="control-label" for="Tarns Shipment">Tarns Shipment <span class="required">* </span></label>
+                                                        <select class="form-control" name="trans_shipment" placeholder="Tarns Shipment">
+                                                            <option value="">--Select--</option>
+                                                            <option value="Allowed">Allowed</option>
+                                                            <option value="Not Allowed">Not Allowed</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <label class="control-label" for="product">Shipment Remark<span class="required">* </span></label>
-                                                        <textarea class="form-control" name="" id="" ></textarea>
-                                                    </div>
-                                                    <div class="col-md-4">
                                                         <label for="product">Shipping Responsibility<span class="required">* </span></label>
-                                                        <select class="form-control" name="" id="">
-                                                            <option value=""></option>
+                                                        <select class="form-control" name="shipping_responsibility" id="shipping_responsibility">
+                                                            <option value="">--Select--</option>
+                                                            <option value="FOB">FOB</option>
+                                                            <option value="CFR">CFR</option>
+                                                            <option value="CIF">CIF</option>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <label class="control-label" for="product">Tarns Shipment <span class="required">* </span></label>
-                                                        <select class="form-control" name="" placeholder="HS Code">
-                                                        </select>
+                                                    <div class="col-md-4 cfr_rate">
+                                                        <label class="control-label" for="product">CFR Rate (Per KG)<span class="required">* </span></label>
+                                                        <input type="number" class="form-control" id="cfr_rate" name="cfr_rate">
                                                     </div>
+                                                    <div class="col-md-4 cif_rate">
+                                                        <label class="control-label" for="product">CIF Rate (Per KG)<span class="required">* </span></label>
+                                                        <input type="number" class="form-control" id="cif_rate" name="cif_rate">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label class="control-label" for="product">Shipment Remark<span class="required">* </span></label>
+                                                    <textarea class="form-control" name="shipment_remark" ></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -190,11 +209,11 @@
                                                         <input class="form-control" type="text" name="total_in_kg" id="total_in_kg" readonly>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="control-label" for="product">Per KG Rate<span class="required">* </span></label>
+                                                        <label class="control-label" for="product">Per KG Rate ($)<span class="required">* </span></label>
                                                         <input class="form-control" type="text" name="rate" id="rate" readonly>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <label class="control-label" for="product">Total Amount<span class="required">* </span></label>
+                                                        <label class="control-label" for="product">Total Amount ($)<span class="required">* </span></label>
                                                         <input class="form-control" type="Number" name="total_amount" id="total_amount" readonly>
                                                     </div>
                                                     <div class="col-md-1">
@@ -214,8 +233,8 @@
                                                             <th>Pack SIze</th>
                                                             <th>Cartons Quantity</th>
                                                             <th>Total In KG</th>
-                                                            <th>Per KG Rate</th>
-                                                            <th>Total AMount</th>
+                                                            <th>Per KG Rate ($)</th>
+                                                            <th>Total Amount ($)</th>
                                                             <th>Action</th>
                                                         </tr>
                                                         <tr>
@@ -235,12 +254,17 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <label class="control-label" for="product">PAyment Method<span class="required">* </span></label>
-                                                        <select class="form-control" name="" id=""></select>
+                                                        <label class="control-label" for="product">Payment Method<span class="required">* </span></label>
+                                                        <select class="form-control" name="" id="">
+                                                            <option value="">--Select--</option>
+                                                            <option value="T.T at Sight">T.T at Sight</option>
+                                                            <option value="T.T in Advance">T.T in Advance</option>
+                                                            <option value="L.C at Sight">L.C at Sight</option>
+                                                        </select>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label" for="product">Grand Total</label>
-                                                        <input type="text" class="form-control" name="" readonly>
+                                                        <input type="text" class="form-control" name="" required>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label for="paid"> Paid Amount </label>
@@ -258,32 +282,32 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label class="control-label" for="product">Due Amount<span class="required">* </span></label>
-                                                        <input type="number" class="form-control" name="" readonly>
+                                                        <input type="number" class="form-control" name="due_amount" readonly>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label" for="product">Advising Bank <span class="required">* </span></label>
                                                         {{-- <input type="text" class="form-control" name="" placeholder="Country" required> --}}
-                                                        <select class="form-control country" name="">
+                                                        <select class="form-control country" name="advising_bank">
                                                             <option value=""></option>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label" for="product">Advising Bank A/C No.<span class="required">* </span></label>
-                                                        <input type="number" class="form-control" name="">
+                                                        <input type="number" class="form-control" name="advising_bank_account_no">
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label class="control-label" for="product">Advising Bank Swift Code<span class="required">* </span></label>
-                                                        <input type="number" class="form-control" name="" placeholder="Advising Bank Swift Code">
+                                                        <input type="number" class="form-control" name="advising_bank_swift_code" placeholder="Advising Bank Swift Code">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label" for="product">Bank Charge <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="" placeholder="Bank Charge" required>
+                                                        <input type="text" class="form-control" name="bank_charge" placeholder="Bank Charge" required>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label" for="product">Offer Validity<span class="required">* </span></label>
-                                                        <input type="number" class="form-control" name="" placeholder="Offer Validity">
+                                                        <input type="number" class="form-control" name="offer_validity" placeholder="Offer Validity">
                                                     </div>
                                                 </div>
                                             </div>
@@ -298,25 +322,25 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label class="control-label" for="">Importer Bank <span class="required">* </span></label>
-                                            <input type="text" class="form-control" placeholder="Importer Bank" id="bank_name" name="">
+                                            <input type="text" class="form-control" placeholder="Importer Bank" id="bank_name" name="imporeter_bank_name">
                                         </div>
                                         <div class="col-md-4">
                                             <label class="control-label" for="">Importer A/C Name <span class="required">* </span></label>
-                                            <input type="text" class="form-control" placeholder="Importer A/C Name" name="">
+                                            <input type="text" class="form-control" placeholder="Importer A/C Name" name="importer_account_name">
                                         </div>
                                         <div class="col-md-4">
                                             <label class="control-label" for="">Importer A/C No. <span class="required">* </span></label>
-                                            <input type="number" class="form-control" placeholder="Importer A/C No."  name="">
+                                            <input type="number" class="form-control" placeholder="Importer A/C No."  name="importer_account_no">
                                         </div>
                                     </div>
-                                    <div>
+                                    <div class="row">
                                         <div class="col-md-4">
                                             <label class="control-label" for="branch">Importer Bank Branch <span class="required">* </span></label>
-                                            <input type="text" class="form-control" placeholder="Importer Bank Branch" name="">
+                                            <input type="text" class="form-control" placeholder="Importer Bank Branch" name="importer_bank_branch">
                                         </div>
                                         <div class="col-md-4">
                                             <label class="control-label"for="country">Country <span class="required">* </span></label>
-                                            <select class="form-control country" name="" id="bank_country">
+                                            <select class="form-control country" name="importer_bank_country" id="bank_country">
                                                 {{-- <option value="">--Select Country--@include('backend.export_management.manage_buyer.country')</option> --}}
                                             </select>
                                             {{-- <input type="text" class="form-control" placeholder="Country" id="bank_country" name=""> --}}
@@ -328,7 +352,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <label class="control-label" for="">Remark</label>
-                                        <textarea class="form-control" name="" ></textarea>
+                                        <textarea class="form-control" name="remark" ></textarea>
                                     </div>
                                 </div><br>
                                 <div class="form-actions">
@@ -354,6 +378,29 @@
 
   <script type="text/javascript">
     $(document).ready(function () {
+        $("#shipping_responsibility").change(function()
+            {
+            if($(this).val() == "CFR")
+            {
+            $(".cfr_rate").show();
+            }
+            else
+            {
+            $(".cfr_rate").hide();
+            }
+            if($(this).val() == "CIF")
+            {
+            $(".cif_rate").show();
+            }
+            else
+            {
+            $(".cif_rate").hide();
+            }
+        });
+
+        $(".cfr_rate").hide();
+        $(".cif_rate").hide();
+
        
         $.ajax({
                 type:"GET",

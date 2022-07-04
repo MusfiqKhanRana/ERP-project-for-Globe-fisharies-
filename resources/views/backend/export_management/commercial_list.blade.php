@@ -8,7 +8,7 @@
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title bold form-inline" class="portlet box dark">Export Management
+            <h3 class="page-title bold form-inline" class="portlet box dark">Export Management   <small>Commercial List</small>
         </h3>
             <hr>
                 @if(Session::has('msg'))
@@ -92,10 +92,10 @@
                                             <td>Lorem ipsum dolor sit amet <br>consectetur adipisicing elit. Delectus, et.</td>
                                             <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, dignissimos!</td>
                                             <td>
-                                                <button class="btn btn-success">Approve</button>
+                                                <button class="btn btn-success" data-toggle="modal" href="#ApproveModal">Approve</button>
                                                 <button class="btn btn-warning" data-toggle="modal" href="#AddDocument">Add Document</button>
                                                 <button class="btn blue" data-toggle="modal" href="#editInvoice">Edit Invoice Details</button>
-                                                <button class="btn grey-salt">Send To sales Contract</button>
+                                                <button class="btn grey-salt" data-toggle="modal" href="#SendSaleContract">Send To sales Contract</button>
                                                 <a class="btn btn-danger" href="{{route('print_commercial_list')}}">print</a>
                                             </td>
                                        </tr>
@@ -199,6 +199,54 @@
                                                     </div>
                                                 </form>
         
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="ApproveModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h2 class="modal-title" style="color: rgb(15, 17, 17);">Are you Want to Approve it?</h2>
+                                            </div>
+                                            <div class="modal-footer " >
+                                                <div class="d-flex justify-content-between">
+                                                    <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
+                                                </div>
+                                                <div class="caption pull-right">
+                                                    <form action="{{--route('',[$data->id])--}}" method="POST">
+                                                        @method('PUT')
+                                                        @csrf
+                                                        <button class="btn btn-success" id="approve"><i class="fa fa-check"></i>Approve</button>               
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="SendSaleContract" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h2 class="modal-title" style="color: rgb(15, 17, 17);">Are you sure Send To sales Contrac?</h2>
+                                            </div>
+                                            <div class="modal-footer " >
+                                                <div class="d-flex justify-content-between">
+                                                    <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
+                                                </div>
+                                                <div class="caption pull-right">
+                                                    <form action="{{--route('',[$data->id])--}}" method="POST">
+                                                        @method('PUT')
+                                                        @csrf
+                                                        <button class="btn btn-success" id="approve"><i class="fa fa-check"></i>  Send</button>               
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

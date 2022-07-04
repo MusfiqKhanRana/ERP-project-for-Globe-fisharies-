@@ -619,6 +619,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
         return view('backend.export_management.manage_buyer.create_buyer');
     })->name('create_buyer');
 
+    Route::get('export/buyer/edit',function(){
+        return view('backend.export_management.manage_buyer.edit_buyer');
+    })->name('edit_buyer');
+
     Route::get('export/sale/contract/create',function(){
         return view('backend.export_management.sale_contract.create_sale_contract');
     })->name('create_sale_contract');
@@ -642,6 +646,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('export/print/commercial/list',function(){
         return view('backend.export_management.print_commercial_list');
     })->name('print_commercial_list');
+
+    Route::get('export/print/packing/list',function(){
+        return view('backend.export_management.print_packing');
+    })->name('print_packing_list');
 
     
 });
