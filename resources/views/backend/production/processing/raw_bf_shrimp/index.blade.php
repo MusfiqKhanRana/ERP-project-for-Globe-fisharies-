@@ -390,11 +390,21 @@
                     console.log(data);
                     $("table#hlso_table tbody tr").empty();
                     $.each( data, function( key, product ) {
+                        var alive_quantity=0;
+                        var dead_quantity =0;
+                        var total_quantity=0;
+                        if(product.alive_quantity){
+                            alive_quantity = parseFloat(product.alive_quantity);
+                        }
+                        if(product.dead_quantity){
+                            dead_quantity =  parseFloat(product.dead_quantity);
+                        }
+                        total_quantity = alive_quantity+dead_quantity;
                         if (product.status == "Initial") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' data-toggle='modal' href='#hlsoProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#hlsoProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                             // $('.fillet_invoice').html(product.requisition_code);
                             // $('.fillet_item').html(product.production_processing_item.name);
-                            // $('.fillet_qty').html((parseFloat(product.alive_quantity+product.dead_quantity)));
+                            // $('.fillet_qty').html(total_quantity);
                             $('.processing').click(function () {
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
@@ -407,7 +417,7 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').on("change keyup",function() {
                                     var a = $(this).val();
-                                    var p = ((((parseFloat(product.alive_quantity+product.dead_quantity)) - a)/(parseFloat(product.alive_quantity+product.dead_quantity)))*100);
+                                    var p = (((total_quantity - a)/total_quantity)*100);
                                     p = p.toFixed(2);
                                     $('.parcentage').html(p+'%');
                                 });
@@ -415,7 +425,7 @@
                             
                         }
                         if (product.status == "Blocking") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoGradingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoGradingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
                             $('.blocking').click(function () {
                                 $("table.block_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -454,7 +464,7 @@
 
                         }
                         if (product.status == "BlockCounter") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
                             $('.block_counter').click(function () {
                                 $("table.block_counter_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -484,7 +494,7 @@
                             });
                         }
                         if (product.status == "Soaking") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoSoakingModal' class='btn btn-warning soakingtable' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoSoakingModal' class='btn btn-warning soakingtable' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
                             $('.soakingtable').click(function () {
                                 $("table.hlso_soaking_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -514,7 +524,7 @@
                             });
                         }
                         if (product.status == "ExcessVolume") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
                             $('.excess_volume').click(function () {
                                 $("table.excess_volume_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -544,7 +554,7 @@
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.block_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -592,11 +602,21 @@
                     console.log(data);
                     $("table#hlso_table tbody tr").empty();
                     $.each( data, function( key, product ) {
+                        var alive_quantity=0;
+                        var dead_quantity =0;
+                        var total_quantity=0;
+                        if(product.alive_quantity){
+                            alive_quantity = parseFloat(product.alive_quantity);
+                        }
+                        if(product.dead_quantity){
+                            dead_quantity =  parseFloat(product.dead_quantity);
+                        }
+                        total_quantity = alive_quantity+dead_quantity;
                         if (product.status == "Initial") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' data-toggle='modal' href='#hlsoProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#hlsoProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                             // $('.fillet_invoice').html(product.requisition_code);
                             // $('.fillet_item').html(product.production_processing_item.name);
-                            // $('.fillet_qty').html((parseFloat(product.alive_quantity+product.dead_quantity)));
+                            // $('.fillet_qty').html(total_quantity);
                             $('.processing').click(function () {
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
@@ -609,7 +629,7 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').on("change keyup",function() {
                                     var a = $(this).val();
-                                    var p = ((((parseFloat(product.alive_quantity+product.dead_quantity)) - a)/(parseFloat(product.alive_quantity+product.dead_quantity)))*100);
+                                    var p = (((total_quantity - a)/total_quantity)*100);
                                     p = p.toFixed(2);
                                     $('.parcentage').html(p+'%');
                                 });
@@ -617,7 +637,7 @@
                             
                         }
                         if (product.status == "Blocking") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoGradingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoGradingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
                             $('.blocking').click(function () {
                                 $("table.block_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -656,7 +676,7 @@
 
                         }
                         if (product.status == "BlockCounter") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
                             $('.block_counter').click(function () {
                                 $("table.block_counter_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -686,7 +706,7 @@
                             });
                         }
                         if (product.status == "Soaking") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoSoakingModal' class='btn btn-warning soakingtable' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoSoakingModal' class='btn btn-warning soakingtable' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
                             $('.soakingtable').click(function () {
                                 $("table.hlso_soaking_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -716,7 +736,7 @@
                             });
                         }
                         if (product.status == "ExcessVolume") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
                             $('.excess_volume').click(function () {
                                 $("table.excess_volume_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -746,7 +766,7 @@
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.block_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -794,11 +814,21 @@
                         console.log(data);
                         $("table#pud_table tbody tr").empty();
                         $.each( data, function( key, product ) {
+                            var alive_quantity=0;
+                        var dead_quantity =0;
+                        var total_quantity=0;
+                        if(product.alive_quantity){
+                            alive_quantity = parseFloat(product.alive_quantity);
+                        }
+                        if(product.dead_quantity){
+                            dead_quantity =  parseFloat(product.dead_quantity);
+                        }
+                        total_quantity = alive_quantity+dead_quantity;
                             if (product.status == "Initial") {
-                                $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' data-toggle='modal' href='#pudProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                                $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#pudProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                                 // $('.fillet_invoice').html(product.requisition_code);
                                 // $('.fillet_item').html(product.production_processing_item.name);
-                                // $('.fillet_qty').html((parseFloat(product.alive_quantity+product.dead_quantity)));
+                                // $('.fillet_qty').html(total_quantity);
                                 $('.processing').click(function () {
                                     var invoice = $(this).attr("data-invoice");
                                     var item = $(this).attr("data-item");
@@ -811,7 +841,7 @@
                                     $('.ppu_id').val(ppu_id);
                                     $('.initial_weight').on("change keyup",function() {
                                         var a = $(this).val();
-                                        var p = ((((parseFloat(product.alive_quantity+product.dead_quantity)) - a)/(parseFloat(product.alive_quantity+product.dead_quantity)))*100);
+                                        var p = (((total_quantity - a)/total_quantity)*100);
                                         p = p.toFixed(2);
                                         $('.parcentage').html(p+'%');
                                     });
@@ -819,7 +849,7 @@
                                 
                             }
                             if (product.status == "Blocking") {
-                                $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudGradingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                                $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudGradingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
                                 $('.blocking').click(function () {
                                     $("table.pud_block_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -858,7 +888,7 @@
 
                             }
                             if (product.status == "BlockCounter") {
-                                $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                                $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
                                 $('.block_counter').click(function () {
                                     $("table.pud_block_counter_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -888,7 +918,7 @@
                                 });
                             }
                             if (product.status == "Soaking") {
-                                $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudSoakingModal' class='btn btn-warning soakingtable' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
+                                $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudSoakingModal' class='btn btn-warning soakingtable' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
                                 $('.soakingtable').click(function () {
                                     $("table.pud_soaking_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -918,7 +948,7 @@
                                 });
                             }
                             if (product.status == "ExcessVolume") {
-                                $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                                $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
                                 $('.excess_volume').click(function () {
                                     $("table.pud_excess_volume_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -948,7 +978,7 @@
                                 });
                             }
                             if (product.status == "RandW") {
-                                $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                                $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                                 $('.randw').click(function () {
                                     $("table.block_randw_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -996,11 +1026,21 @@
                         console.log(data);
                         $("table#p_n_d_table tbody tr").empty();
                         $.each( data, function( key, product ) {
+                            var alive_quantity=0;
+                            var dead_quantity =0;
+                            var total_quantity=0;
+                            if(product.alive_quantity){
+                                alive_quantity = parseFloat(product.alive_quantity);
+                            }
+                            if(product.dead_quantity){
+                                dead_quantity =  parseFloat(product.dead_quantity);
+                            }
+                            total_quantity = alive_quantity+dead_quantity;
                             if (product.status == "Initial") {
-                                $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' data-toggle='modal' href='#p_n_dProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                                $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#p_n_dProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                                 // $('.fillet_invoice').html(product.requisition_code);
                                 // $('.fillet_item').html(product.production_processing_item.name);
-                                // $('.fillet_qty').html((parseFloat(product.alive_quantity+product.dead_quantity)));
+                                // $('.fillet_qty').html(total_quantity);
                                 $('.processing').click(function () {
                                     var invoice = $(this).attr("data-invoice");
                                     var item = $(this).attr("data-item");
@@ -1013,7 +1053,7 @@
                                     $('.ppu_id').val(ppu_id);
                                     $('.initial_weight').on("change keyup",function() {
                                         var a = $(this).val();
-                                        var p = ((((parseFloat(product.alive_quantity+product.dead_quantity)) - a)/(parseFloat(product.alive_quantity+product.dead_quantity)))*100);
+                                        var p = (((total_quantity - a)/total_quantity)*100);
                                         p = p.toFixed(2);
                                         $('.parcentage').html(p+'%');
                                     });
@@ -1021,7 +1061,7 @@
                                 
                             }
                             if (product.status == "Blocking") {
-                                $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dGradingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                                $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dGradingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
                                 $('.blocking').click(function () {
                                     $("table.p_n_d_block_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -1060,7 +1100,7 @@
 
                             }
                             if (product.status == "BlockCounter") {
-                                $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                                $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
                                 $('.block_counter').click(function () {
                                     $("table.p_n_d_block_counter_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -1090,7 +1130,7 @@
                                 });
                             }
                             if (product.status == "Soaking") {
-                                $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dSoakingModal' class='btn btn-warning soakingtable' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
+                                $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dSoakingModal' class='btn btn-warning soakingtable' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
                                 $('.soakingtable').click(function () {
                                     $("table.p_n_d_soaking_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -1120,7 +1160,7 @@
                                 });
                             }
                             if (product.status == "ExcessVolume") {
-                                $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                                $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
                                 $('.excess_volume').click(function () {
                                     $("table.p_n_d_excess_volume_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -1150,7 +1190,7 @@
                                 });
                             }
                             if (product.status == "RandW") {
-                                $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                                $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                                 $('.randw').click(function () {
                                     $("table.p_n_d_block_randw_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -1198,11 +1238,21 @@
                         console.log(data);
                         $("table#pdto_table tbody tr").empty();
                         $.each( data, function( key, product ) {
+                            var alive_quantity=0;
+                            var dead_quantity =0;
+                            var total_quantity=0;
+                            if(product.alive_quantity){
+                                alive_quantity = parseFloat(product.alive_quantity);
+                            }
+                            if(product.dead_quantity){
+                                dead_quantity =  parseFloat(product.dead_quantity);
+                            }
+                            total_quantity = alive_quantity+dead_quantity;
                             if (product.status == "Initial") {
-                                $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' data-toggle='modal' href='#pdtoProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                                $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#pdtoProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                                 // $('.fillet_invoice').html(product.requisition_code);
                                 // $('.fillet_item').html(product.production_processing_item.name);
-                                // $('.fillet_qty').html((parseFloat(product.alive_quantity+product.dead_quantity)));
+                                // $('.fillet_qty').html(total_quantity);
                                 $('.processing').click(function () {
                                     var invoice = $(this).attr("data-invoice");
                                     var item = $(this).attr("data-item");
@@ -1215,7 +1265,7 @@
                                     $('.ppu_id').val(ppu_id);
                                     $('.initial_weight').on("change keyup",function() {
                                         var a = $(this).val();
-                                        var p = ((((parseFloat(product.alive_quantity+product.dead_quantity)) - a)/(parseFloat(product.alive_quantity+product.dead_quantity)))*100);
+                                        var p = (((total_quantity - a)/total_quantity)*100);
                                         p = p.toFixed(2);
                                         $('.parcentage').html(p+'%');
                                     });
@@ -1223,7 +1273,7 @@
                                 
                             }
                             if (product.status == "Blocking") {
-                                $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoGradingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                                $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoGradingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
                                 $('.blocking').click(function () {
                                     $("table.pdto_block_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -1262,7 +1312,7 @@
 
                             }
                             if (product.status == "BlockCounter") {
-                                $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                                $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
                                 $('.block_counter').click(function () {
                                     $("table.pdto_block_counter_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -1292,7 +1342,7 @@
                                 });
                             }
                             if (product.status == "Soaking") {
-                                $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoSoakingModal' class='btn btn-warning soakingtable' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
+                                $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoSoakingModal' class='btn btn-warning soakingtable' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
                                 $('.soakingtable').click(function () {
                                     $("table.pdto_soaking_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -1322,7 +1372,7 @@
                                 });
                             }
                             if (product.status == "ExcessVolume") {
-                                $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                                $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
                                 $('.excess_volume').click(function () {
                                     $("table.pdto_excess_volume_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -1352,7 +1402,7 @@
                                 });
                             }
                             if (product.status == "RandW") {
-                                $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                                $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                                 $('.randw').click(function () {
                                     $("table.pdto_block_randw_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -1400,11 +1450,21 @@
                         console.log(data);
                         $("table#pto_table tbody tr").empty();
                         $.each( data, function( key, product ) {
+                            var alive_quantity=0;
+                            var dead_quantity =0;
+                            var total_quantity=0;
+                            if(product.alive_quantity){
+                                alive_quantity = parseFloat(product.alive_quantity);
+                            }
+                            if(product.dead_quantity){
+                                dead_quantity =  parseFloat(product.dead_quantity);
+                            }
+                            total_quantity = alive_quantity+dead_quantity;
                             if (product.status == "Initial") {
-                                $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' data-toggle='modal' href='#ptoProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                                $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#ptoProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                                 // $('.fillet_invoice').html(product.requisition_code);
                                 // $('.fillet_item').html(product.production_processing_item.name);
-                                // $('.fillet_qty').html((parseFloat(product.alive_quantity+product.dead_quantity)));
+                                // $('.fillet_qty').html(total_quantity);
                                 $('.processing').click(function () {
                                     var invoice = $(this).attr("data-invoice");
                                     var item = $(this).attr("data-item");
@@ -1417,7 +1477,7 @@
                                     $('.ppu_id').val(ppu_id);
                                     $('.initial_weight').on("change keyup",function() {
                                         var a = $(this).val();
-                                        var p = ((((parseFloat(product.alive_quantity+product.dead_quantity)) - a)/(parseFloat(product.alive_quantity+product.dead_quantity)))*100);
+                                        var p = (((total_quantity - a)/total_quantity)*100);
                                         p = p.toFixed(2);
                                         $('.parcentage').html(p+'%');
                                     });
@@ -1425,7 +1485,7 @@
                                 
                             }
                             if (product.status == "Blocking") {
-                                $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoGradingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                                $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoGradingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
                                 $('.blocking').click(function () {
                                     $("table.pto_block_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -1464,7 +1524,7 @@
 
                             }
                             if (product.status == "BlockCounter") {
-                                $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                                $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
                                 $('.block_counter').click(function () {
                                     $("table.pto_block_counter_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -1494,7 +1554,7 @@
                                 });
                             }
                             if (product.status == "Soaking") {
-                                $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoSoakingModal' class='btn btn-warning soakingtable' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
+                                $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoSoakingModal' class='btn btn-warning soakingtable' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
                                 $('.soakingtable').click(function () {
                                     $("table.pto_soaking_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -1524,7 +1584,7 @@
                                 });
                             }
                             if (product.status == "ExcessVolume") {
-                                $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                                $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
                                 $('.excess_volume').click(function () {
                                     $("table.pto_excess_volume_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -1554,7 +1614,7 @@
                                 });
                             }
                             if (product.status == "RandW") {
-                                $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                                $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                                 $('.randw').click(function () {
                                     $("table.pto_block_randw_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
