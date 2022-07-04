@@ -191,12 +191,22 @@
                     console.log(data);
                     $("table#hoso_table tbody tr").empty();
                     $.each( data, function( key, product ) {
+                        var alive_quantity=0;
+                        var dead_quantity =0;
+                        var total_quantity=0;
+                        if(product.alive_quantity){
+                            alive_quantity = parseFloat(product.alive_quantity);
+                        }
+                        if(product.dead_quantity){
+                            dead_quantity =  parseFloat(product.dead_quantity);
+                        }
+                        total_quantity = alive_quantity+dead_quantity;
                         console.log(product);
                         if (product.status == "Initial") {
-                            $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' data-toggle='modal' href='#processData_hoso' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                            $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#processData_hoso' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                             // $('.fillet_invoice').html(product.requisition_code);
                             // $('.fillet_item').html(product.production_processing_item.name);
-                            // $('.fillet_qty').html((parseFloat(product.alive_quantity+product.dead_quantity)));
+                            // $('.fillet_qty').html(total_quantity);
                             $('.processing').click(function () {
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
@@ -209,7 +219,7 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').on("change keyup",function() {
                                     var a = $(this).val();
-                                    var p = ((((parseFloat(product.alive_quantity+product.dead_quantity)) - a)/(parseFloat(product.alive_quantity+product.dead_quantity)))*100);
+                                    var p = (((total_quantity - a)/total_quantity)*100);
                                     p = p.toFixed(2);
                                     $('.parcentage').html(p+'%');
                                 });
@@ -217,7 +227,7 @@
                             
                         }
                         if (product.status == "Blocking") {
-                            $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#grading_hoso' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                            $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#grading_hoso' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
                             $('.blocking').click(function () {
                                 $("table.block_table_hoso tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -256,7 +266,7 @@
 
                         }
                         if (product.status == "BlockCounter") {
-                            $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blockCounter_hoso' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                            $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blockCounter_hoso' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
                             $('.block_counter').click(function () {
                                 $("table.block_counter_table_hoso tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -286,7 +296,7 @@
                             });
                         }
                         if (product.status == "ExcessVolume") {
-                            $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#excess_hoso' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                            $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#excess_hoso' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
                             $('.excess_volume').click(function () {
                                 $("table.excess_volume_table_hoso tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -316,7 +326,7 @@
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_hoso' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_hoso' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.block_randw_table_hosox tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -365,11 +375,21 @@
                         console.log(data);
                         $("table#hoso_table tbody tr").empty();
                         $.each( data, function( key, product ) {
+                            var alive_quantity=0;
+                            var dead_quantity =0;
+                            var total_quantity=0;
+                            if(product.alive_quantity){
+                                alive_quantity = parseFloat(product.alive_quantity);
+                            }
+                            if(product.dead_quantity){
+                                dead_quantity =  parseFloat(product.dead_quantity);
+                            }
+                            total_quantity = alive_quantity+dead_quantity;
                             if (product.status == "Initial") {
-                                $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' data-toggle='modal' href='#processData_hoso' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                                $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#processData_hoso' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                                 // $('.fillet_invoice').html(product.requisition_code);
                                 // $('.fillet_item').html(product.production_processing_item.name);
-                                // $('.fillet_qty').html((parseFloat(product.alive_quantity+product.dead_quantity)));
+                                // $('.fillet_qty').html(total_quantity);
                                 $('.processing').click(function () {
                                     var invoice = $(this).attr("data-invoice");
                                     var item = $(this).attr("data-item");
@@ -382,7 +402,7 @@
                                     $('.ppu_id').val(ppu_id);
                                     $('.initial_weight').on("change keyup",function() {
                                         var a = $(this).val();
-                                        var p = ((((parseFloat(product.alive_quantity+product.dead_quantity)) - a)/(parseFloat(product.alive_quantity+product.dead_quantity)))*100);
+                                        var p = (((total_quantity - a)/total_quantity)*100);
                                         p = p.toFixed(2);
                                         $('.parcentage').html(p+'%');
                                     });
@@ -390,7 +410,7 @@
                                 
                             }
                             if (product.status == "Blocking") {
-                                $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#grading_hoso' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                                $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#grading_hoso' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
                                 $('.blocking').click(function () {
                                     $("table.block_table_hoso tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -429,7 +449,7 @@
 
                             }
                             if (product.status == "BlockCounter") {
-                                $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blockCounter_hoso' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                                $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blockCounter_hoso' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
                                 $('.block_counter').click(function () {
                                     $("table.block_counter_table_hoso tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -459,7 +479,7 @@
                                 });
                             }
                             if (product.status == "ExcessVolume") {
-                                $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#excess_hoso' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                                $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#excess_hoso' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
                                 $('.excess_volume').click(function () {
                                     $("table.excess_volume_table_hoso tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -489,7 +509,7 @@
                                 });
                             }
                             if (product.status == "RandW") {
-                                $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_hoso' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                                $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_hoso' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                                 $('.randw').click(function () {
                                     $("table.block_randw_table_hosox tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -537,11 +557,21 @@
                         console.log(data);
                         $("table#hoto_table tbody tr").empty();
                         $.each( data, function( key, product ) {
+                            var alive_quantity=0;
+                            var dead_quantity =0;
+                            var total_quantity=0;
+                            if(product.alive_quantity){
+                                alive_quantity = parseFloat(product.alive_quantity);
+                            }
+                            if(product.dead_quantity){
+                                dead_quantity =  parseFloat(product.dead_quantity);
+                            }
+                            total_quantity = alive_quantity+dead_quantity;
                             if (product.status == "Initial") {
-                                $("table#hoto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' data-toggle='modal' href='#processData_hoto' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                                $("table#hoto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#processData_hoto' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
                                 // $('.fillet_invoice').html(product.requisition_code);
                                 // $('.fillet_item').html(product.production_processing_item.name);
-                                // $('.fillet_qty').html((parseFloat(product.alive_quantity+product.dead_quantity)));
+                                // $('.fillet_qty').html(total_quantity);
                                 $('.processing').click(function () {
                                     var invoice = $(this).attr("data-invoice");
                                     var item = $(this).attr("data-item");
@@ -554,7 +584,7 @@
                                     $('.ppu_id').val(ppu_id);
                                     $('.initial_weight').on("change keyup",function() {
                                         var a = $(this).val();
-                                        var p = ((((parseFloat(product.alive_quantity+product.dead_quantity)) - a)/(parseFloat(product.alive_quantity+product.dead_quantity)))*100);
+                                        var p = (((total_quantity - a)/total_quantity)*100);
                                         p = p.toFixed(2);
                                         $('.parcentage').html(p+'%');
                                     });
@@ -562,7 +592,7 @@
                                 
                             }
                             if (product.status == "Blocking") {
-                                $("table#hoto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#grading_hoto' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                                $("table#hoto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#grading_hoto' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
                                 $('.blocking').click(function () {
                                     $("table.block_table_hoto tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -601,7 +631,7 @@
 
                             }
                             if (product.status == "BlockCounter") {
-                            $("table#hoto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blockCounter_hoto' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                            $("table#hoto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blockCounter_hoto' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
                                 $('.block_counter').click(function () {
                                     $("table.block_counter_table_hoto tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -631,7 +661,7 @@
                                 });
                             }
                             if (product.status == "ExcessVolume") {
-                                $("table#hoto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#excess_hoto' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                                $("table#hoto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#excess_hoto' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
                                 $('.excess_volume').click(function () {
                                     $("table.excess_volume_table_hoto tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
@@ -661,7 +691,7 @@
                                 });
                             }
                             if (product.status == "RandW") {
-                                $("table#hoto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity+product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_hoto' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+(parseFloat(product.alive_quantity+product.dead_quantity))+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                                $("table#hoto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_hoto' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                                 $('.randw').click(function () {
                                     $("table.block_randw_table_hoto tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
