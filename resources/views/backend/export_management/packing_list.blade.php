@@ -8,7 +8,7 @@
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title bold form-inline" class="portlet box dark">Export Management
+            <h3 class="page-title bold form-inline" class="portlet box dark">Export Management   <small>Packing List</small>
         </h3>
             <hr>
                 @if(Session::has('msg'))
@@ -83,9 +83,9 @@
                                                             <td>100</td>
                                                             <td>3kg</td>
                                                             <td>
-                                                                <button class="btn btn-info">Add Production Date</button>
-                                                                <button class="btn btn-danger">Add Expiry Date</button>
-                                                                <button class="btn btn-warning">Add Gross Weight</button>
+                                                                <button class="btn btn-info" data-toggle="modal" href="#ProductionDate">Add Production Date</button>
+                                                                <button class="btn btn-danger" data-toggle="modal" href="#ExpiryDate">Add Expiry Date</button>
+                                                                <button class="btn btn-warning" data-toggle="modal" href="#GrossWeight">Add Gross Weight</button>
                                                             </td>
                                                         </tr>
 
@@ -95,12 +95,117 @@
                                             <td>Lorem ipsum dolor sit amet <br>consectetur adipisicing elit. Delectus, et.</td>
                                             <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, dignissimos!</td>
                                             <td>
-                                                <button class="btn btn-success">Approve</button>
-                                                <button class="btn btn-danger">print</button>
+                                                <button class="btn btn-success" data-toggle="modal" href="#ApproveModal">Approve</button>
+                                                <a class="btn btn-danger" href={{route('print_packing_list')}}>print</a>
                                             </td>
                                        </tr>
                                     </tbody>
                                 </table>
+                                <div id="ApproveModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h2 class="modal-title" style="color: rgb(15, 17, 17);">Are you Want to Approve it?</h2>
+                                            </div>
+                                            <div class="modal-footer " >
+                                                <div class="d-flex justify-content-between">
+                                                    <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
+                                                </div>
+                                                <div class="caption pull-right">
+                                                    <form action="{{--route('',[$data->id])--}}" method="POST">
+                                                        @method('PUT')
+                                                        @csrf
+                                                        <button class="btn btn-success" id="approve"><i class="fa fa-check"></i>Approve</button>               
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="ProductionDate" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h4 class="modal-title">Production Date</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="form-horizontal" role="form" method="post" action="{{--route('')--}}">
+                                                    {{csrf_field()}}
+                                                    {{method_field('put')}}
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Production Date</label>
+                                                        <div class="col-md-8">
+                                                            <input type="date" class="form-control"  name="production_date">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                        <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                                                    </div>
+                                                </form>
+        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="ExpiryDate" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h4 class="modal-title">Expiry Date</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="form-horizontal" role="form" method="post" action="{{--route('')--}}">
+                                                    {{csrf_field()}}
+                                                    {{method_field('put')}}
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Expiry Date</label>
+                                                        <div class="col-md-8">
+                                                            <input type="date" class="form-control"  name="expiry_date">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                        <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                                                    </div>
+                                                </form>
+        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="GrossWeight" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h4 class="modal-title">Gross Weight</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="form-horizontal" role="form" method="post" action="{{--route('')--}}">
+                                                    {{csrf_field()}}
+                                                    {{method_field('put')}}
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Gross Weight</label>
+                                                        <div class="col-md-8">
+                                                            <input type="number" class="form-control"  name="gross_weight">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                        <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                                                    </div>
+                                                </form>
+        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

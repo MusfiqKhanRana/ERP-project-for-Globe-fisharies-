@@ -41,14 +41,12 @@
                         <div class="portlet-body" style="height: auto;">
                             <div class="row">
                                 <div class="col-md-12" style="text-align: center">
-                                    <h2><b>Packing List</b></h2>
+                                    <h2><b>Sales Contract List</b></h2>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col" >
-                                    
+                                <div class="col">
                                     Invoice No: 56784589
-                                    
                                 </div>
                                 <div class="col-md-12" style="text-align: right">
                                     <b>Date :</b> @php
@@ -84,7 +82,7 @@
                                 <label for="" ><b >Conuntry Origin : Bangladesh</b></label>
                             </div><br>
                             <div class="row">
-                                <table class="table table-striped table-bordered table-hover">
+                                <table class="table table-striped table-hover">
                                     <thead>
                                         <tr style="background-color:#d6d9e3">
                                             <th>Sl.</th>
@@ -125,7 +123,7 @@
                                 </table>
                             </div><br>
                             <div class="row">
-                                <table  class="table table-striped table-bordered table-hover">
+                                <table  class="table table-striped table-hover">
                                     <tr>
                                         <th style="background-color:#d6d9e3">Sale Contract No.</th>
                                         <td>GFL/EXP/DUBAI/HRA/07/2022</td>
