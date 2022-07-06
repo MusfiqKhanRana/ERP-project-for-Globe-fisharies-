@@ -99,12 +99,6 @@
                                                         <input type="date" class="form-control" name="shipment_date" placeholder="Shipment Date" required>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="control-label" for="product">HS Code <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="hs_code" placeholder="HS Code" required>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
                                                         <label class="control-label" for="product">Packaging Responsibility<span class="required">* </span></label>
                                                         <select class="form-control" name="packaging_responsibility">
                                                             <option value="">--Select--</option>
@@ -112,6 +106,12 @@
                                                             <option value="Buyer">Buyer</option>
                                                         </select>
                                                     </div>
+                                                    {{-- <div class="col-md-4">
+                                                        <label class="control-label" for="product">HS Code <span class="required">* </span></label>
+                                                        <input type="text" class="form-control" name="hs_code" placeholder="HS Code" required>
+                                                    </div> --}}
+                                                </div>
+                                                <div class="row">
                                                     <div class="col-md-4">
                                                         <label for="product">Partial Shipment<span class="required">* </span></label>
                                                         <select class="form-control" name="partial_shipment">
@@ -128,8 +128,6 @@
                                                             <option value="Not Allowed">Not Allowed</option>
                                                         </select>
                                                     </div>
-                                                </div>
-                                                <div class="row">
                                                     <div class="col-md-4">
                                                         <label for="product">Shipping Responsibility<span class="required">* </span></label>
                                                         <select class="form-control" name="shipping_responsibility" id="shipping_responsibility">
@@ -139,6 +137,9 @@
                                                             <option value="CIF">CIF</option>
                                                         </select>
                                                     </div>
+                                                </div>
+                                                <div class="row">
+                                                    
                                                     <div class="col-md-4 cfr_rate">
                                                         <label class="control-label" for="product">CFR Rate (Per KG)<span class="required">* </span></label>
                                                         <input type="number" class="form-control" id="cfr_rate" name="cfr_rate">
@@ -166,39 +167,49 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <input type="hidden" value="" id="provided_item" name="provided_item">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
+                                                        <label class="control-label" for="product">Consignment Type<span class="required">* </span></label>
+                                                        <select class="form-control" name="consignment_type" id="consignment_type">
+                                                            <option value="test">test</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label class="control-label" for="product">Hs Code</label>
+                                                        <input class="form-control" type="Number" name="hs_code" id="hs_code" readonly>
+                                                    </div>
+                                                    <div class="col-md-3">
                                                         <label class="control-label" for="product">Type<span class="required">* </span></label>
                                                         <select class="form-control" name="type" id="type">
                                                             <option value="test">test</option>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <label class="control-label" for="product">Variant<span class="required">* </span></label>
                                                         <select class="form-control" name="variant" id="variant">
                                                             <option value="test">test</option>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
                                                         <label for="product">Item<span class="required">* </span></label>
                                                         <select class="form-control" name="item_name" id="item_name">
                                                             <option value="test">test</option>
                                                         </select>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <label class="control-label" for="product">Grade <span class="required">* </span></label>
                                                         <select class="form-control" name="grade" id="grade">
                                                             <option value="200-400">200-400</option>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <label class="control-label" for="product">Pack Size<span class="required">* </span></label>
                                                         <select class="form-control" name="pack_size" id="pack_size">
                                                             <option value="3kg">3kg</option>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <label class="control-label" for="product">Quantity Of Cartons<span class="required">* </span></label>
                                                         <input class="form-control" type="Number" name="cartons" id="cartons" placeholder="Quantity Of Cartons" required>
                                                     </div>
@@ -226,9 +237,11 @@
                                                 <div class="col-md-12">
                                                     <table  class="table table-striped table-bordered table-hover" id="mytable">
                                                         <tr>
+                                                            <th>Consignment Type</th>
+                                                            <th>Hs Code</th>
                                                             <th>Type</th>
-                                                            <th>Variant</th>
                                                             <th>Item</th>
+                                                            <th>Variant</th>
                                                             <th>Grade</th>
                                                             <th>Pack SIze</th>
                                                             <th>Cartons Quantity</th>
@@ -432,26 +445,28 @@
     });            
     var items_array = [];
     function nullmaking(){
-            $("#type").val(null);
-            $("#variant").val(null);
-            $("#item_name").val(null);
-            $("#grade").val(null);
-            $("#pack_size").val(null);
-            $("#cartons").val(null);
-            $("#total_in_kg").val(null);
-            $("#rate").val(null);
-            $("#total_amount").val(null);
+        $("#consignment_type").val(null);
+        $("#hs_code").val(null);
+        $("#type").val(null);
+        $("#variant").val(null);
+        $("#item_name").val(null);
+        $("#grade").val(null);
+        $("#pack_size").val(null);
+        $("#cartons").val(null);
+        $("#total_in_kg").val(null);
+        $("#rate").val(null);
+        $("#total_amount").val(null);
         }
     $("#add_items").click(function(){
         console.log($("#product").val());
-            items_array.push({"type":$("#type").val(),"variant":$("#variant").val(),"item_name":$("#item_name").val(),"grade":$("#grade").val(),"pack_size":$("#pack_size").val(),"cartons":$("#cartons").val(),"total_in_kg":$("#total_in_kg").val(),"rate":$("#rate").val(),"total_amount":$("#total_amount").val(),"status":"stay"});
+            items_array.push({"consignment_type":$("#consignment_type").val(),"hs_code":$("#hs_code").val(),"type":$("#type").val(),"item_name":$("#item_name").val(),"variant":$("#variant").val(),"grade":$("#grade").val(),"pack_size":$("#pack_size").val(),"cartons":$("#cartons").val(),"total_in_kg":$("#total_in_kg").val(),"rate":$("#rate").val(),"total_amount":$("#total_amount").val(),"status":"stay"});
             $("#provided_item").val('');
             $("#provided_item").val(JSON.stringify(items_array));
             $.each( items_array, function( key, item ) {
                 // console.log(item);
                 if (item.status == "stay") {
                     if(items_array.length-1 == key){
-                        $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+item.type+"</td><td>"+item.variant+"</td><td>"+item.item_name+"</td><td>"+item.grade+"</td><td>"+item.pack_size+"</td><td>"+item.cartons+"</td><td>"+item.total_in_kg+"</td><td>"+item.rate+"</td><td>"+item.total_amount+"</td><td><button class='btn btn-danger delete_item' data-id='"+key+"'>Delete</button></td></tr>");
+                        $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+item.consignment_type+"</td><td>"+item.hs_code+"</td><td>"+item.type+"</td><td>"+item.item_name+"</td><td>"+item.variant+"</td><td>"+item.grade+"</td><td>"+item.pack_size+"</td><td>"+item.cartons+"</td><td>"+item.total_in_kg+"</td><td>"+item.rate+"</td><td>"+item.total_amount+"</td><td><button class='btn btn-danger delete_item' data-id='"+key+"'>Delete</button></td></tr>");
                     }
                 }
             });

@@ -66,12 +66,16 @@
                                                         <tr>
                                                             <th>Sl.</th>
                                                             <th>HS Code</th>
-                                                            <th>Description of Goods</th>
+                                                            <th style="text-align: center">Type</th>
+                                                            <th>Item</th>
+                                                            <th>Variant</th>
+                                                            <th>Grade</th>
                                                             <th>Scientific Name</th>
-                                                            <th>Quantity/Master Carton</th>
-                                                            <th>Rate Per KG CRF(USD $)</th>
+                                                            <th>Quantity / Master Carton</th>
+                                                            <th>Pack Size</th>
+                                                            <th>Rate Per KG CFR (USD $)</th>
                                                             <th>Rate per Master Carton CRF(USD $)</th>
-                                                            <th>Total Amount(USD $)</th>
+                                                            <th>Total Amount (USD $)</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
@@ -79,12 +83,16 @@
                                                         <tr>
                                                             <td>1</td>
                                                             <td>111222</td>
-                                                            <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure, obcaecati.</td>
-                                                            <td>Scientific Name</td>
-                                                            <td>1000</td>
-                                                            <td>200</td>
-                                                            <td>190</td>
-                                                            <td>390</td>
+                                                            <td>IQF</td>
+                                                            <td>Pangus</td>
+                                                            <td>Gutted Clean</td>
+                                                            <td>1 KG Up</td>
+                                                            <td>Pangasius Hypophtalmus</td>
+                                                            <td>650</td>
+                                                            <td>20 KG x 1</td>
+                                                            <td>1.00</td>
+                                                            <td>20.00</td>
+                                                            <td>13000.00</td>
                                                             <td>
                                                                 <button class="btn btn-info"  data-toggle="modal" href="#editkModal">Edit</button>
                                                                 <button class="btn btn-danger"  data-toggle="modal" href="#deleteModal">Delete</button>
@@ -97,12 +105,37 @@
                                             <td>
                                                 <button class="btn btn-success" data-toggle="modal" href="#ApproveModal">Approve</button>
                                                 <button class="btn btn-info" data-toggle="modal" href="#editSaleContractModal">Edit</button>
-                                                <a class="btn btn-danger" href="{{route('print_sale_contract')}}">print</a>
+                                                <a class="btn red-flamingo" href="{{route('print_sale_contract')}}">print</a>
                                                 <button class="btn blue" data-toggle="modal" href="#AddItemModal">+  Add Item</button>
+                                                <button class="btn btn-danger"  data-toggle="modal" href="#deleteallModal">Delete</button>
                                             </td>
                                        </tr>
                                     </tbody>
                                 </table>
+                                <div id="deleteallModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="delete_id">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h2 class="modal-title" style="color: red;">Are you sure?</h2>
+                                            </div>
+                                            <div class="modal-footer " >
+                                                <div class="d-flex justify-content-between">
+                                                    <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
+                                                </div>
+                                                <div class="caption pull-right">
+                                                    <form action="{{--route('',[$data->id])--}}" method="POST">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div id="deleteModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                     {{csrf_field()}}
                                     <input type="hidden" value="" id="delete_id">
@@ -190,6 +223,25 @@
                                     </div>
                                 </div>
                                 <div id="ApproveModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h4 class="modal-title">Doyou want to approve it?</h4>
+                                            </div>
+                                            <div >
+                                                <form class="form-horizontal" role="form" method="post" action="#">
+                                                    {{csrf_field()}}
+                                                    <div class="modal-footer">
+                                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                        <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Approve</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="ApproveModal1" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                     {{csrf_field()}}
                                     <input type="hidden" value="" id="">
                                     <div class="modal-dialog">
