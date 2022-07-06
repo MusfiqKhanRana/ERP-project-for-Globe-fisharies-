@@ -417,7 +417,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="portlet box blue-chambray">
+                    {{-- <div class="portlet box blue-chambray">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-calendar"></i>Provident Fund
@@ -432,9 +432,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label"> Package :</label>
                                         <div class="col-md-9">
-                                            {{-- <input type="text" class="form-control" name="provident" placeholder="Casual Leave" value=""> --}}
-                                            <select class="form-control" name="provident_fund" id="">
-                                                
+                                            <select class="form-control" name="provident_fund">
                                                 @foreach ($provident_fund as $item)
                                                     <option value="{{$item->id}}" {{ $employee->provident_fund == $item->id ? 'selected' : '' }}>{{$item->package}}</option>
                                                 @endforeach
@@ -450,7 +448,7 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="portlet box blue-chambray">
                         <div class="portlet-title">
                             <div class="caption">

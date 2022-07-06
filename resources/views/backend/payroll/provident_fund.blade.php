@@ -2,6 +2,10 @@
 @section('site-title')
 Provident Fund
 @endsection
+@section('style')
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+@endsection
 @section('main-content')
 
 <div class="page-content-wrapper">
@@ -54,9 +58,6 @@ Provident Fund
                             <tbody>
                                 @foreach ($provi_fund as $key=> $item)
                                 <tr>
-                                    {{-- @php
-                                        dd($item);
-                                    @endphp --}}
                                     <td>{{++ $key}}</td>
                                     <td style="text-align: center">{{$item->package}}</td>
                                     <td style="text-align: center">{{$item->amount}}</td>
@@ -66,6 +67,8 @@ Provident Fund
                                     <td style="text-align: center">{{$item->completion_bonus}}</td>
                                     <td style="text-align: center">
                                         <a class="btn btn-info" data-toggle="modal" href="#EditModal{{$item->id}}">Edit</a>
+                                        <a class="btn btn-info" href="{{route('provident-fund.show',\Crypt::encrypt($item->id))}}">View</a>
+                                        <a class="btn btn-info enlist_employee" data-id="{{$item->id}}" data-instalment="{{$item->fund_duration}}" data-toggle="modal" href="#addUser">Enlist Employee</a>
                                         <a class="btn btn-danger" data-toggle="modal" href="#DeleteModal{{$item->id}}">Delete</a>
                                     </td>
                                 </tr>
@@ -86,7 +89,7 @@ Provident Fund
                                                     <form action="{{route('provident-fund.destroy',[$item->id])}}" method="POST">
                                                         @method('DELETE')
                                                         @csrf
-                                                        <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
+                                                        <button class="btn red"><i class="fa fa-trash"></i>Delete</button>               
                                                     </form>
                                                 </div>
                                             </div>
@@ -204,50 +207,70 @@ Provident Fund
                         </div>
                     </div>
                 </div>
+                <div id="addUser" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <h4 class="modal-title">Enlist Employee</h4>
+                            </div><br>
+                            <form class="form-horizontal" role="form" method="post" action="{{route('provident-fund-user.store')}}">
+                                {{csrf_field()}}
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Name<span class="required">* </span></label>
+                                    <div class="col-md-8">
+                                        <select class="form-control selectpicker" data-live-search="true" name="user_id" required>
+                                            <option value="" selected>--select--</option>
+                                            @foreach($users as $user)
+                                                <option value="{{$user->id}}" >{{$user->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail1" class="col-md-3 control-label">Applied Month<span class="required">* </span></label>
+                                    <div class="col-md-8">
+                                        <input type="hidden" name="provident_fund_id" id="provident_fund_id" value="">
+                                        <input type="hidden" name="instalment" id="instalment" value="">
+                                        <div class="input-group input-medium date date-picker"  data-date-format="yyyy-mm" data-date-viewmode="years">
+                                            <input type="text" class="form-control" name="applied_month" id="period_field"  readonly >
+                                            <span class="input-group-btn">
+                                                <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail1" class="col-md-3 control-label">Remark</label>
+                                    <div class="col-md-8">
+                                        <textarea type="text" class="form-control" name="remark" placeholder="Type Remark" ></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                    <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script> --}}
 <script>
-    function myFunction() {
-      var coffee = document.forms[0];
-      var txt = "";
-      var i;
-      for (i = 0; i < coffee.length; i++) {
-        if (coffee[i].checked) {
-          txt = txt + coffee[i].value + " ";
-        }
-      }
-      document.getElementById("order").value = "You ordered a coffee with: " + txt;
-    }
-    </script>
-    <script>
-        $(function() {
-            $("#designation").chained("#department");
-            $("#user_id").chained("#designation");
-        });
-      </script>
-      <script>
-          $(".user_salary").change(function() {
-            alert( this.value );
-                // var id = $(this).val();
-                // $.ajax({
-                //     type:"POST",
-                //     url:"{{route('order.addproduct.pass')}}",
-                //     data:{
-                //         'id' : id,
-                //         '_token' : $('input[name=_token]').val()
-                //     },
-                //     success:function(data){
-                //         // console.log(data);
-                //         $('.add_product').html("");
-                //         $('.add_product').append(data.output);
-                //     }
-                // });
-            });
-      </script>
-      
+    $(function() {
+        $('.enlist_employee').click(function(){
+            $('#provident_fund_id').val($(this).data('id'));
+            $('#instalment').val($(this).data('instalment'));
+        })
+    });
+</script>
 @endsection

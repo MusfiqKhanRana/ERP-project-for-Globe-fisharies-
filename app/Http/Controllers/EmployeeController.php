@@ -98,7 +98,7 @@ class EmployeeController extends Controller
         $employee->bank_name = $request->bank_name;
         $employee->branch = $request->branch;
         $employee->status = $request->status;
-        $employee->provident_fund = $request->provident_fund;
+        // $employee->provident_fund = $request->provident_fund;
         $employee->in_amount = $request->in_amount;
         $employee->in_percentage = $request->in_percentage;
         $employee->c_leave = $request->c_leave;

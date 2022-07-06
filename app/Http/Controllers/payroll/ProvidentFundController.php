@@ -4,7 +4,9 @@ namespace App\Http\Controllers\payroll;
 
 use App\Http\Controllers\Controller;
 use App\Models\ProvidentFund;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class ProvidentFundController extends Controller
 {
@@ -15,8 +17,11 @@ class ProvidentFundController extends Controller
      */
     public function index()
     {
-        $provi_fund = ProvidentFund::all();
-        return view('backend.payroll.provident_fund',compact('provi_fund'));
+        $provi_fund = ProvidentFund::with(['provident_fund_users'=>function($q){
+            $q->select('id','user_id','provident_fund_id','status');
+        }])->get();
+        $users = User::all();
+        return view('backend.payroll.provident_fund',compact('provi_fund','users'));
     }
 
     /**
@@ -67,7 +72,9 @@ class ProvidentFundController extends Controller
      */
     public function show($id)
     {
-        //
+        $id = Crypt::decrypt($id);
+        $provident_fund = ProvidentFund::with('provident_fund_users')->where('id',$id)->first();
+        return view('backend.payroll.provident-fund-show',compact('provident_fund'));
     }
 
     /**

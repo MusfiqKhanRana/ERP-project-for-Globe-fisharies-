@@ -13,4 +13,8 @@ class ProvidentFund extends Model
     {
         return $this->hasMany(User::class,'provident_fund');
     }
+    public function provident_fund_users()
+    {
+        return $this->hasMany(ProvidentFundUser::class);
+    }
 }
