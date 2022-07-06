@@ -48,7 +48,7 @@ class ProvidentFundUserController extends Controller
         $data['installments'] = serialize($instalment_dates);
         unset($data['instalment']);
         ProvidentFundUser::create($data);
-        dd($data);
+        //dd($data);
     }
 
     /**

@@ -52,7 +52,7 @@
                                     <div class="col-md-12">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h4 style="text-align: center"><b>Buyer Info</b></h4>
+                                                <h4 style="text-align: center; background-color: rgb(208, 208, 241);"><b>Buyer Info</b></h4>
                                             </div>
                                             <div class="card-body">
                                                 <div class="row">
@@ -80,7 +80,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label" >Buyer Country <span class="required">* </span></label>
-                                                        <select class="form-control country" name="buyer_country" id="country">
+                                                        <select class="form-control js-data-example-ajax" name="buyer_country" id="country">
                                                         </select>
                                                     </div>
                                                 </div>
@@ -90,7 +90,7 @@
                                     <div class="col-md-12">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h4 style="text-align: center"><b>Consignee Info</b></h4>
+                                                <h4 style="text-align: center; background-color: rgb(208, 208, 241);"><b>Consignee Info</b></h4>
                                             </div>
                                             <div class="card-body">
                                                 <div class="row">
@@ -114,7 +114,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label" >Country <span class="required">* </span></label>
-                                                        <select class="select2Ajax form-control country" name="consignee_country" id="country">
+                                                        <select class="form-control country" name="consignee_country" id="country">
                                                         </select>
                                                     </div>
                                                 </div>
@@ -124,7 +124,7 @@
                                     <div class="col-md-12">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h4 style="text-align: center"><b>Notify Party Info</b></h4>
+                                                <h4 style="text-align: center; background-color: rgb(208, 208, 241);"><b>Notify Party Info</b></h4>
                                             </div>
                                             <div class="card-body">
                                                 <div class="row">
@@ -137,27 +137,28 @@
                                                         <input type="text" class="form-control" name="notify_address">
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="control-label">Email <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="notify_email" placeholder="Email" required>
+                                                        <label class="control-label">Contact Number <span class="required">* </span></label>
+                                                        <input type="number" class="form-control" name="notify_contact_number" placeholder="Contact Number" required>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <label class="control-label">Contact Number <span class="required">* </span></label>
-                                                        <input type="number" class="form-control" name="notify_contact_number" placeholder="Contact Number" required>
+                                                        <label class="control-label">Email <span class="required">* </span></label>
+                                                        <input type="text" class="form-control" name="notify_email" placeholder="Email" required>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label class="control-label">Country <span class="required">* </span></label>
+                                                        <label class="control-label js-data-example-ajax">Country <span class="required">* </span></label>
                                                         {{-- <input type="text" class="form-control" name="" placeholder="Country" required> --}}
-                                                        <select class="select2Ajax form-control country" name="notify_country" id="country">
+                                                        <select class="form-control country" name="notify_country" id="country">
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
                                     <div class="card-header">
-                                        <h4 style="text-align: center"><b>Bank Details</b></h4>
+                                        <h4 style="text-align: center; background-color: rgb(208, 208, 241);"><b>Bank Details</b></h4>
                                     </div>
                                     <input type="hidden" value="" id="provided_item" name="provided_item">
                                     <div class="form-group" style="padding:2%">
@@ -180,7 +181,7 @@
                                             </div>
                                             <div class="col-md-2">
                                                 <label class="control-label"for="country">Country <span class="required">* </span></label>
-                                                <select class="form-control select2Ajax country" name="bank_country" id="bank_country">
+                                                <select class="form-control country" name="bank_country" id="bank_country">
                                                 </select>
                                             </div> 
                                             <div class="col-md-1">
@@ -206,6 +207,45 @@
                                             </table>
                                         </div>
                                     </div>
+                                    <div class="card-header">
+                                        <h4 style="text-align: center; background-color: rgb(208, 208, 241);"><b>Assign HS Code</b></h4>
+                                    </div>
+                                    <input type="hidden" value="" id="hs_item" name="hs_item">
+                                    <div class="form-group" style="padding:2%">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label class="control-label" for="bank_name">Consignment Type <span class="required">* </span></label>
+                                                <select class="form-control" name="consignment_type" id="consignment_type">
+                                                    <option value="">--Select--</option>
+                                                    <option value="Fish">Fish</option>
+                                                    <option value="Vegetable">Vegetable</option>
+                                                    <option value="Sweet Desert">Sweet Desert</option>
+                                                </select>
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="control-label" for="a_c_name">A/C Name <span class="required">* </span></label>
+                                                <input type="text" style="text-align: center" class="form-control" placeholder="Type HS Code" id="hs_code" name="hs_code">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button type="button"  class="btn btn-success" id="add_hs" style="margin-top: 15%">+  Add </button>
+                                            </div>                               
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <table  class="table table-striped table-bordered table-hover" id="hsTable">
+                                                <tr>
+                                                    <th style="text-align: center">Consignee Type</th>
+                                                    <th style="text-align: center">HS Code</th>
+                                                    <th style="text-align: center">Action</th>
+                                                </tr>
+                                                <tr>
+    
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
                                     <div class="col-md-12 ">
                                         <button type="submit" data-loading-text="Submitting..." class="col-md-12 btn btn btn-success">
                                         <i class="fa fa-plus"></i>  Submit</button>
@@ -223,10 +263,11 @@
 
   <script type="text/javascript">
     $(document).ready(function () {
-       
-        $.ajax({
+        $('.js-data-example-ajax').select2({
+        ajax: {
                 type:"GET",
                 url:"https://restcountries.com/v3.1/all",
+                dataType: 'json',
                 success:function(data){
                     console.log(data);
                     $(".country").empty();
@@ -237,7 +278,8 @@
                         }));
                     });
                 }
-        });
+        };
+    });
                 
     var items_array = [];
     function nullmaking(){
@@ -265,6 +307,33 @@
                 // console.log(product_array,$(this).data("id"));
                 $("#provided_item").val('');
                 $("#provided_item").val(JSON.stringify(items_array));
+                $("#"+$(this).data("id")).remove();
+            });
+            nullmaking();
+    });
+    var hs_array = [];
+    function nullmaking(){
+            $("#consignment_type").val(null);
+            $("#hs_code").val(null);
+        }
+    $("#add_hs").click(function(){
+        console.log($("#product").val());
+        hs_array.push({"consignment_type":$("#consignment_type").val(),"hs_code":$("#hs_code").val(),"status":"stay"});
+            $("#hs_item").val('');
+            $("#hs_item").val(JSON.stringify(hs_array));
+            $.each( hs_array, function( key, item ) {
+                // console.log(item);
+                if (item.status == "stay") {
+                    if(hs_array.length-1 == key){
+                        $("table#hsTable tr").last().before("<tr id='"+key+"'><td>"+item.consignment_type+"</td><td>"+item.hs_code+"</td><td><button class='btn btn-danger hs_delete_item' data-id='"+key+"'>Delete</button></td></tr>");
+                    }
+                }
+            });
+            $(".hs_delete_item").click(function(){
+                hs_array[$(this).data("id")].status="delete";
+                // console.log(product_array,$(this).data("id"));
+                $("#hs_item").val('');
+                $("#hs_item").val(JSON.stringify(hs_array));
                 $("#"+$(this).data("id")).remove();
             });
             nullmaking();

@@ -45,10 +45,10 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col">
-                                    Invoice No: 56784589
+                                <div class="col-md-6">
+                                    GFL/EXP/DUBAI/HRA/01/2022/S01
                                 </div>
-                                <div class="col-md-12" style="text-align: right">
+                                <div class="col-md-6" style="text-align: right">
                                     <b>Date :</b> @php
                                     use Carbon\Carbon;
                                     $currentTime = Carbon::now();
@@ -79,7 +79,7 @@
                                 </div>
                             </div><br>
                             <div class="row"  style="background-color:#d6d9e3; text-align:center;" >
-                                <label for="" ><b >Conuntry Origin : Bangladesh</b></label>
+                                <label for="" ><b >COUNTRY ORIGIN : BANGLADESH</b></label>
                             </div><br>
                             <div class="row">
                                 <table class="table table-striped table-hover">
@@ -112,7 +112,7 @@
                                             
                                         </tr>
                                         <tr  style="background-color:#d6d9e3">
-                                            <th colspan="6">Total Amount Master Carton & Weight </th>
+                                            <th colspan="6">Total Master Carton & Weight </th>
                                             <th>100</th>
                                             <th></th>
                                             <th>50</th>
@@ -121,6 +121,9 @@
                                         
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="row">
+                                <h4><b>TOTAL AMOUNT (IN WORD) :</b></h4>
                             </div><br>
                             <div class="row">
                                 <table  class="table table-striped table-hover">
@@ -198,18 +201,31 @@
             <!-- END PAGE CONTENT-->
             <div class="row" style="text-align: center" >
                 <a class="btn blue" style="background-color:#29931D"  href="{{ url()->previous() }}"><i class="fa fa-backward"></i>  Back</a>
-                <button id="printbtn" class="btn red" ><i class="fa fa-print" aria-hidden="true">  Print Invoice</i></button>
+                <button onclick="window.print()" class="btn red" ><i class="fa fa-print" aria-hidden="true">  Print Invoice</i></button>
             </div>
         </div>
     </div>
 @endsection
 @section('script')
 <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.0/jQuery.print.js"></script>
-<script>
+{{-- <script>
     jQuery(document).ready(function() {
         $("#printbtn").click(function () {
             $("#printrequisition").print();
         });
     });
+</script> --}}
+<script>
+@media print(){
+    body *:not(#printrequisition):not(#printrequisition *){
+        visibility: hidden;
+    }
+    #printrequisition{
+        position:absolate;
+        top:0;
+        left:0;
+    }
+}
 </script>
+
 @endsection
