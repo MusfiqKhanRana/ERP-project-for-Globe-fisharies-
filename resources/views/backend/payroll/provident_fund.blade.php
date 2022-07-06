@@ -52,6 +52,7 @@ Provident Fund
                                 <th scope="col"> Detention Duration (Months)</th>
                                 <th scope="col"> Detention Amount (%)</th>
                                 <th scope="col"> Fund Bonus (%) </th>
+                                <th scope="col"> Enlisted Employees </th>
                                 <th scope="col" style="text-align: center"> Action </th>
                             </tr>
                             </thead>
@@ -65,6 +66,7 @@ Provident Fund
                                     <td style="text-align: center">{{$item->fund_detention}}</td>
                                     <td style="text-align: center">{{$item->detention_amount}}</td>
                                     <td style="text-align: center">{{$item->completion_bonus}}</td>
+                                    <td style="text-align: center">{{count($item->provident_fund_users)}}</td>
                                     <td style="text-align: center">
                                         <a class="btn btn-info" data-toggle="modal" href="#EditModal{{$item->id}}">Edit</a>
                                         <a class="btn btn-info" href="{{route('provident-fund.show',\Crypt::encrypt($item->id))}}">View</a>
