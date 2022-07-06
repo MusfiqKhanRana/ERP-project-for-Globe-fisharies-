@@ -46,6 +46,7 @@ use App\Http\Controllers\PartyController;
 use App\Http\Controllers\payroll\BonusController;
 use App\Http\Controllers\payroll\IncrementController;
 use App\Http\Controllers\payroll\ProvidentFundController;
+use App\Http\Controllers\payroll\ProvidentFundUserController;
 use App\Http\Controllers\PersonalManagementController;
 use App\Http\Controllers\ProductOrderController;
 use App\Http\Controllers\RequisitionController;
@@ -166,6 +167,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('payroll/individual-salary', [PayrollController::class,'individualSalary'])->name('individual-salary.search');
     //---------------------Disburse Salary-------------------//
     Route::resource('disburse-salary',DisburseSalaryController::class);
+    //------------------Provident Fund-----------------------//
+
+    Route::resource('provident-fund',ProvidentFundController::class);
+    Route::resource('provident-fund-user',ProvidentFundUserController::class);
     
     Route::get('/award',[AwardController::class,"index"] )->name('award.index');
     Route::get('/award/create',[AwardController::class,"create"] )->name('award.create');
@@ -603,9 +608,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //----------------------Increment-----------------//
     Route::resource('increment',IncrementController::class);
 
-    //------------------Provident Fund-----------------------//
-
-    Route::resource('provident-fund',ProvidentFundController::class);
+    
 
     //---------------- Raw and Wastage-----------------------//
     Route::resource('raw_wastage',WastageController::class);
