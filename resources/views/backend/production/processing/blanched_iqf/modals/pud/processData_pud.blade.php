@@ -3,7 +3,7 @@
         <div class="modal-content">
             <form class="form-horizontal" role="form" method="post" action="{{route('production.processing-unit.processing')}}">
                 {{csrf_field()}}
-                <div class="modal-header">
+                <div class="modal-header"  style="background-color: #36C6D3;text-align:center;">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h2 class="modal-title" style="color: rgb(75, 65, 65);">Whole Weight (HOSO)</h2>
                 </div>

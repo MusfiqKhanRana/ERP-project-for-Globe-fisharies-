@@ -2,7 +2,7 @@
     <input type="hidden" value="" id="delete_id">
     <div class="modal-dialog">
         <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header"  style="background-color: #36C6D3;text-align:center;">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h2 class="modal-title" style="color: rgb(75, 65, 65);">Raw Filleting Data</h2>
                 </div>

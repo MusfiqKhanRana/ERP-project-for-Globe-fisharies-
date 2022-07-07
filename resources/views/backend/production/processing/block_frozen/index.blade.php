@@ -134,18 +134,22 @@
                             
                         }
                         if (product.status == "Blocking") {
-                            $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blocking' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                            $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blocking' class='btn btn-success blocking' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
                             $('.blocking').click(function () {
                                 $("table.block_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
                                 var qty = $(this).attr("data-qty");
                                 var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                 console.log(ppu_id);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
                                 $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
                                 var product_array = [];
                                 var block_id , block_name,block_size_id,block_size_name,grade_weight = null; 
                                 $('.block_select').change(function() {
@@ -173,18 +177,22 @@
 
                         }
                         if (product.status == "BlockCounter") {
-                            $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blockCounter' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                            $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blockCounter' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
                             $('.block_counter').click(function () {
                                 $("table.block_counter_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
                                 var qty = $(this).attr("data-qty");
                                 var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                 // console.log(ppu_id);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
                                 $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $.ajax({
                                     type:"POST",
                                     url:"{{route('production.processing-unit.blocking.data_pass')}}",
@@ -203,18 +211,22 @@
                             });
                         }
                         if (product.status == "ExcessVolume") {
-                            $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#excessVolume' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                            $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#excessVolume' class='btn btn-warning excess_volume' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
                             $('.excess_volume').click(function () {
                                 $("table.excess_volume_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
                                 var qty = $(this).attr("data-qty");
                                 var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                 console.log(ppu_id);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
                                 $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $.ajax({
                                     type:"POST",
                                     url:"{{route('production.processing-unit.blocking.data_pass')}}",
@@ -233,18 +245,22 @@
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn' class='btn btn-danger randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.block_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
                                 var qty = $(this).attr("data-qty");
                                 var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                 console.log(ppu_id);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
                                 $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $.ajax({
                                     type:"POST",
                                     url:"{{route('production.processing-unit.blocking.data_pass')}}",
@@ -316,18 +332,22 @@
                                 
                             }
                             if (product.status == "Blocking") {
-                                $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blocking' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                                $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blocking' class='btn btn-success blocking' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
                                 $('.blocking').click(function () {
                                     $("table.block_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
                                     var item = $(this).attr("data-item");
                                     var qty = $(this).attr("data-qty");
                                     var ppu_id =  $(this).attr("data-ppu_id");
+                                    var initial_weight = $(this).attr("data-Initial_weight");
+                                    var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                     console.log(ppu_id);
                                     $('.invoice').html(invoice);
                                     $('.item').html(item);
                                     $('.qty').html((qty));
                                     $('.ppu_id').val(ppu_id);
+                                    $('.initial_weight').html(initial_weight);
+                                    $('.initial_weight_datetime').html((initial_weight_datetime));
                                     var product_array = [];
                                     var block_id , block_name,block_size_id,block_size_name,grade_weight = null; 
                                     $('.block_select').change(function() {
@@ -355,18 +375,22 @@
 
                             }
                             if (product.status == "BlockCounter") {
-                                $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blockCounter' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                                $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blockCounter' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
                                 $('.block_counter').click(function () {
                                     $("table.block_counter_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
                                     var item = $(this).attr("data-item");
                                     var qty = $(this).attr("data-qty");
                                     var ppu_id =  $(this).attr("data-ppu_id");
+                                    var initial_weight = $(this).attr("data-Initial_weight");
+                                    var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                     // console.log(ppu_id);
                                     $('.invoice').html(invoice);
                                     $('.item').html(item);
                                     $('.qty').html((qty));
                                     $('.ppu_id').val(ppu_id);
+                                    $('.initial_weight').html(initial_weight);
+                                    $('.initial_weight_datetime').html((initial_weight_datetime));
                                     $.ajax({
                                         type:"POST",
                                         url:"{{route('production.processing-unit.blocking.data_pass')}}",
@@ -385,18 +409,22 @@
                                 });
                             }
                             if (product.status == "ExcessVolume") {
-                                $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#excessVolume' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                                $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#excessVolume' class='btn btn-warning excess_volume' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
                                 $('.excess_volume').click(function () {
                                     $("table.excess_volume_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
                                     var item = $(this).attr("data-item");
                                     var qty = $(this).attr("data-qty");
                                     var ppu_id =  $(this).attr("data-ppu_id");
+                                    var initial_weight = $(this).attr("data-Initial_weight");
+                                    var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                     console.log(ppu_id);
                                     $('.invoice').html(invoice);
                                     $('.item').html(item);
                                     $('.qty').html((qty));
                                     $('.ppu_id').val(ppu_id);
+                                    $('.initial_weight').html(initial_weight);
+                                    $('.initial_weight_datetime').html((initial_weight_datetime));
                                     $.ajax({
                                         type:"POST",
                                         url:"{{route('production.processing-unit.blocking.data_pass')}}",
@@ -415,18 +443,22 @@
                                 });
                             }
                             if (product.status == "RandW") {
-                                $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                                $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn' class='btn btn-danger randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                                 $('.randw').click(function () {
                                     $("table.block_randw_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
                                     var item = $(this).attr("data-item");
                                     var qty = $(this).attr("data-qty");
                                     var ppu_id =  $(this).attr("data-ppu_id");
+                                    var initial_weight = $(this).attr("data-Initial_weight");
+                                    var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                     console.log(ppu_id);
                                     $('.invoice').html(invoice);
                                     $('.item').html(item);
                                     $('.qty').html((qty));
                                     $('.ppu_id').val(ppu_id);
+                                    $('.initial_weight').html(initial_weight);
+                                    $('.initial_weight_datetime').html((initial_weight_datetime));
                                     $.ajax({
                                         type:"POST",
                                         url:"{{route('production.processing-unit.blocking.data_pass')}}",
@@ -498,18 +530,22 @@
                                 
                             }
                             if (product.status == "Blocking") {
-                                $("table#clean_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blocking_b' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                                $("table#clean_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blocking_b' class='btn btn-success blocking' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
                                 $('.blocking').click(function () {
                                     $("table.clean_block_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
                                     var item = $(this).attr("data-item");
                                     var qty = $(this).attr("data-qty");
                                     var ppu_id =  $(this).attr("data-ppu_id");
+                                    var initial_weight = $(this).attr("data-Initial_weight");
+                                    var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                     console.log(ppu_id);
                                     $('.invoice').html(invoice);
                                     $('.item').html(item);
                                     $('.qty').html((qty));
                                     $('.ppu_id').val(ppu_id);
+                                    $('.initial_weight').html(initial_weight);
+                                    $('.initial_weight_datetime').html((initial_weight_datetime));
                                     var product_array = [];
                                     var block_id , block_name,block_size_id,block_size_name,grade_weight = null; 
                                     $('.block_select').change(function() {
@@ -537,18 +573,22 @@
 
                             }
                             if (product.status == "BlockCounter") {
-                                $("table#clean_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blockCounter_b' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                                $("table#clean_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blockCounter_b' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
                                 $('.block_counter').click(function () {
                                     $("table.clean_block_counter_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
                                     var item = $(this).attr("data-item");
                                     var qty = $(this).attr("data-qty");
                                     var ppu_id =  $(this).attr("data-ppu_id");
+                                    var initial_weight = $(this).attr("data-Initial_weight");
+                                    var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                     // console.log(ppu_id);
                                     $('.invoice').html(invoice);
                                     $('.item').html(item);
                                     $('.qty').html((qty));
                                     $('.ppu_id').val(ppu_id);
+                                    $('.initial_weight').html(initial_weight);
+                                    $('.initial_weight_datetime').html((initial_weight_datetime));
                                     $.ajax({
                                         type:"POST",
                                         url:"{{route('production.processing-unit.blocking.data_pass')}}",
@@ -567,18 +607,22 @@
                                 });
                             }
                             if (product.status == "ExcessVolume") {
-                                $("table#clean_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#excessVolume_b' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                                $("table#clean_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#excessVolume_b' class='btn btn-warning excess_volume' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
                                 $('.excess_volume').click(function () {
                                     $("table.clean_excess_volume_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
                                     var item = $(this).attr("data-item");
                                     var qty = $(this).attr("data-qty");
                                     var ppu_id =  $(this).attr("data-ppu_id");
+                                    var initial_weight = $(this).attr("data-Initial_weight");
+                                    var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                     console.log(ppu_id);
                                     $('.invoice').html(invoice);
                                     $('.item').html(item);
                                     $('.qty').html((qty));
                                     $('.ppu_id').val(ppu_id);
+                                    $('.initial_weight').html(initial_weight);
+                                    $('.initial_weight_datetime').html((initial_weight_datetime));
                                     $.ajax({
                                         type:"POST",
                                         url:"{{route('production.processing-unit.blocking.data_pass')}}",
@@ -597,18 +641,22 @@
                                 });
                             }
                             if (product.status == "RandW") {
-                                $("table#clean_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_b' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                                $("table#clean_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_b' class='btn btn-danger randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                                 $('.randw').click(function () {
                                     $("table.clean_block_randw_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
                                     var item = $(this).attr("data-item");
                                     var qty = $(this).attr("data-qty");
                                     var ppu_id =  $(this).attr("data-ppu_id");
+                                    var initial_weight = $(this).attr("data-Initial_weight");
+                                    var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                     console.log(ppu_id);
                                     $('.invoice').html(invoice);
                                     $('.item').html(item);
                                     $('.qty').html((qty));
                                     $('.ppu_id').val(ppu_id);
+                                    $('.initial_weight').html(initial_weight);
+                                    $('.initial_weight_datetime').html((initial_weight_datetime));
                                     $.ajax({
                                         type:"POST",
                                         url:"{{route('production.processing-unit.blocking.data_pass')}}",
@@ -680,18 +728,22 @@
                                 
                             }
                             if (product.status == "Blocking") {
-                                $("table#slice_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blocking_c' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                                $("table#slice_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blocking_c' class='btn btn-success blocking' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
                                 $('.blocking').click(function () {
                                     $("table.slice_block_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
                                     var item = $(this).attr("data-item");
                                     var qty = $(this).attr("data-qty");
                                     var ppu_id =  $(this).attr("data-ppu_id");
+                                    var initial_weight = $(this).attr("data-Initial_weight");
+                                    var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                     console.log(ppu_id);
                                     $('.invoice').html(invoice);
                                     $('.item').html(item);
                                     $('.qty').html((qty));
                                     $('.ppu_id').val(ppu_id);
+                                    $('.initial_weight').html(initial_weight);
+                                    $('.initial_weight_datetime').html((initial_weight_datetime));
                                     var product_array = [];
                                     var block_id , block_name,block_size_id,block_size_name,grade_weight = null; 
                                     $('.block_select').change(function() {
@@ -719,18 +771,22 @@
 
                             }
                             if (product.status == "BlockCounter") {
-                                $("table#slice_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blockCounter_c' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                                $("table#slice_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#blockCounter_c' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
                                 $('.block_counter').click(function () {
                                     $("table.slice_block_counter_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
                                     var item = $(this).attr("data-item");
                                     var qty = $(this).attr("data-qty");
                                     var ppu_id =  $(this).attr("data-ppu_id");
+                                    var initial_weight = $(this).attr("data-Initial_weight");
+                                    var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                     // console.log(ppu_id);
                                     $('.invoice').html(invoice);
                                     $('.item').html(item);
                                     $('.qty').html((qty));
                                     $('.ppu_id').val(ppu_id);
+                                    $('.initial_weight').html(initial_weight);
+                                    $('.initial_weight_datetime').html((initial_weight_datetime));
                                     $.ajax({
                                         type:"POST",
                                         url:"{{route('production.processing-unit.blocking.data_pass')}}",
@@ -749,18 +805,22 @@
                                 });
                             }
                             if (product.status == "ExcessVolume") {
-                                $("table#slice_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#excessVolume_c' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                                $("table#slice_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#excessVolume_c' class='btn btn-warning excess_volume' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
                                 $('.excess_volume').click(function () {
                                     $("table.slice_excess_volume_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
                                     var item = $(this).attr("data-item");
                                     var qty = $(this).attr("data-qty");
                                     var ppu_id =  $(this).attr("data-ppu_id");
+                                    var initial_weight = $(this).attr("data-Initial_weight");
+                                    var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                     console.log(ppu_id);
                                     $('.invoice').html(invoice);
                                     $('.item').html(item);
                                     $('.qty').html((qty));
                                     $('.ppu_id').val(ppu_id);
+                                    $('.initial_weight').html(initial_weight);
+                                    $('.initial_weight_datetime').html((initial_weight_datetime));
                                     $.ajax({
                                         type:"POST",
                                         url:"{{route('production.processing-unit.blocking.data_pass')}}",
@@ -779,18 +839,22 @@
                                 });
                             }
                             if (product.status == "RandW") {
-                                $("table#slice_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_c' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                                $("table#slice_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_c' class='btn btn-danger randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                                 $('.randw').click(function () {
                                     $("table.slice_block_randw_table tbody tr").empty();
                                     var invoice = $(this).attr("data-invoice");
                                     var item = $(this).attr("data-item");
                                     var qty = $(this).attr("data-qty");
                                     var ppu_id =  $(this).attr("data-ppu_id");
+                                    var initial_weight = $(this).attr("data-Initial_weight");
+                                    var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                     console.log(ppu_id);
                                     $('.invoice').html(invoice);
                                     $('.item').html(item);
                                     $('.qty').html((qty));
                                     $('.ppu_id').val(ppu_id);
+                                    $('.initial_weight').html(initial_weight);
+                                    $('.initial_weight_datetime').html((initial_weight_datetime));
                                     $.ajax({
                                         type:"POST",
                                         url:"{{route('production.processing-unit.blocking.data_pass')}}",

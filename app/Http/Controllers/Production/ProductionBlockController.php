@@ -107,7 +107,7 @@ class ProductionBlockController extends Controller
         // dd($request);
         ProductionProcessingUnit::where('id',$request->ppu_id)
         ->update(
-            ['Initial_weight'=>$request->initial_weight,'status'=>'Blocking']
+            ['Initial_weight'=>$request->initial_weight,'initial_weight_datetime'=>Carbon::now(),'status'=>'Blocking']
         );
         return redirect()->back()->withmsg('Successfully Send For Blocking');
     }
