@@ -4,7 +4,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="#" method="POST">
-                <div class="modal-header">
+                <div class="modal-header"  style="background-color: #36C6D3;text-align:center;">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                     <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Soaking</h2>
                 </div>
@@ -15,7 +15,7 @@
                         <p><b>Item Name:</b> <span class="whole_item"></span></p>
                         <p><b>Quantity(kg):</b> <span class="whole_qty"></span></p>
                     {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
-                    <div class="row">
+                    <div class="row" style="text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;">
                         <div class="col-md-6">
                             <p><b>Initial Weight:</b> <span class="initial_weight"></span></p>
                         </div>
