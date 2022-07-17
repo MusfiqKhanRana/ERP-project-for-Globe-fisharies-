@@ -14,8 +14,15 @@ class ProvidentFundUser extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function getDateAttribute($value){
+    public function provident_fund()
+    {
+        return $this->belongsTo(ProvidentFund::class);
+    }
+    public function getAppliedMonthAttribute($value){
         return  \Carbon\Carbon::parse($value)->format('d/m/Y');
+    }
+    public function getInstallmentsAttribute($value){
+        return  unserialize($value);
     }
     
 }

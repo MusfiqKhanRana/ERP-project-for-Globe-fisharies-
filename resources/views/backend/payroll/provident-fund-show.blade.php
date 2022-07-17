@@ -91,7 +91,7 @@ Provident Fund
                                     <td style="text-align: center">{{$item->applied_month}}</td>
                                     <td style="text-align: center">{{$item->status}}</td>
                                     <td style="text-align: center">
-                                        @foreach (unserialize($item->installments) as $installment)
+                                        @foreach ($item->installments as $installment)
                                             <li>{{$installment}}</li>
                                         @endforeach
                                     </td>

@@ -69,7 +69,9 @@ Provident Fund
                                     <td style="text-align: center">{{count($item->provident_fund_users)}}</td>
                                     <td style="text-align: center">
                                         <a class="btn btn-info" data-toggle="modal" href="#EditModal{{$item->id}}">Edit</a>
-                                        <a class="btn btn-info" href="{{route('provident-fund.show',\Crypt::encrypt($item->id))}}">View</a>
+                                        @if (count($item->provident_fund_users))
+                                            <a class="btn btn-info" href="{{route('provident-fund.show',\Crypt::encrypt($item->id))}}">View</a>
+                                        @endif
                                         <a class="btn btn-info enlist_employee" data-id="{{$item->id}}" data-instalment="{{$item->fund_duration}}" data-toggle="modal" href="#addUser">Enlist Employee</a>
                                         <a class="btn btn-danger" data-toggle="modal" href="#DeleteModal{{$item->id}}">Delete</a>
                                     </td>
@@ -153,7 +155,6 @@ Provident Fund
                                 @endforeach
                             </tbody>
                         </table>
-
                     </div>
                 </div>
                 <div id="addModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">

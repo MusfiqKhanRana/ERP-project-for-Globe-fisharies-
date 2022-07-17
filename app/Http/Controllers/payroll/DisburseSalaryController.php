@@ -98,6 +98,11 @@ class DisburseSalaryController extends Controller
             'bonus' => function($q){
                 $q->select('id','amount','user_id');
             },
+            'provident_fund_users'=>function($q){
+                $q->with(['provident_fund'])
+                ->whereIn('status',['Initial','ongoing'])
+                ->where('applied_month','<=',Carbon::now()->format('Y-m-1'));
+            },
             'increments'=>function($q){
                 // $q->sum('increment_amount');
             }
