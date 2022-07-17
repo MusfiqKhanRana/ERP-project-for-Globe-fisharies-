@@ -97,6 +97,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(UserShift::class,'user_shift_id');
     }
+    public function provident_fund_users()
+    {
+        return $this->hasMany(ProvidentFundUser::class);
+    }
     public function designation()
     {
         return $this->belongsTo(Designation::class,'deg_id');

@@ -115,6 +115,9 @@
                 </div>
             </div>
         </div>
+        @php
+            $current_date = \Carbon\Carbon::now()->format('Y-m-1');
+        @endphp
     </div>
 @endsection
 @section('script')
@@ -122,6 +125,8 @@
         $(document).ready(function() {
             var designations = @json($designation)[0];
             var working_days = @json($working_days);
+            var current_date = @json($current_date);
+            console.log(current_date);
             $('.disburse_salary').hide();
             getdata(designations.id)
             $('.degsignation').click(function() {
@@ -145,7 +150,8 @@
                             var combained_salary = amount + (parseInt(value.basic)+parseInt(value.medical_allowance)+parseInt(value.house_rent));
                             var deduction = calcutaleDeduction(value,combained_salary,attendance_count.late_count,attendance_count.absent_count);
                             var get_overtime = getOverTime(value,attendance_count.total_overtime,deduction.per_day_salary);
-                            // console.log();
+                            // console.log(value.provident_fund_users);
+                            var get_provident_fund = getProvidentFund(value.provident_fund_users);
                             if (value.payments.length == 0) {
                                 employeeTable.append('<tr>'+
                                     '<td><input type="checkbox" class="salary_check"'+
@@ -186,6 +192,9 @@
                 });
             }
             // console.log(decimalePlace(0),"decimal place");
+            function getProvidentFund(provident_fund) {
+                console.log(provident_fund);
+            }
             function decimalePlace(number) {
                 return Number(Math.round(number +'e'+ 2) +'e-'+ 2).toFixed(2);
             }
