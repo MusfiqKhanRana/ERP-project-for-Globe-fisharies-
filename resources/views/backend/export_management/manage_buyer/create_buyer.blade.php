@@ -80,7 +80,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label" >Buyer Country <span class="required">* </span></label>
-                                                        <select class="form-control js-data-example-ajax" name="buyer_country" id="country">
+                                                        <select class="form-control country" name="buyer_country" id="country">
                                                         </select>
                                                     </div>
                                                 </div>
@@ -157,6 +157,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="card">
                                     <div class="card-header">
                                         <h4 style="text-align: center; background-color: rgb(208, 208, 241);"><b>Bank Details</b></h4>
                                     </div>
@@ -207,6 +208,8 @@
                                             </table>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="card">
                                     <div class="card-header">
                                         <h4 style="text-align: center; background-color: rgb(208, 208, 241);"><b>Assign HS Code</b></h4>
                                     </div>
@@ -246,10 +249,10 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 ">
-                                        <button type="submit" data-loading-text="Submitting..." class="col-md-12 btn btn btn-success">
-                                        <i class="fa fa-plus"></i>  Submit</button>
-                                    </div>   
+                                </div>
+                                <div class="col-md-12 ">
+                                    <button type="submit" data-loading-text="Submitting..." class="col-md-12 btn btn btn-success">
+                                    <i class="fa fa-plus"></i>  Submit</button>
                                 </div>
                             </form>
                         </div>
@@ -263,11 +266,10 @@
 
   <script type="text/javascript">
     $(document).ready(function () {
-        $('.js-data-example-ajax').select2({
-        ajax: {
+        
+        $.ajax({
                 type:"GET",
                 url:"https://restcountries.com/v3.1/all",
-                dataType: 'json',
                 success:function(data){
                     console.log(data);
                     $(".country").empty();
@@ -278,8 +280,7 @@
                         }));
                     });
                 }
-        };
-    });
+        });
                 
     var items_array = [];
     function nullmaking(){
@@ -339,7 +340,6 @@
             nullmaking();
     });
     $('.select2Ajax').select2({
-            placeholder: 'Select an item',
             ajax: {
                 url: "https://restcountries.com/v3.1/all",
                 dataType: 'json',
@@ -350,7 +350,6 @@
                             return {
                                 text: item.name.common,
                                
-                                id: item.id
                             }
                         })
                     };

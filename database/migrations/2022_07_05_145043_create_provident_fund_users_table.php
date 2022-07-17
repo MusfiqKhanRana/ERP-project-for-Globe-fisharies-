@@ -18,6 +18,7 @@ class CreateProvidentFundUsersTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('provident_fund_id')->nullable();
             $table->date('applied_month')->nullable();
+            $table->date('end_month')->nullable();
             $table->text('installments')->nullable();
             $table->date('withdraw_date')->nullable();
             $table->string('remark')->nullable();

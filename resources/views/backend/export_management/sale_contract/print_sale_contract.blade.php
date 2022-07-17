@@ -41,7 +41,7 @@
                         <div class="portlet-body" style="height: auto;">
                             <div class="row">
                                 <div class="col-md-12" style="text-align: center">
-                                    <h2><b>Sales Contract List</b></h2>
+                                    <h2><b>SALES CONTRACT</b></h2>
                                 </div>
                             </div>
                             <div class="row">
@@ -52,7 +52,7 @@
                                     <b>Date :</b> @php
                                     use Carbon\Carbon;
                                     $currentTime = Carbon::now();
-                                    echo $currentTime->toDateTimeString();
+                                    echo $currentTime->toDateString();
                                 @endphp
                                  </div>
                                 
@@ -89,7 +89,10 @@
                                             <th>HS Code</th>
                                             <th>Production Date</th>
                                             <th>EXP Date</th>
-                                            <th>Description Of Goods</th>
+                                            <th>Type</th>
+                                            <th>Item</th>
+                                            <th>Variant</th>
+                                            <th>Grade</th>
                                             <th>Scientific Name</th>
                                             <th> Quantity / Master Carton</th>
                                             <th>Pack Size</th>
@@ -103,16 +106,18 @@
                                             <td>564875bkjhvb</td>
                                             <td>2022/07/03</td>
                                             <td>2022/08/03</td>
-                                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                                            <td>IQF</td>
+                                            <td>Pangus</td>
+                                            <td>Gutted Clean</td>
+                                            <td>1 Kg Up</td>
                                             <td>Lorem ipsum dolor sit amet.</td>
                                             <td>100</td>
                                             <td>300-500</td>
                                             <td>50</td>
                                             <td>45</td>
-                                            
                                         </tr>
                                         <tr  style="background-color:#d6d9e3">
-                                            <th colspan="6">Total Master Carton & Weight </th>
+                                            <th colspan="9">Total Master Carton & Weight </th>
                                             <th>100</th>
                                             <th></th>
                                             <th>50</th>
@@ -201,21 +206,21 @@
             <!-- END PAGE CONTENT-->
             <div class="row" style="text-align: center" >
                 <a class="btn blue" style="background-color:#29931D"  href="{{ url()->previous() }}"><i class="fa fa-backward"></i>  Back</a>
-                <button onclick="window.print()" class="btn red" ><i class="fa fa-print" aria-hidden="true">  Print Invoice</i></button>
+                <button id="printbtn" class="btn red" ><i class="fa fa-print" aria-hidden="true">  Print Invoice</i></button>
             </div>
         </div>
     </div>
 @endsection
 @section('script')
 <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.0/jQuery.print.js"></script>
-{{-- <script>
+<script>
     jQuery(document).ready(function() {
         $("#printbtn").click(function () {
             $("#printrequisition").print();
         });
     });
-</script> --}}
-<script>
+</script>
+{{-- <script>
 @media print(){
     body *:not(#printrequisition):not(#printrequisition *){
         visibility: hidden;
@@ -226,6 +231,6 @@
         left:0;
     }
 }
-</script>
+</script> --}}
 
 @endsection

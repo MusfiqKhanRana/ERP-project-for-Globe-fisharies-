@@ -78,6 +78,7 @@ Provident Fund
                                 <th>S.l</th>
                                 <th style="text-align: center">Name </th>
                                 <th style="text-align: center">Applied Month </th>
+                                <th style="text-align: center">End Month</th>
                                 <th style="text-align: center">Status</th>
                                 <th style="text-align: center">Installments</th>
                                 <th style="text-align: center">Remark</th>
@@ -89,6 +90,7 @@ Provident Fund
                                     <td>{{ ++ $key}}</td>
                                     <td style="text-align: center">{{$item->user->name}}</td>
                                     <td style="text-align: center">{{$item->applied_month}}</td>
+                                    <td style="text-align: center">{{$item->end_month}}</td>
                                     <td style="text-align: center">{{$item->status}}</td>
                                     <td style="text-align: center">
                                         @foreach ($item->installments as $installment)

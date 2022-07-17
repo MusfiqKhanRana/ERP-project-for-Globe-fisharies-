@@ -66,7 +66,7 @@
                                     <div class="col-md-12">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h4 style="text-align: center"><b>Shipping Info</b></h4>
+                                                <h4 style="text-align: center; background-color: rgb(208, 208, 241);"><b>Shipping Info</b></h4>
                                             </div>
                                             <div class="card-body">
                                                 <div class="row">
@@ -162,7 +162,7 @@
                                     <div class="col-md-12">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h4 style="text-align: center"><b>Item Info</b></h4>
+                                                <h4 style="text-align: center; background-color: rgb(208, 208, 241);"><b>Item Info</b></h4>
                                             </div>
                                             <div class="card-body">
                                                 <div class="row">
@@ -247,7 +247,10 @@
                                                             <th>Cartons Quantity</th>
                                                             <th>Total In KG</th>
                                                             <th>Per KG Rate ($)</th>
-                                                            <th>Total Amount ($)</th>
+                                                            <th>Freight Rate Per Kg</th>
+                                                            <th>Total CRF Rate</th>
+                                                            <th>Total Amount (Excluding CRF Rate)</th>
+                                                            <th>Total Amount (Including CFR Rate)</th>
                                                             <th>Action</th>
                                                         </tr>
                                                         <tr>
@@ -262,7 +265,7 @@
                                     <div class="col-md-12">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h4 style="text-align: center"><b>Payment Info</b></h4>
+                                                <h4 style="text-align: center; background-color: rgb(208, 208, 241);"><b>Payment Info</b></h4>
                                             </div>
                                             <div class="card-body">
                                                 <div class="row">
@@ -329,7 +332,7 @@
                                 </div>
                                 <hr class="class-1">
                                 <div class="card-header">
-                                    <h4 style="text-align: center"><b>Importer Bank Info</b></h4>
+                                    <h4 style="text-align: center; background-color: rgb(208, 208, 241);"><b>Importer Bank Info</b></h4>
                                 </div>
                                 <div class="form-group" style="padding:2%">
                                     <div class="row">
@@ -374,8 +377,7 @@
                                         <i class="fa fa-plus"></i>  Submit</button>
                                     </div>
                                     <div class="row"><div class=" pull-right ">
-                                        <a class="col-md-12 btn btn dark" href="">
-                                        <i class="fa fa-backward"></i>  Cancel</a>
+                                        <a class="btn blue" style="background-color:#29931D"  href="{{ url()->previous() }}"><i class="fa fa-backward"></i>  Cancel</a>
                                     </div>
                                     </div>
                                 </div>
@@ -466,7 +468,7 @@
                 // console.log(item);
                 if (item.status == "stay") {
                     if(items_array.length-1 == key){
-                        $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+item.consignment_type+"</td><td>"+item.hs_code+"</td><td>"+item.type+"</td><td>"+item.item_name+"</td><td>"+item.variant+"</td><td>"+item.grade+"</td><td>"+item.pack_size+"</td><td>"+item.cartons+"</td><td>"+item.total_in_kg+"</td><td>"+item.rate+"</td><td>"+item.total_amount+"</td><td><button class='btn btn-danger delete_item' data-id='"+key+"'>Delete</button></td></tr>");
+                        $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+item.consignment_type+"</td><td>"+item.hs_code+"</td><td>"+item.type+"</td><td>"+item.item_name+"</td><td>"+item.variant+"</td><td>"+item.grade+"</td><td>"+item.pack_size+"</td><td>"+item.cartons+"</td><td>"+item.total_in_kg+"</td><td>"+item.rate+"</td><td>"+item.total_amount+"</td><td></td><td></td><td></td><td><button class='btn btn-danger delete_item' data-id='"+key+"'>Delete</button></td></tr>");
                     }
                 }
             });
