@@ -8,7 +8,7 @@
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title bold form-inline" class="portlet box dark">Export Management   <small>Packing Pending List</small>
+            <h3 class="page-title bold form-inline" class="portlet box dark">Export Management   <small>Packing Approve List</small>
         </h3>
             <hr>
                 @if(Session::has('msg'))
@@ -33,9 +33,7 @@
                 @endif
                 <h3>
                     <a class="btn btn-danger" href="{{route('packing_list')}}"> Pending List</a>
-                    <a class="btn btn-info" href="{{route('packing_approve_list')}}"> Approve List</a>
                 </h3>
-                
                 <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">
@@ -68,6 +66,8 @@
                                                         <tr>
                                                             <th>Sl.</th>
                                                             <th>HS Code</th>
+                                                            <th>Production Date</th>
+                                                            <th>Expiry Date</th>
                                                             <th>Type</th>
                                                             <th>Item</th>
                                                             <th>Variant</th>
@@ -75,13 +75,16 @@
                                                             <th>Scientific Name</th>
                                                             <th>Quantity/Master Carton</th>
                                                             <th>Pack Size</th>
-                                                            <th>Action</th>
+                                                            <th>Net Weight ( KG )</th>
+                                                            <th>Gross Weight ( KG )</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
                                                             <td>1</td>
                                                             <td>111222</td>
+                                                            <td>07/07/2022</td>
+                                                            <td>09/08/2022</td>
                                                             <td>IQF</td>
                                                             <td>Pangus</td>
                                                             <td>Gutted Clean</td>
@@ -89,9 +92,8 @@
                                                             <td>Scientific Name</td>
                                                             <td>100</td>
                                                             <td>3kg</td>
-                                                            <td>
-                                                                <button class="btn btn-danger" data-toggle="modal" href="#ExpiryDate">Add Expiry Date</button>
-                                                            </td>
+                                                            <td>20 Kg Up</td>
+                                                            <td>200 kg</td>
                                                         </tr>
 
                                                     </tbody>
@@ -99,9 +101,7 @@
                                             </td>
                                             <td>Lorem ipsum dolor sit amet <br>consectetur adipisicing elit. Delectus, et.</td>
                                             <td>
-                                                <button class="btn btn-success" data-toggle="modal" href="#ApproveModal">Approve</button>
-                                                <button class="btn btn-warning" data-toggle="modal" href="#GrossWeight">Add Gross Weight</button>
-                                                <button class="btn btn-info" data-toggle="modal" href="#ProductionDate">Add Production Date</button>
+                                                <button class="btn btn-warning" data-toggle="modal" href="#GrossWeight">Disburse Shipment</button>
                                                 <a class="btn red-flamingo" href={{route('print_packing_list')}}>print</a>
                                             </td>
                                        </tr>

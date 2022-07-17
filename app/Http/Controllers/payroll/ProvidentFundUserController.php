@@ -45,10 +45,11 @@ class ProvidentFundUserController extends Controller
         for ($i=0; $i < (int)$request->instalment-1; $i++) { 
             array_push($instalment_dates,$date->addMonth(1)->format('Y-m-1'));
         }
+        $data['end_month'] = ($instalment_dates[count($instalment_dates) -1]);
         $data['installments'] = serialize($instalment_dates);
         unset($data['instalment']);
         ProvidentFundUser::create($data);
-        //dd($data);
+       // dd($data);
     }
 
     /**

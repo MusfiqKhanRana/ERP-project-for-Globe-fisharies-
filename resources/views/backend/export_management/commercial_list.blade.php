@@ -67,7 +67,10 @@
                                                         <tr>
                                                             <th>Sl.</th>
                                                             <th>HS Code</th>
-                                                            <th>Description of Goods</th>
+                                                            <th>Type</th>
+                                                            <th>Item</th>
+                                                            <th>Variant</th>
+                                                            <th>Grade</th>
                                                             <th>Scientific Name</th>
                                                             <th>Quantity/Master Carton</th>
                                                             <th>Rate Per KG CRF(USD $)</th>
@@ -79,7 +82,10 @@
                                                         <tr>
                                                             <td>1</td>
                                                             <td>111222</td>
-                                                            <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure, obcaecati.</td>
+                                                            <td>IQF</td>
+                                                            <td>Pangus</td>
+                                                            <td>Gutted Clean</td>
+                                                            <td>1 Kg Up</td>
                                                             <td>Scientific Name</td>
                                                             <td>1000</td>
                                                             <td>200</td>

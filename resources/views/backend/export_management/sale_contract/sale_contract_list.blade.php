@@ -50,7 +50,7 @@
                                             <th>Sl.</th>
                                             <th>Buyer Details</th>
                                             <th>Shipment Details</th>
-                                            <th>Order Details</th>
+                                            <th style="text-align: center">Order Details</th>
                                             <th>Payment Details</th>
                                             <th style="text-align: center">Action</th>
                                         </tr>
@@ -61,12 +61,12 @@
                                             <td>Lorem, ipsum dolor sit amet <br> consectetur adipisicing elit. Sunt, dolores?</td>
                                             <td>Lorem ipsum, dolor sit amet <br>consectetur adipisicing elit. Esse, adipisci.</td>
                                             <td>
-                                                <table class="table table-bordered " style="overflow: scroll;">
+                                                <table class="table table-bordered table-hober table-striped" style="overflow: scroll;">
                                                     <thead>
                                                         <tr>
                                                             <th>Sl.</th>
                                                             <th>HS Code</th>
-                                                            <th style="text-align: center">Type</th>
+                                                            <th>Type</th>
                                                             <th>Item</th>
                                                             <th>Variant</th>
                                                             <th>Grade</th>

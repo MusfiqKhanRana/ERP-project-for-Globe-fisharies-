@@ -654,5 +654,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
         return view('backend.export_management.print_packing');
     })->name('print_packing_list');
 
+    Route::get('export/packing/approve/list',function(){
+        return view('backend.export_management.packing_approve_list');
+    })->name('packing_approve_list');
+
     
 });
