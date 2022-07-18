@@ -397,7 +397,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label class="col-md-3 control-label"> User Shift</label>
                                     <div class="col-md-9">
                                         <select class="form-control" id="user_shift" name="user_shift_id">
@@ -407,7 +407,7 @@
                                             {{csrf_field()}}
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="row">
                                     <div class="actions col-md-12">
                                         <button  data-loading-text="Updating..."  class="demo-loading-btn btn btn-sm blue col-md-12">

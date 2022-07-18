@@ -29,6 +29,23 @@ class EmployeeController extends Controller
         return view('backend.employee.employee-list', compact('employee','time'));
     }
 
+    public function assign_shift()
+    {
+        $user_shift = UserShift::all();
+        $employee = User::get();
+        $time = Timezone::find(1);
+        // dd($employee->toArraya());
+        return view('backend.employee.assign_shift', compact('employee','time','user_shift'));
+    }
+
+    public function change_shift(Request $request)
+    {
+        //dd($request->toArray());
+        User::where('id',$request->id)->update(['user_shift_id'=>$request->user_shift_id]);
+        return redirect()->back()->withMsg("Successfully Updated");
+        
+    }
+
     public function create()
     {
         $provident_fund = ProvidentFund::get();
@@ -323,12 +340,10 @@ class EmployeeController extends Controller
                 
         $employee = User::find($id);
         $this->validate($request,array(
-
-            'user_shift_id'=> 'max:191 | required',
             'status'=> 'max:191 | required',
            
         ));
-        $employee->user_shift_id = $request->input('user_shift_id');
+        //$employee->user_shift_id = $request->input('user_shift_id');
         $employee->status = $request->input('status');
         $employee->save();
         return redirect('admin/employee')->withMsg('Employee Description Updated');
@@ -499,16 +514,16 @@ class EmployeeController extends Controller
     public function ajaxlist(Request $request){
         // return $request->id;
         if($request->id==1){
-            return User::with('department','designation')->where('status',"Probational")->orderBy('id', 'DESC')->get();
+            return User::with('department','designation','user_shift')->where('status',"Probational")->orderBy('id', 'DESC')->get();
         }
         if($request->id==2){
-            return User::with('department','designation')->where('status',"Permanent")->orderBy('id', 'DESC')->get();
+            return User::with('department','designation','user_shift')->where('status',"Permanent")->orderBy('id', 'DESC')->get();
         }
         if($request->id==3){
-            return User::with('department','designation')->where('status',"Retired")->orderBy('id', 'DESC')->get();
+            return User::with('department','designation','user_shift')->where('status',"Retired")->orderBy('id', 'DESC')->get();
         }
         if($request->id==4){
-            return User::with('department','designation')->where('status',"Terminated")->orderBy('id', 'DESC')->get();
+            return User::with('department','designation','user_shift')->where('status',"Terminated")->orderBy('id', 'DESC')->get();
         }
     }
 }

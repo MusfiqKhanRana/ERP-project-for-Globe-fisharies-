@@ -121,6 +121,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
     Route::post('/employee/ajaxlist',[EmployeeController::class,'ajaxlist'] )->name('employee.ajaxlist');
     Route::get('/employee',[EmployeeController::class,'index'] )->name('employee.list');
+    Route::get('/employee/assign/shift',[EmployeeController::class,'assign_shift'] )->name('assign-shift');
+    Route::post('/employee/change/shift',[EmployeeController::class,'change_shift'] )->name('change.shift');
     Route::get('/employee/add-employee',[EmployeeController::class,'create'])->name('employee.add');
     Route::get('/employee/edit-employee/{id}',[EmployeeController::class,'edit'] )->name('employee.edit');
     Route::post('/employee/designation-pass',[EmployeeController::class,'designation_pass'])->name('designation.pass');
