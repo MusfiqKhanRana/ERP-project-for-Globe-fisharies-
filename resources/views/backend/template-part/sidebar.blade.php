@@ -43,6 +43,7 @@
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/individual-attendance' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/user-shift' ) active open @endif
+                @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/assign/shift' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance-count' ) active open @endif
                 @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/edit-employee' ) active open @endif
                 @php echo "active",(request()->path() != 'admin/payroll')?:"";@endphp
@@ -92,6 +93,7 @@
                     {{-- @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance' ) active open @endif --}}
                     {{-- @if( request()->path() == 'admin/employee' || request()->path() == 'admin/individual-attendance' ) active open @endif --}}
                     @if( request()->path() == 'admin/employee' || request()->path() == 'admin/user-shift' ) active open @endif
+                    @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/assign/shift' ) active open @endif
                     @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/attendance-count' ) active open @endif
                     @if( request()->path() == 'admin/employee' || request()->path() == 'admin/tiffin-bill' ) active open @endif
                     @if( request()->path() == 'admin/employee' || request()->path() == 'admin/employee/edit-employee' ) active open @endif">
@@ -123,6 +125,12 @@
                                 @if( request()->path() == 'user-shift' ) active open @endif">
                                     <a href="{{route('user-shift.index')}}" class="nav-link">
                                         <span class="title">Employee Shift</span>
+                                    </a>
+                            </li>
+                            <li class="nav-item  @if( request()->path() == 'admin/employee/assign/shift') active open @endif
+                                @if( request()->path() == 'assign/shift' ) active open @endif">
+                                    <a href="{{route('assign-shift')}}" class="nav-link">
+                                        <span class="title">Assign Shift</span>
                                     </a>
                             </li>
                         </ul>
