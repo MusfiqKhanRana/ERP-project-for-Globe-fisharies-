@@ -56,6 +56,9 @@
                                     <th style="text-align: center">
                                         Size
                                     </th>
+                                    <th>
+                                        Action
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>

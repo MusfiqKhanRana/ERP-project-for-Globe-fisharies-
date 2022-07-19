@@ -45,6 +45,9 @@
                                         <th>
                                             Quantity (Kg)
                                         </th>
+                                        <th>
+                                            Action
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
