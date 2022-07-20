@@ -65,7 +65,7 @@ class DisburseSalaryController extends Controller
             // dd($user,$data,$user->id);
             Payment::create(['user_id'=>$user->id,'gross_salary'=>$user->gross_salary,'overtime_payment'=>$user->overtime,
                             'absent_fine'=>$user->absent_fine,'late_fine'=>$user->late_fine,'advance_salary_payment'=>$user->advance_salary,
-                            'loan_installment_payment'=>$user->installment_amount,'net_payment'=>$user->net_payment,
+                            'loan_installment_payment'=>$user->installment_amount,'provident_fund'=>$user->provident_fund,'net_payment'=>$user->net_payment,
                             'disburse_date'=>$data['disbursement_date'],'salary_month'=>Carbon::now()->subMonth()->format('Y-m-01'),
                             'is_paid'=>$is_paid]);
         }
