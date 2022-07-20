@@ -101,6 +101,7 @@ class DisburseSalaryController extends Controller
             'provident_fund_users'=>function($q){
                 $q->with(['provident_fund'])
                 ->whereIn('status',['Initial','ongoing'])
+                ->where('applied_month','>=',Carbon::now()->format('Y-m-1'))
                 ->where('applied_month','<=',Carbon::now()->format('Y-m-1'));
             },
             'increments'=>function($q){
