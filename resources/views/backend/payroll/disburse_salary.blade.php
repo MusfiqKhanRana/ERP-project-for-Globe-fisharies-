@@ -159,6 +159,7 @@
                                     'data-late_fine="'+ decimalePlace(deduction.late_fine) +'"'+
                                     'data-advance_salary="'+ decimalePlace(deduction.advance_salary) +'"'+
                                     'data-installment_amount="'+ decimalePlace(deduction.loan_installment_amount) +'"'+
+                                    'data-provident_fund="'+ decimalePlace(get_provident_fund) +'"'+
                                     'data-net_payment="'+ (combained_salary-deduction.total_deduction).toFixed(2) +'"'+
                                     ' data-gross_salary="'+ combained_salary +'" value="'+ value.id+'"></td>'+
                                     '<td>'+value.id+'</td>'+
@@ -267,7 +268,7 @@
                 $('.salary_check').click(function(){
                     if($(this).prop("checked") == true){
                         $('.disburse_salary').show();
-                        let user_salary = {id:$(this).val(),gross_salary:$(this).data('gross_salary'), overtime:$(this).data('overtime'), absent_fine:$(this).data('absent_fine'), late_fine:$(this).data('late_fine'), advance_salary:$(this).data('advance_salary'), installment_amount:$(this).data('installment_amount') , net_payment:$(this).data('net_payment')};
+                        let user_salary = {id:$(this).val(),gross_salary:$(this).data('gross_salary'), overtime:$(this).data('overtime'), absent_fine:$(this).data('absent_fine'), late_fine:$(this).data('late_fine'), advance_salary:$(this).data('advance_salary'), installment_amount:$(this).data('installment_amount'),'provident_fund':$(this).data('provident_fund') , net_payment:$(this).data('net_payment')};
                         selected_user_ids.push(user_salary);
                         selected_user_ids = [...new Map(selected_user_ids.map(item => [item['id'], item])).values()];
                         $('.users_array').val(JSON.stringify(selected_user_ids));
