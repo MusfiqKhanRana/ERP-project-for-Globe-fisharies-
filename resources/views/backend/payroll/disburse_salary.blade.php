@@ -100,16 +100,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- <tr id="row1">
-                                <td><input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></td>
-                                <td style="text-align: center;"></td>
-                                <td style="text-align: center;"></td>
-                                <td style="text-align: center;"></td>
-                                <td style="text-align: center;"></td>
-                                <td style="text-align: center;"></td>
-                                <td style="text-align: center;"></td>
-                                <td style="text-align: center;"></td>
-                            </tr>  --}}
                         </tbody>
                     </table>
                 </div>
@@ -126,7 +116,6 @@
             var designations = @json($designation)[0];
             var working_days = @json($working_days);
             var current_date = @json($current_date);
-            console.log(current_date);
             $('.disburse_salary').hide();
             getdata(designations.id)
             $('.degsignation').click(function() {
@@ -148,10 +137,9 @@
                                 amount+= parseInt(increment.amount);
                             });
                             var combained_salary = amount + (parseInt(value.basic)+parseInt(value.medical_allowance)+parseInt(value.house_rent));
-                            var deduction = calcutaleDeduction(value,combained_salary,attendance_count.late_count,attendance_count.absent_count);
+                            var get_provident_fund = getProvidentFund(value.provident_fund_users,combained_salary);
+                            var deduction = calcutaleDeduction(value,combained_salary,attendance_count.late_count,attendance_count.absent_count,get_provident_fund);
                             var get_overtime = getOverTime(value,attendance_count.total_overtime,deduction.per_day_salary);
-                            // console.log(value.provident_fund_users);
-                            var get_provident_fund = getProvidentFund(value.provident_fund_users);
                             if (value.payments.length == 0) {
                                 employeeTable.append('<tr>'+
                                     '<td><input type="checkbox" class="salary_check"'+
@@ -175,6 +163,7 @@
                                         '<li> Late Fine: '+decimalePlace(deduction.late_fine) +'</li>'+
                                         '<li> Advance Salary: '+decimalePlace(deduction.advance_salary) +'</li>'+
                                         '<li> Loan installment: '+ decimalePlace(deduction.loan_installment_amount) +'</li>'+
+                                        '<li> Provident Fund: '+ decimalePlace(get_provident_fund) +'</li>'+
                                         '<li> Total Deduction: '+decimalePlace(deduction.total_deduction) +'</li>'+
                                         '</ul></td>'+
                                     '<td>'+decimalePlace(combained_salary-deduction.total_deduction)+'</td>'+
@@ -192,8 +181,19 @@
                 });
             }
             // console.log(decimalePlace(0),"decimal place");
-            function getProvidentFund(provident_fund) {
-                console.log(provident_fund);
+            function getProvidentFund(provident_funds,combained_salary) {
+                let findDate = null;
+                var total_deduction = 0;
+                $.each( provident_funds , function( key, provident_fund ) {
+                    findDate = provident_fund.installments.find(fruit => fruit === current_date);
+                    let deduction = 0;
+                    if (findDate) {
+                        deduction = combained_salary/(provident_fund.provident_fund.amount*100)
+                        total_deduction+=deduction;
+                    }
+                    // console.log(provident_fund.provident_fund,combained_salary,total_deduction);
+                });
+                return total_deduction;
             }
             function decimalePlace(number) {
                 return Number(Math.round(number +'e'+ 2) +'e-'+ 2).toFixed(2);
@@ -235,7 +235,7 @@
                     return 0;
                 }
             }
-            function calcutaleDeduction(user,combained_salary,late,absent){
+            function calcutaleDeduction(user,combained_salary,late,absent,provident_fund){
                 var advance_salary = 0;
                 var loan_installment_amount = 0;
                 var total_salary = combained_salary;
@@ -248,7 +248,7 @@
                 $.each( user.loan_installments , function( key, loan ){
                     loan_installment_amount+=loan.office_loan.amount/loan.office_loan.instalment;
                 });
-                var total_deduction = parseFloat(advance_salary)+parseFloat(loan_installment_amount)+parseFloat(absent_fine)+parseFloat(late_fine);
+                var total_deduction = parseFloat(advance_salary)+parseFloat(loan_installment_amount)+parseFloat(absent_fine)+parseFloat(late_fine)+parseFloat(provident_fund);
                 return {'per_day_salary':per_day_salary,'advance_salary':advance_salary,'loan_installment_amount':loan_installment_amount,'absent_fine':absent_fine,'late_fine':late_fine,'total_deduction': parseFloat(total_deduction)};
             }
             function showSalaryButton() {

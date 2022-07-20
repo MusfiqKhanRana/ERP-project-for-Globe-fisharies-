@@ -16,11 +16,11 @@ class CreateProvidentFundsTable extends Migration
         Schema::create('provident_funds', function (Blueprint $table) {
             $table->id();
             $table->string('package')->nullable();
-            $table->string('amount')->nullable();
-            $table->string('fund_duration')->nullable();
-            $table->string('fund_detention')->nullable();
-            $table->string('detention_amount')->nullable();
-            $table->string('completion_bonus')->nullable();
+            $table->integer('amount')->nullable();
+            $table->integer('fund_duration')->nullable();
+            $table->integer('fund_detention')->nullable();
+            $table->integer('detention_amount')->nullable();
+            $table->integer('completion_bonus')->nullable();
             $table->timestamps();
         });
     }
