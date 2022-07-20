@@ -138,14 +138,24 @@
                                 });
                                 $('.add_btn').click(function () {
                                     $("table.fillet_grading_table tbody tr").empty();
-                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight});
+                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight,"status":"stay"});
                                     $.each( product_array, function( key, product ) {
-                                        $("table.fillet_grading_table tr").last().after("<tr><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td></tr>");
+                                        if (product.status == "stay") {
+                                            $("table.fillet_grading_table tr").last().after("<tr class='delete"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                                        }
                                     });
                                     $(".inputs").val('');
                                     $(".inputs").val(JSON.stringify(product_array));
                                     $('.grade_weight').val(0);
                                     $('.grade_select').val("--select--");
+                                    $(".delete").click(function(){
+                                        console.log('good');
+                                        product_array[$(this).data("id")].status="delete";
+                                        $(".inputs").val(JSON.stringify(product_array));
+                                        $('.grade_weight').val(0);
+                                        $('.grade_select').val("--select--");
+                                        $(".delete"+$(this).data("id")).remove();
+                                    });
                                 })
                             });
 
@@ -356,14 +366,24 @@
                                 });
                                 $('.add_btn').click(function () {
                                     $("table.fillet_grading_table tbody tr").empty();
-                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight});
+                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight,"status":"stay"});
                                     $.each( product_array, function( key, product ) {
-                                        $("table.fillet_grading_table tr").last().after("<tr><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td></tr>");
+                                        if (product.status == "stay") {
+                                            $("table.fillet_grading_table tr").last().after("<tr class='delete"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                                        }
                                     });
                                     $(".inputs").val('');
                                     $(".inputs").val(JSON.stringify(product_array));
                                     $('.grade_weight').val(0);
                                     $('.grade_select').val("--select--");
+                                    $(".delete").click(function(){
+                                        console.log('good');
+                                        product_array[$(this).data("id")].status="delete";
+                                        $(".inputs").val(JSON.stringify(product_array));
+                                        $('.grade_weight').val(0);
+                                        $('.grade_select').val("--select--");
+                                        $(".delete"+$(this).data("id")).remove();
+                                    });
                                 })
                             });
 
@@ -583,15 +603,27 @@
                                 });
                                 $('.add_btn').click(function () {
                                     $("table.whole_grading_table tbody tr").empty();
-                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight});
+                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight,"status":"stay"});
                                     $.each( product_array, function( key, product ) {
-                                        $("table.whole_grading_table tr").last().after("<tr><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td></tr>");
+                                        console.log(product);
+                                        if (product.status == "stay") {
+                                            $("table.whole_grading_table tr").last().after("<tr class='delete"+key+"' id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td><td><button type='button' class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                                        }
                                     });
                                     $(".inputs").val('');
                                     $(".inputs").val(JSON.stringify(product_array));
                                     $('.grade_weight').val(0);
                                     $('.grade_select').val("--select--");
-                                })
+
+                                    $(".delete").click(function(){
+                                        console.log('good');
+                                        product_array[$(this).data("id")].status="delete";
+                                        $(".inputs").val(JSON.stringify(product_array));
+                                        $('.grade_weight').val(0);
+                                        $('.grade_select').val("--select--");
+                                        $(".delete"+$(this).data("id")).remove();
+                                    });
+                                });
                             });
 
                         }
@@ -782,14 +814,24 @@
                                 });
                                 $('.add_btn').click(function () {
                                     $("table.whole_gutted_grading_table tbody tr").empty();
-                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight});
+                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight,"status":"stay"});
                                     $.each( product_array, function( key, product ) {
-                                        $("table.whole_gutted_grading_table tr").last().after("<tr><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td></tr>");
+                                        if (product.status == "stay") {
+                                            $("table.whole_gutted_grading_table tr").last().after("<tr class='delete"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                                        }
                                     });
                                     $(".inputs").val('');
                                     $(".inputs").val(JSON.stringify(product_array));
                                     $('.grade_weight').val(0);
                                     $('.grade_select').val("--select--");
+                                    $(".delete").click(function(){
+                                        console.log('good');
+                                        product_array[$(this).data("id")].status="delete";
+                                        $(".inputs").val(JSON.stringify(product_array));
+                                        $('.grade_weight').val(0);
+                                        $('.grade_select').val("--select--");
+                                        $(".delete"+$(this).data("id")).remove();
+                                    });
                                 })
                             });
 
@@ -988,14 +1030,24 @@
                                 });
                                 $('.add_btn').click(function () {
                                     $("table.cleaned_grading_table tbody tr").empty();
-                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight});
+                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight,"status":"stay"});
                                     $.each( product_array, function( key, product ) {
-                                        $("table.cleaned_grading_table tr").last().after("<tr><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td></tr>");
+                                        if (product.status == "stay") {
+                                            $("table.cleaned_grading_table tr").last().after("<tr class='delete"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                                        }
                                     });
                                     $(".inputs").val('');
                                     $(".inputs").val(JSON.stringify(product_array));
                                     $('.grade_weight').val(0);
                                     $('.grade_select').val("--select--");
+                                    $(".delete").click(function(){
+                                        console.log('good');
+                                        product_array[$(this).data("id")].status="delete";
+                                        $(".inputs").val(JSON.stringify(product_array));
+                                        $('.grade_weight').val(0);
+                                        $('.grade_select').val("--select--");
+                                        $(".delete"+$(this).data("id")).remove();
+                                    });
                                 })
                             });
 
@@ -1193,14 +1245,24 @@
                                 });
                                 $('.add_btn').click(function () {
                                     $("table.sliced_fmly_grading_table tbody tr").empty();
-                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight});
+                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight,"status":"stay"});
                                     $.each( product_array, function( key, product ) {
-                                        $("table.sliced_fmly_grading_table tr").last().after("<tr><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td></tr>");
+                                        if (product.status == "stay") {
+                                            $("table.sliced_fmly_grading_table tr").last().after("<tr class='delete"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                                        }
                                     });
                                     $(".inputs").val('');
                                     $(".inputs").val(JSON.stringify(product_array));
                                     $('.grade_weight').val(0);
                                     $('.grade_select').val("--select--");
+                                    $(".delete").click(function(){
+                                        console.log('good');
+                                        product_array[$(this).data("id")].status="delete";
+                                        $(".inputs").val(JSON.stringify(product_array));
+                                        $('.grade_weight').val(0);
+                                        $('.grade_select').val("--select--");
+                                        $(".delete"+$(this).data("id")).remove();
+                                    });
                                 })
                             });
 
@@ -1398,14 +1460,24 @@
                                 });
                                 $('.add_btn').click(function () {
                                     $("table.sliced_chinese_grading_table tbody tr").empty();
-                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight});
+                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight,"status":"stay"});
                                     $.each( product_array, function( key, product ) {
-                                        $("table.sliced_chinese_grading_table tr").last().after("<tr><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td></tr>");
+                                        if (product.status == "stay") {
+                                            $("table.sliced_chinese_grading_table tr").last().after("<tr class='delete"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                                        }    
                                     });
                                     $(".inputs").val('');
                                     $(".inputs").val(JSON.stringify(product_array));
                                     $('.grade_weight').val(0);
                                     $('.grade_select').val("--select--");
+                                    $(".delete").click(function(){
+                                        console.log('good');
+                                        product_array[$(this).data("id")].status="delete";
+                                        $(".inputs").val(JSON.stringify(product_array));
+                                        $('.grade_weight').val(0);
+                                        $('.grade_select').val("--select--");
+                                        $(".delete"+$(this).data("id")).remove();
+                                    });
                                 })
                             });
 
@@ -1603,14 +1675,24 @@
                                 });
                                 $('.add_btn').click(function () {
                                     $("table.butter_fly_grading_table tbody tr").empty();
-                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight});
+                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight,"status":"stay"});
                                     $.each( product_array, function( key, product ) {
-                                        $("table.butter_fly_grading_table tr").last().after("<tr><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td></tr>");
+                                        if (product.status == "stay") {
+                                            $("table.butter_fly_grading_table tr").last().after("<tr class='delete"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                                        }
                                     });
                                     $(".inputs").val('');
                                     $(".inputs").val(JSON.stringify(product_array));
                                     $('.grade_weight').val(0);
                                     $('.grade_select').val("--select--");
+                                    $(".delete").click(function(){
+                                        console.log('good');
+                                        product_array[$(this).data("id")].status="delete";
+                                        $(".inputs").val(JSON.stringify(product_array));
+                                        $('.grade_weight').val(0);
+                                        $('.grade_select').val("--select--");
+                                        $(".delete"+$(this).data("id")).remove();
+                                    });
                                 })
                             });
 
@@ -1808,14 +1890,24 @@
                                 });
                                 $('.add_btn').click(function () {
                                     $("table.hgto_grading_table tbody tr").empty();
-                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight});
+                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight,"status":"stay"});
                                     $.each( product_array, function( key, product ) {
-                                        $("table.hgto_grading_table tr").last().after("<tr><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td></tr>");
+                                        if (product.status == "stay") {
+                                            $("table.hgto_grading_table tr").last().after("<tr class='delete"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                                        }
                                     });
                                     $(".inputs").val('');
                                     $(".inputs").val(JSON.stringify(product_array));
                                     $('.grade_weight').val(0);
                                     $('.grade_select').val("--select--");
+                                    $(".delete").click(function(){
+                                        console.log('good');
+                                        product_array[$(this).data("id")].status="delete";
+                                        $(".inputs").val(JSON.stringify(product_array));
+                                        $('.grade_weight').val(0);
+                                        $('.grade_select').val("--select--");
+                                        $(".delete"+$(this).data("id")).remove();
+                                    });
                                 })
                             });
 

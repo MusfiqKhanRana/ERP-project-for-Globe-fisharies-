@@ -257,14 +257,24 @@
                                 });
                                 $('.add_btn').click(function () {
                                     $("table.block_table_hoso tbody tr").empty();
-                                    product_array.push({"block_id":block_id,"block_name":block_name,"block_size_id":block_size_id,"block_size_name":block_size_name});
+                                    product_array.push({"block_id":block_id,"block_name":block_name,"block_size_id":block_size_id,"block_size_name":block_size_name,"status":"stay"});
                                     $.each( product_array, function( key, product ) {
-                                        $("table.block_table_hoso tr").last().after("<tr><td>"+product.block_name+"</td><td>"+product.block_size_name+"</td></tr>");
+                                        if (product.status == "stay") {
+                                            $("table.block_table_hoso tr").last().after("<tr class='delete"+key+"'><td>"+product.block_name+"</td><td>"+product.block_size_name+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                                        }
                                     });
                                     $(".inputs").val('');
                                     $(".inputs").val(JSON.stringify(product_array));
                                     $('.block_select').val("");
                                     $('.size_select').val("");
+                                    $(".delete").click(function(){
+                                        console.log('good');
+                                        product_array[$(this).data("id")].status="delete";
+                                        $(".inputs").val(JSON.stringify(product_array));
+                                        $('.grade_weight').val(0);
+                                        $('.grade_select').val("--select--");
+                                        $(".delete"+$(this).data("id")).remove();
+                                    });
                                 })
                             });
 
@@ -456,14 +466,24 @@
                                     });
                                     $('.add_btn').click(function () {
                                         $("table.block_table_hoso tbody tr").empty();
-                                        product_array.push({"block_id":block_id,"block_name":block_name,"block_size_id":block_size_id,"block_size_name":block_size_name});
+                                        product_array.push({"block_id":block_id,"block_name":block_name,"block_size_id":block_size_id,"block_size_name":block_size_name,"status":"stay"});
                                         $.each( product_array, function( key, product ) {
-                                            $("table.block_table_hoso tr").last().after("<tr><td>"+product.block_name+"</td><td>"+product.block_size_name+"</td></tr>");
+                                            if (product.status == "stay") {
+                                                $("table.block_table_hoso tr").last().after("<tr class='delete"+key+"'><td>"+product.block_name+"</td><td>"+product.block_size_name+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                                            }
                                         });
                                         $(".inputs").val('');
                                         $(".inputs").val(JSON.stringify(product_array));
                                         $('.block_select').val("");
                                         $('.size_select').val("");
+                                        $(".delete").click(function(){
+                                            console.log('good');
+                                            product_array[$(this).data("id")].status="delete";
+                                            $(".inputs").val(JSON.stringify(product_array));
+                                            $('.grade_weight').val(0);
+                                            $('.grade_select').val("--select--");
+                                            $(".delete"+$(this).data("id")).remove();
+                                        });
                                     })
                                 });
 
@@ -654,14 +674,24 @@
                                     });
                                     $('.add_btn').click(function () {
                                         $("table.block_table_hoto tbody tr").empty();
-                                        product_array.push({"block_id":block_id,"block_name":block_name,"block_size_id":block_size_id,"block_size_name":block_size_name});
+                                        product_array.push({"block_id":block_id,"block_name":block_name,"block_size_id":block_size_id,"block_size_name":block_size_name,"status":"stay"});
                                         $.each( product_array, function( key, product ) {
-                                            $("table.block_table_hoto tr").last().after("<tr><td>"+product.block_name+"</td><td>"+product.block_size_name+"</td></tr>");
+                                            if (product.status == "stay") {
+                                                $("table.block_table_hoto tr").last().after("<tr class='delete"+key+"'><td>"+product.block_name+"</td><td>"+product.block_size_name+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                                            }
                                         });
                                         $(".inputs").val('');
                                         $(".inputs").val(JSON.stringify(product_array));
                                         $('.block_select').val("");
                                         $('.size_select').val("");
+                                        $(".delete").click(function(){
+                                            console.log('good');
+                                            product_array[$(this).data("id")].status="delete";
+                                            $(".inputs").val(JSON.stringify(product_array));
+                                            $('.grade_weight').val(0);
+                                            $('.grade_select').val("--select--");
+                                            $(".delete"+$(this).data("id")).remove();
+                                        });
                                     })
                                 });
 

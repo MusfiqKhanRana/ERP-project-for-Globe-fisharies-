@@ -14,8 +14,8 @@
                         <p><b>Invoice no:</b> <span class="whole_gutted_invoice"></span></p>
                         <p><b>Item Name:</b> <span class="whole_gutted_item"></span></p>
                         <p><b>Quantity:</b> <span class="whole_gutted_qty"></span></p>
-                        <div class="row" style="border:1px solid black">
-                            <div class="col-md-6" style="text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;">
+                        <div class="row" style="text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;">
+                            <div class="col-md-6">
                                 <p><b>Initial Weight:</b> <span class="initial_weight"></span></p>
                             </div>
                             <div class="col-md-6">

@@ -65,11 +65,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Wastage (Kg)</label>
-                                <input type="text" class="form-control" name="wastage_quantity" placeholder=" Type Wastage Volume">
+                                <input type="number" step="0.01" class="form-control" name="wastage_quantity" placeholder=" Type Wastage Volume">
                             </div>
                             <div class="col-md-6">
                                 <label>Return (Kg)</label>
-                                <input type="text" class="form-control" name="return_quantity" placeholder=" Type Return Volume">
+                                <input type="number" step="0.01" class="form-control" name="return_quantity" placeholder=" Type Return Volume">
                             </div>
                         </div><br>
                     </div>
