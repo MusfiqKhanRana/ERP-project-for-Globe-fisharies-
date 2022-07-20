@@ -1043,60 +1043,62 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
-                <a href="" class="nav-link nav-toggle" >
-                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            <li class="nav-item @if( request()->path() == 'admin/export/sale/contract/create' || request()->path() == 'admin/export/sale/contract/create' ) active open @endif
+                @if( request()->path() == 'admin/export/buyer/management' || request()->path() == 'admin/export/buyer/management' ) active open @endif
+                @if( request()->path() == 'admin/export/sale/contract/list' || request()->path() == 'admin/export/sale/contract/list' ) active open @endif
+                @if( request()->path() == 'admin/export/commercial/list' || request()->path() == 'admin/export/commercial/list' ) active open @endif
+                @if( request()->path() == 'admin/export/packing/list' || request()->path() == 'admin/export/packing/list' ) active open @endif">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="fa fa-print" aria-hidden="true"></i>
                     <span class="title">Export Management</span>
                     <span class="arrow"></span>
-                    <span class="selected"></span>
-                    <ul class="sub-menu">
-                        <li class="nav-item">
-                            <a href="{{route('manage_buyer')}}" class="nav-link ">
-                                <span class="title">Manage Buyer</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('create_sale_contract')}}" class="nav-link ">
-                                <span class="title">Create Sales Contract</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('sale_contract_list')}}" class="nav-link ">
-                                <span class="title">Sales Contract List</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('commercial_list')}}" class="nav-link ">
-                                <span class="title">Commercial List</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('packing_list')}}" class="nav-link ">
-                                <span class="title">Packing List</span>
-                            </a>
-                        </li>
-                    </ul>
                 </a>
+                <ul class="sub-menu">
+                    <li class="nav-item @if( request()->path() == 'admin/export/buyer/management' ) active open @endif">
+                        <a href="{{route('manage_buyer')}}" class="nav-link ">
+                            <span class="title">Manage Buyer</span>
+                        </a>
+                    </li>
+                    <li class="nav-item @if( request()->path() == 'admin/export/sale/contract/create' ) active open @endif">
+                        <a href="{{route('create_sale_contract')}}" class="nav-link ">
+                            <span class="title">Create Sales Contract</span>
+                        </a>
+                    </li>
+                    <li class="nav-item @if( request()->path() == 'admin/export/sale/contract/list' ) active open @endif">
+                        <a href="{{route('sale_contract_list')}}" class="nav-link ">
+                            <span class="title">Sales Contract List</span>
+                        </a>
+                    </li>
+                    <li class="nav-item @if( request()->path() == 'admin/export/commercial/list' ) active open @endif">
+                        <a href="{{route('commercial_list')}}" class="nav-link ">
+                            <span class="title">Commercial List</span>
+                        </a>
+                    </li>
+                    <li class="nav-item @if( request()->path() == 'admin/export/packing/list' ) active open @endif">
+                        <a href="{{route('packing_list')}}" class="nav-link ">
+                            <span class="title">Packing List</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li class="nav-item">
-                <a href="" class="nav-link nav-toggle" >
-                    <i class="fa fa-trash" aria-hidden="true"></i>
+            <li class="nav-item @if( request()->path() == 'admin/raw_wastage' || request()->path() == 'admin/raw_wastage' ) active open @endif">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="fa fa-print" aria-hidden="true"></i>
                     <span class="title">Wastage Management</span>
                     <span class="arrow"></span>
-                    <span class="selected"></span>
-                    <ul class="sub-menu">
-                        <li class="nav-item">
-                            <a href="{{route('raw_wastage.index')}}" class="nav-link ">
-                                <span class="title">Wastage Release</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link ">
-                                <span class="title">Release List</span>
-                            </a>
-                        </li>
-                    </ul>
                 </a>
+                <ul class="sub-menu">
+                    <li class="nav-item @if( request()->path() == 'admin/raw_wastage' ) active open @endif">
+                        <a href="{{route('raw_wastage.index')}}" class="nav-link ">
+                            <span class="title">Wastage Release</span>
+                        </a>
+                    </li>
+                    <li class="nav-item @if( request()->path() == 'admin/wastage-management' ) active open @endif">
+                        <a href="" class="nav-link ">
+                            <span class="title">Release List</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
             {{-- <li class="nav-item  @if( request()->path() == 'admin/office' || request()->path() == 'admin/office' ) active open @endif
                 @if( request()->path() == 'admin/food/mill' || request()->path() == 'admin/food/mill' ) active open @endif

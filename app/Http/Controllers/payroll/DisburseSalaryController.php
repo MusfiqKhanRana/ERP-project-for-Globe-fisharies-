@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\payroll;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use App\Models\Designation;
 use App\Models\Payment;
 use App\Models\User;
@@ -19,6 +20,7 @@ class DisburseSalaryController extends Controller
      */
     public function index()
     {
+        $departments = Department::all();
         $designation = Designation::all();
         $total_days = Carbon::now()->daysInMonth;
         $holiday_count = 0;
@@ -28,7 +30,7 @@ class DisburseSalaryController extends Controller
         }
         // dd($total_days-$holiday_count);
         $working_days = $total_days-$holiday_count;
-        return view('backend.payroll.disburse_salary',compact('designation','working_days'));
+        return view('backend.payroll.disburse_salary',compact('designation','working_days','departments'));
     }
     public function getMondays()
     {

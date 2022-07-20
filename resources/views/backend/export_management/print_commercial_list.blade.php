@@ -96,7 +96,10 @@
                                             <th>HS Code</th>
                                             <th>Production Date</th>
                                             <th>EXP Date</th>
-                                            <th>Description Of Goods</th>
+                                            <th>Type</th>
+                                            <th>Item</th>
+                                            <th>Variant</th>
+                                            <th>Grade</th>
                                             <th>Scientific Name</th>
                                             <th> Quantity / Master Carton</th>
                                             <th>Pack Size</th>
@@ -110,7 +113,10 @@
                                             <td>564875bkjhvb</td>
                                             <td>2022/07/03</td>
                                             <td>2022/08/03</td>
-                                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                                            <td>IQF</td>
+                                            <td>Pangus</td>
+                                            <td>Gutted Clean</td>
+                                            <td>1 Kg Up</td>
                                             <td>Lorem ipsum dolor sit amet.</td>
                                             <td>100</td>
                                             <td>300-500</td>
@@ -119,7 +125,7 @@
                                             
                                         </tr>
                                         <tr  style="background-color:#d6d9e3">
-                                            <th colspan="6">Total Amount Master Carton & Weight </th>
+                                            <th colspan="9">Total Amount Master Carton & Weight </th>
                                             <th>100</th>
                                             <th></th>
                                             <th>50</th>

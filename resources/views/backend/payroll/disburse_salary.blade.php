@@ -36,10 +36,21 @@
                     <div class="tools"></div>
                 </div>
             </div>
-            @foreach ($designation as $item)
-                <button class="nav-link btn btn-info degsignation" data-id="{{$item->id}}">
-                    {{$item->deg_name}}
-                </button>
+            @foreach ($departments as $data)
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 bodered border-dark">
+                    <div class="dashboard-stat" style="background-color: rgb(242, 227, 209)">
+                        <h4 class="more"><b>Department: {{$data->name}}</b> 
+                        </h4>
+                        <div style="margin: 1%; padding:1%; margin-top:0%">
+                            @foreach ($data->designation as $item)
+                                <button class="nav-link btn btn-success btn-sm degsignation" style="margin: 1%" data-id="{{$item->id}}">
+                                    {{$item->deg_name}}
+                                </button>
+                            @endforeach
+                            </div>
+                        
+                    </div>
+                </div>
             @endforeach
             <a class="btn green-meadow pull-right disburse_salary" data-toggle="modal" href="#addareaModal">
                 Salary Disburse
