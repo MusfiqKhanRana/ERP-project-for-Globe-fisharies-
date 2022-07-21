@@ -41,6 +41,9 @@
                                 <th>
                                     Glazing Weight (Kg)
                                 </th>
+                                <th>
+                                    Increasing/Decreasing(%)
+                                </th>
                             </tr>
                         </thead>
                         <tbody>

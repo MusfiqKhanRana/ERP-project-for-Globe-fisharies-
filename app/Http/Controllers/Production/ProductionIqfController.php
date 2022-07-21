@@ -242,18 +242,20 @@ class ProductionIqfController extends Controller
             ['status'=>'Soaking']
         );
         foreach (json_decode($request->inputs) as $key => $input) {
-            ProductionProcessingGrade::create([
-                'grade_id' => $input->grade_id,
-                'grade_name' => $input->grade_name,
-                'grade_quantity' => $input->grade_weight,
-                'production_processing_unit_id' => $request->grade_ppu_id,
-                'grading_date'=>Carbon::now(),
-            ]); 
+            if ($input->status=="stay") {
+                ProductionProcessingGrade::create([
+                    'grade_id' => $input->grade_id,
+                    'grade_name' => $input->grade_name,
+                    'grade_quantity' => $input->grade_weight,
+                    'production_processing_unit_id' => $request->grade_ppu_id,
+                    'grading_date'=>Carbon::now(),
+                ]); 
+            }
         }    
         return redirect()->back()->withmsg('Successfully Send For Soaking');
     }
     public function grading_to_glazing(Request $request){
-        // dd($request->toArray());
+        // dd(json_decode($request->inputs));
         $count =0;
         ProductionProcessingUnit::where('id',$request->grade_ppu_id)
         ->update(
@@ -261,13 +263,15 @@ class ProductionIqfController extends Controller
         );
         // dd(json_decode($request->inputs));
         foreach (json_decode($request->inputs) as $key => $input) {
-            ProductionProcessingGrade::create([
-                'grade_id' => $input->grade_id,
-                'grade_name' => $input->grade_name,
-                'grade_quantity' => $input->grade_weight,
-                'production_processing_unit_id' => $request->grade_ppu_id,
-                'grading_date'=>Carbon::now(),
-            ]); 
+            if ($input->status=="stay") {
+                ProductionProcessingGrade::create([
+                    'grade_id' => $input->grade_id,
+                    'grade_name' => $input->grade_name,
+                    'grade_quantity' => $input->grade_weight,
+                    'production_processing_unit_id' => $request->grade_ppu_id,
+                    'grading_date'=>Carbon::now(),
+                ]); 
+            }
         }    
         $data_checks = ProductionProcessingGrade::where('id',$request->item_id)->select('id','grade_name','grade_quantity','soaking_weight','soaking_return','glazing_weight')->get();
         // dd($glazing_data_checks->toArray());

@@ -41,6 +41,9 @@
                                         <th>
                                             Damage Weight
                                         </th>
+                                        <th>
+                                            Increasing/Decreasing(%)
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
