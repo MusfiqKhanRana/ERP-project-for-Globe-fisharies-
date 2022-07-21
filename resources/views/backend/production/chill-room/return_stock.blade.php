@@ -8,7 +8,7 @@
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
-            <h3 class="page-title bold form-inline" class="portlet box dark">Production Management
+            <h3 class="page-title bold form-inline" class="portlet box dark">Production Management <small>Chill Room</small>
         </h3>
             <hr>
                 @if(Session::has('msg'))
@@ -35,7 +35,7 @@
                 <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-globe"></i>Chill Room - Stock Details</div>
+                            <i class="fa fa-globe"></i>Chill Room - Return Stock</div>
                         <div class="tools"> </div>
                     </div>
                         <div class="portlet-body">

@@ -34,6 +34,28 @@ class ChillStorageController extends Controller
         return view('backend.production.chill-room.index',compact('requisitions'));
     }
 
+    public function ReturnStock(){
+
+        $requisitions = ProductionRequisition::with(
+            ['production_requisition_items' => function($q){
+                $q->with([
+                    'grade'=>function($q){
+                            $q->select('id','name');
+                        }
+                    ]);
+                },
+                'production_processing_unit'=>function($q){
+                    $q->select('id','requisition_id','item_id','alive_quantity','dead_quantity');
+                }
+            ]
+            )->latest()->paginate(3);
+        return view('backend.production.chill-room.return_stock',compact('requisitions'));
+    }
+
+    public function TotalStockStock(){
+        return view('backend.production.chill-room.total_stock');
+    }
+
     public function process(Request $request)
     {
         // dd($request->toArray());
