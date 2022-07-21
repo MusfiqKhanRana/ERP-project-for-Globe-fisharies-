@@ -646,6 +646,8 @@
                 @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/ro-plant/create') active open @endif
                 @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/user-performance') active open @endif
                 @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/chill-room') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/chill-room/total-stock') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/chill-room/return-stock') active open @endif
                 @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/processing-grade') active open @endif
                 @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production_test') active open @endif
                 
@@ -780,12 +782,38 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item @if( request()->path() == 'admin/production/chill-room' ) active open @endif">
+                    <li class="nav-item @if( request()->path() == 'admin/production/chill-room' || request()->path() == 'admin/production/chill-room' ) active open @endif
+                        @if( request()->path() == 'admin/production/chill-room/return-stock' || request()->path() == 'admin/production/chill-room/return-stock' ) active open @endif
+                        @if( request()->path() == 'admin/production/chill-room/total-stock' || request()->path() == 'admin/production/chill-room/total-stock' ) active open @endif">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="fa fa-print" aria-hidden="true"></i>
+                            <span class="title">Chill Room</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item @if( request()->path() == 'admin/production/chill-room/total-stock' ) active open @endif">
+                                <a href="{{route('production.chill_room.total_stock')}}" class="nav-link ">
+                                    <span class="title">Total Stock</span>
+                                </a>
+                            </li>
+                            <li class="nav-item @if( request()->path() == 'admin/production/chill-room' ) active open @endif">
+                                <a href="{{route('production.chill_room.index')}}" class="nav-link ">
+                                    <span class="title">Stock Details</span>
+                                </a>
+                            </li>
+                            <li class="nav-item @if( request()->path() == 'admin/production/chill-room/return-stock' ) active open @endif">
+                                <a href="{{route('production.chill_room.return_stock')}}" class="nav-link ">
+                                    <span class="title">Return Stock</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{-- <li class="nav-item @if( request()->path() == 'admin/production/chill-room' ) active open @endif">
                         <a href="{{route('production.chill_room.index')}}" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
                             <span class="title">Chill Room</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item @if( request()->path() == 'admin/processing-grade' ) active open @endif">
                         <a href="{{route('processing-grade.index')}}" class="nav-link nav-toggle">
                             <i class="fa fa-cog" aria-hidden="true"></i>

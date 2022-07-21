@@ -556,6 +556,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('supply-list-item',ProductionSupplyListItemController::class);
 
     //Production Chill Room 
+    Route::get('/production/chill-room/return-stock',[ChillStorageController::class,'ReturnStock'])->name('production.chill_room.return_stock');
+    Route::get('/production/chill-room/total-stock',[ChillStorageController::class,'TotalStockStock'])->name('production.chill_room.total_stock');
     Route::get('/production/chill-room',[ChillStorageController::class,'index'])->name('production.chill_room.index');
     Route::post('/production/chill-room/data_pass',[ChillStorageController::class,'data_pass'])->name('production.chill_room.data_pass');
     Route::post('/production/chill-room/process',[ChillStorageController::class,'process'])->name('production.chill_room.process');
