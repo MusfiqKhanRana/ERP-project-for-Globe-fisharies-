@@ -52,7 +52,7 @@
                 @php echo "active",(request()->path() != 'admin/award')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/award/create')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/award/edit/{$url}')?:"";@endphp
-                @php echo "active",(request()->path() != 'admin/employee/task')?:"";@endphp
+                @php echo "active",(request()->path() != 'admin/user-performance')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/employee/tiffin-bill')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/employee/employee/attendance')?:"";@endphp
                 @php echo "active",(request()->path() != 'admin/employee/employee-attendance')?:"";@endphp
@@ -272,15 +272,22 @@
                         </a>
                     </li>
 
-                    <li class="nav-item start @php echo "active",(request()->path() != 'admin/employee/task')?:"";@endphp
+                    <li class="nav-item start @php echo "active",(request()->path() != 'admin/user-performance')?:"";@endphp
+                    @php echo "active",(request()->path() != 'admin/employee/task-add')?:"";@endphp">
+                        <a href="{{route('user-performance.index')}}" class="nav-link nav-toggle">
+                            <i class="fa fa-files-o" aria-hidden="true"></i>
+                            <span class="title">Worker Performance</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    {{-- <li class="nav-item start @php echo "active",(request()->path() != 'admin/employee/task')?:"";@endphp
                     @php echo "active",(request()->path() != 'admin/employee/task-add')?:"";@endphp">
                         <a href="{{route('employee.task')}}" class="nav-link nav-toggle">
                             <i class="fa fa-files-o" aria-hidden="true"></i>
                             <span class="title">Task Management</span>
                             <span class="selected"></span>
                         </a>
-                    </li>
-
+                    </li>--}}
                     <li class="nav-item start @php echo "active",(request()->path() != 'admin/notice')?:"";@endphp
                     @php echo "active",(request()->path() != 'admin/notice/create')?:"";@endphp
                     @php if (request()->path() == 'admin/notice/edit/{id}') echo "active" @endphp">
@@ -644,7 +651,7 @@
                 @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/temp-thermocouple') active open @endif
                 @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/ro-plant') active open @endif
                 @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/ro-plant/create') active open @endif
-                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/user-performance') active open @endif
+                {{-- @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/user-performance') active open @endif --}}
                 @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/chill-room') active open @endif
                 @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/chill-room/total-stock') active open @endif
                 @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/chill-room/return-stock') active open @endif
@@ -694,7 +701,7 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/microbiological-test' ||  request()->path() == 'admin/temp_monitoring' ||  request()->path() == 'admin/production_test' ||  request()->path() == 'admin/user-performance' ||  request()->path() == 'admin/temp-thermocouple' ||  request()->path() == 'admin/metal-detector' ||  request()->path() == 'admin/metal-detector/create' ||  request()->path() == 'admin/medical_report' ||  request()->path() == 'admin/ro-plant/create' ||  request()->path() == 'admin/ro-plant') active open @endif">
+                    <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/microbiological-test' ||  request()->path() == 'admin/temp_monitoring' ||  request()->path() == 'admin/production_test' ||  request()->path() == 'admin/temp-thermocouple' ||  request()->path() == 'admin/metal-detector' ||  request()->path() == 'admin/metal-detector/create' ||  request()->path() == 'admin/medical_report' ||  request()->path() == 'admin/ro-plant/create' ||  request()->path() == 'admin/ro-plant') active open @endif">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
                             <span class="title">Production Data</span>
@@ -716,11 +723,11 @@
                                     <span class="title">Maintenance Records</span>
                                 </a>
                             </li>
-                            <li class="nav-item  @if( request()->path() == 'admin/user-performance' ) active open @endif">
+                            {{-- <li class="nav-item  @if( request()->path() == 'admin/user-performance' ) active open @endif">
                                 <a href="{{route('user-performance.index')}}" class="nav-link ">
                                     <span class="title">User Performance</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item  @if( request()->path() == 'admin/temp-thermocouple' ) active open @endif">
                                 <a href="{{route('temp-thermocouple.index')}}" class="nav-link ">
                                     <span class="title">Temperature Thermocouple</span>

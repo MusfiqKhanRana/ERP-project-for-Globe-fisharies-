@@ -252,7 +252,7 @@
                                                 <div class="col-md-12">
                                                     
                                                     <label>
-                                                        <input type="radio" class="form-control" name="overtime_type" value="Regular" checked> Regular
+                                                        <input type="radio" class="form-control" name="overtime_type" id="regular" value="Regular" checked> Regular
                                                     </label>
                                                     <label>
                                                         <input type="radio" class="form-control" name="overtime_type" id="bonus_amount" value="Fixed" > Fixed
@@ -684,7 +684,9 @@
             {
             if ($(this).is(':checked')) {
                 $('.overtime_type').show();
-                }
+                }else {
+                $(".overtime_type").hide();
+            }
             });
             $('.fixed_amount').hide();
             $('#bonus_amount').click(function()
@@ -693,7 +695,14 @@
                 $('.fixed_amount').show();
                 }
             });
+            $('#regular').click(function()
+            {
+            if ($(this).is(':checked')) {
+                $('.fixed_amount').hide();
+                }
+            });
             function nullmaking(){
+            $(".fixed_amount").val(null);
             $("#percentage_id").val(null);
             $("#amount_id").val(null);
             }
