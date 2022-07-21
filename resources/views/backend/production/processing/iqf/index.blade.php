@@ -655,7 +655,14 @@
                                         console.log(data);
                                         $("table.whole_glazing_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.whole_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='glazing_weight[]' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            $("table.whole_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                        });
+                                        $('.glazing_weight').on("change keyup",function() {
+                                            var glazing_weight = parseFloat($(this).val());
+                                            var initial_weight = parseFloat($(this).data("qty")); 
+                                            var p = (((glazing_weight - initial_weight)/initial_weight)*100);
+                                            p = p.toFixed(2);
+                                            $(".parcentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });
@@ -869,7 +876,14 @@
                                         console.log(data);
                                         $("table.whole_gutted_glazing_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.whole_gutted_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='glazing_weight[]' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            $("table.whole_gutted_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                        });
+                                        $('.glazing_weight').on("change keyup",function() {
+                                            var glazing_weight = parseFloat($(this).val());
+                                            var initial_weight = parseFloat($(this).data("qty")); 
+                                            var p = (((glazing_weight - initial_weight)/initial_weight)*100);
+                                            p = p.toFixed(2);
+                                            $(".parcentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });
@@ -1084,7 +1098,14 @@
                                         console.log(data);
                                         $("table.cleaned_glazing_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.cleaned_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='glazing_weight[]' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            $("table.cleaned_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                        });
+                                        $('.glazing_weight').on("change keyup",function() {
+                                            var glazing_weight = parseFloat($(this).val());
+                                            var initial_weight = parseFloat($(this).data("qty")); 
+                                            var p = (((glazing_weight - initial_weight)/initial_weight)*100);
+                                            p = p.toFixed(2);
+                                            $(".parcentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });
@@ -1299,7 +1320,14 @@
                                         console.log(data);
                                         $("table.sliced_fmly_glazing_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.sliced_fmly_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01'  class='form-control' name='glazing_weight[]' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            $("table.sliced_fmly_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01'  class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                        });
+                                        $('.glazing_weight').on("change keyup",function() {
+                                            var glazing_weight = parseFloat($(this).val());
+                                            var initial_weight = parseFloat($(this).data("qty")); 
+                                            var p = (((glazing_weight - initial_weight)/initial_weight)*100);
+                                            p = p.toFixed(2);
+                                            $(".parcentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });
@@ -1514,7 +1542,14 @@
                                         console.log(data);
                                         $("table.sliced_chinese_glazing_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.sliced_chinese_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='glazing_weight[]' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            $("table.sliced_chinese_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                        });
+                                        $('.glazing_weight').on("change keyup",function() {
+                                            var glazing_weight = parseFloat($(this).val());
+                                            var initial_weight = parseFloat($(this).data("qty")); 
+                                            var p = (((glazing_weight - initial_weight)/initial_weight)*100);
+                                            p = p.toFixed(2);
+                                            $(".parcentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });
@@ -1729,7 +1764,14 @@
                                         console.log(data);
                                         $("table.butter_fly_glazing_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.butter_fly_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='glazing_weight[]' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            $("table.butter_fly_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                        });
+                                        $('.glazing_weight').on("change keyup",function() {
+                                            var glazing_weight = parseFloat($(this).val());
+                                            var initial_weight = parseFloat($(this).data("qty")); 
+                                            var p = (((glazing_weight - initial_weight)/initial_weight)*100);
+                                            p = p.toFixed(2);
+                                            $(".parcentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });
@@ -1944,7 +1986,14 @@
                                         console.log(data);
                                         $("table.hgto_glazing_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.hgto_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='glazing_weight[]' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            $("table.hgto_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                        });
+                                        $('.glazing_weight').on("change keyup",function() {
+                                            var glazing_weight = parseFloat($(this).val());
+                                            var initial_weight = parseFloat($(this).data("qty")); 
+                                            var p = (((glazing_weight - initial_weight)/initial_weight)*100);
+                                            p = p.toFixed(2);
+                                            $(".parcentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });

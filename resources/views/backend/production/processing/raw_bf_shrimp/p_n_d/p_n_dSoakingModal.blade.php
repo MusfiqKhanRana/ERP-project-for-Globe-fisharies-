@@ -41,6 +41,9 @@
                                 <th>
                                     Return weight(kg)
                                 </th>
+                                <th>
+                                    Increasing/Decreasing(%)
+                                </th>
                             </tr>
                         </thead>
                         <tbody>

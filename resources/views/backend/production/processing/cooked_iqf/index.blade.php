@@ -436,7 +436,14 @@
                                         // console.log(data);
                                         $("table.hoso_soaking_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.hoso_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='soaking_weight[]' value='"+product.soaking_weight+"' placeholder='Soaking Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='return_weight[]' value='"+product.soaking_return+"' placeholder='Return Weight'></td></tr>");
+                                            $("table.hoso_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='Soaking Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='return_weight[]' value='"+product.soaking_return+"' placeholder='Return Weight'></td></tr>");
+                                        });
+                                        $('.soaking_weight').on("change keyup",function() {
+                                            var soaking_weight = parseFloat($(this).val());
+                                            var initial_weight = parseFloat($(this).data("qty")); 
+                                            var p = (((soaking_weight - initial_weight)/initial_weight)*100);
+                                            p = p.toFixed(2);
+                                            $(".parcentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });
@@ -470,7 +477,14 @@
                                         console.log(data);
                                         $("table.hoso_glazing_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.hoso_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control' name='glazing_weight[]' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            $("table.hoso_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.soaking_weight+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                        });
+                                        $('.glazing_weight').on("change keyup",function() {
+                                            var glazing_weight = parseFloat($(this).val());
+                                            var soaking_weight = parseFloat($(this).data("qty")); 
+                                            var p = (((glazing_weight - soaking_weight)/soaking_weight)*100);
+                                            p = p.toFixed(2);
+                                            $(".parcentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });
@@ -642,7 +656,14 @@
                                         // console.log(data);
                                         $("table.hoso_soaking_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.hoso_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='soaking_weight[]' value='"+product.soaking_weight+"' placeholder='Soaking Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='text' class='form-control' name='return_weight[]' value='"+product.soaking_return+"' placeholder='Return Weight'></td></tr>");
+                                            $("table.hoso_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='Soaking Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='text' class='form-control' name='return_weight[]' value='"+product.soaking_return+"' placeholder='Return Weight'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                        });
+                                        $('.soaking_weight').on("change keyup",function() {
+                                            var soaking_weight = parseFloat($(this).val());
+                                            var initial_weight = parseFloat($(this).data("qty")); 
+                                            var p = (((soaking_weight - initial_weight)/initial_weight)*100);
+                                            p = p.toFixed(2);
+                                            $(".parcentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });
@@ -676,7 +697,14 @@
                                         console.log(data);
                                         $("table.hoso_glazing_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.hoso_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control' name='glazing_weight[]' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            $("table.hoso_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.soaking_weight+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                        });
+                                        $('.glazing_weight').on("change keyup",function() {
+                                            var glazing_weight = parseFloat($(this).val());
+                                            var soaking_weight = parseFloat($(this).data("qty")); 
+                                            var p = (((glazing_weight - soaking_weight)/soaking_weight)*100);
+                                            p = p.toFixed(2);
+                                            $(".parcentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });
@@ -850,7 +878,14 @@
                                         // console.log(data);
                                         $("table.pud_soaking_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.pud_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='soaking_weight[]' value='"+product.soaking_weight+"' placeholder='Soaking Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='return_weight[]' value='"+product.soaking_return+"' placeholder='Return Weight'></td></tr>");
+                                            $("table.pud_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='Soaking Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='return_weight[]' value='"+product.soaking_return+"' placeholder='Return Weight'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                        });
+                                        $('.soaking_weight').on("change keyup",function() {
+                                            var soaking_weight = parseFloat($(this).val());
+                                            var initial_weight = parseFloat($(this).data("qty")); 
+                                            var p = (((soaking_weight - initial_weight)/initial_weight)*100);
+                                            p = p.toFixed(2);
+                                            $(".parcentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });
@@ -884,7 +919,14 @@
                                         console.log(data);
                                         $("table.pud_glazing_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.pud_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control' name='glazing_weight[]' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            $("table.pud_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.soaking_weight+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                        });
+                                        $('.glazing_weight').on("change keyup",function() {
+                                            var glazing_weight = parseFloat($(this).val());
+                                            var soaking_weight = parseFloat($(this).data("qty")); 
+                                            var p = (((glazing_weight - soaking_weight)/soaking_weight)*100);
+                                            p = p.toFixed(2);
+                                            $(".parcentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });
@@ -1058,7 +1100,14 @@
                                         // console.log(data);
                                         $("table.pd_tail_on_soaking_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.pd_tail_on_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='soaking_weight[]' value='"+product.soaking_weight+"' placeholder='Soaking Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='return_weight[]' value='"+product.soaking_return+"' placeholder='Return Weight'></td></tr>");
+                                            $("table.pd_tail_on_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='Soaking Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='return_weight[]' value='"+product.soaking_return+"' placeholder='Return Weight'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                        });
+                                        $('.soaking_weight').on("change keyup",function() {
+                                            var soaking_weight = parseFloat($(this).val());
+                                            var initial_weight = parseFloat($(this).data("qty")); 
+                                            var p = (((soaking_weight - initial_weight)/initial_weight)*100);
+                                            p = p.toFixed(2);
+                                            $(".parcentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });
@@ -1092,7 +1141,14 @@
                                         console.log(data);
                                         $("table.pd_tail_on_glazing_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.pd_tail_on_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control' name='glazing_weight[]' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            $("table.pd_tail_on_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.soaking_weight+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                        });
+                                        $('.glazing_weight').on("change keyup",function() {
+                                            var glazing_weight = parseFloat($(this).val());
+                                            var soaking_weight = parseFloat($(this).data("qty")); 
+                                            var p = (((glazing_weight - soaking_weight)/soaking_weight)*100);
+                                            p = p.toFixed(2);
+                                            $(".parcentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });
@@ -1266,7 +1322,14 @@
                                         // console.log(data);
                                         $("table.pd_tail_off_soaking_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.pd_tail_off_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='soaking_weight[]' value='"+product.soaking_weight+"' placeholder='Soaking Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='return_weight[]' value='"+product.soaking_return+"' placeholder='Return Weight'></td></tr>");
+                                            $("table.pd_tail_off_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='Soaking Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='return_weight[]' value='"+product.soaking_return+"' placeholder='Return Weight'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                        });
+                                        $('.soaking_weight').on("change keyup",function() {
+                                            var soaking_weight = parseFloat($(this).val());
+                                            var initial_weight = parseFloat($(this).data("qty")); 
+                                            var p = (((soaking_weight - initial_weight)/initial_weight)*100);
+                                            p = p.toFixed(2);
+                                            $(".parcentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });
@@ -1300,7 +1363,14 @@
                                         console.log(data);
                                         $("table.pd_tail_off_glazing_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.pd_tail_off_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control' name='glazing_weight[]' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            $("table.pd_tail_off_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.soaking_weight+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                        });
+                                        $('.glazing_weight').on("change keyup",function() {
+                                            var glazing_weight = parseFloat($(this).val());
+                                            var soaking_weight = parseFloat($(this).data("qty")); 
+                                            var p = (((glazing_weight - soaking_weight)/soaking_weight)*100);
+                                            p = p.toFixed(2);
+                                            $(".parcentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });
