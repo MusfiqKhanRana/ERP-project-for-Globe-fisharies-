@@ -200,13 +200,13 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                            <h4 class="modal-title">Add New Tiffin Bill</h4>
+                            <h4 class="modal-title">Add New Bill</h4>
                         </div>
                         <br>
                         <form class="form-horizontal" role="form" method="post" action="{{route('tiffin-bill.store')}}">
                             {{csrf_field()}}
                             <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Date<span class="required">* </span></label>
+                                <label for="inputEmail1" class="col-md-2 control-label">Disburse Date<span class="required">* </span></label>
                                 <div class="col-md-9">
                                     <div class="input-group input-5 date date-picker" id="datepicker" data-date-format="MM-yyyy">
                                         <input  type="text" class="form-control" readonly="readonly" name="date" >    

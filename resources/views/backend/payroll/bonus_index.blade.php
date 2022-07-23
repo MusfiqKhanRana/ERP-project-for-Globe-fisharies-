@@ -242,7 +242,7 @@ Bonus Records
                                         <select class="form-control selectpicker" data-live-search="true" name="user_id" required>
                                             <option value="" selected>--select--</option>
                                             @foreach($users as $user)
-                                                <option value="{{$user->id}}" >{{$user->name}}</option>
+                                                <option value="{{$user->id}}" >{{$user->name}} || {{$user->department->name}} || {{$user->designation->deg_name}}</option>
                                             @endforeach
                                         </select>
                                     </div>

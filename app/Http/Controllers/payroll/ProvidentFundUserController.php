@@ -50,6 +50,7 @@ class ProvidentFundUserController extends Controller
         unset($data['instalment']);
         ProvidentFundUser::create($data);
        // dd($data);
+       return redirect()->back()->withMsg("Successfully Enlisted");
     }
 
     /**

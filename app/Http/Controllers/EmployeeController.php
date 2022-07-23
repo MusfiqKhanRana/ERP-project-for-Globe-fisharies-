@@ -196,6 +196,15 @@ class EmployeeController extends Controller
 
     }
 
+    public function print_employee_detail($id)
+    {
+        $provident_fund = ProvidentFund::all();
+        $user_shift = UserShift::all();
+        $employee = User::find($id);
+        $dep = Department::all();
+        $deg = Designation::all();
+        return view('backend.employee.employee-print-details',compact('employee', 'dep','user_shift','provident_fund','deg'));
+    }
     public function edit($id)
     {
         $provident_fund = ProvidentFund::all();
@@ -243,6 +252,7 @@ class EmployeeController extends Controller
 
         $employee->name = $request->input('name');
         $employee->f_name = $request->input('f_name');
+        $employee->mother_name = $request->input('mother_name');
         $employee->b_date = $request->input('b_date');
         $employee->gender = $request->input('gender');
         $employee->blood = $request->input('blood');

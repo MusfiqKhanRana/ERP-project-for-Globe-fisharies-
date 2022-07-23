@@ -2,6 +2,10 @@
 @section('site-title')
    User Performance
 @endsection
+@section('style')
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+@endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
@@ -247,10 +251,10 @@
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Name</label>
                                 <div class="col-md-9">
-                                    <select class="form-control"  name="user_id">
+                                    <select class="form-control selectpicker" data-live-search="true"  name="user_id">
                                         <option value="">--Select--</option>
                                         @foreach($users as $data)
-                                            <option value="{{$data->id}}">{{$data->name}}</option>
+                                            <option value="{{$data->id}}">{{$data->name}} || {{$data->department->name}} || {{$data->designation->deg_name}}</option>
                                         @endforeach
                                         {{csrf_field()}}
                                     </select>
@@ -326,7 +330,10 @@
         </div>
     </div>
     @endsection
+    
     @section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script type="text/javascript">
             $(document).ready(function() {

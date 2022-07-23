@@ -90,6 +90,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-3 control-label">Mother's Name</label>
+                                        <div class="col-md-9">
+                                            <input type="text" name="mother_name" class="form-control" value="{{$employee->mother_name}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="control-label col-md-3">Date of Birth</label>
                                         <div class="col-md-3">
                                             <div class="input-group input-medium date date-picker"  data-date-format="dd-mm-yyyy" data-date-viewmode="years">
@@ -205,10 +211,44 @@
                             </form>
                         </div>
                     </div>
+                    {{-- <div class="portlet box dark">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-calendar"></i>Overtime
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="form-body">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <input type="checkbox" name="isOvertime" class="overtime" value="checked">Allow Overtime
+                                        </div><br><br>
+                                        <div class=" col-md-12 overtime_type">
+                                            <div class="col-md-12">
+                                                
+                                                <label>
+                                                    <input type="radio" class="form-control" name="overtime_type" id="regular" value="Regular" checked> Regular
+                                                </label>
+                                                <label>
+                                                    <input type="radio" class="form-control" name="overtime_type" id="bonus_amount" value="Fixed" > Fixed
+                                                </label>
+                                            </div><br><br>
+                                            <div class="row">
+                                                <div class="col-md-12  fixed_amount">
+                                                    <input class="form-control" type="number" name="overtime_amount" value="{{$employee->overtime_amount}}" placeholder="Type Amount">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> --}}
                     <div class="portlet box blue-chambray">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-calendar"></i>Overttime
+                                <i class="fa fa-calendar"></i>Overtime
                             </div>
                         </div>
                         <div class="portlet-body">
@@ -217,10 +257,23 @@
                                 {{method_field('put')}}
                                 <div id="alert_bank"></div>
                                 <div class="form-body">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Amount</label>
-                                        <div class="col-md-9">
-                                            <input type="text" name="overtime_amount" class="form-control" value="{{$employee->overtime_amount}}">
+                                    <div class="col-md-12">
+                                        <input type="checkbox" name="isOvertime" class="overtime" value="checked">Allow Overtime
+                                    </div><br><br>
+                                    <div class=" col-md-12 overtime_type">
+                                        <div class="col-md-12">
+                                            <label>
+                                                <input type="radio" class="form-control" name="overtime_type" id="regular" value="Regular" checked> Regular
+                                            </label>
+                                            <label>
+                                                <input type="radio" class="form-control" name="overtime_type" id="bonus_amount" value="Fixed" > Fixed
+                                            </label>
+                                        </div><br><br>
+                                        <div class="form-group fixed_amount">
+                                            <label class="col-md-3 control-label">Amount</label>
+                                            <div class="col-md-9">
+                                                <input type="text" name="overtime_amount" class="form-control" value="{{$employee->overtime_amount}}">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -274,7 +327,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Employee ID<span class="required">* </span></label>
                                         <div class="col-md-9">
-                                            <input type="text" name="employee_id" class="form-control" value="{{$employee->employee_id}}">
+                                            <input type="text" name="employee_id" class="form-control" value="{{$employee->employee_id}}" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -769,6 +822,28 @@
 @section('script')
     <script>
         $(document).ready(function () {
+            $('.overtime_type').hide();
+            $('.overtime').click(function()
+            {
+            if ($(this).is(':checked')) {
+                $('.overtime_type').show();
+                }else {
+                $(".overtime_type").hide();
+            }
+            });
+            $('.fixed_amount').hide();
+            $('#bonus_amount').click(function()
+            {
+            if ($(this).is(':checked')) {
+                $('.fixed_amount').show();
+                }
+            });
+            $('#regular').click(function()
+            {
+            if ($(this).is(':checked')) {
+                $('.fixed_amount').hide();
+                }
+            });
             $(document).on('change','#department', function () {
                 var id = $(this).val();
 
