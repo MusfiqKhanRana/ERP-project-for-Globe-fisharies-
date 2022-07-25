@@ -1079,7 +1079,7 @@
                 </ul>
             </li>
             <li class="nav-item @if( request()->path() == 'admin/export/sale/contract/create' || request()->path() == 'admin/export/sale/contract/create' ) active open @endif
-                @if( request()->path() == 'admin/export/buyer/management' || request()->path() == 'admin/export/buyer/management' ) active open @endif
+                @if( request()->path() == 'admin/export-buyer' || request()->path() == 'admin/export-buyer' ) active open @endif
                 @if( request()->path() == 'admin/export/sale/contract/list' || request()->path() == 'admin/export/sale/contract/list' ) active open @endif
                 @if( request()->path() == 'admin/export/commercial/list' || request()->path() == 'admin/export/commercial/list' ) active open @endif
                 @if( request()->path() == 'admin/export/packing/list' || request()->path() == 'admin/export/packing/list' ) active open @endif">
@@ -1089,28 +1089,28 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item @if( request()->path() == 'admin/export/buyer/management' ) active open @endif">
-                        <a href="{{route('manage_buyer')}}" class="nav-link ">
+                    <li class="nav-item @if( request()->path() == 'admin/export-buyer' ) active open @endif">
+                        <a href="{{route('export-buyer.index')}}" class="nav-link ">
                             <span class="title">Manage Buyer</span>
                         </a>
                     </li>
                     <li class="nav-item @if( request()->path() == 'admin/export/sale/contract/create' ) active open @endif">
-                        <a href="{{route('create_sale_contract')}}" class="nav-link ">
+                        <a href="{{--route('create_sale_contract')--}}" class="nav-link ">
                             <span class="title">Create Sales Contract</span>
                         </a>
                     </li>
                     <li class="nav-item @if( request()->path() == 'admin/export/sale/contract/list' ) active open @endif">
-                        <a href="{{route('sale_contract_list')}}" class="nav-link ">
+                        <a href="{{--route('sale_contract_list')--}}" class="nav-link ">
                             <span class="title">Sales Contract List</span>
                         </a>
                     </li>
                     <li class="nav-item @if( request()->path() == 'admin/export/commercial/list' ) active open @endif">
-                        <a href="{{route('commercial_list')}}" class="nav-link ">
+                        <a href="{{--route('commercial_list')--}}" class="nav-link ">
                             <span class="title">Commercial List</span>
                         </a>
                     </li>
                     <li class="nav-item @if( request()->path() == 'admin/export/packing/list' ) active open @endif">
-                        <a href="{{route('packing_list')}}" class="nav-link ">
+                        <a href="{{--route('packing_list')--}}" class="nav-link ">
                             <span class="title">Packing List</span>
                         </a>
                     </li>

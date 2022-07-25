@@ -104,7 +104,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label">Contact Number <span class="required">* </span></label>
-                                                        <input type="number" class="form-control" name="consignee_contact" placeholder="Contact Number" required>
+                                                        <input type="number" class="form-control" name="consignee_contact_number" placeholder="Contact Number" required>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -134,22 +134,22 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label">Address <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="notify_address">
+                                                        <input type="text" class="form-control" name="notify_party_address">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label">Contact Number <span class="required">* </span></label>
-                                                        <input type="number" class="form-control" name="notify_contact_number" placeholder="Contact Number" required>
+                                                        <input type="number" class="form-control" name="notify_party_contact" placeholder="Contact Number" required>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label class="control-label">Email <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="notify_email" placeholder="Email" required>
+                                                        <input type="text" class="form-control" name="notify_party_email" placeholder="Email" required>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label js-data-example-ajax">Country <span class="required">* </span></label>
                                                         {{-- <input type="text" class="form-control" name="" placeholder="Country" required> --}}
-                                                        <select class="form-control country" name="notify_country" id="country">
+                                                        <select class="form-control country" name="notify_party_country" id="country">
                                                         </select>
                                                     </div>
                                                 </div>

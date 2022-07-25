@@ -14,7 +14,7 @@ class ExportBuyerController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.export_management.manage_buyer.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class ExportBuyerController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.export_management.manage_buyer.create_buyer');
     }
 
     /**

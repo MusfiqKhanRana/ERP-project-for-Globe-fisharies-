@@ -35,6 +35,7 @@ use App\Http\Controllers\CateringController;
 use App\Http\Controllers\ChillStorageController;
 use App\Http\Controllers\ColdstorageController;
 use App\Http\Controllers\EmployeeAttendanceController;
+use App\Http\Controllers\Export\ExportBuyerController;
 use App\Http\Controllers\FishGradeController;
 use App\Http\Controllers\Inventory\InventoryStoreInController;
 use App\Http\Controllers\MedicalReportController;
@@ -619,25 +620,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('raw_wastage',WastageController::class);
 
     //--------------------Export Management--------------------//
-    Route::get('export/buyer/management',function(){
-        return view('backend.export_management.manage_buyer.index');
-    })->name('manage_buyer');
+    Route::resource('export-buyer', ExportBuyerController::class);
 
-    Route::get('export/buyer/create',function(){
-        return view('backend.export_management.manage_buyer.create_buyer');
-    })->name('create_buyer');
 
-    Route::get('export/buyer/edit',function(){
-        return view('backend.export_management.manage_buyer.edit_buyer');
-    })->name('edit_buyer');
+    // Route::get('export/sale/contract/create',function(){
+    //     return view('backend.export_management.sale_contract.create_sale_contract');
+    // })->name('create_sale_contract');
 
-    Route::get('export/sale/contract/create',function(){
-        return view('backend.export_management.sale_contract.create_sale_contract');
-    })->name('create_sale_contract');
-
-    Route::get('export/sale/contract/list',function(){
-        return view('backend.export_management.sale_contract.sale_contract_list');
-    })->name('sale_contract_list');
+    // Route::get('export/sale/contract/list',function(){
+    //     return view('backend.export_management.sale_contract.sale_contract_list');
+    // })->name('sale_contract_list');
 
     Route::get('export/sale/contract/print',function(){
         return view('backend.export_management.sale_contract.print_sale_contract');
