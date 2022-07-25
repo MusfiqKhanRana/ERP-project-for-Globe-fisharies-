@@ -50,6 +50,8 @@ Bonus Records
                                 <th>Serial</th>
                                 <th>Bonus Id</th>
                                 <th>Date</th>
+                                <th>Department</th>
+                                <th>Designation</th>
                                 <th>Name</th>
                                 <th>Amount</th>
                                 <th>Bonus Category</th>
@@ -65,6 +67,8 @@ Bonus Records
                                             <td>{{$loop->iteration}}</td>
                                             <td class="text-align: center;"> {{$data->bonus_code}}</td>
                                             <td class="text-align: center;"> {{$data->date}}</td>
+                                            <td>{{$data->user->department->name}}</td>
+                                            <td>{{$data->user->designation->deg_name}}</td>
                                             <td class="text-align: center;"> {{$data->user->name}}</td>
                                             <td class="text-align: center;"> {{$data->amount}}</td>
                                             <td class="text-align: center;"> {{$data->bonus_category}}</td>

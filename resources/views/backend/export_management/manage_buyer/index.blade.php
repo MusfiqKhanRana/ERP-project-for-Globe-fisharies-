@@ -10,7 +10,7 @@
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title bold form-inline" class="portlet box dark">Export Management
             {{-- <button type="button" class="btn dark pull-right " >Create Report <i class= 'fa fa-plus'> </i> </button> --}}
-            <a class="btn btn-primary pull-right" href="{{route('create_buyer')}}">
+            <a class="btn btn-primary pull-right" href="{{route('export-buyer.create')}}">
                 Add New Buyer
                 <i class="fa fa-plus"></i>
             </a>
@@ -62,7 +62,7 @@
                                             <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse, adipisci.</td>
                                             <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, et.</td>
                                             <td>
-                                                <a class="btn btn-info" href="{{route('edit_buyer')}}">Edit</a>
+                                                <a class="btn btn-info" href="{{--route('edit_buyer')--}}">Edit</a>
                                                 <button class="btn btn-danger" data-toggle="modal" href="#deleteModal">Detele</button>
                                             </td>
                                        </tr>
