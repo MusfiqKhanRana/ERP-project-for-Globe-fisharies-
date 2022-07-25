@@ -22,7 +22,7 @@ class CreateExportBuyersTable extends Migration
             $table->string('buyer_email')->nullable();
             $table->string('buyer_country')->nullable();
             $table->string('consignee_name')->nullable();
-            $table->integer('consignee_address')->nullable();
+            $table->string('consignee_address')->nullable();
             $table->integer('consignee_contact_number')->nullable();
             $table->string('consignee_email')->nullable();
             $table->string('consignee_country')->nullable();
