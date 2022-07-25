@@ -34,6 +34,8 @@
                     </div>
                 </div>
             @endif
+            <form class="form-horizontal" role="form" method="post" action="{{route('export-buyer.store')}}">
+                {{csrf_field()}}
             <div class="row">
                 <div class="col-md-12">
                     <div class="portlet box blue">
@@ -45,10 +47,10 @@
                             </div>
                         </div>
                         <div class="portlet-body" style="height: auto;">
-                            <form class="form-horizontal" role="form" method="post" action="">
-                                {{csrf_field()}}
                                 {{-- <input type="hidden" name="production_processing_unit_id" value="{{$production_processing_unit_id}}"> --}}
                                 <div class="row" style="margin-top:2%">
+                                    <form class="form-horizontal" role="form" method="post" action="{{route('increment.store')}}">
+                                        {{csrf_field()}}
                                     <div class="col-md-12">
                                         <div class="card">
                                             <div class="card-header">
@@ -250,15 +252,20 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 ">
-                                    <button type="submit" data-loading-text="Submitting..." class="col-md-12 btn btn btn-success">
-                                    <i class="fa fa-plus"></i>  Submit</button>
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="submit" data-loading-text="Submitting..." class="col-md-12 btn btn btn-info">
+                                                <i class="fa fa-plus"></i>	Submit </button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </form>
+                            
                         </div>
                     </div>
                 </div>
             </div>
+        </form>
         </div>
     </div>
 @endsection

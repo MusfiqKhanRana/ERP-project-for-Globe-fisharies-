@@ -56,16 +56,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                       <tr>
-                                            <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere, ut!</td>
-                                            <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, dolores?</td>
-                                            <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse, adipisci.</td>
-                                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, et.</td>
-                                            <td>
-                                                <a class="btn btn-info" href="{{--route('edit_buyer')--}}">Edit</a>
-                                                <button class="btn btn-danger" data-toggle="modal" href="#deleteModal">Detele</button>
-                                            </td>
-                                       </tr>
+                                        @foreach ($export_details as $export_detail)
+                                            <tr>
+                                                <td><ul><li>{{$export_detail->}}</li></ul></td>
+                                                <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, dolores?</td>
+                                                <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse, adipisci.</td>
+                                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, et.</td>
+                                                <td>
+                                                    <a class="btn btn-info" href="{{--route('edit_buyer')--}}">Edit</a>
+                                                    <button class="btn btn-danger" data-toggle="modal" href="#deleteModal">Detele</button>
+                                                </td>
+                                            </tr>
+                                       @endforeach
                                     </tbody>
                                 </table>
                                 <div id="deleteModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">

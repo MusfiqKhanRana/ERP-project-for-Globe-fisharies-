@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Export;
 
 use App\Http\Controllers\Controller;
+use App\Models\ExportBuyer;
 use Illuminate\Http\Request;
 
 class ExportBuyerController extends Controller
@@ -14,7 +15,8 @@ class ExportBuyerController extends Controller
      */
     public function index()
     {
-        return view('backend.export_management.manage_buyer.index');
+        $export_details = ExportBuyer::all();
+        return view('backend.export_management.manage_buyer.index',compact('export_detail'));
     }
 
     /**
@@ -35,7 +37,31 @@ class ExportBuyerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->toArray());
+        $inputs = $request->except('_token');
+        ;
+        $export = new ExportBuyer;
+        $export->buyer_code = $request->buyer_code;
+        $export->buyer_name = $request->buyer_name;
+        $export->buyer_address = $request->buyer_address;
+        $export->buyer_contact_number = $request->buyer_contact_number;
+        $export->buyer_email = $request->buyer_email;
+        $export->buyer_country = $request->buyer_country;
+        $export->consignee_name = $request->consignee_name;
+        $export->consignee_address = $request->consignee_address;
+        $export->consignee_contact_number = $request->consignee_contact_number;
+        $export->consignee_email = $request->consignee_email;
+        $export->consignee_country = $request->consignee_country;
+        $export->notify_party_name = $request->notify_party_name;
+        $export->notify_party_address = $request->notify_party_address;
+        $export->notify_party_contact = $request->notify_party_contact;
+        $export->notify_party_email = $request->notify_party_email;
+        $export->notify_party_country = $request->notify_party_country;
+        $export->bank_details = serialize($request->provided_item);;
+        $export->assign_hs_code = serialize($request->hs_item);;
+        $export->save();
+
+        return redirect()->route('user-type.index')->withMsg('Successfully Created');
     }
 
     /**
