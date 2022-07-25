@@ -48,28 +48,30 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($absent_applications as $key=>$absent_application)
-                                <tr >
-                                    <td>{{ $absent_applications->firstItem()+$loop->index }}</td>
-                                    <td>{{$absent_application->user->name}}</td>
-                                    <td>{{$absent_application->type}}</td>
-                                    <td>
-                                        <ul>
-                                            @foreach ($absent_application->attendances as $attendance)
-                                                <li>{{$attendance->date}}</li>
-                                            @endforeach
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        {{$absent_application->created_at}}
-                                    </td>
-                                    <td>
-                                        <a class="btn green view_application" data-toggle="modal" href="#viewApplicationModal" data-application="{{$absent_application->application_note}}">View Application</a>
-                                        <a class="btn grey-salt accept_application" data-toggle="modal" href="#acceptApplicationModal" data-status="true" data-application="{{json_encode($absent_application)}}">Accept Application</a>
-                                        <a class="btn red reject_application" data-toggle="modal" href="#rejectApplicationModal" data-status="false" data-application="{{$absent_application}}">Reject Application</a>
-                                    </td>
-                                </tr>
-                                @endforeach
+                                @if (count($absent_applications))
+                                    @foreach($absent_applications as $key=>$absent_application)
+                                        <tr >
+                                            <td>{{ $absent_applications->firstItem()+$loop->index }}</td>
+                                            <td>{{$absent_application->user->name}}</td>
+                                            <td>{{$absent_application->type}}</td>
+                                            <td>
+                                                <ul>
+                                                    @foreach ($absent_application->attendances as $attendance)
+                                                        <li>{{$attendance->date}}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                {{$absent_application->created_at}}
+                                            </td>
+                                            <td>
+                                                <a class="btn green view_application" data-toggle="modal" href="#viewApplicationModal" data-application="{{$absent_application->application_note}}">View Application</a>
+                                                <a class="btn grey-salt accept_application" data-toggle="modal" href="#acceptApplicationModal" data-status="true" data-application="{{json_encode($absent_application)}}">Accept Application</a>
+                                                <a class="btn red reject_application" data-toggle="modal" href="#rejectApplicationModal" data-status="false" data-application="{{$absent_application}}">Reject Application</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                                 </tbody>
                             </table>
                         </div>

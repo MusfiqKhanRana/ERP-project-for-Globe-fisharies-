@@ -40,15 +40,14 @@
                 @foreach ($departments as $data)
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 bodered border-dark">
                         <div class="dashboard-stat" style="background-color: rgb(245, 243, 241)">
-                            <h4 class="more"><b>Department: {{$data->name}}</b> 
-                            </h4>
+                            <h4 class="more"><b>Department: {{$data->name}}</b> </h4>
                             <div style="margin: 1%; padding:1%; margin-top:0%">
-                                @foreach ($data->designation as $item)
-                                    <button class="nav-link btn btn-success btn-sm degsignation" style="margin: 1%" data-id="{{$item->id}}">
-                                        {{$item->deg_name}}
+                                @foreach ($data->designation as $designation)
+                                    <button class="nav-link btn btn-success btn-sm degsignation" style="margin: 1%" data-id="{{$designation->id}}">
+                                        {{$designation->deg_name}}
                                     </button>
                                 @endforeach
-                                </div>
+                            </div>
                         </div>
                     </div>
                 @endforeach
@@ -128,7 +127,7 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            var designations = @json($designation)[0];
+            var designations = @json($designations)[0];
             var working_days = @json($working_days);
             var current_date = @json($current_date);
             $('.disburse_salary').hide();

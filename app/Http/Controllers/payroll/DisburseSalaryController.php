@@ -20,8 +20,8 @@ class DisburseSalaryController extends Controller
      */
     public function index()
     {
-        $departments = Department::all();
-        $designation = Designation::all();
+        $departments = Department::with(['designation'])->get();
+        $designations = Designation::all();
         $total_days = Carbon::now()->daysInMonth;
         $holiday_count = 0;
         foreach ($this->getMondays() as $holiday)
@@ -30,7 +30,7 @@ class DisburseSalaryController extends Controller
         }
         // dd($total_days-$holiday_count);
         $working_days = $total_days-$holiday_count;
-        return view('backend.payroll.disburse_salary',compact('designation','working_days','departments'));
+        return view('backend.payroll.disburse_salary',compact('designations','working_days','departments'));
     }
     public function getMondays()
     {
