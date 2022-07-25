@@ -49,9 +49,9 @@ class CreateUsersTable extends Migration
             $table->string('resume')->nullable();
             $table->string('appointment_letter')->nullable();
             $table->string('join_letter')->nullable();
-            $table->string('academic_letter')->nullable();
+            $table->string('academic_certificate')->nullable();
             $table->string('proof')->nullable();
-            $table->string('experience_cirtificate')->nullable();
+            $table->string('experience_certificate')->nullable();
             $table->unsignedInteger('user_shift_id')->nullable();
             $table->double('in_amount')->nullable();
             $table->double('in_percentage')->nullable();

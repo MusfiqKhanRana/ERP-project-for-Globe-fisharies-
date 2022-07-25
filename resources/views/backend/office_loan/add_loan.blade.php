@@ -240,7 +240,7 @@
                     var $results = $('#advance_info');
                     var $userDiv = $results.append('<div class="user-div"></div>')
                     $( '<div class="row">'+
-                        '<span class="col-md-9 text-center"><span> <b>Advance Salary: </b></span>'+total_amount+'</div>'
+                        '<span class="col-md-9 text-center"><span> <b>Previous Advance Salary: </b></span>'+total_amount+'</div>'
                     +'</div>').appendTo( ".user-div" );
                 }
             });

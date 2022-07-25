@@ -125,6 +125,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('/employee/change/shift',[EmployeeController::class,'change_shift'] )->name('change.shift');
     Route::get('/employee/add-employee',[EmployeeController::class,'create'])->name('employee.add');
     Route::get('/employee/edit-employee/{id}',[EmployeeController::class,'edit'] )->name('employee.edit');
+    Route::get('/employee/print-employee/{id}',[EmployeeController::class,'print_employee_detail'] )->name('employee.print');
     Route::post('/employee/designation-pass',[EmployeeController::class,'designation_pass'])->name('designation.pass');
     Route::post('/employee-post',[EmployeeController::class,'store'])->name('employee.post');
     Route::get('/employee-delete/{id}',[EmployeeController::class,'destroy'])->name('employee.delete');

@@ -193,7 +193,13 @@ Add Increment/Decrement
                                             @foreach ($departments as $department)
                                                 @foreach ($department->designation as $designation)
                                                     @foreach ($designation->employee as $employee)
-                                                        <option value="{{$employee->id}}" class="{{$designation->id}}" data-salary="{{$employee->basic + $employee->medical_allowance + $employee->house_rent}}">{{$employee->name}}</option>
+                                                    @php
+                                                        $increment_amount=0;
+                                                      foreach ($employee->increments as $key => $value) {
+                                                        $increment_amount+= $value->amount;
+                                                      }
+                                                    @endphp
+                                                        <option value="{{$employee->id}}" class="{{$designation->id}}" data-salary="{{$employee->basic + $employee->medical_allowance + $employee->house_rent +$increment_amount}}">{{$employee->name}}</option>
                                                     @endforeach
                                                 @endforeach    
                                             @endforeach
