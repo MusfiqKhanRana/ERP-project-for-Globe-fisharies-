@@ -167,7 +167,11 @@ class ProductionPurchaseRequisitionController extends Controller
         return redirect()->back()->withmsg('Successfully Purchase Confirmed');
     }
     public function order(){
-        $requisition=ProductionPurchaseRequisition::where('status','Confirm')->Orwhere('status','Purchased')->with('items','departments','users')->get();
+        $requisition=ProductionPurchaseRequisition::with(['production_requisition_item'=>function($q){
+            $q->with('supplier');
+        },'users','departments'])->whereHas('production_requisition_item',function($q){
+            $q->where('status','InPurchase');
+        })->get();
         // dd($requisition->toArray());
         return view('backend.production.general_purchase.production_purchase_requisition.order',compact('requisition'));
     }

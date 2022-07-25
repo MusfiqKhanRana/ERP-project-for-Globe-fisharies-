@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductionPurchaseRequisition;
 use App\Models\ProductionRequisition;
 use App\Models\ProductionRequisitionItem;
 use App\Models\SupplyItem;
@@ -63,15 +64,12 @@ class ProductionUnloadController extends Controller
     }
 
     public function gateman_general_item(){
-        $production_requistion = ProductionRequisition::with([
-            'production_supplier'=>function($q){
-                $q->with(['supplier_items']);
-            },
-            'production_requisition_items'=>function($q){
-                $q->with(['grade']);
-            }
-        ])
-        ->Where('status',"InGateman")->latest();
+        $production_requistion=ProductionPurchaseRequisition::with(['production_requisition_item'=>function($q){
+            $q->with('supplier');
+        },'users','departments'])->whereHas('production_requisition_item',function($q){
+            $q->where('status','InPurchase');
+        })->where('status','Purchased')->get();
+        // dd($production_requistion);
         return view('backend.production.unload.gate_man.general_item.index',compact('production_requistion'));
     }
     public function gateman_raw_item(){
@@ -92,6 +90,16 @@ class ProductionUnloadController extends Controller
         ->update(
             ['status'=>'Unload','vehicle_number'=>$request->vehicle_number,'challan_number'=>$request->challan_number,'gateman_remark'=>$request->remark]
         );
+        return redirect()->back()->withmsg('Successfully Send For Unloading');
+    }
+    public function check_general_item(Request $request){
+        // dd($request->toArray());
+        ProductionPurchaseRequisition::where('id',$request->requisition_id)->update([
+            'status'=>'StoreIn',
+            'vehicle_number'=>$request->vehicle_number,
+            'challan_no'=>$request->challan_no,
+            'unload_remark'=>$request->unload_remark
+        ]);
         return redirect()->back()->withmsg('Successfully Send For Unloading');
     }
 }

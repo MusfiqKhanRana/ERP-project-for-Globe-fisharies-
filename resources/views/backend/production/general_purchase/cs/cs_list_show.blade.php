@@ -94,7 +94,7 @@
                                                         $ifBtn=true;
                                                     @endphp
                                                     @foreach ($data->negotiable_price as $key2=> $nego_price)
-                                                        <label class="btn btn-default"><input type="checkbox" data-key="{{$key}}" class="nego_price" name="final_rate{{$key}}" value="{{$nego_price}}"/> No - {{++ $key2}} : {{$nego_price}}</label> 
+                                                        <label class="btn btn-default"><input type="checkbox" data-id="{{$key2}}" data-key="{{$key}}" class="nego_click{{$key}}{{$key2}} nego_price" name="final_rate{{$key}}" value="{{$nego_price}}"/> No - {{++ $key2}} : {{$nego_price}}</label> 
                                                     @endforeach
                                                 @else
                                                 <p>N/A</p>
@@ -180,15 +180,19 @@
             var nego_price =0;
             $('input[type="checkbox"]').on('change click',function() {
                 var key = 0;
-                console.log('good');
+                // console.log($(this).attr("data-prices"));
                 key = $(this).attr("data-key");
                 if($(this).is(":checked")){
                     nego_price = $(this).val();
                     console.log(nego_price);
                     $('#nego_confirm'+key).attr('style', 'display : block !important');
+                    $('.nego_price').attr("disabled", true);
+                    $('.nego_click'+$(this).attr("data-key")+$(this).attr("data-id")).attr("disabled", false);
                 }
-                else
+                if(!$(this).is(":checked")){
                     $('#nego_confirm'+key).attr('style', 'display : none !important');
+                    $('.nego_price').attr("disabled", false);
+                }     
             });
             $('.nego_confirm').on('change click',function() { 
                 console.log(nego_price);

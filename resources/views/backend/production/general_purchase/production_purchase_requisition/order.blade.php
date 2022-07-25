@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('site-title')
-    Add Requisition
+    Purchase List
 @endsection
 @section('style')
 
@@ -58,11 +58,7 @@
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>Serial</th>
-                                <th>Department</th>
-                                <th>Requested By</th>
-                                <th>Supplier Info</th>
-                                <th>Remark</th>
+                                <th>Invoice No.</th>
                                 <th>Items</th>
                                 <th style="text-align: center">Action</th>
                             </tr>
@@ -70,17 +66,16 @@
                             <tbody>
                                 @foreach($requisition as $key=> $data)
                                 <tr id="row1">
-                                    <td>{{++ $key }}</td>
-                                    <td class="text-align: center;"> {{$data->departments->name}}</td>
-                                    <td class="text-align: center;"> {{$data->users->name}}</td>
-                                    <td class="text-align: center;"></td>
-                                    <td class="text-align: center;">{{$data->remark}}</td>
+                                    <td class="text-align: center;"> {{$data->requisition_code}}</td>
                                     <td class="text-align: center;">
                                         <table class="table table-striped table-bordered table-hover">
                                             <thead>
                                                 <tr>
                                                     <th>
                                                         Sl.
+                                                    </th>
+                                                    <th>
+                                                        Supplier Info
                                                     </th>
                                                     <th>
                                                         Item Details
@@ -95,7 +90,7 @@
                                                        Specification
                                                     </th>
                                                     <th>
-                                                        supplier Info
+                                                        Confirm Rate
                                                     </th>
                                                     <th>
                                                         Remark
@@ -106,15 +101,21 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($data->items as $key2 => $item)
+                                                @foreach ($data->production_requisition_item as $key2 => $item)
                                                     <tr>
                                                         <td>{{++$key2}}</td>
-                                                        <td><ul><li>{{$item->pivot->image}}</li><li>{{$item->pivot->item_name}}</li><li>{{$item->pivot->item_type_name}}</li><li>{{$item->pivot->item_unit_name}}</li></ul></td>
-                                                        <td>{{$item->pivot->demand_date}}</td>
-                                                        <td>{{$item->pivot->quantity}}</td>
-                                                        <td>{{$item->pivot->specification}}</td>
-                                                        <td>{{$item->pivot->supplier_info}}</td>
-                                                        <td>{{$item->pivot->remark}}</td>
+                                                        <td class="text-align: center;"> 
+                                                            <li>Supplier Name : {{$item->supplier->name}}</li> 
+                                                            <li>Supplier Phone : {{$item->supplier->phone}}</li>
+                                                            <li>Supplier Address : {{$item->supplier->address}}</li>
+                                                            <li>Supplier Email : {{$item->supplier->email}}</li>
+                                                        </td>
+                                                        <td><ul><li>{{$item->image}}</li><li>{{$item->item_name}}</li><li>{{$item->item_type_name}}</li><li>{{$item->item_unit_name}}</li></ul></td>
+                                                        <td>{{$item->demand_date}}</td>
+                                                        <td>{{$item->quantity}}</td>
+                                                        <td>{{$item->specification}}</td>
+                                                        <td>{{$item->confirm_rate}}</td>
+                                                        <td>{{$item->remark}}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -215,20 +216,23 @@
                                                                     </div>
                                                                 </div>
                                                                 <hr>
-                                                                @foreach ($data->items as $key2 => $item)
+                                                                @foreach ($data->production_requisition_item as $key2 => $item)
                                                                     <div class="row">
                                                                         <div class="col-md-3">
-                                                                            <ul><li>{{$item->pivot->image}}</li><li>{{$item->pivot->item_name}}</li><li>{{$item->pivot->item_type_name}}</li><li>{{$item->pivot->item_unit_name}}</li></ul>
+                                                                            <ul><li>{{$item->image}}</li><li>{{$item->item_name}}</li><li>{{$item->item_type_name}}</li><li>{{$item->item_unit_name}}</li></ul>
                                                                         </div>
                                                                         <div class="col-md-3">
-                                                                            {{$item->pivot->demand_date}}
+                                                                            {{$item->demand_date}}
                                                                         </div>
                                                                         <div class="col-md-2">
-                                                                            {{$item->pivot->quantity}}
+                                                                            {{$item->quantity}}
                                                                         </div>
                                                                         <div class="col-md-4">
-                                                                            <input type="text" placeholder="Give Supplier info" class="form-control" name="supplier_info[]">
-                                                                            <input type="hidden" class="form-control" value="{{$item->pivot->id}}" name="id[]">
+                                                                            <li>Supplier Name : {{$item->supplier->name}}</li> 
+                                                                            <li>Supplier Phone : {{$item->supplier->phone}}</li>
+                                                                            <li>Supplier Address : {{$item->supplier->address}}</li>
+                                                                            <li>Supplier Email : {{$item->supplier->email}}</li>
+                                                                            <input type="hidden" class="form-control" value="{{$item->id}}" name="id[]">
                                                                         </div>
                                                                     </div>
                                                                     <hr>
