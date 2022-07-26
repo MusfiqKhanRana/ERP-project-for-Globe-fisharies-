@@ -3,12 +3,12 @@
      Packing List Print
 @endsection
 
-@section('css')
+@section('style')
 <style>
-.table > :not(:first-child) {
-    border-top: 2px solid currentColor;
-}
-    </style>
+    .table td, .table th {
+        font-size: 10px;
+    }
+</style>
 @endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
@@ -65,22 +65,6 @@
                                  </div>
                                 
                             </div><br>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>A</th>
-                                        <th>B</th>
-                                        <th>C</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Hello</td>
-                                        <td>Hello</td>
-                                        <td>Hello</td>
-                                    </tr>
-                                </tbody>
-                            </table>
                             <div class="row" style="background-color:#d6d9e3">
                                 <div class="col-md-4">
                                     <label for=""><b>Manufacture / Exporter</b></label>
@@ -106,7 +90,7 @@
                                 <label for="" ><b >Conuntry Origin : Bangladesh</b></label>
                             </div><br>
                             <div class="row">
-                                <table class="table table-bordered" style="width:100%">
+                                <table class="table table-bordered" style='font-family:"Poppins", monospace; font-size:50%'>
                                     <thead>
                                         <tr style="background-color:#d6d9e3">
                                             <th>Sl.</th>
@@ -153,7 +137,7 @@
                                 </table>
                             </div><br>
                             <div class="row">
-                                <table  class="table table-striped table-bordered table-hover">
+                                <table  class="table table-striped table-bordered table-hover" style='font-family:"Courier New", Courier, monospace; font-size:80%'>
                                     <tr>
                                         <th style="background-color:#d6d9e3">Sale Contract No.</th>
                                         <td>GFL/EXP/DUBAI/HRA/07/2022</td>

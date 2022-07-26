@@ -35,7 +35,12 @@ class ExportPackSizeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $packs = new ExportPackSize;
+        $packs->name = $request->name;
+        $packs->weight = $request->weight;
+        $packs->save();
+
+        return redirect()->route('processing-grade.index')->withMsg('Successfully Created');
     }
 
     /**
@@ -67,9 +72,14 @@ class ExportPackSizeController extends Controller
      * @param  \App\Models\ExportPackSize  $exportPackSize
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ExportPackSize $exportPackSize)
+    public function update(Request $request,$id)
     {
-        //
+        ExportPackSize::whereId($id)
+        ->update([
+            'name' => $request->name,
+            'weight' => $request->weight,
+        ]);
+        return redirect()->route('processing-grade.index')->withMsg('Successfully Created');
     }
 
     /**
@@ -78,8 +88,9 @@ class ExportPackSizeController extends Controller
      * @param  \App\Models\ExportPackSize  $exportPackSize
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ExportPackSize $exportPackSize)
+    public function destroy($id)
     {
-        //
+        ExportPackSize::whereId($id)->delete();
+        return redirect()->back()->withMsg("Successfully Deleted");
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ExportPackSize;
 use App\Models\ProcessingBlock;
 use App\Models\ProcessingBlockSize;
 use App\Models\ProcessingGrade;
@@ -16,10 +17,11 @@ class ProcessingGradeController extends Controller
      */
     public function index()
     {
+        $export_pack = ExportPackSize::all();
         $p_grade = ProcessingGrade::all();
         $p_block = ProcessingBlock::all();
         $p_block_size = ProcessingBlockSize::all();
-        return view('backend.production.configuration.index',compact('p_grade','p_block','p_block_size'));
+        return view('backend.production.configuration.index',compact('p_grade','p_block','p_block_size','export_pack'));
     }
 
     /**
