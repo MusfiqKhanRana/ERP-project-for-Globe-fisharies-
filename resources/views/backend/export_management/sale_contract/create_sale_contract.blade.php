@@ -57,7 +57,7 @@
                                     <div class="form-section">
                                         <label class="col-md-2 control-label pull-left bold">Select Buyer:<span class="required">* </span> </label>
                                         <div class="col-md-10">
-                                            <select class="form-control" name="buyer_id" required></select>
+                                            <select class="form-control" name="export_buyer_id" required></select>
                                         </div>
                                     </div><br><br>
                                 </div>

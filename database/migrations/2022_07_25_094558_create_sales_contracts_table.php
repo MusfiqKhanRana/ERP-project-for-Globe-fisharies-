@@ -15,29 +15,32 @@ class CreateSalesContractsTable extends Migration
     {
         Schema::create('sales_contracts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('buyer_id')->nullable();
-            $table->string('port_of_loading')->nullable();
+            //Shipping Info
+            $table->unsignedInteger('export_buyer_id')->nullable();
+            $table->enum('port_of_loading',['By Air','By Sea','By Road','By Rail'])->default('By Air');
             $table->string('pre_carring_by')->nullable();
             $table->string('port_of_discharge')->nullable();
             $table->string('final_destination')->nullable();
             $table->dateTime('shipment_date')->nullable();
-            $table->string('packaging_responsibility')->nullable();
-            $table->string('partial_shipment')->nullable();
-            $table->string('trans_shipment')->nullable();
-            $table->string('shipping_responsibility')->nullable();
+            $table->string('packaging_responsibility',['Globe Fisheries Ltd','Buyer'])->default('Globe Fisheries Ltd');
+            $table->boolean('partial_shipment')->default(0);
+            $table->boolean('trans_shipment')->default(0);
+            $table->string('shipping_responsibility',['FOB','CFR','CIF'])->default('FOB');
             $table->integer('cfr_rate')->nullable();
             $table->integer('cif_rate')->nullable();
             $table->longText('shipment_remark')->nullable();
-            $table->string('payment_method')->nullable();
+            //Payment Info
+            $table->enum('payment_method',['T.T at Sight','T.T in Advance','L.C at Sight'])->default('T.T at Sight');
             $table->double('grand_total')->nullable();
             $table->double('paid_in_percentage')->nullable();
             $table->double('paid_in_amount')->nullable();
             $table->double('due_amount')->nullable();
-            $table->string('advising_bank')->nullable();
+            $table->unsignedInteger('advising_bank')->nullable();
             $table->string('advising_bank_account_no')->nullable();
             $table->string('advising_bank_swift_code')->nullable();
             $table->string('bank_charge')->nullable();
             $table->string('offer_validity')->nullable();
+            //Importer Bank Info
             $table->string('bank_name')->nullable();
             $table->string('importer_account_name')->nullable();
             $table->string('importer_account_no')->nullable();
