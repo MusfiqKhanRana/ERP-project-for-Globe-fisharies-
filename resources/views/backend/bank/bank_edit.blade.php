@@ -71,6 +71,17 @@
                                         </div>
 
                                         <div class="form-group clearfix">
+                                            <label class="col-md-3 control-label">Bank Branch Address</label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" value="{{$bank->branch_address}}" required name="branch_address">
+                                                    <span class="input-group-addon"><i class="fa fa-location-arrow" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group clearfix">
                                             <label class="col-md-3 control-label">Bank Swift Code</label>
                                             <div class="col-md-9">
                                                 <div class="input-group">

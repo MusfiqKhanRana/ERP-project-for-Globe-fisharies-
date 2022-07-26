@@ -15,10 +15,11 @@ class CreateBankAccountsTable extends Migration
     {
         Schema::create('bank_accounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('bank_name');
-            $table->string('account_number');
-            $table->string('branch_name');
-            $table->string('swift_code');
+            $table->string('bank_name')->nullable();
+            $table->string('account_number')->nullable();
+            $table->string('branch_name')->nullable();
+            $table->string('branch_address')->nullable();
+            $table->string('swift_code')->nullable();
             $table->timestamps();
         });
     }

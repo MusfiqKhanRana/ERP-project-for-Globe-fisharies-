@@ -12,4 +12,7 @@ class ExportBuyer extends Model
     public function getBankDetailsAttribute($value){
         return  unserialize($value);
       }
+      public function getAssignHsCodeAttribute($value){
+        return  unserialize($value);
+      }
 }

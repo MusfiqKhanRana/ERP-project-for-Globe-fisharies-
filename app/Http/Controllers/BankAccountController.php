@@ -15,6 +15,7 @@ class BankAccountController extends Controller
 
     public function bankStore(Request $request)
     {
+        //dd($request->toArray());
          
         BankAccount::create($request->all());
         return redirect()->back()->withMsg('Successfully Create');
@@ -41,6 +42,7 @@ class BankAccountController extends Controller
                 'bank_name' => $request->bank_name,
                 'account_number' => $request->account_number,
                 'branch_name' => $request->branch_name,
+                'branch_address' => $request->branch_address,
                 'swift_code' => $request->swift_code,
             ]);
         return redirect('admin/bank')->withMsg('Successfully Updated');
