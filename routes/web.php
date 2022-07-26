@@ -621,7 +621,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //---------------- Raw and Wastage-----------------------//
     Route::resource('raw_wastage',WastageController::class);
 
-    //--------------------Export Management--------------------//
+    //--------------------Export Management update--------------------//
     Route::resource('export-buyer', ExportBuyerController::class);
 
 
