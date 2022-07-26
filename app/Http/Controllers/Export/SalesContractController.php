@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Export;
 
 use App\Http\Controllers\Controller;
+use App\Models\ExportBuyer;
 use Illuminate\Http\Request;
 
 class SalesContractController extends Controller
@@ -14,7 +15,9 @@ class SalesContractController extends Controller
      */
     public function index()
     {
-        return view('backend.export_management.sale_contract.create_sale_contract');
+        $export_buyer = ExportBuyer::all();
+        dd($export_buyer->toArray());
+        return view('backend.export_management.sale_contract.create_sale_contract',compact('export_buyer'));
     }
 
     /**

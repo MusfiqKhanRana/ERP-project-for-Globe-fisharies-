@@ -22,7 +22,7 @@ class CreateSalesContractsTable extends Migration
             $table->string('port_of_discharge')->nullable();
             $table->string('final_destination')->nullable();
             $table->dateTime('shipment_date')->nullable();
-            $table->string('packaging_responsibility',['Globe Fisheries Ltd','Buyer'])->default('Globe Fisheries Ltd');
+            $table->enum('packaging_responsibility',['Globe Fisheries Ltd','Buyer'])->default('Globe Fisheries Ltd');
             $table->boolean('partial_shipment')->default(0);
             $table->boolean('trans_shipment')->default(0);
             $table->enum('shipping_responsibility',['FOB','CFR','CIF'])->default('FOB');
