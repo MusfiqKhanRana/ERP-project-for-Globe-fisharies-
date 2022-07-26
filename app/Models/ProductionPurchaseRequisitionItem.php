@@ -23,7 +23,7 @@ class ProductionPurchaseRequisitionItem extends Model
     }
     public function supplier()
     {
-        return $this->belongsTo(ProductionSupplier::class);
+        return $this->belongsTo(ProductionSupplier::class,'supplier_info');
     }
     public function production_purchase_requisitions()
     {

@@ -57,7 +57,7 @@
                                     <div class="form-section">
                                         <label class="col-md-2 control-label pull-left bold">Select Buyer:<span class="required">* </span> </label>
                                         <div class="col-md-10">
-                                            <select class="form-control" required></select>
+                                            <select class="form-control" name="buyer_id" required></select>
                                         </div>
                                     </div><br><br>
                                 </div>
@@ -179,13 +179,13 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label class="control-label" for="product">Type<span class="required">* </span></label>
-                                                        <select class="form-control" name="type" id="type">
+                                                        <select class="form-control" name="processing_type" id="type">
                                                             <option value="test">test</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label class="control-label" for="product">Variant<span class="required">* </span></label>
-                                                        <select class="form-control" name="variant" id="variant">
+                                                        <select class="form-control" name="processing_variant" id="variant">
                                                             <option value="test">test</option>
                                                         </select>
                                                     </div>
@@ -271,7 +271,7 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label class="control-label" for="product">Payment Method<span class="required">* </span></label>
-                                                        <select class="form-control" name="" id="">
+                                                        <select class="form-control" name="payment_method" id="">
                                                             <option value="">--Select--</option>
                                                             <option value="T.T at Sight">T.T at Sight</option>
                                                             <option value="T.T in Advance">T.T in Advance</option>
@@ -280,15 +280,15 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label" for="product">Grand Total</label>
-                                                        <input type="text" class="form-control" name="" required>
+                                                        <input type="number" class="form-control" name="grand_total" required>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label for="paid"> Paid Amount </label>
                                                         <span class="paid_in_percentage">
-                                                            <input type="text" class="form-control"  placeholder="Paid in %" id="percentage_id"/>
+                                                            <input type="number" class="form-control" name="paid_in_percentage"  placeholder="Paid in %" id="percentage_id"/>
                                                         </span>
                                                         <span class="paid_in_amount">
-                                                            <input type="text" class="form-control" placeholder="Paid in amount" id="amount_id"/>
+                                                            <input type="number" class="form-control" name="paid_in_amount" placeholder="Paid in amount" id="amount_id"/>
                                                         </span>
                                                         <fieldset class="radio-inline question coupon_question2">
                                                             <input class="form-check-input want_in_amount" type="checkbox">Want in Amount ? 

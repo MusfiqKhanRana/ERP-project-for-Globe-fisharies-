@@ -14,7 +14,7 @@ class SalesContractController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.export_management.sale_contract.create_sale_contract');
     }
 
     /**

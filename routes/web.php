@@ -36,6 +36,7 @@ use App\Http\Controllers\ChillStorageController;
 use App\Http\Controllers\ColdstorageController;
 use App\Http\Controllers\EmployeeAttendanceController;
 use App\Http\Controllers\Export\ExportBuyerController;
+use App\Http\Controllers\Export\SalesContractController;
 use App\Http\Controllers\FishGradeController;
 use App\Http\Controllers\Inventory\InventoryStoreInController;
 use App\Http\Controllers\MedicalReportController;
@@ -489,6 +490,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Production Requisition Item
     Route::resource('production-requisition-item', ProductionRequisitionItemController::class);
     // Production Unload
+    Route::post('production/unload/gate_man/general_item/check',[ProductionUnloadController::class,'check_general_item'])->name('production.unload.gateman.general_item.check');
     Route::post('production/unload/gate_man/raw_item/check',[ProductionUnloadController::class,'check_raw_item'])->name('production.unload.gateman.raw_item.check');
     Route::get('production/unload/gate_man/raw_item',[ProductionUnloadController::class,'gateman_raw_item'])->name('production.unload.gateman.raw_item');
     Route::get('production/unload/gate_man/general_item',[ProductionUnloadController::class,'gateman_general_item'])->name('production.unload.gateman.general_item');
@@ -623,10 +625,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('export-buyer', ExportBuyerController::class);
 
 
-    // Route::get('export/sale/contract/create',function(){
-    //     return view('backend.export_management.sale_contract.create_sale_contract');
-    // })->name('create_sale_contract');
-
+    Route::resource('sale_contract',SalesContractController::class);
     // Route::get('export/sale/contract/list',function(){
     //     return view('backend.export_management.sale_contract.sale_contract_list');
     // })->name('sale_contract_list');
