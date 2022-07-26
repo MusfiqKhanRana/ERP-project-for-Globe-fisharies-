@@ -109,7 +109,7 @@
                                                     <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
                                                 </div>
                                                 <div class="caption pull-right">
-                                                    <form action="{{route('export-buyer.destroy',[$export_detail->id])}}" method="POST">
+                                                    <form action="{{--route('export-buyer.destroy',[$export_detail->id])--}}" method="POST">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
