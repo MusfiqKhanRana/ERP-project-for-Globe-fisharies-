@@ -10,6 +10,7 @@ class BankAccount extends Model
         'bank_name',
         'account_number',
         'branch_name',
+        'branch_address',
         'swift_code',
     ];
 

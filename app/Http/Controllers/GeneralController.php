@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\BankAccount;
 use App\Models\General;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,9 +16,10 @@ class GeneralController extends Controller
 {
     public function index()
     {
+        $bank = BankAccount::all();
         $general = General::find(1);
         $admin = Auth::user()->email;
-        return view('backend.general-setting.general', compact('general', 'admin'));
+        return view('backend.general-setting.general', compact('general', 'admin','bank'));
     }
 
     public function update(Request $request, General $general, $id)

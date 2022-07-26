@@ -63,7 +63,7 @@ class ExportBuyerController extends Controller
         $export['assign_hs_code'] = serialize($request->hs_item);
         $export->save();
 
-        return redirect()->back()->withMsg('Successfully Created');
+        return redirect()->route('export-buyer.index')->withMsg('Successfully Created');
     }
 
     /**
