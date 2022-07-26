@@ -18,7 +18,7 @@ class BankAccountController extends Controller
         //dd($request->toArray());
          
         BankAccount::create($request->all());
-        return redirect()->back()->withMsg('Successfully Create');
+        return redirect()->route('general.index')->withMsg('Successfully Create');
     }
 
     public function bankEdit($id)
@@ -45,6 +45,6 @@ class BankAccountController extends Controller
                 'branch_address' => $request->branch_address,
                 'swift_code' => $request->swift_code,
             ]);
-        return redirect('admin/bank')->withMsg('Successfully Updated');
+        return redirect('admin/general')->withMsg('Successfully Updated');
     }
 }

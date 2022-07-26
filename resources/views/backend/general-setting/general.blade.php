@@ -233,41 +233,41 @@
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                 <h4 class="modal-title">Add New Bank Account</h4>
-                            </div>
+                            </div><br>
                             <form class="form-horizontal" role="form" method="post" action="{{route('bank.account.store')}}">
                                 {{csrf_field()}}
     
                                 <div class="form-group">
                                     <label for="inputEmail1" class="col-md-2 control-label">Bank Name</label>
-                                    <div class="col-md-6">
+                                    <div class="col-md-9">
                                         <input type="text" class="form-control" placeholder="bank_name" required name="bank_name">
                                     </div>
                                 </div>
     
                                 <div class="form-group">
                                     <label for="inputEmail1" class="col-md-2 control-label">Account Number</label>
-                                    <div class="col-md-6">
+                                    <div class="col-md-9">
                                         <input type="number" class="form-control" placeholder="account_number" required name="account_number">
                                     </div>
                                 </div>
     
                                 <div class="form-group">
                                     <label for="inputEmail1" class="col-md-2 control-label">Branch Name</label>
-                                    <div class="col-md-6">
+                                    <div class="col-md-9">
                                         <input type="text" class="form-control" placeholder="branch_name" required name="branch_name">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="inputEmail1" class="col-md-2 control-label">Branch Address</label>
-                                    <div class="col-md-6">
+                                    <div class="col-md-9">
                                         <input type="text" class="form-control" placeholder="branch_address" required name="branch_address">
                                     </div>
                                 </div>
     
                                 <div class="form-group">
                                     <label for="inputEmail1" class="col-md-2 control-label">Swift Code</label>
-                                    <div class="col-md-6">
+                                    <div class="col-md-9">
                                         <input type="text" class="form-control" placeholder="swift_code" required name="swift_code">
                                     </div>
                                 </div>

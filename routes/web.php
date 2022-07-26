@@ -37,6 +37,7 @@ use App\Http\Controllers\ColdstorageController;
 use App\Http\Controllers\EmployeeAttendanceController;
 use App\Http\Controllers\Export\ExportBuyerController;
 use App\Http\Controllers\Export\SalesContractController;
+use App\Http\Controllers\ExportPackSizeController;
 use App\Http\Controllers\FishGradeController;
 use App\Http\Controllers\Inventory\InventoryStoreInController;
 use App\Http\Controllers\MedicalReportController;
@@ -84,6 +85,7 @@ use App\Http\Controllers\TiffinBillController;
 use App\Http\Controllers\RoPlantController;
 use App\Http\Controllers\UserShiftController;
 use App\Http\Controllers\Wastage\WastageController;
+use App\Models\ExportPackSize;
 use App\Models\ProductionProcessingGrade;
 use App\Models\ProductionPurchaseRequisitionItem;
 use App\Models\ProductionRequisition;
@@ -621,6 +623,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //---------------- Raw and Wastage-----------------------//
     Route::resource('raw_wastage',WastageController::class);
 
+    //-----------------------Export Pack size------------///
+    Route::resource('export-pack', ExportPackSizeController::class);
+    
     //--------------------Export Management update--------------------//
     Route::resource('export-buyer', ExportBuyerController::class);
 

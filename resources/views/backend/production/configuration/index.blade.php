@@ -49,6 +49,9 @@
                             <div class="col-md-6">
                                 @include('backend.production.configuration.processing_block_size.index')
                             </div>
+                            <div class="col-md-6">
+                                @include('backend.production.configuration.export_pack_size.index')
+                            </div>
                             {{-- <div class="col-md-6">
                                 @include('backend.pack.index')
                             </div>
