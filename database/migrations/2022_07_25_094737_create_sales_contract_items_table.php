@@ -21,7 +21,7 @@ class CreateSalesContractItemsTable extends Migration
             $table->string('processing_variant')->nullable();
             $table->unsignedInteger('supply_item_id')->nullable();
             $table->unsignedInteger('fish_grade_id')->nullable();
-            $table->unsignedInteger('pack_size')->nullable();
+            $table->unsignedInteger('pack_size_id')->nullable();
             $table->string('block_size')->nullable();
             $table->string('block_name')->nullable();
             $table->integer('cartons')->nullable();
