@@ -630,29 +630,29 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //     return view('backend.export_management.sale_contract.sale_contract_list');
     // })->name('sale_contract_list');
 
-    Route::get('export/sale/contract/print',function(){
-        return view('backend.export_management.sale_contract.print_sale_contract');
-    })->name('print_sale_contract');
+    // Route::get('export/sale/contract/print',function(){
+    //     return view('backend.export_management.sale_contract.print_sale_contract');
+    // })->name('print_sale_contract');
 
-    Route::get('export/commercial/list',function(){
-        return view('backend.export_management.commercial_list');
-    })->name('commercial_list');
+    // Route::get('export/commercial/list',function(){
+    //     return view('backend.export_management.commercial_list');
+    // })->name('commercial_list');
 
-    Route::get('export/packing/list',function(){
-        return view('backend.export_management.packing_list');
-    })->name('packing_list');
+    // Route::get('export/packing/list',function(){
+    //     return view('backend.export_management.packing_list');
+    // })->name('packing_list');
 
-    Route::get('export/print/commercial/list',function(){
-        return view('backend.export_management.print_commercial_list');
-    })->name('print_commercial_list');
+    // Route::get('export/print/commercial/list',function(){
+    //     return view('backend.export_management.print_commercial_list');
+    // })->name('print_commercial_list');
 
-    Route::get('export/print/packing/list',function(){
-        return view('backend.export_management.print_packing');
-    })->name('print_packing_list');
+    // Route::get('export/print/packing/list',function(){
+    //     return view('backend.export_management.print_packing');
+    // })->name('print_packing_list');
 
-    Route::get('export/packing/approve/list',function(){
-        return view('backend.export_management.packing_approve_list');
-    })->name('packing_approve_list');
+    // Route::get('export/packing/approve/list',function(){
+    //     return view('backend.export_management.packing_approve_list');
+    // })->name('packing_approve_list');
 
     
 });

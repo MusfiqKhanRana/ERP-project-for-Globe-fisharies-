@@ -229,7 +229,7 @@
 
                                             </div>
                                             <div class="col-md-4">
-                                                <label class="control-label" for="a_c_name">A/C Name <span class="required">* </span></label>
+                                                <label class="control-label" for="a_c_name">H S Code <span class="required">* </span></label>
                                                 <input type="text" style="text-align: center" class="form-control" placeholder="Type HS Code" id="hs_code" name="hs_code">
                                             </div>
                                             <div class="col-md-2">
@@ -291,12 +291,12 @@
                 
     var items_array = [];
     function nullmaking(){
-            $("#bank_name").val(null);
-            $("#a_c_name").val(null);
-            $("#a_C_no").val(null);
-            $("#branch").val(null);
-            $("#bank_country").val(null);
-        }
+        $("#bank_name").val(null);
+        $("#a_c_name").val(null);
+        $("#a_C_no").val(null);
+        $("#branch").val(null);
+        $("#bank_country").val(null);
+    }
     $("#add_items").click(function(){
         console.log($("#product").val());
             items_array.push({"bank_name":$("#bank_name").val(),"a_c_name":$("#a_c_name").val(),"a_C_no":$("#a_C_no").val(),"bank_country":$("#bank_country").val(),"branch":$("#branch").val(),"status":"stay"});
