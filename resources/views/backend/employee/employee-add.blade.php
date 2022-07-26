@@ -203,16 +203,16 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label for="product">Basic <span class="required">* </span></label>
-                                                <input type="text" class="form-control" name="basic" id="basic" placeholder="Basic" required>
+                                                <input type="number" class="form-control" name="basic" id="basic" placeholder="Basic" required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="product">Medical <span class="required">* </span></label>
-                                                <input type="text" class="form-control" name="medical_allowance" id="medical_allowance" placeholder="Medical" required>
+                                                <input type="number" class="form-control" name="medical_allowance" id="medical_allowance" placeholder="Medical" required>
                                             </div>
                                         
                                             <div class="col-md-4">
                                                 <label for="product">House Rent <span class="required">* </span></label>
-                                                <input type="text" autocomplete="off" class="form-control" name="house_rent" id="house_rent" placeholder="House" required>
+                                                <input type="number" autocomplete="off" class="form-control" name="house_rent" id="house_rent" placeholder="House" required>
                                             </div>
                                         </div>
                                         {{-- <div class="row">

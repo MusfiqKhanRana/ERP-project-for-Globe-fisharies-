@@ -48,20 +48,45 @@
                                 <table class="table table-bordered " style="overflow: scroll;">
                                     <thead>
                                         <tr>
-                                            <th>Bayer Details</th>
-                                            <th>Consignee Details</th>
-                                            <th>Notify Party Details</th>
-                                            <th>Importer Details</th>
+                                            <th style="text-align: center">Bayer Details</th>
+                                            <th style="text-align: center">Consignee Details</th>
+                                            <th style="text-align: center">Notify Party Details</th>
+                                            <th style="text-align: center">Importer Bank Details</th>
                                             <th style="text-align: center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($export_details as $export_detail)
                                             <tr>
-                                                <td><ul><li>{{$export_detail->}}</li></ul></td>
-                                                <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, dolores?</td>
-                                                <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse, adipisci.</td>
-                                                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, et.</td>
+                                                <td><ul><li>Buyer Code: {{$export_detail->buyer_code}}</li><li>Buyer name: {{$export_detail->buyer_name}}</li><li>Address: {{$export_detail->buyer_address}}</li><li>Contact Number: {{$export_detail->buyer_contact_number}}</li><li>Email: {{$export_detail->buyer_email}}</li><li>Country: {{$export_detail->buyer_country}}</li></ul></td>
+                                                <td><ul><li>Name: {{$export_detail->consignee_name}}</li><li>Address: {{$export_detail->consignee_address}}</li><li>Contact Number: {{$export_detail->consignee_contact_number}}</li><li>Email: {{$export_detail->consignee_email}}</li><li>Country: {{$export_detail->consignee_country}}</li></ul></td>
+                                                <td><ul><li>Party Name: {{$export_detail->notify_party_name}}</li><li>Address: {{$export_detail->notify_party_address}}</li><li>Contact Number: {{$export_detail->notify_party_contact}}</li><li>Email: {{$export_detail->notify_party_email}}</li><li>Country: {{$export_detail->notify_party_country}}</li></ul></td>
+                                                <td>
+                                                    <table class="table table-bordered " style="overflow: scroll;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>S.l</th>
+                                                                <th>Bank Name</th>
+                                                                <th>Account Name</th>
+                                                                <th>Account no.</th>
+                                                                <th>Branch</th>
+                                                                <th>Country</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($export_detail->bank_details as $key=>$bank_detail)
+                                                                <tr>
+                                                                    <td>{{++$key}}</td>
+                                                                    <td>{{$bank_detail->bank_name}}</td>
+                                                                    <td>{{$bank_detail->a_c_name}}</td>
+                                                                    <td>{{$bank_detail->a_C_no}}</td>
+                                                                    <td>{{$bank_detail->branch}}</td>
+                                                                    <td>{{$bank_detail->bank_country}}</td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </td>
                                                 <td>
                                                     <a class="btn btn-info" href="{{--route('edit_buyer')--}}">Edit</a>
                                                     <button class="btn btn-danger" data-toggle="modal" href="#deleteModal">Detele</button>
@@ -84,7 +109,7 @@
                                                     <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
                                                 </div>
                                                 <div class="caption pull-right">
-                                                    <form action="{{--route('pack.destroy',[$data->id])--}}" method="POST">
+                                                    <form action="{{route('export-buyer.destroy',[$export_detail->id])}}" method="POST">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               

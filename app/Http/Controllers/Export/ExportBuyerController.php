@@ -15,8 +15,9 @@ class ExportBuyerController extends Controller
      */
     public function index()
     {
-        $export_details = ExportBuyer::all();
-        return view('backend.export_management.manage_buyer.index',compact('export_detail'));
+        $export_details = ExportBuyer::get();
+        // dd($export_details->toArray());
+        return view('backend.export_management.manage_buyer.index',compact('export_details'));
     }
 
     /**
@@ -37,9 +38,10 @@ class ExportBuyerController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->toArray());
+        $request->provided_item = json_decode($request->provided_item);
+        $request->hs_item = json_decode($request->hs_item);
+        //dd($request->hs_item);
         $inputs = $request->except('_token');
-        ;
         $export = new ExportBuyer;
         $export->buyer_code = $request->buyer_code;
         $export->buyer_name = $request->buyer_name;
@@ -57,11 +59,11 @@ class ExportBuyerController extends Controller
         $export->notify_party_contact = $request->notify_party_contact;
         $export->notify_party_email = $request->notify_party_email;
         $export->notify_party_country = $request->notify_party_country;
-        $export->bank_details = serialize($request->provided_item);;
-        $export->assign_hs_code = serialize($request->hs_item);;
+        $export['bank_details'] = serialize($request->provided_item);
+        $export['assign_hs_code'] = serialize($request->hs_item);
         $export->save();
 
-        return redirect()->route('user-type.index')->withMsg('Successfully Created');
+        return redirect()->back()->withMsg('Successfully Created');
     }
 
     /**
@@ -106,6 +108,7 @@ class ExportBuyerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        ExportBuyer::whereId($id)->delete();
+        return redirect()->back()->withMsg("Successfully Deleted");
     }
 }
