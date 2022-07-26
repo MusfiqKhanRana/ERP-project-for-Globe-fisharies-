@@ -25,7 +25,7 @@ class CreateSalesContractsTable extends Migration
             $table->string('packaging_responsibility',['Globe Fisheries Ltd','Buyer'])->default('Globe Fisheries Ltd');
             $table->boolean('partial_shipment')->default(0);
             $table->boolean('trans_shipment')->default(0);
-            $table->string('shipping_responsibility',['FOB','CFR','CIF'])->default('FOB');
+            $table->enum('shipping_responsibility',['FOB','CFR','CIF'])->default('FOB');
             $table->integer('cfr_rate')->nullable();
             $table->integer('cif_rate')->nullable();
             $table->longText('shipment_remark')->nullable();
@@ -47,6 +47,7 @@ class CreateSalesContractsTable extends Migration
             $table->string('importer_bank_branch')->nullable();
             $table->string('importer_bank_country')->nullable();
             $table->longText('remark')->nullable();
+            $table->enum('status',['Initial','Pending','Approved'])->default('Initial');
             $table->timestamps();
         });
     }
