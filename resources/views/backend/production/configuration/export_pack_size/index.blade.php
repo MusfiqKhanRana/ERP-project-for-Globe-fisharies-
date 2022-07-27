@@ -27,7 +27,7 @@
                         <tr id="row1">
                             <td>{{ ++ $key }}</td>
                             <td class="text-align: center;"> {{$data->name}}</td>
-                            <td class="text-align: center;"> {{$data->weight}}</td>
+                            <td class="text-align: center;"> {{$data->weight}} Kg</td>
                             <td style="text-align: center">
                                 <a class="btn btn-info"  data-toggle="modal" href="#editpackModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
                                 <a class="btn red" data-toggle="modal" href="#deletepackModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>
@@ -80,7 +80,7 @@
                                             <div class="form-group">
                                                 <label for="inputEmail1" class="col-md-2 control-label">Weight</label>
                                                 <div class="col-md-8">
-                                                    <input type="text" class="form-control" value="{{$data->weight}}" required name="weight">
+                                                    <input type="text" class="form-control" value="{{$data->weight}} Kg" required name="weight">
                                                 </div><br><br>
                                             </div>
                                             <div class="modal-footer">
@@ -117,9 +117,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail1" class="col-md-2 control-label">Weight</label>
+                        <label for="inputEmail1" class="col-md-2 control-label">Weight (kg)</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" name="weight" placeholder="Weight">
+                            <input type="number" class="form-control" name="weight" placeholder="Weight">
                         </div>
                     </div>
                     <div class="modal-footer">
