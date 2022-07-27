@@ -16,7 +16,7 @@ class CreateExportPackSizesTable extends Migration
         Schema::create('export_pack_sizes', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->integer('weight')->nullable();
+            $table->double('weight')->nullable();
             $table->timestamps();
         });
     }

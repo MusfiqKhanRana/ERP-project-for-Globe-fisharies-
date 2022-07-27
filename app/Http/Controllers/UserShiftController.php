@@ -88,10 +88,10 @@ class UserShiftController extends Controller
         ->update([
             'name' => $request->name,
             'entry_time' => $request->entry_time,
-            'delay_time' => $request->entry_time,
-            'late_time' => $request->entry_time,
-            'out_time' => $request->entry_time,
-            'over_time' => $request->entry_time,
+            'delay_time' => $request->delay_time,
+            'late_time' => $request->late_time,
+            'out_time' => $request->out_time,
+            'over_time' => $request->over_time,
         ]);
         return redirect()->back()->withMsg("Successfully Updated");
     }
