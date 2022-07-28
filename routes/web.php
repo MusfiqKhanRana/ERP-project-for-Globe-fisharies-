@@ -39,6 +39,7 @@ use App\Http\Controllers\Export\ExportBuyerController;
 use App\Http\Controllers\Export\SalesContractController;
 use App\Http\Controllers\ExportPackSizeController;
 use App\Http\Controllers\FishGradeController;
+use App\Http\Controllers\GeneralItemStockController;
 use App\Http\Controllers\Inventory\InventoryStoreInController;
 use App\Http\Controllers\MedicalReportController;
 use App\Http\Controllers\MetalDetectorCheckController;
@@ -470,6 +471,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('procution-purchase-units', ProductionPurchaseUnitController::class);
 
     //Procution Purchase Item
+    Route::get('general/stock',[GeneralItemStockController::class,'GeneralStock'])->name('general.stock');
     Route::resource('production-purchase-item', ProductionPurchaseItemController::class);
 
     Route::get('production/purchase/requisition/confirm/{id}',[ProductionPurchaseRequisitionController::class,'requisitionConfirmPrint'])->name('purchase_requisition_confirm_print');
@@ -630,10 +632,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('export-buyer', ExportBuyerController::class);
 
     Route::post('sale_contract/ex_buyer_datapass',[SalesContractController::class,'ex_buyer_datapass'])->name('sale_contract.ex_buyer_datapass');
+    
     Route::resource('sale_contract',SalesContractController::class);
-    // Route::get('export/sale/contract/list',function(){
-    //     return view('backend.export_management.sale_contract.sale_contract_list');
-    // })->name('sale_contract_list');
+
+    Route::get('export/sale/contract/list',function(){
+        return view('backend.export_management.sale_contract.sale_contract_list');
+    })->name('sale_contract_list');
 
     // Route::get('export/sale/contract/print',function(){
     //     return view('backend.export_management.sale_contract.print_sale_contract');
