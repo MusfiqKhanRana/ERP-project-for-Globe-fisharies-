@@ -635,9 +635,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     
     Route::resource('sale_contract',SalesContractController::class);
 
-    Route::get('export/sale/contract/list',function(){
-        return view('backend.export_management.sale_contract.sale_contract_list');
-    })->name('sale_contract_list');
+    // Route::get('export/sale/contract/list',function(){
+        
+    // })->name('sale_contract_list');
 
     // Route::get('export/sale/contract/print',function(){
     //     return view('backend.export_management.sale_contract.print_sale_contract');

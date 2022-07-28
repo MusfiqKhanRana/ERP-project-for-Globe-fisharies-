@@ -21,7 +21,9 @@ class SalesContractController extends Controller
      */
     public function index()
     {
-       //
+        $sale_contracts = SalesContract::with(['sales_contract_items','export_buyer','advising_bank'])->get();
+        // dd($sale_contracts->toArray());
+        return view('backend.export_management.sale_contract.sale_contract_list');
     }
 
     /**

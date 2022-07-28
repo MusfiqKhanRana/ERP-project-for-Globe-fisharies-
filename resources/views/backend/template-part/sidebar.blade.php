@@ -1152,7 +1152,7 @@
                         </a>
                     </li>
                     <li class="nav-item @if( request()->path() == 'admin/export/sale/contract/list' ) active open @endif">
-                        <a href="{{route('sale_contract_list')}}" class="nav-link ">
+                        <a href="{{route('sale_contract.index')}}" class="nav-link ">
                             <span class="title">Sales Contract List</span>
                         </a>
                     </li>
