@@ -694,13 +694,42 @@
                 @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/inventory/cold_storage/export_storage_2') active open @endif 
                 @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/inventory/store_in') active open @endif 
                 @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/inventory/manage-location/Locate_item') active open @endif 
-                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/medical_report') active open @endif">
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/medical_report') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/processing-grade') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/processing-block') active open @endif
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/processing-block-size') active open @endif">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-archive" aria-hidden="true"></i>
                     <span class="title">Production Management</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
+                    <li class="nav-item @if( request()->path() == 'admin/processing-block-size' || request()->path() == 'admin/processing-block-size' ) active open @endif
+                        @if( request()->path() == 'admin/processing-block' || request()->path() == 'admin/processing-block' ) active open @endif
+                        @if( request()->path() == 'admin/processing-grade' || request()->path() == 'admin/processing-grade' ) active open @endif">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                            <span class="title">Configuration</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item @if( request()->path() == 'admin/processing-grade' ) active open @endif">
+                                <a href="{{route('processing-grade.index')}}" class="nav-link ">
+                                    <span class="title">Grade List</span>
+                                </a>
+                            </li>
+                            <li class="nav-item @if( request()->path() == 'admin/processing-block' ) active open @endif">
+                                <a href="{{route('processing-block.index')}}" class="nav-link ">
+                                    <span class="title">Block List</span>
+                                </a>
+                            </li>
+                            <li class="nav-item @if( request()->path() == 'admin/processing-block-size' ) active open @endif">
+                                <a href="{{route('processing-block-size.index')}}" class="nav-link ">
+                                    <span class="title">Size List</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/microbiological-test' ||  request()->path() == 'admin/temp_monitoring' ||  request()->path() == 'admin/production_test' ||  request()->path() == 'admin/temp-thermocouple' ||  request()->path() == 'admin/metal-detector' ||  request()->path() == 'admin/metal-detector/create' ||  request()->path() == 'admin/medical_report' ||  request()->path() == 'admin/ro-plant/create' ||  request()->path() == 'admin/ro-plant') active open @endif">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
@@ -798,14 +827,14 @@
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item @if( request()->path() == 'admin/production/chill-room/total-stock' ) active open @endif">
-                                <a href="{{route('production.chill_room.total_stock')}}" class="nav-link ">
-                                    <span class="title">Total Stock</span>
-                                </a>
-                            </li>
                             <li class="nav-item @if( request()->path() == 'admin/production/chill-room' ) active open @endif">
                                 <a href="{{route('production.chill_room.index')}}" class="nav-link ">
                                     <span class="title">Stock Details</span>
+                                </a>
+                            </li>
+                            <li class="nav-item @if( request()->path() == 'admin/production/chill-room/total-stock' ) active open @endif">
+                                <a href="{{route('production.chill_room.total_stock')}}" class="nav-link ">
+                                    <span class="title">Total Stock</span>
                                 </a>
                             </li>
                             <li class="nav-item @if( request()->path() == 'admin/production/chill-room/return-stock' ) active open @endif">
@@ -821,12 +850,13 @@
                             <span class="title">Chill Room</span>
                         </a>
                     </li> --}}
-                    <li class="nav-item @if( request()->path() == 'admin/processing-grade' ) active open @endif">
+                    {{-- <li class="nav-item @if( request()->path() == 'admin/processing-grade' ) active open @endif">
                         <a href="{{route('processing-grade.index')}}" class="nav-link nav-toggle">
                             <i class="fa fa-cog" aria-hidden="true"></i>
                             <span class="title">Configuration</span>
                         </a>
-                    </li>
+                    </li> --}}
+                    
                     <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/supply-item' ||  request()->path() == 'admin/production-supplier'  ||  request()->path() == 'admin/production-requisition'  ||  request()->path() == 'admin/production-supply'  ||  request()->path() == 'admin/production-requisition/create') active open @endif">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
@@ -1082,13 +1112,30 @@
                 @if( request()->path() == 'admin/export-buyer' || request()->path() == 'admin/export-buyer' ) active open @endif
                 @if( request()->path() == 'admin/export/sale/contract/list' || request()->path() == 'admin/export/sale/contract/list' ) active open @endif
                 @if( request()->path() == 'admin/export/commercial/list' || request()->path() == 'admin/export/commercial/list' ) active open @endif
-                @if( request()->path() == 'admin/export/packing/list' || request()->path() == 'admin/export/packing/list' ) active open @endif">
+                @if( request()->path() == 'admin/export/packing/list' || request()->path() == 'admin/export/packing/list' ) active open @endif
+                @if( request()->path() == 'admin/export-pack' || request()->path() == 'admin/export-pack' ) active open @endif">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-print" aria-hidden="true"></i>
                     <span class="title">Export Management</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
+                    <li class="nav-item @if( request()->path() == 'admin/production/chill-room' || request()->path() == 'admin/production/chill-room' ) active open @endif
+                        @if( request()->path() == 'admin/production/chill-room/return-stock' || request()->path() == 'admin/production/chill-room/return-stock' ) active open @endif
+                        @if( request()->path() == 'admin/export-pack' || request()->path() == 'admin/export-pack' ) active open @endif">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                            <span class="title">Configuration</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item @if( request()->path() == 'admin/export-pack' ) active open @endif">
+                                <a href="{{route('export-pack.index')}}" class="nav-link ">
+                                    <span class="title">Export Pack Size</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-item @if( request()->path() == 'admin/export-buyer' ) active open @endif">
                         <a href="{{route('export-buyer.index')}}" class="nav-link ">
                             <span class="title">Manage Buyer</span>

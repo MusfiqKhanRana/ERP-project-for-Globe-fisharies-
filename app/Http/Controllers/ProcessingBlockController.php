@@ -14,7 +14,8 @@ class ProcessingBlockController extends Controller
      */
     public function index()
     {
-        //
+        $p_block = ProcessingBlock::all();
+        return view('backend.production.configuration.processing_block.index',compact('p_block'));
     }
 
     /**
