@@ -14,7 +14,8 @@ class ProcessingBlockSizeController extends Controller
      */
     public function index()
     {
-        //
+        $p_block_size = ProcessingBlockSize::all();
+        return view('backend.production.configuration.processing_block_size.index',compact('p_block_size'));
     }
 
     /**

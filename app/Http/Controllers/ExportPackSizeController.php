@@ -14,7 +14,8 @@ class ExportPackSizeController extends Controller
      */
     public function index()
     {
-        //
+        $export_pack = ExportPackSize::all();
+        return view('backend.export_management.configuration.export_pack_size.index',compact('export_pack'));
     }
 
     /**

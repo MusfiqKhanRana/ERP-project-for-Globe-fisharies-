@@ -21,7 +21,7 @@ class ProcessingGradeController extends Controller
         $p_grade = ProcessingGrade::all();
         $p_block = ProcessingBlock::all();
         $p_block_size = ProcessingBlockSize::all();
-        return view('backend.production.configuration.index',compact('p_grade','p_block','p_block_size','export_pack'));
+        return view('backend.production.configuration.processing_grade.index',compact('p_grade','p_block','p_block_size','export_pack'));
     }
 
     /**
