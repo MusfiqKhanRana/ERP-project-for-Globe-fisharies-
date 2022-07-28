@@ -21,13 +21,7 @@ class SalesContractController extends Controller
      */
     public function index()
     {
-        $export_buyer = ExportBuyer::all();
-        $items = SupplyItem::all();
-        $grades = FishGrade::all();
-        $export_pack_sizes = ExportPackSize::all();
-        $bank_accounts = BankAccount::all();
-        // dd($export_buyer->toArray());
-        return view('backend.export_management.sale_contract.create_sale_contract',compact('export_buyer','items','grades','export_pack_sizes','bank_accounts'));
+       //
     }
 
     /**
@@ -37,7 +31,13 @@ class SalesContractController extends Controller
      */
     public function create()
     {
-        //
+        $export_buyer = ExportBuyer::all();
+        $items = SupplyItem::all();
+        $grades = FishGrade::all();
+        $export_pack_sizes = ExportPackSize::all();
+        $bank_accounts = BankAccount::all();
+        // dd($export_buyer->toArray());
+        return view('backend.export_management.sale_contract.create_sale_contract',compact('export_buyer','items','grades','export_pack_sizes','bank_accounts'));
     }
 
     /**

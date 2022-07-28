@@ -23,6 +23,10 @@ class ProductionPurchaseItemController extends Controller
         return view('backend.production.general_purchase.production_purchase_item.index',compact('production_purchase_unit','production_purchase_type','production_purchase_item'));
     }
 
+    public function GeneralStock(){
+        return view('backend.production.general_purchase.general_stock.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

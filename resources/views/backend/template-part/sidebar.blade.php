@@ -911,6 +911,11 @@
                                     <span class="title">Items</span>
                                 </a>
                             </li>
+                            <li class="nav-item  @if( request()->path() == 'admin/production-purchase-item') active open @endif">
+                                <a href="{{route('general.stock')}}" class="nav-link ">
+                                    <span class="title">General Stock</span>
+                                </a>
+                            </li>
                             <li class="nav-item   @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production-purchase-requisition/create' || request()->path() == 'admin/production-purchase-requisition' || request()->path() == 'admin/production/purchase/quotation' || request()->path() == 'admin/production/purchase/negotiation' ||  request()->path() == 'admin/production-quotation-confirmquotation' || request()->path() == 'admin/production-purchase-requisition/Order') active open @endif">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <span class="title">Requisition</span>
@@ -1142,12 +1147,12 @@
                         </a>
                     </li>
                     <li class="nav-item @if( request()->path() == 'admin/export/sale/contract/create' ) active open @endif">
-                        <a href="{{route('sale_contract.index')}}" class="nav-link ">
+                        <a href="{{route('sale_contract.create')}}" class="nav-link ">
                             <span class="title">Create Sales Contract</span>
                         </a>
                     </li>
                     <li class="nav-item @if( request()->path() == 'admin/export/sale/contract/list' ) active open @endif">
-                        <a href="{{--route('sale_contract_list')--}}" class="nav-link ">
+                        <a href="{{route('sale_contract_list')}}" class="nav-link ">
                             <span class="title">Sales Contract List</span>
                         </a>
                     </li>
