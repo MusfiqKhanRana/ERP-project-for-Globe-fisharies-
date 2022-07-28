@@ -21,13 +21,18 @@ class CreateSalesContractItemsTable extends Migration
             $table->string('processing_variant')->nullable();
             $table->unsignedInteger('supply_item_id')->nullable();
             $table->unsignedInteger('fish_grade_id')->nullable();
-            $table->unsignedInteger('pack_size_id')->nullable();
+            $table->unsignedInteger('export_pack_size_id')->nullable();
             $table->string('block_size')->nullable();
             $table->string('block_name')->nullable();
             $table->integer('cartons')->nullable();
             $table->string('total_in_kg')->nullable();
             $table->string('rate')->nullable();
             $table->string('total_amount')->nullable();
+            $table->string('freight_rate')->nullable();
+            $table->string('total_cfr_rate')->nullable();
+            $table->string('total_cif_rate')->nullable();
+            $table->string('total_amount_cfr')->nullable();
+            $table->string('total_amount_cif')->nullable();
             $table->timestamps();
         });
     }

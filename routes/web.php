@@ -629,7 +629,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //--------------------Export Management update--------------------//
     Route::resource('export-buyer', ExportBuyerController::class);
 
-
+    Route::post('sale_contract/ex_buyer_datapass',[SalesContractController::class,'ex_buyer_datapass'])->name('sale_contract.ex_buyer_datapass');
     Route::resource('sale_contract',SalesContractController::class);
     // Route::get('export/sale/contract/list',function(){
     //     return view('backend.export_management.sale_contract.sale_contract_list');
