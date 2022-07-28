@@ -48,6 +48,7 @@
                                     <thead>
                                         <tr>
                                             <th>Sl.</th>
+                                            <th>Sales Contract No</th>
                                             <th>Buyer Details</th>
                                             <th>Shipment Details</th>
                                             <th style="text-align: center">Order Details</th>
@@ -58,7 +59,8 @@
                                     <tbody>
                                        <tr>
                                             <td>1</td>
-                                            <td>Lorem, ipsum dolor sit amet <br> consectetur adipisicing elit. Sunt, dolores?</td>
+                                            <td>GFL/EXP/DUBAI/HRA/01/2022/22</td>
+                                            <td><span><b>Consignee</b></span><br> consectetur adipisicing elit. <br><br><span><b>Buyer(If ohter than Consignee)</b></span><br> Sunt, dolores?</li></ul></td>
                                             <td>Lorem ipsum, dolor sit amet <br>consectetur adipisicing elit. Esse, adipisci.</td>
                                             <td>
                                                 <table class="table table-bordered table-hober table-striped" style="overflow: scroll;">
@@ -105,7 +107,7 @@
                                             <td>
                                                 <button class="btn btn-success" data-toggle="modal" href="#ApproveModal">Approve</button>
                                                 <button class="btn btn-info" data-toggle="modal" href="#editSaleContractModal">Edit</button>
-                                                <a class="btn red-flamingo" href="{{route('print_sale_contract')}}">print</a>
+                                                <a class="btn red-flamingo" href="{{--route('print_sale_contract')--}}">print</a>
                                                 <button class="btn blue" data-toggle="modal" href="#AddItemModal">+  Add Item</button>
                                                 <button class="btn btn-danger"  data-toggle="modal" href="#deleteallModal">Delete</button>
                                             </td>
