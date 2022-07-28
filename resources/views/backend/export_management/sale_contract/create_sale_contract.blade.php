@@ -377,7 +377,7 @@
                                                         <select class="form-control advising_bank" name="advising_bank_id">
                                                             <option value="">--Select--</option>
                                                             @foreach ($bank_accounts as $bank_account)
-                                                                <option value="{{$bank_account->bank_name}}" data-account_number="{{$bank_account->account_number}}" data-branch_name="{{$bank_account->branch_name}}" data-swift_code="{{$bank_account->swift_code}}">{{$bank_account->bank_name}}</option>
+                                                                <option value="{{$bank_account->id}}" data-account_number="{{$bank_account->account_number}}" data-branch_name="{{$bank_account->branch_name}}" data-swift_code="{{$bank_account->swift_code}}">{{$bank_account->bank_name}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>

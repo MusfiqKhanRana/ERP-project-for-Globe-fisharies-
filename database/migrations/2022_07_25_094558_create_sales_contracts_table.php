@@ -17,8 +17,8 @@ class CreateSalesContractsTable extends Migration
             $table->id();
             //Shipping Info
             $table->unsignedInteger('export_buyer_id')->nullable();
-            $table->enum('port_of_loading',['By Air','By Sea','By Road','By Rail'])->default('By Air');
-            $table->string('pre_carring_by')->nullable();
+            $table->string('port_of_loading')->nullable();
+            $table->enum('pre_carring_by',['By Air','By Sea','By Road','By Rail'])->default('By Air');
             $table->string('port_of_discharge')->nullable();
             $table->string('final_destination')->nullable();
             $table->dateTime('shipment_date')->nullable();
