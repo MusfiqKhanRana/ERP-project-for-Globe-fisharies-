@@ -35,7 +35,7 @@ class CreateSalesContractsTable extends Migration
             $table->double('paid_in_percentage')->nullable();
             $table->double('paid_in_amount')->nullable();
             $table->double('due_amount')->nullable();
-            $table->unsignedInteger('advising_bank')->nullable();
+            $table->unsignedInteger('advising_bank_id')->nullable();
             $table->string('advising_bank_account_no')->nullable();
             $table->string('advising_bank_swift_code')->nullable();
             $table->string('bank_charge')->nullable();
