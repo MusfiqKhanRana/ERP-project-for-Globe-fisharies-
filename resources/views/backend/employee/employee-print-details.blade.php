@@ -2,18 +2,64 @@
 @section('site-title')
     Employee Print
 @endsection
+@section('style')
+<style>
+    .table th, .table td {
+        font-size: 15px;
+    }
+    table th, .table td {
+        text-align: left;
+    }
+   
+    #dvContainer {
+        background-color: rgb(255, 255, 255);
+    }
+    @media print {
+        body * {
+           visibility: hidden; // part to hide at the time of print
+           -webkit-print-color-adjust: exact !important; // not necessary use if colors not visible
+        }
+
+        #dvContainer {
+           background-color: blue !important;
+        }
+    }
+</style>
+@endsection
 @section('main-content')
     <div class="page-content-wrapper">
         <div class="page-content">
-            <div class="row" id="printEmployeeDetails">
+            <div class="row" id="dvContainer">
                 <div class="col-md-12">
                     <div class="" style="margin-left: 2%" >
-                        <div class="portlet-body" style="height: auto;">
-                            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
-                                <img style="height: 100px;" src="{{asset('assets/images/employee/images/'. $employee->image)}}">
-                            </div>
+                        <div class="portlet-body" style="width: 100%">
+                            <span><h3 style="text-align: center"><b>Empoloyee Details</b></h3></span><br>
+                            
+                            <div class="row">
+                                <div class="col-md-6"><div class="" style="max-width: 80px; max-height: 120px;">
+                                    <img style="height: 100px;" src="{{asset('assets/images/employee/images/'. $employee->image)}}">
+                                </div></div>
+                                <div class="col-md-6 offset-md-4"><div class="pull-right">
+                                    <h3>{{$employee->name}}</h3>
+                                    Employee ID: {{$employee->employee_id}}<br>
+                                    Email : {{$employee->email}}<br>
+                                    Phone : {{$employee->phone}}
+                                </div></div>
+                              </div><br><br>
+                             
+                                    {{-- <span class="pull-right">
+                                        <h3>{{$employee->name}}</h3>
+                                        Employee ID: {{$employee->employee_id}}<br>
+                                        Email : {{$employee->email}}<br>
+                                        Phone : {{$employee->phone}}
+                                    </span>
+                                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 80px; max-height: 120px;">
+                                        <img style="height: 100px;" src="{{asset('assets/images/employee/images/'. $employee->image)}}">
+                                    </div> --}}
+                                
+                            
                             <div class="row"  style="background-color:#d6d9e3;" >
-                                <label for="" ><b >Personal Details</b></label>
+                                <label for=""><b>Personal Details</b></label>
                             </div>
                             <div class="row">
                                 <table  class="table table-striped table-hover">
@@ -152,12 +198,12 @@
             </div>
             <div class="row" style="text-align: center" >
                 <a class="btn blue" style="background-color:#151515"  href="{{ url()->previous() }}"><i class="fa fa-backward"></i>  Back</a>
-                <button id="printbtn" class="btn red" ><i class="fa fa-print" aria-hidden="true">  Print Invoice</i></button>
+                <button id="printNow" onclick="divPrinting();" class="btn red" ><i class="fa fa-print" aria-hidden="true">  Print Invoice</i></button>
             </div>
         </div>
     </div>
 @endsection
-@section('script')
+{{-- @section('script')
 <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.0/jQuery.print.js"></script>
     <script>
         $(document).ready(function () {
@@ -166,6 +212,22 @@
             });
         })
     </script>
-@endsection
+@endsection --}}
+<script type="text/javascript">
+    function addStyling(){
+      document.style.background = "skyblue";
+    }
+    function divPrinting(){
+    var divContents = document.getElementById("dvContainer").innerHTML; 
+          var a = window.open('', '', 'left=40','top=40','height=500', 'width=800'); 
+          a.document.write('<html>'); 
+          a.document.write('<head> <title> document-printed-by-javascript </title> </head>'); 
+          a.document.write('<body>'); 
+          a.document.write(divContents); 
+          a.document.write('</body></html>'); 
+          a.document.close(); 
+          a.print();
+    }
+  </script>
 
 

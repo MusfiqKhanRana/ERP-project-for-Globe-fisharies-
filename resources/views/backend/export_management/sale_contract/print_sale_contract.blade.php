@@ -2,6 +2,35 @@
 @section('site-title')
     Sale Contract Invoice
 @endsection
+@section('style')
+<style>
+    table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+    .table td, .table th {
+        font-size: 10px;
+    }
+    
+   
+    #dvContainer {
+        background-color: rgb(255, 255, 255);
+    }
+    @media print {
+        body * {
+            margin-block-end: 20%;
+           visibility: hidden; // part to hide at the time of print
+           -webkit-print-color-adjust: exact !important; // not necessary use if colors not visible
+        }
+        body {
+        margin: 2.5cm 0;
+    }
+        
+        #dvContainer {
+           background-color: blue !important;
+        }
+    }
+</style>
 @section('main-content')
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
@@ -35,7 +64,7 @@
             @endif
             <!-- END PAGE TITLE-->
             <!-- BEGIN PAGE CONTENT-->
-            <div class="row" id="printrequisition">
+            <div class="row" id="dvContainer">
                 <div class="col-md-12">
                     <div class="" style="margin-left: 2%" >
                         <div class="portlet-body" style="height: auto;">
@@ -58,63 +87,270 @@
                                 
                             </div><br>
                             <div class="row" style="background-color:#d6d9e3">
-                                <div class="col-md-4">
-                                    <label for=""><b>Manufacture / Exporter</b></label>
-                                    <div>
-                                        <span>Test</span>
-                                    </div>
-                                   
-                                </div>
-                                <div class="col-md-4">
-                                    <label for=""><b>Notify Party</b></label>
-                                    <div>
-                                        <span>Test1</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for=""><b>Consignee</b></label>
-                                    <div>
-                                        <span>Test2</span>
-                                    </div>
-                                </div>
+                                <table class="table table-bordered" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Manufacture / Exporter</th>
+                                            <th>Notify Party</th>
+                                            <th>Consignee</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div><br>
                             <div class="row"  style="background-color:#d6d9e3; text-align:center;" >
                                 <label for="" ><b >COUNTRY ORIGIN : BANGLADESH</b></label>
                             </div><br>
                             <div class="row">
-                                <table class="table table-striped table-hover">
+                                <table class="table table-striped table-hover"  style='font-family:"Poppins", monospace; font-size:50%'>
                                     <thead>
                                         <tr style="background-color:#d6d9e3">
-                                            <th>Sl.</th>
-                                            <th>HS Code</th>
-                                            <th>Production Date</th>
-                                            <th>EXP Date</th>
-                                            <th>Type</th>
-                                            <th>Item</th>
-                                            <th>Variant</th>
-                                            <th>Grade</th>
-                                            <th>Scientific Name</th>
-                                            <th> Quantity / Master Carton</th>
-                                            <th>Pack Size</th>
-                                            <th>Gross Weight (KG)</th>
-                                            <th>Net Weight (KG)</th>
+                                            <th style="text-align: center">Sl.</th>
+                                            <th style="text-align: center">HS Code</th>
+                                            <th style="text-align: center">Production Date</th>
+                                            <th style="text-align: center">EXP Date</th>
+                                            <th style="text-align: center">Type</th>
+                                            <th style="text-align: center">Item</th>
+                                            <th style="text-align: center">Variant</th>
+                                            <th style="text-align: center">Grade</th>
+                                            <th style="text-align: center">Scientific Name</th>
+                                            <th style="text-align: center"> Quantity / Master Carton</th>
+                                            <th style="text-align: center">Pack Size</th>
+                                            <th style="text-align: center">Gross Weight (KG)</th>
+                                            <th style="text-align: center">Net Weight (KG)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>1</td>
-                                            <td>564875bkjhvb</td>
-                                            <td>2022/07/03</td>
-                                            <td>2022/08/03</td>
-                                            <td>IQF</td>
-                                            <td>Pangus</td>
-                                            <td>Gutted Clean</td>
-                                            <td>1 Kg Up</td>
-                                            <td>Lorem ipsum dolor sit amet.</td>
-                                            <td>100</td>
-                                            <td>300-500</td>
-                                            <td>50</td>
-                                            <td>45</td>
+                                            <td style="text-align: center">2</td>
+                                            <td style="text-align: center">564875bkjhvb</td>
+                                            <td style="text-align: center">2022/07/03</td>
+                                            <td style="text-align: center">2022/08/03</td>
+                                            <td style="text-align: center">IQF</td>
+                                            <td style="text-align: center">Pangus</td>
+                                            <td style="text-align: center">Gutted Clean</td>
+                                            <td style="text-align: center">1 Kg Up</td>
+                                            <td style="text-align: center">Lorem ipsum dolor sit amet.</td>
+                                            <td style="text-align: center">100</td>
+                                            <td style="text-align: center">300-500</td>
+                                            <td style="text-align: center">50</td>
+                                            <td style="text-align: center">45</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center">3</td>
+                                            <td style="text-align: center">564875bkjhvb</td>
+                                            <td style="text-align: center">2022/07/03</td>
+                                            <td style="text-align: center">2022/08/03</td>
+                                            <td style="text-align: center">IQF</td>
+                                            <td style="text-align: center">Pangus</td>
+                                            <td style="text-align: center">Gutted Clean</td>
+                                            <td style="text-align: center">1 Kg Up</td>
+                                            <td style="text-align: center">Lorem ipsum dolor sit amet.</td>
+                                            <td style="text-align: center">100</td>
+                                            <td style="text-align: center">300-500</td>
+                                            <td style="text-align: center">50</td>
+                                            <td style="text-align: center">45</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center">4</td>
+                                            <td style="text-align: center">564875bkjhvb</td>
+                                            <td style="text-align: center">2022/07/03</td>
+                                            <td style="text-align: center">2022/08/03</td>
+                                            <td style="text-align: center">IQF</td>
+                                            <td style="text-align: center">Pangus</td>
+                                            <td style="text-align: center">Gutted Clean</td>
+                                            <td style="text-align: center">1 Kg Up</td>
+                                            <td style="text-align: center">Lorem ipsum dolor sit amet.</td>
+                                            <td style="text-align: center">100</td>
+                                            <td style="text-align: center">300-500</td>
+                                            <td style="text-align: center">50</td>
+                                            <td style="text-align: center">45</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center">5</td>
+                                            <td style="text-align: center">564875bkjhvb</td>
+                                            <td style="text-align: center">2022/07/03</td>
+                                            <td style="text-align: center">2022/08/03</td>
+                                            <td style="text-align: center">IQF</td>
+                                            <td style="text-align: center">Pangus</td>
+                                            <td style="text-align: center">Gutted Clean</td>
+                                            <td style="text-align: center">1 Kg Up</td>
+                                            <td style="text-align: center">Lorem ipsum dolor sit amet.</td>
+                                            <td style="text-align: center">100</td>
+                                            <td style="text-align: center">300-500</td>
+                                            <td style="text-align: center">50</td>
+                                            <td style="text-align: center">45</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center">6</td>
+                                            <td style="text-align: center">564875bkjhvb</td>
+                                            <td style="text-align: center">2022/07/03</td>
+                                            <td style="text-align: center">2022/08/03</td>
+                                            <td style="text-align: center">IQF</td>
+                                            <td style="text-align: center">Pangus</td>
+                                            <td style="text-align: center">Gutted Clean</td>
+                                            <td style="text-align: center">1 Kg Up</td>
+                                            <td style="text-align: center">Lorem ipsum dolor sit amet.</td>
+                                            <td style="text-align: center">100</td>
+                                            <td style="text-align: center">300-500</td>
+                                            <td style="text-align: center">50</td>
+                                            <td style="text-align: center">45</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center">7</td>
+                                            <td style="text-align: center">564875bkjhvb</td>
+                                            <td style="text-align: center">2022/07/03</td>
+                                            <td style="text-align: center">2022/08/03</td>
+                                            <td style="text-align: center">IQF</td>
+                                            <td style="text-align: center">Pangus</td>
+                                            <td style="text-align: center">Gutted Clean</td>
+                                            <td style="text-align: center">1 Kg Up</td>
+                                            <td style="text-align: center">Lorem ipsum dolor sit amet.</td>
+                                            <td style="text-align: center">100</td>
+                                            <td style="text-align: center">300-500</td>
+                                            <td style="text-align: center">50</td>
+                                            <td style="text-align: center">45</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center">8</td>
+                                            <td style="text-align: center">564875bkjhvb</td>
+                                            <td style="text-align: center">2022/07/03</td>
+                                            <td style="text-align: center">2022/08/03</td>
+                                            <td style="text-align: center">IQF</td>
+                                            <td style="text-align: center">Pangus</td>
+                                            <td style="text-align: center">Gutted Clean</td>
+                                            <td style="text-align: center">1 Kg Up</td>
+                                            <td style="text-align: center">Lorem ipsum dolor sit amet.</td>
+                                            <td style="text-align: center">100</td>
+                                            <td style="text-align: center">300-500</td>
+                                            <td style="text-align: center">50</td>
+                                            <td style="text-align: center">45</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center">9</td>
+                                            <td style="text-align: center">564875bkjhvb</td>
+                                            <td style="text-align: center">2022/07/03</td>
+                                            <td style="text-align: center">2022/08/03</td>
+                                            <td style="text-align: center">IQF</td>
+                                            <td style="text-align: center">Pangus</td>
+                                            <td style="text-align: center">Gutted Clean</td>
+                                            <td style="text-align: center">1 Kg Up</td>
+                                            <td style="text-align: center">Lorem ipsum dolor sit amet.</td>
+                                            <td style="text-align: center">100</td>
+                                            <td style="text-align: center">300-500</td>
+                                            <td style="text-align: center">50</td>
+                                            <td style="text-align: center">45</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center">10</td>
+                                            <td style="text-align: center">564875bkjhvb</td>
+                                            <td style="text-align: center">2022/07/03</td>
+                                            <td style="text-align: center">2022/08/03</td>
+                                            <td style="text-align: center">IQF</td>
+                                            <td style="text-align: center">Pangus</td>
+                                            <td style="text-align: center">Gutted Clean</td>
+                                            <td style="text-align: center">1 Kg Up</td>
+                                            <td style="text-align: center">Lorem ipsum dolor sit amet.</td>
+                                            <td style="text-align: center">100</td>
+                                            <td style="text-align: center">300-500</td>
+                                            <td style="text-align: center">50</td>
+                                            <td style="text-align: center">45</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center">2</td>
+                                            <td style="text-align: center">564875bkjhvb</td>
+                                            <td style="text-align: center">2022/07/03</td>
+                                            <td style="text-align: center">2022/08/03</td>
+                                            <td style="text-align: center">IQF</td>
+                                            <td style="text-align: center">Pangus</td>
+                                            <td style="text-align: center">Gutted Clean</td>
+                                            <td style="text-align: center">1 Kg Up</td>
+                                            <td style="text-align: center">Lorem ipsum dolor sit amet.</td>
+                                            <td style="text-align: center">100</td>
+                                            <td style="text-align: center">300-500</td>
+                                            <td style="text-align: center">50</td>
+                                            <td style="text-align: center">45</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center">3</td>
+                                            <td style="text-align: center">564875bkjhvb</td>
+                                            <td style="text-align: center">2022/07/03</td>
+                                            <td style="text-align: center">2022/08/03</td>
+                                            <td style="text-align: center">IQF</td>
+                                            <td style="text-align: center">Pangus</td>
+                                            <td style="text-align: center">Gutted Clean</td>
+                                            <td style="text-align: center">1 Kg Up</td>
+                                            <td style="text-align: center">Lorem ipsum dolor sit amet.</td>
+                                            <td style="text-align: center">100</td>
+                                            <td style="text-align: center">300-500</td>
+                                            <td style="text-align: center">50</td>
+                                            <td style="text-align: center">45</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center">4</td>
+                                            <td style="text-align: center">564875bkjhvb</td>
+                                            <td style="text-align: center">2022/07/03</td>
+                                            <td style="text-align: center">2022/08/03</td>
+                                            <td style="text-align: center">IQF</td>
+                                            <td style="text-align: center">Pangus</td>
+                                            <td style="text-align: center">Gutted Clean</td>
+                                            <td style="text-align: center">1 Kg Up</td>
+                                            <td style="text-align: center">Lorem ipsum dolor sit amet.</td>
+                                            <td style="text-align: center">100</td>
+                                            <td style="text-align: center">300-500</td>
+                                            <td style="text-align: center">50</td>
+                                            <td style="text-align: center">45</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center">5</td>
+                                            <td style="text-align: center">564875bkjhvb</td>
+                                            <td style="text-align: center">2022/07/03</td>
+                                            <td style="text-align: center">2022/08/03</td>
+                                            <td style="text-align: center">IQF</td>
+                                            <td style="text-align: center">Pangus</td>
+                                            <td style="text-align: center">Gutted Clean</td>
+                                            <td style="text-align: center">1 Kg Up</td>
+                                            <td style="text-align: center">Lorem ipsum dolor sit amet.</td>
+                                            <td style="text-align: center">100</td>
+                                            <td style="text-align: center">300-500</td>
+                                            <td style="text-align: center">50</td>
+                                            <td style="text-align: center">45</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center">6</td>
+                                            <td style="text-align: center">564875bkjhvb</td>
+                                            <td style="text-align: center">2022/07/03</td>
+                                            <td style="text-align: center">2022/08/03</td>
+                                            <td style="text-align: center">IQF</td>
+                                            <td style="text-align: center">Pangus</td>
+                                            <td style="text-align: center">Gutted Clean</td>
+                                            <td style="text-align: center">1 Kg Up</td>
+                                            <td style="text-align: center">Lorem ipsum dolor sit amet.</td>
+                                            <td style="text-align: center">100</td>
+                                            <td style="text-align: center">300-500</td>
+                                            <td style="text-align: center">50</td>
+                                            <td style="text-align: center">45</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center">7</td>
+                                            <td style="text-align: center">564875bkjhvb</td>
+                                            <td style="text-align: center">2022/07/03</td>
+                                            <td style="text-align: center">2022/08/03</td>
+                                            <td style="text-align: center">IQF</td>
+                                            <td style="text-align: center">Pangus</td>
+                                            <td style="text-align: center">Gutted Clean</td>
+                                            <td style="text-align: center">1 Kg Up</td>
+                                            <td style="text-align: center">Lorem ipsum dolor sit amet.</td>
+                                            <td style="text-align: center">100</td>
+                                            <td style="text-align: center">300-500</td>
+                                            <td style="text-align: center">50</td>
+                                            <td style="text-align: center">45</td>
                                         </tr>
                                         <tr  style="background-color:#d6d9e3">
                                             <th colspan="9">Total Master Carton & Weight </th>
@@ -128,10 +364,10 @@
                                 </table>
                             </div>
                             <div class="row">
-                                <h4><b>TOTAL AMOUNT (IN WORD) :</b></h4>
+                                <h6><b>TOTAL AMOUNT (IN WORD) :</b></h6>
                             </div><br>
                             <div class="row">
-                                <table  class="table table-striped table-hover">
+                                <table  class="table table-striped table-hover table-bordered"  style='font-family:"Poppins", monospace; font-size:80%'>
                                     <tr>
                                         <th style="background-color:#d6d9e3">Sale Contract No.</th>
                                         <td>GFL/EXP/DUBAI/HRA/07/2022</td>
@@ -206,31 +442,24 @@
             <!-- END PAGE CONTENT-->
             <div class="row" style="text-align: center" >
                 <a class="btn blue" style="background-color:#29931D"  href="{{ url()->previous() }}"><i class="fa fa-backward"></i>  Back</a>
-                <button id="printbtn" class="btn red" ><i class="fa fa-print" aria-hidden="true">  Print Invoice</i></button>
+                <button id="printNow" onclick="divPrinting();" class="btn red" ><i class="fa fa-print" aria-hidden="true">  Print Invoice</i></button>
             </div>
         </div>
     </div>
 @endsection
-@section('script')
-<script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.0/jQuery.print.js"></script>
-<script>
-    jQuery(document).ready(function() {
-        $("#printbtn").click(function () {
-            $("#printrequisition").print();
-        });
-    });
-</script>
-{{-- <script>
-@media print(){
-    body *:not(#printrequisition):not(#printrequisition *){
-        visibility: hidden;
+<script type="text/javascript">
+    function addStyling(){
+      document.style.background = "skyblue";
     }
-    #printrequisition{
-        position:absolate;
-        top:0;
-        left:0;
+    function divPrinting(){
+    var divContents = document.getElementById("dvContainer").innerHTML; 
+          var a = window.open('', '', 'left=40','top=40','height=500', 'width=800'); 
+          a.document.write('<html>'); 
+          a.document.write('<head> <title> document-printed-by-javascript </title> </head>'); 
+          a.document.write('<body>'); 
+          a.document.write(divContents); 
+          a.document.write('</body></html>'); 
+          a.document.close(); 
+          a.print();
     }
-}
-</script> --}}
-
-@endsection
+  </script>

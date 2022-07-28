@@ -164,7 +164,7 @@
                                         <h4 style="text-align: center; background-color: rgb(208, 208, 241);"><b>Bank Details</b></h4>
                                     </div>
                                     <input type="hidden" value="" id="provided_item" name="provided_item">
-                                    <div class="form-group" style="padding:2%">
+                                    <div class="form-group" style="padding:2%; width:100%;">
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <label class="control-label" for="bank_name">Bank Name <span class="required">* </span></label>
@@ -216,7 +216,7 @@
                                         <h4 style="text-align: center; background-color: rgb(208, 208, 241);"><b>Assign HS Code</b></h4>
                                     </div>
                                     <input type="hidden" value="" id="hs_item" name="hs_item">
-                                    <div class="form-group" style="padding:2%">
+                                    <div class="form-group" style="padding:2%; width:100%">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label class="control-label" for="bank_name">Consignment Type <span class="required">* </span></label>
