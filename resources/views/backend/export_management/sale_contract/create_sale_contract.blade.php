@@ -466,6 +466,7 @@
 <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function () {
+        $("#add_items").prop("disabled",true);
         var grand_total = 0;
         $("#shipping_responsibility").change(function()
             {
@@ -598,6 +599,10 @@
         $("#rate").val(null);
         $("#total_amount").val(null);
         }
+        console.log($("#consignment_type").val());
+    if (($("#consignment_type").val())!=null &&  ( $("#hs_code").val()) != null && $("#type").val()!=null &&  $("#variant").val()!=null &&  $("#item_name").val()!=null &&  $("#grade").val() != null && $("#pack_size").val()!=null && $("#cartons").val()!=null &&  $("#total_in_kg").val()!=null && $("#rate").val()!=null && $("#total_amount").val()!=null  ) {
+        $("#add_items").prop("disabled",false);
+    }
     $("#add_items").click(function(){
         console.log('good');
         console.log($("#product").val());
@@ -619,6 +624,9 @@
             grand_total += total_amount_cif;
             items_array.push({"consignment_type":$("#consignment_type").val(),"hs_code":$("#hs_code").val(),"type":$("#type").val(),"item_name":$("#item_name").val(),"variant":$("#variant").val(),"grade":$("#grade").val(),"pack_size":$("#pack_size").val(),"cartons":$("#cartons").val(),"total_in_kg":$("#total_in_kg").val(),"rate":$("#rate").val(),"freight_rate":cif_rate,"total_cfr_rate":"N/A","total_cif_rate":total_cif_rate,"total_amount":$("#total_amount").val(),"total_amount_cfr":"N/A","total_amount_cif":total_amount_cif,"status":"stay"});
         }
+        else
+        items_array.push({"consignment_type":$("#consignment_type").val(),"hs_code":$("#hs_code").val(),"type":$("#type").val(),"item_name":$("#item_name").val(),"variant":$("#variant").val(),"grade":$("#grade").val(),"pack_size":$("#pack_size").val(),"cartons":$("#cartons").val(),"total_in_kg":$("#total_in_kg").val(),"rate":$("#rate").val(),"freight_rate":"N/A","total_cfr_rate":"N/A","total_cif_rate":"N/A","total_amount":$("#total_amount").val(),"total_amount_cfr":"N/A","total_amount_cif":"N/A","status":"stay"});
+        grand_total += parseFloat($("#total_amount").val());
         $('.grand_total').val(grand_total);
             $("#provided_item").val('');
             $("#provided_item").val(JSON.stringify(items_array));

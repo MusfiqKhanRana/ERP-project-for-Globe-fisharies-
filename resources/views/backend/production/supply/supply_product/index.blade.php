@@ -70,6 +70,9 @@
                                             Item Name
                                         </th>
                                         <th>
+                                            Category
+                                        </th>
+                                        <th>
                                             Market Name
                                         </th>
                                         <th>
@@ -88,6 +91,7 @@
                                         <tr>
                                             <td>{{++$key}}</td>
                                             <td>{{$item->name}}</td>
+                                            <td>{{$item->category}}</td>
                                             <td>{{$item->market_name}}</td>
                                             <td>{{$item->grade->name}}</td>
                                             <td>{{$item->details}}</td>
@@ -139,6 +143,18 @@
                                                                 <br><br>
                                                             </div>
                                                             <div class="form-group">
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Category</label>
+                                                                <div class="col-md-8">
+                                                                    <select name="category" class="form-control" id="">
+                                                                        <option value="">--Select--</option>
+                                                                        <option value="Fish" {{ $item->category == "Fish" ? 'selected' : '' }}>Fish</option>
+                                                                        <option value="Vegetable/Fruit" {{ $item->category == "Vegetable/Fruit" ? 'selected' : '' }}>Vegetable/Fruit</option>
+                                                                        <option value="Sweet Desert" {{ $item->category == "Sweet Desert" ? 'selected' : '' }}>Sweet Desert</option>
+                                                                        <option value="Dry Fish" {{ $item->category == "Dry Fish" ? 'selected' : '' }}>Dry Fish</option>
+                                                                    </select>
+                                                                </div><br><br>
+                                                            </div>
+                                                            <div class="form-group">
                                                                 <label for="inputEmail1" class="col-md-2 control-label">Market Name</label>
                                                                 <div class="col-md-8">
                                                                     <input type="text" class="form-control" value="{{$item->market_name}}"  name="market_name">
@@ -186,6 +202,18 @@
                                 <label for="inputEmail1" class="col-md-2 control-label">Item Name</label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control" placeholder="Item Name" required name="name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Category</label>
+                                <div class="col-md-8">
+                                    <select name="category" class="form-control" id="">
+                                        <option value="">--Select--</option>
+                                        <option value="Fish">Fish</option>
+                                        <option value="Vegetable/Fruit">Vegetable/Fruit</option>
+                                        <option value="Sweet Desert">Sweet Desert</option>
+                                        <option value="Dry Fish">Dry Fish</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">

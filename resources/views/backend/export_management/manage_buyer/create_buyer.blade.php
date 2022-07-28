@@ -223,8 +223,9 @@
                                                 <select class="form-control" name="consignment_type" id="consignment_type">
                                                     <option value="">--Select--</option>
                                                     <option value="Fish">Fish</option>
-                                                    <option value="Vegetable">Vegetable</option>
+                                                    <option value="Vegetable/Fruit">Vegetable/Fruit</option>
                                                     <option value="Sweet Desert">Sweet Desert</option>
+                                                    <option value="Dry Fish">Dry Fish</option>
                                                 </select>
 
                                             </div>
