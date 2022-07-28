@@ -48,7 +48,7 @@ class SalesContractController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->toArray());
+        // dd($request->toArray());
         SalesContract::create([
             'export_buyer_id'=>$request->export_buyer_id,
             'port_of_loading'=>$request->port_of_loading,
