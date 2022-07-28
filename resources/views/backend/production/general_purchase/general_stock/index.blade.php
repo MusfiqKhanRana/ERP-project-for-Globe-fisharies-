@@ -82,11 +82,7 @@
                             <tr>
                                 <th>Requisition No.</th>
                                 <th>Receive Date</th>
-                                <th>Item Type</th>
-                                <th>Item Name</th>
-                                <th>Item Unit</th>
-                                <th>Quantity</th>
-                                <th>Specification</th>
+                                <th style="text-align: center">General Item Details</th>
                                 <th style="text-align: center">Action</th>
                             </tr>
                             </thead>
@@ -94,172 +90,38 @@
                                 <tr id="row1">
                                     <td class="text-align: center;">1232</td>
                                     <td class="text-align: center;">17/07/2022</td>
-                                    <td class="text-align: center;">IQF</td>
-                                    <td class="text-align: center;">pangas</td>
-                                    <td class="text-align: center;">20</td>
-                                    <td class="text-align: center;">100</td>
-                                    <td class="text-align: center;">Good</td>
+                                    <td>
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Item Type</th>
+                                                    <th>Item Name</th>
+                                                    <th>Item Unit</th>
+                                                    <th>Quantity</th>
+                                                    <th>Specification</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-align: center;">IQF</td>
+                                                    <td class="text-align: center;">pangas</td>
+                                                    <td class="text-align: center;">20</td>
+                                                    <td class="text-align: center;">100</td>
+                                                    <td class="text-align: center;">Good</td>
+                                                    <td>
+                                                        <button class="btn btn-flamingo">Delete</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table> 
+                                    </td>
                                     <td style="text-align: center">
-                                        <a class="btn btn-danger"  data-toggle="modal" href="#damaged_Modal"><i class="fa fa-print"></i>  Print</a>
+                                        <a class="btn btn-danger"  href={{--route('#')--}}><i class="fa fa-print"></i>  Print</a>
                                     </td>
                                 </tr> 
                             </tbody>
                         </table>
-                        <div id="transfer_Modal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <form class="form-horizontal" role="form" method="post" action="#">
-                                        {{csrf_field()}}
-                                        <input type="hidden" name="inputs" class="inputs">
-                                        <input type="hidden" name="production_processing_unit_id" class="production_processing_unit_id">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                        <h2 class="modal-title" style="color: rgb(75, 65, 65);">Transfer Stock</h2>
-                                    </div>
-                                    <br>
-                                    <div class="modal-body">
-                                        @csrf
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Storage :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <select name="" class="form-control" id="">
-                                                    <option value="">--Select Storage--</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Pack Size(CNT) :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <select name="" class="form-control" id="">
-                                                    <option value="">--Select Zone--</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Avaiable Stock(CNT) :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                5
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Avaiable Stock(KG) :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                50
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Transfer Quantity(CNT) :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <input type="text" placeholder="Type qty" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Transfer Quantity(KG) :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <input type="text" placeholder="System will auto calculate" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Transferred For :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <select name="" class="form-control" id="">
-                                                    <option value="">--Select Client--</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
-                                            <label class="form-check-label" for="inlineCheckbox1">Transfer this stock having vacuum packed</label>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="m-10 btn btn-success">Confirm</button>
-                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                    </div>
-                                </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="damaged_Modal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <form class="form-horizontal" role="form" method="post" action="#">
-                                        {{csrf_field()}}
-                                        <input type="hidden" name="inputs" class="inputs">
-                                        <input type="hidden" name="production_processing_unit_id" class="production_processing_unit_id">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                        <h2 class="modal-title" style="color: rgb(75, 65, 65);">Damage Info</h2>
-                                    </div>
-                                    <br>
-                                    <div class="modal-body">
-                                        @csrf
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Item Name :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <p><b>Pangus</b></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Item Grade :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <p><b>300-500gm/3pcs</b></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Damaged :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <input type="text" placeholder="Type Damaged Quantity" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Image :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <input type="file" placeholder="Upoad attachment" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Remark :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="m-10 btn btn-success">Confirm</button>
-                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                    </div>
-                                </form>
-                                </div>
-                            </div>
-                        </div>
-                        
                         <div class="row">
                             {{-- <div class="col-md-12 text-center">{{ $employee->links() }}</div> --}}
                             {{-- {{ $ppu->links('vendor.pagination.custom') }} --}}
