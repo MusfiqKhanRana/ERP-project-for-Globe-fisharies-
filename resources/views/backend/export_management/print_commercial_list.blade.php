@@ -2,12 +2,26 @@
 @section('site-title')
      Commercial List Print
 @endsection
-@section('css')
+@section('style')
 <style>
-.table > :not(:first-child) {
-    border-top: 2px solid currentColor;
-}
-    </style>
+    .table td, .table th {
+        font-size: 10px;
+    }
+   
+    #dvContainer {
+        background-color: rgb(255, 255, 255);
+    }
+    @media print {
+        body * {
+           visibility: hidden; // part to hide at the time of print
+           -webkit-print-color-adjust: exact !important; // not necessary use if colors not visible
+        }
+
+        #dvContainer {
+           background-color: blue !important;
+        }
+    }
+</style>
 @endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
@@ -42,11 +56,11 @@
             @endif
             <!-- END PAGE TITLE-->
             <!-- BEGIN PAGE CONTENT-->
-            <div class="row" id="printrequisition">
+            <div class="row" id="dvContainer">
                 <div class="col-md-12">
                     <div class="" style="margin-left: 2%; margin-right: 2%;" >
                         <div class="portlet-body" style="height: auto;">
-                            <div class="row"><br><br><br><br>
+                            <div class="row">
                                 <div class="col-md-12" style="text-align: center">
                                     <h2><b>Commercial Invoice</b></h2>
                                 </div>
@@ -59,31 +73,28 @@
                                     <b>Date :</b> @php
                                     use Carbon\Carbon;
                                     $currentTime = Carbon::now();
-                                    echo $currentTime->toDateTimeString();
+                                    echo $currentTime->toDateString();
                                 @endphp
                                  </div>
                                 
                             </div><br>
                             <div class="row" style="background-color:#d6d9e3">
-                                <div class="col-md-4">
-                                    <label for=""><b>Manufacture / Exporter</b></label>
-                                    <div>
-                                        <span>Test</span>
-                                    </div>
-                                   
-                                </div>
-                                <div class="col-md-4">
-                                    <label for=""><b>Notify Party</b></label>
-                                    <div>
-                                        <span>Test1</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for=""><b>Consignee</b></label>
-                                    <div>
-                                        <span>Test2</span>
-                                    </div>
-                                </div>
+                                <table class="table table-bordered" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Manufacture / Exporter</th>
+                                            <th>Notify Party</th>
+                                            <th>Consignee</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div><br>
                             <div class="row"  style="background-color:#d6d9e3; text-align:center;" >
                                 <label for="" ><b >Conuntry Origin : Bangladesh</b></label>
@@ -197,12 +208,12 @@
             <!-- END PAGE CONTENT-->
             <div class="row" style="text-align: center" >
                 <a class="btn blue" style="background-color:#29931D"  href="{{ url()->previous() }}"><i class="fa fa-backward"></i>  Back</a>
-                <button id="printbtn" class="btn red" ><i class="fa fa-print" aria-hidden="true">  Print Invoice</i></button>
+                <button id="printNow" onclick="divPrinting();" class="btn red" ><i class="fa fa-print" aria-hidden="true">  Print Invoice</i></button>
             </div>
         </div>
     </div>
 @endsection
-@section('script')
+{{-- @section('script')
 <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.0/jQuery.print.js"></script>
 <script>
     jQuery(document).ready(function() {
@@ -211,4 +222,20 @@
         });
     });
 </script>
-@endsection
+@endsection --}}
+<script type="text/javascript">
+    function addStyling(){
+      document.style.background = "skyblue";
+    }
+    function divPrinting(){
+    var divContents = document.getElementById("dvContainer").innerHTML; 
+          var a = window.open('', '', 'left=40','top=40','height=500', 'width=800'); 
+          a.document.write('<html>'); 
+          a.document.write('<head> <title> document-printed-by-javascript </title> </head>'); 
+          a.document.write('<body>'); 
+          a.document.write(divContents); 
+          a.document.write('</body></html>'); 
+          a.document.close(); 
+          a.print();
+    }
+  </script>
