@@ -163,7 +163,8 @@ class SalesContractController extends Controller
      */
     public function destroy($id)
     {
-        //
+        SalesContract::whereId($id)->delete();
+        return redirect()->back()->withMsg("Successfully Deleted");
     }
 
     public function ex_buyer_datapass(Request $request){

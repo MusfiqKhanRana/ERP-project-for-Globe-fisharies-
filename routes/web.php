@@ -35,7 +35,9 @@ use App\Http\Controllers\CateringController;
 use App\Http\Controllers\ChillStorageController;
 use App\Http\Controllers\ColdstorageController;
 use App\Http\Controllers\EmployeeAttendanceController;
+use App\Http\Controllers\Export\CommercialListController;
 use App\Http\Controllers\Export\ExportBuyerController;
+use App\Http\Controllers\Export\PackingListController;
 use App\Http\Controllers\Export\SalesContractController;
 use App\Http\Controllers\ExportPackSizeController;
 use App\Http\Controllers\FishGradeController;
@@ -636,6 +638,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     
     Route::resource('sale_contract',SalesContractController::class);
 
+    Route::get('commercial/list',[CommercialListController::class,'index'])->name('commercial.list');
+    Route::get('packing/list',[PackingListController::class,'index'])->name('packing.list');
     // Route::get('export/sale/contract/list',function(){
         
     // })->name('sale_contract_list');
