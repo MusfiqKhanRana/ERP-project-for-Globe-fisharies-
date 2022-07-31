@@ -632,10 +632,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('export-buyer', ExportBuyerController::class);
 
     Route::post('sale_contract/ex_buyer_datapass',[SalesContractController::class,'ex_buyer_datapass'])->name('sale_contract.ex_buyer_datapass');
+    Route::get('sales/contract/approved/{id}',[SalesContractController::class,'approve_saleContract'])->name('sale.contract.approve');
     
     Route::resource('sale_contract',SalesContractController::class);
 
-    Route::get('sales/contract/approved',[SalesContractController::class,'approve_saleContract'])->name('sale.contract.approve');
     // Route::get('export/sale/contract/list',function(){
         
     // })->name('sale_contract_list');

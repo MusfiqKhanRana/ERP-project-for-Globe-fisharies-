@@ -270,19 +270,19 @@
                                 <div id="ApproveModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <input type="hidden" value="" id="id">
+                                            {{-- <input type="hidden" value="" id="id"> --}}
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                                 <h4 class="modal-title">Doyou want to approve it?</h4>
                                             </div>
                                             <div >
-                                                <form class="form-horizontal" action="" method="get" id="approve_sale">
-                                                    {{csrf_field()}}
+                                                {{-- <form class="form-horizontal" action="" method="get" > --}}
+                                                    {{-- {{csrf_field()}} --}}
                                                     <div class="modal-footer">
                                                         <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                                        <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Approve</button>
+                                                        <a href="" id="approve_sale"><button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Approve</button></a>
                                                     </div>
-                                                </form>
+                                                {{-- </form> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -426,10 +426,10 @@
  <script type="text/javascript">
     $(function () {
         $(".approve_sale_contract").click(function(){
-            $("#id").val($(this).data('id'));
-            $('#approve_sale').attr('action', $(this).data('route'));
+            // $("#id").val($(this).data('id'));
+            $('#approve_sale').attr('href', $(this).data('route'));
            
-            console.log($(this).data('route'));
+            // console.log();
            //console.log($(this).data('id'));
         });
         var table = $('.yajra-datatable').DataTable({
