@@ -47,6 +47,7 @@ use App\Http\Controllers\MedicalReportController;
 use App\Http\Controllers\MetalDetectorCheckController;
 use App\Http\Controllers\MicrobiologicalTestController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OtherProcessing\VegetableProcessingController;
 use App\Http\Controllers\PackControler;
 use App\Http\Controllers\PartyController;
 use App\Http\Controllers\payroll\BonusController;
@@ -577,6 +578,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('processing-block',ProcessingBlockController::class);
     Route::resource('processing-block-size',ProcessingBlockSizeController::class);
     
+    //Production Other Processing
+    Route::get('production/other_processing/vegetable/iqf',[VegetableProcessingController::class,'vegetable_iqf'])->name('production.other_processing.vegetable.iqf');
+    Route::get('production/other_processing/vegetable/block',[VegetableProcessingController::class,'vegetable_block'])->name('production.other_processing.vegetable.block');
 
     //Cs List
     // Route::get('production/purchase/cs/show', function () {
