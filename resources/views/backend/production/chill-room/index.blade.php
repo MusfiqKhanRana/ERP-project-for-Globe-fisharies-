@@ -263,9 +263,9 @@
                                                                     <select class="form-control type" name="processing_name" id="">
                                                                         <option value="">--Select--</option>
                                                                         <option value="iqf">IQF</option>
-                                                                        <option value="vegitable_iqf">Vegitable/Fruit IQF</option>
+                                                                        <option value="vegetable_iqf">Vegetable/Fruit IQF</option>
                                                                         <option value="block_frozen">Block Frozen</option>
-                                                                        <option value="vegitable_block">Vegitable/Fruit Block</option>
+                                                                        <option value="vegetable_block">Vegetable/Fruit Block</option>
                                                                         <option value="raw_bf_shrimp">Raw BF(Shrimp)</option>
                                                                         <option value="raw_iqf_shrimp">Raw IQF(Shrimp)</option>
                                                                         <option value="semi_iqf">Semi IQF</option>
@@ -289,15 +289,15 @@
                                                                         <option class="iqf" value="sliced_chinese_cut">Sliced(Chinese Cut)</option>
                                                                         <option class="iqf" value="butter_fly">Butter Fly</option>
                                                                         <option class="iqf" value="hgto">HGTO</option>
-                                                                        <option class="vegitable_iqf" value="cut_n_clean">Cut & Clean</option>
-                                                                        <option class="vegitable_iqf" value="whole">Whole</option>
-                                                                        <option class="vegitable_iqf" value="whole_n_clean">Whole & Clean</option>
+                                                                        <option class="vegetable_iqf" value="cut_n_clean">Cut & Clean</option>
+                                                                        <option class="vegetable_iqf" value="whole">Whole</option>
+                                                                        <option class="vegetable_iqf" value="whole_n_clean">Whole & Clean</option>
                                                                         <option class="block_frozen" value="whole">Whole</option>
                                                                         <option class="block_frozen" value="clean">Clean</option>
                                                                         <option class="block_frozen" value="slice">Slice</option>
-                                                                        <option class="vegitable_block" value="cut_n_clean">Cut & Clean</option>
-                                                                        <option class="vegitable_block" value="whole">Whole</option>
-                                                                        <option class="vegitable_block" value="whole_n_clean">Whole & Clean</option>
+                                                                        <option class="vegetable_block" value="cut_n_clean">Cut & Clean</option>
+                                                                        <option class="vegetable_block" value="whole">Whole</option>
+                                                                        <option class="vegetable_block" value="whole_n_clean">Whole & Clean</option>
                                                                         <option class="raw_bf_shrimp" value="hlso">HLSO</option>
                                                                         <option class="raw_bf_shrimp" value="pud">PUD</option>
                                                                         <option class="raw_bf_shrimp" value="p_n_d">P & D</option>
@@ -388,11 +388,11 @@
         $(".varient").chained(".type");
         $('.type').on("change",function(){
             var typex = $(this).val();
-            if (typex == "vegitable_iqf") {
+            if (typex == "vegetable_iqf") {
                     $('.alive_input').hide();
                     $('.deadd').hide();
                 }
-            else if (typex == "vegitable_block") {
+            else if (typex == "vegetable_block") {
                 $('.alive_input').hide();
                 $('.deadd').hide();
             }

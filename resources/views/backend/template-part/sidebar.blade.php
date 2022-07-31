@@ -1040,6 +1040,34 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="fa fa-user"></i>
+                            <span class="title">Other Processing</span>
+                            <span class="arrow"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item @if( request()->path() == 'admin/production/processing-unit/iqf') active open @endif">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="fa fa-user"></i>
+                                    <span class="title">Vegetable/Fruit</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item @if( request()->path() == 'admin/production/other_processing/vegetable/iqf') active open @endif">
+                                        <a href="{{route('production.other_processing.vegetable.iqf')}}" class="nav-link ">
+                                            <span class="title">IQF</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item @if( request()->path() == 'admin/production/other_processing/vegetable/block') active open @endif">
+                                        <a href="{{route('production.other_processing.vegetable.block')}}" class="nav-link ">
+                                            <span class="title">Block</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/inventory/store-in'||  request()->path() == 'admin/production/unload/gate_man/raw_item' ||  request()->path() == 'admin/inventory/cold_storage/export_storage_2' ||  request()->path() == 'admin/inventory/cold_storage/export_storage_1' ||  request()->path() == 'admin/inventory/cold_storage/bulk_storage'  ||  request()->path() == 'admin/inventory/store_in' ||  request()->path() == 'admin/inventory/manage-location/Locate_item') active open @endif">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
