@@ -17,6 +17,7 @@ class CreateProductionSupplyListItemsTable extends Migration
             $table->id();
             $table->unsignedInteger('production_supply_list_id')->nullable();
             $table->unsignedInteger('item_id')->nullable();
+            $table->string('category')->nullable();
             $table->unsignedInteger('grade_id')->nullable();
             $table->string('grade_name')->nullable();
             $table->integer('quantity')->nullable();

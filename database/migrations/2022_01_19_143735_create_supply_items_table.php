@@ -16,7 +16,7 @@ class CreateSupplyItemsTable extends Migration
         Schema::create('supply_items', function (Blueprint $table) {
             $table->id();
             $table->string("name")->nullable();
-            $table->string("category")->nullable();
+            $table->enum("category",['Fish','Vegetable/Fruit','Sweet Desert','Dry Fish'])->default('Fish');
             $table->string("market_name")->nullable();
             $table->unsignedInteger("grade_id")->nullable();
             $table->text("details")->nullable();

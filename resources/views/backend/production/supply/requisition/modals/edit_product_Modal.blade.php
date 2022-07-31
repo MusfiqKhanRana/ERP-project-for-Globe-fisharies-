@@ -36,6 +36,10 @@
                                             </select>
                                         </div>
                                         <div class="col-md-2">
+                                            <label for="product">Category</label>
+                                            <input type="text" class="form-control grade" value="{{$item->category}}"  name="grade" readonly>
+                                        </div>
+                                        <div class="col-md-2">
                                             <label for="product">Grade</label>
                                             <input type="text" class="form-control grade" value="{{$item->grade->name}}"  name="grade" readonly>
                                         </div>

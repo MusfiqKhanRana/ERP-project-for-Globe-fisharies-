@@ -32,6 +32,7 @@ class ProductionUnloadController extends Controller
                                 ])
                                 ->where('invoice_code',$request->invoice_no)
                                 ->Where('status',"Unload")->first();
+        // dd($production_requistion->toArray());
         if ($production_requistion) {
             return view('backend.production.unload.unload_list',compact('production_requistion','items'));
         } else {

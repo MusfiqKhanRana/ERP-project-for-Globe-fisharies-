@@ -66,6 +66,7 @@
                                     <tr>
                                         <th style="text-align: center">Check To Add Supply</th>
                                         <th>Item Name</th>
+                                        <th>Category</th>
                                         <th>Grade Name</th>
                                         <th>Quantity(kg)</th>
                                     </tr>
@@ -76,9 +77,10 @@
 
                                         <tr>
                                             <th style="text-align: center">
-                                                <input type="checkbox" class="supply_item" data-item_id={{$item->id}} data-id={{$item->pivot->id}} data-name={{$item->name}} data-grade_name={{$item->grade->name}} data-qty={{$item->pivot->quantity}} name="supply_item_ids[]" multiple="multiple">
+                                                <input type="checkbox" class="supply_item" data-item_id={{$item->id}} data-id={{$item->pivot->id}} data-name={{$item->name}} data-category={{$item->category}} data-grade_name={{$item->grade->name}} data-qty={{$item->pivot->quantity}} name="supply_item_ids[]" multiple="multiple">
                                             </th>
                                             <th>{{$item->name}}</th>
+                                            <th>{{$item->category}}</th>
                                             <th>{{$item->grade->name}}</th>
                                             <th>{{$item->pivot->quantity}}</th>  
                                         </tr>
@@ -124,6 +126,7 @@
                                                         <table class="table table-striped table-bordered table-hover" id="supplyTable">
                                                             <tr>
                                                                 <th>Name</th>
+                                                                <th>Category</th>
                                                                 <th>Grade Name</th>
                                                                 <th>Quantity(kg)</th>
                                                                 <th>Rate (Per KG)</th>
@@ -166,10 +169,11 @@
                 id = $(this).attr("data-id");
                 name = $(this).attr("data-name");
                 item_id = $(this).attr("data-item_id");
+                category = $(this).attr("data-category");
                 grade_name = $(this).attr("data-grade_name");
                 qty = $(this).attr("data-qty");
                 rate = $(this).attr("data-rate")
-                supply_item_ids.push({"id":id,"item_id":item_id,"name":name,"grade_name":grade_name,"qty":qty,"rate":rate});
+                supply_item_ids.push({"id":id,"item_id":item_id,"name":name,"category":category,"grade_name":grade_name,"qty":qty,"rate":rate});
                 let uniqueObjArray = [
                     ...new Map(supply_item_ids.map((item) => [item["id"], item])).values(),
                 ];
@@ -188,7 +192,7 @@
                 $("table#supplyTable td").remove();
                 $.each( supply_item_ids, function( key, product ) {
                     console.log(product);
-                    $("table#supplyTable tr").last().after("<tr><td> <input type='hidden' value='"+product.id+"' name='id[]'> <input type='hidden' value='"+product.item_id+"' name='item_id[]'>"+product.name+"</td><td>"+product.grade_name+"</td><td ><input name='qty[]'type='hidden' value='"+product.qty+"'> <span>"+product.qty+"</span></td><td><input name='rate[]'></td></tr>");
+                    $("table#supplyTable tr").last().after("<tr><td> <input type='hidden' value='"+product.id+"' name='id[]'> <input type='hidden' value='"+product.item_id+"' name='item_id[]'>"+product.name+"</td><td>"+product.category+"</td><td>"+product.grade_name+"</td><td ><input name='qty[]'type='hidden' value='"+product.qty+"'> <span>"+product.qty+"</span></td><td><input name='rate[]'></td></tr>");
                 });
         });
         //$('::option').css({"width": "100%"});

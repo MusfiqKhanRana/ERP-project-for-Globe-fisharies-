@@ -56,15 +56,19 @@
                                     <select class="form-control newitems" name="item" id="">
                                         <option value="">--select--</option>
                                         @foreach ($items as $item)
-                                            <option value="{{$item->id}}" data-grade="{{$item->grade->name}}" data-name="{{$item->name}}">{{$item->name}}({{$item->grade->name}})</option>
+                                            <option value="{{$item->id}}" data-category="{{$item->category}}" data-grade="{{$item->grade->name}}" data-name="{{$item->name}}">{{$item->name}}({{$item->grade->name}})</option>
                                         @endforeach
                                     </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="">Category:</label>
+                                    <input type="text" class="form-control category">
                                 </div>
                                 <div class="col-md-3">
                                     <label for="">Grade:</label>
                                     <input type="text" class="form-control grade">
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <label for="">Requested Qty :</label>
                                     <input type="number" class="form-control qnty" placeholder="type qty">
                                 </div>
@@ -82,16 +86,17 @@
                                     </div>
                                 </div>
                                 <div class="portlet-body" >
-                                    <div class="table-responsive">
+                                    <div class="table-responsive table-scrollable">
                                         <table class="table table-striped table-bordered table-hover" id="mytable">
                                             <thead>
                                                 <tr class="trtr">
                                                     <th>#</th>
                                                     <th>Name</th>
+                                                    <th>Category</th>
                                                     <th>Grade</th>
                                                     <th>Requested Quantity(kg)</th>
-                                                    <th style="width:30%">Recived Quatity(kg)</th>
-                                                    <th style="width:30%">Missing Quantity(kg)</th>
+                                                    <th style="width:100%">Recived Quatity(kg)</th>
+                                                    <th>Missing Quantity(kg)</th>
                                                     <th>Return</th>
                                                     <th style="width:15%">Total</th>
                                                     <th style="width:45%">Remark</th>
@@ -108,9 +113,10 @@
                                                     <tr>
                                                         <th scope="row">{{++$key}}</th>
                                                         <td>{{$item->name}}</td>
+                                                        <td>{{$item->category}}</td>
                                                         <td>{{$item->grade->name}}</td>
                                                         <td>{{$item->pivot->quantity}}</td>
-                                                        <td style="width:30%"><div class="row"><div class="col-md-6"><label for="">Alive</label><span><input type="number" name="alive_quantity[]" class="form-control alive_quantity" data-id="{{$key}}" data-req_quantity="{{$item->pivot->quantity}}"></span></div><div class="col-md-6"><label for="">Dead</label> <input type="number"  name="dead_quantity[]" data-id="{{$key}}" class="form-control dead_quantity"></div></div></td>
+                                                        <td style="width:100%"><div class="row"><div class="col-md-6"><label for="">Alive</label><span><input type="number" name="alive_quantity[]" class="form-control alive_quantity" data-id="{{$key}}" data-req_quantity="{{$item->pivot->quantity}}"></span></div><div class="col-md-6"><label for="">Dead/qty</label> <input type="number"  name="dead_quantity[]" data-id="{{$key}}" class="form-control dead_quantity"></div></div></td>
                                                         <td style="width:30%"><div class="row"><div class="col-md-6"><label for="">Missing</label><input type="number" name="missing_quantity[]" class="form-control missing_quantity{{$key}}" readonly></div><div class="col-md-6"><Label>Excess</Label><input type="number" name="excess_quantity[]" class="form-control excess_quantity{{$key}}" readonly ></div></div></td>
                                                         <td><input type="text" name="return_quantity[]" data-id="{{$key}}" class="form-control return_quantity"></td>
                                                         <td style="width:15%"><input type="text" name="total_quantity[]" class="form-control total_quantity{{$key}}" readonly></td>
@@ -239,9 +245,11 @@
             $('.newitems').change(function(){
                 grade = $(this).find(':selected').attr('data-grade');
                 items = $(this).find(':selected').attr('data-name');
+                category = $(this).find(':selected').attr('data-category');
                 supply_item_id = $(this).find(':selected').val();
                 // console.log(supply_item_id);
                 $('.grade').val(grade);
+                $('.category').val(category);
             });
             var product_array = [];
             $("#addbtn").click(function() {
@@ -250,14 +258,14 @@
                 console.log(items);
                 grade = $(".grade").val();
                 qnty = $(".qnty").val();
-                product_array.push({"items":items,"grade":grade,"qnty":qnty,"supply_item_id":supply_item_id,"status":"stay"})
+                product_array.push({"items":items,"category":category,"grade":grade,"qnty":qnty,"supply_item_id":supply_item_id,"status":"stay"})
                 console.log(product_array);
                 $("#reports").val('');
                 $("#reports").val(JSON.stringify(product_array));
                 $.each( product_array, function( key, product ) {
                     if (product.status == "stay") {
                         if(product_array.length-1 == key){
-                            $('#mytable tr:last').after("<tr><td>"+loop_lastcount+"</td><td>"+product.items+"</td><td>"+product.grade+"</td><td>"+product.qnty+"</td><td style='width:30%'><div class='row'><div class='col-md-6'><label>Alive</label><input type='number' data-id='"+loop_lastcount+"' data-req_quantity='"+product.qnty+"' name='alive_quantity[]' class='form-control alive_quantity'></div><div class='row'><div class='col-md-6'><label>Dead</label><input type='number' data-id='"+loop_lastcount+"' name='dead_quantity[]' class='form-control dead_quantity'></div></div></td><td style='width:30%'><div class='row'><div class='col-md-6'><label>Missing</label><input type='number' name='missing_quantity[]' class='form-control missing_quantity"+loop_lastcount+"' readonly></div><div class='row'><div class='col-md-6'><label>Excess</label><input type='number' name='excess_quantity[]' class='form-control excess_quantity"+loop_lastcount+"' readonly></div></div></td><td><input type='text' data-id='"+loop_lastcount+"' name='return_quantity[]' class='form-control return_quantity'></td><td style='width:15%'><input type='number' name='total_quantity[]' class='form-control total_quantity"+loop_lastcount+"' readonly></td><td style='width:45%'><input type='text' name='received_remark[]' class='form-control'><input type='hidden' name='id[]' value='no_id'><input type='hidden' name='supply_item_id[]' value="+product.supply_item_id+"></td></tr>");
+                            $('#mytable tr:last').after("<tr><td>"+loop_lastcount+"</td><td>"+product.items+"</td><td>"+product.category+"</td><td>"+product.grade+"</td><td>"+product.qnty+"</td><td style='width:100%'><div class='row'><div class='col-md-6'><label>Alive</label><input type='number' data-id='"+loop_lastcount+"' data-req_quantity='"+product.qnty+"' name='alive_quantity[]' class='form-control alive_quantity'></div><div class='row'><div class='col-md-6'><label>Dead/qty</label><input type='number' data-id='"+loop_lastcount+"' name='dead_quantity[]' class='form-control dead_quantity'></div></div></td><td style='width:30%'><div class='row'><div class='col-md-6'><label>Missing</label><input type='number' name='missing_quantity[]' class='form-control missing_quantity"+loop_lastcount+"' readonly></div><div class='row'><div class='col-md-6'><label>Excess</label><input type='number' name='excess_quantity[]' class='form-control excess_quantity"+loop_lastcount+"' readonly></div></div></td><td><input type='text' data-id='"+loop_lastcount+"' name='return_quantity[]' class='form-control return_quantity'></td><td style='width:15%'><input type='number' name='total_quantity[]' class='form-control total_quantity"+loop_lastcount+"' readonly></td><td style='width:45%'><input type='text' name='received_remark[]' class='form-control'><input type='hidden' name='id[]' value='no_id'><input type='hidden' name='supply_item_id[]' value="+product.supply_item_id+"></td></tr>");
                         }
                     }
                 });
