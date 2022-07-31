@@ -19,11 +19,13 @@ class SalesContractController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $sale_contracts = SalesContract::with(['sales_contract_items','export_buyer','advising_bank'])->get();
+        $sale_contracts = SalesContract::with(['sales_contract_items','export_buyer','advising_bank'])->where('status',$request->status)->get();
+        $pending_count = SalesContract::select('id','status')->where('status','Pending')->count();
+        $approved_count = SalesContract::select('id','status')->where('status','Approved')->count();
         // dd($sale_contracts->toArray());
-        return view('backend.export_management.sale_contract.sale_contract_list');
+        return view('backend.export_management.sale_contract.sale_contract_list',compact('sale_contracts','approved_count','pending_count'));
     }
 
     /**
@@ -31,6 +33,14 @@ class SalesContractController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function approve_saleContract($id)
+    {
+        $sale_contract = SalesContract::where('id',$id)->update(['status'=>'Approved']);
+        //dd($sale_contract);
+        return redirect()->back()->withMsg('Successfully Approver');
+    }
+
     public function create()
     {
         $export_buyer = ExportBuyer::all();

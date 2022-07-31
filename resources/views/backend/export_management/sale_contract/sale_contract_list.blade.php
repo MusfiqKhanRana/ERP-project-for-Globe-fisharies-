@@ -33,8 +33,8 @@
                         </div>
                     </div>
                 @endif
-                <a class="btn btn-danger" href=""><i class="fa fa-spinner"></i> Pending List </a>
-                <a class="btn btn-success" href=""><i class="fa fa-check"></i> Approve List</a><br><br>
+                <a class="btn btn-danger" href="{{route('sale_contract.index',"status=Pending")}}"><i class="fa fa-spinner"></i> Pending List ({{$pending_count}})</a>
+                <a class="btn btn-success" href="{{route('sale_contract.index',"status=Approved")}}"><i class="fa fa-check"></i> Approve List ({{$approved_count}})</a><br><br>
                 <!-- END PAGE TITLE-->
                 <div class="portlet box blue">
                     <div class="portlet-title">
@@ -57,61 +57,104 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                       <tr>
-                                            <td>1</td>
-                                            <td>GFL/EXP/DUBAI/HRA/01/2022/22</td>
-                                            <td><span><b>Consignee</b></span><br> consectetur adipisicing elit. <br><br><span><b>Buyer(If ohter than Consignee)</b></span><br> Sunt, dolores?</li></ul></td>
-                                            <td>Lorem ipsum, dolor sit amet <br>consectetur adipisicing elit. Esse, adipisci.</td>
-                                            <td>
-                                                <table class="table table-bordered table-hober table-striped" style="overflow: scroll;">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Sl.</th>
-                                                            <th>HS Code</th>
-                                                            <th>Type</th>
-                                                            <th>Item</th>
-                                                            <th>Variant</th>
-                                                            <th>Grade</th>
-                                                            <th>Scientific Name</th>
-                                                            <th>Quantity / Master Carton</th>
-                                                            <th>Pack Size</th>
-                                                            <th>Rate Per KG CFR (USD $)</th>
-                                                            <th>Rate per Master Carton CRF(USD $)</th>
-                                                            <th>Total Amount (USD $)</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>111222</td>
-                                                            <td>IQF</td>
-                                                            <td>Pangus</td>
-                                                            <td>Gutted Clean</td>
-                                                            <td>1 KG Up</td>
-                                                            <td>Pangasius Hypophtalmus</td>
-                                                            <td>650</td>
-                                                            <td>20 KG x 1</td>
-                                                            <td>1.00</td>
-                                                            <td>20.00</td>
-                                                            <td>13000.00</td>
-                                                            <td>
-                                                                <button class="btn btn-info"  data-toggle="modal" href="#editkModal">Edit</button>
-                                                                <button class="btn btn-danger"  data-toggle="modal" href="#deleteModal">Delete</button>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                            <td>Lorem ipsum dolor sit amet <br>consectetur adipisicing elit. Delectus, et.</td>
-                                            <td>
-                                                <button class="btn btn-success" data-toggle="modal" href="#ApproveModal">Approve</button>
-                                                <button class="btn btn-info" data-toggle="modal" href="#editSaleContractModal">Edit</button>
-                                                <a class="btn red-flamingo" href="{{--route('print_sale_contract')--}}">print</a>
-                                                <button class="btn blue" data-toggle="modal" href="#AddItemModal">+  Add Item</button>
-                                                <button class="btn btn-danger"  data-toggle="modal" href="#deleteallModal">Delete</button>
-                                            </td>
-                                       </tr>
+                                        @foreach ($sale_contracts as $key=> $sale_contract)
+                                            <tr>
+                                                <td>{{++$key}}</td>
+                                                <td>GFL/EXP/DUBAI/HRA/01/2022/22</td>
+                                                <td><span><b>Buyer</b><br><ul><li>{{$sale_contract->export_buyer->buyer_code}}</li><li>{{$sale_contract->export_buyer->buyer_name}}</li><li>{{$sale_contract->export_buyer->buyer_address}}</li>
+                                                    <li>{{$sale_contract->export_buyer->buyer_contact_number}}</li><li>{{$sale_contract->export_buyer->buyer_email}}</li><li>{{$sale_contract->export_buyer->buyer_country}}</li></ul></span>
+                                                    <span><b>Consignee</b></span><br><ul><li>{{$sale_contract->export_buyer->consignee_name}}</li><li>{{$sale_contract->export_buyer->consignee_address}}</li><li>{{$sale_contract->export_buyer->consignee_contact_number}}</li>
+                                                    <li>{{$sale_contract->export_buyer->consignee_email}}</li><li>{{$sale_contract->export_buyer->consignee_country}}</li></ul><span><b>Notify Party</b></span><br><ul><li>{{$sale_contract->export_buyer->notify_party_name}}</li>
+                                                        <li>{{$sale_contract->export_buyer->notify_party_address}}</li><li>{{$sale_contract->export_buyer->notify_party_contact}}</li><li>{{$sale_contract->export_buyer->notify_party_email}}</li><li>{{$sale_contract->export_buyer->notify_party_country}}</li></ul></li></ul></td>
+                                                <td><span><b>Shipment Details</b><ul><li>Port of Land: {{$sale_contract->port_of_loading}}</li><li>Port of Land: {{$sale_contract->pre_carring_by}}</li><li>Port of Land: {{$sale_contract->port_of_discharge}}</li>
+                                                    <li>Port of Land: {{$sale_contract->final_destination}}</li><li>Port of Land: {{$sale_contract->shipment_date}}</li><li>Port of Land: {{$sale_contract->packaging_responsibility}}</li><li>Port of Land: {{$sale_contract->partial_shipment}}</li>
+                                                    <li>Port of Land: {{$sale_contract->trans_shipment}}</li><li>Port of Land: {{$sale_contract->shipping_responsibility}}</li><li>Port of Land: {{$sale_contract->cfr_rate}}</li><li>Port of Land: {{$sale_contract->cif_rate}}</li><li>Port of Land: {{$sale_contract->sale_contract}}</li></ul></span></td>
+                                                <td>
+                                                    <table class="table table-bordered table-hober table-striped" style="overflow: scroll;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Sl.</th>
+                                                                <th>HS Code</th>
+                                                                <th>Type</th>
+                                                                <th>Variant</th>
+                                                                <th>Item</th>
+                                                                <th>Grade</th>
+                                                                <th>Scientific Name</th>
+                                                                <th>Quantity / Master Carton</th>
+                                                                <th>Pack Size</th>
+                                                                <th>Rate Per KG CFR (USD $)</th>
+                                                                <th>Rate per Master Carton CRF(USD $)</th>
+                                                                <th>Rate Per KG CIR (USD $)</th>
+                                                                <th>Rate per Master Carton CIF(USD $)</th>
+                                                                @if ($sale_contract->status == "Pending")
+                                                                    <th>Action</th>
+                                                                @endif
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($sale_contract->sales_contract_items as $key2=> $item)
+                                                            <tr>
+                                                                <td>{{++$key2}}</td></td>
+                                                                <td>{{$item->hs_code}}</td>
+                                                                <td>{{$item->processing_type}}</td>
+                                                                <td>{{$item->processing_variant}}</td>
+                                                                <td>{{$item->supply_item->name}}</td>
+                                                                <td>{{$item->fish_grade->name}}</td>
+                                                                <td>Pangasius Hypophtalmus</td>
+                                                                <td>{{$item->cartons}}</td>
+                                                                <td>{{$item->export_pack_size->name}}</td>
+                                                                <td>
+                                                                    @if($item->total_cfr_rate == 0)
+                                                                    <p class="label label-sm label-primary">N/A</p>
+                                                                    @else
+                                                                        <span class="label label-sm label-success">{{$item->total_cfr_rate}}</span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if($item->total_amount_cfr == 0)
+                                                                    <p class="label label-sm label-primary">N/A</p>
+                                                                    @else
+                                                                        <span class="label label-sm label-success">{{$item->total_amount_cfr}}</span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if($item->total_cif_rate == 0)
+                                                                    <p class="label label-sm label-primary">N/A</p>
+                                                                    @else
+                                                                        <span class="label label-sm label-success">{{$item->total_cif_rate}}</span>
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if($item->total_amount_cif == 0)
+                                                                    <p class="label label-sm label-primary">N/A</p>
+                                                                    @else
+                                                                        <span class="label label-sm label-success">{{$item->total_amount_cif}}</span>
+                                                                    @endif
+                                                                </td>
+                                                                @if ($sale_contract->status == "Pending")
+                                                                    <td>
+                                                                        <button class="btn btn-info"  data-toggle="modal" href="#editkModal">Edit</button>
+                                                                        <button class="btn btn-danger"  data-toggle="modal" href="#deleteModal">Delete</button>
+                                                                    </td>
+                                                                @endif
+                                                            </tr>
+                                                            @endforeach
+                                                            
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td><span><b>Payment Method:</b><ul><li> {{$sale_contract->payment_method}}</li></ul></span><br><span><b>Advising Bank</b><ul><li>Bank Name: {{$sale_contract->advising_bank->bank_name}}</li><li>Account Number: {{$sale_contract->advising_bank->account_number}}</li>
+                                                    <li>{{$sale_contract->advising_bank->branch_name}}</li><li>{{$sale_contract->advising_bank->branch_address}}</li><li>{{$sale_contract->advising_bank->swift_code}}</li></ul></span><br><span><b>Importer Bank: </b><ul><li>{{$sale_contract->importer_account_name}}</li>
+                                                        <li>{{$sale_contract->bank_name}}</li><li>{{$sale_contract->importer_bank_branch}}</li><li>{{$sale_contract->importer_bank_country}}</li><li>{{$sale_contract->importer_account_no}}</li></ul></span></td>
+                                                <td>
+                                                    <button class="btn btn-success approve_sale_contract" data-toggle="modal" data-route="{{route('sale.contract.approve',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" href="#ApproveModal">Approve</button>
+                                                    <button class="btn btn-info" data-toggle="modal" href="#editSaleContractModal">Edit</button>
+                                                    <a class="btn red-flamingo" href="{{--route('print_sale_contract')--}}">print</a>
+                                                    <button class="btn blue" data-toggle="modal" href="#AddItemModal">+  Add Item</button>
+                                                    <button class="btn btn-danger"  data-toggle="modal" href="#deleteallModal">Delete</button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                                 <div id="deleteallModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -227,12 +270,13 @@
                                 <div id="ApproveModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
+                                            <input type="hidden" value="" id="id">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                                 <h4 class="modal-title">Doyou want to approve it?</h4>
                                             </div>
                                             <div >
-                                                <form class="form-horizontal" role="form" method="post" action="#">
+                                                <form class="form-horizontal" action="" method="get" id="approve_sale">
                                                     {{csrf_field()}}
                                                     <div class="modal-footer">
                                                         <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
@@ -381,7 +425,13 @@
 
  <script type="text/javascript">
     $(function () {
-      
+        $(".approve_sale_contract").click(function(){
+            $("#id").val($(this).data('id'));
+            $('#approve_sale').attr('action', $(this).data('route'));
+           
+            console.log($(this).data('route'));
+           //console.log($(this).data('id'));
+        });
         var table = $('.yajra-datatable').DataTable({
             processing: true,
             serverSide: true,
@@ -467,20 +517,6 @@
 
             });
     });
-</script>
-<script type="text/javascript">
-    $(function() {
-        tinymce.init({
-            var myContent = tinymce.get("textarea").getContent({ format: "text" });
-            selector: 'textarea',
-            // init_instance_callback : function(editor) {
-            //     var freeTiny = document.querySelector('.tox .tox-notification--in');
-            //     freeTiny.style.display = 'none';
-            // }
-            
-        });
-    });
-    
   </script>
     
 @endsection

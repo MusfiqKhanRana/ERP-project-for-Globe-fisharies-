@@ -635,6 +635,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     
     Route::resource('sale_contract',SalesContractController::class);
 
+    Route::get('sales/contract/approved',[SalesContractController::class,'approve_saleContract'])->name('sale.contract.approve');
     // Route::get('export/sale/contract/list',function(){
         
     // })->name('sale_contract_list');
