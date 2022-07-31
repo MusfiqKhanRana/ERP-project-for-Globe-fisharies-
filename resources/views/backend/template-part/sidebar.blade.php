@@ -1157,7 +1157,7 @@
                         </a>
                     </li>
                     <li class="nav-item @if( request()->path() == 'admin/export/commercial/list' ) active open @endif">
-                        <a href="{{--route('commercial_list')--}}" class="nav-link ">
+                        <a href="{{route('commercial.list')}}" class="nav-link ">
                             <span class="title">Commercial List</span>
                         </a>
                     </li>

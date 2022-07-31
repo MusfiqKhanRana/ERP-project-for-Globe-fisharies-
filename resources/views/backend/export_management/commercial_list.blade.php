@@ -102,7 +102,7 @@
                                                 <button class="btn btn-warning" data-toggle="modal" href="#AddDocument">Add Document</button>
                                                 <button class="btn blue" data-toggle="modal" href="#editInvoice">Edit Invoice Details</button>
                                                 <button class="btn grey-salt" data-toggle="modal" href="#SendSaleContract">Send To sales Contract</button>
-                                                <a class="btn btn-danger" href="{{route('print_commercial_list')}}">print</a>
+                                                <a class="btn btn-danger" href="{{--route('print_commercial_list')--}}">print</a>
                                             </td>
                                        </tr>
                                     </tbody>
