@@ -241,7 +241,10 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
-                                                                        <div class="col-md-12">
+                                                                        <div class="col-md-6">
+                                                                            <p>Category :&nbsp;&nbsp;<b><span class="category"></span></b></p>
+                                                                        </div>
+                                                                        <div class="col-md-6">
                                                                             <p>Current Stock:&nbsp;&nbsp;<b><span class="total_weight"></span></b></p>
                                                                         </div>
                                                                     </div>
@@ -260,7 +263,9 @@
                                                                     <select class="form-control type" name="processing_name" id="">
                                                                         <option value="">--Select--</option>
                                                                         <option value="iqf">IQF</option>
+                                                                        <option value="vegitable_iqf">Vegitable/Fruit IQF</option>
                                                                         <option value="block_frozen">Block Frozen</option>
+                                                                        <option value="vegitable_block">Vegitable/Fruit Block</option>
                                                                         <option value="raw_bf_shrimp">Raw BF(Shrimp)</option>
                                                                         <option value="raw_iqf_shrimp">Raw IQF(Shrimp)</option>
                                                                         <option value="semi_iqf">Semi IQF</option>
@@ -284,9 +289,15 @@
                                                                         <option class="iqf" value="sliced_chinese_cut">Sliced(Chinese Cut)</option>
                                                                         <option class="iqf" value="butter_fly">Butter Fly</option>
                                                                         <option class="iqf" value="hgto">HGTO</option>
+                                                                        <option class="vegitable_iqf" value="cut_n_clean">Cut & Clean</option>
+                                                                        <option class="vegitable_iqf" value="whole">Whole</option>
+                                                                        <option class="vegitable_iqf" value="whole_n_clean">Whole & Clean</option>
                                                                         <option class="block_frozen" value="whole">Whole</option>
                                                                         <option class="block_frozen" value="clean">Clean</option>
                                                                         <option class="block_frozen" value="slice">Slice</option>
+                                                                        <option class="vegitable_block" value="cut_n_clean">Cut & Clean</option>
+                                                                        <option class="vegitable_block" value="whole">Whole</option>
+                                                                        <option class="vegitable_block" value="whole_n_clean">Whole & Clean</option>
                                                                         <option class="raw_bf_shrimp" value="hlso">HLSO</option>
                                                                         <option class="raw_bf_shrimp" value="pud">PUD</option>
                                                                         <option class="raw_bf_shrimp" value="p_n_d">P & D</option>
@@ -317,13 +328,13 @@
                                                                 <div class="col-md-3">
                                                                     <p><b>Production Quantity :</b></p>
                                                                 </div>
-                                                                <div class="col-md-3">
+                                                                <div class="col-md-3 alive_input">
                                                                     <label for="">Alive Quantity</label>
                                                                     <input type="number" placeholder="alive qty" class="form-control alive_quantity" name="alive_quantity">
                                                                 </div>
                                                                 <div class="col-md-3 dead_input">
-                                                                    <label for="">Dead Quantity</label>
-                                                                    <input type="number" placeholder="dead qty" class="form-control dead_quantity" name="dead_quantity">
+                                                                    <label for=""><span class="deadd">Dead</span> Quantity</label>
+                                                                    <input type="number" placeholder="quantity" class="form-control dead_quantity" name="dead_quantity">
                                                                 </div>
                                                             </div>
                                                             <div class="row warning" style="margin-top:3%">
@@ -377,6 +388,17 @@
         $(".varient").chained(".type");
         $('.type').on("change",function(){
             var typex = $(this).val();
+            if (typex == "vegitable_iqf") {
+                    $('.alive_input').hide();
+                    $('.deadd').hide();
+                }
+            else if (typex == "vegitable_block") {
+                $('.alive_input').hide();
+                $('.deadd').hide();
+            }
+            else
+                $('.alive_input').show();
+                $('.deadd').show();
             $('.varient').on("change",function(){
                 var varientx = $(this).val();
                 if (typex == "iqf" && varientx == "fillet") {
@@ -385,6 +407,7 @@
                 if (typex == "iqf" && varientx != "fillet") {
                     $('.dead_input').show();
                 }
+                
              });
         });
         $('.process_modal').click(function(){

@@ -56,6 +56,7 @@ class ProductionSupplyListController extends Controller
                 $production_supply_item = ProductionSupplyListItem::create([
                     'production_supply_list_id' => $production_supply->id,
                     'item_id' => $product->item_id,
+                    'category' => $product->category,
                     'grade_id' => $product->item_grade_id,
                     'grade_name' => $product->item_grade_name,
                     'quantity' => $product->quantity,

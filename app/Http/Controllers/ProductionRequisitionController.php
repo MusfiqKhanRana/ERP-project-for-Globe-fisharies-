@@ -45,7 +45,8 @@ class ProductionRequisitionController extends Controller
      */
     public function create()
     {
-        $supply_item = SupplyItem::with('grade')->get();
+        $supply_item = SupplyItem::with('grade')->get()->groupBy('category');
+        // dd($supply_item->toArray());
         return view('backend.production.supply.requisition.index',compact('supply_item'));
     }
     public function changeStatus(Request $request)
@@ -79,6 +80,7 @@ class ProductionRequisitionController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->toArray());
         $data = $request->all();
         // $invoice_code = Helper::IDGenerator(new ProductionRequisition, 'invoice_code', 5, 'Requisition');
         $invoice_code = random_int(100000, 999999);

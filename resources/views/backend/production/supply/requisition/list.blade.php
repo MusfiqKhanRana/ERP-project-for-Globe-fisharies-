@@ -77,6 +77,7 @@
                                                             <tr>
                                                                 <th>Sl.</th>
                                                                 <th>Name</th>
+                                                                <th>Category</th>
                                                                 <th>Grade Name</th>
                                                                 <th>Quantity(kg)</th>
                                                                 <th>Rate</th>
@@ -94,6 +95,7 @@
                                                                 <tr>
                                                                     <th>{{++$key2}}</th>
                                                                     <th>{{$item->name}}</th>
+                                                                    <th>{{$item->category}}</th>
                                                                     <th>{{$item->grade->name}}</th>
                                                                     <th>{{$item->pivot->quantity}}</th>  
                                                                     <th>{{$item->pivot->rate}}</th>  

@@ -75,11 +75,31 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-2">
+                                                <label for="">Select Category</label>
+                                                <select name="category" class="form-control category" id="">
+                                                    <option value="">--Select--</option>
+                                                    @foreach ($supply_item as $key => $value)
+                                                        <option value="{{str_replace(' ', '_', $key)}}">{{$key}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            {{-- @php
+                                                // dd($supply_item->toArray());
+                                                foreach ($supply_item as $key => $value) {
+                                                    // dd($value->toArray());
+                                                    foreach ($value as $key2 => $item) {
+                                                        dd($item->name);
+                                                    }
+                                                }
+                                            @endphp --}}
+                                            <div class="col-md-2">
                                                 <label for="">Select Item</label>
-                                                <select class="form-control" id="item">
+                                                <select class="form-control item" id="item">
                                                     <option selected>Select</option>
-                                                    @foreach ($supply_item as $item)
-                                                        <option value="{{$item->id}}" data-name="{{$item->name}}" data-grade_id="{{$item->grade->id}}" data-grade_name="{{$item->grade->name}}">{{$item->name}} ({{$item->grade->name}})</option>
+                                                    @foreach ($supply_item as $key => $value)
+                                                        @foreach ($value as $key2 => $item)
+                                                            <option class="{{str_replace(' ', '_', $key)}}" value="{{$item->id}}" data-category="{{$key}}" data-name="{{$item->name}}" data-grade_id="{{$item->grade->id}}" data-grade_name="{{$item->grade->name}}">{{$item->name}} ({{$item->grade->name}})</option>
+                                                        @endforeach
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -95,7 +115,7 @@
                                             
                                             <div class="col-md-2">
                                                 <label for="addbtn" ></label>
-                                                <button type="button" style="margin-top: 3%" class="btn dark pull-right " id="addbtn">Add Another Item <i class= 'fa fa-plus'> </i> </button>
+                                                <button type="button" style="margin-top: 3%" class="btn dark pull-right "  id="addbtn">Add Another Item <i class= 'fa fa-plus'> </i> </button>
                                             </div>
                                         </div>
                                     </div>
@@ -111,6 +131,7 @@
                                     <table class="table table-striped table-bordered table-hover" id="mytable">
                                         <tr>
                                             <th>Item Name</th>
+                                            <th>Category</th>
                                             <th>Item Grade</th>
                                             {{-- <th>Unit Price</th> --}}
                                             <th>Quantity</th>
@@ -252,6 +273,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         jQuery(document).ready(function() {
+            $(".item").chained(".category");
             function nullmaking(){
 
                 $("#item").val(null);
@@ -264,19 +286,20 @@
             var product_array = [];
             $('#item').change(function(){
                 item_id = $(this).val();
+                category = $(this).find(':selected').data("category");
                 item_name = $(this).find(':selected').data("name");
                 item_grade_id = $(this).find(':selected').data("grade_id");
                 item_grade_name = $(this).find(':selected').data("grade_name");
                 $("#grade").val(item_grade_name);
             })
             $("#addbtn").click(function() {
-                product_array.push({"item_id":item_id,"item_name":item_name,"item_grade_id":item_grade_id,"item_grade_name":$('#grade').val(),"quantity":$('#quantity').val(),"status":"stay"})
+                product_array.push({"item_id":item_id,"item_name":item_name,"category":category,"item_grade_id":item_grade_id,"item_grade_name":$('#grade').val(),"quantity":$('#quantity').val(),"status":"stay"})
                 $("#products").val('');
                 $("#products").val(JSON.stringify(product_array));
                 $.each( product_array, function( key, product ) {
                     if (product.status == "stay") {
                         if(product_array.length-1 == key){
-                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+product.item_name+"</td><td>"+product.item_grade_name+"</td><td>"+product.quantity+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                            $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+product.item_name+"</td><td>"+product.category+"</td><td>"+product.item_grade_name+"</td><td>"+product.quantity+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
                         }
                     }
                 });
