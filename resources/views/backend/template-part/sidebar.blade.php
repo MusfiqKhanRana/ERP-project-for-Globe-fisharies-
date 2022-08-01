@@ -1162,7 +1162,7 @@
                         </a>
                     </li>
                     <li class="nav-item @if( request()->path() == 'admin/export/packing/list' ) active open @endif">
-                        <a href="{{--route('packing_list')--}}" class="nav-link ">
+                        <a href="{{route('packing.list')}}" class="nav-link ">
                             <span class="title">Packing List</span>
                         </a>
                     </li>

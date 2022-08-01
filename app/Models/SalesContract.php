@@ -21,4 +21,8 @@ class SalesContract extends Model
     {
         return $this->belongsTo(BankAccount::class,'advising_bank_id');
     }
+    public function documents()
+    {
+        return $this->hasMany(ExportDocument::class);
+    }
 }
