@@ -642,6 +642,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     
     Route::resource('sale_contract',SalesContractController::class);
 
+    Route::post('commercial/export/document',[CommercialListController::class,'AddDocument'])->name('commercial.export.document');
+    Route::post('commercial/list/invoice/{id}',[CommercialListController::class,'store'])->name('commercial.list.invoice');
+    Route::get('commercial/list/approved/{id}',[CommercialListController::class,'commercial_list'])->name('commercial.list.approve');
     Route::get('commercial/list',[CommercialListController::class,'index'])->name('commercial.list');
     Route::get('packing/list',[PackingListController::class,'index'])->name('packing.list');
     // Route::get('export/sale/contract/list',function(){
