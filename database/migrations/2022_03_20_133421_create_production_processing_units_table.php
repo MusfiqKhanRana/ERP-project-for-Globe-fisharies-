@@ -28,6 +28,8 @@ class CreateProductionProcessingUnitsTable extends Migration
             $table->unsignedInteger('dead_quantity')->nullable();
             $table->unsignedDouble('Initial_weight')->nullable();
             $table->dateTime('initial_weight_datetime')->nullable();
+            $table->unsignedDouble('vegetable_glazing_weight')->nullable();
+            $table->dateTime('vegetable_glazing_datetime')->nullable();
             $table->unsignedDouble('fillet_soaking_weight')->nullable();
             $table->dateTime('fillet_soaking_weight_datetime')->nullable();
             $table->unsignedDouble('fillet_glazing_weight')->nullable();
