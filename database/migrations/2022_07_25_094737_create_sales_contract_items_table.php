@@ -34,6 +34,7 @@ class CreateSalesContractItemsTable extends Migration
             $table->string('total_cif_rate')->nullable();
             $table->string('total_amount_cfr')->nullable();
             $table->string('total_amount_cif')->nullable();
+            $table->date('expiry_date')->nullable();
             $table->timestamps();
         });
     }
