@@ -18,9 +18,7 @@ class CommercialListController extends Controller
         }else{
             $commercial_status = 'Pending';
         }
-        // dd($request->all());
-        //dd('good');
-        $pending_count = SalesContract::select('id','status')->where('status','Approved')->count();
+        $pending_count = SalesContract::select('id','status')->where('status','Approved')->where('commercial_status','Pending')->count();
         $approved_count = SalesContract::select('id','commercial_status')->where('commercial_status','Approved')->count();
         $sale_contracts = SalesContract::where('status',"Approved")->where(function($q) use($commercial_status){
             if ($commercial_status) {

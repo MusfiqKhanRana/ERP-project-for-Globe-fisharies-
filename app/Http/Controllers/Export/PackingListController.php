@@ -17,9 +17,7 @@ class PackingListController extends Controller
         }else{
             $packing_status = 'Pending';
         }
-        // dd($request->all());
-        //dd('good');
-        $pending_count = SalesContract::select('id','status')->where('status','Approved')->count();
+        $pending_count = SalesContract::select('id','status')->where('status','Approved')->where('packing_status','Pending')->count();
         $approved_count = SalesContract::select('id','packing_status')->where('packing_status','Approved')->count();
         $sale_contracts = SalesContract::where('status',"Approved")->where(function($q) use($packing_status){
             if ($packing_status) {
