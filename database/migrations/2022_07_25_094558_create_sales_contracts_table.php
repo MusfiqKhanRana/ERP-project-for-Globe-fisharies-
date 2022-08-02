@@ -48,6 +48,19 @@ class CreateSalesContractsTable extends Migration
             $table->string('importer_bank_country')->nullable();
             $table->longText('remark')->nullable();
             $table->enum('status',['Initial','Pending','Approved'])->default('Initial');
+            $table->enum('commercial_status',['Pending','Approved'])->default('Pending');
+            $table->enum('packing_status',['Pending','Approved'])->default('Pending');
+            //Commercial Invoice
+            $table->string('exp_no')->nullable();
+            $table->date('exp_date')->nullable();
+            $table->string('cbm')->nullable();
+            $table->date('production_date')->nullable();
+            $table->double('net_weight')->nullable();
+            $table->double('gross_weight')->nullable();
+            //Packing Production Date
+            $table->date('packing_production_date')->nullable();
+            $table->double('packing_gross_weight')->nullable();
+            $table->date('expiry_date')->nullable();
             $table->timestamps();
         });
     }

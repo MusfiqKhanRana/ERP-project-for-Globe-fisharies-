@@ -1167,13 +1167,14 @@
                                     <span class="title">Export Pack Size</span>
                                 </a>
                             </li>
+                            <li class="nav-item @if( request()->path() == 'admin/export-buyer' ) active open @endif">
+                                <a href="{{route('export-buyer.index')}}" class="nav-link ">
+                                    <span class="title">Manage Buyer</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
-                    <li class="nav-item @if( request()->path() == 'admin/export-buyer' ) active open @endif">
-                        <a href="{{route('export-buyer.index')}}" class="nav-link ">
-                            <span class="title">Manage Buyer</span>
-                        </a>
-                    </li>
+                    
                     <li class="nav-item @if( request()->path() == 'admin/export/sale/contract/create' ) active open @endif">
                         <a href="{{route('sale_contract.create')}}" class="nav-link ">
                             <span class="title">Create Sales Contract</span>
@@ -1190,7 +1191,7 @@
                         </a>
                     </li>
                     <li class="nav-item @if( request()->path() == 'admin/export/packing/list' ) active open @endif">
-                        <a href="{{--route('packing_list')--}}" class="nav-link ">
+                        <a href="{{route('packing.list')}}" class="nav-link ">
                             <span class="title">Packing List</span>
                         </a>
                     </li>

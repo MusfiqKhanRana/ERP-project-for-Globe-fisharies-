@@ -154,7 +154,7 @@
                                                         <button class="btn blue" data-toggle="modal" href="#AddItemModal">+  Add Item</button>
                                                         <button class="btn btn-danger delete" data-route="{{route('sale_contract.destroy',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" data-toggle="modal" href="#deleteallModal">Delete</button>
                                                     @else
-                                                        <button class="btn btn-danger">Revise</button>
+                                                        <button class="btn btn-danger sales_revise" data-toggle="modal" href="#ReviceModal" data-route="{{route('sale_contract.list.revise',$sale_contract->id)}}">Revise</button>
                                                         <a class="btn red-flamingo" href="{{--route('print_sale_contract')--}}">print</a>
                                                     @endif
                                                 </td>
@@ -289,6 +289,23 @@
                                                         <a href="" id="approve_sale"><button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Approve</button></a>
                                                     </div>
                                                 {{-- </form> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="ReviceModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            {{-- <input type="hidden" value="" id="id"> --}}
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h4 class="modal-title">Do you want to Revise it?</h4>
+                                            </div>
+                                            <div >
+                                                <div class="modal-footer">
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                    <a href="" id="revice"><button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Submit</button></a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -437,6 +454,11 @@
            
             // console.log();
            //console.log($(this).data('id'));
+        });
+
+        $(".sales_revise").click(function(){
+           
+            $('#revice').attr('href', $(this).data('route'));
         });
         $(".delete").click(function(){
             $('#delete_sale_contract').attr('action', $(this).data('route'));

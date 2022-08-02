@@ -32,8 +32,8 @@
                     </div>
                 @endif
                 <h3>
-                    <a class="btn btn-danger" href="{{route('packing_list')}}"> Pending List</a>
-                    <a class="btn btn-info" href="{{route('packing_approve_list')}}"> Approve List</a>
+                    <a class="btn btn-danger" href="{{route('packing.list',"status=Pending")}}"><i class="fa fa-spinner"></i> Pending List ({{$pending_count}})</a>
+                <a class="btn btn-success" href="{{route('packing.list',"status=Approved")}}"><i class="fa fa-check"></i> Approve List ({{$approved_count}})</a><br><br>
                 </h3>
                 
                 <div class="portlet box blue">
@@ -48,7 +48,7 @@
                                     <thead>
                                         <tr>
                                             <th>Sl.</th>
-                                            <th>Invoice No.</th>
+                                            <th>Sales Contract No</th>
                                             <th>Buyer Details</th>
                                             <th>Shipment Details</th>
                                             <th style="text-align: center">Order Details</th>
@@ -57,54 +57,91 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                       <tr>
-                                            <td>1</td>
-                                            <td>GTCL-1233</td>
-                                            <td>Lorem, ipsum dolor sit amet <br> consectetur adipisicing elit. Sunt, dolores?</td>
-                                            <td>Lorem ipsum, dolor sit amet <br>consectetur adipisicing elit. Esse, adipisci.</td>
-                                            <td>
-                                                <table class="table table-bordered " style="overflow: scroll;">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Sl.</th>
-                                                            <th>HS Code</th>
-                                                            <th>Type</th>
-                                                            <th>Item</th>
-                                                            <th>Variant</th>
-                                                            <th>Grade</th>
-                                                            <th>Scientific Name</th>
-                                                            <th>Quantity/Master Carton</th>
-                                                            <th>Pack Size</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>111222</td>
-                                                            <td>IQF</td>
-                                                            <td>Pangus</td>
-                                                            <td>Gutted Clean</td>
-                                                            <td>1 Kg Up</td>
-                                                            <td>Scientific Name</td>
-                                                            <td>100</td>
-                                                            <td>3kg</td>
-                                                            <td>
-                                                                <button class="btn btn-danger" data-toggle="modal" href="#ExpiryDate">Add Expiry Date</button>
-                                                            </td>
-                                                        </tr>
+                                        @foreach ($sale_contracts as $key=> $sale_contract)
+                                            <tr>
+                                                <td>{{++$key}}</td>
+                                                <td>GFL/EXP/DUBAI/HRA/01/2022/22</td>
+                                                <td><span><b>Buyer</b><br><ul><li>{{$sale_contract->export_buyer->buyer_code}}</li><li>{{$sale_contract->export_buyer->buyer_name}}</li><li>{{$sale_contract->export_buyer->buyer_address}}</li>
+                                                    <li>{{$sale_contract->export_buyer->buyer_contact_number}}</li><li>{{$sale_contract->export_buyer->buyer_email}}</li><li>{{$sale_contract->export_buyer->buyer_country}}</li></ul></span>
+                                                    <span><b>Consignee</b></span><br><ul><li>{{$sale_contract->export_buyer->consignee_name}}</li><li>{{$sale_contract->export_buyer->consignee_address}}</li><li>{{$sale_contract->export_buyer->consignee_contact_number}}</li>
+                                                    <li>{{$sale_contract->export_buyer->consignee_email}}</li><li>{{$sale_contract->export_buyer->consignee_country}}</li></ul><span><b>Notify Party</b></span><br><ul><li>{{$sale_contract->export_buyer->notify_party_name}}</li>
+                                                        <li>{{$sale_contract->export_buyer->notify_party_address}}</li><li>{{$sale_contract->export_buyer->notify_party_contact}}</li><li>{{$sale_contract->export_buyer->notify_party_email}}</li><li>{{$sale_contract->export_buyer->notify_party_country}}</li></ul></li></ul></td>
+                                                <td><span><b>Shipment Details</b><ul><li>{{$sale_contract->port_of_loading}}</li><li>{{$sale_contract->pre_carring_by}}</li><li> {{$sale_contract->port_of_discharge}}</li>
+                                                    <li> {{$sale_contract->final_destination}}</li><li>{{$sale_contract->shipment_date}}</li><li>{{$sale_contract->packaging_responsibility}}</li><li> {{$sale_contract->partial_shipment}}</li>
+                                                    <li>{{$sale_contract->trans_shipment}}</li><li>{{$sale_contract->shipping_responsibility}}</li><li>{{$sale_contract->cfr_rate}}</li><li> {{$sale_contract->cif_rate}}</li><li>{{$sale_contract->sale_contract}}</li></ul></span></td>
+                                                <td>
+                                                    <table class="table table-bordered table-hober table-striped" style="overflow: scroll;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Sl.</th>
+                                                                <th>HS Code</th>
+                                                                <th>Type</th>
+                                                                <th>Variant</th>
+                                                                <th>Item</th>
+                                                                <th>Grade</th>
+                                                                <th>Scientific Name</th>
+                                                                <th>Quantity / Master Carton</th>
+                                                                <th>Pack Size</th>
+                                                                <th>Ready Product</th>
+                                                                @if ($sale_contract->packing_status == "Approved")
+                                                                    <th>Net Weight</th>
+                                                                    <th>Gross Weight</th>
+                                                                @endif
+                                                                @if ($sale_contract->packing_status == "Pending")
+                                                                    <th style="text-align: center">Action</th>
+                                                                @endif
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($sale_contract->sales_contract_items as $key2=> $item)
+                                                            <tr>
+                                                                <td>{{++$key2}}</td></td>
+                                                                <td>{{$item->hs_code}}</td>
+                                                                <td>{{$item->processing_type}}</td>
+                                                                <td>{{$item->processing_variant}}</td>
+                                                                <td>{{$item->supply_item->name}}</td>
+                                                                <td>{{$item->fish_grade->name}}</td>
+                                                                <td>Pangasius Hypophtalmus</td>
+                                                                <td>{{$item->cartons}}</td>
+                                                                <td>{{$item->export_pack_size->name}}</td>
+                                                                <td>300</td>
+                                                                @if ($sale_contract->packing_status == "Approved")
+                                                                    <td>100</td>
+                                                                    <td >200</td>
+                                                                @endif
+                                                                @if ($sale_contract->packing_status == "Pending")
+                                                                    <td>
+                                                                        @if($item->expiry_date !== null)
+                                                                            <p class="label label-sm label-primary">N/A</p>
+                                                                        @else
+                                                                            <button class="btn btn-info packing_expiry_date"  data-route="{{route('packing.list.expiry.date',$item->id)}}"  data-toggle="modal" href="#ExpiryDate">Add Expiry Date</button>
+                                                                        @endif
+                                                                    </td>
+                                                                @endif
 
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                            <td>Lorem ipsum dolor sit amet <br>consectetur adipisicing elit. Delectus, et.</td>
-                                            <td>
-                                                <button class="btn btn-success" data-toggle="modal" href="#ApproveModal">Approve</button>
-                                                <button class="btn btn-warning" data-toggle="modal" href="#GrossWeight">Add Gross Weight</button>
-                                                <button class="btn btn-info" data-toggle="modal" href="#ProductionDate">Add Production Date</button>
-                                                <a class="btn red-flamingo" href={{route('print_packing_list')}}>print</a>
-                                            </td>
-                                       </tr>
+                                                            </tr>
+                                                            @endforeach
+                                                            
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td><span><b>Payment Method:</b><ul><li> {{$sale_contract->payment_method}}</li></ul></span><br><span><b>Advising Bank</b><ul><li>Bank Name: {{$sale_contract->advising_bank->bank_name}}</li><li>Account Number: {{$sale_contract->advising_bank->account_number}}</li>
+                                                    <li>{{$sale_contract->advising_bank->branch_name}}</li><li>{{$sale_contract->advising_bank->branch_address}}</li><li>{{$sale_contract->advising_bank->swift_code}}</li></ul></span><br><span><b>Importer Bank: </b><ul><li>{{$sale_contract->importer_account_name}}</li>
+                                                        <li>{{$sale_contract->bank_name}}</li><li>{{$sale_contract->importer_bank_branch}}</li><li>{{$sale_contract->importer_bank_country}}</li><li>{{$sale_contract->importer_account_no}}</li></ul></span></td>
+                                                <td>
+                                                    @if ($sale_contract->packing_status == "Approved")
+                                                        <button class="btn btn-success" data-toggle="modal" href="#ApproveModal">Disburse Shipment</button>
+                                                        <button class="btn btn-info" data-toggle="modal" href="#editSaleContractModal">Request for Approval</button>
+                                                        <a class="btn red-flamingo" href="{{--route('print_sale_contract')--}}">print</a>
+                                                    @else
+                                                        <button class="btn green packing_approve" data-route="{{route('packing.list.approve',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" data-toggle="modal" href="#ApproveModal">Submit</button>
+                                                        <a class="btn red-flamingo" href="{{--route('print_sale_contract')--}}">print</a>
+                                                        <button class="btn btn-info production_date_pack" data-toggle="modal" href="#ProductionDate" data-route="{{route('packing.list.production.date',$sale_contract->id)}}" >Add Production Date</button>
+                                                        <button class="btn btn-success packing_grossWeight" data-route="{{route('packing.list.gross.weight',$sale_contract->id)}}"  data-toggle="modal" href="#GrossWeight">Add Gross Weight</button>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                                 <div id="ApproveModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -121,11 +158,7 @@
                                                     <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
                                                 </div>
                                                 <div class="caption pull-right">
-                                                    <form action="{{--route('',[$data->id])--}}" method="POST">
-                                                        @method('PUT')
-                                                        @csrf
-                                                        <button class="btn btn-success" id="approve"><i class="fa fa-check"></i>Approve</button>               
-                                                    </form>
+                                                    <a href="" id="approve_packing"><button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Approve</button></a></form>
                                                 </div>
                                             </div>
                                         </div>
@@ -139,13 +172,12 @@
                                                 <h4 class="modal-title">Production Date</h4>
                                             </div>
                                             <div class="modal-body">
-                                                <form class="form-horizontal" role="form" method="post" action="{{--route('')--}}">
+                                                <form class="form-horizontal" method="post" action="" id="packing_production_date">
                                                     {{csrf_field()}}
-                                                    {{method_field('put')}}
                                                     <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-2 control-label">Production Date</label>
                                                         <div class="col-md-8">
-                                                            <input type="date" class="form-control"  name="production_date">
+                                                            <input type="date" class="form-control"  name="packing_production_date">
                                                         </div><br><br>
                                                     </div>
                                                     <div class="modal-footer">
@@ -166,9 +198,8 @@
                                                 <h4 class="modal-title">Expiry Date</h4>
                                             </div>
                                             <div class="modal-body">
-                                                <form class="form-horizontal" role="form" method="post" action="{{--route('# ')--}}">
+                                                <form class="form-horizontal" role="form" method="post" action="" id="expiry_date">
                                                     {{csrf_field()}}
-                                                    {{method_field('put')}}
                                                     <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-2 control-label">Expiry Date</label>
                                                         <div class="col-md-8">
@@ -193,13 +224,12 @@
                                                 <h4 class="modal-title">Gross Weight</h4>
                                             </div>
                                             <div class="modal-body">
-                                                <form class="form-horizontal" role="form" method="post" action="{{--route('')--}}">
+                                                <form class="form-horizontal" role="form" method="post" action="" id="packing_gross_weight">
                                                     {{csrf_field()}}
-                                                    {{method_field('put')}}
                                                     <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-2 control-label">Gross Weight</label>
                                                         <div class="col-md-8">
-                                                            <input type="number" class="form-control"  name="gross_weight">
+                                                            <input type="number" class="form-control"  name="packing_gross_weight">
                                                         </div><br><br>
                                                     </div>
                                                     <div class="modal-footer">
@@ -207,7 +237,6 @@
                                                         <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
                                                     </div>
                                                 </form>
-        
                                             </div>
                                         </div>
                                     </div>
@@ -220,4 +249,30 @@
         </div>
     </div>
 @endsection
+@section('script')
+<script type="text/javascript">
+    $(function () {
+        $(".packing_approve").click(function(){
+            
+            $('#approve_packing').attr('href', $(this).data('route'));
+           
+            
+           //console.log($(this).data('route'));
+        });
 
+        $(".production_date_pack").click(function(){
+            $('#packing_production_date').attr('action', $(this).data('route'));
+           //console.log($(this).data('route'));
+        });
+
+        $(".packing_grossWeight").click(function(){
+            $('#packing_gross_weight').attr('action', $(this).data('route'));
+           console.log($(this).data('route'));
+        });
+
+        $(".packing_expiry_date").click(function(){
+            $('#expiry_date').attr('action', $(this).data('route'));
+        });
+    });
+</script>
+@endsection
