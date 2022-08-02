@@ -41,6 +41,13 @@ class SalesContractController extends Controller
         return redirect()->back()->withMsg('Successfully Approver');
     }
 
+    public function Revise($id)
+    {
+        $sale_contract = SalesContract::where('id',$id)->update(['status'=>'Pending']);
+        //dd($sale_contract);
+        return redirect()->back()->withMsg('Successfully Approver');
+    }
+
     public function create()
     {
         $export_buyer = ExportBuyer::all();

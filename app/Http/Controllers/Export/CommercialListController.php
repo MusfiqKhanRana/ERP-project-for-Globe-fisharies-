@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Export;
 use App\Http\Controllers\Controller;
 use App\Models\ExportDocument;
 use App\Models\SalesContract;
+use App\Models\SalesContractItem;
 use Illuminate\Http\Request;
 
 class CommercialListController extends Controller
@@ -19,7 +20,7 @@ class CommercialListController extends Controller
         }
         // dd($request->all());
         //dd('good');
-        $pending_count = SalesContract::select('id','commercial_status')->where('commercial_status','Pending')->count();
+        $pending_count = SalesContract::select('id','status')->where('status','Approved')->count();
         $approved_count = SalesContract::select('id','commercial_status')->where('commercial_status','Approved')->count();
         $sale_contracts = SalesContract::where('status',"Approved")->where(function($q) use($commercial_status){
             if ($commercial_status) {
@@ -44,13 +45,23 @@ class CommercialListController extends Controller
         $invoice = SalesContract::find($id);
         $invoice->exp_no = $request->exp_no;
         $invoice->exp_date = $request->exp_date;
-        $invoice->date = $request->date;
+        //$invoice->date = $request->date;
         $invoice->cbm = $request->cbm;
         $invoice->production_date = $request->production_date;
-        $invoice->expiry_date = $request->expiry_date;
+        //$invoice->expiry_date = $request->expiry_date;
         $invoice->net_weight = $request->net_weight;
         $invoice->gross_weight = $request->gross_weight;
         $invoice->save();
+
+        return redirect()->back()->withMsg('Successfully Created');
+    }
+
+    public function ExpiryDate(Request $request, $id)
+    {
+        
+        $expiry_date = SalesContractItem::find($id);
+        $expiry_date->expiry_date = $request->expiry_date;
+        $expiry_date->save();
 
         return redirect()->back()->withMsg('Successfully Created');
     }

@@ -53,12 +53,14 @@ class CreateSalesContractsTable extends Migration
             //Commercial Invoice
             $table->string('exp_no')->nullable();
             $table->date('exp_date')->nullable();
-            $table->date('date')->nullable();
             $table->string('cbm')->nullable();
-            $table->string('production_date')->nullable();
-            $table->longText('expiry_date')->nullable();
+            $table->date('expiry_date')->nullable();
             $table->double('net_weight')->nullable();
             $table->double('gross_weight')->nullable();
+            //Packing Production Date
+            $table->date('packing_production_date')->nullable();
+            $table->double('packing_gross_weight')->nullable();
+            $table->date('expiry_date')->nullable();
             $table->timestamps();
         });
     }

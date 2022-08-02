@@ -90,6 +90,7 @@
                                                                 <th>Rate per Master Carton CRF(USD $)</th>
                                                                 <th>Rate Per KG CIR (USD $)</th>
                                                                 <th>Rate per Master Carton CIF(USD $)</th>
+                                                                <th>Total Amount</th>
                                                                 @if ($sale_contract->commercial_status == "Pending")
                                                                     <th>Action</th>
                                                                 @endif
@@ -135,16 +136,27 @@
                                                                         <span class="label label-sm label-success">{{$item->total_amount_cif}}</span>
                                                                     @endif
                                                                 </td>
+                                                                <td>1000</td>
                                                                 @if ($sale_contract->commercial_status == "Pending")
                                                                 <td>
                                                                     <button class="btn btn-info"  data-toggle="modal" href="#editkModal">Edit</button>
                                                                     <button class="btn btn-danger"  data-toggle="modal" href="#deleteModal">Delete</button>
-                                                                    <button class="btn btn-success"  data-toggle="modal" href="#deleteModal">Expiry Date</button>
+                                                                    @if($item->expiry_date !== null)
+                                                                            <p class="label label-sm label-primary">N/A</p>
+                                                                        @else
+                                                                        <button class="btn btn-success export_expiry_date"  data-route="{{route('commercial.list.expiry.date',$item->id)}}"  data-toggle="modal" href="#ExpiryDate">Expiry Date</button>
+                                                                        @endif
+                                                                    
                                                                 </td>
                                                                 @endif
                                                             </tr>
                                                             @endforeach
-                                                            
+                                                            <tr>
+                                                                <td colspan="7"><b>Total Master Carton & CFR Value</b></td>
+                                                                <td><b>2000</b></td>
+                                                                <td colspan="5"></td>
+                                                                <td><b>4000</b></td>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </td>
@@ -185,7 +197,8 @@
                                                     @if ($sale_contract->commercial_status == "Pending")
                                                         <button class="btn btn-success commercial_approve" data-toggle="modal" data-route="{{route('commercial.list.approve',$sale_contract->id)}}" data-id="{{$sale_contract->id}}"  href="#ApproveModal">Approve</button>
                                                     
-                                                        <button class="btn btn-info commercial_invoice" data-route="{{route('commercial.list.invoice',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" data-toggle="modal" href="#editInvoice">Edit Invoice Details</button>
+                                                        <button class="btn btn-info commercial_invoice" data-route="{{route('commercial.list.invoice',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" data-exp_no="{{$sale_contract->exp_no}}"
+                                                            data-exp_date="{{$sale_contract->exp_date}}" data-cbm="{{$sale_contract->cbm}}" data-production_date="{{$sale_contract->production_date}}" data-net_weight="{{$sale_contract->net_weight}}" data-gross_weight="{{$sale_contract->gross_weight}}" data-toggle="modal" href="#editInvoice">Edit Invoice Details</button>
                                                         <button class="btn blue document"  data-id="{{$sale_contract->id}}" data-toggle="modal" href="#AddDocument">+  Add Document</button>
                                                     
                                                         <a class="btn red-flamingo" href="{{--route('print_sale_contract')--}}">print</a>
@@ -201,6 +214,32 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <div id="ExpiryDate" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h4 class="modal-title">Expiry Date</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="form-horizontal" role="form" method="post" action="" id="expiry_date">
+                                                    {{csrf_field()}}
+                                                    <div class="form-group">
+                                                        <label for="inputEmail1" class="col-md-2 control-label">Expiry Date</label>
+                                                        <div class="col-md-8">
+                                                            <input type="date" class="form-control"  name="expiry_date">
+                                                        </div><br><br>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                        <button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Update</button>
+                                                    </div>
+                                                </form>
+        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div id="editInvoice" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -215,49 +254,49 @@
                                                     <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-3 control-label">EXP No :</label>
                                                         <div class="col-md-8">
-                                                            <input type="text" class="form-control" value="" required name="exp_no">
+                                                            <input type="text" class="form-control invoice_exp_no" value="" required name="exp_no">
                                                         </div><br><br>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-3 control-label">EXP Date :</label>
                                                         <div class="col-md-8">
-                                                            <input type="date" class="form-control" value="" required name="exp_date">
+                                                            <input type="date" class="form-control invoice_exp_date" value="" required name="exp_date">
                                                         </div><br><br>
                                                     </div>
-                                                    <div class="form-group">
+                                                    {{-- <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-3 control-label">Date :</label>
                                                         <div class="col-md-8">
                                                             <input type="date" class="form-control" value="" required name="date">
                                                         </div><br><br>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-3 control-label">CBM :</label>
                                                         <div class="col-md-8">
-                                                            <input type="text" class="form-control" value="" required name="cbm">
+                                                            <input type="text" class="form-control invoice_cbm" value="" required name="cbm">
                                                         </div><br><br>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-3 control-label">Production Date :</label>
                                                         <div class="col-md-8">
-                                                            <input type="date" class="form-control" value="" required name="production_date">
+                                                            <input type="date" class="form-control invoice_production_date" value="" required name="production_date">
                                                         </div><br><br>
                                                     </div>
-                                                    <div class="form-group">
+                                                    {{-- <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-3 control-label">Expiry Date :</label>
                                                         <div class="col-md-8">
                                                             <input type="date" class="form-control" value="" required name="expiry_date">
                                                         </div><br><br>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-3 control-label">Net Weight :</label>
                                                         <div class="col-md-8">
-                                                            <input type="number" class="form-control" value="" required name="net_weight">
+                                                            <input type="number" class="form-control invoice_net_weight" value="" required name="net_weight">
                                                         </div><br><br>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-3 control-label">Gross Weight :</label>
                                                         <div class="col-md-8">
-                                                            <input type="number" class="form-control" value="" required name="gross_weight">
+                                                            <input type="number" class="form-control invoice_gross_weight" value="" required name="gross_weight">
                                                         </div><br><br>
                                                     </div>
                                                     <div class="modal-footer">
@@ -372,12 +411,21 @@
 
         $(".commercial_invoice").click(function(){
             $('#commercial_invoice_id').attr('action', $(this).data('route'));
-           //console.log($(this).data('route'));
+            $('.invoice_exp_no').val($(this).attr('data-exp_no'));
+            $('.invoice_exp_date').val($(this).attr('data-exp_date'));
+            $('.invoice_cbm').val($(this).attr('data-cbm'));
+            $('.invoice_production_date').val($(this).attr('data-production_date'));
+            $('.invoice_net_weight').val($(this).attr('data-net_weight'));
+            $('.invoice_gross_weight').val($(this).attr('data-gross_weight'));
         });
 
         $(".document").click(function(){
             $("#sales_contract_id").val($(this).data('id'));
-            console.log($(this).data('id'));
+           // console.log($(this).data('id'));
+        });
+
+        $(".export_expiry_date").click(function(){
+            $('#expiry_date').attr('action', $(this).data('route'));
         });
     });
 </script>
