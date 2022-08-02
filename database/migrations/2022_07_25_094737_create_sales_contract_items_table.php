@@ -15,7 +15,7 @@ class CreateSalesContractItemsTable extends Migration
     {
         Schema::create('sales_contract_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('sales_contract_id')->nullable();
+            $table->unsignedInteger('sales_contract_id')->nullable();
             $table->string('consignment_type')->nullable();
             $table->string('hs_code')->nullable();
             $table->string('processing_type')->nullable();

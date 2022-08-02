@@ -188,17 +188,17 @@
                                                     <input type="hidden" value="" id="provided_item" name="provided_item">
                                                     <div class="col-md-3">
                                                         <label class="control-label" for="product">Consignment Type<span class="required">* </span></label>
-                                                        <select class="form-control consignment_type" name="consignment_type" id="consignment_type">
+                                                        <select class="form-control consignment_type" id="consignment_type">
                                                             <option value="">--Select--</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label class="control-label" for="product">Hs Code</label>
-                                                        <input class="form-control hs_code" type="Number" name="hs_code" id="hs_code" readonly>
+                                                        <input class="form-control hs_code" type="Number" id="hs_code" readonly>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label class="control-label" for="product">Type<span class="required">* </span></label>
-                                                        <select class="form-control type" name="processing_type" id="type">
+                                                        <select class="form-control type" id="type">
                                                             <option value="">--Select--</option>
                                                             <option value="iqf">IQF</option>
                                                             <option value="block_frozen">Block Frozen</option>
@@ -211,7 +211,7 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label class="control-label" for="product">Variant<span class="required">* </span></label>
-                                                        <select class="form-control varient" name="processing_variant" id="variant">
+                                                        <select class="form-control varient" id="variant">
                                                             <option value="">--Select--</option>
                                                             <option class="iqf" value="fillet">Fillet</option>
                                                             <option class="iqf" value="whole">Whole</option>
@@ -253,7 +253,7 @@
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <label for="product">Item<span class="required">* </span></label>
-                                                        <select class="form-control" name="item_name" id="item_name">
+                                                        <select class="form-control" id="item_name">
                                                             <option value="">--Select--</option>
                                                             @foreach ($items as $supply_item)
                                                                 <option value="{{$supply_item->id}}">{{$supply_item->name}}</option>
@@ -262,7 +262,7 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label class="control-label" for="product">Grade <span class="required">* </span></label>
-                                                        <select class="form-control" name="grade" id="grade">
+                                                        <select class="form-control" id="grade">
                                                             <option value="">--Select--</option>
                                                             @foreach ($grades as $grade)
                                                                 <option value="{{$grade->id}}">{{$grade->name}}</option>  
@@ -271,7 +271,7 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label class="control-label" for="product">Pack Size<span class="required">* </span></label>
-                                                        <select class="form-control pack_size" name="export_pack_size_id" id="pack_size">
+                                                        <select class="form-control pack_size"  id="pack_size">
                                                             <option value="">--Select--</option>
                                                             @foreach ($export_pack_sizes as $pack_size)
                                                                 <option data-weight="{{$pack_size->weight}}" value="{{$pack_size->id}}">{{$pack_size->name}}</option>
@@ -280,21 +280,21 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label class="control-label" for="product">Quantity Of Cartons<span>* </span></label>
-                                                        <input class="form-control cartons_qty" type="Number" name="cartons" id="cartons" placeholder="Quantity Of Cartons">
+                                                        <input class="form-control cartons_qty" type="Number" id="cartons" placeholder="Quantity Of Cartons">
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label class="control-label" for="product">Total In KG<span >* </span></label>
-                                                        <input class="form-control total_in_kg" type="number" step="0.01" name="total_in_kg" id="total_in_kg" readonly>
+                                                        <input class="form-control total_in_kg" type="number" step="0.01" id="total_in_kg" readonly>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label" for="product">Per KG Rate ($)<span class="required">* </span></label>
-                                                        <input class="form-control rate_per_kg" type="number" step="0.01" name="rate" id="rate">
+                                                        <input class="form-control rate_per_kg" type="number" step="0.01" id="rate">
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label class="control-label" for="product">Total Amount ($)<span class="required">* </span></label>
-                                                        <input class="form-control total_amount" type="Number" step="0.01" name="total_amount" id="total_amount" readonly>
+                                                        <input class="form-control total_amount" type="Number" step="0.01" id="total_amount" readonly>
                                                     </div>
                                                     <div class="col-md-1">
                                                         <label ></label>
@@ -633,9 +633,7 @@
             $.each( items_array, function( key, item ) {
                 // console.log(item);
                 if (item.status == "stay") {
-                    if(items_array.length-1 == key){
                         $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+item.consignment_type+"</td><td>"+item.hs_code+"</td><td>"+item.type+"</td><td>"+item.item_name+"</td><td>"+item.variant+"</td><td>"+item.grade+"</td><td>"+item.pack_size+"</td><td>"+item.cartons+"</td><td>"+item.total_in_kg+"</td><td>"+item.rate+"</td><td>"+item.freight_rate+"</td><td>"+item.total_cfr_rate+"</td><td>"+item.total_cif_rate+"</td><td>"+item.total_amount+"</td><td>"+item.total_amount_cfr+"</td><td>"+item.total_amount_cif+"</td><td><button class='btn btn-danger delete_item' data-id='"+key+"'>Delete</button></td></tr>");
-                    }
                 }
             });
             $(".delete_item").click(function(){
