@@ -54,7 +54,7 @@ class CreateSalesContractsTable extends Migration
             $table->string('exp_no')->nullable();
             $table->date('exp_date')->nullable();
             $table->string('cbm')->nullable();
-            $table->date('expiry_date')->nullable();
+            $table->date('production_date')->nullable();
             $table->double('net_weight')->nullable();
             $table->double('gross_weight')->nullable();
             //Packing Production Date
