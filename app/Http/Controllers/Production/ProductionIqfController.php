@@ -175,7 +175,7 @@ class ProductionIqfController extends Controller
                         }
                     ]
                     )
-                ->select('id','invoice_code','item_id','Initial_weight','initial_weight_datetime','cleaning_weight','cleaning_weight_datetime','fillet_soaking_weight','fillet_soaking_weight_datetime','fillet_glazing_weight','fillet_glazing_weight_datetime','status','alive_quantity','dead_quantity','requisition_code','processing_name','processing_variant')
+                ->select('id','invoice_code','item_id','Initial_weight','initial_weight_datetime','vegetable_glazing_weight','vegetable_glazing_datetime','cleaning_weight','cleaning_weight_datetime','fillet_soaking_weight','fillet_soaking_weight_datetime','fillet_glazing_weight','fillet_glazing_weight_datetime','status','alive_quantity','dead_quantity','requisition_code','processing_name','processing_variant')
                 ->where(function ($q) use($request)
                 {
                     if ($request->type) {

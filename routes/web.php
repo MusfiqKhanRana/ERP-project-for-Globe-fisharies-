@@ -581,6 +581,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Production Other Processing
     Route::get('production/other_processing/vegetable/iqf',[VegetableProcessingController::class,'vegetable_iqf'])->name('production.other_processing.vegetable.iqf');
     Route::get('production/other_processing/vegetable/block',[VegetableProcessingController::class,'vegetable_block'])->name('production.other_processing.vegetable.block');
+    Route::post('production/other_processing/vegetable/washing_to_glazing',[VegetableProcessingController::class,'washing_to_glazing'])->name('production.other_processing.vegetable.washing_to_glazing');
+    Route::post('production/other_processing/vegetable/washing_to_blocking',[VegetableProcessingController::class,'washing_to_blocking'])->name('production.other_processing.vegetable.washing_to_blocking');
+    Route::post('production/other_processing/vegetable/blocking_to_blockcounter',[VegetableProcessingController::class,'blocking_to_blockcounter'])->name('production.other_processing.vegetable.blocking_to_blockcounter');
+    Route::post('production/other_processing/vegetable/blockcounter_to_return',[VegetableProcessingController::class,'blockcounter_to_return'])->name('production.other_processing.vegetable.blockcounter_to_return');
+    Route::post('production/other_processing/vegetable/glazing_to_return',[VegetableProcessingController::class,'glazing_to_return'])->name('production.other_processing.vegetable.glazing_to_return');
+    Route::post('production/other_processing/vegetable/return_to_store',[VegetableProcessingController::class,'return_to_store'])->name('production.other_processing.vegetable.return_to_store');
 
     //Cs List
     // Route::get('production/purchase/cs/show', function () {

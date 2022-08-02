@@ -1,0 +1,55 @@
+<div class="tab-pane" id="whole">
+    <div class="portlet-title">
+        <div class="caption">
+            <b>Whole</b>
+        </div>
+        <div class="tools"> </div>
+    </div>
+    <hr>
+    <table class="table table-striped table-bordered table-hover" id="whole_table">
+        <thead>
+            <tr>
+                <th>
+                    Invoice No.
+                </th>
+                <th>
+                    Item Name
+                </th>
+                <th>
+                    Grade
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody class="whole_tbody">
+            <tr>
+                <td>
+                    11111
+                </td>
+                <td>
+                    Rui
+                </td>
+                <td>
+                    300-500gm
+                </td>
+                <td>
+                    60kg
+                </td>
+                <td>
+                    <button style="margin-bottom:3px" data-toggle="modal" href="#whole_washing_n_cuttingModal" class="btn btn-success"><i class="fa fa-refresh" aria-hidden="true"></i>Washing & Cutting</button>
+                    <button style="margin-bottom:3px" data-toggle="modal" href="#whole_glazingModal" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Glazing</button>
+                    <button style="margin-bottom:3px" data-toggle="modal" href="#whole_return_n_wastageModal" class="btn btn-danger"><i class="fa fa-repeat" aria-hidden="true"></i> Return & Wastage</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    @include('backend.production.vegetable_processing.iqf.whole.washing_n_cuttingModal')
+    @include('backend.production.vegetable_processing.iqf.whole.glazingModal')
+    @include('backend.production.vegetable_processing.iqf.whole.return_n_wastageModal')
+
+</div>
