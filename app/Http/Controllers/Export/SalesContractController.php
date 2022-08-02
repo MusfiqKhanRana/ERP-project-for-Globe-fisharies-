@@ -68,7 +68,7 @@ class SalesContractController extends Controller
     public function store(Request $request)
     {
         // dd($request->toArray());
-        SalesContract::create([
+        $sales_contract=SalesContract::create([
             'export_buyer_id'=>$request->export_buyer_id,
             'port_of_loading'=>$request->port_of_loading,
             'pre_carring_by'=>$request->pre_carring_by,
@@ -101,9 +101,13 @@ class SalesContractController extends Controller
             'remark'=>$request->remark,
             'status'=>'Pending'
         ]);
-        foreach (json_decode($request->provided_item) as $key => $input) {
+        $count = 0;
+        // dd($request->provided_item);
+        foreach (json_decode($request->provided_item) as $input) {
             if ($input->status=="stay") {
+                $count +=1; 
                 SalesContractItem::create([
+                    'sales_contract_id'=> $sales_contract->id,
                     'consignment_type' => $input->consignment_type,
                     'hs_code' => $input->hs_code,
                     'processing_type' => $input->type,
