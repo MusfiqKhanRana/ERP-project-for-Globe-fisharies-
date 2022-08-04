@@ -1066,12 +1066,12 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class="nav-item @if( request()->path() == 'admin/production/processing-unit/iqf') active open @endif">
+                                <a href="{{route('production.other_processing.dryfish.index')}}" class="nav-link nav-toggle">
+                                    <span class="title">Dry Fish</span>
+                                </a>
+                            </li>
                         </ul>
-                    </li>
-                    <li class="nav-item @if( request()->path() == 'admin/production/processing-unit/iqf') active open @endif">
-                        <a href="{{route('production.other_processing.dryfish.index')}}" class="nav-link nav-toggle">
-                            <span class="title">Dry Fish</span>
-                        </a>
                     </li>
                     <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/inventory/store-in'||  request()->path() == 'admin/production/unload/gate_man/raw_item' ||  request()->path() == 'admin/inventory/cold_storage/export_storage_2' ||  request()->path() == 'admin/inventory/cold_storage/export_storage_1' ||  request()->path() == 'admin/inventory/cold_storage/bulk_storage'  ||  request()->path() == 'admin/inventory/store_in' ||  request()->path() == 'admin/inventory/manage-location/Locate_item') active open @endif">
                         <a href="javascript:;" class="nav-link nav-toggle">

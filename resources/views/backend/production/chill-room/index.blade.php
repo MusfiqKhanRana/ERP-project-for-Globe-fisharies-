@@ -83,6 +83,9 @@
                                                                         Item Name
                                                                     </th>
                                                                     <th>
+                                                                        Category
+                                                                    </th>
+                                                                    <th>
                                                                         Grade
                                                                     </th>
                                                                     <th>
@@ -146,6 +149,9 @@
                                                                             {{$item->name}}
                                                                         </td>
                                                                         <td>
+                                                                            {{$item->category}}
+                                                                        </td>
+                                                                        <td>
                                                                             {{$item->grade->name}}
                                                                         </td>
                                                                         <td>
@@ -187,6 +193,9 @@
                                                                     <tr>
                                                                         <td>
                                                                             {{$item->name}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{$item->category}}
                                                                         </td>
                                                                         <td>
                                                                             {{$item->grade->name}}
@@ -392,19 +401,21 @@
             var typex = $(this).val();
             if (typex == "vegetable_iqf") {
                     $('.alive_input').hide();
-                    $('.deadd').hide();
+                    $('.deadd').html('');
                 }
             else if (typex == "vegetable_block") {
                 $('.alive_input').hide();
-                $('.deadd').hide();
+                $('.deadd').html('');
             }
             else if (typex == "dry_fish") {
                 $('.alive_input').hide();
-                $('.deadd').hide();
+                $('.deadd').html('');
             }
-            else
+            else{
                 $('.alive_input').show();
-                $('.deadd').show();
+                $('.deadd').html('Dead');
+            }
+                
             $('.varient').on("change",function(){
                 var varientx = $(this).val();
                 if (typex == "iqf" && varientx == "fillet") {
@@ -442,6 +453,7 @@
                         $('.requisition_id').val(data.requisition_id);
                         $('.requisition_code').val(data.requisition_code);
                         $('.item_name').html(data.item_name);
+                        $('.category').html(data.category);
                         $('.item_grade_name').html(data.item_grade_name);
                         $('.alive_stock').html(data.alive_quantity);
                         $('.dead_stock').html(data.dead_quantity);
