@@ -132,10 +132,10 @@
                                                     @if ($sale_contract->packing_status == "Approved")
                                                         <button class="btn btn-success" data-toggle="modal" href="#ApproveModal">Disburse Shipment</button>
                                                         <button class="btn btn-info" data-toggle="modal" href="#editSaleContractModal">Request for Approval</button>
-                                                        <a class="btn red-flamingo" href="{{--route('print_sale_contract')--}}">print</a>
+                                                        <a class="btn red-flamingo" href="{{route('packing.list.print',$sale_contract->id)}}">print</a>
                                                     @else
                                                         <button class="btn green packing_approve" data-route="{{route('packing.list.approve',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" data-toggle="modal" href="#ApproveModal">Submit</button>
-                                                        <a class="btn red-flamingo" href="{{--route('print_sale_contract')--}}">print</a>
+                                                        <a class="btn red-flamingo" href="{{route('packing.list.print',$sale_contract->id)}}">print</a>
                                                         <button class="btn btn-info production_date_pack" data-toggle="modal" href="#ProductionDate" data-route="{{route('packing.list.production.date',$sale_contract->id)}}" >Add Production Date</button>
                                                         <button class="btn btn-success packing_grossWeight" data-route="{{route('packing.list.gross.weight',$sale_contract->id)}}"  data-toggle="modal" href="#GrossWeight">Add Gross Weight</button>
                                                     @endif

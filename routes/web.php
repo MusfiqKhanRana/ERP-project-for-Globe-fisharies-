@@ -644,20 +644,21 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('export-buyer', ExportBuyerController::class);
 
 
-    
+    Route::get('sales/contract/print/{id}',[SalesContractController::class,'SaleContractPrint'])->name('sales.contract.print');
     Route::get('sale_contract/list/revise/{id}',[SalesContractController::class,'Revise'])->name('sale_contract.list.revise');
     Route::post('sale_contract/ex_buyer_datapass',[SalesContractController::class,'ex_buyer_datapass'])->name('sale_contract.ex_buyer_datapass');
     Route::get('sales/contract/approved/{id}',[SalesContractController::class,'approve_saleContract'])->name('sale.contract.approve');
     
     Route::resource('sale_contract',SalesContractController::class);
 
+    Route::get('commercial/list/print/{id}',[CommercialListController::class,'PrintCommercial'])->name('commercial.list.print');
     Route::post('commercial/list/expiry/date/{id}',[CommercialListController::class,'ExpiryDate'])->name('commercial.list.expiry.date');
     Route::post('commercial/export/document',[CommercialListController::class,'AddDocument'])->name('commercial.export.document');
     Route::post('commercial/list/invoice/{id}',[CommercialListController::class,'store'])->name('commercial.list.invoice');
     Route::get('commercial/list/approved/{id}',[CommercialListController::class,'commercial_list'])->name('commercial.list.approve');
     Route::get('commercial/list',[CommercialListController::class,'index'])->name('commercial.list');
 
-
+    Route::get('packing/list/print/{id}',[PackingListController::class,'PrintPacking'])->name('packing.list.print');
     Route::post('packing/list/expiry/date/{id}',[PackingListController::class,'PackingExpiryDate'])->name('packing.list.expiry.date');
     Route::post('packing/list/gross/weight/{id}',[PackingListController::class,'packingGrossWeight'])->name('packing.list.gross.weight');
     Route::post('packing/list/production/date/{id}',[PackingListController::class,'ProductionDateSave'])->name('packing.list.production.date');

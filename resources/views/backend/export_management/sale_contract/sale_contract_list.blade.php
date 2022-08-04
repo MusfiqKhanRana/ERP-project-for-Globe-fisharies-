@@ -150,12 +150,12 @@
                                                     @if ($sale_contract->status == "Pending")
                                                         <button class="btn btn-success approve_sale_contract" data-toggle="modal" data-route="{{route('sale.contract.approve',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" href="#ApproveModal">Approve</button>
                                                         <button class="btn btn-info" data-toggle="modal" href="#editSaleContractModal">Edit</button>
-                                                        <a class="btn red-flamingo" href="{{--route('print_sale_contract')--}}">print</a>
+                                                        <a class="btn red-flamingo" href="{{route('sales.contract.print',$sale_contract->id)}}">print</a>
                                                         <button class="btn blue" data-toggle="modal" href="#AddItemModal">+  Add Item</button>
                                                         <button class="btn btn-danger delete" data-route="{{route('sale_contract.destroy',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" data-toggle="modal" href="#deleteallModal">Delete</button>
                                                     @else
                                                         <button class="btn btn-danger sales_revise" data-toggle="modal" href="#ReviceModal" data-route="{{route('sale_contract.list.revise',$sale_contract->id)}}">Revise</button>
-                                                        <a class="btn red-flamingo" href="{{--route('print_sale_contract')--}}">print</a>
+                                                        <a class="btn red-flamingo" href="{{route('sales.contract.print',$sale_contract->id)}}">print</a>
                                                     @endif
                                                 </td>
                                             </tr>
