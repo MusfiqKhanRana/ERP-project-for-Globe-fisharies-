@@ -60,12 +60,7 @@ class PackingListController extends Controller
 
     public function packingGrossWeight(Request $request, $id)
     {
-        
-        $grossWeight = SalesContract::find($id);
-        //dd($production_date);
-        $grossWeight->packing_gross_weight = $request->packing_gross_weight;
-        $grossWeight->save();
-
+        $grossWeight = SalesContract::where('id',$id)->update(['packing_gross_weight'=>$request->packing_gross_weight]);
         return redirect()->back()->withMsg('Successfully Created');
     }
 }

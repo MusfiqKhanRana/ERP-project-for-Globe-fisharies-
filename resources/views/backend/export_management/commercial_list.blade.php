@@ -141,11 +141,11 @@
                                                                 <td>
                                                                     <button class="btn btn-info"  data-toggle="modal" href="#editkModal">Edit</button>
                                                                     <button class="btn btn-danger"  data-toggle="modal" href="#deleteModal">Delete</button>
-                                                                    @if($item->expiry_date !== null)
-                                                                            <p class="label label-sm label-primary">N/A</p>
-                                                                        @else
-                                                                        <button class="btn btn-success export_expiry_date"  data-route="{{route('commercial.list.expiry.date',$item->id)}}"  data-toggle="modal" href="#ExpiryDate">Expiry Date</button>
-                                                                        @endif
+                                                                    {{-- @if($item->expiry_date !== null)
+                                                                        <p class="label label-sm label-primary">N/A</p>
+                                                                    @else --}}
+                                                                    <button class="btn btn-success export_expiry_date" data-expiry_date="{{$item->expiry_date}}" data-route="{{route('commercial.list.expiry.date',$item->id)}}"  data-toggle="modal" href="#ExpiryDate">Expiry Date</button>
+                                                                    {{-- @endif --}}
                                                                     
                                                                 </td>
                                                                 @endif
@@ -227,7 +227,7 @@
                                                     <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-2 control-label">Expiry Date</label>
                                                         <div class="col-md-8">
-                                                            <input type="date" class="form-control"  name="expiry_date">
+                                                            <input type="date" class="form-control expiry_date"  name="expiry_date">
                                                         </div><br><br>
                                                     </div>
                                                     <div class="modal-footer">
@@ -396,17 +396,10 @@
     </div>
 @endsection
 @section('script')
-
-<script src="https://cdn.tiny.cloud/1/uzb665mrkwi59olq2qu3cwqqyebsil4hznmwc45qu4exf7lt/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>	
-
  <script type="text/javascript">
     $(function () {
         $(".commercial_approve").click(function(){
-            
             $('#approve_commercial').attr('href', $(this).data('route'));
-           
-            
-           //console.log($(this).data('route'));
         });
 
         $(".commercial_invoice").click(function(){
@@ -421,27 +414,16 @@
 
         $(".document").click(function(){
             $("#sales_contract_id").val($(this).data('id'));
-           // console.log($(this).data('id'));
         });
 
         $(".export_expiry_date").click(function(){
+            if ($(this).data('expiry_date')) {
+                $('.expiry_date').val($(this).data('expiry_date'));
+            }else{
+                $('.expiry_date').val('');
+            }
             $('#expiry_date').attr('action', $(this).data('route'));
         });
     });
 </script>
-<script type="text/javascript">
-    $(function() {
-        tinymce.init({
-            var myContent = tinymce.get("textarea").getContent({ format: "text" });
-            selector: 'textarea',
-            // init_instance_callback : function(editor) {
-            //     var freeTiny = document.querySelector('.tox .tox-notification--in');
-            //     freeTiny.style.display = 'none';
-            // }
-            
-        });
-    });
-    
-  </script>
-    
 @endsection
