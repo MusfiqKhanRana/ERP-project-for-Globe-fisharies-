@@ -111,11 +111,11 @@
                                                                 @endif
                                                                 @if ($sale_contract->packing_status == "Pending")
                                                                     <td>
-                                                                        @if($item->expiry_date !== null)
+                                                                        {{-- @if($item->expiry_date !== null)
                                                                             <p class="label label-sm label-primary">N/A</p>
-                                                                        @else
-                                                                            <button class="btn btn-info packing_expiry_date"  data-route="{{route('packing.list.expiry.date',$item->id)}}"  data-toggle="modal" href="#ExpiryDate">Add Expiry Date</button>
-                                                                        @endif
+                                                                        @else --}}
+                                                                            <button class="btn btn-info packing_expiry_date" data-expiry_date="{{$item->expiry_date}}"  data-route="{{route('packing.list.expiry.date',$item->id)}}"  data-toggle="modal" href="#ExpiryDate">Add Expiry Date</button>
+                                                                        {{-- @endif --}}
                                                                     </td>
                                                                 @endif
 
@@ -203,7 +203,7 @@
                                                     <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-2 control-label">Expiry Date</label>
                                                         <div class="col-md-8">
-                                                            <input type="date" class="form-control"  name="expiry_date">
+                                                            <input type="date" class="form-control expiry_date"  name="expiry_date">
                                                         </div><br><br>
                                                     </div>
                                                     <div class="modal-footer">
@@ -271,6 +271,11 @@
         });
 
         $(".packing_expiry_date").click(function(){
+            if ($(this).data('expiry_date')) {
+                $('.expiry_date').val($(this).data('expiry_date'));
+            }else{
+                $('.expiry_date').val('');
+            }
             $('#expiry_date').attr('action', $(this).data('route'));
         });
     });
