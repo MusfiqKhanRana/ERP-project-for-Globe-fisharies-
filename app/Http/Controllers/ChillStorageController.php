@@ -99,9 +99,10 @@ class ChillStorageController extends Controller
         }
         // return $requisition->production_processing_unit;
         $item_name = $item->name;
+        $category = $item->category;
         $item_grade_name = $item->grade->name;
         $total_weight = (($pivot->alive_quantity)-($alive_on_process)) + (($pivot->dead_quantity)-($dead_on_process));
-        return ["requisition_id"=>$requisition_id,"requisition_code"=>$requisition_code,"item_id"=>$item_id,"item_name"=>$item_name,"item_grade_name"=>$item_grade_name,"alive_quantity"=>($pivot->alive_quantity)-($alive_on_process),'dead_quantity'=>($pivot->dead_quantity)-($dead_on_process),"total_weight"=>$total_weight];
+        return ["requisition_id"=>$requisition_id,"requisition_code"=>$requisition_code,"item_id"=>$item_id,"item_name"=>$item_name,"category"=>$category,"item_grade_name"=>$item_grade_name,"alive_quantity"=>($pivot->alive_quantity)-($alive_on_process),'dead_quantity'=>($pivot->dead_quantity)-($dead_on_process),"total_weight"=>$total_weight];
 
     }  
 }

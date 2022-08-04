@@ -120,7 +120,7 @@
                                 $('.washing_n_cutting_date_time').html(washing_n_cutting_date_time);
                                 $('.glazing_weight').on("change keyup",function() {
                                     var a = $(this).val();
-                                    var p = ((((washing_n_cutting_weight) - a)/(washing_n_cutting_weight))*100);
+                                     var p = (((a -(washing_n_cutting_weight))/(a))*100);
                                     p = p.toFixed(2);
                                     $('.parcentage').html(p+'%');
                                 });
@@ -218,7 +218,7 @@
                                 $('.washing_n_cutting_date_time').html(washing_n_cutting_date_time);
                                 $('.glazing_weight').on("change keyup",function() {
                                     var a = $(this).val();
-                                    var p = ((((washing_n_cutting_weight) - a)/(washing_n_cutting_weight))*100);
+                                     var p = (((a -(washing_n_cutting_weight))/(a))*100);
                                     p = p.toFixed(2);
                                     $('.parcentage').html(p+'%');
                                 });
@@ -317,7 +317,7 @@
                                 $('.washing_n_cutting_date_time').html(washing_n_cutting_date_time);
                                 $('.glazing_weight').on("change keyup",function() {
                                     var a = $(this).val();
-                                    var p = ((((washing_n_cutting_weight) - a)/(washing_n_cutting_weight))*100);
+                                     var p = (((a -(washing_n_cutting_weight))/(a))*100);
                                     p = p.toFixed(2);
                                     $('.parcentage').html(p+'%');
                                 });
@@ -416,7 +416,7 @@
                                 $('.washing_n_cutting_date_time').html(washing_n_cutting_date_time);
                                 $('.glazing_weight').on("change keyup",function() {
                                     var a = $(this).val();
-                                    var p = ((((washing_n_cutting_weight) - a)/(washing_n_cutting_weight))*100);
+                                     var p = (((a -(washing_n_cutting_weight))/(a))*100);
                                     p = p.toFixed(2);
                                     $('.parcentage').html(p+'%');
                                 });
