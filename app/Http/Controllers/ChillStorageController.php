@@ -26,7 +26,7 @@ class ChillStorageController extends Controller
                     $q->select('id','requisition_id','item_id','alive_quantity','dead_quantity');
                 }
             ]
-            )->whereHas('production_processing_unit')->latest()->paginate(3);
+            )->latest()->paginate(3);
             if ($request->ajax()) {
                 return view('backend.production.chill-room.pagination_data', compact('data'));
             }

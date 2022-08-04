@@ -237,10 +237,11 @@ class ProductionIqfController extends Controller
     }
     public function grading(Request $request){
         // dd($request->toArray());
-        ProductionProcessingUnit::where('id',$request->grade_ppu_id)
+        $ppu=ProductionProcessingUnit::where('id',$request->grade_ppu_id)
         ->update(
             ['status'=>'Soaking']
         );
+        // dd($ppu->toArray());
         foreach (json_decode($request->inputs) as $key => $input) {
             if ($input->status=="stay") {
                 ProductionProcessingGrade::create([
