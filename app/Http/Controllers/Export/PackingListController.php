@@ -63,4 +63,9 @@ class PackingListController extends Controller
         $grossWeight = SalesContract::where('id',$id)->update(['packing_gross_weight'=>$request->packing_gross_weight]);
         return redirect()->back()->withMsg('Successfully Created');
     }
+
+    public function PrintPacking($id){
+        $sale_contracts = SalesContract::with(['sales_contract_items','export_buyer','advising_bank'])->where('id',$id)->get();
+        return view('backend.export_management.packing_list.print_packing',compact('sale_contracts'));
+    }
 }

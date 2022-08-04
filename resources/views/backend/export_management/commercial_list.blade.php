@@ -201,13 +201,13 @@
                                                             data-exp_date="{{$sale_contract->exp_date}}" data-cbm="{{$sale_contract->cbm}}" data-production_date="{{$sale_contract->production_date}}" data-net_weight="{{$sale_contract->net_weight}}" data-gross_weight="{{$sale_contract->gross_weight}}" data-toggle="modal" href="#editInvoice">Edit Invoice Details</button>
                                                         <button class="btn blue document"  data-id="{{$sale_contract->id}}" data-toggle="modal" href="#AddDocument">+  Add Document</button>
                                                     
-                                                        <a class="btn red-flamingo" href="{{--route('print_sale_contract')--}}">print</a>
+                                                        <a class="btn red-flamingo" href="{{route('commercial.list.print',$sale_contract->id)}}">print</a>
                                                     @endif
                                                     @if ($sale_contract->commercial_status == "Approved")
                                                         <button class="btn btn-danger">Print Invoice</button>
                                                         <button class="btn btn-info">Print Packing List</button>
                                                         <button class="btn btn-success">View Document</button>
-                                                        <button class="btn btn-primary">Print Certificate Of Origin</button>
+                                                        <a class="btn btn-primary" href="{{route('certificate.origin.print',$sale_contract->id)}}">Print Certificate Of Origin</a>
                                                     @endif
                                                 </td>
                                             </tr>

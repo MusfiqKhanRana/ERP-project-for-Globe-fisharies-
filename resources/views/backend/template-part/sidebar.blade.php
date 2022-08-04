@@ -1181,17 +1181,17 @@
                         </a>
                     </li>
                     <li class="nav-item @if( request()->path() == 'admin/export/sale/contract/list' ) active open @endif">
-                        <a href="{{route('sale_contract.index')}}" class="nav-link ">
+                        <a href="{{route('sale_contract.index',"status=Pending")}}" class="nav-link ">
                             <span class="title">Sales Contract List</span>
                         </a>
                     </li>
                     <li class="nav-item @if( request()->path() == 'admin/export/commercial/list' ) active open @endif">
-                        <a href="{{route('commercial.list')}}" class="nav-link ">
+                        <a href="{{route('commercial.list',"status=Pending")}}" class="nav-link ">
                             <span class="title">Commercial List</span>
                         </a>
                     </li>
                     <li class="nav-item @if( request()->path() == 'admin/export/packing/list' ) active open @endif">
-                        <a href="{{route('packing.list')}}" class="nav-link ">
+                        <a href="{{route('packing.list',"status=Pending")}}" class="nav-link ">
                             <span class="title">Packing List</span>
                         </a>
                     </li>

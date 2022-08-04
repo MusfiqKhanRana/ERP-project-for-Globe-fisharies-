@@ -82,4 +82,15 @@ class CommercialListController extends Controller
         return redirect()->back()->withMsg('Successfully Created');
     }
 
+    public function PrintCommercial($id){
+        $sale_contracts = SalesContract::with(['sales_contract_items','export_buyer','advising_bank'])->where('id',$id)->get();
+        return view('backend.export_management.commercial_list.print_commercial_list',compact('sale_contracts'));
+    }
+
+    public function PrintCommercialCertificate($id){
+        $sale_contracts = SalesContract::with(['sales_contract_items','export_buyer','advising_bank'])->where('id',$id)->get();
+        //dd($sale_contracts);
+        return view('backend.export_management.commercial_list.certificate_origin',compact('sale_contracts'));
+    }
+
 }
