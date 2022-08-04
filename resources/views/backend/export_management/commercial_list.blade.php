@@ -207,7 +207,7 @@
                                                         <button class="btn btn-danger">Print Invoice</button>
                                                         <button class="btn btn-info">Print Packing List</button>
                                                         <button class="btn btn-success">View Document</button>
-                                                        <button class="btn btn-primary">Print Certificate Of Origin</button>
+                                                        <a class="btn btn-primary" href="{{route('certificate.origin.print',$sale_contract->id)}}">Print Certificate Of Origin</a>
                                                     @endif
                                                 </td>
                                             </tr>

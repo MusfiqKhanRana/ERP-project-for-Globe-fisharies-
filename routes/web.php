@@ -651,6 +651,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     
     Route::resource('sale_contract',SalesContractController::class);
 
+    Route::get('commercial/certificate/print/{id}',[CommercialListController::class,'PrintCommercialCertificate'])->name('certificate.origin.print');
     Route::get('commercial/list/print/{id}',[CommercialListController::class,'PrintCommercial'])->name('commercial.list.print');
     Route::post('commercial/list/expiry/date/{id}',[CommercialListController::class,'ExpiryDate'])->name('commercial.list.expiry.date');
     Route::post('commercial/export/document',[CommercialListController::class,'AddDocument'])->name('commercial.export.document');

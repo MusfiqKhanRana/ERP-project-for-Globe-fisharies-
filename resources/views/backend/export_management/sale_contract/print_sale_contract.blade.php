@@ -22,7 +22,7 @@
         body * {
             margin-block-end: 20%;
            visibility: hidden; // part to hide at the time of print
-           -webkit-print-color-adjust: exact !important; // not necessary use if colors not visible
+           
         }
         body {
         margin: 2.5cm 0;
@@ -88,9 +88,6 @@
                                         echo $currentTime->toDateString();
                                     @endphp
                                 </span>
-                                    
-                                 
-                                
                             </div><br>
                             <div class="row" style="background-color:#d6d9e3">
                                 <table class="table table-bordered" style="width: 100%; font-size:70%;">
@@ -120,7 +117,7 @@
                                 <label for="" ><b >COUNTRY ORIGIN : BANGLADESH</b></label>
                             </div><br>
                             <div class="row">
-                                <table class="table table-striped table-hover"  style='font-family:"verdana", monospace; font-size:70%; border: 1px solid black; border-collapse: collapse;'>
+                                <table class="table table-striped table-bordered table-hover" style='font-family:"helvetica", monospace; font-size:70%; border: 1px solid black; border-collapse: initial'>
                                     <thead>
                                         <tr style="background-color:#d6d9e3">
                                             <th style="text-align: center">Sl.</th>
@@ -133,8 +130,9 @@
                                             <th style="text-align: center"> Quantity / Master Carton</th>
                                             <th style="text-align: center">Pack Size / MC size</th>
                                             <th style="text-align: center">Rate Per Kg CFR (USD $)</th>
-                                            {{-- <th style="text-align: center">Rate Per Kg CIF (USD $)</th> --}}
                                             <th style="text-align: center">Rate Per Master Carton CFR (USD $)</th>
+                                            <th style="text-align: center">Rate Per Kg CIF (USD $)</th>
+                                            <th style="text-align: center">Rate Per Master Carton CIF (USD $)</th>
                                             <th style="text-align: center">Total Amount</th>
                                         </tr>
                                     </thead>
@@ -158,12 +156,10 @@
                                                         $total_master_carton += $s_c_item->cartons;
                                                     @endphp
                                                     <td style="text-align: center">{{$s_c_item->export_pack_size->name}}</td>
-                                                    @if($s_c_item->total_cfr_rate !== null)
-                                                        <td style="text-align: center">{{$item->total_cfr_rate}}</td>
-                                                    @else
-                                                        <td style="text-align: center"><p class="label label-sm label-primary">N/A</p></td>
-                                                    @endif
+                                                    <td style="text-align: center">{{$s_c_item->total_cfr_rate}}</td>
                                                     <td style="text-align: center">{{$s_c_item->total_amount_cfr}}</td>
+                                                    <td style="text-align: center">{{$s_c_item->total_cif_rate}}</td>
+                                                    <td style="text-align: center">{{$s_c_item->total_amount_cif}}</td>
                                                     <td style="text-align: center">{{$s_c_item->total_amount}}</td>
                                                     @php
                                                         $expototal_amount += $s_c_item->total_amount;
@@ -175,17 +171,20 @@
                                             <th colspan="7">Total Master Carton & Weight </th>
                                             <th style="text-align: center">{{$total_master_carton}}</th>
                                             
-                                            <th colspan="4" style="text-align: right">{{$expototal_amount}}</th>
+                                            <th colspan="6" style="text-align: right">{{$expototal_amount}}</th>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="row">
-                                <h6><b>TOTAL AMOUNT (IN WORD) :</b>
+                                <h6><b>TOTAL AMOUNT (IN WORD) :   </b>
+                                    <b>
                                     @php
+                                    
                                         $digit = new NumberFormatter("EN", NumberFormatter::SPELLOUT);
-                                    echo $digit->format($expototal_amount); 
+                                        echo ucfirst($digit->format($expototal_amount)); 
                                     @endphp
+                                    </b>
                                     </h6>
                             </div><br>
                             <div class="row">
@@ -194,7 +193,7 @@
                                         <tr>
                                             <th style="background-color:#d6d9e3; text-align:left">Payment Method</th>
                                             <td>{{$sale_contract->payment_method}}</td>
-                                            <th style="background-color:#d6d9e3;margin-left:55%">Port Of Loading</th>
+                                            <th style="background-color:#d6d9e3; text-align:left">Port Of Loading</th>
                                             <td>{{$sale_contract->port_of_loading}}</td>
                                         </tr>
                                         <tr>
@@ -231,7 +230,7 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="row" style="margin-top: 20%">
+                        <div class="row" style="margin-top: 25%">
                                 <span style="text-decoration:overline"><b>Exporter Signature</b></span>
                                 <span style="margin-left:55%; text-decoration:overline"><b>Imporeter Signature</b></span>
                         </div><br>

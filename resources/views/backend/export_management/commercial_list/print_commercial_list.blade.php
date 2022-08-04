@@ -93,9 +93,9 @@
                                 <table class="table table-bordered" style="width: 100%; font-size:50%;">
                                     <thead>
                                         <tr>
-                                            <th>Manufacture / Exporter</th>
-                                            <th>Consignee</th>
-                                            <th>Notify Party</th>
+                                            <th style="text-align: left">Manufacture / Exporter</th>
+                                            <th style="text-align: left">Consignee</th>
+                                            <th style="text-align: left">Notify Party</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -150,9 +150,9 @@
                                             $total_master_carton = 0;
                                         @endphp
                                         @foreach ($sale_contracts as $item)
-                                            @foreach ($item->sales_contract_items as $s_c_item)
+                                            @foreach ($item->sales_contract_items as $key=> $s_c_item)
                                                 <tr>
-                                                    <td style="text-align: center"></td>
+                                                    <td style="text-align: center">{{++$key}}</td>
                                                     <td style="text-align: center">{{$s_c_item->hs_code}}</td>
                                                     <td style="text-align: center">{{$item->production_date}}</td>
                                                     <td style="text-align: center">{{$s_c_item->expiry_date}}</td>
@@ -188,35 +188,49 @@
                                 <h6><b>TOTAL AMOUNT (IN WORD) :</b></h6>
                             </div><br>
                             <div class="row">
-                                <table  class="table table-striped table-hover table-bordered"  style='font-family:"Poppins", monospace; font-size:80%'>
+                                <table  class="table table-striped table-hover table-bordered"  style='font-family:"Poppins", monospace; font-size:80%; width:100%'>
                                     @foreach ($sale_contracts as $sale_contract)
                                         <tr>
                                             <th style="background-color:#d6d9e3">Sale Contract No.</th>
                                             <td>GFL/EXP/DUBAI/HRA/07/2022</td>
+                                            <th style="background-color:#d6d9e3">Final Destination</th>
+                                            <td>{{$sale_contract->final_destination}}</td>
                                         </tr>
                                         <tr>
                                             <th style="background-color:#d6d9e3">Sale Contract Date</th>
                                             <td>2022/07/11</td>
+                                            <th style="background-color:#d6d9e3">ERC No.</th>
+                                            <td>RA 003474387</td>
                                         </tr>
                                         <tr>
                                             <th style="background-color:#d6d9e3">Payment Method</th>
                                             <td>{{$sale_contract->payment_method}}</td>
+                                            <th style="background-color:#d6d9e3">Vat Regd No.</th>
+                                            <td>RA 003474387</td>
                                         </tr>
                                         <tr>
                                             <th style="background-color:#d6d9e3">EXP No.</th>
                                             <td>{{$sale_contract->exp_no}}</td>
+                                            <th style="background-color:#d6d9e3">Tin No.</th>
+                                            <td>RA 003474387</td>
                                         </tr>
                                         <tr>
                                             <th style="background-color:#d6d9e3">EXP Date</th>
                                             <td>{{$sale_contract->exp_date}}</td>
+                                            <th style="background-color:#d6d9e3">Total Master Cartons</th>
+                                            <td>{{$sale_contract->cartons}}</td>
                                         </tr>
                                         <tr>
                                             <th style="background-color:#d6d9e3">Port Of Dischargr</th>
                                             <td>{{$sale_contract->port_of_discharge}}</td>
+                                            <th style="background-color:#d6d9e3">Net Weight</th>
+                                            <td>{{$sale_contract->net_weight}}</td>
                                         </tr>
                                         <tr>
                                             <th style="background-color:#d6d9e3">Pre-Carriage By</th>
                                             <td>{{$sale_contract->pre_carring_by}}</td>
+                                            <th style="background-color:#d6d9e3">Gross Weight</th>
+                                            <td>{{$sale_contract->gross_weight}}</td>
                                         </tr>
                                         <tr>
                                             <th style="background-color:#d6d9e3">Partial Shipment</th>
@@ -227,43 +241,42 @@
                                                     <span>Allowed</span>
                                                 @endif
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <th style="background-color:#d6d9e3">Final Destination</th>
-                                            <td>{{$sale_contract->final_destination}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th style="background-color:#d6d9e3">ERC No.</th>
-                                            <td>RA 003474387</td>
-                                        </tr>
-                                        <tr>
-                                            <th style="background-color:#d6d9e3">Vat Regd No.</th>
-                                            <td>RA 003474387</td>
-                                        </tr>
-                                        <tr>
-                                            <th style="background-color:#d6d9e3">Tin No.</th>
-                                            <td>RA 003474387</td>
-                                        </tr>
-                                        <tr>
-                                            <th style="background-color:#d6d9e3">Total Master Cartons</th>
-                                            <td>{{$sale_contract->cartons}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th style="background-color:#d6d9e3">Net Weight</th>
-                                            <td>{{$sale_contract->net_weight}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th style="background-color:#d6d9e3">Gross Weight</th>
-                                            <td>{{$sale_contract->gross_weight}}</td>
-                                        </tr>
-                                        <tr>
                                             <th style="background-color:#d6d9e3">CBM</th>
                                             <td>{{$sale_contract->cbm}}</td>
+                                        </tr>
+                                        <tr>
+                                            
+                                        </tr>
+                                        <tr>
+                                            
+                                        </tr>
+                                        <tr>
+                                            
+                                        </tr>
+                                        <tr>
+                                            
+                                        </tr>
+                                        <tr>
+                                            
+                                        </tr>
+                                        <tr>
+                                            
+                                        </tr>
+                                        <tr>
+                                            
+                                        </tr>
+                                        <tr>
+                                            
                                         </tr>
                                     @endforeach
                                 </table>
                             </div>
                         </div>
+                        <div class="row" style="margin-top: 25%">
+                            <span><b>Declaration:</b><br>
+                            We declare that this invoice shows that actual price of goods<br> described and that particulars are true and correct</span>
+                            <span style="margin-left:30%; text-decoration:overline">Globe Fisheries Limited</span><br> <span style="margin-left:79%">Authorized Signatory</span>
+                    </div><br>
                     </div>
                     <!-- END EXAMPLE TABLE PORTLET-->
                 </div>
