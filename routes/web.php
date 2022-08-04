@@ -47,6 +47,7 @@ use App\Http\Controllers\MedicalReportController;
 use App\Http\Controllers\MetalDetectorCheckController;
 use App\Http\Controllers\MicrobiologicalTestController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OtherProcessing\DryfishProcessingController;
 use App\Http\Controllers\OtherProcessing\VegetableProcessingController;
 use App\Http\Controllers\PackControler;
 use App\Http\Controllers\PartyController;
@@ -579,6 +580,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('processing-block-size',ProcessingBlockSizeController::class);
     
     //Production Other Processing
+    //vegetable
     Route::get('production/other_processing/vegetable/iqf',[VegetableProcessingController::class,'vegetable_iqf'])->name('production.other_processing.vegetable.iqf');
     Route::get('production/other_processing/vegetable/block',[VegetableProcessingController::class,'vegetable_block'])->name('production.other_processing.vegetable.block');
     Route::post('production/other_processing/vegetable/washing_to_glazing',[VegetableProcessingController::class,'washing_to_glazing'])->name('production.other_processing.vegetable.washing_to_glazing');
@@ -587,7 +589,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('production/other_processing/vegetable/blockcounter_to_return',[VegetableProcessingController::class,'blockcounter_to_return'])->name('production.other_processing.vegetable.blockcounter_to_return');
     Route::post('production/other_processing/vegetable/glazing_to_return',[VegetableProcessingController::class,'glazing_to_return'])->name('production.other_processing.vegetable.glazing_to_return');
     Route::post('production/other_processing/vegetable/return_to_store',[VegetableProcessingController::class,'return_to_store'])->name('production.other_processing.vegetable.return_to_store');
-
+    //dry_fish
+    Route::get('production/other_processing/dryfish',[DryfishProcessingController::class,'index'])->name('production.other_processing.dryfish.index');
+    Route::post('production/other_processing/regular_to_store',[DryfishProcessingController::class,'regular_to_store'])->name('production.other_processing.dryfish.regular_to_store');
     //Cs List
     // Route::get('production/purchase/cs/show', function () {
     //     return view('backend.production.general_purchase.cs/cs_list_show');

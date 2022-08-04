@@ -266,6 +266,7 @@
                                                                         <option value="vegetable_iqf">Vegetable/Fruit IQF</option>
                                                                         <option value="block_frozen">Block Frozen</option>
                                                                         <option value="vegetable_block">Vegetable/Fruit Block</option>
+                                                                        <option value="dry_fish">Dry Fish</option>
                                                                         <option value="raw_bf_shrimp">Raw BF(Shrimp)</option>
                                                                         <option value="raw_iqf_shrimp">Raw IQF(Shrimp)</option>
                                                                         <option value="semi_iqf">Semi IQF</option>
@@ -298,6 +299,7 @@
                                                                         <option class="vegetable_block" value="cut_n_clean">Cut & Clean</option>
                                                                         <option class="vegetable_block" value="whole">Whole</option>
                                                                         <option class="vegetable_block" value="whole_n_clean">Whole & Clean</option>
+                                                                        <option class="dry_fish" value="regular">Regular</option>
                                                                         <option class="raw_bf_shrimp" value="hlso">HLSO</option>
                                                                         <option class="raw_bf_shrimp" value="pud">PUD</option>
                                                                         <option class="raw_bf_shrimp" value="p_n_d">P & D</option>
@@ -393,6 +395,10 @@
                     $('.deadd').hide();
                 }
             else if (typex == "vegetable_block") {
+                $('.alive_input').hide();
+                $('.deadd').hide();
+            }
+            else if (typex == "dry_fish") {
                 $('.alive_input').hide();
                 $('.deadd').hide();
             }
