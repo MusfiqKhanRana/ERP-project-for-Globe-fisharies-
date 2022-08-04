@@ -86,7 +86,7 @@
                                     </div>
                                 </div>
                                 <div class="portlet-body" >
-                                    <div class="table-responsive table-scrollable">
+                                    <div class=" table-responsive table-scrollable">
                                         <table class="table table-striped table-bordered table-hover" id="mytable">
                                             <thead>
                                                 <tr class="trtr">
@@ -107,9 +107,11 @@
                                                     $lastcount=0;
                                                 @endphp
                                                 <input type="hidden" name="requisition_id" value="{{$production_requistion->id}}">
+                                                <input type="hidden" name="requisition_code" value="{{$production_requistion->invoice_code}}">
                                                 @foreach ($production_requistion->production_requisition_items as $key=>$item)
                                                     <input type="hidden" name="id[]" value="{{$item->pivot->id}}">
                                                     <input type="hidden" name="supply_item_id[]" value="{{$item->pivot->supply_item_id}}">
+                                                    <input type="hidden" name="caregory[]" value="{{$item->category}}">
                                                     <tr>
                                                         <th scope="row">{{++$key}}</th>
                                                         <td>{{$item->name}}</td>

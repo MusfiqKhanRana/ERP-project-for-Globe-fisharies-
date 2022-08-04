@@ -62,13 +62,15 @@ class InventoryStoreInController extends Controller
                 ['status'=>'Bulk_storage','store_in_status'=>'Bulk_storage']
             );
             foreach (json_decode($request->inputs) as $key => $input) {
-                ProductionProcessingGrade::create([
-                    'grade_id' => $input->grade_id,
-                    'grade_name' => $input->grade_name,
-                    'grade_quantity' => $input->grade_weight,
-                    'production_processing_unit_id' => $request->grade_ppu_id,
-                    'grading_date'=>Carbon::now(),
-                ]); 
+                if ($input->status=="stay") {
+                    ProductionProcessingGrade::create([
+                        'grade_id' => $input->grade_id,
+                        'grade_name' => $input->grade_name,
+                        'grade_quantity' => $input->grade_weight,
+                        'production_processing_unit_id' => $request->grade_ppu_id,
+                        'grading_date'=>Carbon::now(),
+                    ]); 
+                }
             }  
         }  
         return redirect()->back()->withmsg('Successfully Moved To Bulk Storage');

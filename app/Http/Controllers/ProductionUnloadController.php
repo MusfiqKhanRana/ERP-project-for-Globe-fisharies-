@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductionProcessingUnit;
 use App\Models\ProductionPurchaseRequisition;
 use App\Models\ProductionRequisition;
 use App\Models\ProductionRequisitionItem;
@@ -45,6 +46,10 @@ class ProductionUnloadController extends Controller
         ProductionRequisition::where('id',$request->requisition_id)->update(['receive_date'=>Carbon::now(),'status'=>'Received']);
         foreach ($request->id as $key => $id) {
             // dd($id);
+            if ($request->caregory[$key] == 'Sweet Desert') {
+                    $processing_code = random_int(100000, 999999);
+                    ProductionProcessingUnit::create(['requisition_id'=>$request->requisition_id,'requisition_code'=>$request->requisition_code,'item_id'=>$request->supply_item_id[$key],'processing_name'=>'Sweet Desert','processing_variant'=>'regular','alive_quantity'=>$request->alive_quantity[$key],'dead_quantity'=>$request->dead_quantity[$key],'processing_code'=>$processing_code,'status'=>'StoreIn']);
+            }
             if ($id == "no_id") {
                 // dd($id);
                 $production_requisition_item = ProductionRequisitionItem::create([
