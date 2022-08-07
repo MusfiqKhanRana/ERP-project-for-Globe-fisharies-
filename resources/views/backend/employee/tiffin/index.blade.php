@@ -109,7 +109,13 @@
                                             <td>{{$item->date}}</td>
                                             <td>{{$item->user->name}}</td>
                                             <td>{{$item->user->employee_id}}</td>
-                                            <td>{{$item->user->designation->deg_name}}</td>
+                                            <td>
+                                                @if (isset($item->user->designation->deg_name))
+                                                    {{$item->user->designation->deg_name}}
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </td>
                                             <td>{{$item->category}}</td>
                                             <td>
                                                 @if($item->days == 0)
