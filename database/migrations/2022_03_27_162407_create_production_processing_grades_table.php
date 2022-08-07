@@ -15,6 +15,7 @@ class CreateProductionProcessingGradesTable extends Migration
     {
         Schema::create('production_processing_grades', function (Blueprint $table) {
             $table->id();
+            $table->string('batch_code')->nullable();
             $table->unsignedInteger('production_processing_unit_id')->nullable();
             $table->unsignedInteger('block_id')->nullable();
             $table->text('block_name')->nullable();
@@ -34,6 +35,7 @@ class CreateProductionProcessingGradesTable extends Migration
             $table->dateTime('soaking_damage_datetime')->nullable();
             $table->double('glazing_weight')->nullable();
             $table->dateTime('glazing_weight_datetime')->nullable();
+            $table->double('final_weight')->nullable();
             $table->timestamps();
         });
     }

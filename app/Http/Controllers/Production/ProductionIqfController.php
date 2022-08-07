@@ -215,7 +215,7 @@ class ProductionIqfController extends Controller
         // dd($request);
         ProductionProcessingUnit::where('id',$request->glazing_ppu_id)
         ->update(
-            ['fillet_glazing_weight'=>$request->fillet_glazing_weight,'fillet_glazing_weight_datetime'=>Carbon::now(),'status'=>'RandW']
+            ['fillet_glazing_weight'=>$request->fillet_glazing_weight,'final_weight'=>$request->fillet_glazing_weight,'fillet_glazing_weight_datetime'=>Carbon::now(),'status'=>'RandW']
         );
         return redirect()->back()->withmsg('Successfully Send For Return & Wastage');
     }
@@ -242,9 +242,12 @@ class ProductionIqfController extends Controller
             ['status'=>'Soaking']
         );
         // dd($ppu->toArray());
+        $ppu = ProductionProcessingUnit::where('id',$request->grade_ppu_id)->first();
+        // dd($ppu->toArray());
         foreach (json_decode($request->inputs) as $key => $input) {
             if ($input->status=="stay") {
                 ProductionProcessingGrade::create([
+                    'batch_code'=>$ppu->processing_name.'.'.$ppu->processing_variant.'.'.$ppu->item_id.'.'.$input->grade_id.'.'.$input->grade_name,
                     'grade_id' => $input->grade_id,
                     'grade_name' => $input->grade_name,
                     'grade_quantity' => $input->grade_weight,
@@ -252,7 +255,7 @@ class ProductionIqfController extends Controller
                     'grading_date'=>Carbon::now(),
                 ]); 
             }
-        }    
+        }   
         return redirect()->back()->withmsg('Successfully Send For Soaking');
     }
     public function grading_to_glazing(Request $request){
@@ -262,10 +265,12 @@ class ProductionIqfController extends Controller
         ->update(
             ['status'=>'Glazing']
         );
-        // dd(json_decode($request->inputs));
+        $ppu = ProductionProcessingUnit::where('id',$request->grade_ppu_id)->first();
+        // dd($ppu->toArray());
         foreach (json_decode($request->inputs) as $key => $input) {
             if ($input->status=="stay") {
                 ProductionProcessingGrade::create([
+                    'batch_code'=>$ppu->processing_name.'.'.$ppu->processing_variant.'.'.$ppu->item_id.'.'.$input->grade_id.'.'.$input->grade_name,
                     'grade_id' => $input->grade_id,
                     'grade_name' => $input->grade_name,
                     'grade_quantity' => $input->grade_weight,
@@ -322,7 +327,7 @@ class ProductionIqfController extends Controller
         foreach ($request->item_id as $key => $value) {
             ProductionProcessingGrade::where('id',$value)
             ->update(
-                ['glazing_weight'=>$request->glazing_weight [$key],'glazing_weight_datetime'=>Carbon::now()]
+                ['glazing_weight'=>$request->glazing_weight [$key],'final_weight'=>$request->glazing_weight [$key],'glazing_weight_datetime'=>Carbon::now()]
             );
         }   
         $data_checks = ProductionProcessingGrade::where('id',$request->item_id)->select('id','grade_name','grade_quantity','soaking_weight','soaking_return','glazing_weight')->get();
