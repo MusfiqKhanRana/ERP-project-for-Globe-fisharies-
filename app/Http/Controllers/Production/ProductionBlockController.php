@@ -117,8 +117,11 @@ class ProductionBlockController extends Controller
         ->update(
             ['status'=>'BlockCounter']
         );
+        $ppu = ProductionProcessingUnit::where('id',$request->ppu_id)->first();
+        // dd($ppu->toArray());
         foreach (json_decode($request->inputs) as $key => $input) {
             ProductionProcessingGrade::create([
+                'batch_code'=>$ppu->processing_name.'.'.$ppu->processing_variant.'.'.$ppu->item_id.'.'.$input->block_id.'.'.$input->block_name.'.'.$input->block_size_name,
                 'block_id' => $input->block_id,
                 'block_name' => $input->block_name,
                 'block_value' => $input->block_name,
@@ -212,9 +215,13 @@ class ProductionBlockController extends Controller
         // dd($request->toArray());
         $count=0;
         foreach ($request->item_id as $key => $value) {
+            $ppg = ProductionProcessingGrade::where('id',$value)->first();
+            $final_weight = (($ppg->block_value*$ppg->block_quantity)+$request->excess_volume [$key]);
             ProductionProcessingGrade::where('id',$value)
             ->update(
-                ['excess_volume'=>$request->excess_volume [$key]]
+                ['excess_volume'=>$request->excess_volume [$key],
+                'final_weight' => $final_weight
+                ]
             );
         }   
         $data_checks = ProductionProcessingGrade::where('id',$request->item_id)->select('id','excess_volume')->get();
