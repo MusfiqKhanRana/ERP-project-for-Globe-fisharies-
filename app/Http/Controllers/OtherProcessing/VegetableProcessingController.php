@@ -91,6 +91,12 @@ class VegetableProcessingController extends Controller
             ->update(
                 ['block_quantity'=>$request->block_quantity [$key]]
             );
+            $ppg = ProductionProcessingGrade::where('id',$value)->first();
+            $final_weight = ($ppg->block_value*$ppg->block_quantity);
+            ProductionProcessingGrade::where('id',$value)
+            ->update(
+                ['final_weight'=> $final_weight]
+            );
         }   
         $data_checks = ProductionProcessingGrade::where('id',$request->item_id)->select('id','block_quantity')->get();
         // dd($glazing_data_checks->toArray());
@@ -112,7 +118,7 @@ class VegetableProcessingController extends Controller
         // dd($request->toArray());
         ProductionProcessingUnit::where('id',$request->ppu_id)
         ->update(
-            ['vegetable_glazing_weight'=>$request->glazing_weight,'vegetable_glazing_datetime'=>Carbon::now(),'status'=>'RandW']
+            ['vegetable_glazing_weight'=>$request->glazing_weight,'final_weight'=>$request->glazing_weight,'vegetable_glazing_datetime'=>Carbon::now(),'status'=>'RandW']
         );
         return redirect()->back()->withmsg('Successfully Send For Return&Wastage');
     }
