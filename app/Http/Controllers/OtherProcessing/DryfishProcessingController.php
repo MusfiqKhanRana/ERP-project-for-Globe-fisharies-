@@ -21,7 +21,7 @@ class DryfishProcessingController extends Controller
         // dd($request->toArray());
         ProductionProcessingUnit::where('id',$request->ppu_id)
         ->update(
-            ['status'=>'StoreIn','Initial_weight'=>$request->sorting_weight,'initial_weight_datetime'=>Carbon::now(),'wastage_quantity'=>$request->wastage_quantity,'return_quantity'=>$request->return_quantity,'RandW_datetime'=>Carbon::now()]
+            ['status'=>'StoreIn','Initial_weight'=>$request->sorting_weight,'final_weight'=>$request->sorting_weight,'initial_weight_datetime'=>Carbon::now(),'wastage_quantity'=>$request->wastage_quantity,'return_quantity'=>$request->return_quantity,'RandW_datetime'=>Carbon::now()]
         );
         return redirect()->back()->withmsg('Successfully Your Dry Fish Process is Done');
     }

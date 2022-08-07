@@ -67,6 +67,7 @@ class InventoryStoreInController extends Controller
                         'grade_id' => $input->grade_id,
                         'grade_name' => $input->grade_name,
                         'grade_quantity' => $input->grade_weight,
+                        'final_weight' => $input->grade_weight,
                         'production_processing_unit_id' => $request->grade_ppu_id,
                         'grading_date'=>Carbon::now(),
                     ]); 
