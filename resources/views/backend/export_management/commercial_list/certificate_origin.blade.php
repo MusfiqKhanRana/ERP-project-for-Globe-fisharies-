@@ -11,7 +11,30 @@
     .table td, .table th {
         font-size: 10px;
     }
+    .table tr th *{
+            text-align: left;
+        }
    
+    #dvContainer {
+        background-color: rgb(255, 255, 255);
+    }
+    @media print {
+        body * {
+            margin-block-end: 20%;
+           visibility: hidden; // part to hide at the time of print
+           
+        }
+        body {
+        margin: 2.5cm 0;
+        }
+        
+        .table tr th *{
+            text-align: left;
+        }
+        #dvContainer {
+           background-color: blue !important;
+        }
+    }
 </style>
 @section('main-content')
     <!-- BEGIN CONTENT -->
@@ -46,7 +69,7 @@
             @endif
             <!-- END PAGE TITLE-->
             <!-- BEGIN PAGE CONTENT-->
-            <div class="row" id="printcertificate">
+            <div class="row" id="dvContainer">
                 <div class="col-md-12">
                     <div class="" style="margin-left: 2%" >
                         <div class="portlet-body" style="height: auto;">
@@ -56,7 +79,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <table class="table table-bordered" style="width: 100%; font-size:50%; border: 1px solid black;">
+                                <table class="table table-bordered" style='font-family:"verdana", monospace; font-size:70%; border: 1px solid black; width:98%'>
                                     <thead>
                                         <tr>
                                             <th style="text-align: left">Manufacture / Exporter</th>
@@ -65,7 +88,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($sale_contracts as  $key=> $data)
                                         <tr>
                                             <td><b>GLOVE FISHRIES LIMITED</b><br>ALIPUR, MAIJDEE ROAD<br>BEGUMGONG,NOAKHALI<br>BANGLADESH</td>
                                             <td>
@@ -83,34 +105,37 @@
                                                 <span>{{$data->export_buyer->notify_party_country}}</span>
                                             </td>
                                         </tr>
-                                        @endforeach
-                                        <tr>
-                                            <th colspan="2">Sale Contract No. :</th>
-                                            <th>Date: </th>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="2">Commercial Invoicxe No. :</th>
-                                            <th>DAte: </th>
-                                        </tr>
                                     </tbody>
+                                </table><br>
+                                <table class="table table-striped table-hover"  style='font-family:"verdana", monospace; font-size:70%; border: 1px solid black; width:98%'>
+                                    
+                                        <tr>
+                                            <td style="border: 1px solid black; "><b>Sale Contract No. :  </b>{{$data->id}}</td>
+                                            <td style="border: 1px solid black; "><b>Date: </b></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid black; "><b>Commercial Invoicxe No. :</b></td>
+                                            <td style="border: 1px solid black; "><b>Date:</b> </td>
+                                        </tr>
                                 </table>
+                                
                             </div><br>
                             <div class="row"  style="text-align:center;" >
                                 <label for="" ><b >COUNTRY ORIGIN : BANGLADESH</b></label>
                             </div><br>
                             <div class="row">
-                                <table class="table table-striped table-hover"  style='font-family:"verdana", monospace; font-size:50%; border: 1px solid black; width:100%'>
+                                <table class="table table-striped table-hover"  style='font-family:"verdana", monospace; font-size:70%; border: 1px solid black; width:98%'>
                                     <thead>
                                         <tr>
-                                            <th style="text-align: center">Sl.</th>
-                                            <th style="text-align: center">HS Code</th>
-                                            <th style="text-align: center">Item Name</th>
-                                            <th style="text-align: center">Category</th>
-                                            <th style="text-align: center">Variant</th>
-                                            <th style="text-align: center">Grade</th>
-                                            <th style="text-align: center">Quantity / MC</th>
-                                            <th style="text-align: center">Net Weight</th>
-                                            <th style="text-align: center">Gross Weight</th>
+                                            <th style="text-align: center; border: 1px solid black;">Sl.</th>
+                                            <th style="text-align: center; border: 1px solid black;">HS Code</th>
+                                            <th style="text-align: center; border: 1px solid black;">Item Name</th>
+                                            <th style="text-align: center; border: 1px solid black;">Category</th>
+                                            <th style="text-align: center; border: 1px solid black;">Variant</th>
+                                            <th style="text-align: center; border: 1px solid black;">Grade</th>
+                                            <th style="text-align: center; border: 1px solid black;">Quantity / MC</th>
+                                            <th style="text-align: center; border: 1px solid black;">Net Weight</th>
+                                            <th style="text-align: center; border: 1px solid black;">Gross Weight</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -118,81 +143,74 @@
                                             $expototal_amount = 0;
                                             $total_master_carton = 0;
                                         @endphp
-                                        @foreach ($sale_contracts as $item)
-                                            @foreach ($item->sales_contract_items as $key=> $s_c_item)
-                                                <tr>
-                                                    <td style="text-align: center">{{++$key}}</td>
-                                                    <td style="text-align: center">{{$s_c_item->hs_code}}</td>
-                                                    <td style="text-align: center">{{$s_c_item->supply_item->name}}</td>
-                                                    <td style="text-align: center">{{$s_c_item->processing_type}}</td>
-                                                    <td style="text-align: center">{{$s_c_item->processing_variant}}</td>
-                                                    <td style="text-align: center">{{$s_c_item->fish_grade->name}}</td>
-                                                    <td style="text-align: center">{{$s_c_item->cartons}}</td>
-                                                    @php
-                                                        $total_master_carton += $s_c_item->cartons;
-                                                    @endphp
-                                                    <td style="text-align: center">{{$item->net_weight}}</td>
-                                                    <td style="text-align: center">{{$item->gross_weight}}</td>
-                                                    @php
-                                                        $expototal_amount += $s_c_item->total_amount;
-                                                    @endphp
-                                                </tr>
-                                            @endforeach
+                                        @foreach ($data->sales_contract_items as $key=> $s_c_item)
+                                            <tr>
+                                                <td style="text-align: center; border: 1px solid black;">{{++$key}}</td>
+                                                <td style="text-align: center; border: 1px solid black;">{{$s_c_item->hs_code}}</td>
+                                                <td style="text-align: center; border: 1px solid black;">{{$s_c_item->supply_item->name}}</td>
+                                                <td style="text-align: center; border: 1px solid black;">{{$s_c_item->processing_type}}</td>
+                                                <td style="text-align: center; border: 1px solid black;">{{$s_c_item->processing_variant}}</td>
+                                                <td style="text-align: center; border: 1px solid black;">{{$s_c_item->fish_grade->name}}</td>
+                                                <td style="text-align: center; border: 1px solid black;">{{$s_c_item->cartons}}</td>
+                                                @php
+                                                    $total_master_carton += $s_c_item->cartons;
+                                                @endphp
+                                                <td style="text-align: center; border: 1px solid black;">{{$data->net_weight}}</td>
+                                                <td style="text-align: center; border: 1px solid black;">{{$data->gross_weight}}</td>
+                                                @php
+                                                    $expototal_amount += $s_c_item->total_amount;
+                                                @endphp
+                                            </tr>
                                         @endforeach
                                         <tr>
-                                            <th colspan="6">Total</th>
-                                            <th style="text-align: center">{{$total_master_carton}}</th>
-                                            <th colspan="4" style="text-align: right"></th>
+                                            <th colspan="6" style="border: 1px solid black;">Total</th>
+                                            <th style="text-align: center; border: 1px solid black;">{{$total_master_carton}}</th>
+                                            <th colspan="4" style="text-align: right; border: 1px solid black;"></th>
                                         </tr>
-                                        
                                     </tbody>
                                 </table>
-                            </div>
-                            <div class="row">
-                                <h6><b>TOTAL AMOUNT (IN WORD) :</b></h6>
                             </div><br>
                             <div class="row">
-                                <table  class="table table-striped table-hover table-bordered"  style='font-family:"helvetica", monospace; font-size:70%; border: 1px solid black; width:100%; border-collapse: initial'>
-                                    @foreach ($sale_contracts as $sale_contract)
+                                <table  class="table table-striped table-hover table-bordered"  style='font-family:"verdana", monospace; font-size:70%; border: 1px solid black; width:98%'>
+                                  
                                         <tr>
-                                            <th style="text-align: left">Payment Method</th>
-                                            <td>{{$sale_contract->payment_method}}</td>
+                                            <th style="text-align: left; border: 1px solid black;">Payment Method</th>
+                                            <td style="border: 1px solid black;">{{$data->payment_method}}</td>
                                         </tr>
                                         <tr>
-                                            <th style="text-align: left">Pre-Carriage By</th>
-                                            <td>{{$sale_contract->pre_carring_by}}</td>
+                                            <th style="text-align: left; border: 1px solid black;">Pre-Carriage By</th>
+                                            <td style="border: 1px solid black;">{{$data->pre_carring_by}}</td>
                                         </tr>
                                         <tr>
-                                            <th style="text-align: left">Port of Loading</th>
-                                            <td>{{$sale_contract->port_of_loading}}</td>
+                                            <th style="text-align: left; border: 1px solid black;">Port of Loading</th>
+                                            <td style="border: 1px solid black;">{{$data->port_of_loading}}</td>
                                         </tr>
                                         <tr>
-                                            <th style="text-align: left">Port Of Dischargr</th>
-                                            <td>{{$sale_contract->port_of_discharge}}</td>
+                                            <th style="text-align: left; border: 1px solid black;">Port Of Dischargr</th>
+                                            <td style="border: 1px solid black;">{{$data->port_of_discharge}}</td>
                                         </tr>
                                         <tr>
-                                            <th style="text-align: left">Final Destination</th>
-                                            <td>{{$sale_contract->final_destination}}</td>
+                                            <th style="text-align: left; border: 1px solid black;">Final Destination</th>
+                                            <td style="border: 1px solid black;">{{$data->final_destination}}</td>
                                         </tr>
                                         <tr>
-                                            <th style="text-align: left">Marks & Nos/Cointainer</th>
-                                            <td>RA 003474387</td>
+                                            <th style="text-align: left; border: 1px solid black;">Marks & Nos/Cointainer</th>
+                                            <td style="border: 1px solid black;">RA 003474387</td>
                                         </tr>
                                         <tr>
-                                            <th style="text-align: left">No. & King of pkgs</th>
-                                            <td>{{$sale_contract->exp_no}}</td>
+                                            <th style="text-align: left; border: 1px solid black;">No. & King of pkgs</th>
+                                            <td style="border: 1px solid black;">{{$data->exp_no}}</td>
                                         </tr>
-                                    @endforeach
                                 </table>
                             </div>
-                        </div><br>
+                        </div><br><br>
                         <div class="row">
-                            <table class="table table-striped table-hover table-bordered" style='font-family:"helvetica", monospace; font-size:70%; border: 1px solid black; width:100%; border-collapse: initial'>
-                                <td>
+                            <table class="table table-striped table-hover table-bordered" style='font-family:"verdana", monospace; font-size:70%; border: 1px solid black; width:98%'>
+                                <td style="border: 1px solid black; margin-bottom: 65%">
                                     <span style="text-align: center"><h3><b>CERTIFICATE</b></h3></span>
                                     <span style="text-align: center"><p>It is hereby certified that to the best our knowledge and belief the above mentioned goods are of<br> Bangladesh Origin</p></span>
                                     <span style="text-align: center"><h3><b>STAMP</b></h3></span>
-                                    <span style="text-align: center"><p>The Noakhali Chamber of commerce & Industry</p></span>
+                                    <span style="text-align: center"><p>The Noakhali Chamber of commerce & Industry</p></span><br><br><br><br><br><br><br><br><br>
                                 </td>
                             </table>
                         </div>
@@ -204,18 +222,24 @@
             <!-- END PAGE CONTENT-->
             <div class="row" style="text-align: center" >
                 <a class="btn blue" style="background-color:#29931D"  href="{{ url()->previous() }}"><i class="fa fa-backward"></i>  Back</a>
-                <button id="printbtn"  class="btn red"><i class="fa fa-print" aria-hidden="true">  Print Invoice</i></button>
+                <button id="printNow" onclick="divPrinting();" class="btn red "><i class="fa fa-print" aria-hidden="true">  Print Invoice</i></button>
             </div>
         </div>
     </div>
 @endsection
-@section('script')
-<script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.0/jQuery.print.js"></script>
-    <script>
-       jQuery(document).ready(function() {
-            $("#printbtn").click(function () {
-                $("#printrequisition").print();
-            });
-        });
-    </script>
-@endsection
+<script type="text/javascript">
+    function addStyling(){
+      document.style.background = "skyblue";
+    }
+    function divPrinting(){
+    var divContents = document.getElementById("dvContainer").innerHTML; 
+          var a = window.open('', '', 'left=40','top=40','height=500', 'width=800'); 
+          a.document.write('<html>'); 
+          a.document.write('<head> <title> document-printed-by-javascript </title> </head>'); 
+          a.document.write('<body>'); 
+          a.document.write(divContents); 
+          a.document.write('</body></html>'); 
+          a.document.close(); 
+          a.print();
+    }
+  </script>

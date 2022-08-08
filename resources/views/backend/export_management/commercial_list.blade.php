@@ -204,7 +204,7 @@
                                                         <a class="btn red-flamingo" href="{{route('commercial.list.print',$sale_contract->id)}}">print</a>
                                                     @endif
                                                     @if ($sale_contract->commercial_status == "Approved")
-                                                        <button class="btn btn-danger">Print Invoice</button>
+                                                        <a class="btn btn-danger" href="{{route('commercial.list.print',$sale_contract->id)}}">Print Invoice</a>
                                                         <button class="btn btn-info">Print Packing List</button>
                                                         <button class="btn btn-success">View Document</button>
                                                         <a class="btn btn-primary" href="{{route('certificate.origin.print',$sale_contract->id)}}">Print Certificate Of Origin</a>
