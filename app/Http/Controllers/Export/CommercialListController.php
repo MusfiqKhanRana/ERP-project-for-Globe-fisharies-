@@ -7,6 +7,7 @@ use App\Models\ExportDocument;
 use App\Models\SalesContract;
 use App\Models\SalesContractItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CommercialListController extends Controller
 {
@@ -92,5 +93,17 @@ class CommercialListController extends Controller
         //dd($sale_contracts);
         return view('backend.export_management.commercial_list.certificate_origin',compact('data'));
     }
+
+    public function downloadFile(Request $request, $id){
+        if ($request->hasFile('document')) {
+            $file = $request->file('document');
+            //dd($file);
+            $filename = time().".".$request->document->extension();
+            $path = SalesContract::where("id", $id)->value('assets/export/document/',$filename);
+            return Storage::download($path);
+        }
+        
+       
+      }
 
 }

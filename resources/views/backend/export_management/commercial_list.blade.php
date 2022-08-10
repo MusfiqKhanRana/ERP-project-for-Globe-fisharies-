@@ -51,12 +51,8 @@
                                             <th>Shipment Details</th>
                                             <th style="text-align: center">Order Details</th>
                                             <th>Payment Details</th>
-                                            @foreach ($sale_contracts as $key=> $abc)
-                                                @if ($abc->commercial_status == "Approved")
-                                                    <th>Invoice Details</th>
-                                                    <th style="text-align: center">Documents</th>
-                                                @endif
-                                            @endforeach
+                                            <th>Invoice Details</th>
+                                            <th style="text-align: center">Documents</th>
                                             <th style="text-align: center">Action</th>
                                         </tr>
                                     </thead>
@@ -180,7 +176,7 @@
                                                                     @foreach ($sale_contract->documents as $item)
                                                                         <tr>
                                                                             <td>{{$item->title}}</td>
-                                                                            <td>{{$item->document}}
+                                                                            <td><a href="{{ route('file.download', $item->document) }}">{{$item->document}}</a></td>
                                                                                 {{-- <embed src="{{ Storage::url($item->document->file_path) }}" style="width:600px; height:800px;" frameborder="0"></td> --}}
                                                                             <td>
                                                                                 <button class="btn btn-info">Edit</button>
@@ -205,7 +201,7 @@
                                                     @endif
                                                     @if ($sale_contract->commercial_status == "Approved")
                                                         <a class="btn btn-danger" href="{{route('commercial.list.print',$sale_contract->id)}}">Print Invoice</a>
-                                                        <button class="btn btn-info">Print Packing List</button>
+                                                        <a class="btn btn-info" href="{{route('packing.list.print',$sale_contract->id)}}">Print Packing List</a>
                                                         <button class="btn btn-success">View Document</button>
                                                         <a class="btn btn-primary" href="{{route('certificate.origin.print',$sale_contract->id)}}">Print Certificate Of Origin</a>
                                                     @endif

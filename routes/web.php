@@ -150,6 +150,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::put('/employee-document-update/{id}',[EmployeeController::class,'documentUpdate'])->name('employee.document.update');
     Route::get('employee/attendance', [AttendanceController::class,'index'])->name('employee.attend');
 
+    Route::put('employee/manual/attendance/{id}', [AttendanceController::class,'ManualAttendance'])->name('manual.attendance');
+
     Route::post('attendance-post', [AttendanceController::class,'store'])->name('attendance.post');
     Route::get('attendance-approve/{id}', [AttendanceController::class,'attendanceApprove'])->name('approve.attend');
     Route::get('individual-attendance', [AttendanceController::class,'individualIndex'])->name('employee.individual');
@@ -645,9 +647,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('export-pack', ExportPackSizeController::class);
     
     //--------------------Export Management update--------------------//
+    Route::put('/export/buyer/{id}',[ExportBuyerController::class,'BuyerDetailsUpdate'])->name('export.buyer.update');
     Route::resource('export-buyer', ExportBuyerController::class);
 
 
+    Route::post('sales/contract/item/{id}',[SalesContractController::class,'itemDelete'])->name('sales.contract.item.delete');
     Route::get('sales/contract/print/{id}',[SalesContractController::class,'SaleContractPrint'])->name('sales.contract.print');
     Route::get('sale_contract/list/revise/{id}',[SalesContractController::class,'Revise'])->name('sale_contract.list.revise');
     Route::post('sale_contract/ex_buyer_datapass',[SalesContractController::class,'ex_buyer_datapass'])->name('sale_contract.ex_buyer_datapass');
@@ -655,6 +659,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     
     Route::resource('sale_contract',SalesContractController::class);
 
+    
+    Route::get('download/{id}', [CommercialListController::class, 'downloadFile'])->name('file.download');
     Route::get('commercial/certificate/print/{id}',[CommercialListController::class,'PrintCommercialCertificate'])->name('certificate.origin.print');
     Route::get('commercial/list/print/{id}',[CommercialListController::class,'PrintCommercial'])->name('commercial.list.print');
     Route::post('commercial/list/expiry/date/{id}',[CommercialListController::class,'ExpiryDate'])->name('commercial.list.expiry.date');
@@ -663,6 +669,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('commercial/list/approved/{id}',[CommercialListController::class,'commercial_list'])->name('commercial.list.approve');
     Route::get('commercial/list',[CommercialListController::class,'index'])->name('commercial.list');
 
+
+
+    Route::get('packing/request/approval/{id}',[PackingListController::class,'RequestApproval'])->name('request.approval.confirm');
+    Route::get('packing/shipment/confirm/{id}',[PackingListController::class,'DisburseShipment'])->name('disburse.shipment.confirm');
     Route::get('packing/list/print/{id}',[PackingListController::class,'PrintPacking'])->name('packing.list.print');
     Route::post('packing/list/expiry/date/{id}',[PackingListController::class,'PackingExpiryDate'])->name('packing.list.expiry.date');
     Route::post('packing/list/gross/weight/{id}',[PackingListController::class,'packingGrossWeight'])->name('packing.list.gross.weight');

@@ -33,7 +33,9 @@
                 @endif
                 <h3>
                     <a class="btn btn-danger" href="{{route('packing.list',"status=Pending")}}"><i class="fa fa-spinner"></i> Pending List ({{$pending_count}})</a>
+                    <a class="btn btn-info" href="{{route('packing.list',"request_approval=Yes")}}"><i class="fa fa-check"></i> Rerquest Approval List </a>
                 <a class="btn btn-success" href="{{route('packing.list',"status=Approved")}}"><i class="fa fa-check"></i> Approve List ({{$approved_count}})</a><br><br>
+                
                 </h3>
                 
                 <div class="portlet box blue">
@@ -129,16 +131,28 @@
                                                     <li>{{$sale_contract->advising_bank->branch_name}}</li><li>{{$sale_contract->advising_bank->branch_address}}</li><li>{{$sale_contract->advising_bank->swift_code}}</li></ul></span><br><span><b>Importer Bank: </b><ul><li>{{$sale_contract->importer_account_name}}</li>
                                                         <li>{{$sale_contract->bank_name}}</li><li>{{$sale_contract->importer_bank_branch}}</li><li>{{$sale_contract->importer_bank_country}}</li><li>{{$sale_contract->importer_account_no}}</li></ul></span></td>
                                                 <td>
+                                                    
                                                     @if ($sale_contract->packing_status == "Approved")
-                                                        <button class="btn btn-success" data-toggle="modal" href="#ApproveModal">Disburse Shipment</button>
-                                                        <button class="btn btn-info" data-toggle="modal" href="#editSaleContractModal">Request for Approval</button>
-                                                        <a class="btn red-flamingo" href="{{route('packing.list.print',$sale_contract->id)}}">print</a>
-                                                    @else
-                                                        <button class="btn green packing_approve" data-route="{{route('packing.list.approve',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" data-toggle="modal" href="#ApproveModal">Submit</button>
-                                                        <a class="btn red-flamingo" href="{{route('packing.list.print',$sale_contract->id)}}">print</a>
-                                                        <button class="btn btn-info production_date_pack" data-toggle="modal" href="#ProductionDate" data-route="{{route('packing.list.production.date',$sale_contract->id)}}" >Add Production Date</button>
-                                                        <button class="btn btn-success packing_grossWeight" data-route="{{route('packing.list.gross.weight',$sale_contract->id)}}"  data-toggle="modal" href="#GrossWeight">Add Gross Weight</button>
+                                                       
+                                                            <button class="btn btn-success disburseShipment" data-route="{{route('disburse.shipment.confirm',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" data-toggle="modal" href="#Disburse">Disburse Shipment</button>
+                                                        
+                                                            <button class="btn btn-info RequestApproval" data-route="{{route('request.approval.confirm',$sale_contract->id)}}" data-toggle="modal" href="#RequestApproval">Request for Approval</button>
+                                                        
+                                                        {{-- <a class="btn red-flamingo" href="{{route('packing.list.print',$sale_contract->id)}}">print</a> --}}
                                                     @endif
+                                                        @if ($sale_contract->request_approval == "RequestApproval")
+                                                            <button class="btn btn-info">Approve</button>
+                                                            <button class="btn btn-danger">Reject</button>
+                                                        @else
+                                                            <button class="btn green packing_approve" data-route="{{route('packing.list.approve',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" data-toggle="modal" href="#ApproveModal">Submit</button>
+                                                            {{-- <a class="btn red-flamingo" href="{{route('packing.list.print',$sale_contract->id)}}">print</a> --}}
+                                                            <button class="btn btn-info production_date_pack" data-toggle="modal" href="#ProductionDate" data-route="{{route('packing.list.production.date',$sale_contract->id)}}" >Add Production Date</button>
+                                                            <button class="btn btn-success packing_grossWeight" data-route="{{route('packing.list.gross.weight',$sale_contract->id)}}"  data-toggle="modal" href="#GrossWeight">Add Gross Weight</button>
+                                                            
+                                                        @endif
+                                                    
+                                                    
+                                                    {{-- <a class="btn red-flamingo" href="{{route('packing.list.print',$sale_contract->id)}}">print</a> --}}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -159,6 +173,46 @@
                                                 </div>
                                                 <div class="caption pull-right">
                                                     <a href="" id="approve_packing"><button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Approve</button></a></form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="RequestApproval" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h2 class="modal-title" style="color: rgb(15, 17, 17);">Are you Want to Approve it?</h2>
+                                            </div>
+                                            <div class="modal-footer " >
+                                                <div class="d-flex justify-content-between">
+                                                    <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
+                                                </div>
+                                                <div class="caption pull-right">
+                                                    <a href="" id="request_approval"><button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Approve</button></a></form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="Disburse" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="" id="">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                <h2 class="modal-title" style="color: rgb(15, 17, 17);">Are you Want to Approve it?</h2>
+                                            </div>
+                                            <div class="modal-footer " >
+                                                <div class="d-flex justify-content-between">
+                                                    <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                                </div>
+                                                <div class="caption pull-right">
+                                                    <a href="" id="disburse_shipment"><button type="submit" class="btn red-flamingo"><i class="fa fa-floppy-o"></i> Confirm</button></a></form>
                                                 </div>
                                             </div>
                                         </div>
@@ -259,6 +313,23 @@
             
            //console.log($(this).data('route'));
         });
+
+        $(".disburseShipment").click(function(){
+            
+            $('#disburse_shipment').attr('href', $(this).data('route'));
+           
+            
+           //console.log($(this).data('route'));
+        });
+
+        $(".RequestApproval").click(function(){
+            
+            $('#request_approval').attr('href', $(this).data('route'));
+           
+            
+           //console.log($(this).data('route'));
+        });
+
 
         $(".production_date_pack").click(function(){
             $('#packing_production_date').attr('action', $(this).data('route'));

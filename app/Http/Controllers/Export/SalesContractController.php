@@ -151,7 +151,8 @@ class SalesContractController extends Controller
      */
     public function edit($id)
     {
-        //
+        $sale_contracts = SalesContract::with(['sales_contract_items','export_buyer','advising_bank'])->first();
+        return view('backend.export_management.sale_contract.edit_sale_contract',compact('sale_contracts'));
     }
 
     /**
@@ -161,6 +162,73 @@ class SalesContractController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function BuyerDetailsUpdate(Request $request, $id){
+                
+        $buyer = ExportBuyer::find($id);
+       
+        $buyer->buyer_code = $request->input('buyer_code');
+        $buyer->buyer_name = $request->input('buyer_name');
+        $buyer->buyer_address = $request->input('buyer_address');
+        $buyer->buyer_contact_number = $request->input('buyer_contact_number');
+        $buyer->buyer_email = $request->input('buyer_email');
+        $buyer->buyer_country = $request->input('buyer_country');
+        $buyer->save();
+        return redirect()->back()->withMsg('Employee Salary Updated');
+    }
+
+    public function ConsigneeUpdate(Request $request, $id){
+                
+        $consignee = ExportBuyer::find($id);
+       
+        $consignee->consignee_name = $request->input('consignee_name');
+        $consignee->consignee_address = $request->input('consignee_address');
+        $consignee->consignee_contact_number = $request->input('consignee_contact_number');
+        $consignee->consignee_email = $request->input('consignee_email');
+        $consignee->consignee_country = $request->input('consignee_country');
+        $consignee->save();
+        return redirect()->back()->withMsg('Employee Salary Updated');
+    }
+
+    public function NotifyUpdate(Request $request, $id){
+                
+        $notify = ExportBuyer::find($id);
+       
+        $notify->notify_party_name = $request->input('notify_party_name');
+        $notify->notify_party_address = $request->input('notify_party_address');
+        $notify->notify_party_contact = $request->input('notify_party_contact');
+        $notify->notify_party_email = $request->input('notify_party_email');
+        $notify->notify_party_country = $request->input('notify_party_country');
+        $notify->save();
+        return redirect()->back()->withMsg('Employee Salary Updated');
+    }
+
+    public function PaymentDetailsUpdate(Request $request, $id){
+                
+        $buyer = ExportBuyer::find($id);
+       
+        $buyer->buyer_code = $request->input('buyer_code');
+        $buyer->buyer_name = $request->input('buyer_name');
+        $buyer->buyer_address = $request->input('buyer_address');
+        $buyer->buyer_contact_number = $request->input('buyer_contact_number');
+        $buyer->buyer_email = $request->input('buyer_email');
+        $buyer->buyer_country = $request->input('buyer_country');
+        $buyer->save();
+        return redirect()->back()->withMsg('Employee Salary Updated');
+    }
+
+    public function ShipmentDetailsUpdate(Request $request, $id){
+                
+        $buyer = ExportBuyer::find($id);
+       
+        $buyer->buyer_code = $request->input('buyer_code');
+        $buyer->buyer_name = $request->input('buyer_name');
+        $buyer->buyer_address = $request->input('buyer_address');
+        $buyer->buyer_contact_number = $request->input('buyer_contact_number');
+        $buyer->buyer_email = $request->input('buyer_email');
+        $buyer->buyer_country = $request->input('buyer_country');
+        $buyer->save();
+        return redirect()->back()->withMsg('Employee Salary Updated');
+    }
     public function update(Request $request, $id)
     {
         //
@@ -178,14 +246,20 @@ class SalesContractController extends Controller
         return redirect()->back()->withMsg("Successfully Deleted");
     }
 
+    public function itemDelete($id)
+    {
+        SalesContractItem::whereId($id)->delete();
+        return redirect()->back()->withMsg("Successfully Deleted");
+    }
+
     public function ex_buyer_datapass(Request $request){
         $export_buyer = ExportBuyer::where('id',$request->id)->first();
         return response()->json($export_buyer);
     }
 
     public function SaleContractPrint($id){
-        $sale_contracts = SalesContract::with(['sales_contract_items','export_buyer','advising_bank'])->where('id',$id)->get();
+        // $sale_contracts = SalesContract::with(['sales_contract_items','export_buyer','advising_bank'])->where('id',$id)->get();
         //dd($sale_contracts);
-        return view('backend.export_management.sale_contract.print_sale_contract',compact('sale_contracts'));
+        return view('backend.export_management.sale_contract.print_sale_contract');
     }
 }

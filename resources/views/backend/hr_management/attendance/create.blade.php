@@ -2,6 +2,10 @@
 @section('site-title')
    Attendance
 @endsection
+@section('style')
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+@endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
@@ -11,7 +15,7 @@
             @if(Session::has('msg'))
                 <script>
                     $(document).ready(function(){
-                        // swal("{{Session::get('msg')}}","", "success");
+                        swal("{{Session::get('msg')}}","", "success");
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
@@ -27,8 +31,8 @@
                 {{-- <div class="form-group" style="margin-left: 10%">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </div> --}}
-                {{-- <a class="btn purple pull-right" data-toggle="modal" href="#basic">
-                    Add Leave Application
+                {{-- <a class="btn purple pull-right" data-toggle="modal" href="#manualAttendance">
+                    Add Manual Attendance
                     <i class="fa fa-plus"></i>
                 </a> --}}
             </h3>
@@ -180,6 +184,9 @@
                                         <th>
                                             Status
                                         </th>
+                                        <th style="text-align: center">
+                                            Action
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -211,6 +218,9 @@
                                             @else
                                                 <td style="color:rgb(44, 55, 16);">{{$attendance->status}}</td>
                                             @endif
+                                            <td>
+                                                <button class="btn btn-info manualAttendance" data-toggle="modal" href="#manualAttendance" data-id="{{$attendance->id}}" data-route="{{route('manual.attendance',$attendance->id)}}">Manual Attendance</button>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -220,14 +230,81 @@
                     </div>
                 </div>
             </div>
+            <div id="manualAttendance" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">Add User Attendance</h4>
+                        </div>
+                        <br>
+                        <form class="form-horizontal" role="form" method="post" action="" id="manual_attendance">
+                            {{csrf_field()}}
+                            {{-- <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Date</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="date" value="{{\Carbon\Carbon::now()->format('Y-m-d')}}" data-date-format="dd/mm/yyyy" data-date-viewmode="years" readonly>
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Name</label>
+                                <div class="col-md-9">
+                                    <select  class="form-control selectpicker" data-live-search="true" name="user_id" id="name">
+                                        <option value="null">--Select--</option>
+                                        @foreach ($departments as $department)
+                                            @foreach ($department->designation as $designation)
+                                                @foreach ($designation->employee as $employee)
+                                                    <option value="{{$employee->id}}" class="{{$designation->id}}">{{$employee->name}} || {{$designation->deg_name}} || {{$department->name}}</option>
+                                                @endforeach
+                                            @endforeach    
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>--}}
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">In Time</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="time" name="in_time">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Out Time</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="time" name="out_time">
+                                </div>
+                            </div>
+                            {{-- <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Status</label>
+                                <div class="col-md-9">
+                                    <select  class="form-control" name="status" id="status">
+                                        <option value="null">--Select--</option>
+                                        <option value="Absent">Absent</option>
+                                        <option value="Present">Present</option>
+                                    </select>
+                                </div>
+                            </div> --}}
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     @endsection
     @section('script')
     <script src="https://cdn.tiny.cloud/1/i2a8bjsghb2egjws1cli2w9fcs5ke9j47f8jhfky1sq28f5q/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(function() {
+            $(".manualAttendance").click(function(){
+            $('#manual_attendance').attr('action', $(this).data('route'));
+           console.log($(this).data('route'));
+        });
+            $('#datepicker1').val(moment(moment().toDate()).format('MM/DD/YYYY'));
             tinymce.init({
                 selector: 'textarea',
                 init_instance_callback : function(editor) {

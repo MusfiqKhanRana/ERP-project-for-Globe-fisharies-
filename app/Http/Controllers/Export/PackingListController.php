@@ -69,4 +69,18 @@ class PackingListController extends Controller
         // dd($sale_contracts->toArray());
         return view('backend.export_management.packing_list.print_packing',compact('data'));
     }
+
+    public function DisburseShipment($id)
+    {
+        $sale_contract = SalesContract::where('id',$id)->update(['disburse_shipment_status'=>'Yes']);
+        //dd($sale_contract);
+        return redirect()->back()->withMsg('Successfully Confirmed');
+    }
+
+    public function RequestApproval($id)
+    {
+        $sale_contract = SalesContract::where('id',$id)->update(['request_approval'=>'RequestApproval']);
+        //dd($sale_contract);
+        return redirect()->back()->withMsg('Successfully Confirmed');
+    }
 }

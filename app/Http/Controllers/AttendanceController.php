@@ -12,6 +12,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Php;
+
 date_default_timezone_set(TimeZoneManual());
 
 
@@ -158,5 +160,20 @@ class AttendanceController extends Controller
         $att->save();
         return back();
 
+    }
+
+    public function ManualAttendance(Request $request, $id){
+        $attendance = Attendance::where('id',$id)->update(['out_time'=>$request->out_time,'in_time'=>$request->in_time]);
+        //dd($attendance);
+        //$request->date=Carbon::createFromFormat('Y-m-d', $request->date)->format('Y-m-d');
+        //$attendance = Attendance::create(['date'=>$request->date,'user_id'=>$request->user_id,'in_time'=>$request->in_time,'status'=>$request->status]);
+        //$attendance = new Attendance();
+        // $attendance->date = $request->date;
+        // $attendance->user_id = $request->user_id;
+        //$attendance->in_time = $request->in_time;
+        //$attendance->out_time = $request->out_time;
+        //$attendance->save();
+        //dd($attendance);
+        return redirect()->back()->withMsg('Successfully Updated');
     }
 }
