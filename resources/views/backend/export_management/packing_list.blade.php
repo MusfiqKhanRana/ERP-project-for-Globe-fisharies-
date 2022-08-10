@@ -33,9 +33,8 @@
                 @endif
                 <h3>
                     <a class="btn btn-danger" href="{{route('packing.list',"status=Pending")}}"><i class="fa fa-spinner"></i> Pending List ({{$pending_count}})</a>
-                    <a class="btn btn-info" href="{{route('packing.list',"request_approval=Yes")}}"><i class="fa fa-check"></i> Rerquest Approval List </a>
-                <a class="btn btn-success" href="{{route('packing.list',"status=Approved")}}"><i class="fa fa-check"></i> Approve List ({{$approved_count}})</a><br><br>
-                
+                    <a class="btn btn-success" href="{{route('packing.list',"status=Approved")}}"><i class="fa fa-check"></i> Approve List ({{$approved_count}})</a>
+                    <a class="btn btn-info" href="{{route('packing.list',"status=RequestApproval")}}"><i class="fa fa-check"></i> Rerquest Approval List ({{$request_approval_count}})</a><br><br>                
                 </h3>
                 
                 <div class="portlet box blue">
@@ -67,7 +66,7 @@
                                                     <li>{{$sale_contract->export_buyer->buyer_contact_number}}</li><li>{{$sale_contract->export_buyer->buyer_email}}</li><li>{{$sale_contract->export_buyer->buyer_country}}</li></ul></span>
                                                     <span><b>Consignee</b></span><br><ul><li>{{$sale_contract->export_buyer->consignee_name}}</li><li>{{$sale_contract->export_buyer->consignee_address}}</li><li>{{$sale_contract->export_buyer->consignee_contact_number}}</li>
                                                     <li>{{$sale_contract->export_buyer->consignee_email}}</li><li>{{$sale_contract->export_buyer->consignee_country}}</li></ul><span><b>Notify Party</b></span><br><ul><li>{{$sale_contract->export_buyer->notify_party_name}}</li>
-                                                        <li>{{$sale_contract->export_buyer->notify_party_address}}</li><li>{{$sale_contract->export_buyer->notify_party_contact}}</li><li>{{$sale_contract->export_buyer->notify_party_email}}</li><li>{{$sale_contract->export_buyer->notify_party_country}}</li></ul></li></ul></td>
+                                                    <li>{{$sale_contract->export_buyer->notify_party_address}}</li><li>{{$sale_contract->export_buyer->notify_party_contact}}</li><li>{{$sale_contract->export_buyer->notify_party_email}}</li><li>{{$sale_contract->export_buyer->notify_party_country}}</li></ul></li></ul></td>
                                                 <td><span><b>Shipment Details</b><ul><li>{{$sale_contract->port_of_loading}}</li><li>{{$sale_contract->pre_carring_by}}</li><li> {{$sale_contract->port_of_discharge}}</li>
                                                     <li> {{$sale_contract->final_destination}}</li><li>{{$sale_contract->shipment_date}}</li><li>{{$sale_contract->packaging_responsibility}}</li><li> {{$sale_contract->partial_shipment}}</li>
                                                     <li>{{$sale_contract->trans_shipment}}</li><li>{{$sale_contract->shipping_responsibility}}</li><li>{{$sale_contract->cfr_rate}}</li><li> {{$sale_contract->cif_rate}}</li><li>{{$sale_contract->sale_contract}}</li></ul></span></td>
@@ -96,34 +95,33 @@
                                                         </thead>
                                                         <tbody>
                                                             @foreach ($sale_contract->sales_contract_items as $key2=> $item)
-                                                            <tr>
-                                                                <td>{{++$key2}}</td></td>
-                                                                <td>{{$item->hs_code}}</td>
-                                                                <td>{{$item->processing_type}}</td>
-                                                                <td>{{$item->processing_variant}}</td>
-                                                                <td>{{$item->supply_item->name}}</td>
-                                                                <td>{{$item->fish_grade->name}}</td>
-                                                                <td>Pangasius Hypophtalmus</td>
-                                                                <td>{{$item->cartons}}</td>
-                                                                <td>{{$item->export_pack_size->name}}</td>
-                                                                <td>300</td>
-                                                                @if ($sale_contract->packing_status == "Approved")
-                                                                    <td>100</td>
-                                                                    <td >200</td>
-                                                                @endif
-                                                                @if ($sale_contract->packing_status == "Pending")
-                                                                    <td>
-                                                                        {{-- @if($item->expiry_date !== null)
-                                                                            <p class="label label-sm label-primary">N/A</p>
-                                                                        @else --}}
-                                                                            <button class="btn btn-info packing_expiry_date" data-expiry_date="{{$item->expiry_date}}"  data-route="{{route('packing.list.expiry.date',$item->id)}}"  data-toggle="modal" href="#ExpiryDate">Add Expiry Date</button>
-                                                                        {{-- @endif --}}
-                                                                    </td>
-                                                                @endif
+                                                                <tr>
+                                                                    <td>{{++$key2}}</td></td>
+                                                                    <td>{{$item->hs_code}}</td>
+                                                                    <td>{{$item->processing_type}}</td>
+                                                                    <td>{{$item->processing_variant}}</td>
+                                                                    <td>{{$item->supply_item->name}}</td>
+                                                                    <td>{{$item->fish_grade->name}}</td>
+                                                                    <td>Pangasius Hypophtalmus</td>
+                                                                    <td>{{$item->cartons}}</td>
+                                                                    <td>{{$item->export_pack_size->name}}</td>
+                                                                    <td>300</td>
+                                                                    @if ($sale_contract->packing_status == "Approved")
+                                                                        <td>100</td>
+                                                                        <td >200</td>
+                                                                    @endif
+                                                                    @if ($sale_contract->packing_status == "Pending")
+                                                                        <td>
+                                                                            {{-- @if($item->expiry_date !== null)
+                                                                                <p class="label label-sm label-primary">N/A</p>
+                                                                            @else --}}
+                                                                                <button class="btn btn-info packing_expiry_date" data-expiry_date="{{$item->expiry_date}}"  data-route="{{route('packing.list.expiry.date',$item->id)}}"  data-toggle="modal" href="#ExpiryDate">Add Expiry Date</button>
+                                                                            {{-- @endif --}}
+                                                                        </td>
+                                                                    @endif
 
-                                                            </tr>
+                                                                </tr>
                                                             @endforeach
-                                                            
                                                         </tbody>
                                                     </table>
                                                 </td>
@@ -133,23 +131,25 @@
                                                 <td>
                                                     
                                                     @if ($sale_contract->packing_status == "Approved")
-                                                       
-                                                            <button class="btn btn-success disburseShipment" data-route="{{route('disburse.shipment.confirm',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" data-toggle="modal" href="#Disburse">Disburse Shipment</button>
+                                                            @if ($sale_contract->packing_request_approval)
+                                                                <button class="btn btn-success disburseShipment" data-route="{{route('disburse.shipment.confirm',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" data-toggle="modal" href="#Disburse">Disburse Shipment</button>
+                                                            @endif
                                                         
                                                             <button class="btn btn-info RequestApproval" data-route="{{route('request.approval.confirm',$sale_contract->id)}}" data-toggle="modal" href="#RequestApproval">Request for Approval</button>
                                                         
-                                                        {{-- <a class="btn red-flamingo" href="{{route('packing.list.print',$sale_contract->id)}}">print</a> --}}
+                                                            <a class="btn red-flamingo" href="{{route('packing.list.print',$sale_contract->id)}}">print</a>
                                                     @endif
-                                                        @if ($sale_contract->request_approval == "RequestApproval")
-                                                            <button class="btn btn-info">Approve</button>
-                                                            <button class="btn btn-danger">Reject</button>
-                                                        @else
-                                                            <button class="btn green packing_approve" data-route="{{route('packing.list.approve',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" data-toggle="modal" href="#ApproveModal">Submit</button>
-                                                            {{-- <a class="btn red-flamingo" href="{{route('packing.list.print',$sale_contract->id)}}">print</a> --}}
-                                                            <button class="btn btn-info production_date_pack" data-toggle="modal" href="#ProductionDate" data-route="{{route('packing.list.production.date',$sale_contract->id)}}" >Add Production Date</button>
-                                                            <button class="btn btn-success packing_grossWeight" data-route="{{route('packing.list.gross.weight',$sale_contract->id)}}"  data-toggle="modal" href="#GrossWeight">Add Gross Weight</button>
-                                                            
-                                                        @endif
+
+                                                    @if ($sale_contract->packing_status == "RequestApproval")
+                                                        <button class="btn btn-info">Approve</button>
+                                                        <button class="btn btn-danger">Reject</button>
+                                                    {{-- @else
+                                                        <button class="btn green packing_approve" data-route="{{route('packing.list.approve',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" data-toggle="modal" href="#ApproveModal">Submit</button>
+                                                        <a class="btn red-flamingo" href="{{route('packing.list.print',$sale_contract->id)}}">print</a>
+                                                        <button class="btn btn-info production_date_pack" data-toggle="modal" href="#ProductionDate" data-route="{{route('packing.list.production.date',$sale_contract->id)}}" >Add Production Date</button>
+                                                        <button class="btn btn-success packing_grossWeight" data-route="{{route('packing.list.gross.weight',$sale_contract->id)}}"  data-toggle="modal" href="#GrossWeight">Add Gross Weight</button> --}}
+                                                        
+                                                    @endif
                                                     
                                                     
                                                     {{-- <a class="btn red-flamingo" href="{{route('packing.list.print',$sale_contract->id)}}">print</a> --}}

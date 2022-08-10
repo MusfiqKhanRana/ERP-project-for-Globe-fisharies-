@@ -12,21 +12,30 @@ class PackingListController extends Controller
     public function index(Request $request)
     {
         $packing_status = null;
+        // dd($request->all());
         if ($request->status == "Approved"){
             $packing_status = 'Approved';
-        }else{
+        }
+        elseif($request->status == "RequestApproval"){
+            // dd('good');
+            $packing_status = 'RequestApproval';
+        }
+        else{
             $packing_status = 'Pending';
         }
+        
+        // dd($packing_status);
         $pending_count = SalesContract::select('id','status')->where('status','Approved')->where('packing_status','Pending')->count();
-        $approved_count = SalesContract::select('id','packing_status')->where('packing_status','Approved')->count();
+        $approved_count = SalesContract::select('id','packing_status')->where('status','Approved')->where('packing_status','Approved')->count();
+        $request_approval_count = SalesContract::select('id','packing_status')->where('status','Approved')->where('packing_status','RequestApproval')->count();
         $sale_contracts = SalesContract::where('status',"Approved")->where(function($q) use($packing_status){
             if ($packing_status) {
                 $q->where('packing_status',$packing_status);
             }
         })
         ->with(['sales_contract_items','export_buyer','advising_bank','documents'])->get();
-       //dd($sale_contracts);
-        return view('backend.export_management.packing_list',compact('sale_contracts','pending_count','approved_count'));
+    //    dd($sale_contracts->toArray());
+        return view('backend.export_management.packing_list',compact('sale_contracts','pending_count','approved_count','request_approval_count'));
     }
     public function packing_list($id)
     {

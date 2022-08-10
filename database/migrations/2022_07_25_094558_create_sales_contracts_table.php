@@ -50,6 +50,7 @@ class CreateSalesContractsTable extends Migration
             $table->enum('status',['Initial','Pending','Approved'])->default('Initial');
             $table->enum('commercial_status',['Pending','Approved'])->default('Pending');
             $table->enum('packing_status',['Pending','Approved','RequestApproval'])->default('Pending');
+            $table->boolean('packing_request_approval')->nullable();
             //Commercial Invoice
             $table->string('exp_no')->nullable();
             $table->date('exp_date')->nullable();
