@@ -134,7 +134,7 @@
                                                                 @if ($sale_contract->status == "Pending")
                                                                     <td>
                                                                         <button class="btn btn-info"  data-toggle="modal" href="#editkModal">Edit</button>
-                                                                        <button class="btn btn-danger"  data-toggle="modal" href="#deleteModal">Delete</button>
+                                                                        <button class="btn btn-danger delete_item" data-route="{{route('sales.contract.item.delete',$item->id)}}" data-toggle="modal" href="#deleteModal">Delete</button>
                                                                     </td>
                                                                 @endif
                                                             </tr>
@@ -149,14 +149,15 @@
                                                 <td>
                                                     @if ($sale_contract->status == "Pending")
                                                         <button class="btn btn-success approve_sale_contract" data-toggle="modal" data-route="{{route('sale.contract.approve',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" href="#ApproveModal">Approve</button>
-                                                        <button class="btn btn-info" data-toggle="modal" href="#editSaleContractModal">Edit</button>
-                                                        <a class="btn red-flamingo" href="{{route('sales.contract.print',$sale_contract->id)}}">print</a>
+                                                        <a class="btn btn-info" data-toggle="modal" href="{{route('sale_contract.edit',$sale_contract->id)}}">Edit</a>
+                                                        {{-- <a class="btn red-flamingo" href="{{route('sales.contract.print',$sale_contract->id)}}">print</a> --}}
                                                         <button class="btn blue" data-toggle="modal" href="#AddItemModal">+  Add Item</button>
                                                         <button class="btn btn-danger delete" data-route="{{route('sale_contract.destroy',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" data-toggle="modal" href="#deleteallModal">Delete</button>
                                                     @else
                                                         <button class="btn btn-danger sales_revise" data-toggle="modal" href="#ReviceModal" data-route="{{route('sale_contract.list.revise',$sale_contract->id)}}">Revise</button>
-                                                        <a class="btn red-flamingo" href="{{route('sales.contract.print',$sale_contract->id)}}">print</a>
+                                                        {{-- <a class="btn red-flamingo" href="{{route('sales.contract.print',$sale_contract->id)}}">print</a> --}}
                                                     @endif
+                                                    <a class="btn red-flamingo" href="{{route('sales.contract.print',$sale_contract->id)}}">print</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -192,6 +193,7 @@
                                     <input type="hidden" value="" id="delete_id">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
+                                            <input type="hidden" value="" id="id">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                                 <h2 class="modal-title" style="color: red;">Are you sure?</h2>
@@ -201,8 +203,7 @@
                                                     <button type="button"data-dismiss="modal"  class="btn default">Cancel</button>
                                                 </div>
                                                 <div class="caption pull-right">
-                                                    <form action="{{--route('',[$data->id])--}}" method="POST">
-                                                        @method('DELETE')
+                                                    <form action="" id="delete_single_item" method="POST">
                                                         @csrf
                                                         <button class="btn red" id="delete"><i class="fa fa-trash"></i>Delete</button>               
                                                     </form>
@@ -463,8 +464,15 @@
         $(".delete").click(function(){
             $('#delete_sale_contract').attr('action', $(this).data('route'));
            
+           // console.log($(this).data('route'));
+        });
+
+        $(".delete_item").click(function(){
+            $('#delete_single_item').attr('action', $(this).data('route'));
+           
             console.log($(this).data('route'));
         });
+
         var table = $('.yajra-datatable').DataTable({
             processing: true,
             serverSide: true,
