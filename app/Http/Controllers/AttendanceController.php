@@ -163,17 +163,32 @@ class AttendanceController extends Controller
     }
 
     public function ManualAttendance(Request $request, $id){
-        $attendance = Attendance::where('id',$id)->update(['out_time'=>$request->out_time,'in_time'=>$request->in_time]);
-        //dd($attendance);
-        //$request->date=Carbon::createFromFormat('Y-m-d', $request->date)->format('Y-m-d');
-        //$attendance = Attendance::create(['date'=>$request->date,'user_id'=>$request->user_id,'in_time'=>$request->in_time,'status'=>$request->status]);
-        //$attendance = new Attendance();
-        // $attendance->date = $request->date;
-        // $attendance->user_id = $request->user_id;
-        //$attendance->in_time = $request->in_time;
-        //$attendance->out_time = $request->out_time;
-        //$attendance->save();
-        //dd($attendance);
+        $status='';
+        $attendance = Attendance::with([
+                'employee' => function($q){
+                    $q->with(['user_shift']);
+                }
+            ])->where('id',$id)->first();
+        if ($request->in_time) {
+            $request->in_time = Carbon::parse($request->in_time)->format('H:i:s');
+        }
+        
+        if ($request->out_time) {
+            $request->out_time = Carbon::parse($request->out_time)->format('H:i:s');
+        }
+        $status = $this->status($attendance->employee->user_shift,$request->in_time);
+        Attendance::where('id',$id)->update(['out_time'=>$request->out_time,'in_time'=>$request->in_time,'status'=>$status]);
         return redirect()->back()->withMsg('Successfully Updated');
+    }
+    public function status($shift,$inTime)
+    {
+        // dd([$shift->toArray(),$inTime]);
+        if ($inTime<=$shift->delay_time) {
+           return "Present";
+        }elseif ($inTime>=$shift->delay_time && $inTime<=$shift->late_time) {
+            return "Delay";
+        }else {
+            return "Late";
+        }
     }
 }

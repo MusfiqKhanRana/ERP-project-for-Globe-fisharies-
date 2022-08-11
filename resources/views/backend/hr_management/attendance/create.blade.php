@@ -16,13 +16,13 @@
                 <script>
                     $(document).ready(function(){
                         swal("{{Session::get('msg')}}","", "success");
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: "{{Session::get('msg')}}",
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
+                        // Swal.fire({
+                        //     position: 'top-end',
+                        //     icon: 'success',
+                        //     title: "{{Session::get('msg')}}",
+                        //     showConfirmButton: false,
+                        //     timer: 1500
+                        // })
                     });
                 </script>
             @endif
@@ -203,10 +203,12 @@
                                             </td>
                                             <td>{{$attendance->date}}</td>
                                             <td>{{$attendance->in_time}}</td>
-                                            <td>02.05<br>
+                                            <td>
+                                                {{-- 02.05<br>
                                                 02.15<br>
                                                 04.15<br>
-                                                04.25
+                                                04.25 --}}
+                                                N/A
                                             </td>
                                             <td>{{$attendance->out_time}}</td>
                                             @if ($attendance->status=="Present")
@@ -219,7 +221,9 @@
                                                 <td style="color:rgb(44, 55, 16);">{{$attendance->status}}</td>
                                             @endif
                                             <td>
-                                                <button class="btn btn-info manual_attendance" data-toggle="modal" href="#manualAttendance" data-id="{{$attendance->id}}" data-route="{{route('manual.attendance',$attendance->id)}}">Manual Attendance</button>
+                                                @if ($attendance->date == \Carbon\Carbon::now()->format('d/m/Y') && $attendance->out_time == null)
+                                                    <button class="btn btn-info manual_attendance" data-toggle="modal" href="#manualAttendance" data-in_time = "{{$attendance->in_time}}" data-out_time = "{{$attendance->out_time}}" data-id="{{$attendance->id}}" data-route="{{route('manual.attendance',$attendance->id)}}">Manual Attendance</button>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -244,13 +248,13 @@
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">In Time</label>
                                 <div class="col-md-9">
-                                    <input class="form-control" type="time" name="in_time">
+                                    <input class="form-control" type="time" name="in_time" id="in_time">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Out Time</label>
                                 <div class="col-md-9">
-                                    <input class="form-control" type="time" name="out_time">
+                                    <input class="form-control" type="time" name="out_time" id="out_time">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -296,23 +300,17 @@
     </div>
     @endsection
     @section('script')
-    <script src="https://cdn.tiny.cloud/1/i2a8bjsghb2egjws1cli2w9fcs5ke9j47f8jhfky1sq28f5q/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    {{-- <script src="https://cdn.tiny.cloud/1/i2a8bjsghb2egjws1cli2w9fcs5ke9j47f8jhfky1sq28f5q/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(function() {
             $(".manual_attendance").click(function(){
-            $('#manual_attendance').attr('action', $(this).data('route'));
-           console.log($(this).data('route'));
-        });
-            $('#datepicker1').val(moment(moment().toDate()).format('MM/DD/YYYY'));
-            tinymce.init({
-                selector: 'textarea',
-                init_instance_callback : function(editor) {
-                    var freeTiny = document.querySelector('.tox .tox-notification--in');
-                    freeTiny.style.display = 'none';
-                }
+                $('#in_time').val($(this).data('in_time'))
+                $('#out_time').val($(this).data('out_time'))
+                $('#manual_attendance').attr('action', $(this).data('route'));
             });
+            $('#datepicker1').val(moment(moment().toDate()).format('MM/DD/YYYY'));
             $("#designation").chained("#department");
             $("#name").chained("#designation");
         });
