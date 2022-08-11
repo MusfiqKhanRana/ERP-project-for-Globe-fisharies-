@@ -43,6 +43,7 @@ use App\Http\Controllers\ExportPackSizeController;
 use App\Http\Controllers\FishGradeController;
 use App\Http\Controllers\GeneralItemStockController;
 use App\Http\Controllers\Inventory\InventoryStoreInController;
+use App\Http\Controllers\Inventory\ProductionExportInventoryController;
 use App\Http\Controllers\MedicalReportController;
 use App\Http\Controllers\MetalDetectorCheckController;
 use App\Http\Controllers\MicrobiologicalTestController;
@@ -629,7 +630,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('inventory/cold_storage/export_storage_2', function () {
         return view('backend.production.inventory.cold_storage.export_storage_2');
     })->name('inventory.cold_storage.export_storage_2');
-
+    Route::resource('production-export-inventory',ProductionExportInventoryController::class);
     
     Route::resource('user-shift',UserShiftController::class);
 
