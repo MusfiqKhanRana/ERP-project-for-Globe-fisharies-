@@ -671,6 +671,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
 
 
 
+    Route::get('packing/disburse/shipment/approval/{id}',[PackingListController::class,'ShipmentApproval'])->name('disburse.shipment.approval');
     Route::get('packing/request/approval/{id}',[PackingListController::class,'RequestApproval'])->name('request.approval.confirm');
     Route::get('packing/shipment/confirm/{id}',[PackingListController::class,'DisburseShipment'])->name('disburse.shipment.confirm');
     Route::get('packing/list/print/{id}',[PackingListController::class,'PrintPacking'])->name('packing.list.print');
