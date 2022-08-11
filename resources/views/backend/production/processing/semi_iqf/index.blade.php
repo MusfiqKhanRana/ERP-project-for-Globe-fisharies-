@@ -65,25 +65,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
-                                                1001
-                                            </td>
-                                            <td>
-                                                Rui
-                                            </td>
-                                            <td>
-                                                300-500gm
-                                            </td>
-                                            <td>
-                                                60kg
-                                            </td>
-                                            <td>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#processData_hoso" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Process Data</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#grading_hoso" class="btn btn-success"><i class="fa fa-bar-chart" aria-hidden="true"></i> Grading</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#blockCounter_hoso" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i> Block Counter</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#excess_hoso" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i> Excess Volume</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#WastageReturn_hoso" class="btn btn-danger"><i class="fa fa-refresh" aria-hidden="true"></i> Wastage/Return</button>
-                                            </td>
+                                            
                                         </tr>
                                     </tbody>
                                 </table>
@@ -118,26 +100,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
-                                                10001
-                                            </td>
-                                            <td>
-                                                Rui
-                                            </td>
-                                            <td>
-                                                300-500gm
-                                            </td>
-                                            <td>
-                                                60kg
-                                            </td>
-                                            <td>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#processData_hoto" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Process Data</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#grading_hoto" class="btn btn-success"><i class="fa fa-bar-chart" aria-hidden="true"></i> Grading</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#blockCounter_hoto" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i>Block Counter</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#excess_hoto" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i>Excess Volume</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#WastageReturn_hoto" class="btn btn-danger"><i class="fa fa-refresh" aria-hidden="true"></i> Wastage/Return</button>
-                                                
-                                            </td>
+                                            
                                         </tr>
                                     </tbody>
                                 </table>

@@ -15,7 +15,7 @@ class CreateProcessingGradesTable extends Migration
     {
         Schema::create('processing_grades', function (Blueprint $table) {
             $table->id();
-            $table->text('grade_name')->nullable();
+            $table->string('name')->nullable();
             $table->timestamps();
         });
     }

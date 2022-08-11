@@ -82,10 +82,10 @@
                                                             @foreach($data->production_supply_list_items as $key2=> $item)
                                                                 <tr>
                                                                     <th>{{++$key2}}</th>
-                                                                    <th>{{$item->name}}</th>
+                                                                    <th>{{$item->production_supply_items->name}}</th>
                                                                     <th>{{$item->category}}</th>
-                                                                    <th>{{$item->grade->name}}</th>
-                                                                    <th>{{$item->pivot->quantity}}</th>  
+                                                                    <th>{{$item->grade_name}}</th>
+                                                                    <th>{{$item->quantity}}</th>  
                                                                     <th>
                                                                         <a class="btn red" data-toggle="modal" href="#deletModal{{$item->id}}"><i class="fa fa-trash"></i> Delete</a>
                                                                         

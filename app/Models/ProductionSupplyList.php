@@ -15,8 +15,7 @@ class ProductionSupplyList extends Model
     }
     public function production_supply_list_items()
     {
-        return $this->belongsToMany(SupplyItem::class,"production_supply_list_items","production_supply_list_id","item_id")
-        ->withPivot('id','quantity','status');
+        return $this->hasMany(ProductionSupplyListItem::class,"production_supply_list_id");
     }
     public function supplier()
     {

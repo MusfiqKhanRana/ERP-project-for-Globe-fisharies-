@@ -118,7 +118,7 @@
                                                                 
                                                             @endforeach
                                                             <tr>
-                                                                <th colspan="5" class="text-center">Total</th>
+                                                                <th colspan="6" class="text-center">Total</th>
                                                                 <th>{{$total}}</th>
                                                             </tr>
                                                         </tbody>
@@ -134,7 +134,7 @@
                                                         <a class="btn btn-danger" data-toggle="modal" href="#rejectModal{{$data->id}}"><i class="fa fa-times-circle-o fa-2"></i> Reject</a>
                                                         <a class="btn purple" data-toggle="modal" href="#returnModal{{$data->id}}"><i class="fa fa-undo"></i> Return</a>
                                                     @elseif(request()->status=="Approved")
-                                                        <a class="btn green" data-toggle="modal" href="#dispatchModal{{$data->id}}"><i class="fa fa-arrow-circle-right"></i>Send to Production</a>
+                                                        <a class="btn green" data-toggle="modal" href="#dispatchModal{{$data->id}}"><i class="fa fa-arrow-circle-right"></i>Send to Unload</a>
                                                         <a class="btn purple" data-toggle="modal" href="{{route('requisition.print',$data->id)}}"><i class="fa fa-print"></i> Show & Print</a>
                                                     @endif
                                                 </td>

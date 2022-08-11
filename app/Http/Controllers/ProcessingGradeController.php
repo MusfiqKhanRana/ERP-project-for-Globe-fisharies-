@@ -43,7 +43,7 @@ class ProcessingGradeController extends Controller
     public function store(Request $request)
     {
         // dd($request);
-        ProcessingGrade::create(['grade_name'=>$request->name]);
+        ProcessingGrade::create(['name'=>$request->name]);
         return redirect()->back()->withmsg('Successfully Created Grade');
     }
 

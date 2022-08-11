@@ -28,23 +28,7 @@
         </thead>
         <tbody class="whole_n_clean_tbody">
             <tr>
-                <td>
-                    11111
-                </td>
-                <td>
-                    Rui
-                </td>
-                <td>
-                    300-500gm
-                </td>
-                <td>
-                    60kg
-                </td>
-                <td>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#whole_n_clean_washing_n_cuttingModal" class="btn btn-success"><i class="fa fa-refresh" aria-hidden="true"></i>Washing & Cutting</button>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#whole_n_clean_glazingModal" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Glazing</button>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#whole_n_clean_return_n_wastageModal" class="btn btn-danger"><i class="fa fa-repeat" aria-hidden="true"></i> Return & Wastage</button>
-                </td>
+              
             </tr>
         </tbody>
     </table>

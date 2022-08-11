@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Production;
 
 use App\Http\Controllers\Controller;
 use App\Models\FishGrade;
+use App\Models\ProcessingGrade;
 use App\Models\ProductionProcessingGrade;
 use App\Models\ProductionProcessingUnit;
 use Carbon\Carbon;
@@ -52,7 +53,7 @@ class ProductionIqfController extends Controller
         ->where('status','!=','StoreIn')
         ->where('status','!=','Bulk_storage')
         ->get()->count();
-        $grades = FishGrade::all();
+        $grades = ProcessingGrade::all();
         $production_processing_grade = ProductionProcessingGrade::all();
         return view('backend.production.processing.iqf.index',compact('grades','production_processing_grade','fillet_count','whole_count','whole_gutted_count','cleaned_count','sliced_fmly_cut_count','sliced_chinese_cut_count','butter_fly_count','hgto_count'));
     }
@@ -97,7 +98,7 @@ class ProductionIqfController extends Controller
         ->where('status','!=','StoreIn')
         ->where('status','!=','Bulk_storage')
         ->get()->count();
-        $grades = FishGrade::all();
+        $grades = ProcessingGrade::all();
         $production_processing_grade = ProductionProcessingGrade::all();
         return view('backend.production.processing.raw_iqf_shrimp.index',compact('grades','production_processing_grade','hlso','pud','p_n_d_tail_on','p_n_d_tail_off','special_cut_p_n_d','hlso_easy_pell','butterfly_pud_skewer','pud_pull_vein'));
     }
@@ -122,7 +123,7 @@ class ProductionIqfController extends Controller
         ->where('status','!=','StoreIn')
         ->where('status','!=','Bulk_storage')
         ->get()->count();
-        $grades = FishGrade::all();
+        $grades = ProcessingGrade::all();
         $production_processing_grade = ProductionProcessingGrade::all();
         return view('backend.production.processing.cooked_iqf.index',compact('grades','production_processing_grade','hoso_count','pud_count','p_n_d_tail_on_count','p_n_d_tail_off_count')); 
     }
@@ -148,7 +149,7 @@ class ProductionIqfController extends Controller
         ->where('status','!=','StoreIn')
         ->where('status','!=','Bulk_storage')
         ->get()->count();
-        $grades = FishGrade::all();
+        $grades = ProcessingGrade::all();
         $production_processing_grade = ProductionProcessingGrade::all();
         return view('backend.production.processing.blanched_iqf.index',compact('grades','production_processing_grade','hoso_count','pud_count','p_n_d_tail_on_count','p_n_d_tail_off_count')); 
     }

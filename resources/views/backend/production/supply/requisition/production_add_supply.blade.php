@@ -73,16 +73,16 @@
                                 </thead>
                                 <tbody>
                                     @foreach($lists->production_supply_list_items as $key2=> $item)
-                                    @if($item->pivot->status == 'NotDone')
+                                    @if($item->status == 'NotDone')
 
                                         <tr>
                                             <th style="text-align: center">
-                                                <input type="checkbox" class="supply_item" data-item_id={{$item->id}} data-id={{$item->pivot->id}} data-name={{$item->name}} data-category={{$item->category}} data-grade_name={{$item->grade->name}} data-qty={{$item->pivot->quantity}} name="supply_item_ids[]" multiple="multiple">
+                                                <input type="checkbox" class="supply_item" data-item_id={{$item->item_id}} data-id={{$item->id}} data-name={{$item->production_supply_items->name}} data-category={{$item->category}} data-grade_name={{$item->grade_name}} data-qty={{$item->quantity}} name="supply_item_ids[]" multiple="multiple">
                                             </th>
-                                            <th>{{$item->name}}</th>
+                                            <th>{{$item->production_supply_items->name}}</th>
                                             <th>{{$item->category}}</th>
-                                            <th>{{$item->grade->name}}</th>
-                                            <th>{{$item->pivot->quantity}}</th>  
+                                            <th>{{$item->grade_name}}</th>
+                                            <th>{{$item->quantity}}</th>  
                                         </tr>
                                     @endif
                                     

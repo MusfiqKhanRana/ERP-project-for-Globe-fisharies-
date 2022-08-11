@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 class InventoryStoreInController extends Controller
 {
     public function store_in(){
-        $grades = FishGrade::all();
+        $grades = ProcessingGrade::all();
         $ppu = ProductionProcessingUnit::where('status','StoreIn')->with('production_processing_grades','production_processing_item')->latest()->paginate(5);
         // dd($ppu->toArray());
         return view('backend.production.inventory.store-in.index',compact('ppu','grades'));

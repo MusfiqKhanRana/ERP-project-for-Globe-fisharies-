@@ -28,24 +28,7 @@
         </thead>
         <tbody class="whole_tbody">
             <tr>
-                <td>
-                    11111
-                </td>
-                <td>
-                    Rui
-                </td>
-                <td>
-                    300-500gm
-                </td>
-                <td>
-                    60kg
-                </td>
-                <td>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#whole_washing_n_cuttingModal" class="btn btn-success"><i class="fa fa-refresh" aria-hidden="true"></i>Washing & Cutting</button>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#whole_blockingModal" class="btn btn-success"><i class="fa fa-bar-chart" aria-hidden="true"></i> Blocking</button>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#whole_block_counterModal" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i> Block Counter</button>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#whole_return_n_wastageModal" class="btn btn-danger"><i class="fa fa-repeat" aria-hidden="true"></i> Return & Wastage</button>
-                </td>
+   
             </tr>
         </tbody>
     </table>
