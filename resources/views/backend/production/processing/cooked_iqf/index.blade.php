@@ -75,25 +75,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
-                                                1001
-                                            </td>
-                                            <td>
-                                                Rui
-                                            </td>
-                                            <td>
-                                                300-500gm
-                                            </td>
-                                            <td>
-                                                60kg
-                                            </td>
-                                            <td>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#processData_hoso" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Process Data</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#grading_hoso" class="btn btn-success"><i class="fa fa-bar-chart" aria-hidden="true"></i> Grading</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#soaking_hoso" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i> Soaking</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#glazing_hoso" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i> Glazing</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#WastageReturn_hoso" class="btn btn-danger"><i class="fa fa-refresh" aria-hidden="true"></i> Wastage/Return</button>
-                                            </td>
+                                           
                                         </tr>
                                     </tbody>
                                 </table>
@@ -128,26 +110,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
-                                                10001
-                                            </td>
-                                            <td>
-                                                Rui
-                                            </td>
-                                            <td>
-                                                300-500gm
-                                            </td>
-                                            <td>
-                                                60kg
-                                            </td>
-                                            <td>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#processData_pud" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Process Data</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#grading_pud" class="btn btn-success"><i class="fa fa-bar-chart" aria-hidden="true"></i> Grading</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#soaking_pud" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i> Soaking</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#glazing_pud" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i> Glazing</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#WastageReturn_pud" class="btn btn-danger"><i class="fa fa-refresh" aria-hidden="true"></i> Wastage/Return</button>
-                                                
-                                            </td>
+                                            
                                         </tr>
                                     </tbody>
                                 </table>
@@ -182,26 +145,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
-                                                10001
-                                            </td>
-                                            <td>
-                                                Rui
-                                            </td>
-                                            <td>
-                                                300-500gm
-                                            </td>
-                                            <td>
-                                                60kg
-                                            </td>
-                                            <td>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#processData_p_d_tail_on" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Process Data</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#grading_p_d_tail_on" class="btn btn-success"><i class="fa fa-bar-chart" aria-hidden="true"></i> Grading</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#soaking_p_d_tail_on" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i> Soaking</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#glazing_p_d_tail_on" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i> Glazing</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#WastageReturn_p_d_tail_on" class="btn btn-danger"><i class="fa fa-refresh" aria-hidden="true"></i> Wastage/Return</button>
-                                                
-                                            </td>
+                                            
                                         </tr>
                                     </tbody>
                                 </table>
@@ -236,26 +180,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
-                                                10001
-                                            </td>
-                                            <td>
-                                                Rui
-                                            </td>
-                                            <td>
-                                                300-500gm
-                                            </td>
-                                            <td>
-                                                60kg
-                                            </td>
-                                            <td>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#processData_p_d_tail_off" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Process Data</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#grading_p_d_tail_off" class="btn btn-success"><i class="fa fa-bar-chart" aria-hidden="true"></i> Grading</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#soaking_p_d_tail_off" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i> Soaking</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#glazing_p_d_tail_off" class="btn blue"><i class="fa fa-calculator" aria-hidden="true"></i> Glazing</button>
-                                                <button style="margin-bottom:3px" data-toggle="modal" href="#WastageReturn_p_d_tail_off" class="btn btn-danger"><i class="fa fa-refresh" aria-hidden="true"></i> Wastage/Return</button>
-                                                
-                                            </td>
+                                            
                                         </tr>
                                     </tbody>
                                 </table>

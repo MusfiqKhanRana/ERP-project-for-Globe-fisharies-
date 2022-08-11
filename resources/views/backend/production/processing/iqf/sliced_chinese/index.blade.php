@@ -28,26 +28,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>
-                    11111
-                </td>
-                <td>
-                    Rui
-                </td>
-                <td>
-                    300-500gm
-                </td>
-                <td>
-                    60kg
-                </td>
-                <td>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#sliced_chineseProcessingDataModal" class="btn btn-success"><i class="fa fa-refresh" aria-hidden="true"></i> Processing Data</button>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#sliced_chineseCleaningModal" class="btn btn-warning"><i class="fa fa-refresh" aria-hidden="true"></i> Cleaning</button>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#sliced_chineseGradingModal" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Grading</button>
-                    {{-- <button style="margin-bottom:3px" data-toggle="modal" href="#sliced_chineseSoakingModal" class="btn btn-warning"><i class="fa fa-refresh" aria-hidden="true"></i> Soaking</button> --}}
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#sliced_chineseGlazingModal" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Glazing</button>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#sliced_chineseReturnModal" class="btn btn-danger"><i class="fa fa-repeat" aria-hidden="true"></i> Return & Wastage</button>
-                </td>
+               
             </tr>
         </tbody>
     </table>

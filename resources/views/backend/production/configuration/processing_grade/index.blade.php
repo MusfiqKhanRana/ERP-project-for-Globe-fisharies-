@@ -59,7 +59,7 @@
                                 @foreach($p_grade as $key=> $data)
                                     <tr id="row1">
                                         <td>{{ ++ $key }}</td>
-                                        <td class="text-align: center;"> {{$data->grade_name}}</td>
+                                        <td class="text-align: center;"> {{$data->name}}</td>
                                         <td style="text-align: center">
                                             <a class="btn btn-info"  data-toggle="modal" href="#editGradeModal{{$data->id}}"><i class="fa fa-edit"></i> Edit</a>
                                             <a class="btn red" data-toggle="modal" href="#deleteGradeModal{{$data->id}}"><i class="fa fa-trash"></i> Delete</a>

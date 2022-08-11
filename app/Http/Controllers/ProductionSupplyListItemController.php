@@ -37,17 +37,17 @@ class ProductionSupplyListItemController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->toArray());
         $data = $request->all();
         $invoice_code = random_int(100000, 999999);
         $production_supply = ProductionRequisition::create(['invoice_code'=>$invoice_code,'remark' => $data['remark'],'expected_date'=>$data['expected_date'],'production_supplier_id'=>$data['production_supplier_id']]);
-        // dd($data);
-        foreach ($data['item_id'] as $key => $item) {
-            $production_requisition_id = $production_supply->id;
-            
-            $production_requisition_item=ProductionRequisitionItem::create(['production_requisition_id'=> $production_requisition_id,'supply_item_id'=>$item,'rate'=>$data['rate'][$key],'quantity'=>$data['qty'][$key]]);
-            $production = ProductionSupplyListItem::where('id',$data['id'][$key])->update(['status'=>"Done"]);
+        // dd($data['id']);
+        $production_requisition_id = $production_supply->id;
+        foreach ($data['id'] as $key => $item) {
+            $production_requisition_item=ProductionRequisitionItem::create(['production_requisition_id'=> $production_requisition_id,'supply_item_id'=>$data['item_id'][$key],'rate'=>$data['rate'][$key],'quantity'=>$data['qty'][$key]]);
+            ProductionSupplyListItem::where('id',$item)->update(['status'=>'Done']);
         }
-        return redirect()->back();
+        return redirect()->route('production-supply.index');
     }
 
     /**
@@ -92,7 +92,8 @@ class ProductionSupplyListItemController extends Controller
      */
     public function destroy($id)
     {
-        ProductionSupplyListItem::find($id)->delete($id);
+        // dd($id);
+        ProductionSupplyListItem::find($id)->delete();
         return redirect()->back()->withmsg('Successfully Deleted');
     }
 }

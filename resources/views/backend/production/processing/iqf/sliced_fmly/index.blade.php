@@ -28,26 +28,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>
-                    11111
-                </td>
-                <td>
-                    Rui
-                </td>
-                <td>
-                    300-500gm
-                </td>
-                <td>
-                    60kg
-                </td>
-                <td>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#sliced_fmlyProcessingDataModal" class="btn btn-success"><i class="fa fa-refresh" aria-hidden="true"></i> Processing Data</button>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#sliced_fmlyCLeaningModal" class="btn btn-warning"><i class="fa fa-refresh" aria-hidden="true"></i> Cleaning</button>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#sliced_fmlyGradingModal" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Grading</button>
-                    {{-- <button style="margin-bottom:3px" data-toggle="modal" href="#sliced_fmlySoakingModal" class="btn btn-warning"><i class="fa fa-refresh" aria-hidden="true"></i> Soaking</button> --}}
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#sliced_fmlyGlazingModal" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Glazing</button>
-                    <button style="margin-bottom:3px" data-toggle="modal" href="#sliced_fmlyReturnModal" class="btn btn-danger"><i class="fa fa-repeat" aria-hidden="true"></i> Return & Wastage</button>
-                </td>
+                
             </tr>
         </tbody>
     </table>

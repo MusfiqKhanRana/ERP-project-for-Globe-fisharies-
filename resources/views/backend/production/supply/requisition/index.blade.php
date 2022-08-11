@@ -139,7 +139,7 @@
                                             <th>Action</th>
                                         </tr>
                                         <tr>
-                                            <th colspan="2" style="text-align: right;">Sub Total</th>
+                                            <th colspan="3" style="text-align: right;">Sub Total</th>
                                             <th><span id="intotal_amount">0</span></th>
                                             <th></th>
                                         </tr>

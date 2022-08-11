@@ -45,7 +45,7 @@ class ProductionUnloadController extends Controller
         // dd($request->toArray());
         ProductionRequisition::where('id',$request->requisition_id)->update(['receive_date'=>Carbon::now(),'status'=>'Received']);
         foreach ($request->id as $key => $id) {
-            dd($id);
+            // dd($id);
             if ($request->caregory[$key] == 'Sweet Desert') {
                     $processing_code = random_int(100000, 999999);
                     ProductionProcessingUnit::create(['requisition_id'=>$request->requisition_id,'requisition_code'=>$request->requisition_code,'item_id'=>$request->supply_item_id[$key],'processing_name'=>'Sweet Desert','processing_variant'=>'regular','alive_quantity'=>$request->alive_quantity[$key],'dead_quantity'=>$request->dead_quantity[$key],'processing_code'=>$processing_code,'status'=>'StoreIn']);
@@ -64,6 +64,7 @@ class ProductionUnloadController extends Controller
                     // 'amount' => floatval($product->total_price),
                 ]);
             }
+            // dd($request->total_quantity[$key]);
             $item = ProductionRequisitionItem::where('id',$id)->update(['alive_quantity'=>$request->alive_quantity[$key],'dead_quantity'=>$request->dead_quantity[$key],'return_quantity'=>$request->return_quantity[$key],'received_quantity'=>$request->total_quantity[$key],'received_remark'=>$request->received_remark[$key]]);
         }
         return redirect()->route('production-unload-index')->withMsg('Successfully Send to Chill Room');

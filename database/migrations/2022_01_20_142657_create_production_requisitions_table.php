@@ -27,8 +27,8 @@ class CreateProductionRequisitionsTable extends Migration
             $table->dateTime('returned_date')->nullable();
             $table->dateTime('in_production_date')->nullable();
             $table->dateTime('receive_date')->nullable();
-            $table->dateTime('reject_note')->nullable();
-            $table->dateTime('return_note')->nullable();
+            $table->longText('reject_note')->nullable();
+            $table->longText('return_note')->nullable();
             $table->string('vehicle_number')->nullable();
             $table->string('challan_number')->nullable();
             $table->longText('gateman_remark')->nullable();

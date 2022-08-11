@@ -94,12 +94,12 @@
                                                     <th>Name</th>
                                                     <th>Category</th>
                                                     <th>Grade</th>
-                                                    <th>Requested Quantity(kg)</th>
-                                                    <th style="width:100%">Recived Quatity(kg)</th>
+                                                    <th>Req. Qty(kg)</th>
+                                                    <th style="width:100%">Recived Quatity(kg)(Alive/Dead)</th>
                                                     <th>Missing Quantity(kg)</th>
-                                                    <th>Return</th>
-                                                    <th style="width:15%">Total</th>
-                                                    <th style="width:45%">Remark</th>
+                                                    <th>Return Qty</th>
+                                                    <th style="width:15%">Total(kg)</th>
+                                                    <th style="width:45%">Remark(short note)</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -118,10 +118,10 @@
                                                         <td>{{$item->category}}</td>
                                                         <td>{{$item->grade->name}}</td>
                                                         <td>{{$item->pivot->quantity}}</td>
-                                                        <td style="width:100%"><div class="row"><div class="col-md-6"><label for="">Alive</label><span><input type="number" name="alive_quantity[]" class="form-control alive_quantity" data-id="{{$key}}" data-req_quantity="{{$item->pivot->quantity}}"></span></div><div class="col-md-6"><label for="">Dead/qty</label> <input type="number"  name="dead_quantity[]" data-id="{{$key}}" class="form-control dead_quantity"></div></div></td>
-                                                        <td style="width:30%"><div class="row"><div class="col-md-6"><label for="">Missing</label><input type="number" name="missing_quantity[]" class="form-control missing_quantity{{$key}}" readonly></div><div class="col-md-6"><Label>Excess</Label><input type="number" name="excess_quantity[]" class="form-control excess_quantity{{$key}}" readonly ></div></div></td>
-                                                        <td><input type="text" name="return_quantity[]" data-id="{{$key}}" class="form-control return_quantity"></td>
-                                                        <td style="width:15%"><input type="text" name="total_quantity[]" class="form-control total_quantity{{$key}}" readonly></td>
+                                                        <td style="width:100%"><div class="row"><div class="col-md-6"><label for="">Alive</label><span><input type="number" step="0.01" name="alive_quantity[]" class="form-control alive_quantity" data-id="{{$key}}" data-req_quantity="{{$item->pivot->quantity}}"></span></div><div class="col-md-6"><label for="">Dead/qty</label> <input type="number" step="0.01"  name="dead_quantity[]" data-id="{{$key}}" class="form-control dead_quantity"></div></div></td>
+                                                        <td style="width:30%"><div class="row"><div class="col-md-6"><label for="">Missing</label><span class="missing_quantity{{$key}}"></span></div><div class="col-md-6"><Label>Excess</Label><span class="excess_quantity{{$key}}"></span></div></div></td>
+                                                        <td><input type="number" step="0.01" name="return_quantity[]" data-id="{{$key}}" class="form-control return_quantity"></td>
+                                                        <td style="width:15%"><input type="hidden" name="total_quantity[]" class="total_qty{{$key}}"><span class="total_quantity{{$key}}"></span></td>
                                                         <td style="width:45%"><input type="text" name="received_remark[]" class="form-control"></td>
                                                     </tr>
                                                     @php
@@ -163,69 +163,72 @@
                 $('.alive_quantity').keyup(function(){
                 id = $(this).data('id');
                 req_quantity[id] = $(this).data('req_quantity');
-                alive[id]=parseInt($(this).val());
-                console.log(parseInt(dead[id]));
-                if(isNaN(parseInt(dead[id]))) {
+                alive[id]=parseFloat($(this).val());
+                console.log(parseFloat(dead[id]));
+                if(isNaN(parseFloat(dead[id]))) {
                      dead[id] = 0;
                 };
-                if(isNaN(parseInt(alive[id]))) {
+                if(isNaN(parseFloat(alive[id]))) {
                     alive[id] = 0;
                 };
-                console.log(parseInt(dead[id]));
-                ttl[id] = parseInt(dead[id]) + parseInt(alive[id]);
+                console.log(parseFloat(dead[id]));
+                ttl[id] = parseFloat(dead[id]) + parseFloat(alive[id]);
                 missing[id] =req_quantity[id]-ttl[id];
                 if (missing[id]>0) {
-                    $('.missing_quantity'+id).val(missing[id]);
-                    $('.excess_quantity'+id).val(null);
+                    $('.missing_quantity'+id).html(missing[id]);
+                    $('.excess_quantity'+id).html(null);
                 }
                 if (missing[id]<0){
                     missing[id] = 0 - missing[id];
-                    $('.excess_quantity'+id).val(missing[id]);
-                    $('.missing_quantity'+id).val(null);
+                    $('.excess_quantity'+id).html(missing[id]);
+                    $('.missing_quantity'+id).html(null);
                 }
                 if (missing[id]==0){
                     missing[id] = 0 - missing[id];
-                    $('.excess_quantity'+id).val(null);
-                    $('.missing_quantity'+id).val(null);
+                    $('.excess_quantity'+id).html(null);
+                    $('.missing_quantity'+id).html(null);
                 }
                 console.log(1);
-                $('.total_quantity'+id).val(ttl[id]);
+                $('.total_quantity'+id).html(ttl[id]);
+                $('.total_qty'+id).val(ttl[id]);
                 });
                function dead() {
                     $('.dead_quantity').keyup(function(){
                         id = $(this).data('id');
-                        dead[id] =parseInt($(this).val());
-                        if(isNaN(parseInt(dead[id]))) {
+                        dead[id] =parseFloat($(this).val());
+                        if(isNaN(parseFloat(dead[id]))) {
                             dead[id] = 0;
                         };
-                        if(isNaN(parseInt(alive[id]))) {
+                        if(isNaN(parseFloat(alive[id]))) {
                             alive[id] = 0;
                         };
-                        ttl[id] = parseInt(alive[id])+parseInt(dead[id]);
+                        ttl[id] = parseFloat(alive[id])+parseFloat(dead[id]);
                         missing[id] =req_quantity[id]-ttl[id];
                         console.log(ttl[id]);
                         if (missing[id]>0) {
-                            $('.missing_quantity'+id).val(missing[id]);
-                            $('.excess_quantity'+id).val(null);
+                            $('.missing_quantity'+id).html(missing[id]);
+                            $('.excess_quantity'+id).html(null);
                         }
                         if (missing[id]<0){
                             missing[id] = 0 - missing[id];
-                            $('.excess_quantity'+id).val(missing[id]);
-                            $('.missing_quantity'+id).val(null);
+                            $('.excess_quantity'+id).html(missing[id]);
+                            $('.missing_quantity'+id).html(null);
                         }
                         if (missing[id]==0){
                             missing[id] = 0 - missing[id];
-                            $('.excess_quantity'+id).val(null);
-                            $('.missing_quantity'+id).val(null);
+                            $('.excess_quantity'+id).html(null);
+                            $('.missing_quantity'+id).html(null);
                         }
-                        $('.total_quantity'+id).val(ttl[id]);
+                        $('.total_quantity'+id).html(ttl[id]);
+                        $('.total_qty'+id).val(ttl[id]);
                     });
                }
                dead();
                 $('.return_quantity').keyup(function(){
                     id = $(this).data('id');
-                    rtn[id] =parseInt($(this).val());
-                    $('.total_quantity'+id).val(ttl[id]-rtn[id]);
+                    rtn[id] =parseFloat($(this).val());
+                    $('.total_quantity'+id).html(ttl[id]-rtn[id]);
+                    $('.total_qty'+id).val(ttl[id]-rtn[id]);
                 });
             }
             load();
@@ -267,7 +270,7 @@
                 $.each( product_array, function( key, product ) {
                     if (product.status == "stay") {
                         if(product_array.length-1 == key){
-                            $('#mytable tr:last').after("<tr><td>"+loop_lastcount+"</td><td>"+product.items+"</td><td>"+product.category+"</td><td>"+product.grade+"</td><td>"+product.qnty+"</td><td style='width:100%'><div class='row'><div class='col-md-6'><label>Alive</label><input type='number' data-id='"+loop_lastcount+"' data-req_quantity='"+product.qnty+"' name='alive_quantity[]' class='form-control alive_quantity'></div><div class='row'><div class='col-md-6'><label>Dead/qty</label><input type='number' data-id='"+loop_lastcount+"' name='dead_quantity[]' class='form-control dead_quantity'></div></div></td><td style='width:30%'><div class='row'><div class='col-md-6'><label>Missing</label><input type='number' name='missing_quantity[]' class='form-control missing_quantity"+loop_lastcount+"' readonly></div><div class='row'><div class='col-md-6'><label>Excess</label><input type='number' name='excess_quantity[]' class='form-control excess_quantity"+loop_lastcount+"' readonly></div></div></td><td><input type='text' data-id='"+loop_lastcount+"' name='return_quantity[]' class='form-control return_quantity'></td><td style='width:15%'><input type='number' name='total_quantity[]' class='form-control total_quantity"+loop_lastcount+"' readonly></td><td style='width:45%'><input type='text' name='received_remark[]' class='form-control'><input type='hidden' name='id[]' value='no_id'><input type='hidden' name='supply_item_id[]' value="+product.supply_item_id+"></td></tr>");
+                            $('#mytable tr:last').after("<tr><td>"+loop_lastcount+"</td><td>"+product.items+"</td><td><input type='hidden' name='caregory[]' value='"+product.category+"'>"+product.category+"</td><td>"+product.grade+"</td><td>"+product.qnty+"</td><td style='width:100%'><div class='row'><div class='col-md-6'><label>Alive</label><input type='number' step='0.01' data-id='"+loop_lastcount+"' data-req_quantity='"+product.qnty+"' name='alive_quantity[]' class='form-control alive_quantity'></div><div class='row'><div class='col-md-6'><label>Dead/qty</label><input type='number' step='0.01' data-id='"+loop_lastcount+"' name='dead_quantity[]' class='form-control dead_quantity'></div></div></td><td style='width:30%'><div class='row'><div class='col-md-6'><label>Missing</label><span class='missing_quantity"+loop_lastcount+"'></span></div><div class='row'><div class='col-md-6'><label>Excess</label><span class='excess_quantity"+loop_lastcount+"'></span></div></div></td><td><input type='number' step='0.01' data-id='"+loop_lastcount+"' name='return_quantity[]' class='form-control return_quantity'></td><td style='width:15%'><input type='hidden' name='total_quantity[]' class='total_qty"+loop_lastcount+"'><span class='total_quantity"+loop_lastcount+"'></span></td><td style='width:45%'><input type='text' name='received_remark[]' class='form-control'><input type='hidden' name='id[]' value='no_id'><input type='hidden' name='supply_item_id[]' value="+product.supply_item_id+"></td></tr>");
                         }
                     }
                 });
