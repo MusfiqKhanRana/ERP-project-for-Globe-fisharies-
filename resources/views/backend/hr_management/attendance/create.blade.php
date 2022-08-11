@@ -219,7 +219,7 @@
                                                 <td style="color:rgb(44, 55, 16);">{{$attendance->status}}</td>
                                             @endif
                                             <td>
-                                                <button class="btn btn-info manualAttendance" data-toggle="modal" href="#manualAttendance" data-id="{{$attendance->id}}" data-route="{{route('manual.attendance',$attendance->id)}}">Manual Attendance</button>
+                                                <button class="btn btn-info manual_attendance" data-toggle="modal" href="#manualAttendance" data-id="{{$attendance->id}}" data-route="{{route('manual.attendance',$attendance->id)}}">Manual Attendance</button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -240,6 +240,23 @@
                         <br>
                         <form class="form-horizontal" role="form" method="post" action="" id="manual_attendance">
                             {{csrf_field()}}
+                            {{method_field('put')}}
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">In Time</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="time" name="in_time">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail1" class="col-md-2 control-label">Out Time</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="time" name="out_time">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+                                <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
+                            </div>
                             {{-- <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Date</label>
                                 <div class="col-md-9">
@@ -261,18 +278,6 @@
                                     </select>
                                 </div>
                             </div>--}}
-                            <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">In Time</label>
-                                <div class="col-md-9">
-                                    <input class="form-control" type="time" name="in_time">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail1" class="col-md-2 control-label">Out Time</label>
-                                <div class="col-md-9">
-                                    <input class="form-control" type="time" name="out_time">
-                                </div>
-                            </div>
                             {{-- <div class="form-group">
                                 <label for="inputEmail1" class="col-md-2 control-label">Status</label>
                                 <div class="col-md-9">
@@ -283,10 +288,6 @@
                                     </select>
                                 </div>
                             </div> --}}
-                            <div class="modal-footer">
-                                <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                <button type="submit" class="btn blue-ebonyclay"><i class="fa fa-floppy-o"></i> Save</button>
-                            </div>
                         </form>
                     </div>
                 </div>
@@ -300,7 +301,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(function() {
-            $(".manualAttendance").click(function(){
+            $(".manual_attendance").click(function(){
             $('#manual_attendance').attr('action', $(this).data('route'));
            console.log($(this).data('route'));
         });

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
+use App\Models\ExportPackSize;
 use App\Models\FishGrade;
+use App\Models\ProcessingGrade;
 use App\Models\ProductionProcessingGrade;
 use App\Models\ProductionProcessingUnit;
+use App\Models\SupplyItem;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -18,12 +21,14 @@ class InventoryStoreInController extends Controller
         return view('backend.production.inventory.store-in.index',compact('ppu','grades'));
     }
     public function bulk_storage(){
-        $grades = FishGrade::all();
+        $pack_size = ExportPackSize::all();
+        $supply_item = SupplyItem::all();
+        $processing_grade = ProcessingGrade::all();
         $production_processing_unit = ProductionProcessingUnit::where('status','Bulk_storage')->with('production_processing_grades','production_processing_item')->get();
-        // dd($production_processing_unit);
+        //dd($production_processing_unit);
         // $process_production_unit = $this->getBulkStorage($production_unit);
         // return $process_production_unit;
-        return view('backend.production.inventory.cold_storage.bulk_storage',compact('production_processing_unit','grades'));
+        return view('backend.production.inventory.cold_storage.bulk_storage',compact('production_processing_unit','processing_grade','supply_item','pack_size'));
     }
     public function bulk_storage_datapass(Request $request){
             $production_processing_unit = ProductionProcessingUnit::where('status','Bulk_storage')
