@@ -2,6 +2,10 @@
 @section('site-title')
     inventory bulk-storage
 @endsection
+@section('style')
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+@endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
@@ -148,180 +152,179 @@
                         <div id="transfer_Modal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <form class="form-horizontal" role="form" method="post" action="#">
+                                    <form class="form-horizontal" role="form" method="post" action="{{route('production-export-inventory.store')}}">
                                         {{csrf_field()}}
-                                        <input type="hidden" name="inputs" class="inputs">
-                                        <input type="hidden" name="production_processing_unit_id" class="production_processing_unit_id">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                        <h2 class="modal-title" style="color: rgb(75, 65, 65);">Transfer Stock</h2>
-                                    </div>
-                                    <br>
-                                    <div class="modal-body">
-                                        @csrf
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Storage :</p>
+                                        <input type="hidden" name="batch_code">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                            <h2 class="modal-title" style="color: rgb(75, 65, 65);">Transfer Stock</h2>
+                                        </div>
+                                        <br>
+                                        <div class="modal-body">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Storage :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <select name="storage_name" class="form-control" >
+                                                        <option value="">--Select Storage--</option>
+                                                        <option value="Export Storage 1">Export Storage 1</option>
+                                                        <option value="Export Storage 2">Export Storage 2</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <div class="col-md-8" >
-                                                <select name="" class="form-control" >
-                                                    <option value="">--Select Storage--</option>
-                                                    <option value="Export Storage 1">Export Storage 1</option>
-                                                    <option value="Export Storage 2">Export Storage 2</option>
-                                                </select>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Type :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <select class="form-control type" name="processing_name">
+                                                        <option value="">--Select--</option>
+                                                        <option value="iqf">IQF</option>
+                                                        <option value="vegetable_iqf">Vegetable/Fruit IQF</option>
+                                                        <option value="block_frozen">Block Frozen</option>
+                                                        <option value="vegetable_block">Vegetable/Fruit Block</option>
+                                                        <option value="dry_fish">Dry Fish</option>
+                                                        <option value="raw_bf_shrimp">Raw BF(Shrimp)</option>
+                                                        <option value="raw_iqf_shrimp">Raw IQF(Shrimp)</option>
+                                                        <option value="semi_iqf">Semi IQF</option>
+                                                        <option value="cooked_iqf_shrimp">Cooked IQF(Shrimp)</option>
+                                                        <option value="blanched_iqf_shrimp">Balanched IQF(Shrimp)</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Variant :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <select class="form-control varient" name="processing_variant" id="">
+                                                        <option value="">--Select--</option>
+                                                        <option class="iqf" value="fillet">Fillet</option>
+                                                        <option class="iqf" value="whole">Whole</option>
+                                                        <option class="iqf" value="whole_gutted">Whole Gutted</option>
+                                                        <option class="iqf" value="cleaned">Cleaned</option>
+                                                        <option class="iqf" value="sliced_fmly_cut">Sliced(Family Cut)</option>
+                                                        <option class="iqf" value="sliced_chinese_cut">Sliced(Chinese Cut)</option>
+                                                        <option class="iqf" value="butter_fly">Butter Fly</option>
+                                                        <option class="iqf" value="hgto">HGTO</option>
+                                                        <option class="vegetable_iqf" value="cut_n_clean">Cut & Clean</option>
+                                                        <option class="vegetable_iqf" value="whole">Whole</option>
+                                                        <option class="vegetable_iqf" value="whole_n_clean">Whole & Clean</option>
+                                                        <option class="block_frozen" value="whole">Whole</option>
+                                                        <option class="block_frozen" value="clean">Clean</option>
+                                                        <option class="block_frozen" value="slice">Slice</option>
+                                                        <option class="vegetable_block" value="cut_n_clean">Cut & Clean</option>
+                                                        <option class="vegetable_block" value="whole">Whole</option>
+                                                        <option class="vegetable_block" value="whole_n_clean">Whole & Clean</option>
+                                                        <option class="dry_fish" value="regular">Regular</option>
+                                                        <option class="raw_bf_shrimp" value="hlso">HLSO</option>
+                                                        <option class="raw_bf_shrimp" value="pud">PUD</option>
+                                                        <option class="raw_bf_shrimp" value="p_n_d">P & D</option>
+                                                        <option class="raw_bf_shrimp" value="pdto">PDTO</option>
+                                                        <option class="raw_bf_shrimp" value="pto">PTO</option>
+                                                        <option class="raw_iqf_shrimp" value="hlso">HLSO</option>
+                                                        <option class="raw_iqf_shrimp" value="pud">PUD</option>
+                                                        <option class="raw_iqf_shrimp" value="p_n_d_tail_on">P&D Tail On</option>
+                                                        <option class="raw_iqf_shrimp" value="p_n_d_tail_off">P&D Tail Off</option>
+                                                        <option class="raw_iqf_shrimp" value="special_cut_p_n_d">Special Cut P&D</option>
+                                                        <option class="raw_iqf_shrimp" value="hlso_easy_pell">HLSO Easy Pell</option>
+                                                        <option class="raw_iqf_shrimp" value="butterfly_pud_skewer">Butterfly/PUD Skewer</option>
+                                                        <option class="raw_iqf_shrimp" value="pud_pull_vein">PUD Pull Vein</option>
+                                                        <option class="semi_iqf" value="hoso">HOSO</option>
+                                                        <option class="semi_iqf" value="hoto">HOTO</option>
+                                                        <option class="cooked_iqf_shrimp" value="hoso">HOSO</option>
+                                                        <option class="cooked_iqf_shrimp" value="pud">PUD</option>
+                                                        <option class="cooked_iqf_shrimp" value="p_n_d_tail_on">P&D Tail On</option>
+                                                        <option class="cooked_iqf_shrimp" value="p_n_d_tail_off">P&D Tail Off</option>
+                                                        <option class="blanched_iqf_shrimp" value="hoso">HOSO</option>
+                                                        <option class="blanched_iqf_shrimp" value="pud">PUD</option>
+                                                        <option class="blanched_iqf_shrimp" value="p_n_d_tail_on">P&D Tail On</option>
+                                                        <option class="blanched_iqf_shrimp" value="p_n_d_tail_off">P&D Tail Off</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Item :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <select name="item_id" class="form-control selectpicker" data-live-search="true">
+                                                        @foreach ($supply_item as $item)
+                                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Grade :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <select name="processing_grade_id" class="form-control" >
+                                                        <option value="">--Select--</option>
+                                                        @foreach ($processing_grade as $grade)
+                                                            <option value="{{$grade->id}}">{{$grade->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Pack Size (CNT) :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <select name="export_pack_size_id" class="form-control">
+                                                        @foreach ($pack_size as $pack)
+                                                            <option value="{{$pack->id}}">{{$pack->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Avaiable Stock(KG) :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                <span>50</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Avaiable Stock(CNT) :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <span>5</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Transfer Quantity(CNT) :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <input type="text" placeholder="Type qty" name="transfer_qty_ctn" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Transfer Quantity(KG) :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <input type="text" name="transfer_qty_kg" placeholder="System will auto calculate" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
+                                                <label class="form-check-label" for="inlineCheckbox1">Transfer this stock having vacuum packed</label>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Type :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <select class="form-control type" name="processing_name">
-                                                    <option value="">--Select--</option>
-                                                    <option value="iqf">IQF</option>
-                                                    <option value="vegetable_iqf">Vegetable/Fruit IQF</option>
-                                                    <option value="block_frozen">Block Frozen</option>
-                                                    <option value="vegetable_block">Vegetable/Fruit Block</option>
-                                                    <option value="dry_fish">Dry Fish</option>
-                                                    <option value="raw_bf_shrimp">Raw BF(Shrimp)</option>
-                                                    <option value="raw_iqf_shrimp">Raw IQF(Shrimp)</option>
-                                                    <option value="semi_iqf">Semi IQF</option>
-                                                    <option value="cooked_iqf_shrimp">Cooked IQF(Shrimp)</option>
-                                                    <option value="blanched_iqf_shrimp">Balanched IQF(Shrimp)</option>
-                                                </select>
-                                            </div>
+                                        <br>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="m-10 btn btn-success">Confirm</button>
+                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Variant :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <select class="form-control varient" name="processing_variant" id="">
-                                                    <option value="">--Select--</option>
-                                                    <option class="iqf" value="fillet">Fillet</option>
-                                                    <option class="iqf" value="whole">Whole</option>
-                                                    <option class="iqf" value="whole_gutted">Whole Gutted</option>
-                                                    <option class="iqf" value="cleaned">Cleaned</option>
-                                                    <option class="iqf" value="sliced_fmly_cut">Sliced(Family Cut)</option>
-                                                    <option class="iqf" value="sliced_chinese_cut">Sliced(Chinese Cut)</option>
-                                                    <option class="iqf" value="butter_fly">Butter Fly</option>
-                                                    <option class="iqf" value="hgto">HGTO</option>
-                                                    <option class="vegetable_iqf" value="cut_n_clean">Cut & Clean</option>
-                                                    <option class="vegetable_iqf" value="whole">Whole</option>
-                                                    <option class="vegetable_iqf" value="whole_n_clean">Whole & Clean</option>
-                                                    <option class="block_frozen" value="whole">Whole</option>
-                                                    <option class="block_frozen" value="clean">Clean</option>
-                                                    <option class="block_frozen" value="slice">Slice</option>
-                                                    <option class="vegetable_block" value="cut_n_clean">Cut & Clean</option>
-                                                    <option class="vegetable_block" value="whole">Whole</option>
-                                                    <option class="vegetable_block" value="whole_n_clean">Whole & Clean</option>
-                                                    <option class="dry_fish" value="regular">Regular</option>
-                                                    <option class="raw_bf_shrimp" value="hlso">HLSO</option>
-                                                    <option class="raw_bf_shrimp" value="pud">PUD</option>
-                                                    <option class="raw_bf_shrimp" value="p_n_d">P & D</option>
-                                                    <option class="raw_bf_shrimp" value="pdto">PDTO</option>
-                                                    <option class="raw_bf_shrimp" value="pto">PTO</option>
-                                                    <option class="raw_iqf_shrimp" value="hlso">HLSO</option>
-                                                    <option class="raw_iqf_shrimp" value="pud">PUD</option>
-                                                    <option class="raw_iqf_shrimp" value="p_n_d_tail_on">P&D Tail On</option>
-                                                    <option class="raw_iqf_shrimp" value="p_n_d_tail_off">P&D Tail Off</option>
-                                                    <option class="raw_iqf_shrimp" value="special_cut_p_n_d">Special Cut P&D</option>
-                                                    <option class="raw_iqf_shrimp" value="hlso_easy_pell">HLSO Easy Pell</option>
-                                                    <option class="raw_iqf_shrimp" value="butterfly_pud_skewer">Butterfly/PUD Skewer</option>
-                                                    <option class="raw_iqf_shrimp" value="pud_pull_vein">PUD Pull Vein</option>
-                                                    <option class="semi_iqf" value="hoso">HOSO</option>
-                                                    <option class="semi_iqf" value="hoto">HOTO</option>
-                                                    <option class="cooked_iqf_shrimp" value="hoso">HOSO</option>
-                                                    <option class="cooked_iqf_shrimp" value="pud">PUD</option>
-                                                    <option class="cooked_iqf_shrimp" value="p_n_d_tail_on">P&D Tail On</option>
-                                                    <option class="cooked_iqf_shrimp" value="p_n_d_tail_off">P&D Tail Off</option>
-                                                    <option class="blanched_iqf_shrimp" value="hoso">HOSO</option>
-                                                    <option class="blanched_iqf_shrimp" value="pud">PUD</option>
-                                                    <option class="blanched_iqf_shrimp" value="p_n_d_tail_on">P&D Tail On</option>
-                                                    <option class="blanched_iqf_shrimp" value="p_n_d_tail_off">P&D Tail Off</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Item :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <select name="" class="form-control" >
-                                                    @foreach ($supply_item as $item)
-                                                        <option value="">{{$item->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Grade :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <select name="" class="form-control" >
-                                                    <option value="">--Select--</option>
-                                                    @foreach ($processing_grade as $grade)
-                                                        <option value="{{$grade->id}}">{{$grade->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Pack Size (CNT) :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <select name="" class="form-control" id="">
-                                                    @foreach ($pack_size as $pack)
-                                                        <option value="">{{$pack->name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Avaiable Stock(KG) :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                               <span>50</span>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Avaiable Stock(CNT) :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <span>5</span>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Transfer Quantity(CNT) :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <input type="text" placeholder="Type qty" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Transfer Quantity(KG) :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <input type="text" placeholder="System will auto calculate" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
-                                            <label class="form-check-label" for="inlineCheckbox1">Transfer this stock having vacuum packed</label>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="m-10 btn btn-success">Confirm</button>
-                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                    </div>
-                                </form>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -468,9 +471,20 @@
      </div>
 @endsection
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        $('#datepicker1').val(moment(moment().toDate()).format('MM/DD/YYYY'));
+            tinymce.init({
+                selector: 'textarea',
+                init_instance_callback : function(editor) {
+                    var freeTiny = document.querySelector('.tox .tox-notification--in');
+                    freeTiny.style.display = 'none';
+                }
+            });
+
         $(".varient").chained(".type");
         get_processing('IQF')   
         $('.processing_type_btn').change(function(){
