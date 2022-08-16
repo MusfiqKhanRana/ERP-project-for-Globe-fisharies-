@@ -36,20 +36,12 @@ class ChillStorageController extends Controller
 
     public function ReturnStock(){
 
-        $requisitions = ProductionRequisition::with(
-            ['production_requisition_items' => function($q){
-                $q->with([
-                    'grade'=>function($q){
-                            $q->select('id','name');
-                        }
-                    ]);
-                },
-                'production_processing_unit'=>function($q){
-                    $q->select('id','requisition_id','item_id','alive_quantity','dead_quantity');
-                }
-            ]
-            )->latest()->paginate(3);
-        return view('backend.production.chill-room.return_stock',compact('requisitions'));
+        $return_item = ProductionProcessingUnit::with('production_processing_item')->where('return_quantity', '!=' ,'null')
+        ->select('item_id','return_quantity','requisition_batch_code','isReturn')
+        ->get()
+        ->groupBy('requisition_batch_code');
+        dd($return_item->toArray());
+        return view('backend.production.chill-room.return_stock',compact('return_item'));
     }
 
     public function TotalStockStock(){
@@ -60,8 +52,9 @@ class ChillStorageController extends Controller
     {
         // dd($request->toArray());
         // $update_item = ProductionRequisitionItem::all();
+        $requisition_batch_code = $request->item_name.'#'.$request->grade_name;
         $processing_code = random_int(100000, 999999);
-        ProductionProcessingUnit::create(['requisition_id'=>$request->requisition_id,'requisition_code'=>$request->requisition_code,'item_id'=>$request->item_id,'processing_name'=>$request->processing_name,'processing_variant'=>$request->processing_variant,'alive_quantity'=>$request->alive_quantity,'dead_quantity'=>$request->dead_quantity,'processing_code'=>$processing_code]);
+        ProductionProcessingUnit::create(['requisition_batch_code'=>$requisition_batch_code,'requisition_id'=>$request->requisition_id,'requisition_code'=>$request->requisition_code,'item_id'=>$request->item_id,'processing_name'=>$request->processing_name,'processing_variant'=>$request->processing_variant,'alive_quantity'=>$request->alive_quantity,'dead_quantity'=>$request->dead_quantity,'processing_code'=>$processing_code]);
         return redirect()->back()->withmsg('Successfully Send For Processing');
     }    
 

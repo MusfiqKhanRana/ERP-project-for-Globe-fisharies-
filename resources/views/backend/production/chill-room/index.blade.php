@@ -210,7 +210,7 @@
                                                                             {{$item->pivot->received_remark}}
                                                                         </td>
                                                                         <td>
-                                                                            <button class="btn btn-success process_modal" data-toggle="modal" data-id="{{$requisition->id}}" data-item_id="{{$item->id}}" data-pivot_id="{{$item->pivot->id}}" href="#processModal">Process</button>
+                                                                            <button class="btn btn-success process_modal" data-toggle="modal" data-grade_name="{{$item->grade->name}}" data-id="{{$requisition->id}}" data-item_id="{{$item->id}}" data-pivot_id="{{$item->pivot->id}}" href="#processModal">Process</button>
                                                                         </td>
                                                                     </tr>
                                                                     @endif
@@ -236,6 +236,8 @@
                                                             <input type="hidden" class="requisition_id" name="requisition_id">
                                                             <input type="hidden" class="requisition_code" name="requisition_code">
                                                             <input type="hidden" class="item_id" name="item_id">
+                                                            <input type="hidden" class="grade_name" name="grade_name">
+                                                            <input type="hidden" class="input_item_name" name="item_name">
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     <p>Item Name:&nbsp;&nbsp;<b><span class="item_name"></span></b></p>
@@ -434,6 +436,7 @@
              $('.requisition_id').val(null);
              $('.requisition_code').val(null);
              $('.item_id').val(null);
+             $('.grade_name').val($(this).attr("data-grade_name"));
              $('.item_name').html(null);
              $('.item_grade_name').html(null);
              $('.alive_stock').html(null);
@@ -453,6 +456,7 @@
                         $('.requisition_id').val(data.requisition_id);
                         $('.requisition_code').val(data.requisition_code);
                         $('.item_name').html(data.item_name);
+                        $('.input_item_name').val(data.item_name);
                         $('.category').html(data.category);
                         $('.item_grade_name').html(data.item_grade_name);
                         $('.alive_stock').html(data.alive_quantity);
