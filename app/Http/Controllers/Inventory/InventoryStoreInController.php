@@ -24,23 +24,51 @@ class InventoryStoreInController extends Controller
         $pack_size = ExportPackSize::all();
         $supply_item = SupplyItem::all();
         $processing_grade = ProcessingGrade::all();
-        $production_processing_unit = ProductionProcessingUnit::where('status','Bulk_storage')->with('production_processing_grades','production_processing_item')->get();
+        // $production_processing_unit = ProductionProcessingUnit::where('status','Bulk_storage')->with('production_processing_grades','production_processing_item')->get();
         //dd($production_processing_unit);
         // $process_production_unit = $this->getBulkStorage($production_unit);
         // return $process_production_unit;
-        return view('backend.production.inventory.cold_storage.bulk_storage',compact('production_processing_unit','processing_grade','supply_item','pack_size'));
+        return view('backend.production.inventory.cold_storage.bulk_storage',compact('processing_grade','supply_item','pack_size'));
     }
     public function bulk_storage_datapass(Request $request){
-            $production_processing_unit = ProductionProcessingUnit::where('status','Bulk_storage')
-            ->where(function($q) use($request){
-                if ($request->processing_type == "IQF") {
-                    $q->whereIn('processing_name',['iqf','raw_iqf_shrimp','blanched_iqf_shrimp']);
-                }elseif ($request->processing_type == "BLOCK") {
-                    $q->whereIn('processing_name',['block_frozen','raw_bf_shrimp','semi_iqf']);
-                }
-            })
-            ->with('production_processing_grades','production_processing_item')->get();
-            return $production_processing_unit;
+            // $production_processing_unit = ProductionProcessingUnit::where('status','Bulk_storage')
+            // ->where(function($q) use($request){
+            //     if ($request->processing_type == "IQF") {
+            //         $q->whereIn('processing_name',['iqf','raw_iqf_shrimp','blanched_iqf_shrimp']);
+            //     }elseif ($request->processing_type == "BLOCK") {
+            //         $q->whereIn('processing_name',['block_frozen','raw_bf_shrimp','semi_iqf']);
+            //     }
+            //     elseif ($request->processing_type == "VEGETABLE") {
+            //         $q->whereIn('processing_name',['vegetable_iqf','vegetable_block','semi_iqf']);
+            //     }
+            //     elseif ($request->processing_type == "DRYFISH") {
+            //         $q->whereIn('processing_name',['dry_fish']);
+            //     }
+            //     elseif ($request->processing_type == "SWEET") {
+            //         $q->whereIn('processing_name',['Sweet Desert']);
+            //     }
+            // })
+            // ->with('production_processing_grades','production_processing_item')->get();
+            $processing_grades = ProductionProcessingGrade::with('production_processing_unit')->whereHas('production_processing_unit',function($q)use($request){
+                $q->where('status','Bulk_storage')
+                ->where(function($q) use($request){
+                    if ($request->processing_type == "IQF") {
+                        $q->whereIn('processing_name',['iqf','raw_iqf_shrimp','blanched_iqf_shrimp']);
+                    }elseif ($request->processing_type == "BLOCK") {
+                        $q->whereIn('processing_name',['block_frozen','raw_bf_shrimp','semi_iqf']);
+                    }
+                    elseif ($request->processing_type == "VEGETABLE") {
+                        $q->whereIn('processing_name',['vegetable_iqf','vegetable_block','semi_iqf']);
+                    }
+                    elseif ($request->processing_type == "DRYFISH") {
+                        $q->whereIn('processing_name',['dry_fish']);
+                    }
+                    elseif ($request->processing_type == "SWEET") {
+                        $q->whereIn('processing_name',['Sweet Desert']);
+                    }
+                });
+            })->get()->groupBy('batch_code');
+            return $processing_grades;
     }
     public function getBulkStorage($data)
     {
