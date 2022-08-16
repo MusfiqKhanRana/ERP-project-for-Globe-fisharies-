@@ -59,10 +59,13 @@
                                     category :
                                 </div>
                                 <div class="col-md-8">
-                                    <select class="form-control processing_type_btn" name="" id="">
+                                    <select class="form-control processing_type_btn">
                                         <option value="">--Select--</option>
                                         <option value="IQF" data-type="BLOCK">IQF</option>
                                         <option value="BLOCK" data-type="BLOCK">Block</option>
+                                        <option value="VEGETABLE" data-type="VEGETABLE">Vegetable</option>
+                                        <option value="DRYFISH" data-type="DRYFISH">Dry Fish</option>
+                                        <option value="SWEET" data-type="SWEET">Sweet</option>
                                     </select>
                                 </div>
                             </div>
@@ -101,25 +104,26 @@
                                 <th>Local(kg)</th>
                                 <th>Damage Quantity(kg)</th>
                                 <th>Closing Stock(kg)</th>
-                                <th style="text-align: center">Action</th>
+                                {{-- <th style="text-align: center">Action</th> --}}
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach ($production_processing_unit as $item)
+                                {{-- @foreach ($production_processing_unit as $item) --}}
                                     <tr id="row1">
-                                        <td class="text-align: center;">{{$item->production_processing_item->name}}</td>
+                                        <td class="text-align: center;">good</td>
                                         <td class="text-align: center;">
-                                            @foreach ($item->production_processing_grades as $value)
+                                            good
+                                            {{-- @foreach ($item->production_processing_grades as $value)
                                                 @if ($value->block_id == null)
                                                     <li>Grade Name: {{$value->grade_name}}</li>
                                                 @endif
                                                 @if ($value->grade_id == null)
                                                     <li>Block Name : {{$value->block_name}}</li>
                                                 @endif
-                                            @endforeach
+                                            @endforeach --}}
                                         </td>
-                                        <td class="text-align: center;">{{$item->processing_name}}</td>
-                                        <td class="text-align: center;">{{$item->processing_variant}}</td>
+                                        <td class="text-align: center;">good</td>
+                                        <td class="text-align: center;">good</td>
                                         <td class="text-align: center;">40</td>
                                         <td class="text-align: center;">
                                             <table class="table table-striped table-bordered table-hover">
@@ -140,13 +144,13 @@
                                         <td class="text-align: center;">40</td>
                                         <td class="text-align: center;">40</td>
                                         <td class="text-align: center;">40</td>
-                                        <td style="text-align: center">
+                                        {{-- <td style="text-align: center">
                                             <a class="btn btn-success"  data-toggle="modal" ><i class="fa fa-edit"></i>Transfer</a>
                                             <a class="btn btn-danger"  data-toggle="modal" ><i class="fa fa-edit"></i>Damaged</a>
                                             <a class="btn btn-info"  data-toggle="modal" ><i class="fa fa-edit"></i>Reprocessed</a>
-                                        </td>
-                                    </tr> 
-                                @endforeach
+                                        </td> --}}
+                                    </tr>
+                                {{-- @endforeach --}}
                             </tbody>
                         </table>
                         <div id="transfer_Modal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -199,7 +203,7 @@
                                                     <p>Variant :</p>
                                                 </div>
                                                 <div class="col-md-8" >
-                                                    <select class="form-control varient" name="processing_variant" id="">
+                                                    <select class="form-control varient" name="processing_variant">
                                                         <option value="">--Select--</option>
                                                         <option class="iqf" value="fillet">Fillet</option>
                                                         <option class="iqf" value="whole">Whole</option>
@@ -379,7 +383,7 @@
                                                 <p>Remark :</p>
                                             </div>
                                             <div class="col-md-8" >
-                                                <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
+                                                <textarea name="" class="form-control"  cols="30" rows="5"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -427,7 +431,7 @@
                                                 <p>Type :</p>
                                             </div>
                                             <div class="col-md-8" >
-                                                <select name="" class="form-control" id="">
+                                                <select name="" class="form-control" >
                                                     <option value="">--Select Reprocess type--</option>
                                                     <option value="">Convert/Repach<small>(Transfer it to bulk storage)</small></option>
                                                     <option value="">Reprocessed<small>(Transfer it to Chill room)</small></option>
@@ -447,7 +451,7 @@
                                                 <p>Remark :</p>
                                             </div>
                                             <div class="col-md-8" >
-                                                <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
+                                                <textarea name="" class="form-control"  cols="30" rows="5"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -476,15 +480,7 @@
 <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#datepicker1').val(moment(moment().toDate()).format('MM/DD/YYYY'));
-            tinymce.init({
-                selector: 'textarea',
-                init_instance_callback : function(editor) {
-                    var freeTiny = document.querySelector('.tox .tox-notification--in');
-                    freeTiny.style.display = 'none';
-                }
-            });
-
+        // $('#datepicker1').val(moment(moment().toDate()).format('MM/DD/YYYY'));
         $(".varient").chained(".type");
         get_processing('IQF')   
         $('.processing_type_btn').change(function(){
