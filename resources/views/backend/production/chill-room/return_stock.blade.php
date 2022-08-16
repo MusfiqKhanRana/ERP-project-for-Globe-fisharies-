@@ -56,159 +56,54 @@
                                         <thead>
                                             <tr>
                                                 <th>
-                                                    Invoice No.
+                                                    Item Name
                                                 </th>
                                                 <th>
-                                                    Added In Chill Room
+                                                    Category
                                                 </th>
                                                 <th>
-                                                    Items
+                                                    Grade
+                                                </th>
+                                                <th>
+                                                    Total Quantity
+                                                </th>
+                                                <th>
+                                                    Action
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($requisitions as $requisition)
+                                            @foreach ($return_item as  $key=>$items)
+                                            @php
+                                             $array=(explode("#",$key));
+                                             $grade =  $array[1];
+                                               $total_quantity=0;
+                                               $item_details = null;
+                                            //    dd($grade);
+                                            @endphp
+                                            @foreach ($items as $item)
+                                                @if ($item->isReturn == '0')
+                                                    @php
+                                                        $total_quantity += $item->return_quantity;
+                                                        $item_details=$item->production_processing_item;
+                                                    @endphp
+                                                @endif
+                                            @endforeach
                                                 <tr>
                                                     <td>
-                                                        {{$requisition->invoice_code}}
+                                                        {{$item_details->name}}
                                                     </td>
                                                     <td>
-                                                        {{$requisition->receive_date}}
+                                                        {{$item_details->category}}
                                                     </td>
                                                     <td>
-                                                        <table class="table table-striped table-bordered table-hover">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>
-                                                                        Item Name
-                                                                    </th>
-                                                                    <th>
-                                                                        Grade
-                                                                    </th>
-                                                                    <th>
-                                                                        Current Stock Alive(kg)
-                                                                    </th>
-                                                                    <th>
-                                                                        Current Stock Dead(kg)
-                                                                    </th>
-                                                                    <th>
-                                                                        Remark
-                                                                    </th>
-                                                                    <th>
-                                                                        Action
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @php
-                                                                    $processing_info = null;
-                                                                    $alive_on_process = [];
-                                                                    $alive_on_process_total = null;
-                                                                    $dead_on_process_total = null;
-                                                                    $dead_on_process = [];
-                                                                    $alive = 0;
-                                                                    $dead = 0;
-                                                                    $t_check=0;
-                                                                    // dd($requisition->production_processing_unit->toArray())
-                                                                @endphp
-                                                                @foreach ($requisition->production_requisition_items as $item)
-                                                                    @foreach ($requisition->production_processing_unit as $processing_data)
-                                                                        @php
-                                                                            // dd($a);
-                                                                            if($processing_data->item_id==$item->id){
-                                                                                // $a = $item->id;
-                                                                                // dd($a);
-                                                                                $alive_on_process_total+= $processing_data->alive_quantity;
-                                                                                $dead_on_process_total += $processing_data->dead_quantity;
-                                                                                // $processing_info = $processing_data;
-                                                                                // $alive_on_process[$a] = $alive_on_process[$a] + $processing_data->alive_quantity;
-                                                                                // dd($alive_on_process);
-                                                                                // $dead_on_process[$a] += $processing_data->dead_quantity;
-                                                                            }
-                                                                        @endphp
-                                                                    @endforeach
-                                                                    @php
-                                                                        array_push($alive_on_process,["id"=>$item->id,"alive_quantity_total"=>$alive_on_process_total]);
-                                                                        array_push($dead_on_process,["id"=>$item->id,"dead_on_process_total"=>$dead_on_process_total]);
-                                                                        // dd($alive_on_process);
-                                                                        // foreach ($alive_on_process as $key => $value) {
-                                                                        //     // dd($value['id']);
-                                                                        // }
-                                                                        $alive_on_process_total = null;
-                                                                        $dead_on_process_total = null;
-                                                                    @endphp
-                                                                    {{-- dd($alive_on_process); --}}
-                                                                @endforeach
-                                                            @foreach ($requisition->production_requisition_items as $item)
-                                                                @if ($requisition->production_processing_unit->isEmpty())
-                                                                    <tr>
-                                                                        <td>
-                                                                            {{$item->name}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{$item->grade->name}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{$item->pivot->alive_quantity}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{$item->pivot->dead_quantity}}
-                                                                        </td> 
-                                                                        <td>
-                                                                            {{$item->pivot->received_remark}}
-                                                                        </td>
-                                                                        <td>
-                                                                            <button class="btn btn-success process_modal" data-toggle="modal" data-id="{{$requisition->id}}" data-item_id="{{$item->id}}" data-pivot_id="{{$item->pivot->id}}" href="#processModal">Process</button>
-                                                                        </td>
-                                                                    </tr>
-                                                                @else
-                                                                   
-                                                                    @php
-                                                                    $alive = 0;
-                                                                    $dead = 0;
-                                                                    $t_check =0;
-                                                                        // dd($alive_on_process);
-                                                                        foreach ($alive_on_process as $key => $value) {
-                                                                            
-                                                                            if ($value['id']==$item->id) {
-                                                                                $alive = $value['alive_quantity_total'];
-                                                                            }
-                                                                        }
-                                                                        foreach ($dead_on_process as $key => $value) {
-                                                                            
-                                                                            if ($value['id']==$item->id) {
-                                                                                $dead = $value['dead_on_process_total'];
-                                                                            }
-                                                                        }
-                                                                        $t_check =(($item->pivot->alive_quantity)-($alive))+(($item->pivot->dead_quantity)-($dead));
-                                                                        // dd($t_check);
-                                                                    @endphp
-                                                                    @if ($t_check>0)
-                                                                    <tr>
-                                                                        <td>
-                                                                            {{$item->name}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{$item->grade->name}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{($item->pivot->alive_quantity)-($alive)}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{($item->pivot->dead_quantity)-($dead)}}
-                                                                        </td>
-                                                                        <td>
-                                                                            {{$item->pivot->received_remark}}
-                                                                        </td>
-                                                                        <td>
-                                                                            <button class="btn btn-success process_modal" data-toggle="modal" data-id="{{$requisition->id}}" data-item_id="{{$item->id}}" data-pivot_id="{{$item->pivot->id}}" href="#processModal">Process</button>
-                                                                        </td>
-                                                                    </tr>
-                                                                    @endif
-                                                                @endif
-                                                            @endforeach
-                                                            </tbody>
-                                                        </table>
+                                                        {{$grade}}
+                                                    </td>
+                                                    <td>
+                                                        {{$total_quantity}}
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-success process_modal" data-toggle="modal" data-requisition_batch_code="{{$key}}" data-item_name="{{$item_details->name}}" data-item_id="{{$item->item_id}}" data-category="{{$item_details->category}}" data-total_quantity="{{$total_quantity}}" data-grade="{{$grade}}"  href="#processModal">Process</button>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -224,30 +119,20 @@
                                                     <form class="form-horizontal" role="form" method="post" action="{{route('production.chill_room.process')}}">
                                                         {{csrf_field()}}
                                                         <div class="modal-body">
-                                                            <input type="hidden" class="requisition_id" name="requisition_id">
-                                                            <input type="hidden" class="requisition_code" name="requisition_code">
                                                             <input type="hidden" class="item_id" name="item_id">
+                                                            <input type="hidden" name="requisition_batch_code" class="requisition_batch_code">
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     <p>Item Name:&nbsp;&nbsp;<b><span class="item_name"></span></b></p>
                                                                 </div>
                                                                 <div class="col-md-6">
-                                                                    <div class="row">
-                                                                        <div class="col-md-6">
-                                                                            <p>Alive Stock:&nbsp;&nbsp;<b><span class="alive_stock"></span></b></p>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <p>Dead Stock:&nbsp;&nbsp;<b><span class="dead_stock"></span></b></p>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-md-12">
-                                                                            <p>Current Stock:&nbsp;&nbsp;<b><span class="total_weight"></span></b></p>
-                                                                        </div>
-                                                                    </div>
+                                                                    <p>Total Quantity:&nbsp;&nbsp;<b><span class="total_quantity"></span></b></p>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <p>Category:&nbsp;&nbsp;<b><span class="item_category"></span></b></p>
+                                                                </div>
                                                                 <div class="col-md-6">
                                                                     <p>Size:&nbsp;&nbsp;<b><span class="item_grade_name"></span></b></p>
                                                                 </div>
@@ -318,12 +203,8 @@
                                                                     <p><b>Production Quantity :</b></p>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <label for="">Alive Quantity</label>
-                                                                    <input type="number" placeholder="alive qty" class="form-control alive_quantity" name="alive_quantity">
-                                                                </div>
-                                                                <div class="col-md-3 dead_input">
-                                                                    <label for="">Dead Quantity</label>
-                                                                    <input type="number" placeholder="dead qty" class="form-control dead_quantity" name="dead_quantity">
+                                                                    <label for="">Quantity(kg)</label>
+                                                                    <input type="number" placeholder="qty" class="form-control total_qty" name="total_qty">
                                                                 </div>
                                                             </div>
                                                             <div class="row warning" style="margin-top:3%">
@@ -344,7 +225,7 @@
                                     </table>
                                     <div class="row">
                                         {{-- <div class="col-md-12 text-center">{{ $employee->links() }}</div> --}}
-                                        {{ $requisitions->links('vendor.pagination.custom') }}
+                                        {{-- {{ $requisitions->links('vendor.pagination.custom') }} --}}
                                         {{-- {{ $requisitions->links() }} --}}
                                         {{-- {!! $requisitions->render() !!} --}}
                                     </div>
@@ -399,27 +280,6 @@
              $('.alive_stock').html(null);
              $('.dead_stock').html(null);
              $('.total_weight').html(null);
-             $.ajax({
-                    type:"POST",
-                    url:"{{route('production.chill_room.data_pass')}}",
-                    data:{
-                        'pivot_id' : pivot_id,
-                        'item_id' : item_id,
-                        'id' : id,
-                        '_token' : $('input[name=_token]').val()
-                    },
-                    success:function(data){
-                        console.log(data);
-                        $('.requisition_id').val(data.requisition_id);
-                        $('.requisition_code').val(data.requisition_code);
-                        $('.item_name').html(data.item_name);
-                        $('.item_grade_name').html(data.item_grade_name);
-                        $('.alive_stock').html(data.alive_quantity);
-                        $('.dead_stock').html(data.dead_quantity);
-                        $('.total_weight').html(data.total_weight);
-                        $('.item_id').val(data.item_id);
-                    }
-                });
         });
         $('.warning').hide();
         $('.alive_quantity').on("keyup change",function() {
