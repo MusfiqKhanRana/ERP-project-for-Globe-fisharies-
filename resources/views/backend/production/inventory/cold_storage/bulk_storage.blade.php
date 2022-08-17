@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <select class="form-control processing_type_btn">
-                                        <option value="">--Select--</option>
+                                        {{-- <option value="">--Select--</option> --}}
                                         <option value="IQF" data-type="BLOCK">IQF</option>
                                         <option value="BLOCK" data-type="BLOCK">Block</option>
                                         <option value="VEGETABLE" data-type="VEGETABLE">Vegetable</option>
@@ -76,7 +76,7 @@
                                     Date From :
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="date" class="form-control" name="form_date" value="{{\Carbon\Carbon::now()->format('Y-m-d')}}" >
+                                    <input type="date" class="form-control form_date" name="form_date" value="{{\Carbon\Carbon::now()->format('Y-m-d')}}" >
                                 </div>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                                     Date To :
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="date" class="form-control" name="to_date" value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
+                                    <input type="date" class="form-control to_date" name="to_date" value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
                                 </div>
                             </div>
                         </div>
@@ -492,6 +492,8 @@
                 url:"{{route('inventory.cold_storage.bulk_storage_datapass')}}",
                 data:{
                     'processing_type' : processing_type,
+                    'form_date':$('.form_date').val(),
+                    'to_date':$('.to_date').val(),
                     '_token' : $('input[name=_token]').val()
                 },
                 success:function(data){
