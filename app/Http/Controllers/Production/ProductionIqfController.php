@@ -243,12 +243,12 @@ class ProductionIqfController extends Controller
             ['status'=>'Soaking']
         );
         // dd($ppu->toArray());
-        $ppu = ProductionProcessingUnit::where('id',$request->grade_ppu_id)->first();
+        $ppu = ProductionProcessingUnit::with('production_processing_item')->where('id',$request->grade_ppu_id)->first();
         // dd($ppu->toArray());
         foreach (json_decode($request->inputs) as $key => $input) {
             if ($input->status=="stay") {
                 ProductionProcessingGrade::create([
-                    'batch_code'=>$ppu->processing_name.'.'.$ppu->processing_variant.'.'.$ppu->item_id.'.'.$input->grade_id.'.'.$input->grade_name,
+                    'batch_code'=>$ppu->processing_name.'#'.$ppu->processing_variant.'#'.$ppu->item_id.'#'.$input->grade_id.'#'.$input->grade_name.'#'.$ppu->production_processing_item->name,
                     'grade_id' => $input->grade_id,
                     'grade_name' => $input->grade_name,
                     'grade_quantity' => $input->grade_weight,
@@ -266,12 +266,12 @@ class ProductionIqfController extends Controller
         ->update(
             ['status'=>'Glazing']
         );
-        $ppu = ProductionProcessingUnit::where('id',$request->grade_ppu_id)->first();
+        $ppu = ProductionProcessingUnit::with('production_processing_item')->where('id',$request->grade_ppu_id)->first();
         // dd($ppu->toArray());
         foreach (json_decode($request->inputs) as $key => $input) {
             if ($input->status=="stay") {
                 ProductionProcessingGrade::create([
-                    'batch_code'=>$ppu->processing_name.'.'.$ppu->processing_variant.'.'.$ppu->item_id.'.'.$input->grade_id.'.'.$input->grade_name,
+                    'batch_code'=>$ppu->processing_name.'#'.$ppu->processing_variant.'#'.$ppu->item_id.'#'.$input->grade_id.'#'.$input->grade_name.'#'.$ppu->production_processing_item->name,
                     'grade_id' => $input->grade_id,
                     'grade_name' => $input->grade_name,
                     'grade_quantity' => $input->grade_weight,
