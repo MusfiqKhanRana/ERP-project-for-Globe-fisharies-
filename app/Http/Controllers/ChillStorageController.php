@@ -40,7 +40,7 @@ class ChillStorageController extends Controller
         ->select('item_id','return_quantity','requisition_batch_code','isReturn')
         ->get()
         ->groupBy('requisition_batch_code');
-        dd($return_item->toArray());
+        // dd($return_item->toArray());
         return view('backend.production.chill-room.return_stock',compact('return_item'));
     }
 
@@ -56,7 +56,15 @@ class ChillStorageController extends Controller
         $processing_code = random_int(100000, 999999);
         ProductionProcessingUnit::create(['requisition_batch_code'=>$requisition_batch_code,'requisition_id'=>$request->requisition_id,'requisition_code'=>$request->requisition_code,'item_id'=>$request->item_id,'processing_name'=>$request->processing_name,'processing_variant'=>$request->processing_variant,'alive_quantity'=>$request->alive_quantity,'dead_quantity'=>$request->dead_quantity,'processing_code'=>$processing_code]);
         return redirect()->back()->withmsg('Successfully Send For Processing');
-    }    
+    }
+    
+    public function return_item_process(Request $request)
+    {
+        // dd($request->toArray());
+        $processing_code = random_int(100000, 999999);
+        ProductionProcessingUnit::create(['requisition_batch_code'=>$request->requisition_batch_code,'requisition_code'=>'From Return','item_id'=>$request->item_id,'processing_name'=>$request->processing_name,'processing_variant'=>$request->processing_variant,'dead_quantity'=>$request->total_qty,'processing_code'=>$processing_code,'isReturn'=>'1']);
+        return redirect()->back()->withmsg('Successfully Send For Processing');
+    }  
 
     public function data_pass(Request $request)
     {

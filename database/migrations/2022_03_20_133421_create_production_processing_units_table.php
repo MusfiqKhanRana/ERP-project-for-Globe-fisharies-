@@ -17,7 +17,7 @@ class CreateProductionProcessingUnitsTable extends Migration
             $table->id();
             $table->string('requisition_batch_code')->nullable();
             $table->unsignedInteger('requisition_id')->nullable();
-            $table->unsignedInteger('requisition_code')->nullable();
+            $table->string('requisition_code')->nullable();
             $table->unsignedInteger('item_id')->nullable();
             $table->unsignedInteger('invoice_code')->nullable();
             $table->string('processing_code')->nullable();
@@ -40,8 +40,8 @@ class CreateProductionProcessingUnitsTable extends Migration
             $table->unsignedDouble('wastage_quantity')->nullable();
             $table->unsignedDouble('return_quantity')->nullable();
             $table->dateTime('RandW_datetime')->nullable();
+            $table->dateTime('StoreIn_datetime')->nullable();
             $table->tinyInteger('isReturn')->default('0');
-            $table->enum('store_in_status', ['Initial','Bulk_storage'])->default('Initial');
             $table->double('final_weight')->nullable();
             $table->timestamps();
         });

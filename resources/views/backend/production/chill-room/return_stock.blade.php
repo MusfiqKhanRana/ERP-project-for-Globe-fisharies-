@@ -116,11 +116,12 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                     </div>
-                                                    <form class="form-horizontal" role="form" method="post" action="{{route('production.chill_room.process')}}">
+                                                    <form class="form-horizontal" role="form" method="post" action="{{route('production.chill_room.return_item_process')}}">
                                                         {{csrf_field()}}
                                                         <div class="modal-body">
                                                             <input type="hidden" class="item_id" name="item_id">
                                                             <input type="hidden" name="requisition_batch_code" class="requisition_batch_code">
+                                                            <input type="hidden" name="total_quantity" class="item_total_qty">
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     <p>Item Name:&nbsp;&nbsp;<b><span class="item_name"></span></b></p>
@@ -145,7 +146,10 @@
                                                                     <select class="form-control type" name="processing_name" id="">
                                                                         <option value="">--Select--</option>
                                                                         <option value="iqf">IQF</option>
+                                                                        <option value="vegetable_iqf">Vegetable/Fruit IQF</option>
                                                                         <option value="block_frozen">Block Frozen</option>
+                                                                        <option value="vegetable_block">Vegetable/Fruit Block</option>
+                                                                        <option value="dry_fish">Dry Fish</option>
                                                                         <option value="raw_bf_shrimp">Raw BF(Shrimp)</option>
                                                                         <option value="raw_iqf_shrimp">Raw IQF(Shrimp)</option>
                                                                         <option value="semi_iqf">Semi IQF</option>
@@ -169,9 +173,16 @@
                                                                         <option class="iqf" value="sliced_chinese_cut">Sliced(Chinese Cut)</option>
                                                                         <option class="iqf" value="butter_fly">Butter Fly</option>
                                                                         <option class="iqf" value="hgto">HGTO</option>
+                                                                        <option class="vegetable_iqf" value="cut_n_clean">Cut & Clean</option>
+                                                                        <option class="vegetable_iqf" value="whole">Whole</option>
+                                                                        <option class="vegetable_iqf" value="whole_n_clean">Whole & Clean</option>
                                                                         <option class="block_frozen" value="whole">Whole</option>
                                                                         <option class="block_frozen" value="clean">Clean</option>
                                                                         <option class="block_frozen" value="slice">Slice</option>
+                                                                        <option class="vegetable_block" value="cut_n_clean">Cut & Clean</option>
+                                                                        <option class="vegetable_block" value="whole">Whole</option>
+                                                                        <option class="vegetable_block" value="whole_n_clean">Whole & Clean</option>
+                                                                        <option class="dry_fish" value="regular">Regular</option>
                                                                         <option class="raw_bf_shrimp" value="hlso">HLSO</option>
                                                                         <option class="raw_bf_shrimp" value="pud">PUD</option>
                                                                         <option class="raw_bf_shrimp" value="p_n_d">P & D</option>
@@ -254,7 +265,7 @@
 
     $(document).ready(function()
     {
-        var id,item_id,pivot_id = 0;
+        var id,item_id,grade,total_quantity,item_name,category,requisition_batch_code = 0;
         $(".varient").chained(".type");
         $('.type').on("change",function(){
             var typex = $(this).val();
@@ -269,41 +280,30 @@
              });
         });
         $('.process_modal').click(function(){
-             id = $(this).attr("data-id");
+             grade = $(this).attr("data-grade");
+             total_quantity = $(this).attr("data-total_quantity");
              item_id = $(this).attr("data-item_id");
-             pivot_id = $(this).attr("data-pivot_id");
-             $('.requisition_id').val(null);
-             $('.requisition_code').val(null);
-             $('.item_id').val(null);
-             $('.item_name').html(null);
-             $('.item_grade_name').html(null);
-             $('.alive_stock').html(null);
-             $('.dead_stock').html(null);
-             $('.total_weight').html(null);
+             item_name = $(this).attr("data-item_name");
+             category = $(this).attr("data-category");
+             requisition_batch_code = $(this).attr("data-requisition_batch_code");
+            //  console.log(category);
+             $('.item_total_qty').val(total_quantity);
+             $('.requisition_batch_code').val(requisition_batch_code);
+             $('.item_id').val(item_id);
+             $('.item_name').html(item_name);
+             $('.item_grade_name').html(grade);
+             $('.total_quantity').html(total_quantity);
+             $('.item_category').html(category);
         });
         $('.warning').hide();
-        $('.alive_quantity').on("keyup change",function() {
+        $('.total_qty').on("keyup change",function(){
             var a = $(this).val();
-            var b = $('.alive_stock').html();
-            if (a>parseInt(b)) {
+            var b = total_quantity;
+            if (a>parseFloat(b)) {
                 $('.warning').show();
                 $('.confirm_btn').prop("disabled",true);
             }
-            if (a<parseInt(b)) {
-                $('.warning').hide();
-                $('.confirm_btn').prop("disabled",false); 
-            }
-            console.log(a);
-            console.log(parseInt(b));
-        });
-        $('.dead_quantity').on("keyup change",function(){
-            var a = $(this).val();
-            var b = $('.dead_stock').html();
-            if (a>parseInt(b)) {
-                $('.warning').show();
-                $('.confirm_btn').prop("disabled",true);
-            }
-            if (a<parseInt(b)) {
+            if (a<parseFloat(b)) {
                 $('.warning').hide();
                 $('.confirm_btn').prop("disabled",false); 
             }
