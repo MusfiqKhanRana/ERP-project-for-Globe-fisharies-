@@ -74,9 +74,7 @@
                                         </td>
                                         <td class="text-align: center;"> {{$data->alive_quantity+$data->dead_quantity}}</td>
                                         <td style="text-align: center">
-                                            @if ($data->store_in_status=='Initial')
                                             <a class="btn green move_to_store"  data-toggle="modal" data-quantity="{{$data->alive_quantity+$data->dead_quantity}}" data-processing_variant="{{$data->processing_variant}}" data-processing_name="{{$data->processing_name}}" data-item_name="{{$data->production_processing_item->name}}" data-production_processing_grades="{{$data->production_processing_grades}}" href="#move_to_storeModal" data-id="{{$data->id}}"><i class="fa fa-edit"></i>Move to Store</a>
-                                            @endif
                                             {{-- @if ($data->store_in_status=='QC_checked')
                                                 <a class="btn btn-success"  data-toggle="modal" href="{{route('metal-detector.show',$data->id)}}"><i class="fa fa-edit"></i>MD Form</a>
                                             @endif
