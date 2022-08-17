@@ -305,28 +305,32 @@
                                             <div class="form-group">
                                                 <div class="col-md-12 table-scrollable">
                                                     <table  class="table table-striped table-bordered table-hover" id="mytable">
-                                                        <tr>
-                                                            <th>Consignment Type</th>
-                                                            <th>Hs Code</th>
-                                                            <th>Type</th>
-                                                            <th>Item</th>
-                                                            <th>Variant</th>
-                                                            <th>Grade</th>
-                                                            <th>Pack SIze</th>
-                                                            <th>Cartons Quantity</th>
-                                                            <th>Total In KG</th>
-                                                            <th>Per KG Rate ($)</th>
-                                                            <th>Freight Rate Per Kg</th>
-                                                            <th>Total CFR Rate</th>
-                                                            <th>Total CIF Rate</th>
-                                                            <th>Total Amount (Excluding CFR/CIF Rate)</th>
-                                                            <th>Total Amount (Including CFR Rate)</th>
-                                                            <th>Total Amount (Including CIF Rate)</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                        <tr>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Consignment Type</th>
+                                                                <th>Hs Code</th>
+                                                                <th>Type</th>
+                                                                <th>Item</th>
+                                                                <th>Variant</th>
+                                                                <th>Grade</th>
+                                                                <th>Pack SIze</th>
+                                                                <th>Cartons Quantity</th>
+                                                                <th>Total In KG</th>
+                                                                <th>Per KG Rate ($)</th>
+                                                                <th>Freight Rate Per Kg</th>
+                                                                <th>Total CFR Rate</th>
+                                                                <th>Total CIF Rate</th>
+                                                                <th>Total Amount (Excluding CFR/CIF Rate)</th>
+                                                                <th>Total Amount (Including CFR Rate)</th>
+                                                                <th>Total Amount (Including CIF Rate)</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
             
-                                                        </tr>
+                                                            </tr>
+                                                        </tbody>
                                                     </table>
                                                 </div>
                                             </div>
@@ -604,6 +608,7 @@
         $("#add_items").prop("disabled",false);
     }
     $("#add_items").click(function(){
+        $("table#mytable tbody tr").empty();
         console.log('good');
         console.log($("#product").val());
         var cif_rate = 0;
@@ -617,15 +622,16 @@
             grand_total += total_amount_cfr;
             items_array.push({"consignment_type":$("#consignment_type").val(),"hs_code":$("#hs_code").val(),"type":$("#type").val(),"item_name":$("#item_name").val(),"variant":$("#variant").val(),"grade":$("#grade").val(),"pack_size":$("#pack_size").val(),"cartons":$("#cartons").val(),"total_in_kg":$("#total_in_kg").val(),"rate":$("#rate").val(),"freight_rate":cfr_rate,"total_cfr_rate":total_cfr_rate,"total_cif_rate":"N/A","total_amount":$("#total_amount").val(),"total_amount_cfr":total_amount_cfr,"total_amount_cif":"N/A","status":"stay"});
         }
-        if (cif_rate>0) {
+        else if (cif_rate>0) {
             var total_amount_cif = 0; 
             var total_cif_rate = (parseFloat($("#total_in_kg").val()) * parseFloat(cif_rate));
             total_amount_cif = (parseFloat($("#total_amount").val()) + parseFloat(total_cif_rate));
             grand_total += total_amount_cif;
             items_array.push({"consignment_type":$("#consignment_type").val(),"hs_code":$("#hs_code").val(),"type":$("#type").val(),"item_name":$("#item_name").val(),"variant":$("#variant").val(),"grade":$("#grade").val(),"pack_size":$("#pack_size").val(),"cartons":$("#cartons").val(),"total_in_kg":$("#total_in_kg").val(),"rate":$("#rate").val(),"freight_rate":cif_rate,"total_cfr_rate":"N/A","total_cif_rate":total_cif_rate,"total_amount":$("#total_amount").val(),"total_amount_cfr":"N/A","total_amount_cif":total_amount_cif,"status":"stay"});
         }
-        else
+        else{
         items_array.push({"consignment_type":$("#consignment_type").val(),"hs_code":$("#hs_code").val(),"type":$("#type").val(),"item_name":$("#item_name").val(),"variant":$("#variant").val(),"grade":$("#grade").val(),"pack_size":$("#pack_size").val(),"cartons":$("#cartons").val(),"total_in_kg":$("#total_in_kg").val(),"rate":$("#rate").val(),"freight_rate":"N/A","total_cfr_rate":"N/A","total_cif_rate":"N/A","total_amount":$("#total_amount").val(),"total_amount_cfr":"N/A","total_amount_cif":"N/A","status":"stay"});
+        }
         grand_total += parseFloat($("#total_amount").val());
         $('.grand_total').val(grand_total);
             $("#provided_item").val('');

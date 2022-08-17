@@ -48,7 +48,7 @@ class ProductionUnloadController extends Controller
             // dd($id);
             if ($request->caregory[$key] == 'Sweet Desert') {
                     $processing_code = random_int(100000, 999999);
-                    ProductionProcessingUnit::create(['requisition_id'=>$request->requisition_id,'requisition_code'=>$request->requisition_code,'item_id'=>$request->supply_item_id[$key],'processing_name'=>'Sweet Desert','processing_variant'=>'regular','alive_quantity'=>$request->alive_quantity[$key],'dead_quantity'=>$request->dead_quantity[$key],'processing_code'=>$processing_code,'status'=>'StoreIn']);
+                    ProductionProcessingUnit::create(['requisition_id'=>$request->requisition_id,'requisition_code'=>$request->requisition_code,'item_id'=>$request->supply_item_id[$key],'processing_name'=>'Sweet Desert','processing_variant'=>'regular','alive_quantity'=>$request->alive_quantity[$key],'dead_quantity'=>$request->dead_quantity[$key],'processing_code'=>$processing_code,'status'=>'StoreIn','StoreIn_datetime'=>Carbon::now()]);
             }
             if ($id == "no_id") {
                 // dd($id);
