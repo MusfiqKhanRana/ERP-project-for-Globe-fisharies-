@@ -12,6 +12,8 @@ use App\Models\SupplyItem;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+use function GuzzleHttp\Promise\all;
+
 class InventoryStoreInController extends Controller
 {
     public function store_in(){
@@ -24,33 +26,12 @@ class InventoryStoreInController extends Controller
         $pack_size = ExportPackSize::all();
         $supply_item = SupplyItem::all();
         $processing_grade = ProcessingGrade::all();
-        // $production_processing_unit = ProductionProcessingUnit::where('status','Bulk_storage')->with('production_processing_grades','production_processing_item')->get();
-        //dd($production_processing_unit);
-        // $process_production_unit = $this->getBulkStorage($production_unit);
-        // return $process_production_unit;
         return view('backend.production.inventory.cold_storage.bulk_storage',compact('processing_grade','supply_item','pack_size'));
     }
     public function bulk_storage_datapass(Request $request){
-            // $production_processing_unit = ProductionProcessingUnit::where('status','Bulk_storage')
-            // ->where(function($q) use($request){
-            //     if ($request->processing_type == "IQF") {
-            //         $q->whereIn('processing_name',['iqf','raw_iqf_shrimp','blanched_iqf_shrimp']);
-            //     }elseif ($request->processing_type == "BLOCK") {
-            //         $q->whereIn('processing_name',['block_frozen','raw_bf_shrimp','semi_iqf']);
-            //     }
-            //     elseif ($request->processing_type == "VEGETABLE") {
-            //         $q->whereIn('processing_name',['vegetable_iqf','vegetable_block','semi_iqf']);
-            //     }
-            //     elseif ($request->processing_type == "DRYFISH") {
-            //         $q->whereIn('processing_name',['dry_fish']);
-            //     }
-            //     elseif ($request->processing_type == "SWEET") {
-            //         $q->whereIn('processing_name',['Sweet Desert']);
-            //     }
-            // })
-            // ->with('production_processing_grades','production_processing_item')->get();
             $processing_grades = ProductionProcessingGrade::with('production_processing_unit')->whereHas('production_processing_unit',function($q)use($request){
                 $q->where('status','Bulk_storage')
+                ->whereBetween('created_at',[Carbon::parse($request->to_date)->format('Y-m-d 00:00:00'),Carbon::parse($request->form_date)->format('Y-m-d 23:59:59')])
                 ->where(function($q) use($request){
                     if ($request->processing_type == "IQF") {
                         $q->whereIn('processing_name',['iqf','raw_iqf_shrimp','blanched_iqf_shrimp']);
@@ -68,7 +49,16 @@ class InventoryStoreInController extends Controller
                     }
                 });
             })->get()->groupBy('batch_code');
-            return $processing_grades;
+            $process_data = $this->processBulkStorage($processing_grades);
+            return $process_data;
+    }
+    public function processBulkStorage($data){
+        $process_array=[];
+        foreach ($data as $key => $process) {
+            // return $key;
+            array_push($process_array,$key);
+        }
+        return $process_array;
     }
     public function getBulkStorage($data)
     {
