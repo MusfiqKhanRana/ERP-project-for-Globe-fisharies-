@@ -244,7 +244,7 @@ class ProductionBlockController extends Controller
         // dd($request->toArray());
         ProductionProcessingUnit::where('id',$request->ppu_id)
         ->update(
-            ['status'=>'StoreIn','StoreIn_datetime'=>Carbon::now(),'wastage_quantity'=>$request->wastage_quantity,'return_quantity'=>$request->return_quantity,'RandW_datetime'=>Carbon::now()]
+            ['status'=>'StoreIn','wastage_quantity'=>$request->wastage_quantity,'return_quantity'=>$request->return_quantity,'RandW_datetime'=>Carbon::now()]
         );
         // foreach ($request->item_id as $key => $value) {
         //     ProductionProcessingGrade::where('id',$value)

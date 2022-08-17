@@ -76,18 +76,19 @@ class InventoryStoreInController extends Controller
         if ($request->inputs==null) {
             ProductionProcessingUnit::where('id',$request->production_processing_unit_id)
             ->update(
-                ['status'=>'Bulk_storage','store_in_status'=>'Bulk_storage']
+                ['StoreIn_datetime'=>Carbon::now(),'status'=>'Bulk_storage']
             );
         }
         if ($request->inputs!=null) {
             ProductionProcessingUnit::where('id',$request->production_processing_unit_id)
             ->update(
-                ['status'=>'Bulk_storage','store_in_status'=>'Bulk_storage']
+                ['StoreIn_datetime'=>Carbon::now(),'status'=>'Bulk_storage']
             );
             $ppu = ProductionProcessingUnit::where('id',$request->production_processing_unit_id)->first();
+            // dd($ppu->toArray());
             foreach (json_decode($request->inputs) as $key => $input) {
                 if ($input->status=="stay") {
-                    ProductionProcessingGrade::create([
+                    $ppg=ProductionProcessingGrade::create([
                         'batch_code'=>$ppu->processing_name.'.'.$ppu->processing_variant.'.'.$ppu->item_id.'.'.$input->grade_id.'.'.$input->grade_name,
                         'grade_id' => $input->grade_id,
                         'grade_name' => $input->grade_name,
@@ -97,6 +98,7 @@ class InventoryStoreInController extends Controller
                         'grading_date'=>Carbon::now(),
                     ]); 
                 }
+                // dd($ppg->toArray());
             }  
         }  
         return redirect()->back()->withmsg('Successfully Moved To Bulk Storage');
