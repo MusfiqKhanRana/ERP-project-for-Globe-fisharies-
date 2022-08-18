@@ -320,64 +320,145 @@
                         <div id="damaged_Modal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <form class="form-horizontal" role="form" method="post" action="#">
+                                    <form class="form-horizontal" role="form" method="post" action="{{route('inventory-export-damage.store')}}" enctype="multipart/form-data">
                                         {{csrf_field()}}
                                         <input type="hidden" name="inputs" class="inputs">
                                         <input type="hidden" name="production_processing_unit_id" class="production_processing_unit_id">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                        <h2 class="modal-title" style="color: rgb(75, 65, 65);">Damage Info</h2>
-                                    </div>
-                                    <br>
-                                    <div class="modal-body">
-                                        @csrf
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Item Name :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <p><b>Pangus</b></p>
-                                            </div>
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                            <h2 class="modal-title" style="color: rgb(75, 65, 65);">Damage Info</h2>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Item Grade :</p>
+                                        <br>
+                                        <div class="modal-body">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Type :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <select class="form-control type" name="processing_type">
+                                                        <option value="">--Select--</option>
+                                                        <option value="iqf">IQF</option>
+                                                        <option value="vegetable_iqf">Vegetable/Fruit IQF</option>
+                                                        <option value="block_frozen">Block Frozen</option>
+                                                        <option value="vegetable_block">Vegetable/Fruit Block</option>
+                                                        <option value="dry_fish">Dry Fish</option>
+                                                        <option value="raw_bf_shrimp">Raw BF(Shrimp)</option>
+                                                        <option value="raw_iqf_shrimp">Raw IQF(Shrimp)</option>
+                                                        <option value="semi_iqf">Semi IQF</option>
+                                                        <option value="cooked_iqf_shrimp">Cooked IQF(Shrimp)</option>
+                                                        <option value="blanched_iqf_shrimp">Balanched IQF(Shrimp)</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <div class="col-md-8" >
-                                                <p><b>300-500gm/3pcs</b></p>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Variant :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <select class="form-control varient" name="processing_variant">
+                                                        <option value="">--Select--</option>
+                                                        <option class="iqf" value="fillet">Fillet</option>
+                                                        <option class="iqf" value="whole">Whole</option>
+                                                        <option class="iqf" value="whole_gutted">Whole Gutted</option>
+                                                        <option class="iqf" value="cleaned">Cleaned</option>
+                                                        <option class="iqf" value="sliced_fmly_cut">Sliced(Family Cut)</option>
+                                                        <option class="iqf" value="sliced_chinese_cut">Sliced(Chinese Cut)</option>
+                                                        <option class="iqf" value="butter_fly">Butter Fly</option>
+                                                        <option class="iqf" value="hgto">HGTO</option>
+                                                        <option class="vegetable_iqf" value="cut_n_clean">Cut & Clean</option>
+                                                        <option class="vegetable_iqf" value="whole">Whole</option>
+                                                        <option class="vegetable_iqf" value="whole_n_clean">Whole & Clean</option>
+                                                        <option class="block_frozen" value="whole">Whole</option>
+                                                        <option class="block_frozen" value="clean">Clean</option>
+                                                        <option class="block_frozen" value="slice">Slice</option>
+                                                        <option class="vegetable_block" value="cut_n_clean">Cut & Clean</option>
+                                                        <option class="vegetable_block" value="whole">Whole</option>
+                                                        <option class="vegetable_block" value="whole_n_clean">Whole & Clean</option>
+                                                        <option class="dry_fish" value="regular">Regular</option>
+                                                        <option class="raw_bf_shrimp" value="hlso">HLSO</option>
+                                                        <option class="raw_bf_shrimp" value="pud">PUD</option>
+                                                        <option class="raw_bf_shrimp" value="p_n_d">P & D</option>
+                                                        <option class="raw_bf_shrimp" value="pdto">PDTO</option>
+                                                        <option class="raw_bf_shrimp" value="pto">PTO</option>
+                                                        <option class="raw_iqf_shrimp" value="hlso">HLSO</option>
+                                                        <option class="raw_iqf_shrimp" value="pud">PUD</option>
+                                                        <option class="raw_iqf_shrimp" value="p_n_d_tail_on">P&D Tail On</option>
+                                                        <option class="raw_iqf_shrimp" value="p_n_d_tail_off">P&D Tail Off</option>
+                                                        <option class="raw_iqf_shrimp" value="special_cut_p_n_d">Special Cut P&D</option>
+                                                        <option class="raw_iqf_shrimp" value="hlso_easy_pell">HLSO Easy Pell</option>
+                                                        <option class="raw_iqf_shrimp" value="butterfly_pud_skewer">Butterfly/PUD Skewer</option>
+                                                        <option class="raw_iqf_shrimp" value="pud_pull_vein">PUD Pull Vein</option>
+                                                        <option class="semi_iqf" value="hoso">HOSO</option>
+                                                        <option class="semi_iqf" value="hoto">HOTO</option>
+                                                        <option class="cooked_iqf_shrimp" value="hoso">HOSO</option>
+                                                        <option class="cooked_iqf_shrimp" value="pud">PUD</option>
+                                                        <option class="cooked_iqf_shrimp" value="p_n_d_tail_on">P&D Tail On</option>
+                                                        <option class="cooked_iqf_shrimp" value="p_n_d_tail_off">P&D Tail Off</option>
+                                                        <option class="blanched_iqf_shrimp" value="hoso">HOSO</option>
+                                                        <option class="blanched_iqf_shrimp" value="pud">PUD</option>
+                                                        <option class="blanched_iqf_shrimp" value="p_n_d_tail_on">P&D Tail On</option>
+                                                        <option class="blanched_iqf_shrimp" value="p_n_d_tail_off">P&D Tail Off</option>
+                                                    </select>
+                                                </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Item :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <select name="item_id" class="form-control selectpicker" data-live-search="true">
+                                                        @foreach ($supply_item as $item)
+                                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Grade :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <select name="processing_grade_id" class="form-control" >
+                                                        <option value="">--Select--</option>
+                                                        @foreach ($processing_grade as $grade)
+                                                            <option value="{{$grade->id}}">{{$grade->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Damaged :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <input type="text" name="damage_quantity" placeholder="Type Damaged Quantity" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Image :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <input type="file" placeholder="Upoad attachment" name="image" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Remark :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <textarea name="remark" class="form-control"  cols="30" rows="5"></textarea>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="damage_form" value="Bulk">
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Damaged :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <input type="text" placeholder="Type Damaged Quantity" class="form-control">
-                                            </div>
+                                        <br>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="m-10 btn btn-success">Confirm</button>
+                                            <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Image :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <input type="file" placeholder="Upoad attachment" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Remark :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <textarea name="" class="form-control"  cols="30" rows="5"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="m-10 btn btn-success">Confirm</button>
-                                        <button type="button" data-dismiss="modal" class="btn default">Cancel</button>
-                                    </div>
-                                </form>
+                                    </form>
                                 </div>
                             </div>
                         </div>
