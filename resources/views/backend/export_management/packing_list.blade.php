@@ -130,8 +130,9 @@
                                                     <li>{{$sale_contract->bank_name}}</li><li>{{$sale_contract->importer_bank_branch}}</li><li>{{$sale_contract->importer_bank_country}}</li><li>{{$sale_contract->importer_account_no}}</li></ul></span></td>
                                                 <td>
                                                     @if ($sale_contract->packing_status == "Approved")
-                                                        <button class="btn btn-success disburseShipment" data-route="{{route('disburse.shipment.confirm',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" data-toggle="modal" href="#Disburse">Disburse Shipment</button>
-                                                        
+                                                        @if ($sale_contract->disburse_shipment_status == "Yes")
+                                                            <button class="btn btn-success disburseShipment" data-route="{{route('disburse.shipment.confirm',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" data-toggle="modal" href="#Disburse">Disburse Shipment</button>
+                                                        @endif
                                                         <button class="btn btn-info RequestApproval" data-route="{{route('request.approval.confirm',$sale_contract->id)}}" data-toggle="modal" href="#RequestApproval">Request for Approval</button>
                                                         <a class="btn red-flamingo" href="{{route('packing.list.print',$sale_contract->id)}}">print</a>
                                                     @endif

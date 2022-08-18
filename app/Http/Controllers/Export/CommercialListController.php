@@ -94,16 +94,8 @@ class CommercialListController extends Controller
         return view('backend.export_management.commercial_list.certificate_origin',compact('data'));
     }
 
-    public function downloadFile(Request $request, $id){
-        if ($request->hasFile('document')) {
-            $file = $request->file('document');
-            //dd($file);
-            $filename = time().".".$request->document->extension();
-            $path = SalesContract::where("id", $id)->value('assets/export/document/',$filename);
-            return Storage::download($path);
-        }
-        
-       
+    public function downloadFile($file){
+        return response()->download('assets\export\document/'.$file);
       }
 
 }

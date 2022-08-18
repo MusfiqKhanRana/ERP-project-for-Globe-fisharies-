@@ -88,7 +88,7 @@ class PackingListController extends Controller
 
     public function RequestApproval($id)
     {
-        $sale_contract = SalesContract::where('id',$id)->update(['packing_status'=>'RequestApproval']);
+        $sale_contract = SalesContract::where('id',$id)->update(['packing_status'=>'RequestApproval','disburse_shipment_status'=>'Yes']);
         //dd($sale_contract);
         return redirect()->back()->withMsg('Successfully Confirmed');
     }

@@ -258,8 +258,8 @@ class SalesContractController extends Controller
     }
 
     public function SaleContractPrint($id){
-        // $sale_contracts = SalesContract::with(['sales_contract_items','export_buyer','advising_bank'])->where('id',$id)->get();
+        $sale_contracts = SalesContract::with(['sales_contract_items','export_buyer','advising_bank'])->where('id',$id)->get();
         //dd($sale_contracts);
-        return view('backend.export_management.sale_contract.print_sale_contract');
+        return view('backend.export_management.sale_contract.print_sale_contract',compact('sale_contracts'));
     }
 }

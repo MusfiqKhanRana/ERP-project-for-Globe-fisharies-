@@ -15,7 +15,7 @@ class CreateExportBuyersTable extends Migration
     {
         Schema::create('export_buyers', function (Blueprint $table) {
             $table->id();
-            $table->integer('buyer_code')->nullable();
+            $table->string('buyer_code')->nullable();
             $table->string('buyer_name')->nullable();
             $table->string('buyer_address')->nullable();
             $table->string('buyer_contact_number')->nullable();

@@ -41,7 +41,7 @@ class ExportPackSizeController extends Controller
         $packs->weight = $request->weight;
         $packs->save();
 
-        return redirect()->route('processing-grade.index')->withMsg('Successfully Created');
+        return redirect()->back()->withMsg('Successfully Created');
     }
 
     /**

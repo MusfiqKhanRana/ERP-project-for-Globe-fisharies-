@@ -42,6 +42,8 @@ use App\Http\Controllers\Export\SalesContractController;
 use App\Http\Controllers\ExportPackSizeController;
 use App\Http\Controllers\FishGradeController;
 use App\Http\Controllers\GeneralItemStockController;
+use App\Http\Controllers\Inventory\ExportInventoryController;
+use App\Http\Controllers\Inventory\InventoryExportDamageController;
 use App\Http\Controllers\Inventory\InventoryStoreInController;
 use App\Http\Controllers\Inventory\ProductionExportInventoryController;
 use App\Http\Controllers\MedicalReportController;
@@ -92,6 +94,7 @@ use App\Http\Controllers\RoPlantController;
 use App\Http\Controllers\UserShiftController;
 use App\Http\Controllers\Wastage\WastageController;
 use App\Models\ExportPackSize;
+use App\Models\InventoryExportDamage;
 use App\Models\ProductionProcessingGrade;
 use App\Models\ProductionPurchaseRequisitionItem;
 use App\Models\ProductionRequisition;
@@ -619,18 +622,20 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('production-purchase-quotation/status/add/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_addquotation'])->name('production-general_purchase.status_addquotation');
     Route::post('production-purchase-quotation/status/show/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_showquotation'])->name('production-general_purchase.status_showquotation');
     //Route::get('production-purchase-quotation/status/comfirm/quotation',[ProductionGeneralPurchaseQuotationController::class,'status_confirmquotation'])->name('production-general_purchase.status_confirmquotation');
+   
+
+    Route::get('inventory/cold_storage/export_storage_1',[ExportInventoryController::class,'Storage1'])->name('inventory.cold_storage.export_storage_1');
+    Route::get('inventory/cold_storage/export_storage_2',[ExportInventoryController::class,'Storage2'])->name('inventory.cold_storage.export_storage_2');
+
+    Route::resource('inventory-export-damage',InventoryExportDamageController::class);
+
     Route::get('inventory/manage-location/Locate_item', function () {
         return view('backend.production.inventory.manage_location.locate_item');
     })->name('inventory.location.locate_item');
     Route::get('inventory/manage-location/located_item_list', function () {
         return view('backend.production.inventory.manage_location.located_item_list');
     })->name('inventory.location.located_item_list');
-    Route::get('inventory/cold_storage/export_storage_1', function () {
-        return view('backend.production.inventory.cold_storage.export_storage_1');
-    })->name('inventory.cold_storage.export_storage_1');
-    Route::get('inventory/cold_storage/export_storage_2', function () {
-        return view('backend.production.inventory.cold_storage.export_storage_2');
-    })->name('inventory.cold_storage.export_storage_2');
+   
     Route::resource('production-export-inventory',ProductionExportInventoryController::class);
     
     Route::resource('user-shift',UserShiftController::class);
@@ -649,6 +654,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('export-pack', ExportPackSizeController::class);
     
     //--------------------Export Management update--------------------//
+    Route::put('/export/notify/info/{id}',[ExportBuyerController::class,'NotifyInfoUpdate'])->name('export.notify.info.update');
+    Route::put('/export/consignee/info/{id}',[ExportBuyerController::class,'ConsigneeInfoUpdate'])->name('export.consignee.info.update');
+    Route::put('/export/buyer/info/{id}',[ExportBuyerController::class,'BuyerInfoUpdate'])->name('export.buyer.info.update');
     Route::put('/export/buyer/{id}',[ExportBuyerController::class,'BuyerDetailsUpdate'])->name('export.buyer.update');
     Route::resource('export-buyer', ExportBuyerController::class);
 
@@ -662,7 +670,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('sale_contract',SalesContractController::class);
 
     
-    Route::get('download/{id}', [CommercialListController::class, 'downloadFile'])->name('file.download');
+    Route::get('download/{file}', [CommercialListController::class, 'downloadFile'])->name('file.download');
     Route::get('commercial/certificate/print/{id}',[CommercialListController::class,'PrintCommercialCertificate'])->name('certificate.origin.print');
     Route::get('commercial/list/print/{id}',[CommercialListController::class,'PrintCommercial'])->name('commercial.list.print');
     Route::post('commercial/list/expiry/date/{id}',[CommercialListController::class,'ExpiryDate'])->name('commercial.list.expiry.date');

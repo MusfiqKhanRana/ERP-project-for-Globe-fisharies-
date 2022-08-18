@@ -138,7 +138,7 @@
                                                     </table>
                                                 </td>
                                                 <td>
-                                                    <a class="btn btn-info" href="{{--route('edit_buyer')--}}">Edit</a>
+                                                    <a class="btn btn-info" href="{{route('export-buyer.edit',$export_detail->id)}}">Edit</a>
                                                     <button class="btn btn-danger delete" data-toggle="modal" href="#deleteModal" data-id={{$export_detail->id}} data-route="{{route('export-buyer.destroy',$export_detail->id)}}">Detele</button>
                                                 </td>
                                             </tr>
