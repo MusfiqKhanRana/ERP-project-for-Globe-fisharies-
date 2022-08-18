@@ -62,32 +62,6 @@ class InventoryExportDamageController extends Controller
    
     }
 
-    public function DamageBulkStore(Request $request)
-    {
-       // dd($request->toArray);
-        $grade = ProcessingGrade::where('id',$request->processing_grade_id)->first();
-        // dd($grade->name);
-        $bulk = new InventoryExportDamage();
-        $bulk->processing_type = $request->processing_type;
-        $bulk->processing_variant = $request->processing_variant;
-        $bulk->item_id = $request->item_id;
-        $bulk->batch_code = $request->processing_type.'#'.$request->processing_variant.'#'.$request->item_id.'#'.$request->processing_grade_id.'#'.$grade->name;
-        $bulk->processing_grade_id = $request->processing_grade_id;
-        $bulk->damage_quantity = $request->damage_quantity;
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filename = time() . '.' . 'jpg';
-            $location = 'assets/export/damage/'. $filename;
-            Image::make($image)->save($location);
-            $bulk->image =  $filename;
-        }
-        $bulk->remark = $request->remark;
-        $bulk->damage_form = $request->damage_form;
-        $bulk->save();
-
-        return redirect()->back()->withMsg('Successfully Created');
-    }
-
     /**
      * Display the specified resource.
      *

@@ -628,7 +628,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('inventory/cold_storage/export_storage_1',[ExportInventoryController::class,'Storage1'])->name('inventory.cold_storage.export_storage_1');
     Route::get('inventory/cold_storage/export_storage_2',[ExportInventoryController::class,'Storage2'])->name('inventory.cold_storage.export_storage_2');
 
-    Route::post('inventory/damage/bulk',[InventoryExportDamageController::class,'DamageBulkStore'])->name('inventory.damage.bulk');
     Route::resource('inventory-export-damage',InventoryExportDamageController::class);
 
     Route::get('inventory/manage-location/Locate_item', function () {
