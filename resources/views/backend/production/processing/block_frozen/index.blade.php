@@ -128,7 +128,7 @@
                                     var a = $(this).val();
                                     var p = (((total_quantity - a)/total_quantity)*100);
                                     p = p.toFixed(2);
-                                    $('.parcentage').html(p+'%');
+                                    $('.percentage').html(p+'%');
                                 });
                             });
                             
@@ -336,7 +336,7 @@
                                         var a = $(this).val();
                                         var p = (((total_quantity - a)/total_quantity)*100);
                                         p = p.toFixed(2);
-                                        $('.parcentage').html(p+'%');
+                                        $('.percentage').html(p+'%');
                                     });
                                 });
                                 
@@ -544,7 +544,7 @@
                                         var a = $(this).val();
                                         var p = (((total_quantity - a)/total_quantity)*100);
                                         p = p.toFixed(2);
-                                        $('.parcentage').html(p+'%');
+                                        $('.percentage').html(p+'%');
                                     });
                                 });
                                 
@@ -752,7 +752,7 @@
                                         var a = $(this).val();
                                         var p = (((total_quantity - a)/total_quantity)*100);
                                         p = p.toFixed(2);
-                                        $('.parcentage').html(p+'%');
+                                        $('.percentage').html(p+'%');
                                     });
                                 });
                                 

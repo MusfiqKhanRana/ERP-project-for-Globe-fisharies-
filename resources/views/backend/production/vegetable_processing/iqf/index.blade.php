@@ -97,7 +97,7 @@
                                     var a = $(this).val();
                                     var p = ((((qty) - a)/(qty))*100);
                                     p = p.toFixed(2);
-                                    $('.parcentage').html(p+'%');
+                                    $('.percentage').html(p+'%');
                                 });
                             });
                             
@@ -122,7 +122,7 @@
                                     var a = $(this).val();
                                      var p = (((a -(washing_n_cutting_weight))/(a))*100);
                                     p = p.toFixed(2);
-                                    $('.parcentage').html(p+'%');
+                                    $('.percentage').html(p+'%');
                                 });
                             });
 
@@ -195,7 +195,7 @@
                                     var a = $(this).val();
                                     var p = ((((qty) - a)/(qty))*100);
                                     p = p.toFixed(2);
-                                    $('.parcentage').html(p+'%');
+                                    $('.percentage').html(p+'%');
                                 });
                             });
                             
@@ -220,7 +220,7 @@
                                     var a = $(this).val();
                                      var p = (((a -(washing_n_cutting_weight))/(a))*100);
                                     p = p.toFixed(2);
-                                    $('.parcentage').html(p+'%');
+                                    $('.percentage').html(p+'%');
                                 });
                             });
 
@@ -294,7 +294,7 @@
                                     var a = $(this).val();
                                     var p = ((((qty) - a)/(qty))*100);
                                     p = p.toFixed(2);
-                                    $('.parcentage').html(p+'%');
+                                    $('.percentage').html(p+'%');
                                 });
                             });
                             
@@ -319,7 +319,7 @@
                                     var a = $(this).val();
                                      var p = (((a -(washing_n_cutting_weight))/(a))*100);
                                     p = p.toFixed(2);
-                                    $('.parcentage').html(p+'%');
+                                    $('.percentage').html(p+'%');
                                 });
                             });
 
@@ -393,7 +393,7 @@
                                     var a = $(this).val();
                                     var p = ((((qty) - a)/(qty))*100);
                                     p = p.toFixed(2);
-                                    $('.parcentage').html(p+'%');
+                                    $('.percentage').html(p+'%');
                                 });
                             });
                             
@@ -418,7 +418,7 @@
                                     var a = $(this).val();
                                      var p = (((a -(washing_n_cutting_weight))/(a))*100);
                                     p = p.toFixed(2);
-                                    $('.parcentage').html(p+'%');
+                                    $('.percentage').html(p+'%');
                                 });
                             });
 

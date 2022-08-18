@@ -97,7 +97,7 @@
                                     var a = $(this).val();
                                     var p = ((((qty) - a)/(qty))*100);
                                     p = p.toFixed(2);
-                                    $('.parcentage').html(p+'%');
+                                    $('.percentage').html(p+'%');
                                 });
                             });
                             
@@ -274,7 +274,7 @@
                                     var a = $(this).val();
                                     var p = ((((qty) - a)/(qty))*100);
                                     p = p.toFixed(2);
-                                    $('.parcentage').html(p+'%');
+                                    $('.percentage').html(p+'%');
                                 });
                             });
                             
@@ -437,7 +437,7 @@
                         }
                         total_quantity = alive_quantity+dead_quantity;
                         if (product.status == "Initial") {
-                            $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#cut_n_clean_washing_n_cuttingModal' class='btn btn-success washing_n_cutting'><i class='fa fa-refresh' aria-hidden='true'></i> Washing & Cutting</button></td></tr>");
+                            $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#whole_washing_n_cuttingModal' class='btn btn-success washing_n_cutting'><i class='fa fa-refresh' aria-hidden='true'></i> Washing & Cutting</button></td></tr>");
                             $('.washing_n_cutting').click(function () {
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
@@ -452,13 +452,13 @@
                                     var a = $(this).val();
                                     var p = ((((qty) - a)/(qty))*100);
                                     p = p.toFixed(2);
-                                    $('.parcentage').html(p+'%');
+                                    $('.percentage').html(p+'%');
                                 });
                             });
                             
                         }
                         if (product.status == "Blocking") {
-                            $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#cut_n_clean_blockingModal' class='btn btn-info blocking'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-washing_n_cutting_weight='"+product.Initial_weight+"' data-washing_n_cutting_date_time='"+product.initial_weight_datetime+"'><i class='fa fa-refresh' aria-hidden='true'></i> Blocking</button></td></tr>");
+                            $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#whole_blockingModal' class='btn btn-info blocking'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-washing_n_cutting_weight='"+product.Initial_weight+"' data-washing_n_cutting_date_time='"+product.initial_weight_datetime+"'><i class='fa fa-refresh' aria-hidden='true'></i> Blocking</button></td></tr>");
                             $('.blocking').click(function () {
                                 $("table.block_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -513,7 +513,7 @@
 
                         }
                         if (product.status == "BlockCounter") {
-                            $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#cut_n_clean_block_counterModal' class='btn blue block_counter'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-washing_n_cutting_weight='"+product.Initial_weight+"' data-washing_n_cutting_date_time='"+product.initial_weight_datetime+"'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                            $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#whole_block_counterModal' class='btn blue block_counter'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-washing_n_cutting_weight='"+product.Initial_weight+"' data-washing_n_cutting_date_time='"+product.initial_weight_datetime+"'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
                             $('.block_counter').click(function () {
                                 $("table.block_counter_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -550,7 +550,7 @@
 
                         }
                         if (product.status == "RandW") {
-                            $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#cut_n_clean_return_n_wastageModal' class='btn btn-danger iqf_randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-washing_n_cutting_weight='"+product.Initial_weight+"' data-washing_n_cutting_date_time='"+product.initial_weight_datetime+"' data-vegetable_glazing_weight='"+product.vegetable_glazing_weight+"' data-vegetable_glazing_datetime='"+product.vegetable_glazing_datetime+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#whole_return_n_wastageModal' class='btn btn-danger iqf_randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-washing_n_cutting_weight='"+product.Initial_weight+"' data-washing_n_cutting_date_time='"+product.initial_weight_datetime+"' data-vegetable_glazing_weight='"+product.vegetable_glazing_weight+"' data-vegetable_glazing_datetime='"+product.vegetable_glazing_datetime+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.iqf_randw').click(function () {
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
@@ -615,7 +615,7 @@
                         }
                         total_quantity = alive_quantity+dead_quantity;
                         if (product.status == "Initial") {
-                            $("table#whole_n_clean_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#whole_washing_n_cuttingModal' class='btn btn-success washing_n_cutting'><i class='fa fa-refresh' aria-hidden='true'></i> Washing & Cutting</button></td></tr>");
+                            $("table#whole_n_clean_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#whole_n_clean_washing_n_cuttingModal' class='btn btn-success washing_n_cutting'><i class='fa fa-refresh' aria-hidden='true'></i> Washing & Cutting</button></td></tr>");
                             $('.washing_n_cutting').click(function () {
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
@@ -630,13 +630,13 @@
                                     var a = $(this).val();
                                     var p = ((((qty) - a)/(qty))*100);
                                     p = p.toFixed(2);
-                                    $('.parcentage').html(p+'%');
+                                    $('.percentage').html(p+'%');
                                 });
                             });
                             
                         }
                         if (product.status == "Blocking") {
-                            $("table#whole_n_clean_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#whole_blockingModal' class='btn btn-info blocking'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-washing_n_cutting_weight='"+product.Initial_weight+"' data-washing_n_cutting_date_time='"+product.initial_weight_datetime+"'><i class='fa fa-refresh' aria-hidden='true'></i> Blocking</button></td></tr>");
+                            $("table#whole_n_clean_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#whole_n_clean_blockingModal' class='btn btn-info blocking'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-washing_n_cutting_weight='"+product.Initial_weight+"' data-washing_n_cutting_date_time='"+product.initial_weight_datetime+"'><i class='fa fa-refresh' aria-hidden='true'></i> Blocking</button></td></tr>");
                             $('.blocking').click(function () {
                                 $("table.block_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -691,7 +691,7 @@
 
                         }
                         if (product.status == "BlockCounter") {
-                            $("table#whole_n_clean_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#whole_block_counterModal' class='btn blue block_counter'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-washing_n_cutting_weight='"+product.Initial_weight+"' data-washing_n_cutting_date_time='"+product.initial_weight_datetime+"'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                            $("table#whole_n_clean_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#whole_n_clean_block_counterModal' class='btn blue block_counter'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-washing_n_cutting_weight='"+product.Initial_weight+"' data-washing_n_cutting_date_time='"+product.initial_weight_datetime+"'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
                             $('.block_counter').click(function () {
                                 $("table.block_counter_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -728,7 +728,7 @@
 
                         }
                         if (product.status == "RandW") {
-                            $("table#whole_n_clean_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#whole_return_n_wastageModal' class='btn btn-danger iqf_randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-washing_n_cutting_weight='"+product.Initial_weight+"' data-washing_n_cutting_date_time='"+product.initial_weight_datetime+"' data-vegetable_glazing_weight='"+product.vegetable_glazing_weight+"' data-vegetable_glazing_datetime='"+product.vegetable_glazing_datetime+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#whole_n_clean_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#whole_n_clean_return_n_wastageModal' class='btn btn-danger iqf_randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-washing_n_cutting_weight='"+product.Initial_weight+"' data-washing_n_cutting_date_time='"+product.initial_weight_datetime+"' data-vegetable_glazing_weight='"+product.vegetable_glazing_weight+"' data-vegetable_glazing_datetime='"+product.vegetable_glazing_datetime+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.iqf_randw').click(function () {
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");

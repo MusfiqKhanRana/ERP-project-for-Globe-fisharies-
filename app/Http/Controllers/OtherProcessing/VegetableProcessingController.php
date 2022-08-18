@@ -72,8 +72,10 @@ class VegetableProcessingController extends Controller
         ->update(
             ['status'=>'BlockCounter']
         );
+        $ppu = ProductionProcessingUnit::with('production_processing_item')->where('id',$request->ppu_id)->first();
         foreach (json_decode($request->inputs) as $key => $input) {
             ProductionProcessingGrade::create([
+                'batch_code'=>$ppu->processing_name.'#'.$ppu->processing_variant.'#'.$ppu->item_id.'#'.$input->block_id.'#'.$input->block_size_name.'#'.$ppu->production_processing_item->name,
                 'block_id' => $input->block_id,
                 'block_name' => $input->block_name,
                 'block_value' => $input->block_name,

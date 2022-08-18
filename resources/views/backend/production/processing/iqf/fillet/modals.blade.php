@@ -14,7 +14,7 @@
                     <p><b>Invoice no:</b> 1111111</p>
                     <p><b>Item Name:</b> Pangas</p>
                     <p><b>Quantity:</b> 50kg</p>
-                    <div class="row"><div class="col-md-3"><b>Raw Filleting:</b></div><div class="col-md-3"><input type="text" class="form-control"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div></div>
+                    <div class="row"><div class="col-md-3"><b>Raw Filleting:</b></div><div class="col-md-3"><input type="text" class="form-control"></div><div class="col-md-3"><b>percentage:</b> 12%</div></div>
                 </div>
                 <br>
                 <div class="modal-footer">
@@ -41,7 +41,7 @@
                     <p><b>Invoice no:</b> 1111111</p>
                     <p><b>Item Name:</b> Pangas</p>
                     <p><b>Quantity:</b> 50kg</p>
-                    <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button type="button" class="btn btn-success">add</button></div>
+                    <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>percentage:</b> 12%</div><div class="col-md-1"><button type="button" class="btn btn-success">add</button></div>
                         <div class="col-md-12">
                             <table class="table table-striped table-bordered table-hover">
                                 <thead>
@@ -92,7 +92,7 @@
                     <p><b>Invoice no:</b> 1111111</p>
                     <p><b>Item Name:</b> Pangas</p>
                     <p><b>Quantity:</b> 50kg</p>
-                    {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
+                    {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>percentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
                     <div class="row">
                         <div class="col-md-12">
                             <table class="table table-striped table-bordered table-hover">
@@ -156,7 +156,7 @@
                     <p><b>Invoice no:</b> 1111111</p>
                     <p><b>Item Name:</b> Pangas</p>
                     <p><b>Quantity:</b> 50kg</p>
-                    {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
+                    {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>percentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
                     <div class="row">
                         <div class="col-md-12">
                             <table class="table table-striped table-bordered table-hover">

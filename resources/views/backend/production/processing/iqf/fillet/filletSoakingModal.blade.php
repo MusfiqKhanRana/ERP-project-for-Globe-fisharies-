@@ -22,7 +22,7 @@
                                 <p><b>Filleting Date & Time:</b> <span class="filleting_date_time"></span></p>
                             </div>
                         </div>
-                    {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
+                    {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>percentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
                     <div class="row">
                         <div class="col-md-2">
                             <b>Soaking Weight:</b>
@@ -31,7 +31,7 @@
                             <input type="number" step="0.01" class="form-control fillet_soaking_weight" name="fillet_soaking_weight" required placeholder="Type Soaking Weight">
                         </div>
                         <div class="col-md-4">
-                            <p><b>Decreasing Parcentage:</b> <span class="Soaking_parcentage"></span></p>
+                            <p><b>Decreasing percentage:</b> <span class="Soaking_percentage"></span></p>
                         </div>
                     </div>
                 </div>
