@@ -92,7 +92,7 @@
                         </div>
                     </div>
                     <div class="table-scrollable">
-                        <table class="table table-striped table-bordered table-hover">
+                        <table class="bulk_storage table table-striped table-bordered table-hover" >
                             <thead>
                             <tr>
                                 <th>Item Name</th>
@@ -108,49 +108,34 @@
                             </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($production_processing_unit as $item) --}}
-                                    <tr id="row1">
-                                        <td class="text-align: center;">good</td>
-                                        <td class="text-align: center;">
-                                            good
-                                            {{-- @foreach ($item->production_processing_grades as $value)
-                                                @if ($value->block_id == null)
-                                                    <li>Grade Name: {{$value->grade_name}}</li>
-                                                @endif
-                                                @if ($value->grade_id == null)
-                                                    <li>Block Name : {{$value->block_name}}</li>
-                                                @endif
-                                            @endforeach --}}
-                                        </td>
-                                        <td class="text-align: center;">good</td>
-                                        <td class="text-align: center;">good</td>
-                                        <td class="text-align: center;">40</td>
-                                        <td class="text-align: center;">
-                                            <table class="table table-striped table-bordered table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <td class="text-align: center;">In</td>
-                                                        <td class="text-align: center;">Out</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-align: center;">10</td>
-                                                        <td class="text-align: center;">10</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                        <td class="text-align: center;">40</td>
-                                        <td class="text-align: center;">40</td>
-                                        <td class="text-align: center;">40</td>
-                                        {{-- <td style="text-align: center">
-                                            <a class="btn btn-success"  data-toggle="modal" ><i class="fa fa-edit"></i>Transfer</a>
-                                            <a class="btn btn-danger"  data-toggle="modal" ><i class="fa fa-edit"></i>Damaged</a>
-                                            <a class="btn btn-info"  data-toggle="modal" ><i class="fa fa-edit"></i>Reprocessed</a>
-                                        </td> --}}
-                                    </tr>
-                                {{-- @endforeach --}}
+                                {{-- <tr id="row1">
+                                    <td class="text-align: center;">good</td>
+                                    <td class="text-align: center;">
+                                        good
+                                    </td>
+                                    <td class="text-align: center;">good</td>
+                                    <td class="text-align: center;">good</td>
+                                    <td class="text-align: center;">40</td>
+                                    <td class="text-align: center;">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <td class="text-align: center;">In</td>
+                                                    <td class="text-align: center;">Out</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-align: center;">10</td>
+                                                    <td class="text-align: center;">10</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td class="text-align: center;">40</td>
+                                    <td class="text-align: center;">40</td>
+                                    <td class="text-align: center;">40</td>
+                                </tr> --}}
                             </tbody>
                         </table>
                         <div id="transfer_Modal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -497,8 +482,38 @@
                     '_token' : $('input[name=_token]').val()
                 },
                 success:function(data){
-                    console.log(data);
+                    appendTable(data);
+                    // console.log(data);
+                    // $('.bulk_storage tr:last').after('<tr><td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>');
                 }
+            });
+        }
+        function appendTable(data) {
+            console.log(data);
+            $(".bulk_storage > tbody").html("");
+            data.forEach(item => {
+                console.log(item);
+                $('.bulk_storage > tbody:last-child').append('<tr><td>'+
+                    item.item_name+'</td><td>'+
+                    item.item_grade+'</td><td>'+
+                    item.production_type+'</td><td>'+
+                    item.production_variant+'</td><td>'+
+                    item.produced+'</td>'+
+                    '<td><table class="table table-striped table-bordered table-hover">'+
+                        '<thead>'+
+                            '<tr>'+
+                                '<td class="text-align: center;">In</td>'+
+                                '<td class="text-align: center;">Out</td>'+
+                            '</tr>'+
+                        '</thead>'+
+                        '<tbody>'+
+                            '<tr>'+
+                                '<td class="text-align: center;">'+item.reprocessed_in+'</td>'+
+                                '<td class="text-align: center;">'+item.reprocessed_out+'</td>'+
+                            '</tr>'+
+                        '</tbody>'+
+                    '</table></td>'+
+                    ' <td>'+item.local+'</td> <td>'+item.damage+'</td> <td>20</td> </tr>');
             });
         }
     });
