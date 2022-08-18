@@ -14,7 +14,7 @@
                         <p><b>Invoice no:</b> <span class="fillet_invoice"></span></p>
                         <p><b>Item Name:</b> <span class="fillet_item"></span></p>
                         <p><b>Quantity(kg):</b> <span class="fillet_qty"></span></p>
-                    {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
+                    {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>percentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
                     <div class="row" style="margin-bottom:2%;text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;">
                         <div class="col-md-6">
                             <p><b>Filleting Weight:</b> <span class="filleting_weight"></span></p>
@@ -31,7 +31,7 @@
                             <p><b>Fillet Soaking Date & Time:</b> <span class="fillet_soaking_date_time"></span></p>
                         </div>
                     </div>
-                {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
+                {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>percentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
                 <div class="row">
                     <div class="col-md-2">
                         <b>Glazing Weight*:</b>
@@ -40,7 +40,7 @@
                         <input type="number" class="form-control fillet_glazing_weight" step="0.01" name="fillet_glazing_weight" required placeholder="Type Glazing Weight">
                     </div>
                     <div class="col-md-4">
-                        <p><b>Increasing Parcentage:</b> <span class="glazing_parcentage"></span></p>
+                        <p><b>Increasing percentage:</b> <span class="glazing_percentage"></span></p>
                     </div>
                 </div>
                 </div>

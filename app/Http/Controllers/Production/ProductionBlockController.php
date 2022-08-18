@@ -121,7 +121,7 @@ class ProductionBlockController extends Controller
         // dd($ppu->toArray());
         foreach (json_decode($request->inputs) as $key => $input) {
             ProductionProcessingGrade::create([
-                'batch_code'=>$ppu->processing_name.'#'.$ppu->processing_variant.'#'.$ppu->item_id.'#'.$input->block_id.'#'.$input->block_size.'#'.$ppu->production_processing_item->name,
+                'batch_code'=>$ppu->processing_name.'#'.$ppu->processing_variant.'#'.$ppu->item_id.'#'.$input->block_id.'#'.$input->block_size_name.'#'.$ppu->production_processing_item->name,
                 'block_id' => $input->block_id,
                 'block_name' => $input->block_name,
                 'block_value' => $input->block_name,

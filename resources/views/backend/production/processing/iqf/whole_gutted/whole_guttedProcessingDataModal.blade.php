@@ -21,7 +21,7 @@
                                 <input type="number" step='0.01' class="form-control initial_weight" name="initial_weight" placeholder="Type Initial Weight">
                             </div>
                             <div class="col-md-3">
-                                <b>Parcentage:</b> <span class="parcentage"></span>
+                                <b>percentage:</b> <span class="percentage"></span>
                             </div>
                         </div>
                     </div>

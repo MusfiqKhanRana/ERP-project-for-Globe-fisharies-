@@ -14,7 +14,7 @@
                     <p><b>Invoice no:</b> <span class="hgto_invoice"></span></p>
                     <p><b>Item Name:</b> <span class="hgto_item"></span></p>
                     <p><b>Quantity:</b> <span class="hgto_qty"></span></p>
-                    {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
+                    {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>percentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
                     <div class="row" style="text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;">
                         <div class="col-md-6">
                             <p><b>Initial Weight:</b> <span class="initial_weight"></span></p>
@@ -33,7 +33,7 @@
                                     <input type="text" class="form-control initial_weight" name="cleaning_weight" placeholder="Type Cleaned Weight">
                                 </div>
                                 <div class="col-md-3">
-                                    <b>Parcentage:</b> <span class="parcentage"></span>
+                                    <b>percentage:</b> <span class="percentage"></span>
                                 </div>
                             </div>
                         </div>

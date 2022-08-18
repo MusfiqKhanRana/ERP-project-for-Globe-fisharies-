@@ -30,7 +30,7 @@
                             <input type="number" step="0.01" class="form-control glazing_weight" name="glazing_weight" required placeholder="Type Glazing Weight">
                         </div>
                         <div class="col-md-4">
-                            <p><b>Increasing Parcentage:</b> <span class="parcentage"></span></p>
+                            <p><b>Increasing percentage:</b> <span class="percentage"></span></p>
                         </div>
                     </div>
                 </div>

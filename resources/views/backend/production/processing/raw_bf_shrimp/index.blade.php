@@ -419,7 +419,7 @@
                                     var a = $(this).val();
                                     var p = (((total_quantity - a)/total_quantity)*100);
                                     p = p.toFixed(2);
-                                    $('.parcentage').html(p+'%');
+                                    $('.percentage').html(p+'%');
                                 });
                             });
                             
@@ -527,14 +527,14 @@
                                         console.log(data);
                                         $("table.hlso_soaking_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.hlso_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.block_name+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                            $("table.hlso_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.block_name+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td><td><span class='percentage"+key+"'></span></td></tr>");
                                         });
                                         $('.soaking_weight').on("change keyup",function() {
                                             var soaking_weight = parseFloat($(this).val());
                                             var initial_weight = parseFloat($(this).data("qty")); 
                                             var p = (((soaking_weight - initial_weight)/initial_weight)*100);
                                             p = p.toFixed(2);
-                                            $(".parcentage"+$(this).data("id")).html(p+'%');
+                                            $(".percentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });
@@ -648,7 +648,7 @@
                                     var a = $(this).val();
                                     var p = (((total_quantity - a)/total_quantity)*100);
                                     p = p.toFixed(2);
-                                    $('.parcentage').html(p+'%');
+                                    $('.percentage').html(p+'%');
                                 });
                             });
                             
@@ -756,14 +756,14 @@
                                         console.log(data);
                                         $("table.hlso_soaking_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.hlso_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.block_name+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                            $("table.hlso_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.block_name+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td><td><span class='percentage"+key+"'></span></td></tr>");
                                         });
                                         $('.soaking_weight').on("change keyup",function() {
                                             var soaking_weight = parseFloat($(this).val());
                                             var initial_weight = parseFloat($(this).data("qty")); 
                                             var p = (((soaking_weight - initial_weight)/initial_weight)*100);
                                             p = p.toFixed(2);
-                                            $(".parcentage"+$(this).data("id")).html(p+'%');
+                                            $(".percentage"+$(this).data("id")).html(p+'%');
                                         });
                                     }
                                 });
@@ -877,7 +877,7 @@
                                         var a = $(this).val();
                                         var p = (((total_quantity - a)/total_quantity)*100);
                                         p = p.toFixed(2);
-                                        $('.parcentage').html(p+'%');
+                                        $('.percentage').html(p+'%');
                                     });
                                 });
                                 
@@ -985,14 +985,14 @@
                                             console.log(data);
                                             $("table.pud_soaking_table tbody tr").empty();
                                             $.each( data, function( key, product ) {
-                                                $("table.pud_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.block_name+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                                $("table.pud_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.block_name+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td><td><span class='percentage"+key+"'></span></td></tr>");
                                             });
                                             $('.soaking_weight').on("change keyup",function() {
                                             var soaking_weight = parseFloat($(this).val());
                                             var initial_weight = parseFloat($(this).data("qty")); 
                                             var p = (((soaking_weight - initial_weight)/initial_weight)*100);
                                             p = p.toFixed(2);
-                                            $(".parcentage"+$(this).data("id")).html(p+'%');
+                                            $(".percentage"+$(this).data("id")).html(p+'%');
                                         });
                                         }
                                     });
@@ -1106,7 +1106,7 @@
                                         var a = $(this).val();
                                         var p = (((total_quantity - a)/total_quantity)*100);
                                         p = p.toFixed(2);
-                                        $('.parcentage').html(p+'%');
+                                        $('.percentage').html(p+'%');
                                     });
                                 });
                                 
@@ -1214,14 +1214,14 @@
                                             console.log(data);
                                             $("table.p_n_d_soaking_table tbody tr").empty();
                                             $.each( data, function( key, product ) {
-                                                $("table.p_n_d_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.block_name+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                                $("table.p_n_d_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.block_name+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td><td><span class='percentage"+key+"'></span></td></tr>");
                                             });
                                             $('.soaking_weight').on("change keyup",function() {
                                                 var soaking_weight = parseFloat($(this).val());
                                                 var initial_weight = parseFloat($(this).data("qty")); 
                                                 var p = (((soaking_weight - initial_weight)/initial_weight)*100);
                                                 p = p.toFixed(2);
-                                                $(".parcentage"+$(this).data("id")).html(p+'%');
+                                                $(".percentage"+$(this).data("id")).html(p+'%');
                                             });
                                         }
                                     });
@@ -1335,7 +1335,7 @@
                                         var a = $(this).val();
                                         var p = (((total_quantity - a)/total_quantity)*100);
                                         p = p.toFixed(2);
-                                        $('.parcentage').html(p+'%');
+                                        $('.percentage').html(p+'%');
                                     });
                                 });
                                 
@@ -1443,14 +1443,14 @@
                                             console.log(data);
                                             $("table.pdto_soaking_table tbody tr").empty();
                                             $.each( data, function( key, product ) {
-                                                $("table.pdto_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.block_name+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                                $("table.pdto_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.block_name+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td><td><span class='percentage"+key+"'></span></td></tr>");
                                             });
                                             $('.soaking_weight').on("change keyup",function() {
                                             var soaking_weight = parseFloat($(this).val());
                                             var initial_weight = parseFloat($(this).data("qty")); 
                                             var p = (((soaking_weight - initial_weight)/initial_weight)*100);
                                             p = p.toFixed(2);
-                                            $(".parcentage"+$(this).data("id")).html(p+'%');
+                                            $(".percentage"+$(this).data("id")).html(p+'%');
                                         });
                                         }
                                     });
@@ -1564,7 +1564,7 @@
                                         var a = $(this).val();
                                         var p = (((total_quantity - a)/total_quantity)*100);
                                         p = p.toFixed(2);
-                                        $('.parcentage').html(p+'%');
+                                        $('.percentage').html(p+'%');
                                     });
                                 });
                                 
@@ -1672,14 +1672,14 @@
                                             console.log(data);
                                             $("table.pto_soaking_table tbody tr").empty();
                                             $.each( data, function( key, product ) {
-                                                $("table.pto_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.block_name+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td><td><span class='parcentage"+key+"'></span></td></tr>");
+                                                $("table.pto_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.block_name+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td><td><span class='percentage"+key+"'></span></td></tr>");
                                             });
                                             $('.soaking_weight').on("change keyup",function() {
                                             var soaking_weight = parseFloat($(this).val());
                                             var initial_weight = parseFloat($(this).data("qty")); 
                                             var p = (((soaking_weight - initial_weight)/initial_weight)*100);
                                             p = p.toFixed(2);
-                                            $(".parcentage"+$(this).data("id")).html(p+'%');
+                                            $(".percentage"+$(this).data("id")).html(p+'%');
                                         });
                                         }
                                     });

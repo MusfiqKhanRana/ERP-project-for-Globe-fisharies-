@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <hr>
-                    {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>Parcentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
+                    {{-- <div class="row"><div class="col-md-3"><input type="text" class="form-control" placeholder="Grading"></div><div class="col-md-3"><input type="text" class="form-control" placeholder="weight"></div><div class="col-md-3"><b>percentage:</b> 12%</div><div class="col-md-1"><button class="btn btn-success">add</button></div></div><br> --}}
                     <div class="row">
                         <div class="col-md-12">
                             {{-- <table class="table table-striped table-bordered table-hover">
@@ -66,7 +66,7 @@
                                     <input type="number" step="0.01" class="form-control initial_weight" name="cleaning_weight" placeholder="Type Gutted Weight">
                                 </div>
                                 <div class="col-md-3" style="margin-top: 6%">
-                                    <b>Parcentage:</b> <span class="parcentage"></span>
+                                    <b>percentage:</b> <span class="percentage"></span>
                                 </div>
                             </div>
                         </div>

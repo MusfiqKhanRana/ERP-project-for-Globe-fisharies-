@@ -24,7 +24,7 @@
                                     <input type="number" step="0.01" class="form-control washing_n_cutting_weight" name="washing_n_cutting_weight" placeholder="Type Cleaned Weight">
                                 </div>
                                 <div class="col-md-3">
-                                    <b>Parcentage:</b> <span class="parcentage"></span>
+                                    <b>percentage:</b> <span class="percentage"></span>
                                 </div>
                             </div>
                         </div>
