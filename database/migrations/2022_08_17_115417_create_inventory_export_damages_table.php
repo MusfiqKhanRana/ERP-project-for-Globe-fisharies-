@@ -22,7 +22,7 @@ class CreateInventoryExportDamagesTable extends Migration
             $table->integer('damage_quantity')->nullable();
             $table->string('image')->nullable();
             $table->text('remark')->nullable();
-            $table->string('damage_form')->nullable();
+            $table->enum('damage_form',['Export-1','Export-2','Bulk'])->nullable();
             $table->string('batch_code')->nullable();
             $table->timestamps();
         });

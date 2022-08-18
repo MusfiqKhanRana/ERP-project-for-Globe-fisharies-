@@ -55,7 +55,7 @@ class InventoryExportDamageController extends Controller
         }
         $damage->remark = $request->remark;
         $damage->damage_form = $request->damage_form;
-        $damage->batch_code = $request->processing_type.'.'.$request->processing_variant.'.'.$request->item_id.'.'.$request->processing_grade_id.'.'.$grade->name;
+        $damage->batch_code = $request->processing_type.'#'.$request->processing_variant.'#'.$request->item_id.'#'.$request->processing_grade_id.'#'.$grade->name;
         $damage->save();
 
         return redirect()->back()->withMsg('Successfully Created');
