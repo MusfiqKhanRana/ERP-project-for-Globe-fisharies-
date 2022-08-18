@@ -85,7 +85,8 @@ class ExportBuyerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $exportBuyer = ExportBuyer::first();
+        return view('backend.export_management.manage_buyer.edit_buyer',compact('exportBuyer'));
     }
 
     /**
@@ -97,7 +98,47 @@ class ExportBuyerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+    }
+
+    public function BuyerInfoUpdate(Request $request, $id){
+                
+        $buyer = ExportBuyer::find($id);
+       
+        $buyer->buyer_code = $request->input('buyer_code');
+        $buyer->buyer_name = $request->input('buyer_name');
+        $buyer->buyer_address = $request->input('buyer_address');
+        $buyer->buyer_contact_number = $request->input('buyer_contact_number');
+        $buyer->buyer_email = $request->input('buyer_email');
+        $buyer->buyer_country = $request->input('buyer_country');
+        $buyer->save();
+        return redirect()->back()->withMsg('Employee Salary Updated');
+    }
+
+    public function ConsigneeInfoUpdate(Request $request, $id){
+                
+        $consignee = ExportBuyer::find($id);
+       
+        $consignee->consignee_name = $request->input('consignee_name');
+        $consignee->consignee_address = $request->input('consignee_address');
+        $consignee->consignee_contact_number = $request->input('consignee_contact_number');
+        $consignee->consignee_email = $request->input('consignee_email');
+        $consignee->consignee_country = $request->input('consignee_country');
+        $consignee->save();
+        return redirect()->back()->withMsg('Employee Salary Updated');
+    }
+
+    public function NotifyInfoUpdate(Request $request, $id){
+                
+        $notify = ExportBuyer::find($id);
+       
+        $notify->notify_party_name = $request->input('notify_party_name');
+        $notify->notify_party_address = $request->input('notify_party_address');
+        $notify->notify_party_contact = $request->input('notify_party_contact');
+        $notify->notify_party_email = $request->input('notify_party_email');
+        $notify->notify_party_country = $request->input('notify_party_country');
+        $notify->save();
+        return redirect()->back()->withMsg('Employee Salary Updated');
     }
 
     /**

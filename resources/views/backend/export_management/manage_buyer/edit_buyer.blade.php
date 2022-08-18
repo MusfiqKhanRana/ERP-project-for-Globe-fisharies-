@@ -3,6 +3,10 @@
 @section('site-title')
    Export Management
 @endsection
+@section('style')
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+@endsection
 
 @section('main-content')
     <!-- BEGIN CONTENT -->
@@ -11,7 +15,7 @@
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title bold form-inline">Export Management
-                <small> Create Buyer </small>
+                <small> Update Buyer </small>
                 {{-- <div class="form-group" style="margin-left: 10%">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </div> --}}
@@ -39,7 +43,7 @@
                     <div class="portlet box blue">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-briefcase"></i>Create Buyer
+                                <i class="fa fa-briefcase"></i>Update Buyer
                             </div>
                             <div class="tools">
                             </div>
@@ -49,8 +53,9 @@
                             <div class="row" style="margin-top:2%">
                                 <div class="col-md-12">
                                     <div class="card">
-                                        <form class="form-horizontal" role="form" method="post" action="">
+                                        <form class="form-horizontal" role="form" method="post" action="{{route('export.buyer.info.update',$exportBuyer->id)}}">
                                             {{csrf_field()}}
+                                            {{method_field('put')}}
                                             <div class="card-header">
                                                 <h4 style="text-align: center"><b>Buyer Info</b></h4>
                                             </div>
@@ -58,29 +63,29 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label class="control-label">Buyer Code <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="buyer_code" placeholder="Buyer Code" required>
+                                                        <input type="text" class="form-control" name="buyer_code" value="{{$exportBuyer->buyer_code}}">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label">Buyer Name <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="buyer_name" placeholder="Buyer Name" required>
+                                                        <input type="text" class="form-control" name="buyer_name" value="{{$exportBuyer->buyer_name}}">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label">Buyer Address <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="buyer_address" placeholder="Buyer Address" required>
+                                                        <input type="text" class="form-control" name="buyer_address" value="{{$exportBuyer->buyer_address}}">
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label class="control-label">Contact Number <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="buyer_contact_number" required>
+                                                        <input type="text" class="form-control" name="buyer_contact_number" value="{{$exportBuyer->buyer_contact_number}}">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label">Email <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="buyer_email" placeholder="Email" required>
+                                                        <input type="text" class="form-control" name="buyer_email" value="{{$exportBuyer->buyer_email}}">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label" >Buyer Country <span class="required">* </span></label>
-                                                        <select class="form-control country" name="buyer_country" id="country" required>
+                                                        <select class="form-control country" data-live-search="true" name="buyer_country" id="country" value="{{$exportBuyer->buyer_country}}">
                                                         </select>
                                                     </div>
                                                 </div>
@@ -96,8 +101,9 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="card">
-                                        <form class="form-horizontal" role="form" method="post" action="">
+                                        <form class="form-horizontal" role="form" method="post" action="{{route('export.consignee.info.update',$exportBuyer->id)}}">
                                             {{csrf_field()}}
+                                            {{method_field('put')}}
                                             <div class="card-header">
                                                 <h4 style="text-align: center"><b>Consignee Info</b></h4>
                                             </div>
@@ -105,25 +111,25 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label class="control-label">Name <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="consignee_name" placeholder="Name" required>
+                                                        <input type="text" class="form-control" name="consignee_name" value="{{$exportBuyer->consignee_name}}">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label">Address <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="consignee_address" placeholder="Address" required>
+                                                        <input type="text" class="form-control" name="consignee_address" value="{{$exportBuyer->consignee_address}}">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label">Contact Number <span class="required">* </span></label>
-                                                        <input type="number" class="form-control" name="consignee_contact" placeholder="Contact Number" required>
+                                                        <input type="text" class="form-control" name="consignee_contact_number" value="{{$exportBuyer->consignee_contact_number}}">
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label class="control-label" >Email <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="consignee_email" placeholder="Email" required>
+                                                        <input type="text" class="form-control" name="consignee_email" value="{{$exportBuyer->consignee_email}}">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label" >Country <span class="required">* </span></label>
-                                                        <select class="form-control country" name="consignee_country" id="country">
+                                                        <select class="form-control country" name="consignee_country" id="country" value="{{$exportBuyer->consignee_country}}">
                                                         </select>
                                                     </div>
                                                 </div>
@@ -139,8 +145,9 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="card">
-                                        <form class="form-horizontal" role="form" method="post" action="">
+                                        <form class="form-horizontal" role="form" method="post" action="{{route('export.notify.info.update',$exportBuyer->id)}}">
                                             {{csrf_field()}}
+                                            {{method_field('put')}}
                                             <div class="card-header">
                                                 <h4 style="text-align: center"><b>Notify Party Info</b></h4>
                                             </div>
@@ -148,26 +155,26 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label class="control-label">Name <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="notify_party_name" placeholder="Name" required>
+                                                        <input type="text" class="form-control" name="notify_party_name" value="{{$exportBuyer->notify_party_name}}">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label">Address <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="notify_address">
+                                                        <input type="text" class="form-control" name="notify_party_address" value="{{$exportBuyer->notify_party_address}}">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label">Email <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="notify_email" placeholder="Email" required>
+                                                        <input type="text" class="form-control" name="notify_party_email" value="{{$exportBuyer->notify_party_email}}">
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label class="control-label">Contact Number <span class="required">* </span></label>
-                                                        <input type="number" class="form-control" name="notify_contact_number" placeholder="Contact Number" required>
+                                                        <input type="number" class="form-control" name="notify_party_contact" value="{{$exportBuyer->notify_party_contact}}">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label">Country <span class="required">* </span></label>
                                                         {{-- <input type="text" class="form-control" name="" placeholder="Country" required> --}}
-                                                        <select class="form-control country" name="notify_country" id="country">
+                                                        <select class="form-control country" name="notify_party_country" id="country" value="{{$exportBuyer->notify_party_country}}">
                                                         </select>
                                                     </div>
                                                 </div>
@@ -191,7 +198,7 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <label class="control-label" for="bank_name">Bank Name <span class="required">* </span></label>
-                                                <input type="text" class="form-control" placeholder="Bank Name" id="bank_name" name="bank_name" required>
+                                                <input type="text" class="form-control" placeholder="Bank Name" id="bank_name" name="bank_name" value="{{$exportBuyer->bank_name}}">
                                             </div>
                                             <div class="col-md-2">
                                                 <label class="control-label" for="a_c_name">A/C Name <span class="required">* </span></label>
@@ -249,6 +256,9 @@
     </div>
 @endsection
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function () {

@@ -158,36 +158,33 @@
                                                 </td>
                                                 <td><span><b>Payment Method:</b><ul><li> {{$sale_contract->payment_method}}</li></ul></span><br><span><b>Advising Bank</b><ul><li>Bank Name: {{$sale_contract->advising_bank->bank_name}}</li><li>Account Number: {{$sale_contract->advising_bank->account_number}}</li>
                                                     <li>{{$sale_contract->advising_bank->branch_name}}</li><li>{{$sale_contract->advising_bank->branch_address}}</li><li>{{$sale_contract->advising_bank->swift_code}}</li></ul></span><br><span><b>Importer Bank: </b><ul><li>{{$sale_contract->importer_account_name}}</li>
-                                                        <li>{{$sale_contract->bank_name}}</li><li>{{$sale_contract->importer_bank_branch}}</li><li>{{$sale_contract->importer_bank_country}}</li><li>{{$sale_contract->importer_account_no}}</li></ul></span></td>
+                                                    <li>{{$sale_contract->bank_name}}</li><li>{{$sale_contract->importer_bank_branch}}</li><li>{{$sale_contract->importer_bank_country}}</li><li>{{$sale_contract->importer_account_no}}</li></ul></span>
+                                                </td>
                                                 @if ($sale_contract->commercial_status == "Approved")
                                                     <td><span><b>Date Of Commercial</b><ul><li>{{$sale_contract->date}}</li></ul></span><br>
                                                     <span><b>Exp No.</b><ul><li>{{$sale_contract->exp_no}}</li></ul></span><br> <span><b>Exp Date</b><ul><li>{{$sale_contract->exp_date}}</li></ul></span><br> <span><b>CBM</b><ul><li>{{$sale_contract->cbm}}</li></ul></span><br> <span><b>Production Date</b><ul><li>{{$sale_contract->production_date}}</li></ul></span><br>
                                                     <span><b>Net Weight (kg)</b><ul><li>{{$sale_contract->net_weight}}</li></ul></span><br><span><b>Gross Weight</b><ul><li>{{$sale_contract->gross_weight}}</li></ul></span><br></td>
-                                                        <td>
-                                                            <table class="table table-bordered table-hober table-striped" style="overflow: scroll;">
-                                                                <thead>
+                                                    <td>
+                                                        <table class="table table-bordered table-hober table-striped" style="overflow: scroll;">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Title</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach ($sale_contract->documents as $item)
                                                                     <tr>
-                                                                        <th>Title</th>
-                                                                        <th>Document File</th>
-                                                                        <th>Action</th>
+                                                                        <td>{{$item->title}}</td>
+                                                                        <td>
+                                                                            <a class="btn btn-info" href="{{route('file.download',$item->document)}}"><i class="fa fa-download" aria-hidden="true">  Download</i></a>
+                                                                            {{-- <button class="btn btn-danger">Delete</button> --}}
+                                                                        </td>
                                                                     </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach ($sale_contract->documents as $item)
-                                                                        <tr>
-                                                                            <td>{{$item->title}}</td>
-                                                                            <td><a href="{{ route('file.download', $item->document) }}">{{$item->document}}</a></td>
-                                                                                {{-- <embed src="{{ Storage::url($item->document->file_path) }}" style="width:600px; height:800px;" frameborder="0"></td> --}}
-                                                                            <td>
-                                                                                <button class="btn btn-info">Edit</button>
-                                                                                <button class="btn btn-danger">Delete</button>
-                                                                            </td>
-                                                                        </tr>
-                                                                    @endforeach
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
                                                 @endif
                                                 <td>
                                                     @if ($sale_contract->commercial_status == "Pending")
@@ -202,8 +199,8 @@
                                                     @if ($sale_contract->commercial_status == "Approved")
                                                         <a class="btn btn-danger" href="{{route('commercial.list.print',$sale_contract->id)}}">Print Invoice</a>
                                                         <a class="btn btn-info" href="{{route('packing.list.print',$sale_contract->id)}}">Print Packing List</a>
-                                                        <button class="btn btn-success">View Document</button>
-                                                        <a class="btn btn-primary" href="{{route('certificate.origin.print',$sale_contract->id)}}">Print Certificate Of Origin</a>
+                                                        {{-- <button class="btn btn-success">View Document</button> --}}
+                                                        <a class="btn btn-success" href="{{route('certificate.origin.print',$sale_contract->id)}}">Print Certificate Of Origin</a>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -250,7 +247,7 @@
                                                     <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-3 control-label">EXP No :</label>
                                                         <div class="col-md-8">
-                                                            <input type="text" class="form-control invoice_exp_no" value="" required name="exp_no">
+                                                            <input type="text" class="form-control invoice_exp_no" value="" required name="exp_no" placeholder="Type EXP No.">
                                                         </div><br><br>
                                                     </div>
                                                     <div class="form-group">
@@ -268,7 +265,7 @@
                                                     <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-3 control-label">CBM :</label>
                                                         <div class="col-md-8">
-                                                            <input type="text" class="form-control invoice_cbm" value="" required name="cbm">
+                                                            <input type="text" class="form-control invoice_cbm" value="" required name="cbm" placeholder="Type CBM">
                                                         </div><br><br>
                                                     </div>
                                                     <div class="form-group">
@@ -292,7 +289,7 @@
                                                     <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-3 control-label">Gross Weight :</label>
                                                         <div class="col-md-8">
-                                                            <input type="number" class="form-control invoice_gross_weight" value="" required name="gross_weight">
+                                                            <input type="number" class="form-control invoice_gross_weight" value="" required name="gross_weight" placeholder="Type Gross Weight">
                                                         </div><br><br>
                                                     </div>
                                                     <div class="modal-footer">
@@ -320,7 +317,7 @@
                                                     <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-2 control-label">Document Title</label>
                                                         <div class="col-md-8">
-                                                            <input type="text" class="form-control" value="" required name="title">
+                                                            <input type="text" class="form-control" value="" required name="title" placeholder="Type Document Title">
                                                         </div><br><br>
                                                     </div>
                                                     <div class="form-group">

@@ -168,7 +168,7 @@
                                             @endforeach
                                         @endforeach
                                         <tr  style="background-color:#d6d9e3">
-                                            <th colspan="7">Total Master Carton & Weight </th>
+                                            <th colspan="7" style="text-align: center; border: 1px solid black">Total Master Carton & Amount </th>
                                             <th style="text-align: center; border: 1px solid black">{{$total_master_carton}}</th>
                                             
                                             <th colspan="6" style="text-align: right; border: 1px solid black">{{$expototal_amount}}</th>
@@ -177,15 +177,15 @@
                                 </table>
                             </div>
                             <div class="row">
-                                <h6><b>TOTAL AMOUNT (IN WORD) :   </b>
-                                    <b>
-                                    @php
+                                <h5><b>TOTAL AMOUNT (IN WORD) :   </b></h5>
+                                    <b><h4>
+                                        @php
+                                        
+                                            $digit = new NumberFormatter("EN", NumberFormatter::SPELLOUT);
+                                            echo ucfirst($digit->format($expototal_amount)); 
+                                        @endphp
+                                    </h4></b>
                                     
-                                        $digit = new NumberFormatter("EN", NumberFormatter::SPELLOUT);
-                                        echo ucfirst($digit->format($expototal_amount)); 
-                                    @endphp
-                                    </b>
-                                    </h6>
                             </div><br>
                             <div class="row">
                                 <table  class="table table-striped table-hover table-bordered"  style='width:100%; font-size:80%'>
