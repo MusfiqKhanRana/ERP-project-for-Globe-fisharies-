@@ -42,6 +42,7 @@ use App\Http\Controllers\Export\SalesContractController;
 use App\Http\Controllers\ExportPackSizeController;
 use App\Http\Controllers\FishGradeController;
 use App\Http\Controllers\GeneralItemStockController;
+use App\Http\Controllers\Inventory\BulkReprocessedController;
 use App\Http\Controllers\Inventory\ExportInventoryController;
 use App\Http\Controllers\Inventory\InventoryExportDamageController;
 use App\Http\Controllers\Inventory\InventoryStoreInController;
@@ -630,6 +631,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('inventory/cold_storage/export_inventory_data',[ExportInventoryController::class,'exportData'])->name('inventory.cold_storage.export_inventory_data');
     
     Route::resource('inventory-export-damage',InventoryExportDamageController::class);
+
+    Route::resource('inventory-bulk-reprocessed',BulkReprocessedController::class);
 
     Route::get('inventory/manage-location/Locate_item', function () {
         return view('backend.production.inventory.manage_location.locate_item');

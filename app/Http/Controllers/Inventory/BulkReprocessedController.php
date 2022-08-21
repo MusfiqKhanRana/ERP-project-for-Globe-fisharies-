@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
-use App\Models\InventoryExportDamage;
+use App\Models\BulkReprocessed;
 use App\Models\ProcessingBlock;
 use App\Models\ProcessingGrade;
 use App\Models\SupplyItem;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
 
-class InventoryExportDamageController extends Controller
+class BulkReprocessedController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -53,29 +52,21 @@ class InventoryExportDamageController extends Controller
             $batch_code = $request->processing_type.'#'.$request->processing_variant.'#'.$request->item_id.'#'.$block->id.'#'.$request->block_size.'#'.$item->name;
         }
         //dd($batch_code);
-        $damage = new InventoryExportDamage();
-        $damage->processing_type = $request->processing_type;
-        $damage->processing_variant = $request->processing_variant;
-        $damage->item_id = $request->item_id;
-        $damage->processing_grade_id = $request->processing_grade_id;
-        $damage->damage_quantity = $request->damage_quantity;
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filename = time() . '.' . 'jpg';
-            $location = 'assets/export/damage/'. $filename;
-            Image::make($image)->save($location);
-            $damage->image =  $filename;
-        }
-        $damage->remark = $request->remark;
-        $damage->block_size = $request->block_size;
-        $damage->block_quantity = $request->block_quantity;
-        $damage->fish_grade = $request->fish_grade;
-        $damage->damage_form = $request->damage_form;
-        $damage->batch_code = $batch_code;
-        $damage->save();
+        $reprocessed = new BulkReprocessed();
+        $reprocessed->processing_type = $request->processing_type;
+        $reprocessed->processing_variant = $request->processing_variant;
+        $reprocessed->item_id = $request->item_id;
+        $reprocessed->processing_grade_id = $request->processing_grade_id;
+        $reprocessed->reprocessed_quantity = $request->reprocessed_quantity;
+        $reprocessed->remark = $request->remark;
+        $reprocessed->block_size = $request->block_size;
+        $reprocessed->block_quantity = $request->block_quantity;
+        $reprocessed->fish_grade = $request->fish_grade;
+        $reprocessed->reprocessed_form = $request->reprocessed_form;
+        $reprocessed->batch_code = $batch_code;
+        $reprocessed->save();
 
         return redirect()->back()->withMsg('Successfully Created');
-   
     }
 
     /**
