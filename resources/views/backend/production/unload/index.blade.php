@@ -11,7 +11,7 @@
             @if(Session::has('msg'))
                     <script>
                         $(document).ready(function(){
-                            swal("{{Session::get('msg')}}","", 'warning');
+                            swal("{{Session::get('msg')}}","", 'success');
                         });
                     </script>
             @endif

@@ -72,10 +72,10 @@ class ProcessingBlockController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request);
+        // dd($request);
         ProcessingBlock::whereId($id)
         ->update([
-            'name' => $request->name,
+            'block_size' => $request->block_size,
         ]);
         return redirect()->back()->withMsg("Successfully Updated");
     }
