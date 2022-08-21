@@ -264,9 +264,7 @@
                                 <div class="modal-content">
                                     <form class="form-horizontal" role="form" method="post" action="{{route('inventory-export-damage.store')}}" enctype="multipart/form-data">
                                         {{csrf_field()}}
-                                        {{ method_field('POST') }}
-                                        <input type="hidden" name="inputs" class="inputs">
-                                        <input type="hidden" name="production_processing_unit_id" class="production_processing_unit_id">
+                                        <input type="hidden" name="batch_code">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                             <h2 class="modal-title" style="color: rgb(75, 65, 65);">Damage Info</h2>
@@ -279,7 +277,7 @@
                                                     <p>Processing Type :</p>
                                                 </div>
                                                 <div class="col-md-8" >
-                                                    <select class="form-control type" name="processing_type">
+                                                    <select class="form-control type" name="processing_type" id="processing_name">
                                                         <option value="">--Select--</option>
                                                         <option value="iqf">IQF</option>
                                                         <option value="vegetable_iqf">Vegetable/Fruit IQF</option>
@@ -357,19 +355,43 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            {{-- <div class="row">
-                                                <div class="col-md-3">
-                                                    <p>Item Name :</p>
+                                            <div class="block_damage">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p>Block Size :</p>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <select name="block_size" class="form-control" >
+                                                            <option value="">--Select--</option>
+                                                            @foreach ($block_size as $block)
+                                                                <option value="{{$block->id}}">{{$block->block_size}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-8" >
-                                                    <select name="item_id" class="form-control">
-                                                        <option value="">test1</option>
-                                                        <option value="">test2</option>
-                                                        <option value="">test3</option>
-                                                    </select>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p>Block Quantity :</p>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <input class="form-control" type="number" name="block_quantity">
+                                                    </div>
                                                 </div>
-                                            </div> --}}
-                                            <div class="row">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p>Fish Size :</p>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <select name="fish_grade" class="form-control" >
+                                                            <option value="">--Select--</option>
+                                                            @foreach ($fish_size as $size)
+                                                                <option value="{{$size->id}}">{{$size->size}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row grade_id">
                                                 <div class="col-md-3">
                                                     <p>Item Grade :</p>
                                                 </div>
@@ -387,7 +409,7 @@
                                                     <p>Damaged :</p>
                                                 </div>
                                                 <div class="col-md-8" >
-                                                    <input type="text" name="damage_quantity" placeholder="Type Damaged Quantity" class="form-control">
+                                                    <input type="text" name="damage_quantity"  placeholder="Type Damaged Quantity" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -395,7 +417,7 @@
                                                     <p>Image :</p>
                                                 </div>
                                                 <div class="col-md-8" >
-                                                    <input type="file" name="image" placeholder="Upoad attachment" class="form-control">
+                                                    <input type="file" placeholder="Upoad attachment" name="image" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -403,10 +425,10 @@
                                                     <p>Remark :</p>
                                                 </div>
                                                 <div class="col-md-8" >
-                                                    <textarea name="remark" class="form-control" id="" cols="30" rows="5"></textarea>
+                                                    <textarea name="remark" class="form-control"  cols="30" rows="5"></textarea>
                                                 </div>
                                             </div>
-                                            <input type="hidden" name="damage_form" value="Export-1">
+                                            <input type="hidden" name="damage_form" value="Bulk">
                                         </div>
                                         <br>
                                         <div class="modal-footer">
@@ -592,6 +614,20 @@
 <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $(".block_damage").hide();
+        $( "#processing_name" ).change(function() {
+            if($(this).val() == "block_frozen" || $(this).val() == "semi_iqf" || $(this).val() == "vegetable_block" || $(this).val() == "raw_bf_shrimp" ){
+                $(".block_damage").show();
+                $(".grade_id").hide();
+            }
+            else
+            {
+                $(".block_damage").hide();
+                $(".grade_id").show();
+            }
+        });
+
         $(".varient").chained(".type");
     });
 </script>
