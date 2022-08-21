@@ -38,8 +38,18 @@ class InventoryExportDamageController extends Controller
      */
     public function store(Request $request)
     {
+        
+        
         $grade = ProcessingGrade::where('id',$request->processing_grade_id)->first();
         //dd($request->toArray());
+        $batch_code = null;
+        if ($grade) {
+            $batch_code = $request->processing_type.'#'.$request->processing_variant.'#'.$request->item_id.'#'.$request->processing_grade_id.'#'.$grade->name;
+          // dd('iqf batch');
+        }else {
+             
+            $request->processing_type.'#'.$request->processing_variant.'#'.$request->item_id.'#'.$request->block_size.'#'.$request->fish_grade;
+        }
         $damage = new InventoryExportDamage();
         $damage->processing_type = $request->processing_type;
         $damage->processing_variant = $request->processing_variant;
@@ -54,8 +64,11 @@ class InventoryExportDamageController extends Controller
             $damage->image =  $filename;
         }
         $damage->remark = $request->remark;
+        $damage->block_size = $request->block_size;
+        $damage->block_quantity = $request->block_quantity;
+        $damage->fish_grade = $request->fish_grade;
         $damage->damage_form = $request->damage_form;
-        $damage->batch_code = $request->processing_type.'#'.$request->processing_variant.'#'.$request->item_id.'#'.$request->processing_grade_id.'#'.$grade->name;
+        $damage->batch_code = $batch_code;
         $damage->save();
 
         return redirect()->back()->withMsg('Successfully Created');

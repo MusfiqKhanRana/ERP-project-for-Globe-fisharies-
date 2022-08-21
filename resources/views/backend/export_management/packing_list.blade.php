@@ -248,7 +248,9 @@
                                                     <div class="form-group">
                                                         <label for="inputEmail1" class="col-md-2 control-label">Production Date</label>
                                                         <div class="col-md-8">
-                                                            <input type="date" class="form-control"  name="packing_production_date">
+                                                            @foreach ($sale_contracts as $date)
+                                                                <input type="date" class="form-control"  name="packing_production_date" value="{{$date->packing_production_date}}">
+                                                            @endforeach
                                                         </div><br><br>
                                                     </div>
                                                     <div class="modal-footer">
