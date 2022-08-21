@@ -1118,6 +1118,25 @@
                                     </li>  
                                 </ul>
                             </li>
+                            <li class="nav-item @if( request()->path() == 'admin/inventory/adjustment/create' || request()->path() == 'admin/inventory/adjustment/list') active open @endif">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="fa fa-user"></i>
+                                    <span class="title">Adjustment</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item @if( request()->path() == 'admin/inventory/adjustment/create') active open @endif">
+                                        <a href="{{route('inventory.adjustment.create')}}" class="nav-link ">
+                                            <span class="title">Create</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item @if( request()->path() == 'admin/inventory/adjustment/list') active open @endif">
+                                        <a href="{{route('inventory.adjustment.list')}}" class="nav-link ">
+                                            <span class="title">List</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/inventory/cold_storage/bulk_storage'||  request()->path() == 'admin/inventory/cold_storage/export_storage_1' ||  request()->path() == 'admin/inventory/cold_storage/export_storage_2') active open @endif">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <i class="fa fa-user"></i>

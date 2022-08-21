@@ -640,7 +640,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('inventory/manage-location/located_item_list', function () {
         return view('backend.production.inventory.manage_location.located_item_list');
     })->name('inventory.location.located_item_list');
-   
+
+    //Inventory Adjustment 
+    Route::get('inventory/adjustment/create', function () {
+        return view('backend.production.inventory.inventory_adjustment.create');
+    })->name('inventory.adjustment.create');
+    Route::get('inventory/adjustment/list', function () {
+        return view('backend.production.inventory.inventory_adjustment.list');
+    })->name('inventory.adjustment.list');
+ 
+    
     Route::resource('production-export-inventory',ProductionExportInventoryController::class);
     
     Route::resource('user-shift',UserShiftController::class);
