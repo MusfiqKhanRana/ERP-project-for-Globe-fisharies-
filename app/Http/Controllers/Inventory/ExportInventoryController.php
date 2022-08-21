@@ -29,4 +29,8 @@ class ExportInventoryController extends Controller
         $processing_grade = ProcessingGrade::all();
         return view('backend.production.inventory.cold_storage.export_storage_2',compact('processing_grade','supply_item','pack_size','block_size','fish_size'));
     }
+    public function exportData(Request $request)
+    {
+        return('good');
+    }
 }
