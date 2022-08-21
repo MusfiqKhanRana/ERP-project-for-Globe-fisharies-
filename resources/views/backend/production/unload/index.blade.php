@@ -28,10 +28,10 @@
                 </div>
                 <div class="portlet-body">
                     <div class="row">
-                        <form method="post" action="{{route('production-unload-show')}}">
+                        <form method="post" action="{{route('production-unload-show')}}" id="scanned_from">
                             @csrf
                             <div class="col-md-6">
-                                <input type="text" name="invoice_no" class="form-control" id="" placeholder="Please Write your Invoice No">
+                                <input type="text" name="invoice_no" class="form-control" id="invoice_no" placeholder="Please Write your Invoice No">
                             </div>
                             <div class="col-md-3">
                                 <button type="submit" class="btn btn-primary"  autocomplete="off" >Search</button>
@@ -74,42 +74,63 @@
 @section('script')
     <script>
         $(document).ready(function(){
-            $('#employee_select').change(function(){
-                $.ajax({
-                    type:"POST",
-                    url:"{{route('payroll.count')}}",
-                    data:{
-                        id:$(this).val(),
-                        '_token' : $('input[name=_token]').val()
-
-                    },
-                    success:function(data)
-                    {
-                        console.log(data);
-                        // var output = data.output;
-                        // var length = data.length;
-                        // var count = data.count;
-
-                        // $('#lenght').text(length);
-                        // $('#count').text(count);
-
-
-                        // if(output==''){
-                        //     $('#full_table').css('display','none');
-                        //     $('#message').css('display','block');
-                        // }else{
-                        //     $('#message').css('display','none');
-                        //     $('#full_table').css('display','block');
-                        //     $('#order_table tbody').html(output);
-                        // }
-
-                    },
-                    error:function () {
-
-
-                    }
-                });
+            var barcode = '';
+            var interval;
+            document.addEventListener('keydown', function(evt) {
+                if (interval)
+                    clearInterval(interval);
+                if (evt.code == 'Enter') {
+                    if (barcode)
+                        handleBarcode(barcode);
+                    barcode = '';
+                    return;
+                }
+                if (evt.key != 'Shift')
+                    barcode += evt.key;
+                interval = setInterval(() => barcode = '', 20);
             });
+
+            function handleBarcode(scanned_barcode) {
+                console.log(scanned_barcode);
+                $('#invoice_no').val(scanned_barcode);
+                $('#scanned_from').submit();
+            }
+            // $('#employee_select').change(function(){
+            //     $.ajax({
+            //         type:"POST",
+            //         url:"{{route('payroll.count')}}",
+            //         data:{
+            //             id:$(this).val(),
+            //             '_token' : $('input[name=_token]').val()
+
+            //         },
+            //         success:function(data)
+            //         {
+            //             console.log(data);
+            //             // var output = data.output;
+            //             // var length = data.length;
+            //             // var count = data.count;
+
+            //             // $('#lenght').text(length);
+            //             // $('#count').text(count);
+
+
+            //             // if(output==''){
+            //             //     $('#full_table').css('display','none');
+            //             //     $('#message').css('display','block');
+            //             // }else{
+            //             //     $('#message').css('display','none');
+            //             //     $('#full_table').css('display','block');
+            //             //     $('#order_table tbody').html(output);
+            //             // }
+
+            //         },
+            //         error:function () {
+
+
+            //         }
+            //     });
+            // });
         });
     </script>
 @endsection

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Inventory;
 use App\Http\Controllers\Controller;
 use App\Models\ExportPackSize;
 use App\Models\FishGrade;
+use App\Models\ProcessingBlock;
+use App\Models\ProcessingBlockSize;
 use App\Models\ProcessingGrade;
 use App\Models\ProductionProcessingGrade;
 use App\Models\ProductionProcessingUnit;
@@ -23,10 +25,12 @@ class InventoryStoreInController extends Controller
         return view('backend.production.inventory.store-in.index',compact('ppu','grades'));
     }
     public function bulk_storage(){
+        $fish_size = ProcessingBlockSize::all();
+        $block_size = ProcessingBlock::all();
         $pack_size = ExportPackSize::all();
         $supply_item = SupplyItem::all();
         $processing_grade = ProcessingGrade::all();
-        return view('backend.production.inventory.cold_storage.bulk_storage',compact('processing_grade','supply_item','pack_size'));
+        return view('backend.production.inventory.cold_storage.bulk_storage',compact('processing_grade','supply_item','pack_size','block_size','fish_size'));
     }
     public function bulk_storage_datapass(Request $request){
         $processing_grades = ProductionProcessingGrade::with('production_processing_unit')->whereHas('production_processing_unit',function($q)use($request){

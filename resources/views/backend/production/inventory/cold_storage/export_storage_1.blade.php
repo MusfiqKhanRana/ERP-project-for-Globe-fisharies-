@@ -264,9 +264,7 @@
                                 <div class="modal-content">
                                     <form class="form-horizontal" role="form" method="post" action="{{route('inventory-export-damage.store')}}" enctype="multipart/form-data">
                                         {{csrf_field()}}
-                                        {{ method_field('POST') }}
-                                        <input type="hidden" name="inputs" class="inputs">
-                                        <input type="hidden" name="production_processing_unit_id" class="production_processing_unit_id">
+                                        <input type="hidden" name="batch_code">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                                             <h2 class="modal-title" style="color: rgb(75, 65, 65);">Damage Info</h2>
@@ -279,7 +277,7 @@
                                                     <p>Processing Type :</p>
                                                 </div>
                                                 <div class="col-md-8" >
-                                                    <select class="form-control type" name="processing_type">
+                                                    <select class="form-control type" name="processing_type" id="processing_name">
                                                         <option value="">--Select--</option>
                                                         <option value="iqf">IQF</option>
                                                         <option value="vegetable_iqf">Vegetable/Fruit IQF</option>
@@ -357,19 +355,43 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            {{-- <div class="row">
-                                                <div class="col-md-3">
-                                                    <p>Item Name :</p>
+                                            <div class="block_damage">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p>Block Size :</p>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <select name="block_size" class="form-control" >
+                                                            <option value="">--Select--</option>
+                                                            @foreach ($block_size as $block)
+                                                                <option value="{{$block->id}}">{{$block->block_size}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-8" >
-                                                    <select name="item_id" class="form-control">
-                                                        <option value="">test1</option>
-                                                        <option value="">test2</option>
-                                                        <option value="">test3</option>
-                                                    </select>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p>Block Quantity :</p>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <input class="form-control" type="number" name="block_quantity">
+                                                    </div>
                                                 </div>
-                                            </div> --}}
-                                            <div class="row">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p>Fish Size :</p>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <select name="fish_grade" class="form-control" >
+                                                            <option value="">--Select--</option>
+                                                            @foreach ($fish_size as $size)
+                                                                <option value="{{$size->id}}">{{$size->size}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row grade_id">
                                                 <div class="col-md-3">
                                                     <p>Item Grade :</p>
                                                 </div>
@@ -387,7 +409,7 @@
                                                     <p>Damaged :</p>
                                                 </div>
                                                 <div class="col-md-8" >
-                                                    <input type="text" name="damage_quantity" placeholder="Type Damaged Quantity" class="form-control">
+                                                    <input type="text" name="damage_quantity"  placeholder="Type Damaged Quantity" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -395,7 +417,7 @@
                                                     <p>Image :</p>
                                                 </div>
                                                 <div class="col-md-8" >
-                                                    <input type="file" name="image" placeholder="Upoad attachment" class="form-control">
+                                                    <input type="file" placeholder="Upoad attachment" name="image" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -403,10 +425,10 @@
                                                     <p>Remark :</p>
                                                 </div>
                                                 <div class="col-md-8" >
-                                                    <textarea name="remark" class="form-control" id="" cols="30" rows="5"></textarea>
+                                                    <textarea name="remark" class="form-control"  cols="30" rows="5"></textarea>
                                                 </div>
                                             </div>
-                                            <input type="hidden" name="damage_form" value="Export-1">
+                                            <input type="hidden" name="damage_form" value="Bulk">
                                         </div>
                                         <br>
                                         <div class="modal-footer">
@@ -592,41 +614,70 @@
 <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $(".block_damage").hide();
+        $( "#processing_name" ).change(function() {
+            if($(this).val() == "block_frozen" || $(this).val() == "semi_iqf" || $(this).val() == "vegetable_block" || $(this).val() == "raw_bf_shrimp" ){
+                $(".block_damage").show();
+                $(".grade_id").hide();
+            }
+            else
+            {
+                $(".block_damage").hide();
+                $(".grade_id").show();
+            }
+        });
+
         $(".varient").chained(".type");
+        get_processing('IQF')
+        $('.processing_type_btn').change(function(){
+            get_processing($(this).val())  
+        });
+        function get_processing(processing_type) {
+            $.ajax({
+                type:"POST",
+                url:"{{route('inventory.cold_storage.export_inventory_data')}}",
+                data:{
+                    'processing_type' : processing_type,
+                    'form_date':$('.form_date').val(),
+                    'to_date':$('.to_date').val(),
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    // appendTable(data);
+                    console.log(data);
+                    // $('.bulk_storage tr:last').after('<tr><td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>');
+                }
+            });
+        }
+        function appendTable(data) {
+            console.log(data);
+            $(".bulk_storage > tbody").html("");
+            data.forEach(item => {
+                console.log(item);
+                $('.bulk_storage > tbody:last-child').append('<tr><td>'+
+                    item.item_name+'</td><td>'+
+                    item.item_grade+'</td><td>'+
+                    item.production_type+'</td><td>'+
+                    item.production_variant+'</td><td>'+
+                    item.produced+'</td>'+
+                    '<td><table class="table table-striped table-bordered table-hover">'+
+                        '<thead>'+
+                            '<tr>'+
+                                '<td class="text-align: center;">In</td>'+
+                                '<td class="text-align: center;">Out</td>'+
+                            '</tr>'+
+                        '</thead>'+
+                        '<tbody>'+
+                            '<tr>'+
+                                '<td class="text-align: center;">'+item.reprocessed_in+'</td>'+
+                                '<td class="text-align: center;">'+item.reprocessed_out+'</td>'+
+                            '</tr>'+
+                        '</tbody>'+
+                    '</table></td>'+
+                    ' <td>'+item.local+'</td> <td>'+item.damage+'</td> <td>20</td> </tr>');
+            });
+        }
     });
 </script>
 @endsection
-{{-- @section('script')
-<script>
-    $(document).ready(function()
-    {
-        $(".move_to_store").click(function () {
-            console.log($(this).data("id"));
-            var ppu_id = $(this).data("id");
-            $('.production_processing_unit_id').val(ppu_id);
-            $("table.fillet_grading_table tbody tr").empty();
-            var product_array = [];
-            var grade_id , grade_name ,grade_weight = null; 
-            $('.grade_select').change(function() {
-                grade_id=$('option:selected',this).val();
-                grade_name =$('option:selected',this).attr("data-grade_name");
-                console.log(grade_name);
-            });
-            $('.grade_weight').on("change keyup",function() {
-                grade_weight = $(this).val();
-            });
-            $('.add_btn').click(function () {
-                $("table.fillet_grading_table tbody tr").empty();
-                product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight});
-                $.each( product_array, function( key, product ) {
-                    $("table.fillet_grading_table tr").last().after("<tr><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td></tr>");
-                });
-                $(".inputs").val('');
-                $(".inputs").val(JSON.stringify(product_array));
-                $('.grade_weight').val(0);
-                $('.grade_select').val("--select--");
-            })
-        });
-    });
-</script>
-@endsection --}}
