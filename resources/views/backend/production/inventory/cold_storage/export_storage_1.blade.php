@@ -629,40 +629,55 @@
         });
 
         $(".varient").chained(".type");
+        get_processing('IQF')
+        $('.processing_type_btn').change(function(){
+            get_processing($(this).val())  
+        });
+        function get_processing(processing_type) {
+            $.ajax({
+                type:"POST",
+                url:"{{route('inventory.cold_storage.export_inventory_data')}}",
+                data:{
+                    'processing_type' : processing_type,
+                    'form_date':$('.form_date').val(),
+                    'to_date':$('.to_date').val(),
+                    '_token' : $('input[name=_token]').val()
+                },
+                success:function(data){
+                    // appendTable(data);
+                    console.log(data);
+                    // $('.bulk_storage tr:last').after('<tr><td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>');
+                }
+            });
+        }
+        function appendTable(data) {
+            console.log(data);
+            $(".bulk_storage > tbody").html("");
+            data.forEach(item => {
+                console.log(item);
+                $('.bulk_storage > tbody:last-child').append('<tr><td>'+
+                    item.item_name+'</td><td>'+
+                    item.item_grade+'</td><td>'+
+                    item.production_type+'</td><td>'+
+                    item.production_variant+'</td><td>'+
+                    item.produced+'</td>'+
+                    '<td><table class="table table-striped table-bordered table-hover">'+
+                        '<thead>'+
+                            '<tr>'+
+                                '<td class="text-align: center;">In</td>'+
+                                '<td class="text-align: center;">Out</td>'+
+                            '</tr>'+
+                        '</thead>'+
+                        '<tbody>'+
+                            '<tr>'+
+                                '<td class="text-align: center;">'+item.reprocessed_in+'</td>'+
+                                '<td class="text-align: center;">'+item.reprocessed_out+'</td>'+
+                            '</tr>'+
+                        '</tbody>'+
+                    '</table></td>'+
+                    ' <td>'+item.local+'</td> <td>'+item.damage+'</td> <td>20</td> </tr>');
+            });
+        }
     });
 </script>
 @endsection
-{{-- @section('script')
-<script>
-    $(document).ready(function()
-    {
-        $(".move_to_store").click(function () {
-            console.log($(this).data("id"));
-            var ppu_id = $(this).data("id");
-            $('.production_processing_unit_id').val(ppu_id);
-            $("table.fillet_grading_table tbody tr").empty();
-            var product_array = [];
-            var grade_id , grade_name ,grade_weight = null; 
-            $('.grade_select').change(function() {
-                grade_id=$('option:selected',this).val();
-                grade_name =$('option:selected',this).attr("data-grade_name");
-                console.log(grade_name);
-            });
-            $('.grade_weight').on("change keyup",function() {
-                grade_weight = $(this).val();
-            });
-            $('.add_btn').click(function () {
-                $("table.fillet_grading_table tbody tr").empty();
-                product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight});
-                $.each( product_array, function( key, product ) {
-                    $("table.fillet_grading_table tr").last().after("<tr><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td></tr>");
-                });
-                $(".inputs").val('');
-                $(".inputs").val(JSON.stringify(product_array));
-                $('.grade_weight').val(0);
-                $('.grade_select').val("--select--");
-            })
-        });
-    });
-</script>
-@endsection --}}
