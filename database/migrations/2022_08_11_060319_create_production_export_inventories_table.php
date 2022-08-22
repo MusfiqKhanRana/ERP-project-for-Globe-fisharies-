@@ -15,15 +15,18 @@ class CreateProductionExportInventoriesTable extends Migration
     {
         Schema::create('production_export_inventories', function (Blueprint $table) {
             $table->id();
+            $table->string('batch_code')->nullable();
             $table->string('storage_name')->nullable();
             $table->string('processing_name')->nullable();
             $table->string('processing_variant')->nullable();
             $table->unsignedInteger('item_id')->nullable();
-            $table->string('batch_code')->nullable();
             $table->unsignedInteger('processing_grade_id')->nullable();
             $table->unsignedInteger('export_pack_size_id')->nullable();
             $table->integer('transfer_qty_ctn')->nullable();
             $table->integer('transfer_qty_kg')->nullable();
+            $table->unsignedInteger('block_size')->nullable();
+            $table->unsignedInteger('fish_grade')->nullable();
+            $table->double('block_quantity')->nullable();
             $table->timestamps();
         });
     }

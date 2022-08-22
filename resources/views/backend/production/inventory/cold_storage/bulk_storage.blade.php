@@ -165,10 +165,10 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-3">
-                                                    <p>Type :</p>
+                                                    <p>Processing Type :</p>
                                                 </div>
                                                 <div class="col-md-8" >
-                                                    <select class="form-control type" name="processing_name">
+                                                    <select class="form-control type" name="processing_name" id="processing_name">
                                                         <option value="">--Select--</option>
                                                         <option value="iqf">IQF</option>
                                                         <option value="vegetable_iqf">Vegetable/Fruit IQF</option>
@@ -246,7 +246,43 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <div class="block_damage">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p>Block Size :</p>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <select name="block_size" class="form-control" >
+                                                            <option value="">--Select--</option>
+                                                            @foreach ($block_size as $block)
+                                                                <option value="{{$block->id}}">{{$block->block_size}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p>Block Quantity :</p>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <input class="form-control" type="number" name="block_quantity">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p>Fish Size :</p>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <select name="fish_grade" class="form-control" >
+                                                            <option value="">--Select--</option>
+                                                            @foreach ($fish_size as $size)
+                                                                <option value="{{$size->id}}">{{$size->size}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row grade_id">
                                                 <div class="col-md-3">
                                                     <p>Grade :</p>
                                                 </div>
@@ -686,25 +722,10 @@
 <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        // $("#grade_id").show();
-        // $("#processing_name").change(function(){
-        //     console.log("good");
-        //     $("#grade_id").hide();
-        //     if($(this).val() == "block_frozen"){
-        //         $(".block_damage").show();
-        //         console.log("good");
-        //     }
-        //     else
-        //     {
-        //         $("#grade_id").show();
-        //         $("#block_damage").hide();
-        //     }
-        //     });
-
-        // });
-        // $('#datepicker1').val(moment(moment().toDate()).format('MM/DD/YYYY'));
+       
         $(".block_damage").hide();
-        $( "#processing_name" ).change(function() {
+        $( ".type" ).change(function() {
+            console.log('good');
             if($(this).val() == "block_frozen" || $(this).val() == "semi_iqf" || $(this).val() == "vegetable_block" || $(this).val() == "raw_bf_shrimp" ){
                 $(".block_damage").show();
                 $(".grade_id").hide();
