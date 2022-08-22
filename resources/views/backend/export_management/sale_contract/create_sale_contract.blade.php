@@ -3,12 +3,16 @@
 @section('site-title')
    Export Management
 @endsection
-@section('css')
-<style>
-    hr.class-1 {
-        border-top: 1px dashed #8c8b8b;
-    }
-</style>
+@section('style')
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script>
+
 @endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
@@ -17,7 +21,7 @@
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title bold form-inline">Export Management
-                <small>Add Consignment</small>
+                <small>Create Salas Contract</small>
                 {{-- <div class="form-group" style="margin-left: 10%">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </div> --}}
@@ -45,7 +49,7 @@
                     <div class="portlet box blue">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-briefcase"></i>Add Consignment
+                                <i class="fa fa-briefcase"></i>Create Sales Contract
                             </div>
                             <div class="tools">
                             </div>
@@ -57,7 +61,7 @@
                                     <div class="form-section">
                                         <label class="col-md-2 control-label pull-left bold">Select Buyer:<span class="required">* </span> </label>
                                         <div class="col-md-10">
-                                            <select class="form-control buyer_select" name="export_buyer_id" required>
+                                            <select class="form-control buyer_select selectpicker" data-live-search="true" name="export_buyer_id" required>
                                                 <option value="" data-buyer_id="0">--Select--</option>
                                                 @foreach ($export_buyer as $item)
                                                 <option value="{{$item->id}}" data-buyer_id="{{$item->id}}">{{$item->buyer_code}} | {{$item->buyer_name}} | {{$item->buyer_address}}</option>
@@ -283,7 +287,7 @@
                                                         <input class="form-control cartons_qty" type="Number" id="cartons" placeholder="Quantity Of Cartons">
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <div class="row" style="width: 98%">
                                                     <div class="col-md-4">
                                                         <label class="control-label" for="product">Total In KG<span >* </span></label>
                                                         <input class="form-control total_in_kg" type="number" step="0.01" id="total_in_kg" readonly>
@@ -297,14 +301,12 @@
                                                         <input class="form-control total_amount" type="Number" step="0.01" id="total_amount" readonly>
                                                     </div>
                                                     <div class="col-md-1">
-                                                        <label ></label>
-                                                        <button type="button"  class="btn btn-success" id="add_items">+  Add </button>
+                                                        <button type="button"  class="btn btn-success" id="add_items" style="margin-top: 60%">+  Add </button>
                                                     </div> 
                                                 </div>
                                             </div><br>
-                                            <div class="form-group">
-                                                <div class="col-md-12 table-scrollable">
-                                                    <table  class="table table-striped table-bordered table-hover" id="mytable">
+                                                <div class="col-md-12 table table-scrollable">
+                                                    <table class="table table-striped table-bordered table-hover" id="mytable">
                                                         <thead>
                                                             <tr>
                                                                 <th>Consignment Type</th>
@@ -327,13 +329,13 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
+                                                            <tr style="width: 95%">
             
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                </div>
-                                            </div>
+                                                </div>     
+                                            
                                         </div>
                                     </div>
                                     <hr class="class-1">

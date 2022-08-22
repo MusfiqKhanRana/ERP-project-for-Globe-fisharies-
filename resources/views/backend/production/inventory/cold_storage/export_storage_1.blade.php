@@ -428,7 +428,7 @@
                                                     <textarea name="remark" class="form-control"  cols="30" rows="5"></textarea>
                                                 </div>
                                             </div>
-                                            <input type="hidden" name="damage_form" value="Bulk">
+                                            <input type="hidden" name="damage_form" value="Export-1">
                                         </div>
                                         <br>
                                         <div class="modal-footer">
@@ -442,23 +442,23 @@
                         <div id="reprocessed_Modal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <form class="form-horizontal" role="form" method="post" action="#">
+                                    <form class="form-horizontal" role="form" method="post" action="{{route('inventory-bulk-reprocessed.store')}}">
                                         {{csrf_field()}}
                                         <input type="hidden" name="inputs" class="inputs">
                                         <input type="hidden" name="production_processing_unit_id" class="production_processing_unit_id">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                        <h2 class="modal-title" style="color: rgb(75, 65, 65);">Move To Store</h2>
+                                        <h2 class="modal-title" style="color: rgb(75, 65, 65);">Move To Bulk Storage</h2>
                                     </div>
                                     <br>
                                     <div class="modal-body">
                                         @csrf
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <p> Processing Type :</p>
+                                                <p>Processing Type :</p>
                                             </div>
                                             <div class="col-md-8" >
-                                                <select class="form-control type" name="processing_name">
+                                                <select class="form-control type" name="processing_type" id="processing_name">
                                                     <option value="">--Select--</option>
                                                     <option value="iqf">IQF</option>
                                                     <option value="vegetable_iqf">Vegetable/Fruit IQF</option>
@@ -530,54 +530,67 @@
                                             </div>
                                             <div class="col-md-8" >
                                                 <select name="item_id" class="form-control selectpicker" data-live-search="true">
-                                                    <option value="">test1</option>
-                                                    <option value="">test2</option>
-                                                    <option value="">test3</option>
+                                                    @foreach ($supply_item as $item)
+                                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
-                                        {{-- <div class="row">
+                                        <div class="block_damage">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Block Size :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <select name="block_size" class="form-control" >
+                                                        <option value="">--Select--</option>
+                                                        @foreach ($block_size as $block)
+                                                            <option value="{{$block->id}}">{{$block->block_size}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Block Quantity :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <input class="form-control" type="number" name="block_quantity">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Fish Size :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <select name="fish_grade" class="form-control" >
+                                                        <option value="">--Select--</option>
+                                                        @foreach ($fish_size as $size)
+                                                            <option value="{{$size->id}}">{{$size->size}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row grade_id">
                                             <div class="col-md-3">
-                                                <p>Item Name :</p>
+                                                <p>Grade :</p>
                                             </div>
                                             <div class="col-md-8" >
-                                                <select name="item_name" class="form-control selectpicker" data-live-search="true">
-                                                    <option value="">test1</option>
-                                                    <option value="">test2</option>
-                                                    <option value="">test3</option>
-                                                </select>
-                                            </div>
-                                        </div> --}}
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Item Grade :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <select name="item_id" class="form-control">
-                                                    <option value="">test1</option>
-                                                    <option value="">test2</option>
-                                                    <option value="">test3</option>
+                                                <select name="processing_grade_id" class="form-control" >
+                                                    <option value="">--Select--</option>
+                                                    @foreach ($processing_grade as $grade)
+                                                        <option value="{{$grade->id}}">{{$grade->name}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <p>Reprocessing Type :</p>
+                                                <p>Reprocessed :</p>
                                             </div>
                                             <div class="col-md-8" >
-                                                <select name="" class="form-control" id="">
-                                                    <option value="">--Select Reprocess type--</option>
-                                                    <option value="">Convert/Repach<small>(Transfer it to bulk storage)</small></option>
-                                                    <option value="">Reprocessed<small>(Transfer it to Chill room)</small></option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p>Quantity :</p>
-                                            </div>
-                                            <div class="col-md-8" >
-                                                <input type="text" placeholder="Type reprocessed qty" class="form-control">
+                                                <input type="number" name="reprocessed_quantity"  placeholder="Type Reprocessed Quantity" class="form-control">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -585,9 +598,10 @@
                                                 <p>Remark :</p>
                                             </div>
                                             <div class="col-md-8" >
-                                                <textarea name="" class="form-control" id="" cols="30" rows="5"></textarea>
+                                                <textarea name="remark" class="form-control"  cols="30" rows="5"></textarea>
                                             </div>
                                         </div>
+                                        <input type="hidden" name="reprocessed_form" value="Export-1">
                                     </div>
                                     <br>
                                     <div class="modal-footer">
@@ -616,7 +630,7 @@
     $(document).ready(function () {
 
         $(".block_damage").hide();
-        $( "#processing_name" ).change(function() {
+        $( ".type" ).change(function() {
             if($(this).val() == "block_frozen" || $(this).val() == "semi_iqf" || $(this).val() == "vegetable_block" || $(this).val() == "raw_bf_shrimp" ){
                 $(".block_damage").show();
                 $(".grade_id").hide();

@@ -111,9 +111,9 @@
                                                                 </div><br><br>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="inputEmail1" class="col-md-2 control-label">Weight</label>
+                                                                <label for="inputEmail1" class="col-md-2 control-label">Weight (Kg)</label>
                                                                 <div class="col-md-8">
-                                                                    <input type="text" class="form-control" value="{{$data->weight}} Kg" required name="weight">
+                                                                    <input type="number" class="form-control" value="{{$data->weight}}" required name="weight">
                                                                 </div><br><br>
                                                             </div>
                                                             <div class="modal-footer">

@@ -96,8 +96,12 @@
                                                             <tr>
                                                                 <td>{{++$key2}}</td></td>
                                                                 <td>{{$item->hs_code}}</td>
-                                                                <td>{{$item->processing_type}}</td>
-                                                                <td>{{$item->processing_variant}}</td>
+                                                                <td>
+                                                                    @php
+                                                                        $replace = str_replace("_"," ",$item->processing_type);
+                                                                    @endphp
+                                                                    {{ucwords($replace)}}</td>
+                                                                <td>{{ucfirst($item->processing_variant)}}</td>
                                                                 <td>{{$item->supply_item->name}}</td>
                                                                 <td>{{$item->fish_grade->name}}</td>
                                                                 <td>Pangasius Hypophtalmus</td>

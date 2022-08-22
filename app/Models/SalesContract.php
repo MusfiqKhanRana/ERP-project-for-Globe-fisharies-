@@ -25,4 +25,7 @@ class SalesContract extends Model
     {
         return $this->hasMany(ExportDocument::class);
     }
+    public function getDateAttribute($value){
+        return  \Carbon\Carbon::parse($value)->format('d/m/Y');
+    }
 }
