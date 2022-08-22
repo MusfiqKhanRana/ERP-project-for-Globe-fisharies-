@@ -85,7 +85,8 @@
                                     @php
                                         use Carbon\Carbon;
                                         $currentTime = Carbon::now();
-                                        echo $currentTime->toDateString();
+                                        echo \Carbon\Carbon::now("Asia/Dhaka")->format('d-m-Y')
+                                        //echo $currentTime->toRfc850String();
                                     @endphp
                                 </span>
                             </div><br>
@@ -146,9 +147,14 @@
                                                 <tr>
                                                     <td style="text-align: center; border: 1px solid black">{{++$key}}</td>
                                                     <td style="text-align: center; border: 1px solid black">{{$s_c_item->hs_code}}</td>
-                                                    <td style="text-align: center; border: 1px solid black">{{$s_c_item->processing_type}}</td>
+                                                    <td style="text-align: center; border: 1px solid black">
+                                                        @php
+                                                            $replace = str_replace("_"," ",$s_c_item->processing_type);
+                                                        @endphp
+                                                        {{ucwords($replace)}}
+                                                    </td>
                                                     <td style="text-align: center; border: 1px solid black">{{$s_c_item->supply_item->name}}</td>
-                                                    <td style="text-align: center; border: 1px solid black">{{$s_c_item->processing_variant}}</td>
+                                                    <td style="text-align: center; border: 1px solid black">{{ucfirst($s_c_item->processing_variant)}}</td>
                                                     <td style="text-align: center; border: 1px solid black">{{$s_c_item->fish_grade->name}}</td>
                                                     <td style="text-align: center; border: 1px solid black">Pangasius Hypophthalmus</td>
                                                     <td style="text-align: center; border: 1px solid black">{{$s_c_item->cartons}}</td>
@@ -177,15 +183,13 @@
                                 </table>
                             </div>
                             <div class="row">
-                                <h5><b>TOTAL AMOUNT (IN WORD) :   </b></h5>
-                                    <b><h4>
+                                <h5><b>TOTAL AMOUNT (IN WORD) :   </b>
+                                    
                                         @php
-                                        
                                             $digit = new NumberFormatter("EN", NumberFormatter::SPELLOUT);
                                             echo ucfirst($digit->format($expototal_amount)); 
                                         @endphp
-                                    </h4></b>
-                                    
+                                    </h5>
                             </div><br>
                             <div class="row">
                                 <table  class="table table-striped table-hover table-bordered"  style='width:100%; font-size:80%'>

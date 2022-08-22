@@ -148,8 +148,13 @@
                                                 <td style="text-align: center; border: 1px solid black;">{{++$key}}</td>
                                                 <td style="text-align: center; border: 1px solid black;">{{$s_c_item->hs_code}}</td>
                                                 <td style="text-align: center; border: 1px solid black;">{{$s_c_item->supply_item->name}}</td>
-                                                <td style="text-align: center; border: 1px solid black;">{{$s_c_item->processing_type}}</td>
-                                                <td style="text-align: center; border: 1px solid black;">{{$s_c_item->processing_variant}}</td>
+                                                <td style="text-align: center; border: 1px solid black;">
+                                                    @php
+                                                        $replace = str_replace("_"," ",$s_c_item->processing_type);
+                                                    @endphp
+                                                    {{ucwords($replace)}}
+                                                </td>
+                                                <td style="text-align: center; border: 1px solid black;">{{ucfirst($s_c_item->processing_variant)}}</td>
                                                 <td style="text-align: center; border: 1px solid black;">{{$s_c_item->fish_grade->name}}</td>
                                                 <td style="text-align: center; border: 1px solid black;">{{$s_c_item->cartons}}</td>
                                                 @php
