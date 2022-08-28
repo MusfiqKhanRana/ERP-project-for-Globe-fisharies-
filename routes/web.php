@@ -44,6 +44,7 @@ use App\Http\Controllers\FishGradeController;
 use App\Http\Controllers\GeneralItemStockController;
 use App\Http\Controllers\Inventory\BulkReprocessedController;
 use App\Http\Controllers\Inventory\ExportInventoryController;
+use App\Http\Controllers\Inventory\InventoryAdjustmentController;
 use App\Http\Controllers\Inventory\InventoryExportDamageController;
 use App\Http\Controllers\Inventory\InventoryStoreInController;
 use App\Http\Controllers\Inventory\ProductionExportInventoryController;
@@ -642,12 +643,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     })->name('inventory.location.located_item_list');
 
     //Inventory Adjustment 
-    Route::get('inventory/adjustment/create', function () {
-        return view('backend.production.inventory.inventory_adjustment.create');
-    })->name('inventory.adjustment.create');
-    Route::get('inventory/adjustment/list', function () {
-        return view('backend.production.inventory.inventory_adjustment.list');
-    })->name('inventory.adjustment.list');
+    Route::get('inventory/adjustment/create',[InventoryAdjustmentController::class,'create'])->name('inventory.adjustment.create');
+    Route::post('inventory/adjustment/store',[InventoryAdjustmentController::class,'store'])->name('inventory.adjustment.store');
+    Route::get('inventory/adjustment/list',[InventoryAdjustmentController::class,'index'])->name('inventory.adjustment.list');
+    Route::post('inventory/adjustment/delete',[InventoryAdjustmentController::class,'delete'])->name('inventory.adjustment.delete');
+    Route::post('inventory/adjustment/confirm',[InventoryAdjustmentController::class,'confirm'])->name('inventory.adjustment.confirm');
+    Route::post('inventory/adjustment/edit',[InventoryAdjustmentController::class,'edit'])->name('inventory.adjustment.edit');
  
     
     Route::resource('production-export-inventory',ProductionExportInventoryController::class);

@@ -1131,7 +1131,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item @if( request()->path() == 'admin/inventory/adjustment/list') active open @endif">
-                                        <a href="{{route('inventory.adjustment.list')}}" class="nav-link ">
+                                        <a href="{{route('inventory.adjustment.list',"status=Pending")}}" class="nav-link ">
                                             <span class="title">List</span>
                                         </a>
                                     </li>
