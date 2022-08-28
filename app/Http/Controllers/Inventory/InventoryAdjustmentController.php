@@ -54,7 +54,7 @@ class InventoryAdjustmentController extends Controller
             'receiver_name'=>$request->receiver_name,
             'invoice_no'=>$request->invoice_no,
             'adjustment_date'=>$request->adjustment_date,
-            'supplier_item_id'=>$request->item,
+            'supply_item_id'=>$request->item,
             'type'=>$request->type,
             'variant'=>$request->variant,
             'processing_grade_id'=>$request->grade,
