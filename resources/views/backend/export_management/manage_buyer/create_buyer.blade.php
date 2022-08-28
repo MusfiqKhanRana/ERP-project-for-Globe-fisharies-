@@ -3,11 +3,7 @@
 @section('site-title')
    Export Management
 @endsection
-@section('style')
-<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
-@endsection
+
 @section('main-content')
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
@@ -78,7 +74,7 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label class="control-label">Contact Number <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="buyer_contact_number" placeholder="Contact Number">
+                                                        <input type="text" class="form-control" name="buyer_contact_number">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label">Email <span class="required">* </span></label>
@@ -87,7 +83,6 @@
                                                     <div class="col-md-4">
                                                         <label class="control-label" >Buyer Country <span class="required">* </span></label>
                                                         <select class="form-control country" name="buyer_country" id="country">
-                                                            <option value="">--Select--</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -122,7 +117,6 @@
                                                     <div class="col-md-4">
                                                         <label class="control-label" >Country <span class="required">* </span></label>
                                                         <select class="form-control country" name="consignee_country" id="country">
-                                                            <option value=""></option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -142,7 +136,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label">Address <span class="required">* </span></label>
-                                                        <input type="text" class="form-control" name="notify_party_address" placeholder="Address">
+                                                        <input type="text" class="form-control" name="notify_party_address">
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label class="control-label">Contact Number <span class="required">* </span></label>
@@ -158,7 +152,6 @@
                                                         <label class="control-label js-data-example-ajax">Country <span class="required">* </span></label>
                                                         {{-- <input type="text" class="form-control" name="" placeholder="Country" required> --}}
                                                         <select class="form-control country" name="notify_party_country" id="country">
-                                                            <option value=""></option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -174,19 +167,19 @@
                                     <div class="form-group" style="padding:2%; width:100%;">
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <label class="control-label">Bank Name <span class="required">* </span></label>
+                                                <label class="control-label" for="bank_name">Bank Name <span class="required">* </span></label>
                                                 <input type="text" class="form-control" placeholder="Bank Name" id="bank_name" name="bank_name">
                                             </div>
                                             <div class="col-md-2">
-                                                <label class="control-label">A/C Name <span class="required">* </span></label>
+                                                <label class="control-label" for="a_c_name">A/C Name <span class="required">* </span></label>
                                                 <input type="text" class="form-control" placeholder="A/C Name" id="a_c_name" name="a_c_name">
                                             </div>
                                             <div class="col-md-2">
-                                                <label class="control-label">A/C No. <span class="required">* </span></label>
+                                                <label class="control-label" for="a_C_no">A/C No. <span class="required">* </span></label>
                                                 <input type="number" class="form-control" placeholder="A/C No." id="a_C_no" name="a_C_no">
                                             </div>
                                             <div class="col-md-2">
-                                                <label class="control-label">Branch <span class="required">* </span></label>
+                                                <label class="control-label" for="branch">Branch <span class="required">* </span></label>
                                                 <input type="text" class="form-control" placeholder="Branch" id="branch" name="branch">
                                             </div>
                                             <div class="col-md-2">
@@ -226,7 +219,7 @@
                                     <div class="form-group" style="padding:2%; width:100%">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label class="control-label" >Consignment Type <span class="required">* </span></label>
+                                                <label class="control-label" for="bank_name">Consignment Type <span class="required">* </span></label>
                                                 <select class="form-control" name="consignment_type" id="consignment_type">
                                                     <option value="">--Select--</option>
                                                     <option value="Fish">Fish</option>
@@ -237,7 +230,7 @@
 
                                             </div>
                                             <div class="col-md-4">
-                                                <label class="control-label">H S Code <span class="required">* </span></label>
+                                                <label class="control-label" for="a_c_name">H S Code <span class="required">* </span></label>
                                                 <input type="text" style="text-align: center" class="form-control" placeholder="Type HS Code" id="hs_code" name="hs_code">
                                             </div>
                                             <div class="col-md-2">
@@ -278,28 +271,27 @@
     </div>
 @endsection
 @section('script')
+
   <script type="text/javascript">
     $(document).ready(function () {
+        
         $.ajax({
-			type:"GET",
-			url:"https://restcountries.com/v3.1/all",
-			success:function(data){
-				//console.log(data);
-				$(".country").empty();
-				$.each( data, function( key, country ) {
-					var country_name = country.name.common;
-					console.log(country_name);
-					$(".country").select2({
-						value: country.id,
-						data: country_name
-					});
-					
-				});
-			}
-		});
+                type:"GET",
+                url:"https://restcountries.com/v3.1/all",
+                success:function(data){
+                    console.log(data);
+                    $(".country").empty();
+                    $.each( data, function( key, country ) {
+                        $('.country').append($('<option>', {
+                            value: country.id,
+                            text: country.name.common
+                        }));
+                    });
+                }
+        });
                 
     var items_array = [];
-    function nullx(){
+    function nullbank(){
         $("#bank_name").val(null);
         $("#a_c_name").val(null);
         $("#a_C_no").val(null);
@@ -319,7 +311,6 @@
                     }
                 }
             });
-            nullx();
             $(".delete_item").click(function(){
                 items_array[$(this).data("id")].status="delete";
                 // console.log(product_array,$(this).data("id"));
@@ -327,7 +318,7 @@
                 $("#provided_item").val(JSON.stringify(items_array));
                 $("#"+$(this).data("id")).remove();
             });
-            
+            nullbank ();
     });
     var hs_array = [];
     function nullmaking(){
