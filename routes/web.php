@@ -674,7 +674,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::put('/export/buyer/{id}',[ExportBuyerController::class,'BuyerDetailsUpdate'])->name('export.buyer.update');
     Route::resource('export-buyer', ExportBuyerController::class);
 
-
+    Route::post('export/sales/add/item',[SalesContractController::class,'ItemStore'])->name('export.sales.add.item');
+    Route::get('sales/contract/add/item/{id}',[SalesContractController::class,'AddItem'])->name('sales.contract.add.item');
     Route::post('sales/contract/item/{id}',[SalesContractController::class,'itemDelete'])->name('sales.contract.item.delete');
     Route::get('sales/contract/print/{id}',[SalesContractController::class,'SaleContractPrint'])->name('sales.contract.print');
     Route::get('sale_contract/list/revise/{id}',[SalesContractController::class,'Revise'])->name('sale_contract.list.revise');

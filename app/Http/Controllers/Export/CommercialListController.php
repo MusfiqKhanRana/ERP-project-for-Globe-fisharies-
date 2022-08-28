@@ -26,7 +26,9 @@ class CommercialListController extends Controller
                 $q->where('commercial_status',$commercial_status);
             }
         })
-        ->with(['sales_contract_items','export_buyer','advising_bank','documents'])->get();
+        ->with(['sales_contract_items'=>function($q){
+            $q->with(['fish_grade']);
+        },'export_buyer','advising_bank','documents'])->get();
        //dd($sale_contracts);
         return view('backend.export_management.commercial_list',compact('sale_contracts','pending_count','approved_count'));
     }
