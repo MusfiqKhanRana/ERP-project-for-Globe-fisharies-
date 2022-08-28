@@ -291,7 +291,7 @@
         });
                 
     var items_array = [];
-    function nullmaking(){
+    function nullbank(){
         $("#bank_name").val(null);
         $("#a_c_name").val(null);
         $("#a_C_no").val(null);
@@ -318,7 +318,7 @@
                 $("#provided_item").val(JSON.stringify(items_array));
                 $("#"+$(this).data("id")).remove();
             });
-            nullmaking();
+            nullbank ();
     });
     var hs_array = [];
     function nullmaking(){

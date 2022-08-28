@@ -7,6 +7,8 @@ use App\Models\BankAccount;
 use App\Models\ExportBuyer;
 use App\Models\ExportPackSize;
 use App\Models\FishGrade;
+use App\Models\ProcessingBlock;
+use App\Models\ProcessingBlockSize;
 use App\Models\SalesContract;
 use App\Models\SalesContractItem;
 use App\Models\SupplyItem;
@@ -21,10 +23,13 @@ class SalesContractController extends Controller
      */
     public function index(Request $request)
     {
-        $sale_contracts = SalesContract::with(['sales_contract_items','export_buyer','advising_bank'])->where('status',$request->status)->get();
+        $sale_contracts = SalesContract::with(['sales_contract_items'=>function($q){
+            $q->with(['fish_grade']);
+        },'export_buyer','advising_bank'])->where('status',$request->status)->get();
         $pending_count = SalesContract::select('id','status')->where('status','Pending')->count();
         $approved_count = SalesContract::select('id','status')->where('status','Approved')->count();
         // dd($sale_contracts->toArray());
+        //$fish_grade = FishGrade::all();
         return view('backend.export_management.sale_contract.sale_contract_list',compact('sale_contracts','approved_count','pending_count'));
     }
 
@@ -50,13 +55,15 @@ class SalesContractController extends Controller
 
     public function create()
     {
+        $fish_size = ProcessingBlockSize::all();
+        $block_size = ProcessingBlock::all();
         $export_buyer = ExportBuyer::all();
         $items = SupplyItem::all();
         $grades = FishGrade::all();
         $export_pack_sizes = ExportPackSize::all();
         $bank_accounts = BankAccount::all();
         // dd($export_buyer->toArray());
-        return view('backend.export_management.sale_contract.create_sale_contract',compact('export_buyer','items','grades','export_pack_sizes','bank_accounts'));
+        return view('backend.export_management.sale_contract.create_sale_contract',compact('export_buyer','items','grades','export_pack_sizes','bank_accounts','block_size','fish_size'));
     }
 
     /**
@@ -67,7 +74,7 @@ class SalesContractController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->toArray());
+       // dd($request->toArray());
         $sales_contract=SalesContract::create([
             'export_buyer_id'=>$request->export_buyer_id,
             'port_of_loading'=>$request->port_of_loading,
@@ -106,6 +113,13 @@ class SalesContractController extends Controller
         foreach (json_decode($request->provided_item) as $input) {
             if ($input->status=="stay") {
                 $count +=1; 
+                //dd($input);
+                $grade = 0;
+                if ($input->grade == null) {
+                    $grade = null;
+                }else{
+                    $grade = $input->grade;
+                }
                 SalesContractItem::create([
                     'sales_contract_id'=> $sales_contract->id,
                     'consignment_type' => $input->consignment_type,
@@ -113,7 +127,10 @@ class SalesContractController extends Controller
                     'processing_type' => $input->type,
                     'processing_variant' => $input->variant,
                     'supply_item_id'=>$input->item_name,
-                    'fish_grade_id'=>$input->grade,
+                    'fish_grade_id'=>$grade,
+                    'fish_grade'=>$input->fish_grade,
+                    'block_quantity'=>$input->block_quantity,
+                    'block_size_id'=>$input->block_size_id,
                     'export_pack_size_id'=>$input->pack_size,
                     'block_size'=>"add this",
                     'block_name'=>"add this",
@@ -262,4 +279,39 @@ class SalesContractController extends Controller
         //dd($sale_contracts);
         return view('backend.export_management.sale_contract.print_sale_contract',compact('sale_contracts'));
     }
+
+    public function AddItem(Request $request, $id){
+       
+        $sales_contract_id = $id;
+        $fish_size = ProcessingBlockSize::all();
+        $block_size = ProcessingBlock::all();
+        $items = SupplyItem::all();
+        $grades = FishGrade::all();
+        $export_pack_sizes = ExportPackSize::all();
+        $export_buyer = ExportBuyer::all();
+        $sale_contracts = SalesContract::with(['sales_contract_items','advising_bank'])->first();
+        return view('backend.export_management.sale_contract.add_item',compact('sale_contracts','export_buyer','grades','export_pack_sizes','items','block_size','fish_size','sales_contract_id'));
+    }
+
+    public function ItemStore(Request $request){
+       // dd($request->toArray());
+        $addItem = new SalesContractItem();
+        $addItem->consignment_type = $request->input('consignment_type');
+        $addItem->hs_code = $request->input('hs_code');
+        $addItem->processing_type = $request->input('processing_type');
+        $addItem->processing_variant = $request->input('processing_variant');
+        $addItem->fish_grade_id = $request->input('fish_grade_id');
+        $addItem->block_quantity = $request->input('block_quantity');
+        $addItem->sales_contract_id = $request->input('sales_contract_id');
+        $addItem->supply_item_id = $request->input('supply_item_id');
+        $addItem->fish_grade = $request->input('fish_grade');
+        $addItem->fish_grade_id = $request->input('grade');
+        $addItem->export_pack_size_id = $request->input('pack_size');
+        $addItem->cartons = $request->input('cartons');
+        $addItem->block_size_id = $request->input('block_size_id');
+        $addItem->save();
+
+        return redirect()->back()->withMsg("Successfully Added");
+    }
+
 }
