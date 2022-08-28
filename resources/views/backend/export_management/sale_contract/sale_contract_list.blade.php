@@ -93,6 +93,9 @@
                                                         </thead>
                                                         <tbody>
                                                             @foreach ($sale_contract->sales_contract_items as $key2=> $item)
+                                                            @php
+                                                                $itme_array= $item->toArray();
+                                                            @endphp
                                                             <tr>
                                                                 <td>{{++$key2}}</td></td>
                                                                 <td>{{$item->hs_code}}</td>
@@ -103,7 +106,7 @@
                                                                     {{ucwords($replace)}}</td>
                                                                 <td>{{ucfirst($item->processing_variant)}}</td>
                                                                 <td>{{$item->supply_item->name}}</td>
-                                                                <td>{{$item->fish_grade->name}}</td>
+                                                                <td>{{$itme_array['fish_grade']['name']}}</td>
                                                                 <td>Pangasius Hypophtalmus</td>
                                                                 <td>{{$item->cartons}}</td>
                                                                 <td>{{$item->export_pack_size->name}}</td>
@@ -155,7 +158,7 @@
                                                         <button class="btn btn-success approve_sale_contract" data-toggle="modal" data-route="{{route('sale.contract.approve',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" href="#ApproveModal">Approve</button>
                                                         <a class="btn btn-info" data-toggle="modal" href="{{route('sale_contract.edit',$sale_contract->id)}}">Edit</a>
                                                         {{-- <a class="btn red-flamingo" href="{{route('sales.contract.print',$sale_contract->id)}}">print</a> --}}
-                                                        <button class="btn blue" data-toggle="modal" href="#AddItemModal">+  Add Item</button>
+                                                        <a class="btn blue" data-toggle="modal" href="{{route('sales.contract.add.item',$sale_contract->id)}}">+  Add Item</a>
                                                         <button class="btn btn-danger delete" data-route="{{route('sale_contract.destroy',$sale_contract->id)}}" data-id="{{$sale_contract->id}}" data-toggle="modal" href="#deleteallModal">Delete</button>
                                                     @else
                                                         <button class="btn btn-danger sales_revise" data-toggle="modal" href="#ReviceModal" data-route="{{route('sale_contract.list.revise',$sale_contract->id)}}">Revise</button>

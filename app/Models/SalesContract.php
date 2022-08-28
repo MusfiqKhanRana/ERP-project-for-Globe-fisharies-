@@ -13,6 +13,10 @@ class SalesContract extends Model
     {
         return $this->hasMany(SalesContractItem::class);
     }
+    public function fish_grade()
+    {
+        return $this->belongsTo(FishGrade::class,'fish_grade_id');
+    }
     public function export_buyer()
     {
         return $this->belongsTo(ExportBuyer::class);

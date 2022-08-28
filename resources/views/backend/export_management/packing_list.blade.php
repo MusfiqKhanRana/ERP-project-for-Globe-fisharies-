@@ -95,6 +95,9 @@
                                                         </thead>
                                                         <tbody>
                                                             @foreach ($sale_contract->sales_contract_items as $key2=> $item)
+                                                                @php
+                                                                    $itme_array= $item->toArray();
+                                                                @endphp
                                                                 <tr>
                                                                     <td>{{++$key2}}</td></td>
                                                                     <td>{{$item->hs_code}}</td>
@@ -106,7 +109,7 @@
                                                                     </td>
                                                                     <td>{{ucfirst($item->processing_variant)}}</td>
                                                                     <td>{{$item->supply_item->name}}</td>
-                                                                    <td>{{$item->fish_grade->name}}</td>
+                                                                    <td>{{$itme_array['fish_grade']['name']}}</td>
                                                                     <td>Pangasius Hypophtalmus</td>
                                                                     <td>{{$item->cartons}}</td>
                                                                     <td>{{$item->export_pack_size->name}}</td>

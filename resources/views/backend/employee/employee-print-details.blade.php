@@ -34,19 +34,19 @@
                     <div class="" style="margin-left: 2%" >
                         <div class="portlet-body" style="width: 100%">
                             <span><h3 style="text-align: center"><b>Empoloyee Details</b></h3></span><br>
-                            
-                            <div class="row">
-                                <div class="col-md-6"><div class="" style="max-width: 80px; max-height: 120px;">
-                                    <img style="height: 100px;" src="{{asset('assets/images/employee/images/'. $employee->image)}}">
-                                </div></div>
-                                <div class="col-md-6 offset-md-4"><div class="pull-right">
-                                    <h3>{{$employee->name}}</h3>
-                                    Employee ID: {{$employee->employee_id}}<br>
-                                    Email : {{$employee->email}}<br>
-                                    Phone : {{$employee->phone}}
-                                </div></div>
-                              </div><br><br>
-                             
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="" style="max-width: 80px; max-height: 120px; margin-left: 45%;">
+                                            <img style="height: 100px;" src="{{asset('assets/images/employee/images/'. $employee->image)}}">
+                                        </div>
+                                        <div style="text-align: left">
+                                            <h3 tyle="text-align: right"><b>{{$employee->name}}</b></h3>
+                                            Employee ID: {{$employee->employee_id}}<br>
+                                            Email : {{$employee->email}}<br>
+                                            Phone : {{$employee->phone}}
+                                        </div>
+                                    </div>
+                                </div><br>
                                     {{-- <span class="pull-right">
                                         <h3>{{$employee->name}}</h3>
                                         Employee ID: {{$employee->employee_id}}<br>
@@ -64,31 +64,31 @@
                             <div class="row">
                                 <table  class="table table-striped table-hover">
                                     <tr>
-                                        <th>Father's Name</th>
+                                        <th style="text-align: left">Father's Name</th>
                                         <td>{{$employee->f_name}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Mother's Name</th>
+                                        <th style="text-align: left">Mother's Name</th>
                                         <td>{{$employee->mother_name}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Date of Birth</th>
+                                        <th style="text-align: left">Date of Birth</th>
                                         <td>{{$employee->b_date}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Gender</th>
+                                        <th style="text-align: left">Gender</th>
                                         <td>{{$employee->gender}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Blood Group</th>
+                                        <th style="text-align: left">Blood Group</th>
                                         <td>{{$employee->blood}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Present Address</th>
+                                        <th style="text-align: left">Present Address</th>
                                         <td>{{$employee->local_add}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Permanent Address</th>
+                                        <th style="text-align: left">Permanent Address</th>
                                         <td>{{$employee->per_add}}</td>
                                     </tr>
                                 </table>
@@ -99,44 +99,43 @@
                             <div class="row">
                                 <table  class="table table-striped table-hover">
                                     <tr>
-                                        <th>Departmant</th>
+                                        <th style="text-align: left">Departmant</th>
                                         <td>{{$employee->department->name}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Designation</th>
+                                        <th style="text-align: left">Designation</th>
                                         <td>{{$employee->designation->deg_name}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Joining Date</th>
+                                        <th style="text-align: left">Joining Date</th>
                                         <td>{{$employee->date}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Branch Address</th>
+                                        <th style="text-align: left">Branch Address</th>
                                         <td>{{$employee->branch_address}}</td>
                                     </tr>
                                 </table>
-                            </div>
+                            </div><br>
                             <div class="row"  style="background-color:#d6d9e3;" >
                                 <label for="" ><b >Bank Details</b></label>
-                            </div><br>
-                           
+                            </div>
                             <div class="row">
                                 <table  class="table table-striped table-hover">
                                     <tr>
-                                        <th>Account Name</th>
-                                        <td>{{$employee->ac_name}}</td>
+                                        <th style="text-align: left">Account Name</th>
+                                        <td style="text-align: left">{{$employee->ac_name}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Account Number</th>
-                                        <td>{{$employee->ac_num}}</td>
+                                        <th style="text-align: left">Account Number</th>
+                                        <td style="text-align: left">{{$employee->ac_num}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Bank Name</th>
-                                        <td>{{$employee->bank_name}}</td>
+                                        <th style="text-align: left">Bank Name</th>
+                                        <td style="text-align: left">{{$employee->bank_name}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Branch</th>
-                                        <td>{{$employee->branch}}</td>
+                                        <th style="text-align: left">Branch</th>
+                                        <td style="text-align: left">{{$employee->branch}}</td>
                                     </tr>
                                 </table>
                             </div><br>
@@ -144,50 +143,49 @@
                                 <label for="" ><b >Salary Description</b></label>
                             </div>
                             <div class="row">
-                                <table  class="table table-striped table-hover">
+                                <table  class="table table-striped table-hover" style="width:100%">
                                     <tr>
-                                        <th>Basic:</th>
+                                        <th style="text-align: left">Basic:</th>
                                         <td>{{$employee->basic}}</td>
                                         <th>Medical:</th>
                                         <td>{{$employee->medical_allowance}}</td>
-                                        <th>House Rent:</th>
+                                        <th  style="text-align: center">House Rent:</th>
                                         <td>{{$employee->house_rent}}</td>
-                                        <th>Total:</th>
+                                        <th  style="text-align: right">Total:</th>
                                         <td>{{$employee->basic + $employee->medical_allowance + $employee->house_rent}}</td>
                                     </tr>
                                 </table>
-                            </div><br>
+                            </div>
                             <div class="row"  style="background-color:#d6d9e3;" >
                                 <label for="" ><b >Leave Description</b></label>
                             </div>
                             <div class="row">
-                                <table  class="table table-striped table-hover">
+                                <table  class="table table-striped table-hover" style="width:100%">
                                     <tr>
-                                        <th>Medical Leave:</th>
+                                        <th style="text-align: left">Medical Leave:</th>
                                         <td>{{$employee->m_leave}}</td>
-                                        <th>Casual Leave:</th>
+                                        <th style="text-align: center">Casual Leave:</th>
                                         <td>{{$employee->c_leave}}</td>
-                                        <th>Total Leave:</th>
+                                        <th style="text-align: right">Total Leave:</th>
                                         <td>{{$employee->m_leave + $employee->c_leave}}</td>
                                     </tr>
                                 </table>
-                            </div><br>
+                            </div>
                             <div class="row"  style="background-color:#d6d9e3;" >
                                 <label for="" ><b >Overtime</b></label>
-                            </div><br>
-                           
+                            </div>
                             <div class="row">
                                 <span>{{$employee->overtime_type}}</span>
-                            </div>
+                            </div><br>
                             <div class="row"  style="background-color:#d6d9e3;" >
                                 <label for="" ><b >Income Tax</b></label>
                             </div><br>
                            
                             <div class="row">
                                 @if ($employee->in_percentage != 0)
-                                <span>{{$employee->in_percentage}} %</span>
+                                    <span>{{$employee->in_percentage}} %</span>
                                 @else
-                                <span>{{$employee->in_amount}} Tk</span>
+                                    <span>{{$employee->in_amount}} Tk</span>
                                 @endif
                                 
                             </div><br>
