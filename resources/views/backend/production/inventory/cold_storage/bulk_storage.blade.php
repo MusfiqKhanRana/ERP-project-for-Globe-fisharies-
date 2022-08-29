@@ -300,9 +300,10 @@
                                                     <p>Pack Size (CNT) :</p>
                                                 </div>
                                                 <div class="col-md-8" >
-                                                    <select name="export_pack_size_id" class="form-control">
+                                                    <select name="export_pack_size_id" class="form-control export_pack_size_id">
+                                                        <option value="">--Select--</option>
                                                         @foreach ($pack_size as $pack)
-                                                            <option value="{{$pack->id}}">{{$pack->name}}</option>
+                                                            <option value="{{$pack->id}}" data-pack_weight="{{$pack->weight}}">{{$pack->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -328,7 +329,7 @@
                                                     <p>Transfer Quantity(CNT) :</p>
                                                 </div>
                                                 <div class="col-md-8" >
-                                                    <input type="text" placeholder="Type qty" name="transfer_qty_ctn" class="form-control">
+                                                    <input type="text" placeholder="Type qty" name="transfer_qty_ctn" class="form-control transfer_qty_ctn">
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -336,7 +337,7 @@
                                                     <p>Transfer Quantity(KG) :</p>
                                                 </div>
                                                 <div class="col-md-8" >
-                                                    <input type="text" name="transfer_qty_kg" placeholder="System will auto calculate" class="form-control">
+                                                    <input type="text" name="transfer_qty_kg" placeholder="System will auto calculate" class="form-control transfer_qty_kg" readonly>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -722,10 +723,9 @@
 <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-       
+        var export_pack_weight=null;
         $(".block_damage").hide();
         $( ".type" ).change(function() {
-            console.log('good');
             if($(this).val() == "block_frozen" || $(this).val() == "semi_iqf" || $(this).val() == "vegetable_block" || $(this).val() == "raw_bf_shrimp" ){
                 $(".block_damage").show();
                 $(".grade_id").hide();
@@ -735,6 +735,13 @@
                 $(".block_damage").hide();
                 $(".grade_id").show();
             }
+        });
+        $(".export_pack_size_id").change(function() {
+            export_pack_weight = $(this).find(':selected').data('pack_weight');
+        });
+        $(".transfer_qty_ctn").keyup(function() {
+            var total = export_pack_weight * $(this).val();
+            $('.transfer_qty_kg').val(total);
         });
         $(".varient").chained(".type");
         get_processing('IQF')   
@@ -753,8 +760,6 @@
                 },
                 success:function(data){
                     appendTable(data);
-                    // console.log(data);
-                    // $('.bulk_storage tr:last').after('<tr><td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> <td>1</td> </tr>');
                 }
             });
         }
@@ -783,7 +788,8 @@
                             '</tr>'+
                         '</tbody>'+
                     '</table></td>'+
-                    ' <td>'+item.local+'</td> <td>'+item.damage+'</td> <td>20</td> </tr>');
+                    ' <td>'+item.local+'</td> <td>'+item.damage+'</td> <td>20</td> </tr>'
+                );
             });
         }
     });
