@@ -24,6 +24,7 @@ class CreateBulkReprocessedsTable extends Migration
             $table->unsignedInteger('fish_grade')->nullable();
             $table->unsignedInteger('block_size')->nullable();
             $table->double('block_quantity')->nullable();
+            $table->double('final_weight')->nullable();
             $table->enum('reprocessed_form',['Export-1','Export-2','Bulk'])->nullable();
             $table->text('remark')->nullable();
             $table->timestamps();

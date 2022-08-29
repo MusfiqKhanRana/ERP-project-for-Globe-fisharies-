@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
+use App\Models\BulkReprocessed;
 use App\Models\ExportPackSize;
 use App\Models\FishGrade;
 use App\Models\ProcessingBlock;
@@ -33,9 +34,11 @@ class InventoryStoreInController extends Controller
         return view('backend.production.inventory.cold_storage.bulk_storage',compact('processing_grade','supply_item','pack_size','block_size','fish_size'));
     }
     public function bulk_storage_datapass(Request $request){
-        $processing_grades = ProductionProcessingGrade::with('production_processing_unit')->whereHas('production_processing_unit',function($q)use($request){
+        $date_from = Carbon::parse($request->to_date)->format('Y-m-d 00:00:00');
+        $date_to = Carbon::parse($request->form_date)->format('Y-m-d 23:59:59');
+        $processing_grades = ProductionProcessingGrade::with('production_processing_unit')->whereHas('production_processing_unit',function($q)use($request,$date_from,$date_to){
             $q->where('status','Bulk_storage')
-            ->whereBetween('created_at',[Carbon::parse($request->to_date)->format('Y-m-d 00:00:00'),Carbon::parse($request->form_date)->format('Y-m-d 23:59:59')])
+            ->whereBetween('StoreIn_datetime',[$date_from,$date_to])
             ->where(function($q) use($request){
                 if ($request->processing_type == "IQF") {
                     $q->whereIn('processing_name',['iqf','raw_iqf_shrimp','blanched_iqf_shrimp']);
@@ -53,17 +56,18 @@ class InventoryStoreInController extends Controller
                 }
             });
         })->get()->groupBy('batch_code');
-        $process_data = $this->processBulkStorage($processing_grades);
+        $process_data = $this->processBulkStorage($processing_grades,$date_from,$date_to);
         return $process_data;
     }
-    public function processBulkStorage($data){
+    public function processBulkStorage($data,$date_from,$date_to){
         $process_array=[];
         foreach ($data as $key => $processes) {
             $process_details = explode("#",$key);
             $item_name = null;
             $item_grade = null;
             $produced = 0;
-            foreach ($processes as $key => $processing_grade) {
+            $reprocessed_out_count = 0;
+            foreach ($processes as $processing_grade) {
                 $produced+=$processing_grade->final_weight;
             }
             if (count($process_details)== 6) {
@@ -73,7 +77,11 @@ class InventoryStoreInController extends Controller
                 $item_name = $process_details[6];
                 $item_grade = $process_details[5];
             }
-            array_push($process_array,array('item_name'=>$item_name,'item_grade'=>$item_grade,'production_type'=>$process_details[0],'production_variant'=>$process_details[1],'produced'=>$produced,'reprocessed_in'=>0,'reprocessed_out'=>0,'local'=>0,'damage'=>0));
+            $reprocessed_out = BulkReprocessed::whereBetween('created_at',[$date_from,$date_to])->where('batch_code',$key)->where('reprocessed_form',"Bulk")->select('id','final_weight')->get();
+            foreach ($reprocessed_out as $reprocess) {
+                $reprocessed_out_count+=$reprocess->final_weight;
+            }
+            array_push($process_array,array('item_name'=>$item_name,'item_grade'=>$item_grade,'production_type'=>$process_details[0],'production_variant'=>$process_details[1],'produced'=>$produced,'reprocessed_in'=>0,'reprocessed_out'=>$reprocessed_out_count,'local'=>0,'damage'=>0,));
         }
         return $process_array;
     }
