@@ -63,6 +63,8 @@ class BulkReprocessedController extends Controller
         $reprocessed->block_quantity = $request->block_quantity;
         $reprocessed->fish_grade = $request->fish_grade;
         $reprocessed->reprocessed_form = $request->reprocessed_form;
+        $reprocessed->final_weight = $request->reprocessed_quantity;
+        $reprocessed->final_weight = $request->final_weight;
         $reprocessed->batch_code = $batch_code;
         $reprocessed->save();
 

@@ -188,7 +188,7 @@
                                         </form>
                                     </div><br><br>
                                 </div>
-                                <div class="card-header">
+                                {{-- <div class="card-header">
                                     <h4 style="text-align: center"><b>Bank Details</b></h4>
                                 </div>
                                 <form class="form-horizontal" role="form" method="post" action="">
@@ -246,7 +246,7 @@
                                                 <i class="fa fa-save" ></i> Update Bank Details</button>
                                         </div>
                                     </div>
-                                </form>
+                                </form> --}}
                             </div>
                         </div>
                     </div>

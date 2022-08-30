@@ -21,4 +21,8 @@ class SalesContractItem extends Model
     {
         return $this->belongsTo(ExportPackSize::class,'export_pack_size_id');
     }
+    public function processing_fish_size()
+    {
+        return $this->belongsTo(ProcessingBlockSize::class,'block_size_id');
+    }
 }

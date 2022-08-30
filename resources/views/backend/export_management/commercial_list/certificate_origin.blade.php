@@ -144,6 +144,12 @@
                                             $total_master_carton = 0;
                                         @endphp
                                         @foreach ($data->sales_contract_items as $key=> $s_c_item)
+                                            @php
+                                                $grade = null;
+                                                $itme_array= $s_c_item->toArray();
+                                                    if ($s_c_item->fish_grade_id != null)
+                                                        $grade = $itme_array['fish_grade']['name']
+                                            @endphp
                                             <tr>
                                                 <td style="text-align: center; border: 1px solid black;">{{++$key}}</td>
                                                 <td style="text-align: center; border: 1px solid black;">{{$s_c_item->hs_code}}</td>
@@ -155,7 +161,7 @@
                                                     {{ucwords($replace)}}
                                                 </td>
                                                 <td style="text-align: center; border: 1px solid black;">{{ucfirst($s_c_item->processing_variant)}}</td>
-                                                <td style="text-align: center; border: 1px solid black;">{{$s_c_item->fish_grade->name}}</td>
+                                                <td style="text-align: center; border: 1px solid black;">{{$grade}}</td>
                                                 <td style="text-align: center; border: 1px solid black;">{{$s_c_item->cartons}}</td>
                                                 @php
                                                     $total_master_carton += $s_c_item->cartons;

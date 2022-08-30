@@ -275,7 +275,9 @@ class SalesContractController extends Controller
     }
 
     public function SaleContractPrint($id){
-        $sale_contracts = SalesContract::with(['sales_contract_items','export_buyer','advising_bank'])->where('id',$id)->get();
+        $sale_contracts = SalesContract::with(['sales_contract_items'=>function($q){
+            $q->with(['fish_grade']);
+        },'export_buyer','advising_bank'])->where('id',$id)->get();
         //dd($sale_contracts);
         return view('backend.export_management.sale_contract.print_sale_contract',compact('sale_contracts'));
     }
@@ -309,6 +311,7 @@ class SalesContractController extends Controller
         $addItem->export_pack_size_id = $request->input('pack_size');
         $addItem->cartons = $request->input('cartons');
         $addItem->block_size_id = $request->input('block_size_id');
+        $addItem->rate = $request->input('rate');
         $addItem->save();
 
         return redirect()->back()->withMsg("Successfully Added");

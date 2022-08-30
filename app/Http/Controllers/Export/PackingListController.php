@@ -76,7 +76,9 @@ class PackingListController extends Controller
     }
 
     public function PrintPacking($id){
-        $data = SalesContract::with(['sales_contract_items','export_buyer','advising_bank'])->where('id',$id)->first();
+        $data = SalesContract::with(['sales_contract_items'=>function($q){
+            $q->with(['fish_grade']);
+        },'export_buyer','advising_bank'])->where('id',$id)->first();
         // dd($sale_contracts->toArray());
         return view('backend.export_management.packing_list.print_packing',compact('data'));
     }
