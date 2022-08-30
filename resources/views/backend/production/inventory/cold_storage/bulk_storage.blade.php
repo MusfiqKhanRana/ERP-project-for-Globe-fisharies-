@@ -637,10 +637,10 @@
                                                     <p>Block Size :</p>
                                                 </div>
                                                 <div class="col-md-8" >
-                                                    <select name="block_size" class="form-control" >
+                                                    <select name="block_size" id="block_size" class="form-control" >
                                                         <option value="">--Select--</option>
                                                         @foreach ($block_size as $block)
-                                                            <option value="{{$block->id}}">{{$block->block_size}}</option>
+                                                            <option value="{{$block->id}}" data-name={{$block->block_size}}>{{$block->block_size}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -650,7 +650,7 @@
                                                     <p>Block Quantity :</p>
                                                 </div>
                                                 <div class="col-md-8" >
-                                                    <input class="form-control" type="number" name="block_quantity">
+                                                    <input class="form-control" type="number" name="block_quantity" id="block_quantity">
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -696,6 +696,7 @@
                                                 <textarea name="remark" class="form-control"  cols="30" rows="5"></textarea>
                                             </div>
                                         </div>
+                                        <input type="hidden" name="final_weight" id="final_weight">
                                         <input type="hidden" name="reprocessed_form" value="Bulk">
                                     </div>
                                     <br>
@@ -723,6 +724,17 @@
 <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        var blockSize=null;
+        $("#block_size").change(function() {
+            blockSize = $(this).find(':selected').data('name');
+        });
+        $("#block_quantity").keyup(function() {
+            var block = blockSize * $(this).val();
+            $('#final_weight').val(block);
+        });
+        // $("#block_quantity").keyup(function() {
+        //     $('#final_weight').val($(this).val()*$('#block_size').val());
+        // });
         var export_pack_weight=null;
         $(".block_damage").hide();
         $( ".type" ).change(function() {

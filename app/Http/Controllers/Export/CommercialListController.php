@@ -86,12 +86,16 @@ class CommercialListController extends Controller
     }
 
     public function PrintCommercial($id){
-        $data = SalesContract::with(['sales_contract_items','export_buyer','advising_bank'])->where('id',$id)->first();
+        $data = SalesContract::with(['sales_contract_items'=>function($q){
+            $q->with(['fish_grade']);
+        },'export_buyer','advising_bank'])->where('id',$id)->first();
         return view('backend.export_management.commercial_list.print_commercial_list',compact('data'));
     }
 
     public function PrintCommercialCertificate($id){
-        $data = SalesContract::with(['sales_contract_items','export_buyer','advising_bank'])->where('id',$id)->first();
+        $data = SalesContract::with(['sales_contract_items'=>function($q){
+            $q->with(['fish_grade']);
+        },'export_buyer','advising_bank'])->where('id',$id)->first();
         //dd($sale_contracts);
         return view('backend.export_management.commercial_list.certificate_origin',compact('data'));
     }

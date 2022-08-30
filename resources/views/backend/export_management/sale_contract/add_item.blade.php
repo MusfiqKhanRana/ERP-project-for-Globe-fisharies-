@@ -63,12 +63,9 @@
                                         <div class="form-section">
                                             <label class="col-md-2 control-label pull-left bold">Select Buyer:<span class="required">* </span> </label>
                                             <div class="col-md-10">
-                                                <select class="form-control buyer_select selectpicker" data-live-search="true" name="export_buyer_id" required>
-                                                    <option value="" data-buyer_id="0">--Select--</option>
-                                                    @foreach ($export_buyer as $buyer)
-                                                        <option value="{{$buyer->id}}" data-buyer_id="{{$buyer->id}}">{{$buyer->buyer_code}} | {{$buyer->buyer_name}} | {{$buyer->buyer_address}}</option>
-                                                    @endforeach
-                                                </select>
+                                                <span class="form-control buyer_select selectpicker" data-live-search="true" name="export_buyer_id" data-buyer_id={{$sale_contracts->export_buyer->id}} required>
+                                                   {{$sale_contracts->export_buyer->buyer_name}}
+                                                </span>
                                             </div>
                                         </div><br><br>
                                     </div>
@@ -217,7 +214,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label class="control-label" for="product">Per KG Rate ($)<span class="required">* </span></label>
-                                                    <input class="form-control rate_per_kg" type="number" step="0.01" id="rate" placeholder="Per Kg Rate">
+                                                    <input class="form-control rate_per_kg" type="number" name="rate" step="0.01" id="rate" placeholder="Per Kg Rate">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label class="control-label" for="product">Total Amount ($)<span class="required">* </span></label>
@@ -244,9 +241,46 @@
 @endsection
 @section('script')
 <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js"></script>
-<script type="text/javascript">
+  <script type="text/javascript">
     $(document).ready(function () {
-        $('.buyer_select').on('change',function () {
+        $(".block_damage").hide();
+        $( ".type" ).change(function() {
+            console.log('good');
+            if($(this).val() == "block_frozen" || $(this).val() == "semi_iqf" || $(this).val() == "vegetable_block" || $(this).val() == "raw_bf_shrimp" ){
+                $(".block_damage").show();
+                $(".grade_id").hide();
+            }
+            else
+            {
+                $(".block_damage").hide();
+                $(".grade_id").show();
+            }
+        });
+        //$("#add_items").prop("disabled",true);
+        var grand_total = 0;
+        $("#shipping_responsibility").change(function()
+            {
+            if($(this).val() == "CFR")
+            {
+            $(".cfr_rate").show();
+            }
+            else
+            {
+            $(".cfr_rate").hide();
+            }
+            if($(this).val() == "CIF")
+            {
+            $(".cif_rate").show();
+            }
+            else
+            {
+            $(".cif_rate").hide();
+            }
+        });
+        $(".cfr_rate").hide();
+        $(".cif_rate").hide();
+        $('.buyer_all_details').hide();
+       $('.buyer_select').on('load',function () {
             $('.buyer_all_details').show();
             console.log($(this).find(':selected').attr('data-buyer_id'));
             var buyer_id = $(this).find(':selected').attr('data-buyer_id'); 
@@ -279,52 +313,40 @@
                     var hs_code = $(this).find(':selected').attr('data-hs_code');
                     $('.hs_code').val(hs_code);
                 });
+                $.each( data.bank_details, function( key, bank ) {
+                    option_bank += '<option data-a_C_no="'+ bank.a_C_no + '" data-a_c_name="'+ bank.a_c_name + '"data-bank_country="'+ bank.bank_country + '" data-branch="'+ bank.branch + '" value="'+ bank.bank_name + '">' + bank.bank_name + '</option>';
+                    // $(".consignment_type").html("<option value='"+product.consignment_type+"'>"+product.consignment_type+"</option>");
+                });
+                $('.imporeter_bank_name').append(option_bank);
+
+
             }
         });
        });
-        $(".varient").chained(".type");
-        $(".block_damage").hide();
-        $( ".type" ).change(function() {
-            console.log('good');
-            if($(this).val() == "block_frozen" || $(this).val() == "semi_iqf" || $(this).val() == "vegetable_block" || $(this).val() == "raw_bf_shrimp" ){
-                $(".block_damage").show();
-                $(".grade_id").hide();
-            }
-            else
-            {
-                $(".block_damage").hide();
-                $(".grade_id").show();
-            }
-        });
-        $.ajax({
-            type:"POST",
-            url:"{{route('sale_contract.ex_buyer_datapass')}}",
-            data:{
-                'id' : buyer_id,
-                '_token' : $('input[name=_token]').val()
-            },
-            success:function(data){
-                console.log(data);
-                var option = '';
-                var option_bank = '';
-                var buyer_name = data.buyer_name;
-                console.log(data);
-                $('.buyer_details').html("<span><b>"+data.buyer_name+"</b></span><p>"+data.buyer_address+"</p>");
-                $('.consignee_details').html("<span><b>"+data.consignee_name+"</b></span><p>"+data.consignee_address+"</p>");
-                $('.notify_details').html("<span><b>"+data.notify_party_name+"</b></span><p>"+data.notify_party_address+"</p>");
-                $.each( data.assign_hs_code, function( key, product ) {
-                    console.log(product);
-                    option += '<option data-hs_code="'+ product.hs_code + '" value="'+ product.consignment_type + '">' + product.consignment_type + '</option>';
-                    // $(".consignment_type").html("<option value='"+product.consignment_type+"'>"+product.consignment_type+"</option>");
-                });
-                $('.consignment_type').append(option);
-                $('.consignment_type').on('change',function () {
-                    var hs_code = $(this).find(':selected').attr('data-hs_code');
-                    $('.hs_code').val(hs_code);
-                });
-                
-            }
-        });
+       function total_weight() {
+        var cartons_qty =0;
+        var pack_weight =0;
+        var rate_per_kg = 0;
+            $('.cartons_qty').on('keyup change',function () {
+                    cartons_qty = $(this).val();
+                    $('.total_in_kg').val(parseFloat(pack_weight*cartons_qty));
+                    $('.total_amount').val(parseFloat((pack_weight*cartons_qty)*rate_per_kg));
+            });
+            $('.pack_size').on('change',function () {
+                    pack_weight = $(this).find(':selected').attr('data-weight'); 
+                    console.log(pack_weight);
+                    $('.total_in_kg').val(parseFloat(pack_weight*cartons_qty));
+                    $('.total_amount').val(parseFloat((pack_weight*cartons_qty)*rate_per_kg));
+            });
+            $('.rate_per_kg').on('keyup change',function () {
+                    rate_per_kg = $(this).val();
+                    $('.total_in_kg').val(parseFloat(pack_weight*cartons_qty));
+                    $('.total_amount').val(parseFloat(pack_weight*cartons_qty)*parseFloat(rate_per_kg));
+            });
+       }
+       total_weight();
+       $(".varient").chained(".type");
+
         $.ajax({
                 type:"GET",
                 url:"https://restcountries.com/v3.1/all",
@@ -339,29 +361,76 @@
                     });
                 }
         });
-                
+    $('.paid_in_amount').hide();
+    $(".want_in_amount").click(function() {
+        if($(this).is(":checked")) {
+            $(".paid_in_amount").show();
+            $(".paid_in_percentage").hide();
+            $('#percentage_id').val('');
+            paid_in_percentage = 0;
+        } else {
+            $(".paid_in_amount").hide();
+            $(".paid_in_percentage").show();
+            paid_in_amount = 0;
+            $('#amount_id').val('');
+        }
+    });            
     var items_array = [];
-    function nullx(){
-        $("#bank_name").val(null);
-        $("#a_c_name").val(null);
-        $("#a_C_no").val(null);
-        $("#branch").val(null);
-        $("#bank_country").val(null);
+    function nullmaking(){
+        $("#consignment_type").val(null);
+        $("#hs_code").val(null);
+        $("#type").val(null);
+        $("#variant").val(null);
+        $("#item_name").val(null);
+        $("#grade").val(null);
+        $("#block_size_id").val(null);
+        $("#block_quantity").val(null);
+        $("#fish_grade").val(null);
+        $("#pack_size").val(null);
+        $("#cartons").val(null);
+        $("#total_in_kg").val(null);
+        $("#rate").val(null);
+        $("#total_amount").val(null);
+        }
+        console.log($("#consignment_type").val());
+    if (($("#consignment_type").val())!=null &&  ( $("#hs_code").val()) != null && $("#type").val()!=null &&  $("#variant").val()!=null &&  $("#item_name").val()!=null &&  $("#grade").val() != null && $("#pack_size").val()!=null && $("#cartons").val()!=null &&  $("#total_in_kg").val()!=null && $("#rate").val()!=null && $("#total_amount").val()!=null && $("#block_size_id").val()!=null && $("#block_quantity").val()!=null && $("#fish_grade").val()!=null ) {
+        $("#add_items").prop("disabled",false);
     }
     $("#add_items").click(function(){
+        $("table#mytable tbody tr").empty();
+        console.log('good');
         console.log($("#product").val());
-            items_array.push({"bank_name":$("#bank_name").val(),"a_c_name":$("#a_c_name").val(),"a_C_no":$("#a_C_no").val(),"bank_country":$("#bank_country").val(),"branch":$("#branch").val(),"status":"stay"});
+        var cif_rate = 0;
+        var cfr_rate = 0;
+        cfr_rate = $('#cfr_rate').val();
+        cif_rate = $('#cif_rate').val();
+        if (cfr_rate>0 ) {
+            var total_amount_cfr = 0;
+            var total_cfr_rate = (parseFloat($("#total_in_kg").val())*parseFloat(cfr_rate));
+            total_amount_cfr = (parseFloat($("#total_amount").val()) + parseFloat(total_cfr_rate));
+            grand_total += total_amount_cfr;
+            items_array.push({"consignment_type":$("#consignment_type").val(),"hs_code":$("#hs_code").val(),"type":$("#type").val(),"item_name":$("#item_name").val(),"variant":$("#variant").val(),"grade":$("#grade").val(),"block_size_id":$("#block_size_id").val(),"block_quantity":$("#block_quantity").val(),"fish_grade":$("#fish_grade").val(),"pack_size":$("#pack_size").val(),"cartons":$("#cartons").val(),"total_in_kg":$("#total_in_kg").val(),"rate":$("#rate").val(),"freight_rate":cfr_rate,"total_cfr_rate":total_cfr_rate,"total_cif_rate":"N/A","total_amount":$("#total_amount").val(),"total_amount_cfr":total_amount_cfr,"total_amount_cif":"N/A","status":"stay"});
+        }
+        else if (cif_rate>0  ) {
+            var total_amount_cif = 0; 
+            var total_cif_rate = (parseFloat($("#total_in_kg").val()) * parseFloat(cif_rate));
+            total_amount_cif = (parseFloat($("#total_amount").val()) + parseFloat(total_cif_rate));
+            grand_total += total_amount_cif;
+            items_array.push({"consignment_type":$("#consignment_type").val(),"hs_code":$("#hs_code").val(),"type":$("#type").val(),"item_name":$("#item_name").val(),"variant":$("#variant").val(),"grade":$("#grade").val(),"block_size_id":$("#block_size_id").val(),"block_quantity":$("#block_quantity").val(),"fish_grade":$("#fish_grade").val(),"pack_size":$("#pack_size").val(),"cartons":$("#cartons").val(),"total_in_kg":$("#total_in_kg").val(),"rate":$("#rate").val(),"freight_rate":cif_rate,"total_cfr_rate":"N/A","total_cif_rate":total_cif_rate,"total_amount":$("#total_amount").val(),"total_amount_cfr":"N/A","total_amount_cif":total_amount_cif,"status":"stay"});
+        }
+        else{
+        items_array.push({"consignment_type":$("#consignment_type").val(),"hs_code":$("#hs_code").val(),"type":$("#type").val(),"item_name":$("#item_name").val(),"variant":$("#variant").val(),"grade":$("#grade").val(),"block_size_id":$("#block_size_id").val(),"block_quantity":$("#block_quantity").val(),"fish_grade":$("#fish_grade").val(),"pack_size":$("#pack_size").val(),"cartons":$("#cartons").val(),"total_in_kg":$("#total_in_kg").val(),"rate":$("#rate").val(),"freight_rate":"N/A","total_cfr_rate":"N/A","total_cif_rate":"N/A","total_amount":$("#total_amount").val(),"total_amount_cfr":"N/A","total_amount_cif":"N/A","status":"stay"});
+        }
+        grand_total += parseFloat($("#total_amount").val());
+        $('.grand_total').val(grand_total);
             $("#provided_item").val('');
             $("#provided_item").val(JSON.stringify(items_array));
             $.each( items_array, function( key, item ) {
                 // console.log(item);
                 if (item.status == "stay") {
-                    if(items_array.length-1 == key){
-                        $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+item.bank_name+"</td><td>"+item.a_c_name+"</td><td>"+item.a_C_no+"</td><td>"+item.branch+"</td><td>"+item.bank_country+"</td><td><button class='btn btn-danger delete_item' data-id='"+key+"'>Delete</button></td></tr>");
-                    }
+                        $("table#mytable tr").last().before("<tr id='"+key+"'><td>"+item.consignment_type+"</td><td>"+item.hs_code+"</td><td>"+item.type+"</td><td>"+item.item_name+"</td><td>"+item.variant+"</td><td>"+item.grade+"</td><td>"+item.block_size_id+"</td><td>"+item.block_quantity+"</td><td>"+item.fish_grade+"</td><td>"+item.pack_size+"</td><td>"+item.cartons+"</td><td>"+item.total_in_kg+"</td><td>"+item.rate+"</td><td>"+item.freight_rate+"</td><td>"+item.total_cfr_rate+"</td><td>"+item.total_cif_rate+"</td><td>"+item.total_amount+"</td><td>"+item.total_amount_cfr+"</td><td>"+item.total_amount_cif+"</td><td><button class='btn btn-danger delete_item' data-id='"+key+"'>Delete</button></td></tr>");
                 }
             });
-            nullx();
             $(".delete_item").click(function(){
                 items_array[$(this).data("id")].status="delete";
                 // console.log(product_array,$(this).data("id"));
@@ -369,53 +438,31 @@
                 $("#provided_item").val(JSON.stringify(items_array));
                 $("#"+$(this).data("id")).remove();
             });
-            
-    });
-    var hs_array = [];
-    function nullmaking(){
-            $("#consignment_type").val(null);
-            $("#hs_code").val(null);
-        }
-    $("#add_hs").click(function(){
-        console.log($("#product").val());
-        hs_array.push({"consignment_type":$("#consignment_type").val(),"hs_code":$("#hs_code").val(),"status":"stay"});
-            $("#hs_item").val('');
-            $("#hs_item").val(JSON.stringify(hs_array));
-            $.each( hs_array, function( key, item ) {
-                // console.log(item);
-                if (item.status == "stay") {
-                    if(hs_array.length-1 == key){
-                        $("table#hsTable tr").last().before("<tr id='"+key+"'><td>"+item.consignment_type+"</td><td>"+item.hs_code+"</td><td><button class='btn btn-danger hs_delete_item' data-id='"+key+"'>Delete</button></td></tr>");
-                    }
-                }
-            });
-            $(".hs_delete_item").click(function(){
-                hs_array[$(this).data("id")].status="delete";
-                // console.log(product_array,$(this).data("id"));
-                $("#hs_item").val('');
-                $("#hs_item").val(JSON.stringify(hs_array));
-                $("#"+$(this).data("id")).remove();
-            });
             nullmaking();
     });
-    $('.select2Ajax').select2({
-            ajax: {
-                url: "https://restcountries.com/v3.1/all",
-                dataType: 'json',
-                delay: 250,
-                processResults: function (data) {
-                    return {
-                        results:  $.map(data, function (item) {
-                            return {
-                                text: item.name.common,
-                               
-                            }
-                        })
-                    };
-                },
-                cache: true
-            }
-        });
+    $('.paid_in_percentage').keyup(function () {
+        console.log(grand_total);
+        var percentage = (parseFloat(grand_total)*($(this).val()/100))
+        var ab = (parseFloat(grand_total)-(percentage));
+        $('#due_amount').val(parseFloat(ab));    
+    });
+    $('.paid_in_amount').keyup(function () {
+        console.log($(this).val());
+        var amount = $(this).val();
+        var ac = (parseFloat(grand_total)-(amount));
+        $('#due_amount').val(parseFloat(ac));
+    });
+    $('.advising_bank').on('change',function () {
+        $('.advising_bank_account_no').val($(this).find(':selected').attr('data-account_number'));
+        $('.advising_bank_swift_code').val($(this).find(':selected').attr('data-swift_code'));
+    });
+
+    $('.imporeter_bank_name').on('change',function() {
+        $('.importer_account_name').val($(this).find(':selected').attr('data-a_c_name'));
+        $('.importer_account_no').val($(this).find(':selected').attr('data-a_c_no'));
+        $('.importer_bank_branch').val($(this).find(':selected').attr('data-branch'));
+        $('.bank_country').val($(this).find(':selected').attr('data-bank_country'));
+    });
         
     });
 </script>

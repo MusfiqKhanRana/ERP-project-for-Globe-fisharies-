@@ -94,66 +94,70 @@
                                                         </thead>
                                                         <tbody>
                                                             @foreach ($sale_contract->sales_contract_items as $key2=> $item)
-                                                            @php
-                                                                $itme_array= $item->toArray();
-                                                            @endphp
-                                                            <tr>
-                                                                <td>{{++$key2}}</td></td>
-                                                                <td>{{$item->hs_code}}</td>
-                                                                <td>
-                                                                    @php
-                                                                        $replace = str_replace("_"," ",$item->processing_type);
-                                                                    @endphp
-                                                                    {{ucwords($replace)}}
-                                                                </td>
-                                                                <td>{{ucfirst($item->processing_variant)}}</td>
-                                                                <td>{{$item->supply_item->name}}</td>
-                                                                <td>{{$itme_array['fish_grade']['name']}}</td>
-                                                                <td>Pangasius Hypophtalmus</td>
-                                                                <td>{{$item->cartons}}</td>
-                                                                <td>{{$item->export_pack_size->name}}</td>
-                                                                <td>
-                                                                    @if($item->total_cfr_rate == 0)
-                                                                    <p class="label label-sm label-primary">N/A</p>
-                                                                    @else
-                                                                        <span class="label label-sm label-success">{{$item->total_cfr_rate}}</span>
-                                                                    @endif
-                                                                </td>
-                                                                <td>
-                                                                    @if($item->total_amount_cfr == 0)
-                                                                    <p class="label label-sm label-primary">N/A</p>
-                                                                    @else
-                                                                        <span class="label label-sm label-success">{{$item->total_amount_cfr}}</span>
-                                                                    @endif
-                                                                </td>
-                                                                <td>
-                                                                    @if($item->total_cif_rate == 0)
-                                                                    <p class="label label-sm label-primary">N/A</p>
-                                                                    @else
-                                                                        <span class="label label-sm label-success">{{$item->total_cif_rate}}</span>
-                                                                    @endif
-                                                                </td>
-                                                                <td>
-                                                                    @if($item->total_amount_cif == 0)
-                                                                    <p class="label label-sm label-primary">N/A</p>
-                                                                    @else
-                                                                        <span class="label label-sm label-success">{{$item->total_amount_cif}}</span>
-                                                                    @endif
-                                                                </td>
-                                                                <td>1000</td>
-                                                                @if ($sale_contract->commercial_status == "Pending")
-                                                                <td>
-                                                                    <button class="btn btn-info"  data-toggle="modal" href="#editkModal">Edit</button>
-                                                                    <button class="btn btn-danger"  data-toggle="modal" href="#deleteModal">Delete</button>
-                                                                    {{-- @if($item->expiry_date !== null)
+                                                                @php
+                                                                    $grade = null;
+                                                                    $itme_array= $item->toArray();
+                                                                        if ($item->fish_grade_id != null)
+                                                                            $grade = $itme_array['fish_grade']['name']
+                                                                @endphp
+                                                             
+                                                                <tr>
+                                                                    <td>{{++$key2}}</td></td>
+                                                                    <td>{{$item->hs_code}}</td>
+                                                                    <td>
+                                                                        @php
+                                                                            $replace = str_replace("_"," ",$item->processing_type);
+                                                                        @endphp
+                                                                        {{ucwords($replace)}}
+                                                                    </td>
+                                                                    <td>{{ucfirst($item->processing_variant)}}</td>
+                                                                    <td>{{$item->supply_item->name}}</td>
+                                                                    <td>{{$grade}}</td>
+                                                                    <td>Pangasius Hypophtalmus</td>
+                                                                    <td>{{$item->cartons}}</td>
+                                                                    <td>{{$item->export_pack_size->name}}</td>
+                                                                    <td>
+                                                                        @if($item->total_cfr_rate == 0)
                                                                         <p class="label label-sm label-primary">N/A</p>
-                                                                    @else --}}
-                                                                    <button class="btn btn-success export_expiry_date" data-expiry_date="{{$item->expiry_date}}" data-route="{{route('commercial.list.expiry.date',$item->id)}}"  data-toggle="modal" href="#ExpiryDate">Expiry Date</button>
-                                                                    {{-- @endif --}}
-                                                                    
-                                                                </td>
-                                                                @endif
-                                                            </tr>
+                                                                        @else
+                                                                            <span class="label label-sm label-success">{{$item->total_cfr_rate}}</span>
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>
+                                                                        @if($item->total_amount_cfr == 0)
+                                                                        <p class="label label-sm label-primary">N/A</p>
+                                                                        @else
+                                                                            <span class="label label-sm label-success">{{$item->total_amount_cfr}}</span>
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>
+                                                                        @if($item->total_cif_rate == 0)
+                                                                        <p class="label label-sm label-primary">N/A</p>
+                                                                        @else
+                                                                            <span class="label label-sm label-success">{{$item->total_cif_rate}}</span>
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>
+                                                                        @if($item->total_amount_cif == 0)
+                                                                        <p class="label label-sm label-primary">N/A</p>
+                                                                        @else
+                                                                            <span class="label label-sm label-success">{{$item->total_amount_cif}}</span>
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>1000</td>
+                                                                    @if ($sale_contract->commercial_status == "Pending")
+                                                                    <td>
+                                                                        <button class="btn btn-info"  data-toggle="modal" href="#editkModal">Edit</button>
+                                                                        <button class="btn btn-danger"  data-toggle="modal" href="#deleteModal">Delete</button>
+                                                                        {{-- @if($item->expiry_date !== null)
+                                                                            <p class="label label-sm label-primary">N/A</p>
+                                                                        @else --}}
+                                                                        <button class="btn btn-success export_expiry_date" data-expiry_date="{{$item->expiry_date}}" data-route="{{route('commercial.list.expiry.date',$item->id)}}"  data-toggle="modal" href="#ExpiryDate">Expiry Date</button>
+                                                                        {{-- @endif --}}
+                                                                        
+                                                                    </td>
+                                                                    @endif
+                                                                </tr>
                                                             @endforeach
                                                             <tr>
                                                                 <td colspan="7"><b>Total Master Carton & CFR Value</b></td>

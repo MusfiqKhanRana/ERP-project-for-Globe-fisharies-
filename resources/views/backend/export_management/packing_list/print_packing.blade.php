@@ -153,6 +153,14 @@
                                             @foreach ($data->sales_contract_items as $key=> $s_c_item)
                                                 <tr>
                                                     @php
+                                                                    
+                                                                @endphp
+                                                    @php
+                                                        $grade = null;
+                                                        $itme_array= $s_c_item->toArray();
+                                                            if ($s_c_item->fish_grade_id != null)
+                                                                $grade = $itme_array['fish_grade']['name'];
+                                                            
                                                         $expototal_amount += $s_c_item->total_amount;
                                                         $total_master_carton += $s_c_item->cartons;
                                                         $netWeight = $data->net_weight;
@@ -170,7 +178,7 @@
                                                     </td>
                                                     <td style="text-align: center; border: 1px solid black">{{$s_c_item->supply_item->name}}</td>
                                                     <td style="text-align: center; border: 1px solid black">{{ucfirst($s_c_item->processing_variant)}}</td>
-                                                    <td style="text-align: center; border: 1px solid black">{{$s_c_item->fish_grade->name}}</td>
+                                                    <td style="text-align: center; border: 1px solid black">{{$grade}}</td>
                                                     <td style="text-align: center; border: 1px solid black">Pangasius Hypophthalmus</td>
                                                     <td style="text-align: center; border: 1px solid black">{{$s_c_item->cartons}}</td>
                                                     <td style="text-align: center; border: 1px solid black">{{$s_c_item->export_pack_size_id}}</td>

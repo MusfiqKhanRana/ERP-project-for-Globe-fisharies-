@@ -9,4 +9,9 @@ class ProcessingBlockSize extends Model
 {
     protected $guarded = [];
     use HasFactory;
+
+    public function processing_fish_grade()
+    {
+        return $this->belongsTo(ProcessingBlockSize::class,'fish_grade');
+    }
 }
