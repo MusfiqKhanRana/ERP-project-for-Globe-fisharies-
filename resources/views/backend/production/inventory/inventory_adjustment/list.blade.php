@@ -58,6 +58,7 @@
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
+                                        <th style="text-align: center;">Serial</th>
                                         <th style="text-align: center;">Adjustment Type</th>
                                         <th style="text-align: center">Adjustment Name</th>
                                         <th style="text-align: center"> Target Storage</th>

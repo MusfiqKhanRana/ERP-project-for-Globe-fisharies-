@@ -46,25 +46,54 @@ class InventoryAdjustmentController extends Controller
     }
    function store(Request $request){
         // dd($request->toArray());
-        InventoryAdjustment::create([
-            'adj_type'=>$request->adj_type,
-            'adj_name'=>$request->adj_name,
-            'target_storage'=>$request->target_storage,
-            'production_date'=>$request->production_date,
-            'receiver_name'=>$request->receiver_name,
-            'invoice_no'=>$request->invoice_no,
-            'adjustment_date'=>$request->adjustment_date,
-            'supply_item_id'=>$request->item,
-            'type'=>$request->type,
-            'variant'=>$request->variant,
-            'processing_grade_id'=>$request->grade,
-            'processing_block_id'=>$request->block_id,
-            'processing_block_size_id'=>$request->block_size_id,
-            'export_pack_size_id'=>$request->mc_size,
-            'mc_quantity'=>$request->mc_quantity,
-            'quantity'=>$request->quantity,
-            'remark'=>$request->remark
-        ]);
+        if ($request->block_id) {
+            $final_weight = intval($request->block_counter*$request->block_size_name);
+            InventoryAdjustment::create([
+                'batch_code'=>$request->type.'#'.$request->variant.'#'.$request->item.'#'.$request->block_id.'#'.$request->block_size_name.'#'.$request->item_name,
+                'adj_type'=>$request->adj_type,
+                'adj_name'=>$request->adj_name,
+                'target_storage'=>$request->target_storage,
+                'production_date'=>$request->production_date,
+                'receiver_name'=>$request->receiver_name,
+                'invoice_no'=>$request->invoice_no,
+                'adjustment_date'=>$request->adjustment_date,
+                'supply_item_id'=>$request->item,
+                'type'=>$request->type,
+                'variant'=>$request->variant,
+                'processing_grade_id'=>$request->grade,
+                'processing_block_id'=>$request->block_id,
+                'processing_block_size_id'=>$request->block_size_id,
+                'export_pack_size_id'=>$request->mc_size,
+                'mc_quantity'=>$request->mc_quantity,
+                'quantity'=>$request->quantity,
+                'final_weight'=>$final_weight,
+                'remark'=>$request->remark
+            ]);
+        }
+        else {
+            // dd($request->toArray());
+            InventoryAdjustment::create([
+                'batch_code'=>$request->type.'#'.$request->variant.'#'.$request->item.'#'.$request->grade.'#'.$request->grade_name.'#'.$request->item_name,
+                'adj_type'=>$request->adj_type,
+                'adj_name'=>$request->adj_name,
+                'target_storage'=>$request->target_storage,
+                'production_date'=>$request->production_date,
+                'receiver_name'=>$request->receiver_name,
+                'invoice_no'=>$request->invoice_no,
+                'adjustment_date'=>$request->adjustment_date,
+                'supply_item_id'=>$request->item,
+                'type'=>$request->type,
+                'variant'=>$request->variant,
+                'processing_grade_id'=>$request->grade,
+                'processing_block_id'=>$request->block_id,
+                'processing_block_size_id'=>$request->block_size_id,
+                'export_pack_size_id'=>$request->mc_size,
+                'mc_quantity'=>$request->mc_quantity,
+                'quantity'=>$request->quantity,
+                'final_weight'=>$request->quantity,
+                'remark'=>$request->remark
+            ]);
+        }
         return redirect()->back()->withMsg('Successfully Created');
    }
 }

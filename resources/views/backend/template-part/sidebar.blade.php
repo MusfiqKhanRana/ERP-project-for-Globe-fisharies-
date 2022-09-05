@@ -912,9 +912,22 @@
                                 </a>
                             </li>
                             <li class="nav-item  @if( request()->path() == 'admin/production-purchase-item') active open @endif">
-                                <a href="{{route('general.stock')}}" class="nav-link ">
+                                <a href="javascript:;" class="nav-link nav-toggle">
                                     <span class="title">General Stock</span>
+                                    <span class="arrow"></span>
                                 </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item @if( request()->path() == 'admin/production-purchase-item') active open @endif">
+                                        <a href="{{route('general.stock')}}" class="nav-link ">
+                                            <span class="title">Disbursement</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item @if( request()->path() == 'admin/production-purchase-requisition' ) active open @endif">
+                                        <a href="{{route('general.stock.disbursement.list')}}" class="nav-link ">
+                                            <span class="title">Disbursement List</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li class="nav-item   @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production-purchase-requisition/create' || request()->path() == 'admin/production-purchase-requisition' || request()->path() == 'admin/production/purchase/quotation' || request()->path() == 'admin/production/purchase/negotiation' ||  request()->path() == 'admin/production-quotation-confirmquotation' || request()->path() == 'admin/production-purchase-requisition/Order') active open @endif">
                                 <a href="javascript:;" class="nav-link nav-toggle">

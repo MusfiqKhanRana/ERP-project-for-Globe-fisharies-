@@ -15,6 +15,7 @@ class CreateInventoryAdjustmentsTable extends Migration
     {
         Schema::create('inventory_adjustments', function (Blueprint $table) {
             $table->id();
+            $table->string('batch_code')->nullable();
             $table->string('adj_type')->nullable();
             $table->string('adj_name')->nullable();
             $table->string('target_storage')->nullable();
@@ -31,6 +32,7 @@ class CreateInventoryAdjustmentsTable extends Migration
             $table->unsignedInteger('export_pack_size_id')->nullable();
             $table->integer('mc_quantity')->nullable();
             $table->integer('quantity')->nullable();
+            $table->double('final_weight')->nullable();
             $table->longText('remark')->nullable();
             $table->enum('status',['Pending','Confirm'])->default('Pending');
             $table->timestamps();

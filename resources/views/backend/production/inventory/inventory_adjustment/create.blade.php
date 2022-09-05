@@ -96,35 +96,28 @@
                                     </div>
                                     <div class="col-md-2">
                                         <label for="product">Adjustment Date:</label>
-                                        <input type="date" class="form-control" name="adjustment_date">
+                                        @php
+                                            use Carbon\Carbon;
+                                            $currentTime = Carbon::now();
+                                        @endphp
+                                        <input type="date" value="{{$currentTime->toDateString()}}"  class="form-control" name="adjustment_date">
                                     </div>
                                 </div>
-                                <br>
-                                <div class="row stock"> 
-                                    <div class="col-md-12" style="background-color: aqua;height:30px;text-align:center;">
-                                        <p><b>Available Stock :</b></p>
-                                    </div>
-                                </div>
+
                                 <hr><br>
                                 <div class="row">
                                     <div class="card-header">
                                         <h4 style="text-align: center; background-color: rgb(208, 208, 241);"><b>Item Info</b></h4>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="product">Item<span class="required">* </span></label>
-                                        <select class="form-control" name="item" id="item_name">
-                                            <option value="">--Select--</option>
-                                            @foreach ($items as $supply_item)
-                                                <option value="{{$supply_item->id}}">{{$supply_item->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
                                         <label class="control-label" for="product">Type<span class="required">* </span></label>
                                         <select class="form-control type" name="type" id="type">
                                             <option value="">--Select--</option>
                                             <option value="iqf">IQF</option>
+                                            <option value="vegetable_iqf">Vegetable/Fruit IQF</option>
                                             <option value="block_frozen">Block Frozen</option>
+                                            <option value="vegetable_block">Vegetable/Fruit Block</option>
+                                            <option value="dry_fish">Dry Fish</option>
                                             <option value="raw_bf_shrimp">Raw BF(Shrimp)</option>
                                             <option value="raw_iqf_shrimp">Raw IQF(Shrimp)</option>
                                             <option value="semi_iqf">Semi IQF</option>
@@ -144,9 +137,16 @@
                                             <option class="iqf" value="sliced_chinese_cut">Sliced(Chinese Cut)</option>
                                             <option class="iqf" value="butter_fly">Butter Fly</option>
                                             <option class="iqf" value="hgto">HGTO</option>
+                                            <option class="vegetable_iqf" value="cut_n_clean">Cut & Clean</option>
+                                            <option class="vegetable_iqf" value="whole">Whole</option>
+                                            <option class="vegetable_iqf" value="whole_n_clean">Whole & Clean</option>
                                             <option class="block_frozen" value="whole">Whole</option>
                                             <option class="block_frozen" value="clean">Clean</option>
                                             <option class="block_frozen" value="slice">Slice</option>
+                                            <option class="vegetable_block" value="cut_n_clean">Cut & Clean</option>
+                                            <option class="vegetable_block" value="whole">Whole</option>
+                                            <option class="vegetable_block" value="whole_n_clean">Whole & Clean</option>
+                                            <option class="dry_fish" value="regular">Regular</option>
                                             <option class="raw_bf_shrimp" value="hlso">HLSO</option>
                                             <option class="raw_bf_shrimp" value="pud">PUD</option>
                                             <option class="raw_bf_shrimp" value="p_n_d">P & D</option>
@@ -172,6 +172,16 @@
                                             <option class="blanched_iqf_shrimp" value="p_n_d_tail_off">P&D Tail Off</option>
                                         </select>
                                     </div>
+                                    <div class="col-md-3">
+                                        <label for="product">Item<span class="required">* </span></label>
+                                        <select class="form-control item" name="item" id="item_name">
+                                            <option value="">--Select--</option>
+                                            @foreach ($items as $supply_item)
+                                                <option value="{{$supply_item->id}}">{{$supply_item->name}}</option>
+                                            @endforeach
+                                            <input type="hidden" name="item_name" class="item_name">
+                                        </select>
+                                    </div>
                                     <div class="col-md-3 grade_list_show" >
                                         <label class="control-label" for="product">Grade <span class="required">* </span></label>
                                         <select class="form-control grade_list" name="grade" id="grade">
@@ -179,6 +189,7 @@
                                             @foreach ($grades as $grade)
                                                 <option value="{{$grade->id}}">{{$grade->name}}</option>  
                                             @endforeach
+                                            <input type="hidden" name="grade_name" class="grade_name">
                                         </select>
                                     </div>
                                     <div class="col-md-3 block_list_show">
@@ -188,6 +199,7 @@
                                             @foreach ($blocks as $block)
                                                 <option value="{{$block->id}}">{{$block->block_size}}</option>  
                                             @endforeach
+                                            <input type="hidden" name="block_size_name" class="block_size_name">
                                         </select>
                                     </div>
                                 </div>
@@ -214,9 +226,19 @@
                                         <label class="control-label" for="product">MC quantity<span>* </span></label>
                                         <input class="form-control mc_quantity" placeholder="mc qty" name="mc_quantity">
                                     </div>
-                                    <div class="col-md-3">
-                                        <label class="control-label" for="product">Quantity<span>* </span></label>
+                                    <div class="col-md-3 block_counter">
+                                        <label class="control-label" for="product">Block Counter<span>* </span></label>
+                                        <input class="form-control block_cntr" name="block_counter">
+                                    </div>
+                                    <div class="col-md-3 quantity">
+                                        <label class="control-label" for="product">Quantity(KG)<span>* </span></label>
                                         <input class="form-control cartons_qty" name="quantity">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row stock"> 
+                                    <div class="col-md-12" style="background-color: aqua;height:30px;text-align:center;">
+                                        <p><b>Available Stock :</b></p>
                                     </div>
                                 </div>
                                 <div class="row" >
@@ -349,19 +371,25 @@
             // $(".mc_quantity").hide();
             $(".block_list_show").hide();
             $(".size_list_show").hide();
+            $(".block_counter").hide();
             $(".grade_list_show").show();
+            $(".quantity").show();
             $('.type').change(function(){
                 var type_name = $(this).find(':selected').val();
                 console.log(type_name);
-                if (type_name == 'block_frozen' || type_name == 'raw_bf_shrimp' || type_name == 'semi_iqf') {
+                if (type_name == 'block_frozen' || type_name == 'raw_bf_shrimp' || type_name == 'semi_iqf'|| type_name == 'vegetable_block') {
                     $(".block_list_show").show();
                     $(".size_list_show").show();
                     $(".grade_list_show").hide();
+                    $(".block_counter").show();
+                    $(".quantity").hide();
                 }
                 else{
                     $(".block_list_show").hide();
                     $(".size_list_show").hide();
+                    $(".block_counter").hide();
                     $(".grade_list_show").show();
+                    $(".quantity").show();
                 }
             });
             $(".stock_out").hide();
@@ -383,8 +411,23 @@
                 }
             });
             $(".stock").hide();
-            $(".target_storage").change(function () {
+            $(".item").change(function () {
+                // console.log($(this).find(':selected').html());
+                $item_name = $(this).find(':selected').html();
+                $(".item_name").val($item_name);
                 $(".stock").show();
+                if ($(this).val() == null) {
+                    $(".stock").hide();
+                }
+            });
+            $(".grade_list").change(function () {
+                $grade_name = $(this).find(':selected').html();
+                $(".grade_name").val($grade_name);
+            });
+            $(".block_list").change(function () {
+                // console.log();
+                $block_size_name = $(this).find(':selected').html();
+                $(".block_size_name").val($block_size_name);
             });
         });
     </script>

@@ -341,19 +341,6 @@
                         $("#unit").append(optionunit);
                     }
                 });
-                // $.ajax({
-                //     type:"get",
-                //     url:"/admin/get-supplier-items/"+$(this).val(),
-                //     success:function(data){
-                //         console.log(data);
-                //         $("#item").html("");
-                //         let option="<option value=''>Select</option>";
-                //         $.each( data, function( key, data ) {
-                //             option+='<option data-name="'+data.name+'" data-unit_price="'+data.pivot.rate+'" data-grade_id="'+data.grade_id+'" value="'+data.id+'">'+data.name+'</option>';
-                //         });
-                //         $('#item').append(option);
-                //     }
-                // });
             });
             $("#addbtn").click(function() {
                 product_array.push({"item_id":item_id,"item_name":item_name,"item_type_id":item_type_id,"item_type_name":item_type_name,"item_unit_id":item_unit_id,"item_unit_name":item_unit_name,"image":"abc.jpg","demand_date":$('#demand_date').val(),"quantity":$('#quantity').val(),"specification":$('#specification').val(),"remark":$('#remark').val(),"status":"stay"})
