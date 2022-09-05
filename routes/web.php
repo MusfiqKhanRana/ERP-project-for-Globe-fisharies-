@@ -483,7 +483,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('procution-purchase-units', ProductionPurchaseUnitController::class);
 
     //Procution Purchase Item
+    Route::post('general/stock/user/data_pass',[GeneralItemStockController::class,'data_pass'])->name('general.stock.user.data_pass');
+    Route::post('general/stock/store',[GeneralItemStockController::class,'store'])->name('general.stock.store');
     Route::get('general/stock',[GeneralItemStockController::class,'GeneralStock'])->name('general.stock');
+    Route::get('general/stock/disbursement/list',[GeneralItemStockController::class,'disbursement_list'])->name('general.stock.disbursement.list');
+    Route::post('general/stock/disbursement/return',[GeneralItemStockController::class,'disbursement_return'])->name('general.stock.disbursement.return');
+    Route::post('general/stock/disbursement/damage',[GeneralItemStockController::class,'disbursement_damage'])->name('general.stock.disbursement.damage');
+    Route::post('general/stock/disbursement/delete',[GeneralItemStockController::class,'disbursement_delete'])->name('general.stock.disbursement.delete');
     Route::resource('production-purchase-item', ProductionPurchaseItemController::class);
 
     Route::get('production/purchase/requisition/confirm/{id}',[ProductionPurchaseRequisitionController::class,'requisitionConfirmPrint'])->name('purchase_requisition_confirm_print');

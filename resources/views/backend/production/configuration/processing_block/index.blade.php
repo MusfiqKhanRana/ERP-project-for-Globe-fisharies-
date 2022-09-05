@@ -101,7 +101,7 @@
                                                             <div class="form-group">
                                                                 <label for="inputEmail1" class="col-md-2 control-label">Block Size</label>
                                                                 <div class="col-md-8">
-                                                                    <input type="text" class="form-control" value="{{$data->block_size}}" required name="block_size">
+                                                                    <input type="number" step="0.01" class="form-control" value="{{$data->block_size}}" required name="block_size">
                                                                 </div><br><br>
                                                             </div>
                                                             <div class="modal-footer">
@@ -131,7 +131,7 @@
                                     <div class="form-group">
                                         <label for="inputEmail1" class="col-md-2 control-label">Block Size(kg)</label>
                                         <div class="col-md-8">
-                                            <input type="number" class="form-control" name="block_size" placeholder="Block Size">
+                                            <input type="number" class="form-control" step="0.01" name="block_size" placeholder="Block Size">
                                         </div>
                                     </div>
                                     <div class="modal-footer">

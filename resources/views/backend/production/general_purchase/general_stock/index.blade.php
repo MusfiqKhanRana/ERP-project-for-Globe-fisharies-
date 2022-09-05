@@ -41,94 +41,200 @@
                 </div>
                 <div class="portlet-body">
                     <div>
+                    <form action="{{route('general.stock.store')}}" class="form-horizontal" method="POST">
+                            {{ csrf_field() }}
                         <div class="row" style="margin-bottom: 2%">
-                            <div class="col-md-12">
-                                <label for="inputEmail1" class="col-md-1 control-label">Name</label>
-                                <div class="col-md-5">
-                                    <select class="form-control" name="" id="">
-                                        <option value="">test1</option>
-                                        <option value="">test2</option>
-                                    </select>
-                                </div>
-                                <label for="inputEmail1" class="col-md-1 control-label">Name</label>
-                                <div class="col-md-5">
-                                    <select class="form-control" name="" id="">
-                                        <option value="">test1</option>
-                                        <option value="">test2</option>
-                                    </select>
-                                </div>
-                            </div><br><br><br>
-                            <div class="col-md-12">
-                                <label for="inputEmail1" class="col-md-1 control-label">Form Date</label>
-                                <div class="col-md-5">
-                                    <input type="date" class="form-control" placeholder="Type Item name">
-                                </div>
-                                <label for="inputEmail1" class="col-md-1 control-label">To Date</label>
-                                <div class="col-md-5">
-                                    <input type="date" class="form-control">
-                                </div>
+                            <div class="col-md-2">
+                                <input type="hidden" class="products" name="products"  id="products">
+                                <label for="inputEmail1" class="control-label"><b>Disbursement:</b></label>
                             </div>
-                            <div class="col-md-10">
-                                
+                            <div class="col-md-3">
+                                <label for="inputEmail1" class="control-label">Date</label>
+                                <input type="date" class="form-control disbursement_date" name="disbursement_date" placeholder="Type Item name">
                             </div>
-                            <div>
-
+                            <div class="col-md-3">
+                                <label for="inputEmail1" class="control-label">Department</label>
+                                <select class="form-control department" name="department" id="">
+                                    <option value="">--Select--</option>
+                                    @foreach ($departments as $department)
+                                        <option value="{{$department->id}}">{{$department->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                        </div>
-                    </div> <hr>
-                    <div class="table-scrollable">
-                        <table class="table table-striped table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>Requisition No.</th>
-                                <th>Receive Date</th>
-                                <th style="text-align: center">General Item Details</th>
-                                <th style="text-align: center">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                <tr id="row1">
-                                    <td class="text-align: center;">1232</td>
-                                    <td class="text-align: center;">17/07/2022</td>
-                                    <td>
-                                        <table class="table table-striped table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Item Type</th>
-                                                    <th>Item Name</th>
-                                                    <th>Item Unit</th>
-                                                    <th>Quantity</th>
-                                                    <th>Specification</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-align: center;">IQF</td>
-                                                    <td class="text-align: center;">pangas</td>
-                                                    <td class="text-align: center;">20</td>
-                                                    <td class="text-align: center;">100</td>
-                                                    <td class="text-align: center;">Good</td>
-                                                    <td>
-                                                        <button class="btn btn-flamingo">Delete</button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table> 
-                                    </td>
-                                    <td style="text-align: center">
-                                        <a class="btn btn-danger"  href={{--route('#')--}}><i class="fa fa-print"></i>  Print</a>
-                                    </td>
-                                </tr> 
-                            </tbody>
-                        </table>
+                            <div class="col-md-3">
+                                <label for="inputEmail1" class="control-label">Requested By</label>
+                                <select class="form-control requested_by" name="requested_by" id="">
+                                </select>
+                            </div>
+                        </div><hr>
+                        <label  class="control-label"><b>Product Info : </b></label>
                         <div class="row">
-                            {{-- <div class="col-md-12 text-center">{{ $employee->links() }}</div> --}}
-                            {{-- {{ $ppu->links('vendor.pagination.custom') }} --}}
+                            <div class="col-md-3">
+                                <label for="product">Item Types</label>
+                                <select class="form-control" id="type">
+                                    <option selected>--Select--</option>
+                                    @foreach ($types as $item)
+                                       <option value="{{$item->id}}">{{$item->name}}</option> 
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="">Select Item</label>
+                                <select class="form-control" id="item">
+                                    <option selected>Select</option>
+                                    
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="">Unit</label>
+                                <select class="form-control" id="unit">
+                                    <option selected>Select</option>
+                                    
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="product">Quantity</label>
+                                <input type="text" placeholder="quantity" class="form-control" id="quantity">
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-md-12" style="text-align:right;">
+                                <button type="button" class="btn btn-success" id="addbtn">Add Item</button>
+                            </div>
+                        </div><br>
+                        <label  class="control-label"><b>Item List : </b></label>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-striped table-bordered table-hover" id="mytable">
+                                    <thead>
+                                        <tr>
+                                            <th>Item Type</th>
+                                            <th>Item Name</th>
+                                            <th>Item Unit</th>
+                                            <th>Quantity</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table> 
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="inputEmail1" class="control-label">Remark</label>
+                                <textarea class="form-control" name="remarks" id="" cols="30" rows="3"></textarea>
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-md-12" style="text-align:right;">
+                                <button type="submit" class="btn btn-success submit_btn">Submit</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
+                    </div> <hr>
                 </div>
             </div>
         </div>
      </div>
+@endsection
+@section('script')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-chained/1.0.1/jquery.chained.min.js" integrity="sha512-rcWQG55udn0NOSHKgu3DO5jb34nLcwC+iL1Qq6sq04Sj7uW27vmYENyvWm8I9oqtLoAE01KzcUO6THujRpi/Kg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        jQuery(document).ready(function() {
+            var max=0;
+            var item_id,item_name,item_type_id,item_type_name,item_unit_id,item_unit_name,quantity = null;
+            function nullmaking(){
+
+                $("#item").val(null);
+                $("#type").val(null);
+                $("#quantity").val(null);
+                $("#unit").val(null);
+            }
+            $("#item").change(function(){
+                item_id = $(this).find('option:selected').val();
+                item_name = $(this).find('option:selected').text();
+                item_unit_id = $("#unit").find('option:selected').val();
+                item_unit_name = $("#unit").find('option:selected').text();
+                // console.log(item_id);
+            });
+            var product_array = [];
+            $("#type").change(function() {
+             
+                max = $(this).val();
+                item_type_id = $(this).find('option:selected').val();
+                item_type_name = $(this).find('option:selected').text();
+                // console.log($(this).val());
+                $.ajax({
+                    type:"get",
+                    url:"/admin/production-purchase-requisition/"+$(this).val(),
+                    success:function(data){
+                        console.log(data);
+                        $("#item").html("");
+                        $("#unit").html("");
+                        let option="<option value=''>Select</option>";
+                        $.each( data, function( key, data ) {
+                            option+='<option data-name="'+data.name+'" value="'+data.id+'">'+data.name+'</option>';
+                        });
+                        let optionunit="<option value=''>Select</option>";
+                        $.each( data, function( key, data ) {
+                            optionunit='<option data-name="'+data.name+'" value="'+data.production_purchase_unit_id+'" selected>'+data.productionpurchaseunit.name+'</option>';
+                        });
+                        $('#item').append(option);
+                        $("#unit").append(optionunit);
+                    }
+                });
+            });
+            $("#addbtn").click(function() {
+                product_array.push({"item_id":item_id,"item_name":item_name,"item_type_id":item_type_id,"item_type_name":item_type_name,"item_unit_id":item_unit_id,"item_unit_name":item_unit_name,"quantity":$('#quantity').val(),"status":"stay"})
+                $("#products").val('');
+                $("#products").val(JSON.stringify(product_array));
+                console.log(product_array);
+                $.each( product_array, function( key, product ) {
+                    if (product.status == "stay") {
+                        if(product_array.length-1 == key){
+                            $("table#mytable tr").last().after("<tr id='"+key+"'><td>"+product.item_type_name+"</td><td>"+product.item_name+"</td><td>"+product.item_unit_name+"</td><td>"+product.quantity+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                        }
+                    }
+                });
+                $(".delete").click(function(){
+                    product_array[$(this).data("id")].status="delete";
+                    // console.log(product_array,$(this).data("id"));
+                    $("#products").val('');
+                    $("#products").val(JSON.stringify(product_array));
+                    $("#"+$(this).data("id")).remove();
+                });
+                nullmaking();
+            });
+            // if ($(".disbursement_date").val()==null || $(".department").val()==null || $(".requested_by").val()==null || $(".products").val()==null) {
+            //     $(".submit_btn").attr("disabled",true);
+            //     console.log('good');
+            // }
+            // else{
+            //     $(".submit_btn").attr("disabled",false);
+            // };
+            $(".department").on('change',function () {
+                var dept_id = $(this).find('option:selected').val();
+                console.log(dept_id);
+                $.ajax({
+                    type:"POST",
+                    url:"{{route('general.stock.user.data_pass')}}",
+                    data:{
+                        'id' : dept_id,
+                        '_token' : $('input[name=_token]').val()
+                    },
+                    success:function(data){
+                        console.log(data);
+                        var option = null;
+                        $(".requested_by").html("");
+                        $.each( data, function( key, product ) {
+                            option+='<option data-name="'+product.name+'" value="'+product.id+'">'+product.name+'</option>';
+                        });
+                        $('.requested_by').append(option);
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
