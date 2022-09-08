@@ -76,7 +76,13 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            <button style="margin-bottom:3px" data-toggle="modal" href="#general_modal{{$item->id}}" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i>Check</button>
+                                            @if ($item->status == 'InGateman')
+                                                <button style="margin-bottom:3px" data-toggle="modal" href="#general_modal{{$item->id}}" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i>Check</button>
+                                                <a class="btn purple" data-toggle="modal" href="{{route('production.unload.gateman.general_item.print',$item->id)}}"><i class="fa fa-print"></i> Show & Print</a>
+                                            @else
+                                                {{-- <button style="margin-bottom:3px" data-toggle="modal" href="#general_modal{{$item->id}}" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i>Check</button> --}}
+                                                <a class="btn purple" data-toggle="modal" href="{{route('production.unload.gateman.general_item.print',$item->id)}}"><i class="fa fa-print"></i> Show & Print</a>
+                                            @endif
                                         </td>
                                     </tr>
                                     <div id="general_modal{{$item->id}}" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -120,6 +126,10 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="row">
+                                {{-- <div class="col-md-12 text-center">{{ $employee->links() }}</div> --}}
+                                {{ $production_requistion->links('vendor.pagination.custom') }}
+                            </div>
                         </div>
                     </div>
                 </div>
