@@ -99,15 +99,16 @@
                                 <th>Grade</th>
                                 <th>P.Type</th>
                                 <th>P.Varient</th>
-                                <th>Produced</th>
-                                <th>Reprocessed(kg)</th>
-                                <th>Local(kg)</th>
-                                <th>Damage Quantity(kg)</th>
-                                <th>Closing Stock(kg)</th>
+                                <th>CTN Size</th>
+                                <th>Transferd</th>
+                                <th>Reprocessed</th>
+                                <th>Damage Quantity</th>
+                                <th>Exported</th>
+                                <th>Closing Stock</th>
                             </tr>
                             </thead>
                             <tbody>
-                                <tr id="row1">
+                                {{-- <tr id="row1">
                                     <td class="text-align: center;">Pangas</td>
                                     <td class="text-align: center;">300-500gm/3pcs</td>
                                     <td class="text-align: center;">IQF</td>
@@ -132,7 +133,7 @@
                                     <td style="text-align: center;">40</td>
                                     <td style="text-align: center;">40</td>
                                     <td style="text-align: center;">40</td>
-                                </tr> 
+                                </tr>  --}}
                                 
                                 {{-- @foreach($ppu as $key=> $data)
                                     <tr id="row1">
@@ -406,10 +407,31 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-3">
-                                                    <p>Damaged :</p>
+                                                    <p>Pack Size (CNT) :</p>
                                                 </div>
                                                 <div class="col-md-8" >
-                                                    <input type="text" name="damage_quantity"  placeholder="Type Damaged Quantity" class="form-control">
+                                                    <select name="export_pack_size_id" class="form-control export_pack_size_id">
+                                                        <option value="">--Select--</option>
+                                                        @foreach ($pack_size as $pack)
+                                                            <option value="{{$pack->id}}" data-pack_weight="{{$pack->weight}}">{{$pack->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Transfer Quantity(CNT) :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <input type="text" placeholder="Type qty" name="transfer_qty_ctn" class="form-control transfer_qty_ctn">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p>Damaged (KG) :</p>
+                                                </div>
+                                                <div class="col-md-8" >
+                                                    <input readonly type="text" name="damage_quantity"  placeholder="Type Damaged Quantity" class="form-control transfer_qty_kg">
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -587,10 +609,31 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <p>Reprocessed :</p>
+                                                <p>Pack Size (CNT) :</p>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="number" name="reprocessed_quantity"  placeholder="Type Reprocessed Quantity" class="form-control">
+                                                <select name="export_pack_size_id" class="form-control export_pack_size_id">
+                                                    <option value="">--Select--</option>
+                                                    @foreach ($pack_size as $pack)
+                                                        <option value="{{$pack->id}}" data-pack_weight="{{$pack->weight}}">{{$pack->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <p>Transfer Quantity(CNT) :</p>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" placeholder="Type qty" name="transfer_qty_ctn" class="form-control transfer_qty_ctn">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <p>Reprocessed (kg):</p>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input readonly type="number" name="reprocessed_quantity"  placeholder="Type Reprocessed Quantity" class="form-control transfer_qty_kg">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -641,7 +684,16 @@
                 $(".grade_id").show();
             }
         });
-
+        $(".export_pack_size_id").change(function() {
+            export_pack_weight = $(this).find(':selected').data('pack_weight');
+            console.log(export_pack_weight);
+        });
+        $(".transfer_qty_ctn").keyup(function() {
+            // console.log($(this).val());
+            var total = export_pack_weight * $(this).val();
+            console.log(total);
+            $('.transfer_qty_kg').val(total);
+        });
         $(".varient").chained(".type");
         get_processing('IQF')
         $('.processing_type_btn').change(function(){
@@ -675,7 +727,8 @@
                     item.item_grade+'</td><td>'+
                     item.production_type+'</td><td>'+
                     item.production_variant+'</td><td>'+
-                    item.produced+'</td>'+
+                    item.ctn_size+'</td><td>'+
+                    (item.produced/item.ctn_weight.weight)+' CTN <br> <br/>'+(item.produced)+' KG'+'</td>'+
                     '<td><table class="table table-striped table-bordered table-hover">'+
                         '<thead>'+
                             '<tr>'+
@@ -685,12 +738,14 @@
                         '</thead>'+
                         '<tbody>'+
                             '<tr>'+
-                                '<td class="text-align: center;">'+item.reprocessed_in+'</td>'+
-                                '<td class="text-align: center;">'+item.reprocessed_out+'</td>'+
+                                '<td class="text-align: center;">'+
+                                    item.reprocessed_in+'</td>'+
+                                '<td class="text-align: center;">'+
+                                    (item.reprocessed_out/item.ctn_weight.weight)+' CTN <br/>'+(item.reprocessed_out)+' KG'+'</td>'+
                             '</tr>'+
                         '</tbody>'+
                     '</table></td>'+
-                    ' <td>'+item.local+'</td> <td>'+item.damage+'</td> <td>20</td> </tr>');
+                    ' <td>'+(item.damage/item.ctn_weight.weight)+' CTN <br> <br/>'+(item.damage)+' KG'+'</td> <td>'+item.local+'</td> <td>20</td> </tr>');
             });
         }
     });

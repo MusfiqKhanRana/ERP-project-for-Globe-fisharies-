@@ -24,9 +24,13 @@ class CreateInventoryExportDamagesTable extends Migration
             $table->unsignedInteger('fish_grade')->nullable();
             $table->unsignedInteger('block_size')->nullable();
             $table->double('block_quantity')->nullable();
+            $table->double('final_weight')->nullable();
             $table->text('remark')->nullable();
             $table->enum('damage_form',['Export-1','Export-2','Bulk'])->nullable();
             $table->string('batch_code')->nullable();
+            $table->string('export_batch_code')->nullable();
+            $table->unsignedInteger('export_pack_size_id')->nullable();
+            $table->double('transfer_qty_ctn')->nullable();
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Inventory;
 
 use App\Http\Controllers\Controller;
 use App\Models\BulkReprocessed;
+use App\Models\ExportPackSize;
 use App\Models\ProcessingBlock;
 use App\Models\ProcessingGrade;
 use App\Models\SupplyItem;
@@ -43,15 +44,20 @@ class BulkReprocessedController extends Controller
         //dd($request->toArray());
         $item = SupplyItem::where('id',$request->item_id)->first();
         $grade = ProcessingGrade::where('id',$request->processing_grade_id)->first();
-        //dd($request->toArray());
+        // dd($request->toArray());
+        $export_pack_size = ExportPackSize::find($request->export_pack_size_id);
+        // dd($export_pack_size->toArray());
         $batch_code = null;
+        $export_batch_code = null;
         if ($grade) {
             $batch_code = $request->processing_type.'#'.$request->processing_variant.'#'.$request->item_id.'#'.$request->processing_grade_id.'#'.$grade->name.'#'.$item->name;
+            $export_batch_code = $request->processing_type.'#'.$request->processing_variant.'#'.$request->item_id.'#'.$request->processing_grade_id.'#'.$grade->name.'#'.$item->name.'#'.$export_pack_size->name;
           // dd('iqf batch');
         }else {
             $batch_code = $request->processing_type.'#'.$request->processing_variant.'#'.$request->item_id.'#'.$block->id.'#'.$request->block_size.'#'.$item->name;
+            $export_batch_code = $request->processing_type.'#'.$request->processing_variant.'#'.$request->item_id.'#'.$block->id.'#'.$request->block_size.'#'.$item->name.'#'.$export_pack_size->name;
         }
-        //dd($batch_code);
+        // dd($export_batch_code);
         $reprocessed = new BulkReprocessed();
         $reprocessed->processing_type = $request->processing_type;
         $reprocessed->processing_variant = $request->processing_variant;
@@ -64,6 +70,9 @@ class BulkReprocessedController extends Controller
         $reprocessed->fish_grade = $request->fish_grade;
         $reprocessed->reprocessed_form = $request->reprocessed_form;
         $reprocessed->batch_code = $batch_code;
+        $reprocessed->export_batch_code = $export_batch_code;
+        $reprocessed->export_pack_size_id = $request->export_pack_size_id;
+        $reprocessed->transfer_qty_ctn = $request->transfer_qty_ctn;
         $reprocessed->save();
 
         return redirect()->back()->withMsg('Successfully Created');
