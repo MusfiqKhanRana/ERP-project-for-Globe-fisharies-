@@ -16,6 +16,7 @@ class CreateProductionExportInventoriesTable extends Migration
         Schema::create('production_export_inventories', function (Blueprint $table) {
             $table->id();
             $table->string('batch_code')->nullable();
+            $table->string('export_batch_code')->nullable();
             $table->string('storage_name')->nullable();
             $table->string('processing_name')->nullable();
             $table->string('processing_variant')->nullable();

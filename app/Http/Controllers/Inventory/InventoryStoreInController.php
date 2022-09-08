@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BulkReprocessed;
 use App\Models\ExportPackSize;
 use App\Models\FishGrade;
+use App\Models\InventoryExportDamage;
 use App\Models\ProcessingBlock;
 use App\Models\ProcessingBlockSize;
 use App\Models\ProcessingGrade;
@@ -67,6 +68,8 @@ class InventoryStoreInController extends Controller
             $item_grade = null;
             $produced = 0;
             $reprocessed_out_count = 0;
+            $reprocessed_in_count = 0;
+            $damage_count = 0;
             foreach ($processes as $processing_grade) {
                 $produced+=$processing_grade->final_weight;
             }
@@ -78,10 +81,18 @@ class InventoryStoreInController extends Controller
                 $item_grade = $process_details[5];
             }
             $reprocessed_out = BulkReprocessed::whereBetween('created_at',[$date_from,$date_to])->where('batch_code',$key)->where('reprocessed_form',"Bulk")->select('id','final_weight')->get();
+            $reprocessed_in = BulkReprocessed::whereBetween('created_at',[$date_from,$date_to])->where('batch_code',$key)->whereIn('reprocessed_form',['Export-1','Export-2'])->select('id','final_weight')->get();
+            $damages = InventoryExportDamage::whereBetween('created_at',[$date_from,$date_to])->where('batch_code',$key)->where('damage_form',"Bulk")->select('id','damage_quantity')->get();
             foreach ($reprocessed_out as $reprocess) {
                 $reprocessed_out_count+=$reprocess->final_weight;
             }
-            array_push($process_array,array('item_name'=>$item_name,'item_grade'=>$item_grade,'production_type'=>$process_details[0],'production_variant'=>$process_details[1],'produced'=>$produced,'reprocessed_in'=>0,'reprocessed_out'=>$reprocessed_out_count,'local'=>0,'damage'=>0,));
+            foreach ($reprocessed_in as $reprocess) {
+                $reprocessed_in_count+=$reprocess->final_weight;
+            }
+            foreach ($damages as $damage) {
+                $damage_count+=$damage->damage_quantity;
+            }
+            array_push($process_array,array('item_name'=>$item_name,'item_grade'=>$item_grade,'production_type'=>$process_details[0],'production_variant'=>$process_details[1],'produced'=>$produced,'reprocessed_in'=>$reprocessed_in_count,'reprocessed_out'=>$reprocessed_out_count,'local'=>0,'damage'=>$damage_count,));
         }
         return $process_array;
     }
