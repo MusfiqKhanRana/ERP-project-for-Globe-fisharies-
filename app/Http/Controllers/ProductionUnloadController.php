@@ -88,9 +88,17 @@ class ProductionUnloadController extends Controller
                 $q->with(['grade']);
             }
         ])
-        ->Where('status',"InGateman")->get();
+        ->Where('status',"InGateman")->orWhere('status',"Unload")->orWhere('status',"Received")->latest()->paginate(3);
         return view('backend.production.unload.gate_man.raw_item.index',compact('production_requistion'));
     }
+    public function gateman_raw_item_Print($id){
+        $data=ProductionRequisition::with(['supplier'=>function($q){
+            $q->with(['phone','name']);      
+        }
+         ])->where('id',$id)->first();
+     //    dd($data->toArray());
+        return view('backend.production.unload.gate_man.raw_item.print',compact('data'));
+     }
     public function check_raw_item(Request $request){
         // dd($request);
         ProductionRequisition::where('id',$request->requisition_id)

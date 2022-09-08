@@ -512,6 +512,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Production Requisition Item
     Route::resource('production-requisition-item', ProductionRequisitionItemController::class);
     // Production Unload
+    Route::get('production/unload/gate_man/general_item/print/{id}',[ProductionUnloadController::class,'gateman_raw_item_Print'])->name('production.unload.gateman.general_item.print');
     Route::post('production/unload/gate_man/general_item/check',[ProductionUnloadController::class,'check_general_item'])->name('production.unload.gateman.general_item.check');
     Route::post('production/unload/gate_man/raw_item/check',[ProductionUnloadController::class,'check_raw_item'])->name('production.unload.gateman.raw_item.check');
     Route::get('production/unload/gate_man/raw_item',[ProductionUnloadController::class,'gateman_raw_item'])->name('production.unload.gateman.raw_item');
