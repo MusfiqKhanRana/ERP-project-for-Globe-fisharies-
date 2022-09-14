@@ -81,7 +81,7 @@
                                                 <a class="btn purple" data-toggle="modal" href="{{route('production.unload.gateman.general_item.print',$item->id)}}"><i class="fa fa-print"></i> Show & Print</a>
                                             @else
                                                 {{-- <button style="margin-bottom:3px" data-toggle="modal" href="#general_modal{{$item->id}}" class="btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i>Check</button> --}}
-                                                <a class="btn purple" data-toggle="modal" href="{{route('production.unload.gateman.general_item.print',$item->id)}}"><i class="fa fa-print"></i> Show & Print</a>
+                                                <a class="btn purple" data-toggle="modal" href="{{route('production.unload.gateman.raw_item.print',$item->id)}}"><i class="fa fa-print"></i> Show & Print</a>
                                             @endif
                                         </td>
                                     </tr>
