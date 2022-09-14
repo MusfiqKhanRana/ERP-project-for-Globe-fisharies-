@@ -39,7 +39,10 @@
                                             S.l
                                         </th>
                                         <th style="text-align: center">
-                                            Item Description
+                                            Requisition Code
+                                        </th>
+                                        <th style="text-align: center">
+                                            Item Details
                                         </th>
                                         <th style="text-align: center">
                                             Action

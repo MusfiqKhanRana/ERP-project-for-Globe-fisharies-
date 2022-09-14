@@ -483,6 +483,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::resource('procution-purchase-units', ProductionPurchaseUnitController::class);
 
     //Procution Purchase Item
+    Route::get('general/stock/total',[GeneralItemStockController::class,'total_stock'])->name('general.stock.total');
     Route::post('general/stock/user/data_pass',[GeneralItemStockController::class,'data_pass'])->name('general.stock.user.data_pass');
     Route::post('general/stock/store',[GeneralItemStockController::class,'store'])->name('general.stock.store');
     Route::get('general/stock',[GeneralItemStockController::class,'GeneralStock'])->name('general.stock');
@@ -512,7 +513,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     //Production Requisition Item
     Route::resource('production-requisition-item', ProductionRequisitionItemController::class);
     // Production Unload
-    Route::get('production/unload/gate_man/general_item/print/{id}',[ProductionUnloadController::class,'gateman_raw_item_Print'])->name('production.unload.gateman.general_item.print');
+    Route::get('production/unload/gate_man/general_item/print/{id}',[ProductionUnloadController::class,'gateman_general_item_Print'])->name('production.unload.gateman.general_item.print');
+    Route::get('production/unload/gate_man/raw_item/print/{id}',[ProductionUnloadController::class,'gateman_raw_item_Print'])->name('production.unload.gateman.raw_item.print');
     Route::post('production/unload/gate_man/general_item/check',[ProductionUnloadController::class,'check_general_item'])->name('production.unload.gateman.general_item.check');
     Route::post('production/unload/gate_man/raw_item/check',[ProductionUnloadController::class,'check_raw_item'])->name('production.unload.gateman.raw_item.check');
     Route::get('production/unload/gate_man/raw_item',[ProductionUnloadController::class,'gateman_raw_item'])->name('production.unload.gateman.raw_item');

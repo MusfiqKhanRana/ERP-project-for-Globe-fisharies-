@@ -25,12 +25,14 @@ class CreateProductionPurchaseRequisitionItemsTable extends Migration
             $table->dateTime('demand_date')->nullable();
             $table->string('image')->nullable();
             $table->integer('quantity')->nullable();
+            $table->double('closing_stock')->nullable();
             $table->string('supplier_info')->nullable();
             $table->string('confirm_rate')->nullable();
             $table->longText('specification')->nullable();
-            $table->enum('status', ['AddQuotation','ShowQuotation','ConfirmQuotation','QuotationNegotiation','InPurchase'])->default('AddQuotation');
+            $table->enum('status', ['AddQuotation','ShowQuotation','ConfirmQuotation','QuotationNegotiation','InPurchase','InStock'])->default('AddQuotation');
             $table->longText('remark')->nullable();
             $table->integer('requisition_code')->nullable();
+            $table->dateTime('check_in_time')->nullable();
             $table->timestamps();
         });
     }

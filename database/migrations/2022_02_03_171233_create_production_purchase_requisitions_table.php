@@ -22,6 +22,7 @@ class CreateProductionPurchaseRequisitionsTable extends Migration
             $table->dateTime('reject_date')->nullable();
             $table->dateTime('purchase_date')->nullable();
             $table->longText('remark')->nullable();
+            $table->dateTime('check_in_time')->nullable();
             $table->integer('requisition_code')->nullable();
             $table->timestamps();
         });

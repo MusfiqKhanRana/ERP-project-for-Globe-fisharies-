@@ -34,7 +34,7 @@ class ProductionPurchaseRequisitionController extends Controller
         $requisition=ProductionPurchaseRequisition::with(['items','departments','users'])->where('status',$request->status)->latest()->paginate(10);
         $dept = Department::all();
        
-         //dd($supply_lists->toArray());
+        //  dd($requisition->toArray());
         return view('backend.production.general_purchase.production_purchase_requisition.index',compact('requisition','dept','types','requisition_item','requisition_unit','confirmcount','pendingcount','suppliers'));
     }
 

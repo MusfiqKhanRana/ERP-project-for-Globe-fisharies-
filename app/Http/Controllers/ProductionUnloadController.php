@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductionProcessingUnit;
 use App\Models\ProductionPurchaseRequisition;
+use App\Models\ProductionPurchaseRequisitionItem;
 use App\Models\ProductionRequisition;
 use App\Models\ProductionRequisitionItem;
 use App\Models\SupplyItem;
@@ -76,7 +77,7 @@ class ProductionUnloadController extends Controller
         },'users','departments'])->whereHas('production_requisition_item',function($q){
             $q->where('status','InPurchase');
         })->where('status','Purchased')->get();
-        // dd($production_requistion);
+        // dd($production_requistion->toArray());
         return view('backend.production.unload.gate_man.general_item.index',compact('production_requistion'));
     }
     public function gateman_raw_item(){
@@ -99,6 +100,14 @@ class ProductionUnloadController extends Controller
      //    dd($data->toArray());
         return view('backend.production.unload.gate_man.raw_item.print',compact('data'));
      }
+     public function gateman_general_item_Print($id){
+        $data=ProductionPurchaseRequisition::with(['production_requisition_item'=>function($q){
+            $q->with(['items']);      
+        }
+         ])->where('id',$id)->first();
+     //    dd($data->toArray());
+        return view('backend.production.unload.gate_man.general_item.print',compact('data'));
+     }
     public function check_raw_item(Request $request){
         // dd($request);
         ProductionRequisition::where('id',$request->requisition_id)
@@ -109,6 +118,25 @@ class ProductionUnloadController extends Controller
     }
     public function check_general_item(Request $request){
         // dd($request->toArray());
+        $ppri = ProductionPurchaseRequisitionItem::where('production_purchase_requisition_id',$request->requisition_id)->get();
+        // dd($ppri->toArray());
+        foreach ($ppri as $item) {
+            ProductionPurchaseRequisitionItem::where('id',$item->id)->update([
+                'closing_stock'=>$item->quantity,
+                'status'=>'InStock',
+                'check_in_time'=>Carbon::now()
+            ]);
+            $last_item = ProductionPurchaseRequisitionItem::where('status','InStock')
+            ->where('item_id',$item->item_id)
+            ->whereNotIn('id',[$item->id])
+            ->orderBy('created_at', 'desc')
+            ->latest()->first();
+            // dd($last_item->toArray());
+            // return $last_item;
+            ProductionPurchaseRequisitionItem::where('id',$item->id)->update([
+                'closing_stock'=>($item->quantity+$last_item->closing_stock), 
+            ]);
+        }
         ProductionPurchaseRequisition::where('id',$request->requisition_id)->update([
             'status'=>'StoreIn',
             'vehicle_number'=>$request->vehicle_number,

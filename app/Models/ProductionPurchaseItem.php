@@ -19,6 +19,10 @@ class ProductionPurchaseItem extends Model
     }
     public function requisitions()
     {
-        return $this->belongsToMany(ProductionPurchaseRequisition::class, 'production_purchase_requisition_items');
+        return $this->hasMany(ProductionPurchaseRequisitionItem::class, 'item_id','id');
+    }
+    public function disbursement_item()
+    {
+        return $this->hasMany(GeneralStockDisbursementItem::class, 'item_id','id');
     }
 }

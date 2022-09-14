@@ -697,7 +697,8 @@
                 @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/medical_report') active open @endif
                 @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/processing-grade') active open @endif
                 @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/processing-block') active open @endif
-                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/processing-block-size') active open @endif">
+                @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/processing-block-size') active open @endif
+                @if( request()->path() == 'admin/general/stock' || request()->path() == 'admin/general/stock/total' || request()->path() == 'admin/general/stock/disbursement/list') active open @endif">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-archive" aria-hidden="true"></i>
                     <span class="title">Production Management</span>
@@ -899,7 +900,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/purchase/item'||  request()->path() == 'admin/production-purchase-item' ||  request()->path() == 'admin/production-purchase-requisition/create'  ||  request()->path() == 'admin/production-purchase-requisition'  ||  request()->path() == 'admin/production/purchase/quotation' ||  request()->path() == 'admin/production/purchase/negotiation'  ||  request()->path() == 'admin/production-quotation-confirmquotation' ||  request()->path() == 'admin/production-purchase-requisition/Order') active open @endif">
+                    <li class="nav-item @if( request()->path() == 'admin/report-genarate' || request()->path() == 'admin/production/purchase/item'||  request()->path() == 'admin/production-purchase-item' ||  request()->path() == 'admin/production-purchase-requisition/create'  ||  request()->path() == 'admin/production-purchase-requisition'  ||  request()->path() == 'admin/production/purchase/quotation' ||  request()->path() == 'admin/production/purchase/negotiation'  ||  request()->path() == 'admin/production-quotation-confirmquotation' ||  request()->path() == 'admin/production-purchase-requisition/Order' || request()->path() == 'admin/general/stock' || request()->path() == 'admin/general/stock/total' || request()->path() == 'admin/general/stock/disbursement/list') active open @endif">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <i class="fa fa-user"></i>
                             <span class="title">General Purchase </span>
@@ -911,20 +912,25 @@
                                     <span class="title">Items</span>
                                 </a>
                             </li>
-                            <li class="nav-item  @if( request()->path() == 'admin/production-purchase-item') active open @endif">
+                            <li class="nav-item  @if( request()->path() == 'admin/general/stock' || request()->path() == 'admin/general/stock/total' || request()->path() == 'admin/general/stock/disbursement/list' ) active open @endif">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <span class="title">General Stock</span>
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li class="nav-item @if( request()->path() == 'admin/production-purchase-item') active open @endif">
+                                    <li class="nav-item @if( request()->path() == 'admin/general/stock') active open @endif">
                                         <a href="{{route('general.stock')}}" class="nav-link ">
                                             <span class="title">Disbursement</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item @if( request()->path() == 'admin/production-purchase-requisition' ) active open @endif">
+                                    <li class="nav-item @if( request()->path() == 'admin/general/stock/disbursement/list' ) active open @endif">
                                         <a href="{{route('general.stock.disbursement.list')}}" class="nav-link ">
                                             <span class="title">Disbursement List</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item @if( request()->path() == 'admin/general/stock/total' ) active open @endif">
+                                        <a href="{{route('general.stock.total')}}" class="nav-link ">
+                                            <span class="title">Total Stock</span>
                                         </a>
                                     </li>
                                 </ul>
