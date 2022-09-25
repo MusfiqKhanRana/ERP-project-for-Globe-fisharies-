@@ -17,4 +17,8 @@ class ProductionProcessingUnit extends Model
     {
         return $this->hasMany(ProductionProcessingGrade::class, 'production_processing_unit_id','id');
     }
+    public function production_processing_block_grades()
+    {
+        return $this->hasMany(ProductionProcessingBlockGrade::class, 'production_processing_unit_id','id');
+    }
 }

@@ -35,6 +35,7 @@
     @include('backend.production.processing.raw_bf_shrimp.pto.ptoProcessingDataModal')
     @include('backend.production.processing.raw_bf_shrimp.pto.ptoBlockCounterModal')
     @include('backend.production.processing.raw_bf_shrimp.pto.ptoGradingModal')
+    @include('backend.production.processing.raw_bf_shrimp.pto.ptoBlockingModal')
     @include('backend.production.processing.raw_bf_shrimp.pto.ptoSoakingModal')
     @include('backend.production.processing.raw_bf_shrimp.pto.ptoExcessVolumeModal')
     @include('backend.production.processing.raw_bf_shrimp.pto.ptoReturnModal')

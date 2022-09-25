@@ -24,8 +24,8 @@
                             <p><b>Initial Date & Time:</b> <span class="initial_weight_datetime"></span></p>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <table class="table table-striped table-bordered table-hover block_randw_table">
+                    <div class="col-md-12 randw_div">
+                        {{-- <table class="table table-striped table-bordered table-hover block_randw_table">
                             <thead>
                                 <tr>
                                     <th style="text-align: center">
@@ -70,7 +70,7 @@
                                     </td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> --}}
                     </div>
                     <div class="col-md-12">
                         <div class="row">

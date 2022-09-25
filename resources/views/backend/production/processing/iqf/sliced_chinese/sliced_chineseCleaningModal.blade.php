@@ -1,7 +1,7 @@
 <div id="sliced_chineseCleaningModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="form-horizontal" role="form" method="post" action="{{route('production.processing-unit.cleaning_to_grading')}}">
+            <form class="form-horizontal" role="form" method="post" action="{{route('production.processing-unit.cleaning_to_glazing')}}">
                 {{csrf_field()}}
                 <div class="modal-header"  style="background-color: #36C6D3;text-align:center;">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>

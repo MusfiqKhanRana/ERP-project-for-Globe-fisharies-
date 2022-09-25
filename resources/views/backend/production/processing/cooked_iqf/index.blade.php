@@ -350,32 +350,16 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').html(initial_weight);
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.soaking.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        // console.log(data);
-                                        $("table.hoso_soaking_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.hoso_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='Soaking Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='return_weight[]' value='"+product.soaking_return+"' placeholder='Return Weight'></td></tr>");
-                                        });
-                                        $('.soaking_weight').on("change keyup",function() {
-                                            var soaking_weight = parseFloat($(this).val());
-                                            var initial_weight = parseFloat($(this).data("qty")); 
-                                            var p = (((soaking_weight - initial_weight)/initial_weight)*100);
-                                            p = p.toFixed(2);
-                                            $(".percentage"+$(this).data("id")).html(p+'%');
-                                        });
-                                    }
+                                $('.soaking_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = ((((a) - initial_weight)/(a))*100);
+                                    p = p.toFixed(2);
+                                    $('.Soaking_percentage').html(p+'%');
                                 });
                             });
                         }
                         if (product.status == "Glazing") {
-                            $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#glazing_hoso' class='btn btn-info glazing' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
+                            $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#glazing_hoso' class='btn btn-info glazing' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-soaking_weight='"+product.soaking_weight+"' data-soaking_weight_datetime='"+product.soaking_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
                             $('.glazing').click(function () {
                                 $("table.hoso_glazing_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -384,39 +368,27 @@
                                 var ppu_id =  $(this).attr("data-ppu_id");
                                 var initial_weight = $(this).attr("data-Initial_weight");
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
-                                console.log(ppu_id);
+                                var soaking_weight = $(this).attr("data-soaking_weight");
+                                var soaking_weight_datetime = $(this).attr("data-soaking_weight_datetime");
+                                console.log(soaking_weight);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').html(initial_weight);
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.glazing.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.hoso_glazing_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.hoso_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.soaking_weight+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
-                                        });
-                                        $('.glazing_weight').on("change keyup",function() {
-                                            var glazing_weight = parseFloat($(this).val());
-                                            var soaking_weight = parseFloat($(this).data("qty")); 
-                                            var p = (((glazing_weight - soaking_weight)/soaking_weight)*100);
-                                            p = p.toFixed(2);
-                                            $(".percentage"+$(this).data("id")).html(p+'%');
-                                        });
-                                    }
+                                $('.soaking_weight').html(soaking_weight);
+                                $('.soaking_date_time').html(soaking_weight_datetime);
+                                $('.glazing_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = (((a - (soaking_weight))/(soaking_weight))*100);
+                                    p = p.toFixed(2);
+                                    $('.glazing_percentage').html(p+'%');
                                 });
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_hoso' class='btn btn-danger randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_hoso' class='btn btn-danger randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-soaking_weight='"+product.soaking_weight+"' data-soaking_weight_datetime='"+product.soaking_weight_datetime+"' data-glazing_weight='"+product.glazing_weight+"' data-glazing_weight_datetime='"+product.glazing_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.hoso_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -425,6 +397,10 @@
                                 var ppu_id =  $(this).attr("data-ppu_id");
                                 var initial_weight = $(this).attr("data-Initial_weight");
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                var soaking_weight = $(this).attr("data-soaking_weight");
+                                var soaking_weight_datetime = $(this).attr("data-soaking_weight_datetime");
+                                var glazing_weight = $(this).attr("data-glazing_weight");
+                                var glazing_weight_datetime = $(this).attr("data-glazing_weight_datetime");
                                 console.log(ppu_id);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
@@ -432,21 +408,10 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').html(initial_weight);
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.randw.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.hoso_randw_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.hoso_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td>"+product.glazing_weight+"</td></tr>");
-                                        });
-                                    }
-                                });
+                                $('.soaking_weight').html(soaking_weight);
+                                $('.soaking_date_time').html(soaking_weight_datetime);
+                                $('.glazing_weight').html(glazing_weight);
+                                $('.glazing_weight_datetime').html((glazing_weight_datetime));
                             });
                         }
                     });
@@ -570,32 +535,16 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').html(initial_weight);
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.soaking.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        // console.log(data);
-                                        $("table.hoso_soaking_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.hoso_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='Soaking Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='text' class='form-control' name='return_weight[]' value='"+product.soaking_return+"' placeholder='Return Weight'></td><td><span class='percentage"+key+"'></span></td></tr>");
-                                        });
-                                        $('.soaking_weight').on("change keyup",function() {
-                                            var soaking_weight = parseFloat($(this).val());
-                                            var initial_weight = parseFloat($(this).data("qty")); 
-                                            var p = (((soaking_weight - initial_weight)/initial_weight)*100);
-                                            p = p.toFixed(2);
-                                            $(".percentage"+$(this).data("id")).html(p+'%');
-                                        });
-                                    }
+                                $('.soaking_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = ((((a) - initial_weight)/(a))*100);
+                                    p = p.toFixed(2);
+                                    $('.Soaking_percentage').html(p+'%');
                                 });
                             });
                         }
                         if (product.status == "Glazing") {
-                            $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#glazing_hoso' class='btn btn-info glazing' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
+                            $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#glazing_hoso' class='btn btn-info glazing' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-soaking_weight='"+product.soaking_weight+"' data-soaking_weight_datetime='"+product.soaking_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
                             $('.glazing').click(function () {
                                 $("table.hoso_glazing_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -604,39 +553,27 @@
                                 var ppu_id =  $(this).attr("data-ppu_id");
                                 var initial_weight = $(this).attr("data-Initial_weight");
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
-                                console.log(ppu_id);
+                                var soaking_weight = $(this).attr("data-soaking_weight");
+                                var soaking_weight_datetime = $(this).attr("data-soaking_weight_datetime");
+                                console.log(soaking_weight);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').html(initial_weight);
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.glazing.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.hoso_glazing_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.hoso_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.soaking_weight+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
-                                        });
-                                        $('.glazing_weight').on("change keyup",function() {
-                                            var glazing_weight = parseFloat($(this).val());
-                                            var soaking_weight = parseFloat($(this).data("qty")); 
-                                            var p = (((glazing_weight - soaking_weight)/soaking_weight)*100);
-                                            p = p.toFixed(2);
-                                            $(".percentage"+$(this).data("id")).html(p+'%');
-                                        });
-                                    }
+                                $('.soaking_weight').html(soaking_weight);
+                                $('.soaking_date_time').html(soaking_weight_datetime);
+                                $('.glazing_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = (((a - (soaking_weight))/(soaking_weight))*100);
+                                    p = p.toFixed(2);
+                                    $('.glazing_percentage').html(p+'%');
                                 });
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_hoso' class='btn btn-danger randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#hoso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_hoso' class='btn btn-danger randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-soaking_weight='"+product.soaking_weight+"' data-soaking_weight_datetime='"+product.soaking_weight_datetime+"' data-glazing_weight='"+product.glazing_weight+"' data-glazing_weight_datetime='"+product.glazing_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.hoso_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -645,6 +582,10 @@
                                 var ppu_id =  $(this).attr("data-ppu_id");
                                 var initial_weight = $(this).attr("data-Initial_weight");
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                var soaking_weight = $(this).attr("data-soaking_weight");
+                                var soaking_weight_datetime = $(this).attr("data-soaking_weight_datetime");
+                                var glazing_weight = $(this).attr("data-glazing_weight");
+                                var glazing_weight_datetime = $(this).attr("data-glazing_weight_datetime");
                                 console.log(ppu_id);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
@@ -652,21 +593,10 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').html(initial_weight);
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.randw.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.hoso_randw_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.hoso_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td>"+product.glazing_weight+"</td></tr>");
-                                        });
-                                    }
-                                });
+                                $('.soaking_weight').html(soaking_weight);
+                                $('.soaking_date_time').html(soaking_weight_datetime);
+                                $('.glazing_weight').html(glazing_weight);
+                                $('.glazing_weight_datetime').html((glazing_weight_datetime));
                             });
                         }
                     });
@@ -792,32 +722,16 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').html(initial_weight);
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.soaking.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        // console.log(data);
-                                        $("table.pud_soaking_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.pud_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='Soaking Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='return_weight[]' value='"+product.soaking_return+"' placeholder='Return Weight'></td><td><span class='percentage"+key+"'></span></td></tr>");
-                                        });
-                                        $('.soaking_weight').on("change keyup",function() {
-                                            var soaking_weight = parseFloat($(this).val());
-                                            var initial_weight = parseFloat($(this).data("qty")); 
-                                            var p = (((soaking_weight - initial_weight)/initial_weight)*100);
-                                            p = p.toFixed(2);
-                                            $(".percentage"+$(this).data("id")).html(p+'%');
-                                        });
-                                    }
+                                $('.soaking_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = ((((a) - initial_weight)/(a))*100);
+                                    p = p.toFixed(2);
+                                    $('.Soaking_percentage').html(p+'%');
                                 });
                             });
                         }
                         if (product.status == "Glazing") {
-                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#glazing_pud' class='btn btn-info glazing' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
+                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#glazing_pud' class='btn btn-info glazing' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-soaking_weight='"+product.soaking_weight+"' data-soaking_weight_datetime='"+product.soaking_weight_datetime+"'  data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
                             $('.glazing').click(function () {
                                 $("table.pud_glazing_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -826,39 +740,27 @@
                                 var ppu_id =  $(this).attr("data-ppu_id");
                                 var initial_weight = $(this).attr("data-Initial_weight");
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
-                                console.log(ppu_id);
+                                var soaking_weight = $(this).attr("data-soaking_weight");
+                                var soaking_weight_datetime = $(this).attr("data-soaking_weight_datetime");
+                                console.log(soaking_weight);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').html(initial_weight);
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.glazing.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.pud_glazing_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.pud_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.soaking_weight+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
-                                        });
-                                        $('.glazing_weight').on("change keyup",function() {
-                                            var glazing_weight = parseFloat($(this).val());
-                                            var soaking_weight = parseFloat($(this).data("qty")); 
-                                            var p = (((glazing_weight - soaking_weight)/soaking_weight)*100);
-                                            p = p.toFixed(2);
-                                            $(".percentage"+$(this).data("id")).html(p+'%');
-                                        });
-                                    }
+                                $('.soaking_weight').html(soaking_weight);
+                                $('.soaking_date_time').html(soaking_weight_datetime);
+                                $('.glazing_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = (((a - (soaking_weight))/(soaking_weight))*100);
+                                    p = p.toFixed(2);
+                                    $('.glazing_percentage').html(p+'%');
                                 });
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_pud' class='btn btn-danger randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_pud' class='btn btn-danger randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-soaking_weight='"+product.soaking_weight+"' data-soaking_weight_datetime='"+product.soaking_weight_datetime+"' data-glazing_weight='"+product.glazing_weight+"' data-glazing_weight_datetime='"+product.glazing_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.pud_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -867,6 +769,10 @@
                                 var ppu_id =  $(this).attr("data-ppu_id");
                                 var initial_weight = $(this).attr("data-Initial_weight");
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                var soaking_weight = $(this).attr("data-soaking_weight");
+                                var soaking_weight_datetime = $(this).attr("data-soaking_weight_datetime");
+                                var glazing_weight = $(this).attr("data-glazing_weight");
+                                var glazing_weight_datetime = $(this).attr("data-glazing_weight_datetime");
                                 console.log(ppu_id);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
@@ -874,21 +780,10 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').html(initial_weight);
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.randw.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.pud_randw_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.pud_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td>"+product.glazing_weight+"</td></tr>");
-                                        });
-                                    }
-                                });
+                                $('.soaking_weight').html(soaking_weight);
+                                $('.soaking_date_time').html(soaking_weight_datetime);
+                                $('.glazing_weight').html(glazing_weight);
+                                $('.glazing_weight_datetime').html((glazing_weight_datetime));
                             });
                         }
                     });
@@ -1014,32 +909,16 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').html(initial_weight);
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.soaking.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        // console.log(data);
-                                        $("table.pd_tail_on_soaking_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.pd_tail_on_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='Soaking Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='return_weight[]' value='"+product.soaking_return+"' placeholder='Return Weight'></td><td><span class='percentage"+key+"'></span></td></tr>");
-                                        });
-                                        $('.soaking_weight').on("change keyup",function() {
-                                            var soaking_weight = parseFloat($(this).val());
-                                            var initial_weight = parseFloat($(this).data("qty")); 
-                                            var p = (((soaking_weight - initial_weight)/initial_weight)*100);
-                                            p = p.toFixed(2);
-                                            $(".percentage"+$(this).data("id")).html(p+'%');
-                                        });
-                                    }
+                                $('.soaking_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = ((((a) - initial_weight)/(a))*100);
+                                    p = p.toFixed(2);
+                                    $('.Soaking_percentage').html(p+'%');
                                 });
                             });
                         }
                         if (product.status == "Glazing") {
-                            $("table#pd_tail_on_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#glazing_p_d_tail_on' class='btn btn-info glazing' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
+                            $("table#pd_tail_on_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#glazing_p_d_tail_on' class='btn btn-info glazing' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-soaking_weight='"+product.soaking_weight+"' data-soaking_weight_datetime='"+product.soaking_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
                             $('.glazing').click(function () {
                                 $("table.pd_tail_on_glazing_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1048,39 +927,27 @@
                                 var ppu_id =  $(this).attr("data-ppu_id");
                                 var initial_weight = $(this).attr("data-Initial_weight");
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
-                                console.log(ppu_id);
+                                var soaking_weight = $(this).attr("data-soaking_weight");
+                                var soaking_weight_datetime = $(this).attr("data-soaking_weight_datetime");
+                                console.log(soaking_weight);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').html(initial_weight);
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.glazing.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.pd_tail_on_glazing_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.pd_tail_on_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.soaking_weight+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
-                                        });
-                                        $('.glazing_weight').on("change keyup",function() {
-                                            var glazing_weight = parseFloat($(this).val());
-                                            var soaking_weight = parseFloat($(this).data("qty")); 
-                                            var p = (((glazing_weight - soaking_weight)/soaking_weight)*100);
-                                            p = p.toFixed(2);
-                                            $(".percentage"+$(this).data("id")).html(p+'%');
-                                        });
-                                    }
+                                $('.soaking_weight').html(soaking_weight);
+                                $('.soaking_date_time').html(soaking_weight_datetime);
+                                $('.glazing_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = (((a - (soaking_weight))/(soaking_weight))*100);
+                                    p = p.toFixed(2);
+                                    $('.glazing_percentage').html(p+'%');
                                 });
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#pd_tail_on_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_p_d_tail_on' class='btn btn-danger randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#pd_tail_on_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_p_d_tail_on' class='btn btn-danger randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-soaking_weight='"+product.soaking_weight+"' data-soaking_weight_datetime='"+product.soaking_weight_datetime+"' data-glazing_weight='"+product.glazing_weight+"' data-glazing_weight_datetime='"+product.glazing_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.pd_tail_on_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1089,6 +956,10 @@
                                 var ppu_id =  $(this).attr("data-ppu_id");
                                 var initial_weight = $(this).attr("data-Initial_weight");
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                var soaking_weight = $(this).attr("data-soaking_weight");
+                                var soaking_weight_datetime = $(this).attr("data-soaking_weight_datetime");
+                                var glazing_weight = $(this).attr("data-glazing_weight");
+                                var glazing_weight_datetime = $(this).attr("data-glazing_weight_datetime");
                                 console.log(ppu_id);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
@@ -1096,21 +967,10 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').html(initial_weight);
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.randw.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.pd_tail_on_randw_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.pd_tail_on_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td>"+product.glazing_weight+"</td></tr>");
-                                        });
-                                    }
-                                });
+                                $('.soaking_weight').html(soaking_weight);
+                                $('.soaking_date_time').html(soaking_weight_datetime);
+                                $('.glazing_weight').html(glazing_weight);
+                                $('.glazing_weight_datetime').html((glazing_weight_datetime));
                             });
                         }
                     });
@@ -1236,32 +1096,16 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').html(initial_weight);
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.soaking.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        // console.log(data);
-                                        $("table.pd_tail_off_soaking_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.pd_tail_off_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='Soaking Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='return_weight[]' value='"+product.soaking_return+"' placeholder='Return Weight'></td><td><span class='percentage"+key+"'></span></td></tr>");
-                                        });
-                                        $('.soaking_weight').on("change keyup",function() {
-                                            var soaking_weight = parseFloat($(this).val());
-                                            var initial_weight = parseFloat($(this).data("qty")); 
-                                            var p = (((soaking_weight - initial_weight)/initial_weight)*100);
-                                            p = p.toFixed(2);
-                                            $(".percentage"+$(this).data("id")).html(p+'%');
-                                        });
-                                    }
+                                $('.soaking_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = ((((a) - initial_weight)/(a))*100);
+                                    p = p.toFixed(2);
+                                    $('.Soaking_percentage').html(p+'%');
                                 });
                             });
                         }
                         if (product.status == "Glazing") {
-                            $("table#pd_tail_off_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#glazing_p_d_tail_off' class='btn btn-info glazing' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
+                            $("table#pd_tail_off_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#glazing_p_d_tail_off' class='btn btn-info glazing' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-soaking_weight='"+product.soaking_weight+"' data-soaking_weight_datetime='"+product.soaking_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Glazing</button></td></tr>");
                             $('.glazing').click(function () {
                                 $("table.pd_tail_off_glazing_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1270,39 +1114,27 @@
                                 var ppu_id =  $(this).attr("data-ppu_id");
                                 var initial_weight = $(this).attr("data-Initial_weight");
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
-                                console.log(ppu_id);
+                                var soaking_weight = $(this).attr("data-soaking_weight");
+                                var soaking_weight_datetime = $(this).attr("data-soaking_weight_datetime");
+                                console.log(soaking_weight);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').html(initial_weight);
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.glazing.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.pd_tail_off_glazing_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.pd_tail_off_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.soaking_weight+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
-                                        });
-                                        $('.glazing_weight').on("change keyup",function() {
-                                            var glazing_weight = parseFloat($(this).val());
-                                            var soaking_weight = parseFloat($(this).data("qty")); 
-                                            var p = (((glazing_weight - soaking_weight)/soaking_weight)*100);
-                                            p = p.toFixed(2);
-                                            $(".percentage"+$(this).data("id")).html(p+'%');
-                                        });
-                                    }
+                                $('.soaking_weight').html(soaking_weight);
+                                $('.soaking_date_time').html(soaking_weight_datetime);
+                                $('.glazing_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = (((a - (soaking_weight))/(soaking_weight))*100);
+                                    p = p.toFixed(2);
+                                    $('.glazing_percentage').html(p+'%');
                                 });
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#pd_tail_off_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_p_d_tail_off' class='btn btn-danger randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#pd_tail_off_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(product.alive_quantity+product.dead_quantity)+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#WastageReturn_p_d_tail_off' class='btn btn-danger randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-soaking_weight='"+product.soaking_weight+"' data-soaking_weight_datetime='"+product.soaking_weight_datetime+"' data-glazing_weight='"+product.glazing_weight+"' data-glazing_weight_datetime='"+product.glazing_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.pd_tail_off_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
@@ -1311,6 +1143,10 @@
                                 var ppu_id =  $(this).attr("data-ppu_id");
                                 var initial_weight = $(this).attr("data-Initial_weight");
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                var soaking_weight = $(this).attr("data-soaking_weight");
+                                var soaking_weight_datetime = $(this).attr("data-soaking_weight_datetime");
+                                var glazing_weight = $(this).attr("data-glazing_weight");
+                                var glazing_weight_datetime = $(this).attr("data-glazing_weight_datetime");
                                 console.log(ppu_id);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
@@ -1318,21 +1154,10 @@
                                 $('.ppu_id').val(ppu_id);
                                 $('.initial_weight').html(initial_weight);
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.randw.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.pd_tail_off_randw_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.pd_tail_off_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td>"+product.glazing_weight+"</td></tr>");
-                                        });
-                                    }
-                                });
+                                $('.soaking_weight').html(soaking_weight);
+                                $('.soaking_date_time').html(soaking_weight_datetime);
+                                $('.glazing_weight').html(glazing_weight);
+                                $('.glazing_weight_datetime').html((glazing_weight_datetime));
                             });
                         }
                     });

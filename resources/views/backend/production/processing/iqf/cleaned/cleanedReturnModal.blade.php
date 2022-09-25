@@ -23,7 +23,7 @@
                             <p><b>Initial Date & Time:</b> <span class="initial_weight_datetime"></span></p>
                         </div>
                     </div>
-                    <div class="row" style="text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#05575B;color:white;">
+                    <div class="row" style="text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#05575B;color:white;margin-bottom:2%;">
                         <div class="col-md-6">
                             <p><b>Cleaning Weight:</b> <span class="cleaning_weight"></span></p>
                         </div>
@@ -31,7 +31,15 @@
                             <p><b>Cleaning Date & Time:</b> <span class="cleaning_weight_datetime"></span></p>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="row" style="margin-bottom:2%;text-shadow: -1px 0 #66A5AD, 0 1px #66A5AD, 1px 0 #66A5AD, 0 -1px #66A5AD;background-color:#66A5AD;color:white;margin-bottom:2%;">
+                        <div class="col-md-6">
+                            <p><b>Glazing Weight:</b> <span class="glazing_weight"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><b>Glazing Date & Time:</b> <span class="glazing_weight_datetime"></span></p>
+                        </div>
+                    </div>
+                    {{-- <div class="col-md-12">
                         <table class="table table-striped table-bordered table-hover cleaned_randw_table">
                             <thead>
                                 <tr>
@@ -63,7 +71,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
+                    </div> --}}
                     <hr>
                     <div class="col-md-12">
                         <div class="row">

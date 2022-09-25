@@ -101,6 +101,7 @@
                                                 @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoProcessingDataModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoBlockCounterModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoGradingModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoBlockingModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoSoakingModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoExcessVolumeModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoReturnModal')
@@ -165,6 +166,7 @@
                                                 @include('backend.production.processing.raw_bf_shrimp.pud.pudProcessingDataModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.pud.pudBlockCounterModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.pud.pudGradingModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.pud.pudBlockingModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.pud.pudSoakingModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.pud.pudExcessVolumeModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.pud.pudReturnModal')
@@ -229,6 +231,7 @@
                                                 @include('backend.production.processing.raw_bf_shrimp.p_n_d.p_n_dProcessingDataModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.p_n_d.p_n_dBlockCounterModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.p_n_d.p_n_dGradingModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.p_n_d.p_n_dBlockingModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.p_n_d.p_n_dSoakingModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.p_n_d.p_n_dExcessVolumeModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.p_n_d.p_n_dReturnModal')
@@ -293,6 +296,7 @@
                                                 @include('backend.production.processing.raw_bf_shrimp.pdto.pdtoProcessingDataModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.pdto.pdtoBlockCounterModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.pdto.pdtoGradingModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.pdto.pdtoBlockingModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.pdto.pdtoSoakingModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.pdto.pdtoExcessVolumeModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.pdto.pdtoReturnModal')
@@ -357,6 +361,7 @@
                                                 @include('backend.production.processing.raw_bf_shrimp.pto.ptoProcessingDataModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.pto.ptoBlockCounterModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.pto.ptoGradingModal')
+                                                @include('backend.production.processing.raw_bf_shrimp.pto.ptoBlockingModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.pto.ptoSoakingModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.pto.ptoExcessVolumeModal')
                                                 @include('backend.production.processing.raw_bf_shrimp.pto.ptoReturnModal')
@@ -424,10 +429,10 @@
                             });
                             
                         }
-                        if (product.status == "Blocking") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoGradingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
-                            $('.blocking').click(function () {
-                                $("table.block_table tbody tr").empty();
+                        if (product.status == "Grading") {
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoGradingModal' class='btn btn-success raw_grading' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Grading</button></td></tr>");
+                            $('.raw_grading').click(function () {
+                                $("table.grading_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
                                 var qty = $(this).attr("data-qty");
@@ -436,31 +441,35 @@
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
-                                $('.ppu_id').val(ppu_id);
+                                $('.grade_ppu_id').val(ppu_id);
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
                                 var product_array = [];
-                                var block_id , block_name,block_size_id,block_size_name,grade_weight = null; 
-                                $('.block_select').change(function() {
-                                    block_id=$('option:selected',this).val();
-                                    block_name =$('option:selected',this).attr("data-block_size");
+                                var grade_id , grade_name ,grade_weight = null; 
+                                $('.grade_select').change(function() {
+                                    grade_id=$('option:selected',this).val();
+                                    grade_name =$('option:selected',this).attr("data-grade_name");
                                     console.log(grade_name);
                                 });
-                                $('.size_select').change(function() {
-                                    block_size_id=$('option:selected',this).val();
-                                    block_size_name =$('option:selected',this).attr("data-size");
-                                    console.log(grade_name);
+                                $('.grade_weight').on("change keyup",function() {
+                                    grade_weight = $(this).val();
                                 });
                                 $('.add_btn').click(function () {
-                                    $("table.block_table tbody tr").empty();
-                                    product_array.push({"block_id":block_id,"block_name":block_name,"block_size_id":block_size_id,"block_size_name":block_size_name,"status":"stay"});
+                                    $("table.grading_table tbody tr").empty();
+                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight,"status":"stay"});
                                     $.each( product_array, function( key, product ) {
+                                        // console.log(product);
                                         if (product.status == "stay") {
-                                            $("table.block_table tr").last().after("<tr class='delete"+key+"'><td>"+product.block_name+"</td><td>"+product.block_size_name+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                                            let append = "<tr class='delete"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>";
+                                            $("table.grading_table tbody").append(append);
                                         }
                                     });
                                     $(".inputs").val('');
                                     $(".inputs").val(JSON.stringify(product_array));
-                                    $('.block_select').val("");
-                                    $('.size_select').val("");
+                                    $('.grade_weight').val(0);
+                                    $('.grade_select').val("--select--");
                                     $(".delete").click(function(){
                                         console.log('good');
                                         product_array[$(this).data("id")].status="delete";
@@ -473,52 +482,141 @@
                             });
 
                         }
-                        if (product.status == "BlockCounter") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
-                            $('.block_counter').click(function () {
-                                $("table.block_counter_table tbody tr").empty();
+                        if (product.status == "Blocking") {
+                            // console.log(product);
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoBlockingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                            $('.blocking').click(function () {
+                                $("table.block_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
                                 var qty = $(this).attr("data-qty");
                                 var ppu_id =  $(this).attr("data-ppu_id");
-                                // console.log(ppu_id);
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
                                 $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $.ajax({
                                     type:"POST",
-                                    url:"{{route('production.processing-unit.blocking.data_pass')}}",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
                                     data:{
                                         'id' : ppu_id,
                                         '_token' : $('input[name=_token]').val()
                                     },
                                     success:function(data){
                                         console.log(data);
-                                        $("table.block_counter_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.block_counter_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td><input type='number' step='0.01' class='form-control' name='block_quantity[]' value='"+product.block_quantity+"' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><div class='col-md-5'><label>Block Size</label><select type='text' class='form-control block_select' ><option>--Select--</option>@foreach ($blocks as $item) <option value='{{$item->id}}' data-block_size='{{$item->block_size}}'>{{$item->block_size}} kg</option>@endforeach</select></div><div class='col-md-5'><label>Size</label><select type='text' class='form-control size_select'><option>--Select--</option>@foreach ($blocks_size as $itemx)<option value='{{$itemx->id}}' data-size='{{$itemx->size}}'>{{$itemx->size}}</option>@endforeach</select></div><div class='col-md-1' style='margin-top: 4%'><button class='btn btn-success add_btn' data-key="+key+" data-batch_code="+product.batch_code+" data-grade_block_id="+product.id+" type='button'>+ Add</button></div></div><br><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover block_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Action</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.grade_to_block').append(append);
+                                        });
+                                        var product_array = [];
+                                        var block_id , block_name,block_size_id,block_size_name,grade_weight, grade_batch_code,grade_block_id = null; 
+                                        $('.block_select').change(function() {
+                                            block_id=$('option:selected',this).val();
+                                            block_name =$('option:selected',this).attr("data-block_size");
+                                            console.log(block_name);
+                                        });
+                                        $('.size_select').change(function() {
+                                            block_size_id=$('option:selected',this).val();
+                                            block_size_name =$('option:selected',this).attr("data-size");
+                                            console.log(block_size_name);
+                                        });
+                                        $('.add_btn').click(function () {
+                                            var value  =$(this).attr("data-key");
+                                            var batch_code = $(this).attr("data-batch_code");
+                                            grade_block_id = $(this).attr("data-grade_block_id");
+                                            console.log(value);
+                                            $("table.block_table"+value+" tbody tr").empty();
+                                            product_array.push({"block_id":block_id,"block_name":block_name,"block_size_id":block_size_id,"block_size_name":block_size_name,"grade_batch_code":batch_code,'grade_block_id':grade_block_id,"status":"stay"});
+                                            $.each( product_array, function( key, product ) {
+                                                if (product.status == "stay" && product.grade_batch_code == batch_code) {
+                                                    let append = "<tr class='delete"+key+"'><td>"+product.block_name+"</td><td>"+product.block_size_name+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>";
+                                                    $("table.block_table"+value+" tbody").append(append);
+                                                }
+                                            });
+                                            $(".inputs").val('');
+                                            $(".inputs").val(JSON.stringify(product_array));
+                                            $('.block_select').val("");
+                                            $('.size_select').val("");
+                                            $(".delete").click(function(){
+                                                console.log('good');
+                                                product_array[$(this).data("id")].status="delete";
+                                                $(".inputs").val(JSON.stringify(product_array));
+                                                $('.grade_weight').val(0);
+                                                $('.grade_select').val("--select--");
+                                                $(".delete"+$(this).data("id")).remove();
+                                            });
+                                        })
+                                    }
+                                });
+                                
+                            });
+
+                        }
+                        if (product.status == "BlockCounter") {
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                            $('.block_counter').click(function () {
+                                $("table.block_counter_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $('.block_to_blockcounter').empty();
+                                        $.each( data, function( key, product ) {
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover block_counter_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Block Counter</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.block_to_blockcounter').append(append);
+                                            $("table.block_counter_table"+key+" tbody tr").empty();
+                                            $.each(product.production_processing_grades, function (keyy,value) {
+                                                let append = "<tr id='"+keyy+"'><td>"+value.block_name+" kg</td><td>"+value.block_size+"</td><td><input type='number' step='0.01' class='form-control' name='block_quantity[]' value='"+value.block_quantity+"' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+value.id+"'></td></tr>";
+                                                $("table.block_counter_table"+key+" tbody").append(append);
+                                            });
                                         });
                                     }
                                 });
                             });
                         }
                         if (product.status == "Soaking") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoSoakingModal' class='btn btn-warning soakingtable' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoSoakingModal' class='btn btn-warning soakingtable' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
                             $('.soakingtable').click(function () {
                                 $("table.hlso_soaking_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
                                 var qty = $(this).attr("data-qty");
                                 var ppu_id =  $(this).attr("data-ppu_id");
-                                // console.log(ppu_id);
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
                                 $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $.ajax({
                                     type:"POST",
-                                    url:"{{route('production.processing-unit.blocking.data_pass')}}",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
                                     data:{
                                         'id' : ppu_id,
                                         '_token' : $('input[name=_token]').val()
@@ -527,7 +625,8 @@
                                         console.log(data);
                                         $("table.hlso_soaking_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.hlso_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.block_name+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td><td><span class='percentage"+key+"'></span></td></tr>");
+                                            let append = "<tr id='"+key+"'><td>"+product.grade_name+" kg</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>";
+                                            $("table.hlso_soaking_table tbody").append(append);
                                         });
                                         $('.soaking_weight').on("change keyup",function() {
                                             var soaking_weight = parseFloat($(this).val());
@@ -541,60 +640,80 @@
                             });
                         }
                         if (product.status == "ExcessVolume") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
                             $('.excess_volume').click(function () {
                                 $("table.excess_volume_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
                                 var qty = $(this).attr("data-qty");
                                 var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                 console.log(ppu_id);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
                                 $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $.ajax({
                                     type:"POST",
-                                    url:"{{route('production.processing-unit.blocking.data_pass')}}",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
                                     data:{
                                         'id' : ppu_id,
                                         '_token' : $('input[name=_token]').val()
                                     },
                                     success:function(data){
                                         console.log(data);
-                                        $("table.excess_volume_table tbody tr").empty();
+                                        $('.blockcounter_to_excess_volume').empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.excess_volume_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control' name='excess_volume[]' value='"+product.excess_volume+"' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover excess_volume_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Block Counter</th><th style='text-align: center'>Excess Volume</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.blockcounter_to_excess_volume').append(append);
+                                            $("table.excess_volume_table"+key+" tbody tr").empty();
+                                            $.each(product.production_processing_grades, function (keyy,value) {
+                                                let append = "<tr id='"+keyy+"'><td>"+value.block_name+" kg</td><td>"+value.block_size+"</td><td>"+value.block_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='excess_volume[]' value='"+value.excess_volume+"' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+value.id+"'></td></tr>";
+                                                $("table.excess_volume_table"+key+" tbody").append(append);
+                                            });
                                         });
                                     }
                                 });
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.block_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
                                 var qty = $(this).attr("data-qty");
                                 var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                 console.log(ppu_id);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
                                 $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $.ajax({
                                     type:"POST",
-                                    url:"{{route('production.processing-unit.blocking.data_pass')}}",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
                                     data:{
                                         'id' : ppu_id,
                                         '_token' : $('input[name=_token]').val()
                                     },
                                     success:function(data){
                                         console.log(data);
-                                        $("table.block_randw_table tbody tr").empty();
+                                        $('.randw_div').empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.block_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td>"+product.excess_volume+"</td></tr>");
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover randw_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Block Counter</th><th style='text-align: center'>Excess Volume</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.randw_div').append(append);
+                                            $("table.randw_table"+key+" tbody tr").empty();
+                                            $.each(product.production_processing_grades, function (keyy,value) {
+                                                let append = "<tr id='"+keyy+"'><td>"+value.block_name+" kg</td><td>"+value.block_size+"</td><td>"+value.block_quantity+"</td><td>"+value.excess_volume+"</td></tr>";
+                                                $("table.randw_table"+key+" tbody").append(append);
+                                            });
                                         });
                                     }
                                 });
@@ -653,10 +772,10 @@
                             });
                             
                         }
-                        if (product.status == "Blocking") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoGradingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
-                            $('.blocking').click(function () {
-                                $("table.block_table tbody tr").empty();
+                        if (product.status == "Grading") {
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoGradingModal' class='btn btn-success raw_grading' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Grading</button></td></tr>");
+                            $('.raw_grading').click(function () {
+                                $("table.grading_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
                                 var qty = $(this).attr("data-qty");
@@ -665,31 +784,35 @@
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
-                                $('.ppu_id').val(ppu_id);
+                                $('.grade_ppu_id').val(ppu_id);
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
                                 var product_array = [];
-                                var block_id , block_name,block_size_id,block_size_name,grade_weight = null; 
-                                $('.block_select').change(function() {
-                                    block_id=$('option:selected',this).val();
-                                    block_name =$('option:selected',this).attr("data-block_size");
+                                var grade_id , grade_name ,grade_weight = null; 
+                                $('.grade_select').change(function() {
+                                    grade_id=$('option:selected',this).val();
+                                    grade_name =$('option:selected',this).attr("data-grade_name");
                                     console.log(grade_name);
                                 });
-                                $('.size_select').change(function() {
-                                    block_size_id=$('option:selected',this).val();
-                                    block_size_name =$('option:selected',this).attr("data-size");
-                                    console.log(grade_name);
+                                $('.grade_weight').on("change keyup",function() {
+                                    grade_weight = $(this).val();
                                 });
                                 $('.add_btn').click(function () {
-                                    $("table.block_table tbody tr").empty();
-                                    product_array.push({"block_id":block_id,"block_name":block_name,"block_size_id":block_size_id,"block_size_name":block_size_name,"status":"stay"});
+                                    $("table.grading_table tbody tr").empty();
+                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight,"status":"stay"});
                                     $.each( product_array, function( key, product ) {
+                                        // console.log(product);
                                         if (product.status == "stay") {
-                                            $("table.block_table tr").last().after("<tr class='delete"+key+"'><td>"+product.block_name+"</td><td>"+product.block_size_name+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
+                                            let append = "<tr class='delete"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>";
+                                            $("table.grading_table tbody").append(append);
                                         }
                                     });
                                     $(".inputs").val('');
                                     $(".inputs").val(JSON.stringify(product_array));
-                                    $('.block_select').val("");
-                                    $('.size_select').val("");
+                                    $('.grade_weight').val(0);
+                                    $('.grade_select').val("--select--");
                                     $(".delete").click(function(){
                                         console.log('good');
                                         product_array[$(this).data("id")].status="delete";
@@ -702,52 +825,141 @@
                             });
 
                         }
-                        if (product.status == "BlockCounter") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
-                            $('.block_counter').click(function () {
-                                $("table.block_counter_table tbody tr").empty();
+                        if (product.status == "Blocking") {
+                            // console.log(product);
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoBlockingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                            $('.blocking').click(function () {
+                                $("table.block_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
                                 var qty = $(this).attr("data-qty");
                                 var ppu_id =  $(this).attr("data-ppu_id");
-                                // console.log(ppu_id);
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
                                 $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $.ajax({
                                     type:"POST",
-                                    url:"{{route('production.processing-unit.blocking.data_pass')}}",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
                                     data:{
                                         'id' : ppu_id,
                                         '_token' : $('input[name=_token]').val()
                                     },
                                     success:function(data){
                                         console.log(data);
-                                        $("table.block_counter_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.block_counter_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td><input type='number' step='0.01' class='form-control' name='block_quantity[]' value='"+product.block_quantity+"' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><div class='col-md-5'><label>Block Size</label><select type='text' class='form-control block_select' ><option>--Select--</option>@foreach ($blocks as $item) <option value='{{$item->id}}' data-block_size='{{$item->block_size}}'>{{$item->block_size}} kg</option>@endforeach</select></div><div class='col-md-5'><label>Size</label><select type='text' class='form-control size_select'><option>--Select--</option>@foreach ($blocks_size as $itemx)<option value='{{$itemx->id}}' data-size='{{$itemx->size}}'>{{$itemx->size}}</option>@endforeach</select></div><div class='col-md-1' style='margin-top: 4%'><button class='btn btn-success add_btn' data-key="+key+" data-batch_code="+product.batch_code+" data-grade_block_id="+product.id+" type='button'>+ Add</button></div></div><br><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover block_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Action</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.grade_to_block').append(append);
+                                        });
+                                        var product_array = [];
+                                        var block_id , block_name,block_size_id,block_size_name,grade_weight, grade_batch_code,grade_block_id = null; 
+                                        $('.block_select').change(function() {
+                                            block_id=$('option:selected',this).val();
+                                            block_name =$('option:selected',this).attr("data-block_size");
+                                            console.log(block_name);
+                                        });
+                                        $('.size_select').change(function() {
+                                            block_size_id=$('option:selected',this).val();
+                                            block_size_name =$('option:selected',this).attr("data-size");
+                                            console.log(block_size_name);
+                                        });
+                                        $('.add_btn').click(function () {
+                                            var value  =$(this).attr("data-key");
+                                            var batch_code = $(this).attr("data-batch_code");
+                                            grade_block_id = $(this).attr("data-grade_block_id");
+                                            console.log(value);
+                                            $("table.block_table"+value+" tbody tr").empty();
+                                            product_array.push({"block_id":block_id,"block_name":block_name,"block_size_id":block_size_id,"block_size_name":block_size_name,"grade_batch_code":batch_code,'grade_block_id':grade_block_id,"status":"stay"});
+                                            $.each( product_array, function( key, product ) {
+                                                if (product.status == "stay" && product.grade_batch_code == batch_code) {
+                                                    let append = "<tr class='delete"+key+"'><td>"+product.block_name+"</td><td>"+product.block_size_name+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>";
+                                                    $("table.block_table"+value+" tbody").append(append);
+                                                }
+                                            });
+                                            $(".inputs").val('');
+                                            $(".inputs").val(JSON.stringify(product_array));
+                                            $('.block_select').val("");
+                                            $('.size_select').val("");
+                                            $(".delete").click(function(){
+                                                console.log('good');
+                                                product_array[$(this).data("id")].status="delete";
+                                                $(".inputs").val(JSON.stringify(product_array));
+                                                $('.grade_weight').val(0);
+                                                $('.grade_select').val("--select--");
+                                                $(".delete"+$(this).data("id")).remove();
+                                            });
+                                        })
+                                    }
+                                });
+                                
+                            });
+
+                        }
+                        if (product.status == "BlockCounter") {
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                            $('.block_counter').click(function () {
+                                $("table.block_counter_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $('.block_to_blockcounter').empty();
+                                        $.each( data, function( key, product ) {
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover block_counter_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Block Counter</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.block_to_blockcounter').append(append);
+                                            $("table.block_counter_table"+key+" tbody tr").empty();
+                                            $.each(product.production_processing_grades, function (keyy,value) {
+                                                let append = "<tr id='"+keyy+"'><td>"+value.block_name+" kg</td><td>"+value.block_size+"</td><td><input type='number' step='0.01' class='form-control' name='block_quantity[]' value='"+value.block_quantity+"' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+value.id+"'></td></tr>";
+                                                $("table.block_counter_table"+key+" tbody").append(append);
+                                            });
                                         });
                                     }
                                 });
                             });
                         }
                         if (product.status == "Soaking") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoSoakingModal' class='btn btn-warning soakingtable' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoSoakingModal' class='btn btn-warning soakingtable' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
                             $('.soakingtable').click(function () {
                                 $("table.hlso_soaking_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
                                 var qty = $(this).attr("data-qty");
                                 var ppu_id =  $(this).attr("data-ppu_id");
-                                // console.log(ppu_id);
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
                                 $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $.ajax({
                                     type:"POST",
-                                    url:"{{route('production.processing-unit.blocking.data_pass')}}",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
                                     data:{
                                         'id' : ppu_id,
                                         '_token' : $('input[name=_token]').val()
@@ -756,7 +968,8 @@
                                         console.log(data);
                                         $("table.hlso_soaking_table tbody tr").empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.hlso_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.block_name+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td><td><span class='percentage"+key+"'></span></td></tr>");
+                                            let append = "<tr id='"+key+"'><td>"+product.grade_name+" kg</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>";
+                                            $("table.hlso_soaking_table tbody").append(append);
                                         });
                                         $('.soaking_weight').on("change keyup",function() {
                                             var soaking_weight = parseFloat($(this).val());
@@ -770,60 +983,80 @@
                             });
                         }
                         if (product.status == "ExcessVolume") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
                             $('.excess_volume').click(function () {
                                 $("table.excess_volume_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
                                 var qty = $(this).attr("data-qty");
                                 var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                 console.log(ppu_id);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
                                 $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $.ajax({
                                     type:"POST",
-                                    url:"{{route('production.processing-unit.blocking.data_pass')}}",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
                                     data:{
                                         'id' : ppu_id,
                                         '_token' : $('input[name=_token]').val()
                                     },
                                     success:function(data){
                                         console.log(data);
-                                        $("table.excess_volume_table tbody tr").empty();
+                                        $('.blockcounter_to_excess_volume').empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.excess_volume_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control' name='excess_volume[]' value='"+product.excess_volume+"' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover excess_volume_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Block Counter</th><th style='text-align: center'>Excess Volume</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.blockcounter_to_excess_volume').append(append);
+                                            $("table.excess_volume_table"+key+" tbody tr").empty();
+                                            $.each(product.production_processing_grades, function (keyy,value) {
+                                                let append = "<tr id='"+keyy+"'><td>"+value.block_name+" kg</td><td>"+value.block_size+"</td><td>"+value.block_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='excess_volume[]' value='"+value.excess_volume+"' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+value.id+"'></td></tr>";
+                                                $("table.excess_volume_table"+key+" tbody").append(append);
+                                            });
                                         });
                                     }
                                 });
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#hlso_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hlsoReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.randw').click(function () {
                                 $("table.block_randw_table tbody tr").empty();
                                 var invoice = $(this).attr("data-invoice");
                                 var item = $(this).attr("data-item");
                                 var qty = $(this).attr("data-qty");
                                 var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                 console.log(ppu_id);
                                 $('.invoice').html(invoice);
                                 $('.item').html(item);
                                 $('.qty').html((qty));
                                 $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $.ajax({
                                     type:"POST",
-                                    url:"{{route('production.processing-unit.blocking.data_pass')}}",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
                                     data:{
                                         'id' : ppu_id,
                                         '_token' : $('input[name=_token]').val()
                                     },
                                     success:function(data){
                                         console.log(data);
-                                        $("table.block_randw_table tbody tr").empty();
+                                        $('.randw_div').empty();
                                         $.each( data, function( key, product ) {
-                                            $("table.block_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td>"+product.excess_volume+"</td></tr>");
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover randw_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Block Counter</th><th style='text-align: center'>Excess Volume</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.randw_div').append(append);
+                                            $("table.randw_table"+key+" tbody tr").empty();
+                                            $.each(product.production_processing_grades, function (keyy,value) {
+                                                let append = "<tr id='"+keyy+"'><td>"+value.block_name+" kg</td><td>"+value.block_size+"</td><td>"+value.block_quantity+"</td><td>"+value.excess_volume+"</td></tr>";
+                                                $("table.randw_table"+key+" tbody").append(append);
+                                            });
                                         });
                                     }
                                 });
@@ -858,206 +1091,320 @@
                             dead_quantity =  parseFloat(product.dead_quantity);
                         }
                         total_quantity = alive_quantity+dead_quantity;
-                            if (product.status == "Initial") {
-                                $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#pudProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
-                                // $('.fillet_invoice').html(product.requisition_code);
-                                // $('.fillet_item').html(product.production_processing_item.name);
-                                // $('.fillet_qty').html(total_quantity);
-                                $('.processing').click(function () {
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $('.initial_weight').on("change keyup",function() {
-                                        var a = $(this).val();
-                                        var p = (((total_quantity - a)/total_quantity)*100);
-                                        p = p.toFixed(2);
-                                        $('.percentage').html(p+'%');
-                                    });
+                        if (product.status == "Initial") {
+                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#pudProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                            // $('.fillet_invoice').html(product.requisition_code);
+                            // $('.fillet_item').html(product.production_processing_item.name);
+                            // $('.fillet_qty').html(total_quantity);
+                            $('.processing').click(function () {
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = (((total_quantity - a)/total_quantity)*100);
+                                    p = p.toFixed(2);
+                                    $('.percentage').html(p+'%');
                                 });
-                                
-                            }
-                            if (product.status == "Blocking") {
-                                $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudGradingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
-                                $('.blocking').click(function () {
-                                    $("table.pud_block_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    var product_array = [];
-                                    var block_id , block_name,block_size_id,block_size_name,grade_weight = null; 
-                                    $('.block_select').change(function() {
-                                        block_id=$('option:selected',this).val();
-                                        block_name =$('option:selected',this).attr("data-block_size");
-                                        console.log(grade_name);
-                                    });
-                                    $('.size_select').change(function() {
-                                        block_size_id=$('option:selected',this).val();
-                                        block_size_name =$('option:selected',this).attr("data-size");
-                                        console.log(grade_name);
-                                    });
-                                    $('.add_btn').click(function () {
-                                        $("table.pud_block_table tbody tr").empty();
-                                        product_array.push({"block_id":block_id,"block_name":block_name,"block_size_id":block_size_id,"block_size_name":block_size_name,"status":"stay"});
-                                        $.each( product_array, function( key, product ) {
-                                            if (product.status == "stay") {
-                                                $("table.pud_block_table tr").last().after("<tr class='delete"+key+"'><td>"+product.block_name+"</td><td>"+product.block_size_name+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
-                                            }
-                                        });
-                                        $(".inputs").val('');
-                                        $(".inputs").val(JSON.stringify(product_array));
-                                        $('.block_select').val("");
-                                        $('.size_select').val("");
-                                        $(".delete").click(function(){
-                                            console.log('good');
-                                            product_array[$(this).data("id")].status="delete";
-                                            $(".inputs").val(JSON.stringify(product_array));
-                                            $('.grade_weight').val(0);
-                                            $('.grade_select').val("--select--");
-                                            $(".delete"+$(this).data("id")).remove();
-                                        });
-                                    })
+                            });
+                            
+                        }
+                        if (product.status == "Grading") {
+                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudGradingModal' class='btn btn-success raw_grading' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Grading</button></td></tr>");
+                            $('.raw_grading').click(function () {
+                                $("table.grading_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.grade_ppu_id').val(ppu_id);
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                var product_array = [];
+                                var grade_id , grade_name ,grade_weight = null; 
+                                $('.grade_select').change(function() {
+                                    grade_id=$('option:selected',this).val();
+                                    grade_name =$('option:selected',this).attr("data-grade_name");
+                                    console.log(grade_name);
                                 });
-
-                            }
-                            if (product.status == "BlockCounter") {
-                                $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
-                                $('.block_counter').click(function () {
-                                    $("table.pud_block_counter_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    // console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $.ajax({
-                                        type:"POST",
-                                        url:"{{route('production.processing-unit.blocking.data_pass')}}",
-                                        data:{
-                                            'id' : ppu_id,
-                                            '_token' : $('input[name=_token]').val()
-                                        },
-                                        success:function(data){
-                                            console.log(data);
-                                            $("table.pud_block_counter_table tbody tr").empty();
-                                            $.each( data, function( key, product ) {
-                                                $("table.pud_block_counter_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td><input type='number' step='0.01' class='form-control' name='block_quantity[]' value='"+product.block_quantity+"' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
-                                            });
+                                $('.grade_weight').on("change keyup",function() {
+                                    grade_weight = $(this).val();
+                                });
+                                $('.add_btn').click(function () {
+                                    $("table.grading_table tbody tr").empty();
+                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight,"status":"stay"});
+                                    $.each( product_array, function( key, product ) {
+                                        // console.log(product);
+                                        if (product.status == "stay") {
+                                            let append = "<tr class='delete"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>";
+                                            $("table.grading_table tbody").append(append);
                                         }
                                     });
-                                });
-                            }
-                            if (product.status == "Soaking") {
-                                $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudSoakingModal' class='btn btn-warning soakingtable' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
-                                $('.soakingtable').click(function () {
-                                    $("table.pud_soaking_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    // console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $.ajax({
-                                        type:"POST",
-                                        url:"{{route('production.processing-unit.blocking.data_pass')}}",
-                                        data:{
-                                            'id' : ppu_id,
-                                            '_token' : $('input[name=_token]').val()
-                                        },
-                                        success:function(data){
-                                            console.log(data);
-                                            $("table.pud_soaking_table tbody tr").empty();
-                                            $.each( data, function( key, product ) {
-                                                $("table.pud_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.block_name+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td><td><span class='percentage"+key+"'></span></td></tr>");
+                                    $(".inputs").val('');
+                                    $(".inputs").val(JSON.stringify(product_array));
+                                    $('.grade_weight').val(0);
+                                    $('.grade_select').val("--select--");
+                                    $(".delete").click(function(){
+                                        console.log('good');
+                                        product_array[$(this).data("id")].status="delete";
+                                        $(".inputs").val(JSON.stringify(product_array));
+                                        $('.grade_weight').val(0);
+                                        $('.grade_select').val("--select--");
+                                        $(".delete"+$(this).data("id")).remove();
+                                    });
+                                })
+                            });
+
+                        }
+                        if (product.status == "Blocking") {
+                            // console.log(product);
+                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudBlockingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                            $('.blocking').click(function () {
+                                $("table.block_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $.each( data, function( key, product ) {
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><div class='col-md-5'><label>Block Size</label><select type='text' class='form-control block_select' ><option>--Select--</option>@foreach ($blocks as $item) <option value='{{$item->id}}' data-block_size='{{$item->block_size}}'>{{$item->block_size}} kg</option>@endforeach</select></div><div class='col-md-5'><label>Size</label><select type='text' class='form-control size_select'><option>--Select--</option>@foreach ($blocks_size as $itemx)<option value='{{$itemx->id}}' data-size='{{$itemx->size}}'>{{$itemx->size}}</option>@endforeach</select></div><div class='col-md-1' style='margin-top: 4%'><button class='btn btn-success add_btn' data-key="+key+" data-batch_code="+product.batch_code+" data-grade_block_id="+product.id+" type='button'>+ Add</button></div></div><br><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover block_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Action</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.grade_to_block').append(append);
+                                        });
+                                        var product_array = [];
+                                        var block_id , block_name,block_size_id,block_size_name,grade_weight, grade_batch_code,grade_block_id = null; 
+                                        $('.block_select').change(function() {
+                                            block_id=$('option:selected',this).val();
+                                            block_name =$('option:selected',this).attr("data-block_size");
+                                            console.log(block_name);
+                                        });
+                                        $('.size_select').change(function() {
+                                            block_size_id=$('option:selected',this).val();
+                                            block_size_name =$('option:selected',this).attr("data-size");
+                                            console.log(block_size_name);
+                                        });
+                                        $('.add_btn').click(function () {
+                                            var value  =$(this).attr("data-key");
+                                            var batch_code = $(this).attr("data-batch_code");
+                                            grade_block_id = $(this).attr("data-grade_block_id");
+                                            console.log(value);
+                                            $("table.block_table"+value+" tbody tr").empty();
+                                            product_array.push({"block_id":block_id,"block_name":block_name,"block_size_id":block_size_id,"block_size_name":block_size_name,"grade_batch_code":batch_code,'grade_block_id':grade_block_id,"status":"stay"});
+                                            $.each( product_array, function( key, product ) {
+                                                if (product.status == "stay" && product.grade_batch_code == batch_code) {
+                                                    let append = "<tr class='delete"+key+"'><td>"+product.block_name+"</td><td>"+product.block_size_name+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>";
+                                                    $("table.block_table"+value+" tbody").append(append);
+                                                }
                                             });
-                                            $('.soaking_weight').on("change keyup",function() {
+                                            $(".inputs").val('');
+                                            $(".inputs").val(JSON.stringify(product_array));
+                                            $('.block_select').val("");
+                                            $('.size_select').val("");
+                                            $(".delete").click(function(){
+                                                console.log('good');
+                                                product_array[$(this).data("id")].status="delete";
+                                                $(".inputs").val(JSON.stringify(product_array));
+                                                $('.grade_weight').val(0);
+                                                $('.grade_select').val("--select--");
+                                                $(".delete"+$(this).data("id")).remove();
+                                            });
+                                        })
+                                    }
+                                });
+                                
+                            });
+
+                        }
+                        if (product.status == "BlockCounter") {
+                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                            $('.block_counter').click(function () {
+                                $("table.block_counter_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $('.block_to_blockcounter').empty();
+                                        $.each( data, function( key, product ) {
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover block_counter_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Block Counter</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.block_to_blockcounter').append(append);
+                                            $("table.block_counter_table"+key+" tbody tr").empty();
+                                            $.each(product.production_processing_grades, function (keyy,value) {
+                                                let append = "<tr id='"+keyy+"'><td>"+value.block_name+" kg</td><td>"+value.block_size+"</td><td><input type='number' step='0.01' class='form-control' name='block_quantity[]' value='"+value.block_quantity+"' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+value.id+"'></td></tr>";
+                                                $("table.block_counter_table"+key+" tbody").append(append);
+                                            });
+                                        });
+                                    }
+                                });
+                            });
+                        }
+                        if (product.status == "Soaking") {
+                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudSoakingModal' class='btn btn-warning soakingtable' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $('.soakingtable').click(function () {
+                                $("table.hlso_soaking_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $("table.hlso_soaking_table tbody tr").empty();
+                                        $.each( data, function( key, product ) {
+                                            let append = "<tr id='"+key+"'><td>"+product.grade_name+" kg</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>";
+                                            $("table.hlso_soaking_table tbody").append(append);
+                                        });
+                                        $('.soaking_weight').on("change keyup",function() {
                                             var soaking_weight = parseFloat($(this).val());
                                             var initial_weight = parseFloat($(this).data("qty")); 
                                             var p = (((soaking_weight - initial_weight)/initial_weight)*100);
                                             p = p.toFixed(2);
                                             $(".percentage"+$(this).data("id")).html(p+'%');
                                         });
-                                        }
-                                    });
+                                    }
                                 });
-                            }
-                            if (product.status == "ExcessVolume") {
-                                $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
-                                $('.excess_volume').click(function () {
-                                    $("table.pud_excess_volume_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $.ajax({
-                                        type:"POST",
-                                        url:"{{route('production.processing-unit.blocking.data_pass')}}",
-                                        data:{
-                                            'id' : ppu_id,
-                                            '_token' : $('input[name=_token]').val()
-                                        },
-                                        success:function(data){
-                                            console.log(data);
-                                            $("table.pud_excess_volume_table tbody tr").empty();
-                                            $.each( data, function( key, product ) {
-                                                $("table.pud_excess_volume_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control' name='excess_volume[]' value='"+product.excess_volume+"' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                            });
+                        }
+                        if (product.status == "ExcessVolume") {
+                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                            $('.excess_volume').click(function () {
+                                $("table.excess_volume_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $('.blockcounter_to_excess_volume').empty();
+                                        $.each( data, function( key, product ) {
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover excess_volume_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Block Counter</th><th style='text-align: center'>Excess Volume</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.blockcounter_to_excess_volume').append(append);
+                                            $("table.excess_volume_table"+key+" tbody tr").empty();
+                                            $.each(product.production_processing_grades, function (keyy,value) {
+                                                let append = "<tr id='"+keyy+"'><td>"+value.block_name+" kg</td><td>"+value.block_size+"</td><td>"+value.block_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='excess_volume[]' value='"+value.excess_volume+"' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+value.id+"'></td></tr>";
+                                                $("table.excess_volume_table"+key+" tbody").append(append);
                                             });
-                                        }
-                                    });
+                                        });
+                                    }
                                 });
-                            }
-                            if (product.status == "RandW") {
-                                $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
-                                $('.randw').click(function () {
-                                    $("table.block_randw_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $.ajax({
-                                        type:"POST",
-                                        url:"{{route('production.processing-unit.blocking.data_pass')}}",
-                                        data:{
-                                            'id' : ppu_id,
-                                            '_token' : $('input[name=_token]').val()
-                                        },
-                                        success:function(data){
-                                            console.log(data);
-                                            $("table.block_randw_table tbody tr").empty();
-                                            $.each( data, function( key, product ) {
-                                                $("table.block_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td>"+product.excess_volume+"</td></tr>");
+                            });
+                        }
+                        if (product.status == "RandW") {
+                            $("table#pud_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pudReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $('.randw').click(function () {
+                                $("table.block_randw_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $('.randw_div').empty();
+                                        $.each( data, function( key, product ) {
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover randw_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Block Counter</th><th style='text-align: center'>Excess Volume</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.randw_div').append(append);
+                                            $("table.randw_table"+key+" tbody tr").empty();
+                                            $.each(product.production_processing_grades, function (keyy,value) {
+                                                let append = "<tr id='"+keyy+"'><td>"+value.block_name+" kg</td><td>"+value.block_size+"</td><td>"+value.block_quantity+"</td><td>"+value.excess_volume+"</td></tr>";
+                                                $("table.randw_table"+key+" tbody").append(append);
                                             });
-                                        }
-                                    });
+                                        });
+                                    }
                                 });
-                            }
+                            });
+                        }
                         });
                     }
             });
@@ -1087,68 +1434,73 @@
                                 dead_quantity =  parseFloat(product.dead_quantity);
                             }
                             total_quantity = alive_quantity+dead_quantity;
-                            if (product.status == "Initial") {
-                                $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#p_n_dProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
-                                // $('.fillet_invoice').html(product.requisition_code);
-                                // $('.fillet_item').html(product.production_processing_item.name);
-                                // $('.fillet_qty').html(total_quantity);
-                                $('.processing').click(function () {
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $('.initial_weight').on("change keyup",function() {
-                                        var a = $(this).val();
-                                        var p = (((total_quantity - a)/total_quantity)*100);
-                                        p = p.toFixed(2);
-                                        $('.percentage').html(p+'%');
-                                    });
+
+                        if (product.status == "Initial") {
+                            $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#p_n_dProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                            // $('.fillet_invoice').html(product.requisition_code);
+                            // $('.fillet_item').html(product.production_processing_item.name);
+                            // $('.fillet_qty').html(total_quantity);
+                            $('.processing').click(function () {
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = (((total_quantity - a)/total_quantity)*100);
+                                    p = p.toFixed(2);
+                                    $('.percentage').html(p+'%');
                                 });
-                                
-                            }
-                            if (product.status == "Blocking") {
-                                $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dGradingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
-                                $('.blocking').click(function () {
-                                    $("table.p_n_d_block_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    var product_array = [];
-                                    var block_id , block_name,block_size_id,block_size_name,grade_weight = null; 
-                                    $('.block_select').change(function() {
-                                        block_id=$('option:selected',this).val();
-                                        block_name =$('option:selected',this).attr("data-block_size");
-                                        console.log(grade_name);
+                            });
+                            
+                        }
+                        if (product.status == "Grading") {
+                            $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dGradingModal' class='btn btn-success raw_grading' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Grading</button></td></tr>");
+                            $('.raw_grading').click(function () {
+                                $("table.grading_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.grade_ppu_id').val(ppu_id);
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                var product_array = [];
+                                var grade_id , grade_name ,grade_weight = null; 
+                                $('.grade_select').change(function() {
+                                    grade_id=$('option:selected',this).val();
+                                    grade_name =$('option:selected',this).attr("data-grade_name");
+                                    console.log(grade_name);
+                                });
+                                $('.grade_weight').on("change keyup",function() {
+                                    grade_weight = $(this).val();
+                                });
+                                $('.add_btn').click(function () {
+                                    $("table.grading_table tbody tr").empty();
+                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight,"status":"stay"});
+                                    $.each( product_array, function( key, product ) {
+                                        // console.log(product);
+                                        if (product.status == "stay") {
+                                            let append = "<tr class='delete"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>";
+                                            $("table.grading_table tbody").append(append);
+                                        }
                                     });
-                                    $('.size_select').change(function() {
-                                        block_size_id=$('option:selected',this).val();
-                                        block_size_name =$('option:selected',this).attr("data-size");
-                                        console.log(grade_name);
-                                    });
-                                    $('.add_btn').click(function () {
-                                        $("table.p_n_d_block_table tbody tr").empty();
-                                        product_array.push({"block_id":block_id,"block_name":block_name,"block_size_id":block_size_id,"block_size_name":block_size_name,"status":"stay"});
-                                        $.each( product_array, function( key, product ) {
-                                            if (product.status == "stay") {
-                                                $("table.p_n_d_block_table tr").last().after("<tr class='delete"+key+"'><td>"+product.block_name+"</td><td>"+product.block_size_name+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
-                                            }
-                                        });
-                                        $(".inputs").val('');
-                                        $(".inputs").val(JSON.stringify(product_array));
-                                        $('.block_select').val("");
-                                        $('.size_select').val("");
-                                        $(".delete").click(function(){
+                                    $(".inputs").val('');
+                                    $(".inputs").val(JSON.stringify(product_array));
+                                    $('.grade_weight').val(0);
+                                    $('.grade_select').val("--select--");
+                                    $(".delete").click(function(){
                                         console.log('good');
                                         product_array[$(this).data("id")].status="delete";
                                         $(".inputs").val(JSON.stringify(product_array));
@@ -1156,137 +1508,247 @@
                                         $('.grade_select').val("--select--");
                                         $(".delete"+$(this).data("id")).remove();
                                     });
-                                    })
-                                });
+                                })
+                            });
 
-                            }
-                            if (product.status == "BlockCounter") {
-                                $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
-                                $('.block_counter').click(function () {
-                                    $("table.p_n_d_block_counter_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    // console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $.ajax({
-                                        type:"POST",
-                                        url:"{{route('production.processing-unit.blocking.data_pass')}}",
-                                        data:{
-                                            'id' : ppu_id,
-                                            '_token' : $('input[name=_token]').val()
-                                        },
-                                        success:function(data){
-                                            console.log(data);
-                                            $("table.p_n_d_block_counter_table tbody tr").empty();
-                                            $.each( data, function( key, product ) {
-                                                $("table.p_n_d_block_counter_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td><input type='number' step='0.01' class='form-control' name='block_quantity[]' value='"+product.block_quantity+"' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                        }
+                        if (product.status == "Blocking") {
+                            // console.log(product);
+                            $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dBlockingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                            $('.blocking').click(function () {
+                                $("table.block_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $.each( data, function( key, product ) {
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><div class='col-md-5'><label>Block Size</label><select type='text' class='form-control block_select' ><option>--Select--</option>@foreach ($blocks as $item) <option value='{{$item->id}}' data-block_size='{{$item->block_size}}'>{{$item->block_size}} kg</option>@endforeach</select></div><div class='col-md-5'><label>Size</label><select type='text' class='form-control size_select'><option>--Select--</option>@foreach ($blocks_size as $itemx)<option value='{{$itemx->id}}' data-size='{{$itemx->size}}'>{{$itemx->size}}</option>@endforeach</select></div><div class='col-md-1' style='margin-top: 4%'><button class='btn btn-success add_btn' data-key="+key+" data-batch_code="+product.batch_code+" data-grade_block_id="+product.id+" type='button'>+ Add</button></div></div><br><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover block_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Action</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.grade_to_block').append(append);
+                                        });
+                                        var product_array = [];
+                                        var block_id , block_name,block_size_id,block_size_name,grade_weight, grade_batch_code,grade_block_id = null; 
+                                        $('.block_select').change(function() {
+                                            block_id=$('option:selected',this).val();
+                                            block_name =$('option:selected',this).attr("data-block_size");
+                                            console.log(block_name);
+                                        });
+                                        $('.size_select').change(function() {
+                                            block_size_id=$('option:selected',this).val();
+                                            block_size_name =$('option:selected',this).attr("data-size");
+                                            console.log(block_size_name);
+                                        });
+                                        $('.add_btn').click(function () {
+                                            var value  =$(this).attr("data-key");
+                                            var batch_code = $(this).attr("data-batch_code");
+                                            grade_block_id = $(this).attr("data-grade_block_id");
+                                            console.log(value);
+                                            $("table.block_table"+value+" tbody tr").empty();
+                                            product_array.push({"block_id":block_id,"block_name":block_name,"block_size_id":block_size_id,"block_size_name":block_size_name,"grade_batch_code":batch_code,'grade_block_id':grade_block_id,"status":"stay"});
+                                            $.each( product_array, function( key, product ) {
+                                                if (product.status == "stay" && product.grade_batch_code == batch_code) {
+                                                    let append = "<tr class='delete"+key+"'><td>"+product.block_name+"</td><td>"+product.block_size_name+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>";
+                                                    $("table.block_table"+value+" tbody").append(append);
+                                                }
                                             });
-                                        }
-                                    });
+                                            $(".inputs").val('');
+                                            $(".inputs").val(JSON.stringify(product_array));
+                                            $('.block_select').val("");
+                                            $('.size_select').val("");
+                                            $(".delete").click(function(){
+                                                console.log('good');
+                                                product_array[$(this).data("id")].status="delete";
+                                                $(".inputs").val(JSON.stringify(product_array));
+                                                $('.grade_weight').val(0);
+                                                $('.grade_select').val("--select--");
+                                                $(".delete"+$(this).data("id")).remove();
+                                            });
+                                        })
+                                    }
                                 });
-                            }
-                            if (product.status == "Soaking") {
-                                $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dSoakingModal' class='btn btn-warning soakingtable' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
-                                $('.soakingtable').click(function () {
-                                    $("table.p_n_d_soaking_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    // console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $.ajax({
-                                        type:"POST",
-                                        url:"{{route('production.processing-unit.blocking.data_pass')}}",
-                                        data:{
-                                            'id' : ppu_id,
-                                            '_token' : $('input[name=_token]').val()
-                                        },
-                                        success:function(data){
-                                            console.log(data);
-                                            $("table.p_n_d_soaking_table tbody tr").empty();
-                                            $.each( data, function( key, product ) {
-                                                $("table.p_n_d_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.block_name+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td><td><span class='percentage"+key+"'></span></td></tr>");
+                                
+                            });
+
+                        }
+                        if (product.status == "BlockCounter") {
+                            $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                            $('.block_counter').click(function () {
+                                $("table.block_counter_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $('.block_to_blockcounter').empty();
+                                        $.each( data, function( key, product ) {
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover block_counter_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Block Counter</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.block_to_blockcounter').append(append);
+                                            $("table.block_counter_table"+key+" tbody tr").empty();
+                                            $.each(product.production_processing_grades, function (keyy,value) {
+                                                let append = "<tr id='"+keyy+"'><td>"+value.block_name+" kg</td><td>"+value.block_size+"</td><td><input type='number' step='0.01' class='form-control' name='block_quantity[]' value='"+value.block_quantity+"' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+value.id+"'></td></tr>";
+                                                $("table.block_counter_table"+key+" tbody").append(append);
                                             });
-                                            $('.soaking_weight').on("change keyup",function() {
-                                                var soaking_weight = parseFloat($(this).val());
-                                                var initial_weight = parseFloat($(this).data("qty")); 
-                                                var p = (((soaking_weight - initial_weight)/initial_weight)*100);
-                                                p = p.toFixed(2);
-                                                $(".percentage"+$(this).data("id")).html(p+'%');
-                                            });
-                                        }
-                                    });
+                                        });
+                                    }
                                 });
-                            }
-                            if (product.status == "ExcessVolume") {
-                                $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
-                                $('.excess_volume').click(function () {
-                                    $("table.p_n_d_excess_volume_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $.ajax({
-                                        type:"POST",
-                                        url:"{{route('production.processing-unit.blocking.data_pass')}}",
-                                        data:{
-                                            'id' : ppu_id,
-                                            '_token' : $('input[name=_token]').val()
-                                        },
-                                        success:function(data){
-                                            console.log(data);
-                                            $("table.p_n_d_excess_volume_table tbody tr").empty();
-                                            $.each( data, function( key, product ) {
-                                                $("table.p_n_d_excess_volume_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control' name='excess_volume[]' value='"+product.excess_volume+"' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
-                                            });
-                                        }
-                                    });
+                            });
+                        }
+                        if (product.status == "Soaking") {
+                            $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dSoakingModal' class='btn btn-warning soakingtable' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $('.soakingtable').click(function () {
+                                $("table.hlso_soaking_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $("table.hlso_soaking_table tbody tr").empty();
+                                        $.each( data, function( key, product ) {
+                                            let append = "<tr id='"+key+"'><td>"+product.grade_name+" kg</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>";
+                                            $("table.hlso_soaking_table tbody").append(append);
+                                        });
+                                        $('.soaking_weight').on("change keyup",function() {
+                                            var soaking_weight = parseFloat($(this).val());
+                                            var initial_weight = parseFloat($(this).data("qty")); 
+                                            var p = (((soaking_weight - initial_weight)/initial_weight)*100);
+                                            p = p.toFixed(2);
+                                            $(".percentage"+$(this).data("id")).html(p+'%');
+                                        });
+                                    }
                                 });
-                            }
-                            if (product.status == "RandW") {
-                                $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
-                                $('.randw').click(function () {
-                                    $("table.p_n_d_block_randw_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $.ajax({
-                                        type:"POST",
-                                        url:"{{route('production.processing-unit.blocking.data_pass')}}",
-                                        data:{
-                                            'id' : ppu_id,
-                                            '_token' : $('input[name=_token]').val()
-                                        },
-                                        success:function(data){
-                                            console.log(data);
-                                            $("table.p_n_d_block_randw_table tbody tr").empty();
-                                            $.each( data, function( key, product ) {
-                                                $("table.p_n_d_block_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td>"+product.excess_volume+"</td></tr>");
+                            });
+                        }
+                        if (product.status == "ExcessVolume") {
+                            $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                            $('.excess_volume').click(function () {
+                                $("table.excess_volume_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $('.blockcounter_to_excess_volume').empty();
+                                        $.each( data, function( key, product ) {
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover excess_volume_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Block Counter</th><th style='text-align: center'>Excess Volume</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.blockcounter_to_excess_volume').append(append);
+                                            $("table.excess_volume_table"+key+" tbody tr").empty();
+                                            $.each(product.production_processing_grades, function (keyy,value) {
+                                                let append = "<tr id='"+keyy+"'><td>"+value.block_name+" kg</td><td>"+value.block_size+"</td><td>"+value.block_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='excess_volume[]' value='"+value.excess_volume+"' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+value.id+"'></td></tr>";
+                                                $("table.excess_volume_table"+key+" tbody").append(append);
                                             });
-                                        }
-                                    });
+                                        });
+                                    }
                                 });
-                            }
+                            });
+                        }
+                        if (product.status == "RandW") {
+                            $("table#p_n_d_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#p_n_dReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $('.randw').click(function () {
+                                $("table.block_randw_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $('.randw_div').empty();
+                                        $.each( data, function( key, product ) {
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover randw_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Block Counter</th><th style='text-align: center'>Excess Volume</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.randw_div').append(append);
+                                            $("table.randw_table"+key+" tbody tr").empty();
+                                            $.each(product.production_processing_grades, function (keyy,value) {
+                                                let append = "<tr id='"+keyy+"'><td>"+value.block_name+" kg</td><td>"+value.block_size+"</td><td>"+value.block_quantity+"</td><td>"+value.excess_volume+"</td></tr>";
+                                                $("table.randw_table"+key+" tbody").append(append);
+                                            });
+                                        });
+                                    }
+                                });
+                            });
+                        }
                         });
                     }
             });
@@ -1316,206 +1778,320 @@
                                 dead_quantity =  parseFloat(product.dead_quantity);
                             }
                             total_quantity = alive_quantity+dead_quantity;
-                            if (product.status == "Initial") {
-                                $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#pdtoProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
-                                // $('.fillet_invoice').html(product.requisition_code);
-                                // $('.fillet_item').html(product.production_processing_item.name);
-                                // $('.fillet_qty').html(total_quantity);
-                                $('.processing').click(function () {
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $('.initial_weight').on("change keyup",function() {
-                                        var a = $(this).val();
-                                        var p = (((total_quantity - a)/total_quantity)*100);
-                                        p = p.toFixed(2);
-                                        $('.percentage').html(p+'%');
-                                    });
+                        if (product.status == "Initial") {
+                            $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#pdtoProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                            // $('.fillet_invoice').html(product.requisition_code);
+                            // $('.fillet_item').html(product.production_processing_item.name);
+                            // $('.fillet_qty').html(total_quantity);
+                            $('.processing').click(function () {
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = (((total_quantity - a)/total_quantity)*100);
+                                    p = p.toFixed(2);
+                                    $('.percentage').html(p+'%');
                                 });
-                                
-                            }
-                            if (product.status == "Blocking") {
-                                $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoGradingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
-                                $('.blocking').click(function () {
-                                    $("table.pdto_block_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    var product_array = [];
-                                    var block_id , block_name,block_size_id,block_size_name,grade_weight = null; 
-                                    $('.block_select').change(function() {
-                                        block_id=$('option:selected',this).val();
-                                        block_name =$('option:selected',this).attr("data-block_size");
-                                        console.log(grade_name);
-                                    });
-                                    $('.size_select').change(function() {
-                                        block_size_id=$('option:selected',this).val();
-                                        block_size_name =$('option:selected',this).attr("data-size");
-                                        console.log(grade_name);
-                                    });
-                                    $('.add_btn').click(function () {
-                                        $("table.pdto_block_table tbody tr").empty();
-                                        product_array.push({"block_id":block_id,"block_name":block_name,"block_size_id":block_size_id,"block_size_name":block_size_name,"status":"stay"});
-                                        $.each( product_array, function( key, product ) {
-                                            if (product.status == "stay") {
-                                                $("table.pdto_block_table tr").last().after("<tr class='delete"+key+"'><td>"+product.block_name+"</td><td>"+product.block_size_name+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
-                                            }
-                                        });
-                                        $(".inputs").val('');
-                                        $(".inputs").val(JSON.stringify(product_array));
-                                        $('.block_select').val("");
-                                        $('.size_select').val("");
-                                        $(".delete").click(function(){
-                                            console.log('good');
-                                            product_array[$(this).data("id")].status="delete";
-                                            $(".inputs").val(JSON.stringify(product_array));
-                                            $('.grade_weight').val(0);
-                                            $('.grade_select').val("--select--");
-                                            $(".delete"+$(this).data("id")).remove();
-                                        });
-                                    })
+                            });
+                            
+                        }
+                        if (product.status == "Grading") {
+                            $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoGradingModal' class='btn btn-success raw_grading' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Grading</button></td></tr>");
+                            $('.raw_grading').click(function () {
+                                $("table.grading_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.grade_ppu_id').val(ppu_id);
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                var product_array = [];
+                                var grade_id , grade_name ,grade_weight = null; 
+                                $('.grade_select').change(function() {
+                                    grade_id=$('option:selected',this).val();
+                                    grade_name =$('option:selected',this).attr("data-grade_name");
+                                    console.log(grade_name);
                                 });
-
-                            }
-                            if (product.status == "BlockCounter") {
-                                $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
-                                $('.block_counter').click(function () {
-                                    $("table.pdto_block_counter_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    // console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $.ajax({
-                                        type:"POST",
-                                        url:"{{route('production.processing-unit.blocking.data_pass')}}",
-                                        data:{
-                                            'id' : ppu_id,
-                                            '_token' : $('input[name=_token]').val()
-                                        },
-                                        success:function(data){
-                                            console.log(data);
-                                            $("table.pdto_block_counter_table tbody tr").empty();
-                                            $.each( data, function( key, product ) {
-                                                $("table.pdto_block_counter_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td><input type='number' step='0.01' class='form-control' name='block_quantity[]' value='"+product.block_quantity+"' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
-                                            });
+                                $('.grade_weight').on("change keyup",function() {
+                                    grade_weight = $(this).val();
+                                });
+                                $('.add_btn').click(function () {
+                                    $("table.grading_table tbody tr").empty();
+                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight,"status":"stay"});
+                                    $.each( product_array, function( key, product ) {
+                                        // console.log(product);
+                                        if (product.status == "stay") {
+                                            let append = "<tr class='delete"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>";
+                                            $("table.grading_table tbody").append(append);
                                         }
                                     });
-                                });
-                            }
-                            if (product.status == "Soaking") {
-                                $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoSoakingModal' class='btn btn-warning soakingtable' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
-                                $('.soakingtable').click(function () {
-                                    $("table.pdto_soaking_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    // console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $.ajax({
-                                        type:"POST",
-                                        url:"{{route('production.processing-unit.blocking.data_pass')}}",
-                                        data:{
-                                            'id' : ppu_id,
-                                            '_token' : $('input[name=_token]').val()
-                                        },
-                                        success:function(data){
-                                            console.log(data);
-                                            $("table.pdto_soaking_table tbody tr").empty();
-                                            $.each( data, function( key, product ) {
-                                                $("table.pdto_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.block_name+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td><td><span class='percentage"+key+"'></span></td></tr>");
+                                    $(".inputs").val('');
+                                    $(".inputs").val(JSON.stringify(product_array));
+                                    $('.grade_weight').val(0);
+                                    $('.grade_select').val("--select--");
+                                    $(".delete").click(function(){
+                                        console.log('good');
+                                        product_array[$(this).data("id")].status="delete";
+                                        $(".inputs").val(JSON.stringify(product_array));
+                                        $('.grade_weight').val(0);
+                                        $('.grade_select').val("--select--");
+                                        $(".delete"+$(this).data("id")).remove();
+                                    });
+                                })
+                            });
+
+                        }
+                        if (product.status == "Blocking") {
+                            // console.log(product);
+                            $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoBlockingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                            $('.blocking').click(function () {
+                                $("table.block_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $.each( data, function( key, product ) {
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><div class='col-md-5'><label>Block Size</label><select type='text' class='form-control block_select' ><option>--Select--</option>@foreach ($blocks as $item) <option value='{{$item->id}}' data-block_size='{{$item->block_size}}'>{{$item->block_size}} kg</option>@endforeach</select></div><div class='col-md-5'><label>Size</label><select type='text' class='form-control size_select'><option>--Select--</option>@foreach ($blocks_size as $itemx)<option value='{{$itemx->id}}' data-size='{{$itemx->size}}'>{{$itemx->size}}</option>@endforeach</select></div><div class='col-md-1' style='margin-top: 4%'><button class='btn btn-success add_btn' data-key="+key+" data-batch_code="+product.batch_code+" data-grade_block_id="+product.id+" type='button'>+ Add</button></div></div><br><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover block_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Action</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.grade_to_block').append(append);
+                                        });
+                                        var product_array = [];
+                                        var block_id , block_name,block_size_id,block_size_name,grade_weight, grade_batch_code,grade_block_id = null; 
+                                        $('.block_select').change(function() {
+                                            block_id=$('option:selected',this).val();
+                                            block_name =$('option:selected',this).attr("data-block_size");
+                                            console.log(block_name);
+                                        });
+                                        $('.size_select').change(function() {
+                                            block_size_id=$('option:selected',this).val();
+                                            block_size_name =$('option:selected',this).attr("data-size");
+                                            console.log(block_size_name);
+                                        });
+                                        $('.add_btn').click(function () {
+                                            var value  =$(this).attr("data-key");
+                                            var batch_code = $(this).attr("data-batch_code");
+                                            grade_block_id = $(this).attr("data-grade_block_id");
+                                            console.log(value);
+                                            $("table.block_table"+value+" tbody tr").empty();
+                                            product_array.push({"block_id":block_id,"block_name":block_name,"block_size_id":block_size_id,"block_size_name":block_size_name,"grade_batch_code":batch_code,'grade_block_id':grade_block_id,"status":"stay"});
+                                            $.each( product_array, function( key, product ) {
+                                                if (product.status == "stay" && product.grade_batch_code == batch_code) {
+                                                    let append = "<tr class='delete"+key+"'><td>"+product.block_name+"</td><td>"+product.block_size_name+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>";
+                                                    $("table.block_table"+value+" tbody").append(append);
+                                                }
                                             });
-                                            $('.soaking_weight').on("change keyup",function() {
+                                            $(".inputs").val('');
+                                            $(".inputs").val(JSON.stringify(product_array));
+                                            $('.block_select').val("");
+                                            $('.size_select').val("");
+                                            $(".delete").click(function(){
+                                                console.log('good');
+                                                product_array[$(this).data("id")].status="delete";
+                                                $(".inputs").val(JSON.stringify(product_array));
+                                                $('.grade_weight').val(0);
+                                                $('.grade_select').val("--select--");
+                                                $(".delete"+$(this).data("id")).remove();
+                                            });
+                                        })
+                                    }
+                                });
+                                
+                            });
+
+                        }
+                        if (product.status == "BlockCounter") {
+                            $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                            $('.block_counter').click(function () {
+                                $("table.block_counter_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $('.block_to_blockcounter').empty();
+                                        $.each( data, function( key, product ) {
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover block_counter_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Block Counter</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.block_to_blockcounter').append(append);
+                                            $("table.block_counter_table"+key+" tbody tr").empty();
+                                            $.each(product.production_processing_grades, function (keyy,value) {
+                                                let append = "<tr id='"+keyy+"'><td>"+value.block_name+" kg</td><td>"+value.block_size+"</td><td><input type='number' step='0.01' class='form-control' name='block_quantity[]' value='"+value.block_quantity+"' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+value.id+"'></td></tr>";
+                                                $("table.block_counter_table"+key+" tbody").append(append);
+                                            });
+                                        });
+                                    }
+                                });
+                            });
+                        }
+                        if (product.status == "Soaking") {
+                            $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoSoakingModal' class='btn btn-warning soakingtable' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $('.soakingtable').click(function () {
+                                $("table.hlso_soaking_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $("table.hlso_soaking_table tbody tr").empty();
+                                        $.each( data, function( key, product ) {
+                                            let append = "<tr id='"+key+"'><td>"+product.grade_name+" kg</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>";
+                                            $("table.hlso_soaking_table tbody").append(append);
+                                        });
+                                        $('.soaking_weight').on("change keyup",function() {
                                             var soaking_weight = parseFloat($(this).val());
                                             var initial_weight = parseFloat($(this).data("qty")); 
                                             var p = (((soaking_weight - initial_weight)/initial_weight)*100);
                                             p = p.toFixed(2);
                                             $(".percentage"+$(this).data("id")).html(p+'%');
                                         });
-                                        }
-                                    });
+                                    }
                                 });
-                            }
-                            if (product.status == "ExcessVolume") {
-                                $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
-                                $('.excess_volume').click(function () {
-                                    $("table.pdto_excess_volume_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $.ajax({
-                                        type:"POST",
-                                        url:"{{route('production.processing-unit.blocking.data_pass')}}",
-                                        data:{
-                                            'id' : ppu_id,
-                                            '_token' : $('input[name=_token]').val()
-                                        },
-                                        success:function(data){
-                                            console.log(data);
-                                            $("table.pdto_excess_volume_table tbody tr").empty();
-                                            $.each( data, function( key, product ) {
-                                                $("table.pdto_excess_volume_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control' name='excess_volume[]' value='"+product.excess_volume+"' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                            });
+                        }
+                        if (product.status == "ExcessVolume") {
+                            $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                            $('.excess_volume').click(function () {
+                                $("table.excess_volume_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $('.blockcounter_to_excess_volume').empty();
+                                        $.each( data, function( key, product ) {
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover excess_volume_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Block Counter</th><th style='text-align: center'>Excess Volume</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.blockcounter_to_excess_volume').append(append);
+                                            $("table.excess_volume_table"+key+" tbody tr").empty();
+                                            $.each(product.production_processing_grades, function (keyy,value) {
+                                                let append = "<tr id='"+keyy+"'><td>"+value.block_name+" kg</td><td>"+value.block_size+"</td><td>"+value.block_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='excess_volume[]' value='"+value.excess_volume+"' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+value.id+"'></td></tr>";
+                                                $("table.excess_volume_table"+key+" tbody").append(append);
                                             });
-                                        }
-                                    });
+                                        });
+                                    }
                                 });
-                            }
-                            if (product.status == "RandW") {
-                                $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
-                                $('.randw').click(function () {
-                                    $("table.pdto_block_randw_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $.ajax({
-                                        type:"POST",
-                                        url:"{{route('production.processing-unit.blocking.data_pass')}}",
-                                        data:{
-                                            'id' : ppu_id,
-                                            '_token' : $('input[name=_token]').val()
-                                        },
-                                        success:function(data){
-                                            console.log(data);
-                                            $("table.pdto_block_randw_table tbody tr").empty();
-                                            $.each( data, function( key, product ) {
-                                                $("table.pdto_block_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td>"+product.excess_volume+"</td></tr>");
+                            });
+                        }
+                        if (product.status == "RandW") {
+                            $("table#pdto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#pdtoReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $('.randw').click(function () {
+                                $("table.block_randw_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $('.randw_div').empty();
+                                        $.each( data, function( key, product ) {
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover randw_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Block Counter</th><th style='text-align: center'>Excess Volume</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.randw_div').append(append);
+                                            $("table.randw_table"+key+" tbody tr").empty();
+                                            $.each(product.production_processing_grades, function (keyy,value) {
+                                                let append = "<tr id='"+keyy+"'><td>"+value.block_name+" kg</td><td>"+value.block_size+"</td><td>"+value.block_quantity+"</td><td>"+value.excess_volume+"</td></tr>";
+                                                $("table.randw_table"+key+" tbody").append(append);
                                             });
-                                        }
-                                    });
+                                        });
+                                    }
                                 });
-                            }
+                            });
+                        }
                         });
                     }
             });
@@ -1545,68 +2121,72 @@
                                 dead_quantity =  parseFloat(product.dead_quantity);
                             }
                             total_quantity = alive_quantity+dead_quantity;
-                            if (product.status == "Initial") {
-                                $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#ptoProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
-                                // $('.fillet_invoice').html(product.requisition_code);
-                                // $('.fillet_item').html(product.production_processing_item.name);
-                                // $('.fillet_qty').html(total_quantity);
-                                $('.processing').click(function () {
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $('.initial_weight').on("change keyup",function() {
-                                        var a = $(this).val();
-                                        var p = (((total_quantity - a)/total_quantity)*100);
-                                        p = p.toFixed(2);
-                                        $('.percentage').html(p+'%');
-                                    });
+                        if (product.status == "Initial") {
+                            $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-toggle='modal' href='#ptoProcessingDataModal' class='btn btn-success processing'><i class='fa fa-refresh' aria-hidden='true'></i> Processing Data</button></td></tr>");
+                            // $('.fillet_invoice').html(product.requisition_code);
+                            // $('.fillet_item').html(product.production_processing_item.name);
+                            // $('.fillet_qty').html(total_quantity);
+                            $('.processing').click(function () {
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = (((total_quantity - a)/total_quantity)*100);
+                                    p = p.toFixed(2);
+                                    $('.percentage').html(p+'%');
                                 });
-                                
-                            }
-                            if (product.status == "Blocking") {
-                                $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoGradingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
-                                $('.blocking').click(function () {
-                                    $("table.pto_block_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    var product_array = [];
-                                    var block_id , block_name,block_size_id,block_size_name,grade_weight = null; 
-                                    $('.block_select').change(function() {
-                                        block_id=$('option:selected',this).val();
-                                        block_name =$('option:selected',this).attr("data-block_size");
-                                        console.log(grade_name);
+                            });
+                            
+                        }
+                        if (product.status == "Grading") {
+                            $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoGradingModal' class='btn btn-success raw_grading' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Grading</button></td></tr>");
+                            $('.raw_grading').click(function () {
+                                $("table.grading_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.grade_ppu_id').val(ppu_id);
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                var product_array = [];
+                                var grade_id , grade_name ,grade_weight = null; 
+                                $('.grade_select').change(function() {
+                                    grade_id=$('option:selected',this).val();
+                                    grade_name =$('option:selected',this).attr("data-grade_name");
+                                    console.log(grade_name);
+                                });
+                                $('.grade_weight').on("change keyup",function() {
+                                    grade_weight = $(this).val();
+                                });
+                                $('.add_btn').click(function () {
+                                    $("table.grading_table tbody tr").empty();
+                                    product_array.push({"grade_id":grade_id,"grade_name":grade_name,"grade_weight":grade_weight,"status":"stay"});
+                                    $.each( product_array, function( key, product ) {
+                                        // console.log(product);
+                                        if (product.status == "stay") {
+                                            let append = "<tr class='delete"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_weight+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>";
+                                            $("table.grading_table tbody").append(append);
+                                        }
                                     });
-                                    $('.size_select').change(function() {
-                                        block_size_id=$('option:selected',this).val();
-                                        block_size_name =$('option:selected',this).attr("data-size");
-                                        console.log(grade_name);
-                                    });
-                                    $('.add_btn').click(function () {
-                                        $("table.pto_block_table tbody tr").empty();
-                                        product_array.push({"block_id":block_id,"block_name":block_name,"block_size_id":block_size_id,"block_size_name":block_size_name,"status":"stay"});
-                                        $.each( product_array, function( key, product ) {
-                                            if (product.status == "stay") {
-                                                $("table.pto_block_table tr").last().after("<tr class='delete"+key+"'><td>"+product.block_name+"</td><td>"+product.block_size_name+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>");
-                                            }
-                                        });
-                                        $(".inputs").val('');
-                                        $(".inputs").val(JSON.stringify(product_array));
-                                        $('.block_select').val("");
-                                        $('.size_select').val("");
-                                        $(".delete").click(function(){
+                                    $(".inputs").val('');
+                                    $(".inputs").val(JSON.stringify(product_array));
+                                    $('.grade_weight').val(0);
+                                    $('.grade_select').val("--select--");
+                                    $(".delete").click(function(){
                                         console.log('good');
                                         product_array[$(this).data("id")].status="delete";
                                         $(".inputs").val(JSON.stringify(product_array));
@@ -1614,137 +2194,247 @@
                                         $('.grade_select').val("--select--");
                                         $(".delete"+$(this).data("id")).remove();
                                     });
-                                    })
-                                });
+                                })
+                            });
 
-                            }
-                            if (product.status == "BlockCounter") {
-                                $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
-                                $('.block_counter').click(function () {
-                                    $("table.pto_block_counter_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    // console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $.ajax({
-                                        type:"POST",
-                                        url:"{{route('production.processing-unit.blocking.data_pass')}}",
-                                        data:{
-                                            'id' : ppu_id,
-                                            '_token' : $('input[name=_token]').val()
-                                        },
-                                        success:function(data){
-                                            console.log(data);
-                                            $("table.pto_block_counter_table tbody tr").empty();
-                                            $.each( data, function( key, product ) {
-                                                $("table.pto_block_counter_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td><input type='number' step='0.01' class='form-control' name='block_quantity[]' value='"+product.block_quantity+"' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                        }
+                        if (product.status == "Blocking") {
+                            // console.log(product);
+                            $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoBlockingModal' class='btn btn-success blocking' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-qty='"+total_quantity+"'><i class='fa fa-bar-chart' aria-hidden='true'></i> Bloicking</button></td></tr>");
+                            $('.blocking').click(function () {
+                                $("table.block_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $.each( data, function( key, product ) {
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><div class='col-md-5'><label>Block Size</label><select type='text' class='form-control block_select' ><option>--Select--</option>@foreach ($blocks as $item) <option value='{{$item->id}}' data-block_size='{{$item->block_size}}'>{{$item->block_size}} kg</option>@endforeach</select></div><div class='col-md-5'><label>Size</label><select type='text' class='form-control size_select'><option>--Select--</option>@foreach ($blocks_size as $itemx)<option value='{{$itemx->id}}' data-size='{{$itemx->size}}'>{{$itemx->size}}</option>@endforeach</select></div><div class='col-md-1' style='margin-top: 4%'><button class='btn btn-success add_btn' data-key="+key+" data-batch_code="+product.batch_code+" data-grade_block_id="+product.id+" type='button'>+ Add</button></div></div><br><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover block_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Action</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.grade_to_block').append(append);
+                                        });
+                                        var product_array = [];
+                                        var block_id , block_name,block_size_id,block_size_name,grade_weight, grade_batch_code,grade_block_id = null; 
+                                        $('.block_select').change(function() {
+                                            block_id=$('option:selected',this).val();
+                                            block_name =$('option:selected',this).attr("data-block_size");
+                                            console.log(block_name);
+                                        });
+                                        $('.size_select').change(function() {
+                                            block_size_id=$('option:selected',this).val();
+                                            block_size_name =$('option:selected',this).attr("data-size");
+                                            console.log(block_size_name);
+                                        });
+                                        $('.add_btn').click(function () {
+                                            var value  =$(this).attr("data-key");
+                                            var batch_code = $(this).attr("data-batch_code");
+                                            grade_block_id = $(this).attr("data-grade_block_id");
+                                            console.log(value);
+                                            $("table.block_table"+value+" tbody tr").empty();
+                                            product_array.push({"block_id":block_id,"block_name":block_name,"block_size_id":block_size_id,"block_size_name":block_size_name,"grade_batch_code":batch_code,'grade_block_id':grade_block_id,"status":"stay"});
+                                            $.each( product_array, function( key, product ) {
+                                                if (product.status == "stay" && product.grade_batch_code == batch_code) {
+                                                    let append = "<tr class='delete"+key+"'><td>"+product.block_name+"</td><td>"+product.block_size_name+"</td><td><button class='btn btn-danger delete' data-id='"+key+"'>Delete</button></td></tr>";
+                                                    $("table.block_table"+value+" tbody").append(append);
+                                                }
                                             });
-                                        }
-                                    });
+                                            $(".inputs").val('');
+                                            $(".inputs").val(JSON.stringify(product_array));
+                                            $('.block_select').val("");
+                                            $('.size_select').val("");
+                                            $(".delete").click(function(){
+                                                console.log('good');
+                                                product_array[$(this).data("id")].status="delete";
+                                                $(".inputs").val(JSON.stringify(product_array));
+                                                $('.grade_weight').val(0);
+                                                $('.grade_select').val("--select--");
+                                                $(".delete"+$(this).data("id")).remove();
+                                            });
+                                        })
+                                    }
                                 });
-                            }
-                            if (product.status == "Soaking") {
-                                $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoSoakingModal' class='btn btn-warning soakingtable' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
-                                $('.soakingtable').click(function () {
-                                    $("table.pto_soaking_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    // console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $.ajax({
-                                        type:"POST",
-                                        url:"{{route('production.processing-unit.blocking.data_pass')}}",
-                                        data:{
-                                            'id' : ppu_id,
-                                            '_token' : $('input[name=_token]').val()
-                                        },
-                                        success:function(data){
-                                            console.log(data);
-                                            $("table.pto_soaking_table tbody tr").empty();
-                                            $.each( data, function( key, product ) {
-                                                $("table.pto_soaking_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.block_name+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><input type='number' step='0.01' class='form-control' name='soaking_return[]' value='"+product.soaking_return+"' placeholder='soaking return'></td><td><span class='percentage"+key+"'></span></td></tr>");
+                                
+                            });
+
+                        }
+                        if (product.status == "BlockCounter") {
+                            $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoBlockCounterModal' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' class='btn blue block_counter'><i class='fa fa-calculator' aria-hidden='true'></i> Block Counter</button></td></tr>");
+                            $('.block_counter').click(function () {
+                                $("table.block_counter_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $('.block_to_blockcounter').empty();
+                                        $.each( data, function( key, product ) {
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover block_counter_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Block Counter</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.block_to_blockcounter').append(append);
+                                            $("table.block_counter_table"+key+" tbody tr").empty();
+                                            $.each(product.production_processing_grades, function (keyy,value) {
+                                                let append = "<tr id='"+keyy+"'><td>"+value.block_name+" kg</td><td>"+value.block_size+"</td><td><input type='number' step='0.01' class='form-control' name='block_quantity[]' value='"+value.block_quantity+"' placeholder='Block Quantity'><input type='hidden' name='item_id[]' value='"+value.id+"'></td></tr>";
+                                                $("table.block_counter_table"+key+" tbody").append(append);
                                             });
-                                            $('.soaking_weight').on("change keyup",function() {
+                                        });
+                                    }
+                                });
+                            });
+                        }
+                        if (product.status == "Soaking") {
+                            $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoSoakingModal' class='btn btn-warning soakingtable' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-superpowers' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $('.soakingtable').click(function () {
+                                $("table.hlso_soaking_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $("table.hlso_soaking_table tbody tr").empty();
+                                        $.each( data, function( key, product ) {
+                                            let append = "<tr id='"+key+"'><td>"+product.grade_name+" kg</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control soaking_weight' name='soaking_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.soaking_weight+"' placeholder='soaking weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>";
+                                            $("table.hlso_soaking_table tbody").append(append);
+                                        });
+                                        $('.soaking_weight').on("change keyup",function() {
                                             var soaking_weight = parseFloat($(this).val());
                                             var initial_weight = parseFloat($(this).data("qty")); 
                                             var p = (((soaking_weight - initial_weight)/initial_weight)*100);
                                             p = p.toFixed(2);
                                             $(".percentage"+$(this).data("id")).html(p+'%');
                                         });
-                                        }
-                                    });
+                                    }
                                 });
-                            }
-                            if (product.status == "ExcessVolume") {
-                                $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
-                                $('.excess_volume').click(function () {
-                                    $("table.pto_excess_volume_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $.ajax({
-                                        type:"POST",
-                                        url:"{{route('production.processing-unit.blocking.data_pass')}}",
-                                        data:{
-                                            'id' : ppu_id,
-                                            '_token' : $('input[name=_token]').val()
-                                        },
-                                        success:function(data){
-                                            console.log(data);
-                                            $("table.pto_excess_volume_table tbody tr").empty();
-                                            $.each( data, function( key, product ) {
-                                                $("table.pto_excess_volume_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td><input type='number' step='0.01' class='form-control' name='excess_volume[]' value='"+product.excess_volume+"' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+product.id+"'></td></tr>");
+                            });
+                        }
+                        if (product.status == "ExcessVolume") {
+                            $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoExcessVolumeModal' class='btn btn-warning excess_volume' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"'><i class='fa fa-refresh' aria-hidden='true'></i> Excess Volume</button></td></tr>");
+                            $('.excess_volume').click(function () {
+                                $("table.excess_volume_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $('.blockcounter_to_excess_volume').empty();
+                                        $.each( data, function( key, product ) {
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover excess_volume_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Block Counter</th><th style='text-align: center'>Excess Volume</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.blockcounter_to_excess_volume').append(append);
+                                            $("table.excess_volume_table"+key+" tbody tr").empty();
+                                            $.each(product.production_processing_grades, function (keyy,value) {
+                                                let append = "<tr id='"+keyy+"'><td>"+value.block_name+" kg</td><td>"+value.block_size+"</td><td>"+value.block_quantity+"</td><td><input type='number' step='0.01' class='form-control' name='excess_volume[]' value='"+value.excess_volume+"' placeholder='excess volume'><input type='hidden' name='item_id[]' value='"+value.id+"'></td></tr>";
+                                                $("table.excess_volume_table"+key+" tbody").append(append);
                                             });
-                                        }
-                                    });
+                                        });
+                                    }
                                 });
-                            }
-                            if (product.status == "RandW") {
-                                $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
-                                $('.randw').click(function () {
-                                    $("table.pto_block_randw_table tbody tr").empty();
-                                    var invoice = $(this).attr("data-invoice");
-                                    var item = $(this).attr("data-item");
-                                    var qty = $(this).attr("data-qty");
-                                    var ppu_id =  $(this).attr("data-ppu_id");
-                                    console.log(ppu_id);
-                                    $('.invoice').html(invoice);
-                                    $('.item').html(item);
-                                    $('.qty').html((qty));
-                                    $('.ppu_id').val(ppu_id);
-                                    $.ajax({
-                                        type:"POST",
-                                        url:"{{route('production.processing-unit.blocking.data_pass')}}",
-                                        data:{
-                                            'id' : ppu_id,
-                                            '_token' : $('input[name=_token]').val()
-                                        },
-                                        success:function(data){
-                                            console.log(data);
-                                            $("table.pto_block_randw_table tbody tr").empty();
-                                            $.each( data, function( key, product ) {
-                                                $("table.pto_block_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.block_name+" kg</td><td>"+product.block_size+"</td><td>"+product.block_quantity+"</td><td>"+product.soaking_weight+"</td><td>"+product.soaking_return+"</td><td>"+product.excess_volume+"</td></tr>");
+                            });
+                        }
+                        if (product.status == "RandW") {
+                            $("table#pto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#ptoReturnModal' class='btn btn-danger randw' data-ppu_id='"+product.id+"' data-invoice='"+product.requisition_code+"' data-item='"+product.production_processing_item.name+"' data-qty='"+total_quantity+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $('.randw').click(function () {
+                                $("table.block_randw_table tbody tr").empty();
+                                var invoice = $(this).attr("data-invoice");
+                                var item = $(this).attr("data-item");
+                                var qty = $(this).attr("data-qty");
+                                var ppu_id =  $(this).attr("data-ppu_id");
+                                var initial_weight = $(this).attr("data-Initial_weight");
+                                var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
+                                console.log(ppu_id);
+                                $('.invoice').html(invoice);
+                                $('.item').html(item);
+                                $('.qty').html((qty));
+                                $('.ppu_id').val(ppu_id);
+                                $('.initial_weight').html(initial_weight);
+                                $('.initial_weight_datetime').html((initial_weight_datetime));
+                                $.ajax({
+                                    type:"POST",
+                                    url:"{{route('production.processing-unit.raw_bf_data_pass')}}",
+                                    data:{
+                                        'id' : ppu_id,
+                                        '_token' : $('input[name=_token]').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data);
+                                        $('.randw_div').empty();
+                                        $.each( data, function( key, product ) {
+                                            let  append="<div class='col-md-12' style='text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;margin-top:2%;'>Grade:<b>"+product.grade_name+"</b> || Grade_Weight:"+product.grade_quantity+" || Soaking_weight:"+product.soaking_weight+"</div><div class='col-md-12' style='margin-top:2%;'><table class='table table-striped table-bordered table-hover randw_table"+key+"'><thead><tr><th style='text-align: center'>Block Size</th><th style='text-align: center'>Size</th><th style='text-align: center'>Block Counter</th><th style='text-align: center'>Excess Volume</th></tr></thead><tbody><tr></tr></tbody></div>";
+                                            $('.randw_div').append(append);
+                                            $("table.randw_table"+key+" tbody tr").empty();
+                                            $.each(product.production_processing_grades, function (keyy,value) {
+                                                let append = "<tr id='"+keyy+"'><td>"+value.block_name+" kg</td><td>"+value.block_size+"</td><td>"+value.block_quantity+"</td><td>"+value.excess_volume+"</td></tr>";
+                                                $("table.randw_table"+key+" tbody").append(append);
                                             });
-                                        }
-                                    });
+                                        });
+                                    }
                                 });
-                            }
+                            });
+                        }
                         });
                     }
             });

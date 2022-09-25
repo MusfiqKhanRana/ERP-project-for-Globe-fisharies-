@@ -555,6 +555,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::post('production/processing-unit/fillet_glazing',[ProductionIqfController::class,'fillet_glazing'])->name('production.processing-unit.fillet_glazing');
     Route::post('production/processing-unit/processing_to_clean',[ProductionIqfController::class,'processing_to_clean'])->name('production.processing-unit.processing_to_clean');
     Route::post('production/processing-unit/cleaning_to_grading',[ProductionIqfController::class,'cleaning_to_grading'])->name('production.processing-unit.cleaning_to_grading');
+    Route::post('production/processing-unit/cleaning_to_glazing',[ProductionIqfController::class,'cleaning_to_glazing'])->name('production.processing-unit.cleaning_to_glazing');
+    Route::post('production/processing-unit/processing_to_glazing',[ProductionIqfController::class,'processing_to_glazing'])->name('production.processing-unit.processing_to_glazing');
+    Route::post('production/processing-unit/processing_to_soaking',[ProductionIqfController::class,'processing_to_soaking'])->name('production.processing-unit.processing_to_soaking');
+    Route::post('production/processing-unit/soaking_to_glazing',[ProductionIqfController::class,'soaking_to_glazing'])->name('production.processing-unit.soaking_to_glazing');
+    Route::post('production/processing-unit/glazing_to_randw',[ProductionIqfController::class,'glazing_to_randw'])->name('production.processing-unit.glazing_to_randw');
     Route::post('production/processing-unit/grading',[ProductionIqfController::class,'grading'])->name('production.processing-unit.grading');
     Route::post('production/processing-unit/grading_to_glazing',[ProductionIqfController::class,'grading_to_glazing'])->name('production.processing-unit.grading_to_glazing');
     Route::post('production/processing-unit/soaking',[ProductionIqfController::class,'soaking'])->name('production.processing-unit.soaking');
@@ -568,7 +573,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'],function () {
     Route::get('production/processing-unit/block_frozen', [ProductionBlockController::class,'block_frozen'])->name('production.processing.block_frozen');
     Route::get('production/processing-unit/raw_bf_shrimp', [ProductionBlockController::class,'raw_bf_shrimp'])->name('production.processing.raw_bf_shrimp');
     Route::get('production/processing-unit/semi_iqf', [ProductionBlockController::class,'semi_iqf'])->name('production.processing.semi_iqf');
-    Route::post('production/processing-unit/block/block_data_pass',[ProductionBlockController::class,'block_data_pass'])->name('production.processing-unit.bf.block_data_pass');
+    Route::post('production/processing-unit/raw_bf_blocking_to_blockcounter',[ProductionBlockController::class,'raw_bf_blocking_to_blockcounter'])->name('production.processing-unit.raw_bf_blocking_to_blockcounter');
+    Route::post('production/processing-unit/raw_bf_block_counter_to_excess_volume',[ProductionBlockController::class,'raw_bf_block_counter_to_excess_volume'])->name('production.processing-unit.raw_bf_block_counter_to_excess_volume');
+    Route::post('production/processing-unit/block/raw_bf_soaking_to_blocking',[ProductionBlockController::class,'raw_bf_soaking_to_blocking'])->name('production.processing-unit.raw_bf_soaking_to_blocking');
+    Route::post('production/processing-unit/block/raw_bf_data_pass',[ProductionBlockController::class,'raw_bf_data_pass'])->name('production.processing-unit.raw_bf_data_pass');
+    Route::post('production/processing-unit/block/raw_bf_grading',[ProductionBlockController::class,'raw_bf_grading'])->name('production.processing-unit.raw_bf_grading');
+    Route::post('production/processing-unit/processing_to_blocking',[ProductionBlockController::class,'processing_to_blocking'])->name('production.processing-unit.processing_to_blocking');
     Route::post('production/processing-unit/processing_to_blocking',[ProductionBlockController::class,'processing_to_blocking'])->name('production.processing-unit.processing_to_blocking');
     Route::post('production/processing-unit/blocking_to_blockcounter',[ProductionBlockController::class,'blocking_to_blockcounter'])->name('production.processing-unit.blocking_to_blockcounter');
     Route::post('production/processing-unit/blocking/data_pass',[ProductionBlockController::class,'blocking_data_pass'])->name('production.processing-unit.blocking.data_pass');
