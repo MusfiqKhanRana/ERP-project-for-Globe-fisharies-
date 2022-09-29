@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Production;
 use App\Http\Controllers\Controller;
 use App\Models\ProcessingBlock;
 use App\Models\ProcessingBlockSize;
+use App\Models\ProcessingGrade;
+use App\Models\ProductionProcessingBlockGrade;
 use App\Models\ProductionProcessingGrade;
 use App\Models\ProductionProcessingUnit;
 use Carbon\Carbon;
@@ -62,7 +64,9 @@ class ProductionBlockController extends Controller
 
         $blocks = ProcessingBlock::all();
         $blocks_size = ProcessingBlockSize::all();
-        return view('backend.production.processing.raw_bf_shrimp.index',compact('blocks','blocks_size','hlso_count','pud_count','p_n_d_count','pdto_count','pto_count'));
+        $grades = ProcessingGrade::all();
+        $production_processing_grade = ProductionProcessingGrade::all();
+        return view('backend.production.processing.raw_bf_shrimp.index',compact('grades','production_processing_grade','blocks','blocks_size','hlso_count','pud_count','p_n_d_count','pdto_count','pto_count'));
     }
     public function semi_iqf(){
         $hoso_count = ProductionProcessingUnit::select('id')->where('processing_name','semi_iqf')
@@ -88,7 +92,7 @@ class ProductionBlockController extends Controller
                             $q->select('id','name');
                         }
                     ]);
-                }
+                },'production_processing_block_grades'
             ]
             )
         ->select('id','invoice_code','item_id','status','alive_quantity','dead_quantity','requisition_code','processing_name','processing_variant','block_quantity','excess_volume','block_weight','soaking_weight','glazing_weight')
@@ -161,6 +165,104 @@ class ProductionBlockController extends Controller
         }
         return redirect()->back()->withmsg('Successfully Send For Excess Volume');
     }
+    public function raw_bf_soaking_to_blocking(Request $request){
+        // dd($request->toArray());
+        $count=0;
+        foreach ($request->item_id as $key => $value) {
+            ProductionProcessingBlockGrade::where('id',$value)
+            ->update(
+                ['soaking_weight'=>$request->soaking_weight [$key],'soaking_weight_datetime'=>Carbon::now()]
+            );
+        }   
+        $data_checks = ProductionProcessingBlockGrade::where('id',$request->item_id)->select('id','soaking_weight')->get();
+        // dd($glazing_data_checks->toArray());
+        foreach ($data_checks as $key => $value) {
+            if ($value->soaking_weight == Null) {
+                $count+=1;
+            }
+        }
+        // dd($count);
+        if ($count==0) {
+            ProductionProcessingUnit::where('id',$request->ppu_id)
+            ->update(
+                ['status'=>'Blocking']
+            );
+        }
+        return redirect()->back()->withmsg('Successfully Send For Blocking');
+    }
+    public function raw_bf_blocking_to_blockcounter(Request $request){
+        // dd($request->toArray());
+        ProductionProcessingUnit::where('id',$request->ppu_id)
+        ->update(
+            ['status'=>'BlockCounter']
+        );
+        $ppu = ProductionProcessingUnit::with('production_processing_item')->where('id',$request->ppu_id)->first();
+        // dd($ppu->toArray());
+        foreach (json_decode($request->inputs) as $key => $input) {
+            ProductionProcessingGrade::create([
+                'batch_code'=>$ppu->processing_name.'#'.$ppu->processing_variant.'#'.$ppu->item_id.'#'.$input->block_id.'#'.$input->block_size_name.'#'.$ppu->production_processing_item->name,
+                'block_id' => $input->block_id,
+                'block_name' => $input->block_name,
+                'block_value' => $input->block_name,
+                'block_size' => $input->block_size_name,
+                'production_processing_unit_id' => $request->ppu_id,
+                'grade_block_id' => $input->grade_block_id,
+            ]); 
+        }    
+        return redirect()->back()->withmsg('Successfully Send For BlockCounter');
+    }
+    public function  raw_bf_block_counter_to_excess_volume(Request $request){
+        // dd($request->toArray());
+        $count=0;
+        foreach ($request->item_id as $key => $value) {
+            ProductionProcessingGrade::where('id',$value)
+            ->update(
+                ['block_quantity'=>$request->block_quantity [$key]]
+            );
+        }   
+        $data_checks = ProductionProcessingGrade::whereIn('id',$request->item_id)->select('id','block_quantity')->get();
+        // dd($glazing_data_checks->toArray());
+        foreach ($data_checks as $key => $value) {
+            if ($value->block_quantity == Null) {
+                $count+=1;
+            }
+        }
+        // dd($count);
+        if ($count==0) {
+            ProductionProcessingUnit::where('id',$request->ppu_id)
+            ->update(
+                ['status'=>'ExcessVolume']
+            );
+        }
+        return redirect()->back()->withmsg('Successfully Send For Excess Volume');
+    }
+    public function raw_bf_data_pass(Request $request){
+        $block_data = ProductionProcessingBlockGrade::with('production_processing_grades')->where('production_processing_unit_id',$request->id)->get();
+        return response()->json($block_data);
+    }
+    public function raw_bf_grading(Request $request){
+        // dd($request->toArray());
+        $ppu=ProductionProcessingUnit::where('id',$request->grade_ppu_id)
+        ->update(
+            ['status'=>'Soaking']
+        );
+        // dd($ppu->toArray());
+        $ppu = ProductionProcessingUnit::with('production_processing_item')->where('id',$request->grade_ppu_id)->first();
+        // dd($ppu->toArray());
+        foreach (json_decode($request->inputs) as $key => $input) {
+            if ($input->status=="stay") {
+                ProductionProcessingBlockGrade::create([
+                    'batch_code'=>$ppu->processing_name.'#'.$ppu->processing_variant.'#'.$ppu->item_id.'#'.$input->grade_id.'#'.$input->grade_name.'#'.$ppu->production_processing_item->name,
+                    'grade_id' => $input->grade_id,
+                    'grade_name' => $input->grade_name,
+                    'grade_quantity' => $input->grade_weight,
+                    'production_processing_unit_id' => $request->grade_ppu_id,
+                    'grading_date'=>Carbon::now(),
+                ]); 
+            }
+        }   
+        return redirect()->back()->withmsg('Successfully Send For Soaking');
+    }
     public function block_counter_to_soaking(Request $request){
         // dd($request->toArray());
         $count=0;
@@ -227,9 +329,9 @@ class ProductionBlockController extends Controller
         $data_checks = ProductionProcessingGrade::where('id',$request->item_id)->select('id','excess_volume')->get();
         // dd($glazing_data_checks->toArray());
         foreach ($data_checks as $key => $value) {
-            if ($value->excess_volume == Null) {
-                $count+=1;
-            }
+            // if ($value->excess_volume == Null && $value->excess_volume!=0) {
+            //     $count+=1;
+            // }
         }
         // dd($count);
         if ($count==0) {

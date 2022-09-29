@@ -15,14 +15,14 @@
                 {{-- <p><b>Initial Weight (Kg):</b> 50kg</p> --}}
                 <div class="row" style="text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;">
                     <div class="col-md-6">
-                        <p><b>Initial Weight:</b> <span class="initial_weight"></span></p>
+                        <p><b>HLSO Weight:</b> <span class="initial_weight"></span></p>
                     </div>
                     <div class="col-md-6">
-                        <p><b>Initial Date & Time:</b> <span class="initial_weight_datetime"></span></p>
+                        <p><b>HLSO Date & Time:</b> <span class="initial_weight_datetime"></span></p>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <table class="table table-striped table-bordered table-hover pto_excess_volume_table">
+                <div class="col-md-12 blockcounter_to_excess_volume">
+                    {{-- <table class="table table-striped table-bordered table-hover excess_volume_table">
                         <thead>
                             <tr>
                                 <th>
@@ -67,7 +67,7 @@
                                 </td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table> --}}
                 </div>
             </div>
                 <br><br><br><br><br>

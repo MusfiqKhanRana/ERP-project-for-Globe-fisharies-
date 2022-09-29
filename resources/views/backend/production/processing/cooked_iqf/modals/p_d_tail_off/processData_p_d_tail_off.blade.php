@@ -1,11 +1,11 @@
 <div id="processData_p_d_tail_off" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="form-horizontal" role="form" method="post" action="{{route('production.processing-unit.processing')}}">
+            <form class="form-horizontal" role="form" method="post" action="{{route('production.processing-unit.processing_to_soaking')}}">
                 {{csrf_field()}}
                 <div class="modal-header"  style="background-color: #36C6D3;text-align:center;">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Initial Data (HLSO)</h2>
+                    <h2 class="modal-title" style="color: rgb(75, 65, 65);">Initial Data</h2>
                 </div>
                 <div class="modal-body">
                     @csrf

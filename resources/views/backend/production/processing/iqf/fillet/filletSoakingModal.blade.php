@@ -31,7 +31,7 @@
                             <input type="number" step="0.01" class="form-control fillet_soaking_weight" name="fillet_soaking_weight" required placeholder="Type Soaking Weight">
                         </div>
                         <div class="col-md-4">
-                            <p><b>Decreasing percentage:</b> <span class="Soaking_percentage"></span></p>
+                            <p><b>Increasing percentage:</b> <span class="Soaking_percentage"></span></p>
                         </div>
                     </div>
                 </div>

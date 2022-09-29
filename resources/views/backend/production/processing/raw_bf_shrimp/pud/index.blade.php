@@ -35,6 +35,7 @@
     @include('backend.production.processing.raw_bf_shrimp.pud.pudProcessingDataModal')
     @include('backend.production.processing.raw_bf_shrimp.pud.pudBlockCounterModal')
     @include('backend.production.processing.raw_bf_shrimp.pud.pudGradingModal')
+    @include('backend.production.processing.raw_bf_shrimp.pud.pudBlockingModal')
     @include('backend.production.processing.raw_bf_shrimp.pud.pudSoakingModal')
     @include('backend.production.processing.raw_bf_shrimp.pud.pudExcessVolumeModal')
     @include('backend.production.processing.raw_bf_shrimp.pud.pudReturnModal')

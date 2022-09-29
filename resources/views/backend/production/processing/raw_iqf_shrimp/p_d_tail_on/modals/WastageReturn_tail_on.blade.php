@@ -5,7 +5,7 @@
                 {{csrf_field()}}
                 <div class="modal-header"  style="background-color: #36C6D3;text-align:center;">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Wastage & Return (HLSO)</h2>
+                    <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Wastage & Return</h2>
                 </div>
                 <div class="modal-body">
                     <div class="row" style="margin: 3%" >
@@ -24,7 +24,23 @@
                             <p><b>Initial Date & Time:</b> <span class="initial_weight_datetime"></span></p>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="row" style="margin-bottom:2%;text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#05575B;color:white;margin-bottom:2%;">
+                        <div class="col-md-6">
+                            <p><b>Soaking Weight:</b> <span class="soaking_weight"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><b>Soaking Date & Time:</b> <span class="soaking_date_time"></span></p>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom:2%;text-shadow: -1px 0 #66A5AD, 0 1px #66A5AD, 1px 0 #66A5AD, 0 -1px #66A5AD;background-color:#66A5AD;color:white;margin-bottom:2%;">
+                        <div class="col-md-6">
+                            <p><b>Glazing Weight:</b> <span class="glazing_weight"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><b>Glazing Date & Time:</b> <span class="glazing_weight_datetime"></span></p>
+                        </div>
+                    </div>
+                    {{-- <div class="col-md-12">
                         <table class="table table-striped table-bordered table-hover pd_tail_on_randw_table">
                             <thead>
                                 <tr>
@@ -65,7 +81,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
+                    </div> --}}
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6">

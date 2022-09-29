@@ -35,6 +35,7 @@
     @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoProcessingDataModal')
     @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoBlockCounterModal')
     @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoGradingModal')
+    @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoBlockingModal')
     @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoSoakingModal')
     @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoExcessVolumeModal')
     @include('backend.production.processing.raw_bf_shrimp.hlso.hlsoReturnModal')

@@ -5,7 +5,7 @@
                 {{csrf_field()}}
                 <div class="modal-header"  style="background-color: #36C6D3;text-align:center;">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Wastage & Return</h2>
+                    <h2 class="modal-title" style="color: rgb(75, 65, 65);"> Wastage & Return(PDTO)</h2>
                 </div>
                 <div class="modal-body">
                     <div class="row" style="margin:3%">
@@ -15,17 +15,17 @@
                         <p><b>Item Name:</b> <span class="item"></span></p>
                         <p><b>Quantity:</b> <span class="qty"></span></p>
                         {{-- <p><b>Initial Weight (Kg):</b> 50kg</p> --}}
-                        <div class="row" style="text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;">
-                            <div class="col-md-6">
-                                <p><b>Initial Weight:</b> <span class="initial_weight"></span></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p><b>Initial Date & Time:</b> <span class="initial_weight_datetime"></span></p>
-                            </div>
+                    </div>
+                    <div class="row" style="text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;">
+                        <div class="col-md-6">
+                            <p><b>PDTO Weight:</b> <span class="initial_weight"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><b>PDTO Date & Time:</b> <span class="initial_weight_datetime"></span></p>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <table class="table table-striped table-bordered table-hover pdto_block_randw_table">
+                    <div class="col-md-12 randw_div">
+                        {{-- <table class="table table-striped table-bordered table-hover block_randw_table">
                             <thead>
                                 <tr>
                                     <th style="text-align: center">
@@ -70,7 +70,7 @@
                                     </td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> --}}
                     </div>
                     <div class="col-md-12">
                         <div class="row">

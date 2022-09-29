@@ -65,6 +65,7 @@
 <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.0/jQuery.print.js"></script>
     <script>
        jQuery(document).ready(function() {
+        var confiq
             $("#printbtn").click(function () {
                 $("#printrequisition").print();
             });

@@ -162,7 +162,7 @@
                         }
                         if (product.status == "Soaking") {
                             // console.log(data);
-                            $("table#fillet_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+(parseFloat(product.alive_quantity)+parseFloat(product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#filletSoakingModal' class='btn btn-warning iqf_soaking' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-fillet_qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
+                            $("table#fillet_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+parseFloat((product.alive_quantity)+(product.dead_quantity))+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#filletSoakingModal' class='btn btn-warning iqf_soaking' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-Initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-fillet_qty='"+total_quantity+"'><i class='fa fa-refresh' aria-hidden='true'></i> Soaking</button></td></tr>");
                             $('.iqf_soaking').click(function () {
                                 $("table.fillet_soaking_table tbody tr").empty();
                                 var fillet_invoice = $(this).attr("data-fillet_invoice");
@@ -173,7 +173,7 @@
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                 $('.fillet_soaking_weight').on("change keyup",function() {
                                     var a = $(this).val();
-                                    var p = ((((initial_weight) - a)/(initial_weight))*100);
+                                    var p = ((((a) - initial_weight)/(a))*100);
                                     p = p.toFixed(2);
                                     $('.Soaking_percentage').html(p+'%');
                                 });
@@ -401,7 +401,7 @@
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                 $('.fillet_soaking_weight').on("change keyup",function() {
                                     var a = $(this).val();
-                                    var p = ((((initial_weight) - a)/(initial_weight))*100);
+                                    var p = ((((a) - initial_weight)/(a))*100);
                                     p = p.toFixed(2);
                                     $('.Soaking_percentage').html(p+'%');
                                 });
@@ -644,32 +644,38 @@
                                 $('.glazing_ppu_id').val(ppu_id);
                                 $('.initial_weight').html(initial_weight);
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.glazing.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.whole_glazing_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.whole_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
-                                        });
-                                        $('.glazing_weight').on("change keyup",function() {
-                                            var glazing_weight = parseFloat($(this).val());
-                                            var initial_weight = parseFloat($(this).data("qty")); 
-                                            var p = (((glazing_weight - initial_weight)/initial_weight)*100);
-                                            p = p.toFixed(2);
-                                            $(".percentage"+$(this).data("id")).html(p+'%');
-                                        });
-                                    }
+                                $('.glazing_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = (((a - (initial_weight))/(initial_weight))*100);
+                                    p = p.toFixed(2);
+                                    $('.glazing_percentage').html(p+'%');
                                 });
+                                // $.ajax({
+                                //     type:"POST",
+                                //     url:"{{route('production.processing-unit.glazing.data_pass')}}",
+                                //     data:{
+                                //         'id' : ppu_id,
+                                //         '_token' : $('input[name=_token]').val()
+                                //     },
+                                //     success:function(data){
+                                //         console.log(data);
+                                //         $("table.whole_glazing_table tbody tr").empty();
+                                //         $.each( data, function( key, product ) {
+                                //             $("table.whole_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
+                                //         });
+                                //         $('.glazing_weight').on("change keyup",function() {
+                                //             var glazing_weight = parseFloat($(this).val());
+                                //             var initial_weight = parseFloat($(this).data("qty")); 
+                                //             var p = (((glazing_weight - initial_weight)/initial_weight)*100);
+                                //             p = p.toFixed(2);
+                                //             $(".percentage"+$(this).data("id")).html(p+'%');
+                                //         });
+                                //     }
+                                // });
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#wholeReturnModal' class='btn btn-danger iqf_randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#whole_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#wholeReturnModal' class='btn btn-danger iqf_randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-glazing_weight='"+product.glazing_weight+"' data-glazing_weight_datetime='"+product.glazing_weight_datetime+"' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.iqf_randw').click(function () {
                                 $("table.whole_randw_table tbody tr").empty();
                                 var whole_invoice = $(this).attr("data-fillet_invoice");
@@ -678,28 +684,32 @@
                                 var ppu_id =  $(this).attr("data-ppu_id");
                                 var initial_weight = $(this).attr("data-initial_weight");
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
-                                console.log(product);
+                                var glazing_weight = $(this).attr("data-glazing_weight");
+                                var glazing_weight_datetime = $(this).attr("data-glazing_weight_datetime");
+                                console.log($(this).attr("data-glazing_weight"));
                                 $('.whole_invoice').html(whole_invoice);
                                 $('.whole_item').html(whole_item);
                                 $('.whole_qty').html((whole_qty));
                                 $('.randw_ppu_id').val(ppu_id);
                                 $('.initial_weight').html(initial_weight);
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.randw.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.whole_randw_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.whole_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.glazing_weight+"</td></tr>");
-                                        });
-                                    }
-                                });
+                                $('.glazing_weight').html(glazing_weight);
+                                $('.glazing_weight_datetime').html((glazing_weight_datetime));
+                                // $.ajax({
+                                //     type:"POST",
+                                //     url:"{{route('production.processing-unit.randw.data_pass')}}",
+                                //     data:{
+                                //         'id' : ppu_id,
+                                //         '_token' : $('input[name=_token]').val()
+                                //     },
+                                //     success:function(data){
+                                //         console.log(data);
+                                //         $("table.whole_randw_table tbody tr").empty();
+                                //         $.each( data, function( key, product ) {
+                                //             $("table.whole_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.glazing_weight+"</td></tr>");
+                                //         });
+                                //     }
+                                // });
                             });
                         }
                     });
@@ -864,33 +874,39 @@
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $('.cleaning_weight').html(cleaning_weight);
                                 $('.cleaning_weight_datetime').html((cleaning_weight_datetime));
-                                var product_array = [];
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.glazing.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.whole_gutted_glazing_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.whole_gutted_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
-                                        });
-                                        $('.glazing_weight').on("change keyup",function() {
-                                            var glazing_weight = parseFloat($(this).val());
-                                            var initial_weight = parseFloat($(this).data("qty")); 
-                                            var p = (((glazing_weight - initial_weight)/initial_weight)*100);
-                                            p = p.toFixed(2);
-                                            $(".percentage"+$(this).data("id")).html(p+'%');
-                                        });
-                                    }
+                                $('.glazing_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = (((a - (initial_weight))/(initial_weight))*100);
+                                    p = p.toFixed(2);
+                                    $('.glazing_percentage').html(p+'%');
                                 });
+                                // var product_array = [];
+                                // $.ajax({
+                                //     type:"POST",
+                                //     url:"{{route('production.processing-unit.glazing.data_pass')}}",
+                                //     data:{
+                                //         'id' : ppu_id,
+                                //         '_token' : $('input[name=_token]').val()
+                                //     },
+                                //     success:function(data){
+                                //         console.log(data);
+                                //         $("table.whole_gutted_glazing_table tbody tr").empty();
+                                //         $.each( data, function( key, product ) {
+                                //             $("table.whole_gutted_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
+                                //         });
+                                //         $('.glazing_weight').on("change keyup",function() {
+                                //             var glazing_weight = parseFloat($(this).val());
+                                //             var initial_weight = parseFloat($(this).data("qty")); 
+                                //             var p = (((glazing_weight - initial_weight)/initial_weight)*100);
+                                //             p = p.toFixed(2);
+                                //             $(".percentage"+$(this).data("id")).html(p+'%');
+                                //         });
+                                //     }
+                                // });
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#whole_gutted_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#whole_guttedReturnModal' class='btn btn-danger iqf_randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-cleaning_weight='"+product.cleaning_weight+"' data-cleaning_weight_datetime='"+product.cleaning_weight_datetime+"' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#whole_gutted_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#whole_guttedReturnModal' class='btn btn-danger iqf_randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-cleaning_weight='"+product.cleaning_weight+"' data-cleaning_weight_datetime='"+product.cleaning_weight_datetime+"' data-glazing_weight='"+product.glazing_weight+"' data-glazing_weight_datetime='"+product.glazing_weight_datetime+"' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.iqf_randw').click(function () {
                                 $("table.whole_gutted_randw_table tbody tr").empty();
                                 var whole_gutted_invoice = $(this).attr("data-fillet_invoice");
@@ -901,6 +917,8 @@
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                 var cleaning_weight = $(this).attr("data-cleaning_weight");
                                 var cleaning_weight_datetime = $(this).attr("data-cleaning_weight_datetime");
+                                var glazing_weight = $(this).attr("data-glazing_weight");
+                                var glazing_weight_datetime = $(this).attr("data-glazing_weight_datetime");
                                 console.log(ppu_id);
                                 $('.whole_gutted_invoice').html(whole_gutted_invoice);
                                 $('.whole_gutted_item').html(whole_gutted_item);
@@ -910,22 +928,24 @@
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $('.cleaning_weight').html(cleaning_weight);
                                 $('.cleaning_weight_datetime').html((cleaning_weight_datetime));
-                                var product_array = [];
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.randw.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.whole_gutted_randw_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.whole_gutted_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.glazing_weight+"</td></tr>");
-                                        });
-                                    }
-                                });
+                                $('.glazing_weight').html(glazing_weight);
+                                $('.glazing_weight_datetime').html((glazing_weight_datetime));
+                                // var product_array = [];
+                                // $.ajax({
+                                //     type:"POST",
+                                //     url:"{{route('production.processing-unit.randw.data_pass')}}",
+                                //     data:{
+                                //         'id' : ppu_id,
+                                //         '_token' : $('input[name=_token]').val()
+                                //     },
+                                //     success:function(data){
+                                //         console.log(data);
+                                //         $("table.whole_gutted_randw_table tbody tr").empty();
+                                //         $.each( data, function( key, product ) {
+                                //             $("table.whole_gutted_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.glazing_weight+"</td></tr>");
+                                //         });
+                                //     }
+                                // });
                             });
                         }
                     });
@@ -1087,32 +1107,38 @@
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $('.cleaning_weight').html(cleaning_weight);
                                 $('.cleaning_weight_datetime').html((cleaning_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.glazing.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.cleaned_glazing_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.cleaned_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
-                                        });
-                                        $('.glazing_weight').on("change keyup",function() {
-                                            var glazing_weight = parseFloat($(this).val());
-                                            var initial_weight = parseFloat($(this).data("qty")); 
-                                            var p = (((glazing_weight - initial_weight)/initial_weight)*100);
-                                            p = p.toFixed(2);
-                                            $(".percentage"+$(this).data("id")).html(p+'%');
-                                        });
-                                    }
+                                $('.glazing_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = (((a - (initial_weight))/(initial_weight))*100);
+                                    p = p.toFixed(2);
+                                    $('.glazing_percentage').html(p+'%');
                                 });
+                                // $.ajax({
+                                //     type:"POST",
+                                //     url:"{{route('production.processing-unit.glazing.data_pass')}}",
+                                //     data:{
+                                //         'id' : ppu_id,
+                                //         '_token' : $('input[name=_token]').val()
+                                //     },
+                                //     success:function(data){
+                                //         console.log(data);
+                                //         $("table.cleaned_glazing_table tbody tr").empty();
+                                //         $.each( data, function( key, product ) {
+                                //             $("table.cleaned_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
+                                //         });
+                                //         $('.glazing_weight').on("change keyup",function() {
+                                //             var glazing_weight = parseFloat($(this).val());
+                                //             var initial_weight = parseFloat($(this).data("qty")); 
+                                //             var p = (((glazing_weight - initial_weight)/initial_weight)*100);
+                                //             p = p.toFixed(2);
+                                //             $(".percentage"+$(this).data("id")).html(p+'%');
+                                //         });
+                                //     }
+                                // });
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#cleaned_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#cleanedReturnModal' class='btn btn-danger iqf_randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-cleaning_weight='"+product.cleaning_weight+"' data-cleaning_weight_datetime='"+product.cleaning_weight_datetime+"' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#cleaned_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#cleanedReturnModal' class='btn btn-danger iqf_randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-cleaning_weight='"+product.cleaning_weight+"' data-cleaning_weight_datetime='"+product.cleaning_weight_datetime+"'  data-glazing_weight='"+product.glazing_weight+"' data-glazing_weight_datetime='"+product.glazing_weight_datetime+"' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.iqf_randw').click(function () {
                                 $("table.cleaned_randw_table tbody tr").empty();
                                 var cleaned_invoice = $(this).attr("data-fillet_invoice");
@@ -1123,6 +1149,8 @@
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                 var cleaning_weight = $(this).attr("data-cleaning_weight");
                                 var cleaning_weight_datetime = $(this).attr("data-cleaning_weight_datetime");
+                                var glazing_weight = $(this).attr("data-glazing_weight");
+                                var glazing_weight_datetime = $(this).attr("data-glazing_weight_datetime");
                                 console.log(ppu_id);
                                 $('.cleaned_invoice').html(cleaned_invoice);
                                 $('.cleaned_item').html(cleaned_item);
@@ -1132,21 +1160,23 @@
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $('.cleaning_weight').html(cleaning_weight);
                                 $('.cleaning_weight_datetime').html((cleaning_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.randw.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.cleaned_randw_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.cleaned_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.glazing_weight+"</td></tr>");
-                                        });
-                                    }
-                                });
+                                $('.glazing_weight').html(glazing_weight);
+                                $('.glazing_weight_datetime').html((glazing_weight_datetime));
+                                // $.ajax({
+                                //     type:"POST",
+                                //     url:"{{route('production.processing-unit.randw.data_pass')}}",
+                                //     data:{
+                                //         'id' : ppu_id,
+                                //         '_token' : $('input[name=_token]').val()
+                                //     },
+                                //     success:function(data){
+                                //         console.log(data);
+                                //         $("table.cleaned_randw_table tbody tr").empty();
+                                //         $.each( data, function( key, product ) {
+                                //             $("table.cleaned_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.glazing_weight+"</td></tr>");
+                                //         });
+                                //     }
+                                // });
                             });
                         }
                     });
@@ -1309,32 +1339,38 @@
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $('.cleaning_weight').html(cleaning_weight);
                                 $('.cleaning_weight_datetime').html((cleaning_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.glazing.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.sliced_fmly_glazing_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.sliced_fmly_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01'  class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
-                                        });
-                                        $('.glazing_weight').on("change keyup",function() {
-                                            var glazing_weight = parseFloat($(this).val());
-                                            var initial_weight = parseFloat($(this).data("qty")); 
-                                            var p = (((glazing_weight - initial_weight)/initial_weight)*100);
-                                            p = p.toFixed(2);
-                                            $(".percentage"+$(this).data("id")).html(p+'%');
-                                        });
-                                    }
+                                $('.glazing_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = (((a - (initial_weight))/(initial_weight))*100);
+                                    p = p.toFixed(2);
+                                    $('.glazing_percentage').html(p+'%');
                                 });
+                                // $.ajax({
+                                //     type:"POST",
+                                //     url:"{{route('production.processing-unit.glazing.data_pass')}}",
+                                //     data:{
+                                //         'id' : ppu_id,
+                                //         '_token' : $('input[name=_token]').val()
+                                //     },
+                                //     success:function(data){
+                                //         console.log(data);
+                                //         $("table.sliced_fmly_glazing_table tbody tr").empty();
+                                //         $.each( data, function( key, product ) {
+                                //             $("table.sliced_fmly_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01'  class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
+                                //         });
+                                //         $('.glazing_weight').on("change keyup",function() {
+                                //             var glazing_weight = parseFloat($(this).val());
+                                //             var initial_weight = parseFloat($(this).data("qty")); 
+                                //             var p = (((glazing_weight - initial_weight)/initial_weight)*100);
+                                //             p = p.toFixed(2);
+                                //             $(".percentage"+$(this).data("id")).html(p+'%');
+                                //         });
+                                //     }
+                                // });
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#sliced_fmly_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#sliced_fmlyReturnModal' class='btn btn-danger iqf_randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-cleaning_weight='"+product.cleaning_weight+"' data-cleaning_weight_datetime='"+product.cleaning_weight_datetime+"' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#sliced_fmly_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#sliced_fmlyReturnModal' class='btn btn-danger iqf_randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-cleaning_weight='"+product.cleaning_weight+"' data-cleaning_weight_datetime='"+product.cleaning_weight_datetime+"' data-glazing_weight='"+product.glazing_weight+"' data-glazing_weight_datetime='"+product.glazing_weight_datetime+"' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.iqf_randw').click(function () {
                                 $("table.sliced_fmly_randw_table tbody tr").empty();
                                 var sliced_fmly_invoice = $(this).attr("data-fillet_invoice");
@@ -1345,6 +1381,8 @@
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                 var cleaning_weight = $(this).attr("data-cleaning_weight");
                                 var cleaning_weight_datetime = $(this).attr("data-cleaning_weight_datetime");
+                                var glazing_weight = $(this).attr("data-glazing_weight");
+                                var glazing_weight_datetime = $(this).attr("data-glazing_weight_datetime");
                                 console.log(ppu_id);
                                 $('.sliced_fmly_invoice').html(sliced_fmly_invoice);
                                 $('.sliced_fmly_item').html(sliced_fmly_item);
@@ -1354,21 +1392,23 @@
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $('.cleaning_weight').html(cleaning_weight);
                                 $('.cleaning_weight_datetime').html((cleaning_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.randw.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.sliced_fmly_randw_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.sliced_fmly_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.glazing_weight+"</td></tr>");
-                                        });
-                                    }
-                                });
+                                $('.glazing_weight').html(glazing_weight);
+                                $('.glazing_weight_datetime').html((glazing_weight_datetime));
+                                // $.ajax({
+                                //     type:"POST",
+                                //     url:"{{route('production.processing-unit.randw.data_pass')}}",
+                                //     data:{
+                                //         'id' : ppu_id,
+                                //         '_token' : $('input[name=_token]').val()
+                                //     },
+                                //     success:function(data){
+                                //         console.log(data);
+                                //         $("table.sliced_fmly_randw_table tbody tr").empty();
+                                //         $.each( data, function( key, product ) {
+                                //             $("table.sliced_fmly_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.glazing_weight+"</td></tr>");
+                                //         });
+                                //     }
+                                // });
                             });
                         }
                     });
@@ -1531,32 +1571,38 @@
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $('.cleaning_weight').html(cleaning_weight);
                                 $('.cleaning_weight_datetime').html((cleaning_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.glazing.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.sliced_chinese_glazing_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.sliced_chinese_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
-                                        });
-                                        $('.glazing_weight').on("change keyup",function() {
-                                            var glazing_weight = parseFloat($(this).val());
-                                            var initial_weight = parseFloat($(this).data("qty")); 
-                                            var p = (((glazing_weight - initial_weight)/initial_weight)*100);
-                                            p = p.toFixed(2);
-                                            $(".percentage"+$(this).data("id")).html(p+'%');
-                                        });
-                                    }
-                                });
+                                $('.glazing_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = (((a - (initial_weight))/(initial_weight))*100);
+                                    p = p.toFixed(2);
+                                    $('.glazing_percentage').html(p+'%');
+                                }); 
+                                // $.ajax({
+                                //     type:"POST",
+                                //     url:"{{route('production.processing-unit.glazing.data_pass')}}",
+                                //     data:{
+                                //         'id' : ppu_id,
+                                //         '_token' : $('input[name=_token]').val()
+                                //     },
+                                //     success:function(data){
+                                //         console.log(data);
+                                //         $("table.sliced_chinese_glazing_table tbody tr").empty();
+                                //         $.each( data, function( key, product ) {
+                                //             $("table.sliced_chinese_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
+                                //         });
+                                //         $('.glazing_weight').on("change keyup",function() {
+                                //             var glazing_weight = parseFloat($(this).val());
+                                //             var initial_weight = parseFloat($(this).data("qty")); 
+                                //             var p = (((glazing_weight - initial_weight)/initial_weight)*100);
+                                //             p = p.toFixed(2);
+                                //             $(".percentage"+$(this).data("id")).html(p+'%');
+                                //         });
+                                //     }
+                                // });
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#sliced_chinese_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#sliced_chineseReturnModal' class='btn btn-danger iqf_randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-cleaning_weight='"+product.cleaning_weight+"' data-cleaning_weight_datetime='"+product.cleaning_weight_datetime+"' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#sliced_chinese_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#sliced_chineseReturnModal' class='btn btn-danger iqf_randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-cleaning_weight='"+product.cleaning_weight+"' data-cleaning_weight_datetime='"+product.cleaning_weight_datetime+"' data-glazing_weight='"+product.glazing_weight+"' data-glazing_weight_datetime='"+product.glazing_weight_datetime+"' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.iqf_randw').click(function () {
                                 $("table.sliced_chinese_randw_table tbody tr").empty();
                                 var sliced_chinese_invoice = $(this).attr("data-fillet_invoice");
@@ -1567,6 +1613,8 @@
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                 var cleaning_weight = $(this).attr("data-cleaning_weight");
                                 var cleaning_weight_datetime = $(this).attr("data-cleaning_weight_datetime");
+                                var glazing_weight = $(this).attr("data-glazing_weight");
+                                var glazing_weight_datetime = $(this).attr("data-glazing_weight_datetime");
                                 console.log(ppu_id);
                                 $('.sliced_chinese_invoice').html(sliced_chinese_invoice);
                                 $('.sliced_chinese_item').html(sliced_chinese_item);
@@ -1576,26 +1624,28 @@
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $('.cleaning_weight').html(cleaning_weight);
                                 $('.cleaning_weight_datetime').html((cleaning_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.randw.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.sliced_chinese_randw_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.sliced_chinese_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.glazing_weight+"</td></tr>");
-                                        });
-                                    }
-                                });
+                                $('.glazing_weight').html(glazing_weight);
+                                $('.glazing_weight_datetime').html((glazing_weight_datetime));
+                                // $.ajax({
+                                //     type:"POST",
+                                //     url:"{{route('production.processing-unit.randw.data_pass')}}",
+                                //     data:{
+                                //         'id' : ppu_id,
+                                //         '_token' : $('input[name=_token]').val()
+                                //     },
+                                //     success:function(data){
+                                //         console.log(data);
+                                //         $("table.sliced_chinese_randw_table tbody tr").empty();
+                                //         $.each( data, function( key, product ) {
+                                //             $("table.sliced_chinese_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.glazing_weight+"</td></tr>");
+                                //         });
+                                //     }
+                                // });
                             });
                         }
                     });
                 }
-        });
+            });
         });
         $('.butter_fly').click(function() {
             var id =null;
@@ -1753,32 +1803,38 @@
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $('.cleaning_weight').html(cleaning_weight);
                                 $('.cleaning_weight_datetime').html((cleaning_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.glazing.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.butter_fly_glazing_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.butter_fly_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
-                                        });
-                                        $('.glazing_weight').on("change keyup",function() {
-                                            var glazing_weight = parseFloat($(this).val());
-                                            var initial_weight = parseFloat($(this).data("qty")); 
-                                            var p = (((glazing_weight - initial_weight)/initial_weight)*100);
-                                            p = p.toFixed(2);
-                                            $(".percentage"+$(this).data("id")).html(p+'%');
-                                        });
-                                    }
+                                $('.glazing_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = (((a - (initial_weight))/(initial_weight))*100);
+                                    p = p.toFixed(2);
+                                    $('.glazing_percentage').html(p+'%');
                                 });
+                                // $.ajax({
+                                //     type:"POST",
+                                //     url:"{{route('production.processing-unit.glazing.data_pass')}}",
+                                //     data:{
+                                //         'id' : ppu_id,
+                                //         '_token' : $('input[name=_token]').val()
+                                //     },
+                                //     success:function(data){
+                                //         console.log(data);
+                                //         $("table.butter_fly_glazing_table tbody tr").empty();
+                                //         $.each( data, function( key, product ) {
+                                //             $("table.butter_fly_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
+                                //         });
+                                //         $('.glazing_weight').on("change keyup",function() {
+                                //             var glazing_weight = parseFloat($(this).val());
+                                //             var initial_weight = parseFloat($(this).data("qty")); 
+                                //             var p = (((glazing_weight - initial_weight)/initial_weight)*100);
+                                //             p = p.toFixed(2);
+                                //             $(".percentage"+$(this).data("id")).html(p+'%');
+                                //         });
+                                //     }
+                                // });
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#butter_fly_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#butter_flyReturnModal' class='btn btn-danger iqf_randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-cleaning_weight='"+product.cleaning_weight+"' data-cleaning_weight_datetime='"+product.cleaning_weight_datetime+"' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#butter_fly_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#butter_flyReturnModal' class='btn btn-danger iqf_randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-cleaning_weight='"+product.cleaning_weight+"' data-cleaning_weight_datetime='"+product.cleaning_weight_datetime+"' data-glazing_weight='"+product.glazing_weight+"' data-glazing_weight_datetime='"+product.glazing_weight_datetime+"' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.iqf_randw').click(function () {
                                 $("table.butter_fly_randw_table tbody tr").empty();
                                 var butter_fly_invoice = $(this).attr("data-fillet_invoice");
@@ -1789,6 +1845,8 @@
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                 var cleaning_weight = $(this).attr("data-cleaning_weight");
                                 var cleaning_weight_datetime = $(this).attr("data-cleaning_weight_datetime");
+                                var glazing_weight = $(this).attr("data-glazing_weight");
+                                var glazing_weight_datetime = $(this).attr("data-glazing_weight_datetime");
                                 console.log(ppu_id);
                                 $('.butter_fly_invoice').html(butter_fly_invoice);
                                 $('.butter_fly_item').html(butter_fly_item);
@@ -1798,21 +1856,23 @@
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $('.cleaning_weight').html(cleaning_weight);
                                 $('.cleaning_weight_datetime').html((cleaning_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.randw.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.butter_fly_randw_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.butter_fly_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.glazing_weight+"</td></tr>");
-                                        });
-                                    }
-                                });
+                                $('.glazing_weight').html(glazing_weight);
+                                $('.glazing_weight_datetime').html((glazing_weight_datetime));
+                                // $.ajax({
+                                //     type:"POST",
+                                //     url:"{{route('production.processing-unit.randw.data_pass')}}",
+                                //     data:{
+                                //         'id' : ppu_id,
+                                //         '_token' : $('input[name=_token]').val()
+                                //     },
+                                //     success:function(data){
+                                //         console.log(data);
+                                //         $("table.butter_fly_randw_table tbody tr").empty();
+                                //         $.each( data, function( key, product ) {
+                                //             $("table.butter_fly_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.glazing_weight+"</td></tr>");
+                                //         });
+                                //     }
+                                // });
                             });
                         }
                     });
@@ -1975,32 +2035,38 @@
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $('.cleaning_weight').html(cleaning_weight);
                                 $('.cleaning_weight_datetime').html((cleaning_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.glazing.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.hgto_glazing_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.hgto_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
-                                        });
-                                        $('.glazing_weight').on("change keyup",function() {
-                                            var glazing_weight = parseFloat($(this).val());
-                                            var initial_weight = parseFloat($(this).data("qty")); 
-                                            var p = (((glazing_weight - initial_weight)/initial_weight)*100);
-                                            p = p.toFixed(2);
-                                            $(".percentage"+$(this).data("id")).html(p+'%');
-                                        });
-                                    }
+                                $('.glazing_weight').on("change keyup",function() {
+                                    var a = $(this).val();
+                                    var p = (((a - (initial_weight))/(initial_weight))*100);
+                                    p = p.toFixed(2);
+                                    $('.glazing_percentage').html(p+'%');
                                 });
+                                // $.ajax({
+                                //     type:"POST",
+                                //     url:"{{route('production.processing-unit.glazing.data_pass')}}",
+                                //     data:{
+                                //         'id' : ppu_id,
+                                //         '_token' : $('input[name=_token]').val()
+                                //     },
+                                //     success:function(data){
+                                //         console.log(data);
+                                //         $("table.hgto_glazing_table tbody tr").empty();
+                                //         $.each( data, function( key, product ) {
+                                //             $("table.hgto_glazing_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td><input type='number' step='0.01' class='form-control glazing_weight' name='glazing_weight[]' data-qty='"+product.grade_quantity+"' data-id='"+key+"' value='"+product.glazing_weight+"' placeholder='type glazing Weight'><input type='hidden' name='item_id[]' value='"+product.id+"'></td><td><span class='percentage"+key+"'></span></td></tr>");
+                                //         });
+                                //         $('.glazing_weight').on("change keyup",function() {
+                                //             var glazing_weight = parseFloat($(this).val());
+                                //             var initial_weight = parseFloat($(this).data("qty")); 
+                                //             var p = (((glazing_weight - initial_weight)/initial_weight)*100);
+                                //             p = p.toFixed(2);
+                                //             $(".percentage"+$(this).data("id")).html(p+'%');
+                                //         });
+                                //     }
+                                // });
                             });
                         }
                         if (product.status == "RandW") {
-                            $("table#hgto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hgtoReturnModal' class='btn btn-danger iqf_randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-cleaning_weight='"+product.cleaning_weight+"' data-cleaning_weight_datetime='"+product.cleaning_weight_datetime+"' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
+                            $("table#hgto_table tr").last().after("<tr id='"+key+"'><td>"+product.requisition_code+"</td><td>"+product.production_processing_item.name+"</td><td>"+product.production_processing_item.grade.name+"</td><td>"+total_quantity+"kg</td><td><button style='margin-bottom:3px' data-toggle='modal' href='#hgtoReturnModal' class='btn btn-danger iqf_randw' data-initial_weight='"+product.Initial_weight+"' data-initial_weight_datetime='"+product.initial_weight_datetime+"' data-cleaning_weight='"+product.cleaning_weight+"' data-cleaning_weight_datetime='"+product.cleaning_weight_datetime+"' data-glazing_weight='"+product.glazing_weight+"' data-glazing_weight_datetime='"+product.glazing_weight_datetime+"' data-ppu_id='"+product.id+"' data-fillet_invoice='"+product.requisition_code+"' data-fillet_item='"+product.production_processing_item.name+"' data-fillet_qty='"+total_quantity+"'><i class='fa fa-repeat' aria-hidden='true'></i> Return & Wastage</button></td></tr>");
                             $('.iqf_randw').click(function () {
                                 $("table.hgto_randw_table tbody tr").empty();
                                 var hgto_invoice = $(this).attr("data-fillet_invoice");
@@ -2011,6 +2077,8 @@
                                 var initial_weight_datetime = $(this).attr("data-initial_weight_datetime");
                                 var cleaning_weight = $(this).attr("data-cleaning_weight");
                                 var cleaning_weight_datetime = $(this).attr("data-cleaning_weight_datetime");
+                                var glazing_weight = $(this).attr("data-glazing_weight");
+                                var glazing_weight_datetime = $(this).attr("data-glazing_weight_datetime");
                                 console.log(ppu_id);
                                 $('.hgto_invoice').html(hgto_invoice);
                                 $('.hgto_item').html(hgto_item);
@@ -2020,21 +2088,23 @@
                                 $('.initial_weight_datetime').html((initial_weight_datetime));
                                 $('.cleaning_weight').html(cleaning_weight);
                                 $('.cleaning_weight_datetime').html((cleaning_weight_datetime));
-                                $.ajax({
-                                    type:"POST",
-                                    url:"{{route('production.processing-unit.randw.data_pass')}}",
-                                    data:{
-                                        'id' : ppu_id,
-                                        '_token' : $('input[name=_token]').val()
-                                    },
-                                    success:function(data){
-                                        console.log(data);
-                                        $("table.hgto_randw_table tbody tr").empty();
-                                        $.each( data, function( key, product ) {
-                                            $("table.hgto_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.glazing_weight+"</td></tr>");
-                                        });
-                                    }
-                                });
+                                $('.glazing_weight').html(glazing_weight);
+                                $('.glazing_weight_datetime').html((glazing_weight_datetime));
+                                // $.ajax({
+                                //     type:"POST",
+                                //     url:"{{route('production.processing-unit.randw.data_pass')}}",
+                                //     data:{
+                                //         'id' : ppu_id,
+                                //         '_token' : $('input[name=_token]').val()
+                                //     },
+                                //     success:function(data){
+                                //         console.log(data);
+                                //         $("table.hgto_randw_table tbody tr").empty();
+                                //         $.each( data, function( key, product ) {
+                                //             $("table.hgto_randw_table tr").last().after("<tr id='"+key+"'><td>"+product.grade_name+"</td><td>"+product.grade_quantity+"</td><td>"+product.glazing_weight+"</td></tr>");
+                                //         });
+                                //     }
+                                // });
                             });
                         }
                     });

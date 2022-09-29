@@ -1,7 +1,7 @@
 <div id="hlsoSoakingModal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="form-horizontal" role="form" method="post" action="{{route('production.processing-unit.soaking_to_excess_volume')}}">
+            <form class="form-horizontal" role="form" method="post" action="{{route('production.processing-unit.raw_bf_soaking_to_blocking')}}">
                 {{csrf_field()}}
                 <div class="modal-header"  style="background-color: #36C6D3;text-align:center;">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -16,10 +16,10 @@
                 {{-- <p><b>Initial Weight:</b> 50kg</p> --}}
                 <div class="row" style="text-shadow: -1px 0 #013B45, 0 1px #013B45, 1px 0 #013B45, 0 -1px #013B45;background-color:#013B45;color:white;margin-bottom:2%;">
                     <div class="col-md-6">
-                        <p><b>Initial Weight:</b> <span class="initial_weight"></span></p>
+                        <p><b>HLSO Weight:</b> <span class="initial_weight"></span></p>
                     </div>
                     <div class="col-md-6">
-                        <p><b>Initial Date & Time:</b> <span class="initial_weight_datetime"></span></p>
+                        <p><b>HLSO Date & Time:</b> <span class="initial_weight_datetime"></span></p>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -27,22 +27,16 @@
                         <thead>
                             <tr>
                                 <th>
-                                    Block Size
+                                    Grade
                                 </th>
                                 <th>
-                                    Size
+                                    Quantity (Kg)
                                 </th>
                                 <th>
-                                   Quantity (Pc)
+                                    Soaking Weight
                                 </th>
                                 <th>
-                                    Soaking Weight(kg)
-                                </th>
-                                <th>
-                                    Return weight(kg)
-                                </th>
-                                <th>
-                                    Increasing/Decreasing(%)
+                                    Increasing(%)
                                 </th>
                             </tr>
                         </thead>

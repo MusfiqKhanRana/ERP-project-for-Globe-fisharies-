@@ -176,7 +176,7 @@ class ProductionIqfController extends Controller
                         }
                     ]
                     )
-                ->select('id','invoice_code','item_id','Initial_weight','initial_weight_datetime','vegetable_glazing_weight','vegetable_glazing_datetime','cleaning_weight','cleaning_weight_datetime','fillet_soaking_weight','fillet_soaking_weight_datetime','fillet_glazing_weight','fillet_glazing_weight_datetime','status','alive_quantity','dead_quantity','requisition_code','processing_name','processing_variant')
+                ->select('id','invoice_code','item_id','Initial_weight','initial_weight_datetime','vegetable_glazing_weight','vegetable_glazing_datetime','cleaning_weight','cleaning_weight_datetime','fillet_soaking_weight','fillet_soaking_weight_datetime','fillet_glazing_weight','fillet_glazing_weight_datetime','status','alive_quantity','dead_quantity','requisition_code','processing_name','processing_variant','soaking_weight','soaking_weight_datetime','glazing_weight','glazing_weight_datetime')
                 ->where(function ($q) use($request)
                 {
                     if ($request->type) {
@@ -235,6 +235,54 @@ class ProductionIqfController extends Controller
             ['cleaning_weight'=>$request->cleaning_weight,'cleaning_weight_datetime'=>Carbon::now(),'status'=>'Grading']
         );
         return redirect()->back()->withmsg('Successfully Send For Grading');
+    }
+    public function processing_to_glazing(Request $request){
+        // dd($request);
+        ProductionProcessingUnit::where('id',$request->ppu_id)
+        ->update(
+            ['Initial_weight'=>$request->initial_weight,'initial_weight_datetime'=>Carbon::now(),'status'=>'Glazing']
+        );
+        return redirect()->back()->withmsg('Successfully Send For Glazing');
+    }
+    public function processing_to_soaking(Request $request){
+        // dd($request);
+        ProductionProcessingUnit::where('id',$request->ppu_id)
+        ->update(
+            ['Initial_weight'=>$request->initial_weight,'initial_weight_datetime'=>Carbon::now(),'status'=>'Soaking']
+        );
+        return redirect()->back()->withmsg('Successfully Send For Soaking');
+    }
+    public function soaking_to_glazing(Request $request){
+        // dd($request);
+        ProductionProcessingUnit::where('id',$request->soaking_ppu_id)
+        ->update(
+            ['soaking_weight'=>$request->soaking_weight,'soaking_weight_datetime'=>Carbon::now(),'status'=>'Glazing']
+        );
+        return redirect()->back()->withmsg('Successfully Send For Glazing');
+    }
+    public function cleaning_to_glazing(Request $request){
+        // dd($request->toArray());
+        ProductionProcessingUnit::where('id',$request->ppu_id)
+        ->update(
+            ['cleaning_weight'=>$request->cleaning_weight,'cleaning_weight_datetime'=>Carbon::now(),'status'=>'Glazing']
+        );
+        return redirect()->back()->withmsg('Successfully Send For Glazing');
+    }
+    public function glazing_to_randw(Request $request){
+        // dd($request);
+        if ($request->glazing_ppu_id) {
+            ProductionProcessingUnit::where('id',$request->glazing_ppu_id)
+            ->update(
+                ['glazing_weight'=>$request->glazing_weight,'glazing_weight_datetime'=>Carbon::now(),'status'=>'RandW']
+            );
+        }
+        if ($request->ppu_id) {
+            ProductionProcessingUnit::where('id',$request->ppu_id)
+            ->update(
+                ['glazing_weight'=>$request->glazing_weight,'glazing_weight_datetime'=>Carbon::now(),'status'=>'RandW']
+            );
+        }
+        return redirect()->back()->withmsg('Successfully Send For Return and Wastage');
     }
     public function grading(Request $request){
         // dd($request->toArray());
