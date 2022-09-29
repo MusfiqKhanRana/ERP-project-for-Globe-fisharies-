@@ -36,6 +36,7 @@ class CreateProductionProcessingGradesTable extends Migration
             $table->double('glazing_weight')->nullable();
             $table->dateTime('glazing_weight_datetime')->nullable();
             $table->double('final_weight')->nullable();
+            $table->unsignedInteger('grade_block_id')->nullable();
             $table->timestamps();
         });
     }
